@@ -552,6 +552,33 @@ namespace DiceCraft.Tests
             Assert.That(next.State.cycles[1].modifierId, Is.Not.EqualTo(second), "after a boss the next cycle's boss is rerolled");
         }
 
+        [TestCase(0)] [TestCase(1)]
+        public void W16B_AdvisorReceiptFreezesTheEffectiveInterestCapAtPurchase(int pigRate)
+        {
+            var pig = cfg.Controller("C01").parameters;
+            int original = pig.extraInterestPerTen;
+            try
+            {
+                pig.extraInterestPerTen = pigRate;
+                string offer = null;
+                var session = Edit(ShopAfterStage(0), x => {
+                    x.gold = 100; Equip(x, "C96", "C01"); offer = PutOffer(x, "service", "O10");
+                });
+                var receipt = Do(session, CommandKind.Buy, c => c.offerId = offer).receipt;
+                var effect = receipt.effects.Single(e => e.kind == "InterestCapRaised");
+                long baseCap = cfg.maxInterestPrincipal + cfg.interestPrincipalStep;
+                long totalCap = baseCap + cfg.Controller("C96").parameters.interestPrincipalAdd;
+                Assert.That(effect.newValue, Is.EqualTo(baseCap));
+                Assert.That(effect.detail, Is.EqualTo((totalCap / cfg.interestDivisor * (1 + pigRate)).ToString()));
+                var sale = Do(session, CommandKind.Sell, c => c.itemInstanceId = session.State.controllers.First(a=>a.definitionId=="C96").instanceId);
+                Assert.That(sale.accepted, Is.True);
+                var restored = new GameSession(cfg, new MemorySaveStore(), session.State);
+                Assert.That(restored.State.processedReceipts.Single(r => r.commandId == receipt.commandId)
+                    .effects.Single(e => e.kind == "InterestCapRaised").detail, Is.EqualTo(effect.detail));
+            }
+            finally { pig.extraInterestPerTen = original; }
+        }
+
         [Test] public void V10_TheAdvisorRaisesTheInterestCapTwiceAndTheEnchantTableEnchantsOneBareCard()
         {
             string offer = null; var s = Edit(ShopAfterStage(0), x => { x.gold = 100; offer = PutOffer(x, "service", "O10"); });

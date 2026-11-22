@@ -101,6 +101,11 @@ namespace DiceCraft.Tests
         [UnityTest] public IEnumerator PLAY_ART07_ShopRedrawSettlesWithoutReplayingAndRefreshKeepsItsOwnTransaction()
         {
             yield return PrepareFirstShopEntrance07(false,2);ShopEntrancePointer07("SettlementContinue");
+            Assert.That(app.LootPage15,Is.True);
+            if(app.LootRevealPlaying15)Click("SkipLootReveal15");
+            Click("LootCashOut15");yield return WaitForIdle();
+            Assert.That(app.Session.IsLootPending,Is.False);
+            Click("LootEnterShop15");yield return app.StartCoroutine(ShopEntranceFrame07());
             var motion=ShopEntranceMotion07();Assert.That(motion.IsPlaying,Is.True);int enters=motion.EnterSequence;
             string state=StateJson();byte[] disk=File.ReadAllBytes(app.SaveLocation);long seq=app.Session.ActionSequence;string identity=app.Session.State.shop.generationId;
             // v0.73: the shop has no tabs. Any ordinary redraw (here: a plain refresh of the view, twice) must settle the
@@ -112,15 +117,8 @@ namespace DiceCraft.Tests
             yield return app.StartCoroutine(ShopEntranceFrame07());app.Refresh();
             Assert.That(motion.EnterSequence,Is.EqualTo(enters));Assert.That(motion.IsPlaying,Is.False);AssertInteractionCheckpoint07(state,disk,seq);
             Assert.That(ShopEntranceRoot07("ShopProducts").anchoredPosition,Is.EqualTo(new Vector2(16,-523)));
-            // v1.1 rewrite (G5, RULES_DELTA 2.1): this shop follows a boss stage, and refreshing is refused until the boss
-            // loot is claimed or cashed out. Cash it out through the loot dialog first, then exercise the refresh as before.
-            var cash=app.Session.State.shop.offers.Single(o=>o.groupId=="LOOT"&&o.category=="gold");
-            Click("ViewGifts");Click("Buy_"+cash.offerId);
-            {double until=Time.realtimeSinceStartupAsDouble+3;while(app.TransactionVisualPlaying07&&Time.realtimeSinceStartupAsDouble<until)yield return null;}
-            if(HasActive("CloseDialog"))Click("CloseDialog");
-            Assert.That(app.Session.IsLootPending,Is.False);
             seq=app.Session.ActionSequence;identity=app.Session.State.shop.generationId;
-            yield return app.StartCoroutine(ShopEntranceFrame07());ShopEntrancePointer07("RefreshControllers");
+            yield return new WaitForSecondsRealtime(.31f);yield return app.StartCoroutine(ShopEntranceFrame07());ShopEntrancePointer07("RefreshControllers");
             Assert.That(app.Session.ActionSequence,Is.EqualTo(seq+1));Assert.That(app.Session.State.processedReceipts.Last().command.kind,Is.EqualTo(CommandKind.RefreshControllers));
             Assert.That(app.Session.State.shop.generationId,Is.EqualTo(identity));Assert.That(motion.EnterSequence,Is.EqualTo(enters));Assert.That(motion.IsPlaying,Is.False);
             Assert.That(app.TransactionVisualPlaying07,Is.True,"Existing successful refresh renderer must retain ownership of its own transaction.");

@@ -68,7 +68,7 @@ namespace DiceCraft.Tests
             yield return ExtraPress07("Submit",true);app.SkipVisual();yield return ExtraIdle07();
             var history=app.Session.State.lastSubmission;Assert.That(history,Is.Not.Null);
             yield return ExtraPress07("PreviousSubmission");
-            Assert.That(FindActive<TextMeshProUGUI>("Triggered").text,Does.Contain("实际提交后效果：").And.Contain("永久点数：").And.Contain("本次计分后自毁"));
+            Assert.That(FindActive<TextMeshProUGUI>("Triggered").text,Does.Contain("计分后发生了：").And.Contain("骰面点数：").And.Contain("玻璃大炮自毁"));
             yield return DrawerWalk07("historical-permanent",history.snapshot,history.breakdown);
             yield return ExtraPress07("CloseDialog");ExtraFinish07();
         }
@@ -77,6 +77,17 @@ namespace DiceCraft.Tests
         private static string DrawerExact11(string exact)=>PlayerNumberFormat.Exact(exact,PlayerNumberFormat.Unlimited);
         private static string DrawerRatio11(string numerator,string denominator)
             =>PlayerNumberFormat.Ratio(System.Numerics.BigInteger.Parse(numerator),System.Numerics.BigInteger.Parse(denominator),PlayerNumberFormat.Unlimited);
+        private static string ExpectedDiceLayers16(FaceState face,SubmissionDie die,ScoreBreakdown score,int i)
+        {
+            string color(string c)=>c=="red"?"红":"蓝";
+            bool same=face.permanentPip==die.currentPip && die.currentPip==score.effectivePips[i] &&
+                face.baseColor==die.currentColor && die.currentColor==score.effectiveColors[i];
+            return same?"点数 "+die.currentPip+" · "+color(die.currentColor):
+                $"骰面原本 {face.permanentPip} 点{color(face.baseColor)}色 · 这次掷出 {die.currentPip} 点{color(die.currentColor)}色 · 计分按 {score.effectivePips[i]} 点{color(score.effectiveColors[i])}色";
+        }
+        private static string ExpectedContribution16(ScoreBreakdown score,int i)
+            =>score.sealedDice!=null && i<score.sealedDice.Length && score.sealedDice[i]
+                ?"被封印：计 0":"这颗骰子计 "+score.pipContributions[i]+" 分";
         private IEnumerator DrawerWalk07(string id,SubmissionSnapshot snapshot,ScoreBreakdown score)
         {
             var dialog=FindActive<RectTransform>("Dialog");bool responsive=Screen.safeArea.width<=1366&&UiKit.FontScale>=1.25f;
@@ -90,8 +101,11 @@ namespace DiceCraft.Tests
             var formula=FindActive<TextMeshProUGUI>("Formula");var scroll=formula.GetComponentInParent<UnityEngine.UI.ScrollRect>();Assert.That(scroll,Is.Not.Null);
             Assert.That(scroll.horizontal,Is.False);Assert.That(scroll.vertical,Is.True);
             // v1.1 (W09, TX-01): decimals instead of fractions, every digit kept; "卡牌" for controllers (D2).
-            Assert.That(formula.text,Does.Contain("卡牌 "+DrawerRatio11(score.controllerMultiplierNumerator,score.controllerMultiplierDenominator)));
-            Assert.That(formula.text,Does.EndWith("= "+System.Numerics.BigInteger.Parse(score.score).ToString("N0",System.Globalization.CultureInfo.InvariantCulture)));
+            string multiplier=DrawerRatio11(score.controllerMultiplierNumerator,score.controllerMultiplierDenominator);
+            if(System.Numerics.BigInteger.Parse(score.controllerMultiplierNumerator)==System.Numerics.BigInteger.Parse(score.controllerMultiplierDenominator))
+                Assert.That(formula.text,Does.Not.Contain(" × 卡牌 "));
+            else Assert.That(formula.text,Does.Contain(" × 卡牌 "+multiplier));
+            Assert.That(formula.text,Does.EndWith("= "+System.Numerics.BigInteger.Parse(score.score).ToString("N0",System.Globalization.CultureInfo.InvariantCulture)+"（最后去掉小数）"));
             var trace=ScoreExplanation.Build(snapshot,score,app.Config);var expected=new List<string>();
             var cards=snapshot.equippedControllers??Array.Empty<ControllerInstance>();
             void CheckStep(string key,ScoreStep step)
@@ -103,7 +117,7 @@ namespace DiceCraft.Tests
                 // v1.1 (W09, TX-01): each step reads as a decimal with every digit ("≈" only when it does not terminate
                 // within two places); the exact fractions stay in the frozen trace, never as a compacted HUD value.
                 string before=DrawerExact11(step.before),operand=DrawerExact11(step.operand),after=DrawerExact11(step.after);
-                Assert.That(calculation,Is.EqualTo(step.operation=="floor"?before+" → 向下取整一次":before+" "+step.operation+" "+operand));
+                Assert.That(calculation,Is.EqualTo(step.operation=="floor"?before+" → 去掉小数":before+" "+step.operation+" "+operand));
                 Assert.That(result,Is.EqualTo(after),key+" must show the full-precision result, never the HUD approximation");
                 Assert.That(calculation+result,Does.Not.Contain("/"),key+" shows no fraction");
                 if(step.sourceId!=null)Assert.That(source,Does.Contain(app.Config.Controller(step.sourceId).displayName));
@@ -119,8 +133,8 @@ namespace DiceCraft.Tests
                 string key="Die"+i;expected.Add("ScoreRow_"+key);var row=FindActive<RectTransform>("ScoreRow_"+key);var die=snapshot.dice[i];var face=die.permanentFacesCopy.Single(f=>f.faceId==die.faceId);
                 // v1.1 (W09, TX-02): "骰子 1 的第 3 面" instead of D001 / F03; colours without the R/B letters.
                 Assert.That(row.Find("Source").GetComponent<TextMeshProUGUI>().text,Is.EqualTo((i+1)+". "+GameApp.DieFaceName11(die.dieId,die.faceId)));
-                Assert.That(row.Find("Calculation").GetComponent<TextMeshProUGUI>().text,Is.EqualTo($"永久 {face.permanentPip} → 当前 {die.currentPip} → 有效 {score.effectivePips[i]}\n有效颜色 {(score.effectiveColors[i]=="red"?"红":"蓝")}\n永久六面和 {die.permanentSixFaceSum}"));
-                Assert.That(row.Find("Result").GetComponent<TextMeshProUGUI>().text,Is.EqualTo("本骰点数贡献\n"+score.pipContributions[i]));
+                Assert.That(row.Find("Calculation").GetComponent<TextMeshProUGUI>().text,Is.EqualTo(ExpectedDiceLayers16(face,die,score,i)+"\n六面合计 "+die.permanentSixFaceSum));
+                Assert.That(row.Find("Result").GetComponent<TextMeshProUGUI>().text,Is.EqualTo(ExpectedContribution16(score,i)));
                 for(int j=0;j<trace.dice[i].steps.Length;j++)CheckStep("Die"+i+"Step"+j,trace.dice[i].steps[j]);
             }
             for(int i=0;i<trace.global.Length;i++)CheckStep("Global"+i,trace.global[i]);

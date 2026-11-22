@@ -130,6 +130,7 @@ THEME_META = {
                     "tools/art_v11/glass/build_glass.py 生成（说明见同目录 README.md）"),
     "order": 5,
     "preview": True,
+    "fonts": {"title": "Fonts/title", "roles": ["screenTitle", "stageNumber", "bigNumber", "bossName", "primaryButton", "sectionTitle", "cardName"]},
 }
 
 
@@ -1568,7 +1569,7 @@ def card_back() -> Image.Image:
 # W14's shop stopped drawing ui_price_chip, ui_pedestal and ui_frame_enchant; the contract regenerated on 2026-11-18 lists
 # them as unreferenced, and this kit does not draw them (STATE, W14 decision 4: "黑金与彩绘玻璃按 50 张做").
 def contract_sprites() -> list[dict]:
-    return [s for s in json.loads(CONTRACT.read_text(encoding="utf-8"))["sprites"] if s["referenced"]]
+    return [s for s in json.loads(CONTRACT.read_text(encoding="utf-8"))["sprites"] if (s["referenced"]) and not s.get("optionalOverride")]
 
 
 NEUTRAL_ICONS = ("ui_icon_arrow", "ui_icon_book", "ui_icon_gear", "ui_icon_refresh", "ui_pip_dot", "fx_score_spark",

@@ -11,17 +11,17 @@ namespace DiceCraft
     public sealed partial class GameApp
     {
         private bool handbookColors,handbookRules09;
-        private static readonly string[][] HandbookRules09=
+        private string[][] HandbookRules09 => new string[][]
         {
             // v1.1 (text proposal 5 #6): the order ScoreCalculator applies, including the item and boss factors after the enchantments.
             new[]{"计分顺序","点数合计（含再计一次）＋各种加值 ＝ 基础分；再依次乘以牌型倍率、颜色倍率、红组倍率、各卡牌倍率和倍率附魔；用了道具“灵光一闪”时再 ×2，首领减益让得分减半时再 ×0.5；最后向下取整一次。"},
-            new[]{"成长值","卡面写着“当前 ×n”或“当前 +n”的控制器会随对局变强。成长发生在触发它的那次计分之后，所以触发成长的那一手用的还是成长前的数值。卖出或损毁就失去成长值；同名的几张卡牌各自成长；百变模仿使用被模仿那张卡的成长值，但自己不成长。"},
+            new[]{"成长值","卡面左上角标着 ×n 或 +n 的卡牌会随对局变强。成长发生在触发它的那次计分之后，所以触发成长的那一手用的还是成长前的数值。卖出或损毁就失去成长值；同名的几张卡牌各自成长；百变模仿使用被模仿那张卡的成长值，但自己不成长。"},
             new[]{"再计一次","指定的提交骰把自己的点数贡献再加进基础分一次，逐骰加值、玻璃和黄金都一并翻倍。多个来源可以叠加成再计多次。不改变牌型、红组和骰子数量。"},
             new[]{"留池骰","本手投出后没有锁进提交栏的骰子。它们不计分，但板凳深度、厚积薄发、幕后推手、空城计和场外红人会读取它们的数量、点数和颜色。骰子比提交栏多时，留什么在池里也是一种选择。"},
-            new[]{"牌型倍率加值","成双成对、三足鼎立把数值直接加在牌型倍率上，例如一对从 ×2 变成 ×3.5，之后仍会被颜色、红组和控制器倍率继续放大。"},
+            new[]{"牌型倍率加值","成双成对、三足鼎立把数值直接加在牌型倍率上，例如一对从 ×2 变成 ×3.5，之后仍会被颜色、红组和卡牌倍率继续放大。"},
             new[]{"投掷次数","一锤定音要求只投 1 次就提交；越挫越勇从第 2 次投掷起每次加分；孤注一掷要求把投掷次数用完；熟能生巧每投 1 次成长一点。"},
-            new[]{"栏位","普通栏位开局 5 个，商店服务“扩充栏位”最多加到 7 个。免槽附魔的控制器不占普通栏位；所有控制器合计最多 10 件。"},
-            new[]{"祭坛","每关开始时摧毁它右侧相邻的控制器并成长。把它放在最右边就不会摧毁任何东西；想喂它，就把便宜的卡排在它右边。"}
+            new[]{"栏位",$"卡牌栏位开局 {Config.initialControllerSlots} 个，商店服务“扩充栏位”最多加到 {Config.maxOrdinaryControllerSlots} 个。带“不占栏位”附魔的卡牌不占栏位；所有卡牌合计最多 {Config.maxControllerInstances} 张。"},
+            new[]{"祭坛","每关开始时摧毁它右侧相邻的卡牌并成长。把它放在最右边就不会摧毁任何东西；想喂它，就把便宜的卡排在它右边。"}
         };
         private void DrawHandbookRules09(Transform p)
         {
@@ -46,8 +46,8 @@ namespace DiceCraft
                 s?.dice.Count??Config.initialDiceCount,s==null?null:ViewBindings,s?.isDebug??false);
             var rows=allRows.Where(r=>r.category==(handbookColors?"color":"hand"))
                 .OrderByDescending(r=>r.handId=="scatter"?-1:r.category=="color"?0:Config.Hand(r.handId).structuralPriority).ToArray();
-            var p=Art07Modal("牌型手册",208,96,1504,888);
-            UiKit.Button(p,"Tutorial","独立固定骰练习",688,12,352,60,()=>{CloseModal();BeginTutorial();});
+            var p=Art07Modal("牌型手册",208,96,1504,888,"handbook16");
+            UiKit.Button(p,"Tutorial","练习模式",688,12,352,60,()=>{CloseModal();BeginTutorial();});
             UiKit.Button(p,"ReviewGuide","重新查看引导",1056,12,336,60,ShowGuide07);
             // p0.9.0: a third page explains growth, retriggers, pool dice, hand multiplier adds and slots.
             UiKit.FlatButton(p,"HandbookHands","牌型",24,76,476,60,()=>{handbookColors=false;handbookRules09=false;ShowHandbook();},true,!handbookColors&&!handbookRules09);
@@ -58,8 +58,9 @@ namespace DiceCraft
             var preview=Session?.PreviewScoreRange()?.minimum;
             if(!handbookColors)
             {
-                float rowHeight=UiKit.FontScale>1?132:88;
-                var list=UiKit.Scroll(p,"HandbookScroll",24,144,1456,616,7*rowHeight);
+                bool large=UiKit.FontScale>=1.25f;
+                float rowHeight=large?132:88;
+                var list=UiKit.Scroll(p,"HandbookScroll",24,144,1456,large?556:616,7*rowHeight);
                 for(int i=0;i<rows.Length;i++)
                 {
                     var r=rows[i];float x=(i/7)*736,y=(i%7)*rowHeight;
@@ -69,35 +70,35 @@ namespace DiceCraft
                     bool chosen=preview!=null&&(preview.chosenGroupId==r.handId||(r.handId=="straight"&&preview.straightMult100>0));
                     if(primary)UiKit.Box(row.transform,"Structure",3,8,3,rowHeight-20,UiKit.Gold);
                     UiKit.Text(row.transform,"Name",r.displayName,12,8,350,42,24,UiKit.Ink);
-                    UiKit.Text(row.transform,"Level",r.maxLevel==0?"不可强化":"Lv."+r.level+" / "+r.maxLevel,390,8,306,42,20,PaperMuted071,TextAlignmentOptions.TopRight);
+                    UiKit.Text(row.transform,"Level",r.maxLevel==0?"不能升级":"Lv."+r.level+" / "+r.maxLevel,390,8,306,42,20,PaperMuted071,TextAlignmentOptions.TopRight);
                     var numbers=r.example.Where(char.IsDigit).Select(c=>c-'0').Where(n=>n>=1&&n<=6).ToArray();
-                    float bottom=UiKit.FontScale>1?76:46;
+                    if (chosen)
+                    {
+                        var chip=Surface11(row.transform,"ScoringHand",214,8,168,42,"ui_chip_label",UiKit.Gold);
+                        FitLine13(chip,"Label","本手计分",6,0,156,19.5f,LabelOn11(chip),TextAlignmentOptions.Center,false);
+                    }
+                    float bottom=large?76:46;
                     for(int n=0;n<numbers.Length;n++)Art07PipTile(row.transform,"Example"+n,numbers[n],UiKit.Ink,12+n*34,bottom,30);
-                    UiKit.Text(row.transform,"Multiplier","×"+Factor(r.currentMult100)+(chosen?" 计分":""),316,bottom-2,208,40,22,UiKit.Ink);
-                    UiKit.Text(row.transform,"Reachable",r.canForm?"数量可达":"数量受限",534,bottom,162,38,18,PaperMuted071,TextAlignmentOptions.TopRight);
+                    UiKit.Text(row.transform,"Multiplier","×"+Factor(r.currentMult100),316,bottom-2,208,40,22,UiKit.Ink);
+                    UiKit.Text(row.transform,"Reachable",r.canForm?"凑得出":"凑不出",534,bottom,162,38,19.5f,PaperMuted071,TextAlignmentOptions.TopRight);
                 }
                 var selected=rows.FirstOrDefault(r=>r.handId==art07HandSelection)??rows[0];
                 art07HandSelection=selected.handId;
-                string requirement=selected.handId=="scatter"?"不可强化":$"至少提交 {selected.minimumDice} 颗 · 永久骰门槛 {Config.Hand(selected.handId).requirePermanentDice} · {selected.upgradeReason}";
-                string explanationText=selected.displayName+"："+selected.condition+"\n"+requirement+"\n"+selected.formReason;
-                // V1.1 (W20Z2): the box was placed at fixed offsets (8 units in from the paper, its foot on the paper's edge).
-                // The explanation keeps 2 units inside the paper's drawn frame (FrameInsets11), measured on its glyph boxes
-                // (GlyphBox11): a style whose frame is wider than the offset moves the box right, and when the text runs past the
-                // box (enlarged text) the box ends 2 units above the drawn foot, so the clipped line is not drawn over the
-                // frame. A text that fits, in a style whose frame the offset clears, stays where it was.
-                var frame=FrameInsets11(paper.GetComponent<UnityEngine.UI.Image>());
-                float boxX=24,boxH=100,foot=140+732-frame.y-2;
-                var explanation=UiKit.Scroll(p,"HandbookSelectionScroll",boxX,772,1456,boxH,100);
-                var selection=UiKit.Text(explanation,"HandbookSelection",explanationText,0,0,1424,100,20,UiKit.Ink);
-                float shift=GlyphBox11(selection,out var glyphs)?Mathf.Max(0,16+frame.x+2-(boxX+glyphs.xMin)):0,contentH=FitHeight(selection,100);
-                if(contentH>boxH&&772+boxH>foot)boxH=Mathf.Max(40,foot-772);
-                if(shift>0||boxH<100)
+                string requirement = "不能升级";
+                if (selected.handId != "scatter")
                 {
-                    explanation=UiKit.Scroll(p,"HandbookSelectionScroll",boxX+shift,772,1456-shift,boxH,100);
-                    selection=UiKit.Text(explanation,"HandbookSelection",explanationText,0,0,1424,100,20,UiKit.Ink);
-                    contentH=FitHeight(selection,boxH);
+                    int permanent = Config.Hand(selected.handId).requirePermanentDice;
+                    requirement = $"至少提交 {selected.minimumDice} 颗"
+                        + (permanent > 0 ? $" · 需要 {permanent} 颗永久骰" : "")
+                        + " · " + selected.upgradeReason;
                 }
-                explanation.sizeDelta=new Vector2(explanation.sizeDelta.x,contentH);
+                string explanation = selected.displayName + "：" + selected.condition + "\n" + requirement;
+                if (!string.IsNullOrEmpty(selected.formReason)) explanation += "\n" + selected.formReason;
+                var frame = FrameInsets11(paper.GetComponent<UnityEngine.UI.Image>());
+                float left = Mathf.Max(40, 16 + frame.x + 2);
+                float top = large ? 708 : 768;
+                var selection = UiKit.Text(p,"HandbookSelection",explanation,left,top,1464-left,large?152:96,20,UiKit.Ink);
+                selection.alignment = TextAlignmentOptions.TopLeft;
             }
             else
             {
@@ -109,19 +110,19 @@ namespace DiceCraft
                     UiKit.Box(card,"ColorMark",4,16,4,sectionHeight-44,red?UiKit.Red:UiKit.Blue);
                     UiKit.Box(card,"Divider",16,sectionHeight-14,1400,1,PaperMuted071);
                     UiKit.Text(card,"Name",(red?"● ":"◆ ")+r.displayName+"   Lv."+r.level,20,16,640,54,28,UiKit.Ink);
-                    UiKit.Text(card,"Value","独立相乘 ×"+Factor(r.currentMult100),724,16,680,54,28,UiKit.Ink,TextAlignmentOptions.TopRight);
-                    UiKit.Text(card,"Rule","非空且全部为有效"+(red?"红色":"蓝色")+"；没有数量要求。\n"+r.formReason+" · "+r.upgradeReason,20,80,1380,sectionHeight-88,23,PaperMuted071);
+                    UiKit.Text(card,"Value","颜色倍率 ×"+Factor(r.currentMult100),724,16,680,54,28,UiKit.Ink,TextAlignmentOptions.TopRight);
+                    UiKit.Text(card,"Rule","提交的骰子全是"+(red?"红色":"蓝色")+"即可（1 颗也算）。\n"+(r.canForm?"":r.formReason+" · ")+r.upgradeReason,20,80,1380,sectionHeight-88,23,PaperMuted071);
                 }
                 float redTop=sectionHeight*2+16;
-                UiKit.Text(list,"RedTitle","同点红组 · 独立相乘",12,redTop,1380,64,30,UiKit.Ink);
-                UiKit.Text(list,"RedRule","默认取同点且为红色的最大一组。全红／全蓝不属于牌型倍率，另外计算。",12,redTop+72,1380,64,24,PaperMuted071);
+                UiKit.Text(list,"RedTitle","红组倍率",12,redTop,1380,64,30,UiKit.Ink);
+                UiKit.Text(list,"RedRule","同一点数的红骰越多倍率越高（取最大的一组）。它和全红/全蓝分开算。",12,redTop+72,1380,64,24,PaperMuted071);
                 for(int i=0;i<Config.redRewards.Length;i++)
                 {
                     var reward=Config.redRewards[i];int col=i%4,row=i/4;
                     var entry=UiKit.Box(list,"RedReward"+i,col*356,redTop+152+row*76,336,68,new Color(0,0,0,.04f));
                     UiKit.Text(entry,"Value",reward.count+" 颗  ×"+Factor(reward.factor100),8,8,320,52,25,UiKit.Ink,TextAlignmentOptions.Center);
                 }
-                string sources=NameOf("C24")+"："+Description("C24")+"\n"+NameOf("C25")+"："+Description("C25");
+                string sources=NameOf("C24")+"："+ShortText11("C24")+"\n"+NameOf("C25")+"："+ShortText11("C25");
                 float sourceTop=redTop+152+((Config.redRewards.Length+3)/4)*76+16;
                 var text=UiKit.Text(list,"GroupingSources",sources,12,sourceTop,1380,140,23,PaperMuted071);
                 list.sizeDelta=new Vector2(list.sizeDelta.x,sourceTop+FitHeight(text,140)+20);
@@ -131,8 +132,8 @@ namespace DiceCraft
 
         private int[] FaceProbability(DieInstance die) => ProbabilityCalculator.BuildUnits(die.faces,false,false,Config,
             ViewState==null?0:ViewSources.Count(c=>c.abilityId=="C34"),ViewState==null?0:ViewSources.Count(c=>c.abilityId=="C35"));
-        private static string EnchantShort(string id) => id=="slotless"?"免槽":id=="base10"?"触发 +10":id=="mult2"?"触发 ×2":id=="submit1"?"提交 +1":id=="roll1"?"投掷 +1":"无附魔";
-        private static string EnchantLabel(string id) => id=="slotless"?"免槽 · 不占普通控制器槽，仍计入持有上限":id=="base10"?"基础分 +10 · 本次提交触发本实例时加一次":id=="mult2"?"整手 ×2 · 本次提交触发本实例时乘一次":id=="submit1"?"每关提交 +1 · 开始关卡时发放":id=="roll1"?"每手投掷 +1 · 新手开始时发放":"无附魔 · 占用1个普通控制器槽";
+        private static string EnchantShort(string id) => id=="slotless"?"不占栏位":id=="base10"?"基础 +10":id=="mult2"?"得分 ×2":id=="submit1"?"提交 +1":id=="roll1"?"掷骰 +1":"无附魔";
+        private string EnchantLabel(string id) => id=="slotless"?"不占栏位：不占卡牌栏位（仍算在 "+Config.maxControllerInstances+" 张上限里）":id=="base10"?"基础 +10：这张卡生效时基础分 +10":id=="mult2"?"得分 ×2：这张卡生效时得分 ×2":id=="submit1"?"每关提交 +1":id=="roll1"?"每手掷骰 +1":"无附魔";
         /// <summary>V1.1 (W13): an enchantment's badge by name through the theme lookup (UiKit.Template: the active style's own
         /// badge_enchant_*, else the default template); the serialized list is only the last fallback, so a style's badges
         /// show wherever a badge is drawn.</summary>
@@ -173,28 +174,22 @@ namespace DiceCraft
             EnchantBadge(card,item.enchantmentId,132,10,40);
             var source=ViewSources.FirstOrDefault(x=>x.emitterId==item.instanceId);
             var list=PaperDetailScroll071(p,"ControllerDetail",232,104,704,500);float y=0;
-            Art07DetailSection(list,"Skill","基础技能",Description(item.definitionId),ref y,672,true);
-            Art07DetailSection(list,"Enchantment","自身附魔",EnchantLabel(item.enchantmentId),ref y,672,true);
+            var def=Config.Controller(item.definitionId);
+            string rules=ShortText11(item.definitionId);
+            if(!string.IsNullOrWhiteSpace(def.details) && def.details!=rules)rules+="\n"+def.details;
+            Art07DetailSection(list,"Skill","效果",rules,ref y,672,true);
+            Art07DetailSection(list,"Enchantment","附魔",EnchantLabel(item.enchantmentId),ref y,672,true);
             if((item.enchantmentId=="base10"||item.enchantmentId=="mult2")&&(source?.abilityId==null||!Config.Controller(source.abilityId).scoreEnchantEligible))
-                Art07DetailSection(list,"NoScoreTrigger","附魔不会触发","这张卡不参与计分，所以计分附魔不会触发。",ref y,672,true);
-            string current=ControllerStateLabel(item);
-            if(item.definitionId=="C41")
-            {
-                var target=(ViewBindings??ControllerRules.FreezeBindings(ViewState.controllers)).FirstOrDefault(b=>b.sourceInstanceId==item.instanceId)?.targetInstanceId;
-                var neighbor=ViewState.controllers.FirstOrDefault(c=>c.instanceId==target);
-                // v1.1 (W09): the copied card is named by its position and name, never by instance id.
-                string binding=string.IsNullOrEmpty(target)?"没有右邻":neighbor==null?"目标已失效":CardPosition11(ViewState.controllers,target)+" "+NameOf(neighbor.definitionId);
-                string owner=source?.stateOwnerId==null?"无":CardPosition11(ViewState.controllers,source.stateOwnerId)??"无";
-                current="绑定右邻："+binding+"\n实际模拟："+(source?.abilityId==null?"无能力":NameOf(source.abilityId))+"\n成长与状态来自："+owner+"\n"+current;
-            }
+                Art07DetailSection(list,"NoScoreTrigger","附魔不会触发","这张卡不参与计分，所以“"+EnchantShort(item.enchantmentId)+"”附魔不会触发。",ref y,672,true);
+            string current=ControllerStateLabel(item,true);
             if(source?.abilityId=="C53")
             {
-                current+="\n可能倍率："+string.Join("、",Config.Controller("C53").parameters.factorUnits2.Select(q=>PlayerNumberFormat.Ratio(q,2)));
+                if(item.definitionId!="C53")current+="\n"+Config.Controller("C53").details;
                 var last=ViewState.lastSubmission;
-                var draw=last?.snapshot.resolvedRandomChoices.FirstOrDefault(q=>q.ownerInstanceId==source.stateOwnerId);
-                if(draw!=null)current+="\n上一提交记录："+PlayerNumberFormat.Times(draw.units2,2)+"（非下次预告）";
+                var draw=last?.snapshot?.resolvedRandomChoices?.FirstOrDefault(q=>q.ownerInstanceId==source.stateOwnerId);
+                if(draw!=null)current+="\n上一手抽到 "+PlayerNumberFormat.Times(draw.units2,2)+"（下一次重新抽）";
             }
-            Art07DetailSection(list,"Current","当前状态",string.IsNullOrEmpty(current)?"本局生效；按技能条件判定。":current,ref y,672,true);
+            if(!string.IsNullOrWhiteSpace(current))Art07DetailSection(list,"Current","当前状态",current.Trim(),ref y,672,true);
             if(item.definitionId=="C41"||item.definitionId=="C52")
             {
                 // v1.1 (W09, user decision D5): a card bought from this shop's shelf resells for at most the price paid until
@@ -202,12 +197,13 @@ namespace DiceCraft
                 // list price (RULES_DELTA 1.1 item 9 and 8.3). Such a card has no fund or bonus yet: both grow at stage end.
                 long sale=Session.GetControllerSalePrice(item.instanceId),ordinary=ControllerRules.SalePrice(item,Config);
                 var paid=ViewState.phase=="Shop"?ViewState.shop?.paidControllerPrices?.FirstOrDefault(p=>p!=null&&p.instanceId==item.instanceId):null;
-                string basis=paid!=null&&paid.paid<ordinary?"（本店买入，离店前不超过买价）":sale>ordinary?"（回收大王：标价全额）":"（标价的一半）";
-                Art07DetailSection(list,"Fund","本实例基金","基础卖价 "+(sale-item.state.fundAccrual-item.state.saleBonus)+basis+" + 基金累计 "+item.state.fundAccrual+(item.state.saleBonus>0?" + 聚宝盆 "+item.state.saleBonus:"")+" = 当前卖价 "+sale+"。未出售时不进入钱包。",ref y,672,true);
+                if(paid==null || paid.paid>=ordinary)
+                    Art07DetailSection(list,"Fund","卖价","卖价 "+sale+" = 基础 "+(sale-item.state.fundAccrual-item.state.saleBonus)+
+                        " + 成长 "+item.state.fundAccrual+" + 聚宝盆 "+item.state.saleBonus+"（卖出时才得到）",ref y,672,true);
             }
             var preview=Session.PreviewScoreRange();
-            string trigger=preview==null?"锁定骰子后可查看当前提交条件。":preview.isRandom?"存在尚未抽取的随机结果；这里不预告下次结果。":preview.minimum.triggeredSourceIds.Contains(item.instanceId)?"当前提交：条件命中。实际增益以分项为准。":"当前提交：条件未满足。卡片仍然有效。";
-            Art07DetailSection(list,"Trigger","当前触发",trigger,ref y,672,true);
+            string trigger=preview==null?"锁定骰子后显示是否生效":preview.isRandom?"含随机结果，提交后才知道":preview.minimum.triggeredSourceIds.Contains(item.instanceId)?"会生效":"不会生效";
+            Art07DetailSection(list,"Trigger","这一手",trigger,ref y,672,true);
             // V1.1 W14 (UI_REWRITES V05.cs:172, 176; D5): the sale price in words, with the same-shop cap shown when it applies.
             Art07DetailSection(list,"Price","交易与规则",SaleText14(item)+"。卖掉后这张卡和附魔一起消失，它改造过的骰面保留。",ref y,672,true);
             list.sizeDelta=new Vector2(list.sizeDelta.x,y+16);
@@ -216,7 +212,7 @@ namespace DiceCraft
                 UiKit.Button(p,"SellController","卖出 +"+Session.GetControllerSalePrice(item.instanceId)+" 金币",24,628,912,64,()=>Art07ConfirmControllerSale(item));
                 UiKit.Outline(p,"SellOutline",24,628,912,64,UiKit.Red,2);
             }
-            else UiKit.Text(p,"HeldRule","关内顺序已固定；在商店出售或调整。",24,628,912,64,24,UiKit.Muted);
+            else if(!CanReorderControllers)UiKit.Text(p,"HeldRule","关卡中不能卖出或调整顺序（在商店里可以）。",24,628,912,64,24,UiKit.Muted);
         }
         // Keep existing viewport geometry and hierarchy; the paper is a non-raycasting
         // sibling behind the content, so scrolling, focus and footer actions stay intact.
@@ -234,22 +230,38 @@ namespace DiceCraft
         }
         private void Art07ConfirmControllerSale(ControllerInstance item)
         {
-            var p=Art07Modal("确认出售 · "+NameOf(item.definitionId),600,332,720,416);
+            var p=Art07Modal("卖出 "+NameOf(item.definitionId)+"？",600,332,720,416);
             long price=Session.GetControllerSalePrice(item.instanceId);
             var list=UiKit.Scroll(p,"SaleDetails",24,90,672,214,214);
-            var text=UiKit.Text(list,"Loss","卖价 "+price+" 金币\n将失去："+EnchantLabel(item.enchantmentId)+"\n本实例基金累计 "+item.state.fundAccrual+"；已完成的永久改造保留。",0,0,640,200,25,UiKit.Paper);
+            var text=UiKit.Text(list,"Loss","卖价 "+price+" 金币"+(string.IsNullOrEmpty(item.enchantmentId)||item.enchantmentId=="none"?"":"\n附魔一起失去："+EnchantShort(item.enchantmentId))+"\n改造过的骰面保留。",0,0,640,200,25,UiKit.Paper);
             list.sizeDelta=new Vector2(list.sizeDelta.x,FitHeight(text,200));
             UiKit.Button(p,"CancelSale","取消",24,326,312,64,()=>ShowController(item,true));
-            UiKit.Button(p,"ConfirmSale","出售并获得 "+price,360,326,336,64,()=>{CloseModal();Send(new SessionCommand{kind=CommandKind.Sell,itemInstanceId=item.instanceId});});
+            UiKit.Button(p,"ConfirmSale","卖出 +"+price+" 金币",360,326,336,64,()=>{CloseModal();Send(new SessionCommand{kind=CommandKind.Sell,itemInstanceId=item.instanceId});});
             UiKit.Outline(p,"ConfirmOutline",360,326,336,64,UiKit.Red,2);
         }
         [Serializable]private sealed class BuildIdentity{public string sourceCommit=null,goldenCaseSetSha256=null,releaseVersion=null,artVersion=null;}
         private void ShowBuildVersion()
         {
             var asset=Resources.Load<TextAsset>("BuildIdentity");var identity=asset==null?new BuildIdentity():JsonUtility.FromJson<BuildIdentity>(asset.text);
-            var p=OpenModal("版本与构建");
+            var p=Art07Modal("版本与构建",480,280,960,520);
             string hash;using(var sha=SHA256.Create())hash=BitConverter.ToString(sha.ComputeHash(Encoding.UTF8.GetBytes(configAsset.text))).Replace("-","").ToLowerInvariant();
-            UiKit.Text(p,"BuildIdentity",$"美术 {ArtVersion} / 发行 {identity.releaseVersion??"开发中"}\n玩法 {Config.configVersion} / 存档 schema {Config.saveSchemaVersion}\nUnity {Application.unityVersion} / {Application.platform}\n源码 {identity.sourceCommit??"开发工作树（未冻结）"}\n配置 SHA-256\n{hash}\n黄金样例 SHA-256\n{identity.goldenCaseSetSha256??"未写入构建身份"}",40,125,1510,600,25,UiKit.Paper);
+            string tech=$"美术 {ArtVersion} / 发行 {identity.releaseVersion??"开发中"}\n玩法 {Config.configVersion} / 存档 schema {Config.saveSchemaVersion}\nUnity {Application.unityVersion} / {Application.platform}\n源码 {identity.sourceCommit??"开发工作树（未冻结）"}\n配置 SHA-256\n{hash}\n黄金样例 SHA-256\n{identity.goldenCaseSetSha256??"未写入构建身份"}";
+            string release=string.IsNullOrWhiteSpace(identity.releaseVersion)?"开发中":identity.releaseVersion;
+            string commit=identity.sourceCommit;
+            string build=!string.IsNullOrEmpty(commit)&&commit.Length>=8&&commit.Take(8).All(Uri.IsHexDigit)?commit.Substring(0,8):"开发中";
+            string unity=string.Join(".",Application.unityVersion.Split('.').Take(2));
+            string summary=$"游戏版本 {release}（规则 {Config.configVersion}）\n构建 {build}\n存档格式 {Config.saveSchemaVersion} · {Application.platform} · Unity {unity}";
+            UiKit.Text(p,"BuildIdentity",summary,24,104,912,200,25,LabelOn11(p));
+            UiKit.Button(p,"CopyBuildIdentity16","复制完整技术信息",24,328,912,64,()=>
+            {
+                GUIUtility.systemCopyBuffer=tech;
+                p.Find("CopyBuildIdentity16/Label").GetComponent<TextMeshProUGUI>().text="已复制";
+            });
+            var credits=UiKit.Scroll(p,"BuildCredits16",24,400,912,100,100);
+            var credit=UiKit.Text(credits,"FontCredits16",FontCredits16,0,0,892,100,19.5f,LabelOn11(p,UiKit.Muted));
+            float creditH=Mathf.Ceil(credit.GetPreferredValues(credit.text,892,Mathf.Infinity).y)+8;
+            credit.rectTransform.sizeDelta=new Vector2(892,creditH);
+            credits.sizeDelta=new Vector2(credits.sizeDelta.x,Mathf.Max(100,creditH));
         }
     }
 }

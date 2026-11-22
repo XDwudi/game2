@@ -60,7 +60,7 @@ namespace DiceCraft
                 var confirm=Art07Modal("保留此显示设置？",600,360,720,360);
                 var title=confirm.Find("DialogTitle")?.GetComponent<TextMeshProUGUI>();if(title!=null){title.fontSize=26*UiKit.FontScale;title.rectTransform.sizeDelta=new Vector2(590,64);}
                 displayCountdown=UiKit.Text(confirm,"DisplayCountdown",Screen.width+" × "+Screen.height+" · "+DisplaySettings.ModeName(Screen.fullScreenMode)+"\n"+DisplayPreferences.SecondsLeft+" 秒内确认，否则恢复原设置。",24,100,672,128,24,UiKit.Gold);
-                UiKit.Button(confirm,"ConfirmDisplay","保留",24,264,324,64,()=>{if(DisplayPreferences.Confirm()){displayDraft=null;ShowDisplaySettings();}},DisplayPreferences.CanConfirm,true);
+                Primary16(confirm,"ConfirmDisplay","保留",24,264,324,64,()=>{if(DisplayPreferences.Confirm()){displayDraft=null;ShowDisplaySettings();}},DisplayPreferences.CanConfirm);
                 UiKit.Button(confirm,"RevertDisplay","恢复 [Esc]",372,264,324,64,DisplayPreferences.Revert);
                 return;
             }
@@ -70,17 +70,17 @@ namespace DiceCraft
             int index=displays.FindIndex(d=>d.name==displayDraft.displayName);
             if(index<0){displayDraft=DisplayPreferences.ReadActual();index=Math.Max(0,displays.FindIndex(d=>d.name==displayDraft.displayName));}
             var selected=displays[index];
-            UiKit.Text(p,"DisplayActual","实际 "+Screen.width+" × "+Screen.height+" · "+DisplaySettings.ModeName(Screen.fullScreenMode)+"\n"+DisplayPreferences.Notice,40,96,1500,85,25,UiKit.Muted);
+            UiKit.Text(p,"DisplayActual","当前 "+Screen.width+" × "+Screen.height+" · "+DisplaySettings.ModeName(Screen.fullScreenMode)+"\n"+DisplayPreferences.Notice,40,96,1500,85,25,UiKit.Muted);
             // v1.1 (W09): the display by its number, not the system device name (e.g. \\.\DISPLAY1).
             UiKit.Button(p,"Monitor","显示器 "+(index+1)+" · "+selected.width+" × "+selected.height+"  >",40,196,1500,60,()=>{var d=displays[(index+1)%displays.Count];displayDraft=DisplayPreferences.Choice(d,displayDraft.mode,d.width,d.height);ShowDisplaySettings();},displays.Count>1);
             var modes=new[]{DisplaySettings.PlatformFullscreen,FullScreenMode.FullScreenWindow,FullScreenMode.Windowed};
             for(int i=0;i<3;i++){var mode=modes[i];UiKit.Button(p,"Mode"+i,DisplaySettings.ModeName(mode),40+i*510,280,480,60,()=>{var sizes=DisplayPreferences.Resolutions(selected,mode);var size=mode==FullScreenMode.Windowed?DisplaySettings.AutomaticWindow(selected.workArea):new Vector2Int(selected.width,selected.height);if(sizes.Length>0&&!sizes.Contains(size))size=sizes.Last();displayDraft=DisplayPreferences.Choice(selected,mode,size.x,size.y);ShowDisplaySettings();},true,displayDraft.mode==mode);}
             var resolutions=DisplayPreferences.Resolutions(selected,displayDraft.mode);
-            var list=UiKit.Scroll(p,"ResolutionList",40,365,1500,190,Math.Max(180,((resolutions.Length+3)/4)*65));
-            for(int i=0;i<resolutions.Length;i++){var size=resolutions[i];UiKit.Button(list,"Resolution"+i,size.x+" × "+size.y,(i%4)*370,(i/4)*65,350,52,()=>{displayDraft=DisplayPreferences.Choice(selected,displayDraft.mode,size.x,size.y);ShowDisplaySettings();},true,displayDraft.width==size.x&&displayDraft.height==size.y);}
-            UiKit.Button(p,"AutomaticResolution","自动适配当前屏幕",40,580,725,64,()=>{var d=Screen.mainWindowDisplayInfo;var size=displayDraft.mode==FullScreenMode.Windowed?DisplaySettings.AutomaticWindow(d.workArea):new Vector2Int(d.width,d.height);displayDraft=DisplayPreferences.Choice(d,displayDraft.mode,size.x,size.y);ShowDisplaySettings();});
-            UiKit.Button(p,"ApplyDisplay","应用 · 15秒确认",815,580,725,64,()=>{DisplayPreferences.Apply(displayDraft);ShowDisplaySettings();},!DisplayPreferences.IsTransitioning,true);
-            UiKit.Text(p,"DisplayHelp","显示偏好独立保存。窗口模式可拖动边缘；全屏在 Windows 使用独占，在 macOS 使用系统全屏。",40,682,1500,64,23,UiKit.Muted);
+            var list=UiKit.Scroll(p,"ResolutionList",40,365,1500,216,Math.Max(216,((resolutions.Length+3)/4)*72));
+            for(int i=0;i<resolutions.Length;i++){var size=resolutions[i];UiKit.Button(list,"Resolution"+i,size.x+" × "+size.y,(i%4)*370,(i/4)*72,350,60,()=>{displayDraft=DisplayPreferences.Choice(selected,displayDraft.mode,size.x,size.y);ShowDisplaySettings();},true,displayDraft.width==size.x&&displayDraft.height==size.y);}
+            UiKit.Button(p,"AutomaticResolution","自动适配当前屏幕",40,596,725,64,()=>{var d=Screen.mainWindowDisplayInfo;var size=displayDraft.mode==FullScreenMode.Windowed?DisplaySettings.AutomaticWindow(d.workArea):new Vector2Int(d.width,d.height);displayDraft=DisplayPreferences.Choice(d,displayDraft.mode,size.x,size.y);ShowDisplaySettings();});
+            Primary16(p,"ApplyDisplay","应用 · 15秒确认",815,596,725,64,()=>{DisplayPreferences.Apply(displayDraft);ShowDisplaySettings();},!DisplayPreferences.IsTransitioning);
+            UiKit.Text(p,"DisplayHelp","窗口模式可以拖动边框调整大小。应用后要在 15 秒内确认，否则恢复原设置。",40,680,1500,64,23,LabelOn11(p,UiKit.Muted));
         }
     }
 }

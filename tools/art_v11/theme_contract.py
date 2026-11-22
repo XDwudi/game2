@@ -83,6 +83,12 @@ def computed_prefixes(code: str) -> set[str]:
     return set(re.findall(r'"([a-z0-9]+(?:_[a-z0-9]+)*_)"\s*\+', code))
 
 
+# SETTLEMENT_LAYOUT §8.1: these seven white masks take the theme palette at runtime.
+OPTIONAL_UI_OVERRIDES = {f"ui_emblem_tier{tier}" for tier in range(1, 5)} | {
+    "ui_icon_stage", "ui_icon_submit", "ui_icon_interest",
+}
+
+
 def build_contract() -> dict:
     index = guid_index()
     code = code_text()
@@ -108,6 +114,8 @@ def build_contract() -> dict:
             "pixelsPerUnit": float(p.group(1)) if p else 100.0,
             "referenced": f'"{name}"' in code or any(name.startswith(p) for p in prefixes),
         }
+        if name in OPTIONAL_UI_OVERRIDES:
+            seen[name]["optionalOverride"] = True
     return {"scene": SCENE.relative_to(ROOT).as_posix(), "count": len(seen),
             "sprites": sorted(seen.values(), key=lambda s: s["name"])}
 
@@ -155,7 +163,8 @@ def cmd_audit(theme: str, strict: bool, themes_root: Path = THEMES) -> int:
                 problems.append(f"MODE Table/{name}: mode {im.mode}, expected RGB")
             else:
                 optional.append(f"Table/{name} {size[0]}x{size[1]}")
-    missing = [n for n, s in sprites.items() if s["referenced"] and n not in shipped]
+    missing = [n for n, s in sprites.items() if s["referenced"] and not s.get("optionalOverride") and n not in shipped]
+    optional_fallback = [n for n, s in sprites.items() if s.get("optionalOverride") and n not in shipped]
     manifest = folder.parent / "theme.json"
     if manifest.exists():
         fonts = json.loads(manifest.read_text(encoding="utf-8")).get("fonts")
@@ -165,6 +174,8 @@ def cmd_audit(theme: str, strict: bool, themes_root: Path = THEMES) -> int:
             elif not (folder.parent / "Fonts" / "title.asset").is_file():
                 missing.append("Fonts/title")
     print(f"theme {theme}: {len(shipped)} sprites shipped, {len(missing)} referenced defaults not overridden")
+    for n in optional_fallback:
+        print("  OPTIONAL DEFAULT " + n)
     for item in optional:
         print("  OPTIONAL " + item)
     for p in problems:

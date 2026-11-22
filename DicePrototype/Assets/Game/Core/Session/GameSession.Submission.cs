@@ -36,8 +36,8 @@ namespace DiceCraft.Core
         {
             RequirePhase(s, "Selecting");
             Check(s.hand.hasRolled && s.hand.orderedLockedIds.Count > 0 && s.hand.orderedLockedIds.Count <= s.stage.capacity,
-                "至少投掷一次并确认锁定一颗骰子后才可提交。");
-            Check(s.stage.remainingSubmissions > 0 && !s.stage.settled, "没有可用的提交机会。");
+                "先掷骰并锁定至少 1 颗骰子，再提交。");
+            Check(s.stage.remainingSubmissions > 0 && !s.stage.settled, "本关的提交次数用完了。");
             Check(!Fx(s, "MustFill") || s.hand.orderedLockedIds.Count == Math.Min(s.stage.capacity, s.dice.Count), "首领减益“满员”：必须占满提交栏才能提交。");
             var snapshot = FreezeSubmission(s);
             var effectRng = new GameRng(s.effectRngState);
@@ -207,7 +207,7 @@ namespace DiceCraft.Core
         private void EndStage(RunState s)
         {
             RequirePhase(s, "HandReady", "Selecting");
-            Check(s.stage.qualified && !s.stage.settled && s.stage.remainingSubmissions > 0, "本关尚未达标或已经结束。");
+            Check(s.stage.qualified && !s.stage.settled && s.stage.remainingSubmissions > 0, "达到目标后才能结束本关。");
             // Unsubmitted locks are discarded: no score, Submit hooks or budget consumption.
             FinalizeStage(s);
         }
@@ -215,7 +215,7 @@ namespace DiceCraft.Core
         private void FinalizeStage(RunState s)
         {
             if (s.stage.settled) return;
-            Check(s.stage.qualified, "尚未达标，不能结束本轮。");
+            Check(s.stage.qualified, "达到目标后才能结束本关。");
             var fundSources = Sources(s).Where(x => x.abilityId == "C52").Select(x => x.emitterId).Distinct(StringComparer.Ordinal).ToArray();
             s.lastStageSettlement = CalculateStageSettlement(s);
             foreach (string emitterId in fundSources)
@@ -339,8 +339,7 @@ namespace DiceCraft.Core
             long controllerIncome = checked((long)sources.Count(x => x.abilityId == "C95") * cfg.Controller("C95").parameters.goldPerStage + bounty);
             long principal = Math.Min(s.gold, principalCap);
             int pigs = Sources(s).Count(x => x.abilityId == "C01");
-            int interestPerTen = 1 + pigs * cfg.Controller("C01").parameters.extraInterestPerTen;
-            long interest = checked(interestPerTen * (principal / cfg.interestDivisor));
+            long interest = InterestOnPrincipal(principal, pigs);
             long unusedReward = voided ? 0 : checked(s.stage.remainingSubmissions * cfg.goldPerUnusedSubmission);
             int baseReward = voided ? 0 : s.stage.reward; int cycle = s.stage.stageIndex / 3;
             return new StageSettlement {
@@ -404,53 +403,53 @@ namespace DiceCraft.Core
             switch (item.contentId)
             {
                 case "I01":
-                    Check(s.phase == "Selecting" && s.hand.hasRolled && s.hand.orderedLockedIds.Count > 0, "红色浪潮需要至少一颗已锁骰。");
+                    Check(s.phase == "Selecting" && s.hand.hasRolled && s.hand.orderedLockedIds.Count > 0, "红色浪潮需要先锁定至少 1 颗骰子。");
                     Check(!s.hand.redWave, "本手红色浪潮已经生效。"); Check(!s.hand.blueWave, "本手蓝色浪潮已经生效，不能再用红色浪潮。"); s.hand.redWave = true;
                     break;
                 case "I02":
-                    Check(s.phase == "HandReady", "临时骰子只能在本手首掷前使用。");
-                    Check(s.dice.Count < (s.isDebug ? cfg.debug.maxDice : cfg.maxActiveDice) && (s.isDebug || s.dice.Count(x => x.lifetime == "stage_temporary") < cfg.maxTemporaryDice), "临时骰或活动骰数量已满。");
+                    Check(s.phase == "HandReady", "临时骰子在本手第一次掷骰前才能用。");
+                    Check(s.dice.Count < (s.isDebug ? cfg.debug.maxDice : cfg.maxActiveDice) && (s.isDebug || s.dice.Count(x => x.lifetime == "stage_temporary") < cfg.maxTemporaryDice), s.isDebug?$"骰子已到上限（总数最多 {cfg.debug.maxDice} 颗）。":$"骰子已到上限（临时骰最多 {cfg.maxTemporaryDice} 颗，总数最多 {cfg.maxActiveDice} 颗）。");
                     var d = DiceFactory.CreateStandard(cfg, s.nextDieSerial++, "stage_temporary", s.stage.stageId);
                     s.dice.Add(d); s.hand.currentResults.Add(new DieHandState { dieId = d.dieId });
                     s.lastEffects.Add(new EffectRecord { kind = "DieAdded", sourceId = "I02", dieId = d.dieId });
                     break;
                 case "I03":
                     Check(command.dieIds != null && command.targetPips != null && command.dieIds.Length == 2 && command.targetPips.Length == 2
-                        && command.dieIds.Distinct().Count() == 2, "遥控需要恰好两颗不同的未锁骰及各自目标点数。");
+                        && command.dieIds.Distinct().Count() == 2, "请选 2 颗骰池里的骰子并各选一个点数。");
                     Check(command.targetPips.All(x => x >= cfg.minPipValue && x <= cfg.maxPipValue), "目标点数必须为1至6。");
-                    Check(command.dieIds.All(id => s.dice.Any(x => x.dieId == id) && !s.hand.orderedLockedIds.Contains(id)), "遥控目标必须是未锁存活骰。");
+                    Check(command.dieIds.All(id => s.dice.Any(x => x.dieId == id) && !s.hand.orderedLockedIds.Contains(id)), "请选 2 颗骰池里的骰子并各选一个点数。");
                     Roll(s, command.dieIds, command.targetPips);
                     break;
                 case "I04":
                     Check(!s.hand.largeBuff, "本手大数多来已经生效。");
-                    Check(s.hand.rollsRemaining > 0 && s.dice.Any(x => !s.hand.orderedLockedIds.Contains(x.dieId) && x.faces.Any(f => f.permanentPip == cfg.maxPipValue)), "没有可投掷且含永久6点面的未锁骰。"); s.hand.largeBuff = true;
+                    Check(s.hand.rollsRemaining > 0 && s.dice.Any(x => !s.hand.orderedLockedIds.Contains(x.dieId) && x.faces.Any(f => f.permanentPip == cfg.maxPipValue)), "需要骰池里有带 6 点面的骰子，且本手还能掷。"); s.hand.largeBuff = true;
                     break;
                 case "I05":
                     Check(!s.hand.smallBuff, "本手小数多来已经生效。"); // v1.1: named the card C37 by mistake (text proposal §5 error 1)
-                    Check(s.hand.rollsRemaining > 0 && s.dice.Any(x => !s.hand.orderedLockedIds.Contains(x.dieId) && x.faces.Any(f => f.permanentPip == cfg.minPipValue)), "没有可投掷且含永久1点面的未锁骰。"); s.hand.smallBuff = true;
+                    Check(s.hand.rollsRemaining > 0 && s.dice.Any(x => !s.hand.orderedLockedIds.Contains(x.dieId) && x.faces.Any(f => f.permanentPip == cfg.minPipValue)), "需要骰池里有带 1 点面的骰子，且本手还能掷。"); s.hand.smallBuff = true;
                     break;
                 case "I06": s.stage.remainingSubmissions = checked(s.stage.remainingSubmissions + 1); break;
                 case "I07": s.stage.stageRollBonus = checked(s.stage.stageRollBonus + 1); s.hand.rollsRemaining = checked(s.hand.rollsRemaining + 1); break;
                 // v1.0
                 case "I08":
-                    Check(s.phase == "HandReady" && s.stage.submissionOrdinal == 0 && s.hand.rollsUsed == 0 && ActiveModifierId(s) != null, "破咒符只能在首领关第一手首掷之前、减益仍生效时使用。");
+                    Check(s.phase == "HandReady" && s.stage.submissionOrdinal == 0 && s.hand.rollsUsed == 0 && ActiveModifierId(s) != null, "破咒符只能在首领关第一次掷骰前、减益仍生效时使用。");
                     NullifyModifier(s, "I08");
                     break;
                 case "I09": Check(!s.hand.doubleScore, "本手灵光一闪已经生效。"); s.hand.doubleScore = true; break;
                 case "I10":
-                    Check(s.phase == "Selecting" && s.hand.hasRolled && s.hand.orderedLockedIds.Count > 0, "蓝色浪潮需要至少一颗已锁骰。");
+                    Check(s.phase == "Selecting" && s.hand.hasRolled && s.hand.orderedLockedIds.Count > 0, "蓝色浪潮需要先锁定至少 1 颗骰子。");
                     Check(!s.hand.blueWave, "本手蓝色浪潮已经生效。"); Check(!s.hand.redWave, "本手红色浪潮已经生效，不能再用蓝色浪潮。"); s.hand.blueWave = true;
                     break;
                 case "I11":
                     {
-                        Check(s.phase == "Selecting" && s.hand.hasRolled && s.hand.orderedLockedIds.Count > 0, "点金笔需要至少一颗已锁骰。");
+                        Check(s.phase == "Selecting" && s.hand.hasRolled && s.hand.orderedLockedIds.Count > 0, "点金笔需要先锁定至少 1 颗骰子。");
                         var die = FindDie(s, s.hand.orderedLockedIds[0]); var result = s.hand.currentResults.First(x => x.dieId == die.dieId);
-                        var face = die.faces.First(f => f.faceId == result.currentFaceId); Check(!face.isGold, "第一颗已锁骰的朝上面已经是黄金面。");
+                        var face = die.faces.First(f => f.faceId == result.currentFaceId); Check(!face.isGold, "第 1 颗锁定骰子朝上的面已经是黄金面。");
                         ApplyFaceChange(s, die, face, "I11", "gold", 1, null);
                         break;
                     }
                 case "I12":
-                    Check(s.stage.capacity < (s.isDebug ? cfg.debug.maxSubmitCapacity : cfg.maxSubmitCapacity), "提交栏容量已到上限。");
+                    Check(s.stage.capacity < (s.isDebug ? cfg.debug.maxSubmitCapacity : cfg.maxSubmitCapacity), $"提交栏已经是最多的 {(s.isDebug?cfg.debug.maxSubmitCapacity:cfg.maxSubmitCapacity)} 格。");
                     s.stage.capacity++; s.stage.itemCapacityBonus++;
                     break;
                 default: throw new RuleViolation("未知道具。");

@@ -11,7 +11,6 @@ namespace DiceCraft.Tests
     public class V21TitleFontAssetTests
     {
         private const string Root = "Assets/Game/Fonts/";
-        private const string TitlePath = "Assets/Resources/Themes/sancai/Fonts/title.asset";
         private const string SancaiFallback = "²·‹›←↑→↓≈≤≥◆◇●✓";
 
         private static TMP_FontAsset Load(string path)
@@ -21,15 +20,19 @@ namespace DiceCraft.Tests
             return face;
         }
 
-        [Test]
-        public void FW01_SancaiUsesOneStaticAtlasAndTheApprovedFaceMetrics()
+        [TestCase("sancai", 56, 8, .96f, .041f)]
+        [TestCase("comic", 56, 8, 1.05f, .003f)]
+        [TestCase("deco", 56, 8, 1f, .021f)]
+        [TestCase("glass", 48, 7, .98f, .008f)]
+        public void FW01_ThemeUsesOneStaticAtlasAndTheApprovedFaceMetrics(string theme, int points, int padding,
+                                                                          float faceScale, float baseline)
         {
-            var title = Load(TitlePath);
+            var title = Load($"Assets/Resources/Themes/{theme}/Fonts/title.asset");
             Assert.That(title.atlasPopulationMode, Is.EqualTo(AtlasPopulationMode.Static));
             Assert.That(title.sourceFontFile, Is.Null, "A static title must not ship its TTF");
             Assert.That(title.atlasTextureCount, Is.EqualTo(1));
             Assert.That(title.atlasRenderMode, Is.EqualTo(GlyphRenderMode.SDFAA));
-            Assert.That(title.atlasPadding, Is.EqualTo(8));
+            Assert.That(title.atlasPadding, Is.EqualTo(padding));
             var atlas = title.atlasTexture;
             Assert.That(atlas.width, Is.EqualTo(2048));
             Assert.That(atlas.height, Is.EqualTo(2048));
@@ -37,27 +40,31 @@ namespace DiceCraft.Tests
             Assert.That(atlas.format, Is.EqualTo(TextureFormat.Alpha8));
             Assert.That(title.material.mainTexture, Is.EqualTo(atlas));
             var face = title.faceInfo;
-            Assert.That(face.pointSize, Is.EqualTo(56));
-            Assert.That(face.scale, Is.EqualTo(0.96f).Within(0.001f));
+            Assert.That(face.pointSize, Is.EqualTo(points));
+            Assert.That(face.scale, Is.EqualTo(faceScale).Within(0.001f));
             float scale = face.scale / face.pointSize;
             Assert.That(face.lineHeight * scale, Is.EqualTo(1.448f).Within(0.001f));
             Assert.That(face.ascentLine * scale, Is.EqualTo(1.16f).Within(0.001f));
             Assert.That(face.descentLine * scale, Is.EqualTo(-0.288f).Within(0.001f));
+            Assert.That(face.baseline * scale * face.scale, Is.EqualTo(baseline).Within(0.001f));
             CollectionAssert.AreEqual(new[] { Load(Root + "DiceChineseBold.asset"), Load(Root + "DiceChinese.asset") },
                                       title.fallbackFontAssetTable);
         }
 
-        [Test]
-        public void FW02_AllTitleCharactersResolveInTheIntendedStaticFace()
+        [TestCase("sancai", SancaiFallback)]
+        [TestCase("comic", "²‹›←↑→↓≈≤≥◆◇●✓")]
+        [TestCase("deco", SancaiFallback)]
+        [TestCase("glass", "")]
+        public void FW02_AllTitleCharactersResolveInTheIntendedStaticFace(string theme, string fallback)
         {
-            var title = Load(TitlePath);
+            var title = Load($"Assets/Resources/Themes/{theme}/Fonts/title.asset");
             var bold = Load(Root + "DiceChineseBold.asset");
             foreach (char c in File.ReadAllText(Root + "Themes/title_chars.txt").TrimEnd('\n','\r'))
             {
                 var glyph = TMP_FontAssetUtilities.GetCharacterFromFontAsset(c, title, true,
                     FontStyles.Normal, FontWeight.Regular, out _);
                 Assert.That(glyph, Is.Not.Null, "U+" + ((int)c).ToString("X4"));
-                Assert.That(glyph.textAsset, Is.EqualTo(SancaiFallback.Contains(c) ? bold : title), c.ToString());
+                Assert.That(glyph.textAsset, Is.EqualTo(fallback.Contains(c) ? bold : title), c.ToString());
                 Assert.That(glyph.glyph, Is.Not.Null, c.ToString());
             }
         }

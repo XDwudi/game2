@@ -121,6 +121,7 @@ THEME_META = {
                     "tools/art_v11/deco/build_deco.py 生成（说明见同目录 README.md）"),
     "order": 4,
     "preview": True,
+    "fonts": {"title": "Fonts/title", "roles": ["screenTitle", "stageNumber", "bigNumber", "bossName", "primaryButton"]},
 }
 
 
@@ -1480,7 +1481,7 @@ def render_sprite(spec: dict) -> Image.Image:
 
 def contract_sprites() -> list[dict]:
     """The referenced sprites of the regenerated contract (2026-11-18: 50). Unreferenced ones are not drawn."""
-    return [s for s in json.loads(CONTRACT.read_text(encoding="utf-8"))["sprites"] if s["referenced"]]
+    return [s for s in json.loads(CONTRACT.read_text(encoding="utf-8"))["sprites"] if (s["referenced"]) and not s.get("optionalOverride")]
 
 
 # ---------------------------------------------------------------------------------------------- table

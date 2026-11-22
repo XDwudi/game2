@@ -52,13 +52,13 @@ namespace DiceCraft.Core
                 var original = state == null ? null : state.processedReceipts.FirstOrDefault(x => x.commandId == command.commandId);
                 if (original != null) return new CommandResult { accepted = true, duplicate = true, receipt = original.Clone() };
                 if (pendingSaveState != null) return new CommandResult { pendingSave = true, error = "存档失败待重试；所有规则操作已暂停。", receipt = pendingReceipt.Clone() };
-                if (busy) return Reject("表现进行中，请等待或跳过。");
+                if (busy) return Reject("动画播放中，请稍等或点击跳过。");
                 long sequence = state == null ? 0 : state.actionSequence;
                 if (command.expectedActionSequence != sequence) return Reject("操作序号已过期，请刷新后再试。");
                 try
                 {
                     Check(command.kind == CommandKind.NewRun || state != null, "请先新建挑战。");
-                    Check(command.kind == CommandKind.ConfirmLocks || command.kind == CommandKind.ApplyDebugScene || pending.Count == 0, "请先确认锁定或清除待选骰子。");
+                    Check(command.kind == CommandKind.ConfirmLocks || command.kind == CommandKind.ApplyDebugScene || pending.Count == 0, "先锁定选中的骰子，或取消选择。");
                     var candidate = command.kind == CommandKind.NewRun ? CreateRun(command) : state.Clone();
                     if (command.kind == CommandKind.NewRun && state != null && state.debugWorkspace)
                     { candidate.debugWorkspace = true; candidate.isDebug = true; candidate.sourceRunId = state.sourceRunId; }
@@ -217,6 +217,9 @@ namespace DiceCraft.Core
         private long InterestPrincipalCap(RunState s) => checked(cfg.maxInterestPrincipal + (long)Sources(s).Count(x => x.abilityId == "C96") * cfg.Controller("C96").parameters.interestPrincipalAdd + (long)cfg.interestPrincipalStep * s.interestCapPurchases);
         /// <summary>v1.0 C145: the break chance of a glass die per roll (a disabled C145 is not a source).</summary>
         private int GlassBreakPercent(RunState s) => Sources(s).Any(x => x.abilityId == "C145") ? cfg.Controller("C145").parameters.glassBreakPercent : cfg.glassBreakPercent;
+        private long InterestOnPrincipal(long principal, int pigSources) =>
+            checked(principal / cfg.interestDivisor * (1L + (long)pigSources * cfg.Controller("C01").parameters.extraInterestPerTen));
+
         public long InterestPrincipalCapIn(RunState view) { lock (gate) return InterestPrincipalCap(view); }
         public int GlassBreakPercentIn(RunState view) { lock (gate) return GlassBreakPercent(view); }
         /// <summary>What an owned controller would sell for in the given state (C140, shop-acquired rule, funds and bonuses included).</summary>
@@ -445,8 +448,8 @@ namespace DiceCraft.Core
         private void ConfirmLocks(RunState s)
         {
             RequirePhase(s, "Selecting");
-            Check(pending.Count > 0, "没有待锁骰子。");
-            Check(s.hand.orderedLockedIds.Count + pending.Count <= s.stage.capacity, "提交栏容量不足；没有锁定任何骰子。");
+            Check(pending.Count > 0, "先点选要锁定的骰子。");
+            Check(s.hand.orderedLockedIds.Count + pending.Count <= s.stage.capacity, "提交栏放不下这么多，请少选几颗。");
             foreach (string id in pending)
             {
                 var r = s.hand.currentResults.FirstOrDefault(x => x.dieId == id);
@@ -466,9 +469,9 @@ namespace DiceCraft.Core
         private void Roll(RunState s, string[] remoteIds, int[] remotePips)
         {
             RequirePhase(s, "HandReady", "Selecting");
-            Check(s.hand.rollsRemaining > 0, "没有剩余投掷次数。");
+            Check(s.hand.rollsRemaining > 0, "本手不能再掷了。");
             var unlocked = s.dice.Where(x => !s.hand.orderedLockedIds.Contains(x.dieId)).OrderBy(x => x.createdSerial).ToArray();
-            Check(unlocked.Length > 0, "全部骰子已锁定，不能空投。");
+            Check(unlocked.Length > 0, "骰子都锁定了，没有可掷的骰子。");
             var diceRng = new GameRng(s.diceRngState); var effectRng = new GameRng(s.effectRngState);
             s.hand.rollsRemaining--; s.hand.rollsUsed++; s.hand.hasRolled = true;
             Grow(s, "C62", cfg.Controller("C62").parameters.growthPerEvent);

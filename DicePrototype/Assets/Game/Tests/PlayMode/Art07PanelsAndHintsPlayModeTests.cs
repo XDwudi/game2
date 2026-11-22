@@ -89,7 +89,16 @@ namespace DiceCraft.Tests
                 show.Invoke(app,new object[]{"测试读取说明：原始文件与备份保持。",recovered});
                 var motion=FindActive<RectTransform>("Dialog").GetComponent<Art07PanelMotion>();
                 Assert.That(motion.Duration,Is.EqualTo(.12f).Within(.0001f));Assert.That(motion.ExitDuration,Is.EqualTo(.10f).Within(.0001f));
-                Assert.That(FindActive<TextMeshProUGUI>("RecoveryDetailBody").text,Does.Contain("原始文件与备份保持"));
+                Assert.That(HasActive("RecoveryDetailBody"),Is.False);
+                const string raw="测试读取说明：原始文件与备份保持。";
+                var clipboard=GUIUtility.systemCopyBuffer;
+                try
+                {
+                    Click("CopyLoadIssue07");Assert.That(GUIUtility.systemCopyBuffer,Is.EqualTo(raw));
+                    Click("ToggleLoadIssue16");Assert.That(InformationText07("RecoveryDetailBody"),Is.EqualTo(raw));
+                    Click("ToggleLoadIssue16");Assert.That(HasActive("RecoveryDetailBody"),Is.False);
+                }
+                finally { GUIUtility.systemCopyBuffer=clipboard; }
                 Click("CloseLoadIssue07");Assert.That(HasActive("Dialog"),Is.False);Assert.That(HasActive("NewRun"),Is.True);
                 Assert.That(StateJson(),Is.EqualTo(before));CollectionAssert.AreEqual(disk,File.ReadAllBytes(app.SaveLocation));
                 yield return null;
@@ -113,7 +122,7 @@ namespace DiceCraft.Tests
                 yield return LoadBootstrap();Click("ContinueRun");
                 string before=StateJson();byte[] disk=File.ReadAllBytes(app.SaveLocation);
                 var reason=FindActive<TextMeshProUGUI>("ActionReason");
-                Assert.That(reason.text,Does.Contain(kind==0?"仍可选骰":kind==1?"提交后揭示":"可以继续提交"));
+                Assert.That(reason.text.Replace("\n",""),Does.StartWith("提示：").And.Contain(kind==0?"还能锁定":kind==1?"在提交时才抽取":"可以继续提交"));
                 Assert.That(PlayerPrefs.GetInt(BoundaryHintKeys07[kind],0),Is.Zero,"Read status is persisted only when dismissed.");
                 var dismiss=Button("DismissBoundaryHint07");Assert.That(((RectTransform)dismiss.transform).sizeDelta,Is.EqualTo(new Vector2(60,60)));
                 var closeBounds=RectTransformUtility.CalculateRelativeRectTransformBounds(app.canvas.transform,dismiss.transform);

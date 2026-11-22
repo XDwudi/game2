@@ -213,14 +213,14 @@ namespace DiceCraft.Tests
             Assert.That(app.Session.GetControllerSalePrice(bought.instanceId),Is.EqualTo(1),"Capped at the price paid in this shop.");
             Assert.That(app.LastTransactionSummary07,Does.Contain("卖价 1").And.Not.Contain("卖价 2"),"The summary uses the capped session price.");
             Click("Controller_"+bought.instanceId);
-            Assert.That(InformationText07("FundBody"),Does.Contain("基础卖价 1（本店买入，离店前不超过买价）").And.Contain("= 当前卖价 1。"));
+            Assert.That(HasActive("FundBody"),Is.False,"The temporary cap must not appear as the permanent base price.");
             // V1.1 (W14, SHOP_LAYOUT 8, UI_REWRITES V05.cs:172): the cap is said where the price is (v1.1 W09: "当前卖价 1。").
             Assert.That(InformationText07("PriceBody"),Does.StartWith("卖价 1（本店买入，不超过买价 1，离店后恢复）。"));
             Click("CloseDialog");
             Click("LeaveShop");yield return WaitForIdle();
             Assert.That(app.Session.State.phase,Is.EqualTo("StagePreview"));
             Click("Controller_"+bought.instanceId);
-            Assert.That(InformationText07("FundBody"),Does.Contain("基础卖价 2（标价的一半）").And.Contain("= 当前卖价 2。"),"After the shop the ordinary price applies again.");
+            Assert.That(InformationText07("FundBody"),Is.EqualTo("卖价 2 = 基础 2 + 成长 0 + 聚宝盆 0（卖出时才得到）"),"After the shop the ordinary price applies again.");
             Click("CloseDialog");
         }
     }

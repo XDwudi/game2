@@ -21,7 +21,7 @@ THEME = Path("DicePrototype/Assets/Resources/Themes/deco")
 REVIEW = Path("ArtSource/Art11/deco/contact_sheet.png")
 CONTRACT = json.loads((ROOT / "tools/art_v11/theme_contract.json").read_text(encoding="utf-8"))
 # Built after the contract was regenerated on 2026-11-18: only the referenced sprites ship (W14 decision 4).
-SPRITES = [sprite for sprite in CONTRACT["sprites"] if sprite["referenced"]]
+SPRITES = [sprite for sprite in CONTRACT["sprites"] if (sprite["referenced"]) and not sprite.get("optionalOverride")]
 BY_NAME = {sprite["name"]: sprite for sprite in SPRITES}
 
 # Written from the game's callers, independently of the generator: pieces the code multiplies by palette colours

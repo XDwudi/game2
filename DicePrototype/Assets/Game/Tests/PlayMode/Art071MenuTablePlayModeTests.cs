@@ -67,7 +67,7 @@ namespace DiceCraft.Tests
         public IEnumerator PLAY_ART071_MenuTableRealMenuRoutesPreserveCancelAndContinueCheckpoint()
         {
             MenuTableActualViewport071(); yield return ExtraBegin07();
-            Assert.That(Button("ContinueRun").IsInteractable(), Is.False);
+            Assert.That(HasActive("ContinueRun"), Is.False);
             Assert.That(File.Exists(app.SaveLocation), Is.False);
             yield return ExtraCapture07("table-menu-empty", "S01", "Actual empty menu before navigation; no run has been created.");
             foreach (string entry in new[] { "NewRun", "MenuHandbook", "BuildVersion", "Quit" })
@@ -79,7 +79,18 @@ namespace DiceCraft.Tests
                     yield return MenuTablePress071("RandomSeed");
                     Assert.That(FindActive<TMP_InputField>("SeedInput").text, Is.Not.Empty);
                 }
-                if (entry == "BuildVersion") Assert.That(FindActive<TextMeshProUGUI>("BuildIdentity").text, Does.Contain(GameApp.ArtVersion).And.Contain(app.Config.configVersion));
+                if (entry == "BuildVersion")
+                {
+                    Assert.That(InformationText07("BuildIdentity"), Does.Contain("游戏版本").And.Contain(app.Config.configVersion));
+                    string originalClipboard=GUIUtility.systemCopyBuffer;
+                    try
+                    {
+                        yield return MenuTablePress071("CopyBuildIdentity16");
+                        Assert.That(InformationButton07("CopyBuildIdentity16"), Is.EqualTo("已复制"));
+                        Assert.That(GUIUtility.systemCopyBuffer, Does.Contain(GameApp.ArtVersion).And.Contain("配置 SHA-256").And.Contain("黄金样例 SHA-256"));
+                    }
+                    finally { GUIUtility.systemCopyBuffer=originalClipboard; }
+                }
                 if (entry == "Quit") Assert.That(Button("ConfirmQuit").IsInteractable(), Is.True); // Never terminate the test host.
                 yield return MenuTablePress071("CloseDialog");
             }
@@ -89,10 +100,10 @@ namespace DiceCraft.Tests
             string state = ExtraStateHash07(), save = ExtraFileHash07(app.SaveLocation); long sequence = app.Session.ActionSequence;
             yield return MenuTablePress071("Pause"); yield return MenuTablePress071("MainMenu");
             Assert.That(Button("ContinueRun").IsInteractable(), Is.True);
-            Assert.That(FindActive<TextMeshProUGUI>("SavedSeed").text, Does.Contain("20261110"));
-            yield return ExtraCapture07("table-menu-saved", "S01", "Actual ordinary checkpoint, enabled Continue and live saved seed.");
+            Assert.That(InformationText07("SavedSeed"), Is.EqualTo("第 1 关 · 0 金币"));
+            yield return ExtraCapture07("table-menu-saved", "S01", "Actual ordinary checkpoint, enabled Continue, current stage and gold.");
             yield return MenuTablePress071("NewRun");
-            Assert.That(FindActive<TextMeshProUGUI>("Overwrite").text, Does.Contain("20261110"));
+            Assert.That(InformationText07("Overwrite"), Is.EqualTo("当前存档（第 1 关 · 0 金币）会被覆盖。\n关闭此窗口则保留原进度。"));
             yield return MenuTablePress071("CloseDialog"); yield return MenuTablePress071("ContinueRun");
             Assert.That(Button("StartStage").IsInteractable(), Is.True);
             Assert.That(ExtraStateHash07(), Is.EqualTo(state)); Assert.That(ExtraFileHash07(app.SaveLocation), Is.EqualTo(save));
@@ -111,15 +122,16 @@ namespace DiceCraft.Tests
         private void MenuTableGlyphs071(string name)
         {
             var root = FindActive<RectTransform>("Screen"); var panel = FindActive<RectTransform>("MenuPanel");
-            var row = new MenuTableGlyphReport071 { scope = "Complete menu metadata and six action labels; visible glyph meshes, own rectangles, safe area and mutual overlap.",
+            var row = new MenuTableGlyphReport071 { scope = "Complete menu metadata and every visible action label; visible glyph meshes, own rectangles, safe area and mutual overlap.",
                 runtimeMvid = typeof(GameApp).Module.ModuleVersionId.ToString(), stateHash = ExtraStateHash07(), saveSha = ExtraFileHash07(app.SaveLocation),
                 width = Screen.width, height = Screen.height, fontPercent = Mathf.RoundToInt(UiKit.FontScale * 100) };
             var labels = new List<TextMeshProUGUI>();
             // v1.1 (W09, text proposal 1 #14): the menu no longer prints the version and build; they stay on the
             // "版本与构建" page. The label must not come back; every remaining label keeps the original glyph checks.
             Assert.That(HasActive("Version"), Is.False, "Version and build numbers belong only to the version page.");
-            foreach (string id in new[] { "Subtitle", "MenuRules", "LockHint", "MenuLabel", "SavedSeed" }) labels.Add(FindActive<TextMeshProUGUI>(id));
-            foreach (string id in MenuTableButtons071)
+            Assert.That(HasActive("LockHint"), Is.False);
+            foreach (string id in new[] { "Subtitle", "MenuRules", "MenuLabel", "SavedSeed" }) labels.Add(FindActive<TextMeshProUGUI>(id));
+            foreach (string id in MenuTableButtons071.Where(id=>id!="ContinueRun"||app.Session.State!=null))
             {
                 var button = Button(id); Rect bounds = ExtraBounds07((RectTransform)button.transform);
                 Assert.That(bounds.width, Is.GreaterThanOrEqualTo(39.99f), id);
@@ -129,6 +141,8 @@ namespace DiceCraft.Tests
             }
             foreach (var label in labels)
             {
+                if(label.name=="Subtitle"||label.name=="MenuRules")
+                    Assert.That(label.transform.parent.name,Is.EqualTo("MenuWordmark"));
                 var glyph = CardGlyphCheck07(root, label, label.text, root.rect.height);
                 row.labels.Add(glyph); row.errors.AddRange(glyph.errors.Select(e => label.name + ": " + e));
                 Rect physical = ExtraBounds07(label.rectTransform);
@@ -159,6 +173,12 @@ namespace DiceCraft.Tests
                 yield return ExtraCapture07(label, "S01", "Real viewport and UI-set font; actual menu paper/cards/three world dice.");
                 MenuTableGlyphs071(label);
                 Assert.That(app.canvas.GetComponentsInChildren<Image>(false).Count(i => i.name == "PrintedCardBack"), Is.EqualTo(2));
+                foreach(string face in new[]{"MenuCardBack1","MenuCardBack2"})
+                {
+                    var card=FindActive<RectTransform>(face);
+                    Assert.That(card.Find("RarityGem13").gameObject.activeInHierarchy,Is.True,face);
+                    Assert.That(card.GetComponentsInChildren<TextMeshProUGUI>().Any(label=>label.text=="控制器"),Is.False,face);
+                }
                 for (int i = 0; i < 3; i++) Assert.That(app.table.GetFaceOrientation("$menu" + i).gameObject.activeInHierarchy, Is.True);
             }
             yield return MenuTablePress071("NewRun");
@@ -176,7 +196,7 @@ namespace DiceCraft.Tests
             yield return MenuTablePress071("CloseDialog");
             Assert.That(ExtraStateHash07(), Is.EqualTo(before)); Assert.That(ExtraFileHash07(app.SaveLocation), Is.EqualTo(save));
             yield return MenuTablePress071("Pause"); yield return MenuTablePress071("MainMenu");
-            yield return ExtraCapture07("table-saved-menu-font150", "S01", "Two-line saved checkpoint and Continue at 150%.");
+            yield return ExtraCapture07("table-saved-menu-font150", "S01", "Saved stage and gold and Continue at 150%.");
             MenuTableGlyphs071("table-saved-menu-font150");
             Assert.That(Screen.width, Is.EqualTo(width)); Assert.That(Screen.height, Is.EqualTo(height)); ExtraFinish07();
         }

@@ -31,10 +31,12 @@ namespace DiceCraft.Tests
 
                 Click("Pause");Click("Settings");Click("SettingsTab1");
                 Assert.That(Button("Theme").GetComponentInChildren<TextMeshProUGUI>().text,Does.StartWith("默认"));
-                Click("Theme");
-                Assert.That(app.ThemeId11,Is.EqualTo(swiss.Id),"The first theme after the default is the Swiss theme (order 1).");
+                Click("Theme");Click("ThemeTile16_swiss");
+                Assert.That(app.ThemeId11,Is.EqualTo(swiss.Id),"The clicked Swiss preview must apply immediately.");
                 Assert.That(PlayerPrefs.GetString(ThemeRegistry.PreferenceKey),Is.EqualTo(swiss.Id));
-                Assert.That(Button("Theme").GetComponentInChildren<TextMeshProUGUI>().text,Does.StartWith(swiss.DisplayName));
+                Assert.That(InformationButton07("ThemeTile16_swiss"),Is.EqualTo("✓ "+swiss.DisplayName));
+                Click("ThemeDone16");
+                Assert.That(InformationButton07("Theme"),Does.StartWith(swiss.DisplayName));
                 Assert.That(UiKit.Panel,Is.EqualTo(swiss.Palette.panel));
                 Click("SettingsDone");yield return null;
                 Assert.That(Button("Pause").transform.Find("Face").GetComponent<UnityEngine.UI.Image>().color,Is.EqualTo(swiss.Palette.paper),"The page behind the settings was redrawn with the new palette.");
@@ -44,6 +46,10 @@ namespace DiceCraft.Tests
                 app.ApplyTheme11(GameTheme.DefaultId);
                 Assert.That(Button("Pause").transform.Find("Face").GetComponent<UnityEngine.UI.Image>().color,Is.EqualTo(standard.paper));
                 Assert.That(StateJson(),Is.EqualTo(state));
+                yield return LoadBootstrap();
+                Assert.That(app.ThemeId11,Is.EqualTo(swiss.Id),"A fresh Bootstrap restores the saved appearance.");
+                Assert.That(StateJson(),Is.EqualTo(state));
+                CollectionAssert.AreEqual(disk,File.ReadAllBytes(app.SaveLocation));
             }
             finally
             {
@@ -63,7 +69,11 @@ namespace DiceCraft.Tests
                 foreach(var theme in ThemeRegistry.Selectable(ThemeRegistry.ShowPreviewThemes))
                     Assert.That(theme.Preview,Is.False,theme.Id+" is unfinished and must not be offered to players.");
                 Assert.That(ThemeRegistry.Selectable(false),Has.Some.Matches<GameTheme>(t=>t.IsDefault));
-                yield return null;
+                Click("MenuSettings");Click("SettingsTab1");Click("Theme");
+                Assert.That(HasActive("ThemeTile16_default"),Is.True);
+                foreach(var theme in ThemeRegistry.All)
+                    Assert.That(HasActive("ThemeTile16_"+theme.Id),Is.EqualTo(!theme.Preview),theme.Id);
+                Click("CloseDialog");yield return null;
             }
             finally{if(hadPreview)PlayerPrefs.SetInt(ThemeRegistry.PreviewKey,oldPreview);else PlayerPrefs.DeleteKey(ThemeRegistry.PreviewKey);}
         }

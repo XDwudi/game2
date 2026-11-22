@@ -117,14 +117,14 @@ namespace DiceCraft
             if(IsBusy||Session.HasPendingSave||offer.sold)return;
             // V1.1 W14 (SHOP_LAYOUT 7): a face upgrade or 删除骰子 of the shelf is chosen on the table; a gift group's face
             // upgrade keeps the dice sheet until W15.
-            if(string.IsNullOrEmpty(offer.groupId)&&(offer.category=="die_upgrade"||offer.contentId=="O04")){BeginFacePick14(offer);return;}
+            if(offer.category=="die_upgrade"||offer.contentId=="O04"){BeginFacePick14(offer);return;}
             if(offer.category=="die_upgrade"||offer.contentId=="O04"||Session.PurchaseError(offer.offerId)!=null)
             {InspectOffer(offer);return;}
             Send(new SessionCommand{kind=CommandKind.Buy,offerId=offer.offerId});
         }
-        private RectTransform Art07Modal(string title,float x,float y,float width,float height)
+        private RectTransform Art07Modal(string title,float x,float y,float width,float height,string id=null)
         {
-            var p=OpenModal(title);UiKit.Clear(p);
+            var p=OpenModal(title,false,id);UiKit.Clear(p);
             p.anchoredPosition=new Vector2(x,-y);p.sizeDelta=new Vector2(width,height);
             UiKit.Outline(p,"Frame",0,0,width,height,UiKit.Paper,3);
             UiKit.Role(UiKit.Text(p,"DialogTitle",title,24,8,width-128,80,32,UiKit.Paper),TextRole.ScreenTitle);
@@ -133,15 +133,15 @@ namespace DiceCraft
         }
         // v1.1 (G3): the replacement dialog (Art07Replacement) was removed with the replacement rule; an owned card's
         // offer opens the ordinary offer details, which say how many copies you will hold.
-        private void Art07AttachTooltip(UnityEngine.UI.Button button,string owner,string title,string description,string state,Action detail,string more="点击卡片查看完整说明")
+        private void Art07AttachTooltip(UnityEngine.UI.Button button,string owner,string title,string description,string state,Action detail,string more="点击卡片查看完整说明",bool inDialog=false)
         {
             var hover=UiKit.Component<Art07HoverTip>(button.gameObject);
             hover.show=()=>
             {
-                if(modal||IsControllerDragging||IsBusy)return;
+                if((modal && (!inDialog || !button.transform.IsChildOf(overlay))) || IsControllerDragging || IsBusy)return;
                 var corners=new Vector3[4];((RectTransform)button.transform).GetWorldCorners(corners);
                 Vector2 position=ScreenToDesign(RectTransformUtility.WorldToScreenPoint(null,corners[3]));
-                bool besidePool=!Compact07&&UiKit.FontScale<=1&&ViewState.phase=="Selecting"&&ViewState.dice.Count<=5&&
+                bool besidePool=!inDialog&&!Compact07&&UiKit.FontScale<=1&&ViewState.phase=="Selecting"&&ViewState.dice.Count<=5&&
                     ViewState.dice.Count-ViewState.hand.orderedLockedIds.Count<=3;
                 float x=besidePool?1476:Mathf.Clamp(position.x+12,24,1476),y=besidePool?456:Mathf.Clamp(position.y+10,24,666);
                 art07TooltipOwner=owner;art07Tooltip=UiKit.Frame(overlay,"ContentTooltip",x,y,420,besidePool?286:390,UiKit.Paper,UiKit.Ink);

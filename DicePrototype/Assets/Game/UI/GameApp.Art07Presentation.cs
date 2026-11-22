@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using DiceCraft.Core;
 using DiceCraft.Presentation;
@@ -102,7 +103,7 @@ namespace DiceCraft
         public bool ReplayLastPresentation07()
         {
             if(receipt07==null||IsBusy||Session.HasPendingSave)return false;
-            presentationBefore07=lastPresentationBefore07;Session.Busy=true;notice="记录 · 只读回放";ResetReceiptEffects07();controllerSourceCache=null;
+            presentationBefore07=lastPresentationBefore07;Session.Busy=true;notice="正在重播上一手";ResetReceiptEffects07();controllerSourceCache=null;
             var options=CreatePresentationOptions07(receipt07.FallbackReason!=null);
             bool played=presentationPlayer07.Play(PresentationSequence.Create(receipt07,options),true);Refresh();return played;
         }
@@ -112,20 +113,38 @@ namespace DiceCraft
         public PresentationQuality CurrentPresentationQuality07=>presentationPlayer07.Sequence?.Options.Quality??CreatePresentationOptions07().Quality;
         public bool HasCommittedPresentationDetails07(string handId)=>receipt07!=null&&receipt07.HandId==handId;
         // v1.1 (W09): target dice are named ("骰子 3"), never shown by their ids.
-        public string[] CommittedPresentationDetails07=>receipt07==null?Array.Empty<string>():receipt07.Events.Select(e=>EventText07(e)+PermanentFaceDetails07(e)+(e.SourceEmitterIds.Count>0?" · 来源 "+string.Join("、",e.SourceEmitterIds.Select(SourceName07)):"")+(e.TargetDieIds.Count>0?" · 目标 "+string.Join("、",e.TargetDieIds.Select(DieName11)):"")).Concat(new[]{BudgetGrantSummary07(lastPresentationBefore07,lastPresentationAfter07)}.Where(x=>!string.IsNullOrEmpty(x))).ToArray();
+        public string[] CommittedPresentationDetails07=>receipt07==null?Array.Empty<string>():receipt07.Events.Select(e=>EventText07(e)+PermanentFaceDetails07(e)+(e.SourceEmitterIds.Count>0?" · 来源："+string.Join("、",e.SourceEmitterIds.Select(SourceName07)):"")+(e.TargetDieIds.Count>0?" · 骰子："+string.Join("、",e.TargetDieIds.Select(DieName11)):"")).Concat(new[]{BudgetGrantSummary07(lastPresentationBefore07,lastPresentationAfter07)}.Where(x=>!string.IsNullOrEmpty(x))).ToArray();
         private static string PermanentFaceDetails07(PresentationEvent e)
         {
+            if(e.EffectFamily=="FaceDyed"||e.EffectFamily=="FaceValueChanged")
+                return e.TargetFaceIds.Count==1 ? " · "+FaceName11(e.TargetFaceIds[0]) : "";
             if(e.EffectFamily!="DieCopied"&&e.EffectFamily!="DieDyed")return "";
-            var before=(e.BeforeValue??"").Split(';');var after=(e.AfterValue??"").Split(';');
-            if(before.Length!=6||after.Length!=6)return "";
-            Func<string,string> face=s=>{var fields=s.Split(':');return fields.Length==3?fields[1]+"点"+ColorText07(fields[2]):s;};
-            return " · "+string.Join("；",Enumerable.Range(0,6).Select(i=>"面"+(i+1)+" "+face(before[i])+"→"+face(after[i])));
+            Dictionary<string,string> Faces(string value)
+            {
+                var byId=new Dictionary<string,string>(StringComparer.Ordinal);
+                foreach(string entry in (value??"").Split(';'))
+                {
+                    var fields=entry.Split(':');
+                    if(fields.Length!=3 || !byId.TryAdd(fields[0],fields[1]+" 点"+ColorText07(fields[2])))return null;
+                }
+                return byId;
+            }
+            var before=Faces(e.BeforeValue);var after=Faces(e.AfterValue);
+            if(before?.Count!=6 || after?.Count!=6)return "";
+            var lines=new string[6];
+            for(int i=0;i<lines.Length;i++)
+            {
+                string id="F0"+(i+1);
+                if(!before.TryGetValue(id,out string oldFace) || !after.TryGetValue(id,out string newFace))return "";
+                lines[i]=FaceName11(id)+" "+oldFace+" → "+newFace;
+            }
+            return " · "+string.Join("；",lines);
         }
         public string FrozenPresentationAfterHash07=>lastPresentationAfter07==null?null:GameSession.StateHash(lastPresentationAfter07);
         public void ShowCommittedPresentationDetails07()
         {
             if(receipt07==null)return;
-            var p=OpenModal("已提交表现记录 · 只读");var rows=CommittedPresentationDetails07;
+            var p=OpenModal("本手计分记录");var rows=CommittedPresentationDetails07;
             var list=UiKit.Scroll(p,"CommittedPresentationRows07",32,106,1536,630,630);float y=0;
             for(int i=0;i<rows.Length;i++){var row=UiKit.Text(list,"Event"+i,(i+1)+". "+rows[i],8,y,1488,86,22,UiKit.Paper);row.textWrappingMode=TextWrappingModes.Normal;y+=FitHeight(row,86)+6;}
             list.sizeDelta=new Vector2(list.sizeDelta.x,Math.Max(630,y));
@@ -181,10 +200,10 @@ namespace DiceCraft
             string name;
             switch(e.EffectFamily)
             {
-                case "committed":return "结果已保存";
-                case "die_pips":name="有效点数";break;
-                case "contribution":case "controller_die":case "controller_base":case "controller":name=e.AbilityId==null?"控制器":NameOf(e.AbilityId);break;
-                case "retrigger":name=(e.AbilityId==null?"控制器":NameOf(e.AbilityId))+" 再计";break;
+                case "committed":return "提交";
+                case "die_pips":name="点数";break;
+                case "contribution":case "controller_die":case "controller_base":case "controller":name=e.AbilityId==null?"卡牌":NameOf(e.AbilityId);break;
+                case "retrigger":name=(e.AbilityId==null?"卡牌":NameOf(e.AbilityId))+" 再计一次";break;
                 // p1.0.0 boss, item and face-growth events
                 case "sealed":return "首领减益 · 这颗骰子被封印";
                 case "boss_hand":name="首领减益 · 牌型";break;case "boss":name="首领减益";break;case "item":name="灵光一闪";break;
@@ -195,29 +214,32 @@ namespace DiceCraft
                 // v0.9 growth and economy events
                 case "ControllerGrown":return e.AbilityId=="C141"?"昙花一现 倍率 −0.5":(e.AbilityId==null?"成长":NameOf(e.AbilityId))+" "+GrowthValue09(e.AbilityId,ParseLong09(e.BeforeValue))+" → "+GrowthValue09(e.AbilityId,ParseLong09(e.AfterValue));
                 case "ControllerGrowthReset":return (e.AbilityId==null?"成长":NameOf(e.AbilityId))+" 回到 "+GrowthValue09(e.AbilityId,ParseLong09(e.AfterValue));
-                case "ControllerSacrificed":return "祭坛吞下右侧控制器 → "+GrowthValue09("C100",ParseLong09(e.AfterValue));
+                case "ControllerSacrificed":return "祭坛吞下右边的卡牌 → "+GrowthValue09("C100",ParseLong09(e.AfterValue));
                 case "WarIncome":return "以战养战 +"+e.AfterValue+" 金币";
-                case "SaleBonusGrown":return "聚宝盆：控制器卖价 +"+e.AfterValue;
-                case "ControllerSlotAdded":return "普通栏位 "+e.BeforeValue+" → "+e.AfterValue;
-                case "glass":name="玻璃贡献";break;case "gold":name="黄金贡献";break;
-                case "unused_rolls":name="剩掷奖励";break;case "hand":name="牌型";break;case "color":name="颜色";break;case "red_group":name="红组";break;
-                case "enchantment_base":name="附魔基础";break;case "enchantment_multiplier":name="附魔倍率";break;
-                case "effective_pip":name="本次有效点数";break;case "effective_color":name="本次有效颜色";break;
-                case "red_group_key":return "红色1点按红色4点分组";case "red_group_merge":return "所有有效红骰合为一组";case "short_straight":return "简化顺子成立";
-                case "random_reveal":return "已提交随机结果 "+PlayerNumberFormat.Times(e.AfterValue);
+                case "SaleBonusGrown":return "聚宝盆：卡牌卖价 +"+e.AfterValue;
+                case "ControllerSlotAdded":return "卡牌栏位 "+e.BeforeValue+" → "+e.AfterValue;
+                case "glass":name="玻璃";break;case "gold":name="黄金面";break;
+                case "unused_rolls":name="剩余掷骰";break;case "hand":name="牌型";break;case "color":name="颜色";break;case "red_group":name="红组";break;
+                case "enchantment_base":name="附魔";break;case "enchantment_multiplier":name="附魔";break;
+                case "effective_pip":name="点数算作";break;case "effective_color":name="颜色算作";break;
+                case "red_group_key":return "红色1点按红色4点分组";case "red_group_merge":return "所有红骰算作一组";case "short_straight":return "简化顺子成立";
+                case "random_reveal":return "错乱乘积 "+PlayerNumberFormat.Times(e.AfterValue);
                 case "final_score":return "本手得分 "+CompactScore(e.AfterValue);
-                case "SubmissionIncome":return "提交收入 +"+e.AfterValue+" 金币";
-                case "stage_income":return "关末收入 +"+e.Operand+" 金币";
-                case "FundAccrued":return "基金累计 "+e.BeforeValue+" → "+e.AfterValue+"（卖价）";
-                case "ActiveColorChanged":return "下手匹配色："+(e.BeforeValue==e.AfterValue?"仍为":"")+(e.AfterValue=="red"?"红":"蓝");
-                case "DieCopied":return "复制完成 · 六个永久骰面"+(e.BeforeValue==e.AfterValue?"相同":"已更新");
-                case "DieDyed":case "FaceDyed":return "永久染色："+(e.BeforeValue==e.AfterValue?"未变化 · ":"")+(e.AfterValue=="red"?"红":e.AfterValue=="blue"?"蓝":"六面状态");
-                case "FaceValueChanged":return "永久点数 "+e.BeforeValue+" → "+e.AfterValue+(e.BeforeValue==e.AfterValue?"（实际变化0）":"");
+                case "SubmissionIncome":return "提交得 +"+e.AfterValue+" 金币";
+                case "stage_income":return "本关结算 +"+e.Operand+" 金币";
+                case "FundAccrued":return "成长基金卖价 +"+(ParseLong09(e.AfterValue)-ParseLong09(e.BeforeValue));
+                case "ActiveColorChanged":return "下一手加成色："+(e.AfterValue=="red"?"红":"蓝")+(e.BeforeValue==e.AfterValue?"（不变）":"");
+                case "DieCopied":return "骰子复制完成";
+                case "DieDyed":case "FaceDyed":return e.AfterValue=="red"||e.AfterValue=="blue"
+                    ?"骰面染"+ColorText07(e.AfterValue)+(e.BeforeValue==e.AfterValue?"（本来就是"+ColorText07(e.AfterValue)+"）":
+                        e.BeforeValue=="red"||e.BeforeValue=="blue"?"（"+ColorText07(e.BeforeValue)+" → "+ColorText07(e.AfterValue)+"）":"")
+                    :"骰面染色";
+                case "FaceValueChanged":return "骰面点数 "+e.BeforeValue+" → "+e.AfterValue;
                 case "HandGrown":return "牌型等级 "+e.BeforeValue+" → "+e.AfterValue;
-                case "ControllerDestroyed":return "控制器已消耗；附魔随实例移除";
-                case "DieBroken":return "玻璃骰已破碎；提交容量保持";
+                case "ControllerDestroyed":return "玻璃大炮自毁（附魔一起消失）";
+                case "DieBroken":return "玻璃骰碎了";
                 case "TemporaryDieExpired":return "本关临时骰已到期";
-                case "hand_roll_bonus":return "新手附魔剩掷 +"+e.Operand+" · 本手投掷预算 "+e.AfterValue;
+                case "hand_roll_bonus":return "附魔：掷骰 +"+e.Operand+" · 本手可掷 "+e.AfterValue;
                 case "qualified":return "本关目标已达成";
                 case "run_result":return e.AfterValue=="RunWon"?"24关完成":"本次挑战结束";
                 default:return "状态已更新";
@@ -245,8 +267,8 @@ namespace DiceCraft
         {
             if(receipt07==null)return;
             bool thin=h<110;
-            string[] phases={"接收提交","骰子贡献","基础 / 牌型 / 颜色 / 红组","控制器与附魔","本手得分","计分后变化","目标状态"};
-            UiKit.Text(p,"Phase",(presentationPlayer07.IsReplay?"记录 · ":"")+phases[(int)(beat07?.Phase??PresentationPhase.Receipt)],20,12,w-650,42,Compact07?18:24,UiKit.Paper);
+            string[] phases={"提交中…","骰子点数","基础分与倍率","卡牌","本手得分","计分后效果","本关进度"};
+            UiKit.Text(p,"Phase",(presentationPlayer07.IsReplay?"重播 · ":"")+phases[(int)(beat07?.Phase??PresentationPhase.Receipt)],20,12,w-650,42,Compact07?18:24,UiKit.Paper);
             bool final=beat07!=null&&beat07.Phase>=PresentationPhase.FinalScore;
             var well=ScoreWell072(p);
             receiptNumber07=UiKit.Text(p,"FinalScore",final?CompactScore(receipt07.ScoreDecimal):"计算中",w-660,10,630,68,Compact07?28:48,UiKit.Gold,TextAlignmentOptions.MidlineRight);
@@ -258,7 +280,7 @@ namespace DiceCraft
             // v1.1 (W09): a decimal total multiplier; "连锁 N" is now "生效 N 张" (DEV_PLAN 4.1 item 4).
             string multiplier="总倍率 "+ReceiptMultiplier07();
             string chain=receipt07.ChainCount==0?"":"  ·  生效 "+receipt07.ChainCount+" 张";
-            string details=beat07==null?"结果已保存":beat07.Phase==PresentationPhase.PostScore?PostSummary07(beat07):string.Join("  ·  ",beat07.Events.Take(3).Select(EventText07));
+            string details=beat07==null?"提交":beat07.Phase==PresentationPhase.PostScore?PostSummary07(beat07):string.Join("  ·  ",beat07.Events.Take(3).Select(EventText07));
             if(beat07!=null&&!final){var sources=beat07.Events.Where(e=>e.IsScoring).SelectMany(e=>e.SourceEmitterIds).Distinct().ToArray();if(sources.Length>0)details+=" · 来源 "+string.Join("、",sources.Select(SourceName07));}
             if(beat07?.Phase==PresentationPhase.TargetState)details=BudgetGrantSummary07(lastPresentationBefore07,lastPresentationAfter07);
             string text=final&&beat07?.Phase!=PresentationPhase.PostScore?multiplier+chain+(string.IsNullOrEmpty(details)?"":" · "+(beat07?.Phase==PresentationPhase.TargetState?details:"")):details;

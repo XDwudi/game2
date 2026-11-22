@@ -72,7 +72,7 @@ namespace DiceCraft.Tests
                     Assert.That(result.canonicalState,Is.EqualTo(expected),"Worker DTO must exactly match the main-thread production Load result.");
                     Assert.That(result.incompatibleSchema,Is.Zero);Assert.That(result.legacyFiles,Is.Empty);
                     if(i==0)Assert.That(result.notice,Is.Null.Or.Empty);
-                    else Assert.That(result.notice,Is.EqualTo("活动存档不可读，已恢复上一份有效备份。"));
+                    else Assert.That(result.notice,Is.EqualTo("存档文件损坏，已改用自动备份（可能回到稍早的进度）。"));
                 }
                 else
                 {

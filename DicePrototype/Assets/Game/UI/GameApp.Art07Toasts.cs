@@ -11,7 +11,7 @@ namespace DiceCraft
     {
         private sealed class Toast07
         {
-            public string text;public bool error;public float visibleSeconds;public CanvasGroup view;
+            public string text,detail;public bool error;public float visibleSeconds;public CanvasGroup view;
         }
         private readonly List<Toast07> toasts07=new List<Toast07>();
         private readonly List<KeyValuePair<CanvasGroup,float>> toastAvoidedLabels07=new List<KeyValuePair<CanvasGroup,float>>();
@@ -26,14 +26,17 @@ namespace DiceCraft
             noticeText07=text??"";
             if(string.IsNullOrEmpty(noticeText07)){toasts07.Clear();HideNotices07();toastDirty07=false;return;}
             // Keep the original text for existing save-error copy/detail handlers.
-            string shown=noticeText07;
-            if(shown=="独立练习：目标50分，固定4红、4红、2蓝、3蓝、6蓝。不会改变正式挑战存档。")
-                shown="目标50分：4红4红2蓝3蓝6蓝\n独立固定骰练习，不改正式存档";
-            var duplicate=toasts07.FirstOrDefault(t=>t.text==shown&&t.error==error);
+            string detail=error&&InternalNotice16(noticeText07)?noticeText07:null;
+            string shown=detail==null?noticeText07:"操作没有完成（内部错误）。点“详情”可复制错误信息。";
+            var duplicate=toasts07.FirstOrDefault(t=>t.text==shown&&t.detail==detail&&t.error==error);
             if(duplicate!=null)duplicate.visibleSeconds=0;
-            else toasts07.Add(new Toast07{text=shown,error=error});
+            else toasts07.Add(new Toast07{text=shown,detail=detail,error=error});
             toastDirty07=true;
         }
+        private static readonly string[] InternalReasons16={"操作序号已过期","缺少命令 ID","未知命令","数值超过可保存范围","输入不合法：","数据格式无效：","数据校验失败：","存档写入失败："};
+        private static bool InternalNotice16(string message)
+            =>InternalReasons16.Any(prefix=>message.StartsWith(prefix,StringComparison.Ordinal));
+
         private string NoticeContext07()=>string.Join("/",inMenu,modal,debugPanel,IsBusy,Session?.HasPendingSave??false,
             guideInline07,main!=null&&main.Find("FirstRunGuide") is Transform guide&&guide.gameObject.activeSelf,!string.IsNullOrEmpty(boundaryTip07),draggedDie07!=null,IsControllerDragging,Screen.width,Screen.height,textScale07,
             ViewState?.phase??"menu",ViewState?.actionSequence??0,toastApplicationPaused07);
@@ -70,16 +73,16 @@ namespace DiceCraft
             foreach(var item in available)
             {
                 measure.rectTransform.sizeDelta=new Vector2(456,2000);measure.text=item.text;measure.ForceMeshUpdate();
-                bool details=measure.textInfo.lineCount>2;
+                bool details=item.detail!=null||measure.textInfo.lineCount>2;
                 float buttonHeight=Mathf.Max(60,40/Mathf.Max(.1f,canvas.scaleFactor));
                 float buttonWidth=Mathf.Max(92,40/Mathf.Max(.1f,canvas.scaleFactor));
                 float textWidth=details?444-buttonWidth:456;
-                string shown=details?ToastSummary07(measure,item.text,textWidth,2):item.text;
+                string shown=details&&item.detail==null?ToastSummary07(measure,item.text,textWidth,2):item.text;
                 float padding=details?8:10;
                 float height=Mathf.Ceil(measure.GetPreferredValues(shown,textWidth,float.PositiveInfinity).y+padding*2);
                 if(details)height=Mathf.Max(height,buttonHeight);
                 bool previewFallback;Rect? selected=FindToastSpace07(height,blockers,occupied,drawn,out previewFallback);
-                if(!selected.HasValue)
+                if(!selected.HasValue&&item.detail==null)
                 {
                     // A busy full table can fit a single-line summary beside the same
                     // explicit details target. Lack of whitespace never opens a modal.
@@ -98,7 +101,7 @@ namespace DiceCraft
                     var open=UiKit.ActionButton(panel,drawn==0?"ToastDetails07":"ToastDetailsSecond07","详情",480-buttonWidth-12,(height-buttonHeight)*.5f,buttonWidth,buttonHeight,()=>
                     {
                         toasts07.Remove(selectedItem);toastDirty07=true;
-                        ShowNoticeDetails07(selectedItem.text,selectedItem.error);
+                        ShowNoticeDetails07(selectedItem.detail??selectedItem.text,selectedItem.error,selectedItem.detail!=null);
                     },UiKit.Paper);
                     var label=open.GetComponentInChildren<TextMeshProUGUI>();label.fontSize=20*UiKit.FontScale;label.textWrappingMode=TextWrappingModes.NoWrap;
                     // Keep keyboard focus inside this compact target, including
@@ -163,12 +166,14 @@ namespace DiceCraft
             }
             if(changed){if(toasts07.Count==0)noticeText07="";DrawToasts07();}
         }
-        private void ShowNoticeDetails07(string text,bool error)
+        private void ShowNoticeDetails07(string text,bool error,bool copyError=false)
         {
             if(Session?.HasPendingSave==true)return;
             HideNotices07();var p=Art07Modal(error?"操作未完成 · 完整说明":"完整提示",480,180,960,720);
-            var list=UiKit.Scroll(p,"NoticeDetails",24,104,912,568,568);float y=0;
-            Art07DetailSection(list,"NoticeDetail",error?"原因":"说明",text,ref y,880);list.sizeDelta=new Vector2(list.sizeDelta.x,Math.Max(568,y+16));
+            float height=copyError?480:568;
+            var list=UiKit.Scroll(p,"NoticeDetails",24,104,912,height,height);float y=0;
+            ModalSection16(list,p,"NoticeDetail",error?"原因":"说明",text,ref y,880);list.sizeDelta=new Vector2(list.sizeDelta.x,Mathf.Max(height,y+16));
+            if(copyError)UiKit.Button(p,"CopyInternalError16","复制错误详情",24,616,912,60,()=>GUIUtility.systemCopyBuffer=text);
         }
         private IEnumerable<Vector2> ToastCandidates07(float height)
         {

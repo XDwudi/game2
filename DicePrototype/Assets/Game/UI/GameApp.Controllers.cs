@@ -39,7 +39,7 @@ namespace DiceCraft
             foreach(var pair in ControllerRules.AltarPlan(ViewState.controllers))victims.Add(pair.Value);
             return victims;
         }
-        private string ControllerStateLabel(ControllerInstance c)
+        private string ControllerStateLabel(ControllerInstance c,bool detail=false)
         {
             var source=ViewSources.FirstOrDefault(s=>s.emitterId==c.instanceId);
             string text=AltarVictims09().Contains(c.instanceId)?"下一关开始时被左侧的祭坛摧毁（可拖动调序避开）":DisabledNow10(c.instanceId)?"本关被首领减益封住，没有任何效果":DisabledNext10(c.instanceId)?"首领关开始后将失效（可拖动调序）":"";
@@ -48,16 +48,27 @@ namespace DiceCraft
                 var target=(ViewBindings??ControllerRules.FreezeBindings(ViewState.controllers)).FirstOrDefault(b=>b.sourceInstanceId==c.instanceId)?.targetInstanceId;
                 // v1.1 (W09): the copied card is named (by its position when needed), never shown by instance id.
                 var neighbor=ViewState.controllers.FirstOrDefault(x=>x.instanceId==target);
-                text=source?.abilityId!=null?"→ "+NameOf(source.abilityId):
-                    !string.IsNullOrEmpty(target)&&ViewState.stage.destroyedControllerIds.Contains(target)?"目标已损坏 · 复制失效":
-                    !string.IsNullOrEmpty(target)?"右邻"+(neighbor==null?"":" "+CardLabel11(target))+" · 无可解析能力":"无右邻 · 复制失效";
+                string copy;
+                if(source?.abilityId!=null)
+                {
+                    bool chain=source.stateOwnerId!=target;
+                    copy=detail && chain && neighbor!=null
+                        ?"右边："+CardPosition11(ViewState.controllers,target)+" "+NameOf(neighbor.definitionId)
+                            +"\n实际复制："+CardPosition11(ViewState.controllers,source.stateOwnerId)+" "+NameOf(source.abilityId)
+                        :detail?"复制：右边的"+NameOf(source.abilityId):"复制："+NameOf(source.abilityId);
+                    if(detail && (source.abilityId=="C45" || source.abilityId=="C51" || GrowthText09(source.abilityId,source.state)!=null))
+                        copy+="\n成长与状态来自："+CardPosition11(ViewState.controllers,source.stateOwnerId);
+                }
+                else copy=string.IsNullOrEmpty(target)?"右边没有卡":
+                    ViewState.stage?.destroyedControllerIds?.Contains(target)==true?"复制对象已损坏":"右边的卡不能复制";
+                text=string.IsNullOrEmpty(text)?copy:text+" · "+copy;
             }
             if(source?.abilityId=="C45")text+=(text.Length>0?" · ":"")+(source.state.activeColor=="red"?"当前红":"当前蓝");
             if(source?.abilityId=="C51")text+=(text.Length>0?" · ":"")+PlayerNumberFormat.Times(source.state.turnoverUnits2,2);
             string growth=GrowthText09(source?.abilityId,source?.state);
             if(growth!=null)text+=(text.Length>0?" · ":"")+"当前 "+growth;
             if(c.state!=null&&c.state.saleBonus>0&&c.definitionId!="C52"&&c.definitionId!="C41")text+=(text.Length>0?" · ":"")+"售价 "+OwnedSalePrice10(c);
-            if(source?.abilityId=="C05")text+=(text.Length>0?" · ":"")+(ViewState.hand?.c05UsedEmitterIds.Contains(c.instanceId)==true?"本手已用":"本手未用");
+            if(source?.abilityId=="C05")text+=(text.Length>0?" · ":"")+(ViewState.hand?.c05UsedEmitterIds.Contains(c.instanceId)==true?"本手已用":"本手可用");
             if(source?.abilityId=="C43")text+=(text.Length>0?" · ":"")+"上次 "+NameOf(ViewState.previousPrimaryHandId);
             if(c.definitionId=="C52"||c.definitionId=="C41")text+=(text.Length>0?" · ":"")+"售价 "+OwnedSalePrice10(c);
             return text;
@@ -105,7 +116,7 @@ namespace DiceCraft
                 var corners=new Vector3[4];r.GetWorldCorners(corners);var screen=RectTransformUtility.WorldToScreenPoint(null,after?corners[2]:corners[1]);var pos=ScreenToDesign(screen);
                 insertionLine=UiKit.Box(overlay,"ControllerInsertion",pos.x-3,pos.y,6,r.rect.height*canvas.scaleFactor/canvas.scaleFactor,UiKit.Teal,false);break;
             }
-            string preview="区域外 · 松手取消，不改变排列。";
+            string preview="松手取消";
             if(controllerInsertion>=0)
             {
                 var candidate=ViewState.controllers.Select(c=>c.Clone()).ToList();int from=candidate.FindIndex(c=>c.instanceId==draggedController);var moved=candidate[from];candidate.RemoveAt(from);
@@ -115,7 +126,7 @@ namespace DiceCraft
                 var mimics=sources.Where(s=>s.emitterDefinitionId=="C41").Take(4).Select(s=>CardPosition11(candidate,s.emitterId)+" "+NameOf("C41")+" → "+(s.abilityId==null?"无能力":NameOf(s.abilityId)+"（"+(CardPosition11(candidate,s.stateOwnerId)??"—")+"）"));
                 // p1.0.0: outside the debug workspace the core quotes the capacity for the new order (boss modifier, disabled cards and altars included).
                 int k=ViewState.debugCapacityOverride>0?ViewState.debugCapacityOverride:ViewState.debugWorkspace?ControllerRules.Capacity(candidate,Config,ViewState.isDebug):Session.CapacityForOrder(candidate.Select(c=>c.instanceId).ToList());
-                preview="允许插入 · 栏位 "+ControllerRules.OrdinaryUsed(candidate)+(IsDebugWorkspace?"（调试）":IsPracticeRun11?"":" / "+ViewState.controllerSlots)+" · 提交栏 "+Session.EffectiveCapacity+" → "+k+" 格\n"+string.Join("\n",mimics);
+                preview="放在这里 · 栏位 "+ControllerRules.OrdinaryUsed(candidate)+(IsDebugWorkspace?"（调试）":IsPracticeRun11?"":" / "+ViewState.controllerSlots)+" · 提交栏 "+Session.EffectiveCapacity+" → "+k+" 格\n"+string.Join("\n",mimics);
             }
             UiKit.Text(dragGhost,"Candidate",preview,12,52,596,150,20,UiKit.Teal);
         }
@@ -139,8 +150,8 @@ namespace DiceCraft
         public void ShowControllerOrder()
         {
             controllerOrderPanel=true;controllerRects.Clear();
-            var p=OpenModal("控制器排列与状态");
-            UiKit.Text(p,"OrderHint",CanReorderControllers?"拖到卡片左/右侧插入；松到区域外或按 Esc 取消。右邻按列表顺序跨行延续。":"本关排列已冻结。商店和关卡开始前可调整。",40,94,1500,70,24,UiKit.Muted);
+            var p=OpenModal("卡牌顺序");
+            UiKit.Text(p,"OrderHint",CanReorderControllers?"拖到卡片左边或右边插入，按 Esc 取消。顺序从左到右、跨行连续。":"关卡中不能调整顺序（商店和关卡选择页可以）。",40,94,1500,70,24,UiKit.Muted);
             var list=UiKit.Scroll(p,"OrderList",40,180,1500,535,Math.Max(535,((ViewState.controllers.Count+2)/3)*175));
             for(int i=0;i<ViewState.controllers.Count;i++)
             {
@@ -150,8 +161,8 @@ namespace DiceCraft
                 UiKit.Button(list,"MoveLeft"+c.instanceId,"←",x,y+115,225,60,()=>MoveController(c.instanceId,-1),CanReorderControllers&&i>0);
                 UiKit.Button(list,"MoveRight"+c.instanceId,"→",x+245,y+115,225,60,()=>MoveController(c.instanceId,1),CanReorderControllers&&i<ViewState.controllers.Count-1);
             }
-            if(ViewState.controllers.Count==0)UiKit.Text(list,"EmptyControllers","当前没有控制器。",20,20,1400,80,28,UiKit.Muted);
+            if(ViewState.controllers.Count==0)UiKit.Text(list,"EmptyControllers","当前没有卡牌。",20,20,1400,80,28,UiKit.Muted);
         }
-        private void OnApplicationFocus(bool focused){if(!focused){CancelControllerDrag();CancelDieDrag07();if(IsBusy)SkipVisual();}}
+        private void OnApplicationFocus(bool focused){if(!focused){FinishLootReveal15();CancelControllerDrag();CancelDieDrag07();if(IsBusy)SkipVisual();}}
     }
 }

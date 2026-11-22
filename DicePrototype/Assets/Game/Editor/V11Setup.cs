@@ -31,7 +31,10 @@ namespace DiceCraft.Editor
             {"ui_dice_tray",new Vector4(72,72,72,72)},{"ui_topbar",new Vector4(40,40,40,40)},
             {"ui_chip_formula",new Vector4(40,40,40,40)},{"ui_stage_card",new Vector4(48,48,48,48)},
             {"ui_card_frame_rarity",new Vector4(40,40,40,40)},
-            {"ui_gem_common",Vector4.zero},{"ui_gem_advanced",Vector4.zero},{"ui_gem_rare",Vector4.zero}
+            {"ui_gem_common",Vector4.zero},{"ui_gem_advanced",Vector4.zero},{"ui_gem_rare",Vector4.zero},
+            {"ui_emblem_tier1",Vector4.zero},{"ui_emblem_tier2",Vector4.zero},
+            {"ui_emblem_tier3",Vector4.zero},{"ui_emblem_tier4",Vector4.zero},
+            {"ui_icon_stage",Vector4.zero},{"ui_icon_submit",Vector4.zero},{"ui_icon_interest",Vector4.zero}
         };
 
         public static void ConfigureImporter(string path,TextureImporter importer)
@@ -63,6 +66,13 @@ namespace DiceCraft.Editor
 
             var scene=EditorSceneManager.OpenScene("Assets/Game/Scenes/Bootstrap.unity");
             var app=Object.FindAnyObjectByType<GameApp>();if(app==null)throw new InvalidOperationException("Missing GameApp.");
+            var families=new[]{"cards","constraint","economy","final","multiplier","seal","target"};
+            app.defaultBossEmblems15=families.Select(family=>AssetDatabase.LoadAssetAtPath<Sprite>(
+                V22iArtSetup.DefaultEmblemsRoot+"/emblem_"+family+".png")).ToArray();
+            if(app.defaultBossEmblems15.Any(sprite=>sprite==null))
+                throw new InvalidOperationException("The default style must bind all seven W15 boss emblems.");
+            app.lootIllustrations15=Enumerable.Range(1,6).Select(n=>AssetDatabase.LoadAssetAtPath<Sprite>(
+                "Assets/Art/Art11/Loot/illustration_L"+n+".png")).ToArray();
             var existing=app.art07Templates.Where(s=>s!=null).ToList();
             var known=new HashSet<string>(existing.Select(s=>s.name),StringComparer.OrdinalIgnoreCase);
             int added=0;

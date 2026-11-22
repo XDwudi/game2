@@ -78,8 +78,8 @@ namespace DiceCraft.Tests
             Assert.That(straight.Cast<Transform>().Count(t=>t.gameObject.activeSelf&&t.name.StartsWith("Example")),Is.EqualTo(4),"Simplified straight must show four actual dice examples.");
             var eight=FindActive<Transform>("HandbookRow_eight_kind");
             Click("HandbookRow_eight_kind");
-            Assert.That(FindActive<TextMeshProUGUI>("HandbookSelection").text,Does.Contain("永久骰门槛"));
-            Assert.That(eight.GetComponentsInChildren<TextMeshProUGUI>().Single(t=>t.name=="Reachable").text,Is.EqualTo("数量受限"));
+            Assert.That(FindActive<TextMeshProUGUI>("HandbookSelection").text,Does.Contain("颗永久骰"));
+            Assert.That(eight.GetComponentsInChildren<TextMeshProUGUI>().Single(t=>t.name=="Reachable").text,Is.EqualTo("凑不出"));
             Click("CloseDialog");string before=StateJson();yield return LoadBootstrap();ResumeBoundaryFixture();Click("Handbook");
             Assert.That(StateJson(),Is.EqualTo(before));Assert.That(FindActive<Transform>("HandbookRow_pair").GetComponentsInChildren<TextMeshProUGUI>().Single(t=>t.name=="Level").text,Does.Contain("Lv.1 / 100"));
         }

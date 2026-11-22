@@ -42,9 +42,16 @@ namespace DiceCraft
             if(stampKey!=key){stampKey=key;stampPosition=seal.anchoredPosition;stampElapsed=playing?0:.36f;}
             EvaluateStamp();
         }
+        private GameObject skip15;
+        public void ShowWhilePlaying15(GameObject button)
+        {
+            skip15 = button;
+            if (skip15 != null) skip15.SetActive(playing);
+        }
         public void Complete()
         {
             playing=false;elapsed=duration;stampElapsed=.36f;
+            if(skip15!=null)skip15.SetActive(false);
             if(rows!=null)foreach(var g in rows)if(g!=null)g.alpha=1;
             if(stamp!=null){stamp.localScale=Vector3.one;stamp.anchoredPosition=stampPosition;}
         }

@@ -24,7 +24,7 @@ namespace DiceCraft
         {
             if(!StartupReady07)return;
             tutorial=false;inMenu=false;
-            notice=RecoveredPresentationResultVisible07?"已恢复上一手结果。":"已恢复最近一次成功操作。";
+            notice="已读取存档，继续上次的进度。";
             Refresh();
             var veil=UiKit.Box(main,"ContinueVeil07",0,0,1920,1080,UiKit.Background).GetComponent<UnityEngine.UI.Image>();
             veil.raycastTarget=false;veil.transform.SetAsLastSibling();

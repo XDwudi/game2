@@ -40,10 +40,10 @@ namespace DiceCraft
         {
             // Keep the real felt visible. No modal curtain, fake percentage or enabled rule action.
             UiKit.Clear(main);table.Hide();
-            UiKit.Text(main,"StartupOverline07","DICE  /  BUILD  /  DECIDE",120,102,880,50,24,UiKit.Gold);
-            UiKit.Text(main,"StartupTitle07","骰子构筑",112,170,1120,224,96,UiKit.Paper);
-            startupHint07=UiKit.Text(main,"StartupReadHint07","正在读取存档…",1180,900,620,64,22,UiKit.Muted,TextAlignmentOptions.MidlineRight);
-            startupHint07.gameObject.SetActive(StartupLoadingHintEverShown07);
+            DrawMenuWordmark16(false);
+            var paper=UiKit.PaperFrame(main,"StartupHintPaper16",1216,904,616,100,UiKit.Paper);
+            startupHint07=UiKit.Text(paper,"StartupReadHint07","正在读取存档…",24,12,568,76,22,LabelOn11(paper,PaperMuted071),TextAlignmentOptions.Center);
+            paper.gameObject.SetActive(StartupLoadingHintEverShown07);
         }
         private void TickStartupLoad07()
         {
@@ -60,7 +60,7 @@ namespace DiceCraft
                     Session=new GameSession(Config,saves,loaded.State);notice=saves.LastLoadNotice??"";
                     if(!string.IsNullOrEmpty(notice)){issue=notice;backup=loaded.State!=null;}
                 }
-                catch(Exception error){Session=new GameSession(Config,saves);notice="恢复失败，原存档保留："+error.Message;issue=notice;}
+                catch(Exception error){Session=new GameSession(Config,saves);notice=error.Message;issue=notice;}
                 RestoreResultView07();ApplyArtPreferences07();InitializeGuide07();
                 StartupReady07=true;Refresh();
                 if(issue!=null)ShowLoadIssue07(issue,backup);
@@ -70,7 +70,7 @@ namespace DiceCraft
             {
                 if(!StartupLoadingHintEverShown07)StartupHintFirstMilliseconds07=startupLoad07.ElapsedMilliseconds;
                 StartupLoadingHintEverShown07=true;
-                if(startupHint07!=null)startupHint07.gameObject.SetActive(true);
+                if(startupHint07!=null)startupHint07.transform.parent.gameObject.SetActive(true);
             }
         }
         private void AbandonStartupLoad07()=>startupLoad07?.Abandon();

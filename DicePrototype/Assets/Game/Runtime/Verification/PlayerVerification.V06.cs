@@ -334,7 +334,7 @@ namespace DiceCraft.Verification
             if(current.hasRolled)Require(ActiveControl<RectTransform>("Face_"+current.currentFaceId).Find("CurrentFace").gameObject.activeInHierarchy,"Current physical top face has no white outline.");
             yield return PressTargetReady("Face_F05");
             Require(ActiveControl<RectTransform>("Face_F05").Find("SelectedH0").gameObject.activeInHierarchy,"Selected face has no distinct gold corner marker.");
-            if(!ActiveControl<Button>("ProbabilityGroups").GetComponentInChildren<TextMeshProUGUI>().text.StartsWith("按物理面",StringComparison.Ordinal))yield return PressTargetReady("ProbabilityGroups");
+            if(!ActiveControl<Button>("ProbabilityGroups").GetComponentInChildren<TextMeshProUGUI>().text.StartsWith("按点数合并显示",StringComparison.Ordinal))yield return PressTargetReady("ProbabilityGroups");
             int[] probability=app.Session.ProbabilityUnits(dieId);
             for(int i=0;i<die.faces.Length;i++)
             {
@@ -738,7 +738,7 @@ namespace DiceCraft.Verification
             Require(ControllerRules.ResolveSources(app.Session.State.controllers, app.Session.State.stage.mimicBindings).All(s => s.abilityId == null), "Destroyed terminal owner rebound in a long mimic chain.");
             string firstLabel = ActiveControl<Button>("OrderCardITEM_00001").GetComponentInChildren<TextMeshProUGUI>().text;
             string lastLabel = ActiveControl<Button>("OrderCardITEM_00014").GetComponentInChildren<TextMeshProUGUI>().text;
-            Require(firstLabel.Contains("无可解析能力") && lastLabel.Contains("目标已损坏"), "Long-chain invalid/destroyed hints are missing from actual cards.");
+            Require(firstLabel.Contains("右边的卡不能复制") && lastLabel.Contains("复制对象已损坏"), "Long-chain invalid/destroyed hints are missing from actual cards.");
             yield return Capture("v06-mimic-chain-invalid-first"); yield return WheelToControl("OrderCardITEM_00014");
             yield return Capture("v06-mimic-chain-destroyed-last");
             V06Check("long-mimic-chain-destroyed-owner-ui", "14 C41 frozen chain; actual rendered first/last labels; dedicated debug fixture", new Dictionary<string, object> { ["firstLabel"] = firstLabel, ["lastLabel"] = lastLabel });

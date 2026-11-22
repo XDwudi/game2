@@ -25,8 +25,8 @@ namespace DiceCraft.Tests
                 if(app.Session.State.phase=="StageSettlement")Click("SettlementContinue");
                 Assert.That(app.Session.State.phase,Is.EqualTo("RunWon"));
                 var reveal=FindActive<Art07ScreenReveal>("Screen");reveal.AutomaticTick=false;
-                var names=new[]{"EndTotalScore","EndDuration","EndMaximumScore","EndMaximumMultiplier","EndBuild","EndStats"};
-                var rows=names.Select(FindActive<TextMeshProUGUI>).ToArray();
+                var names=new[]{"EndTotalScore","EndMaximumScore","EndMaximumMultiplier","EndDuration","EndBuild","EndStats"};
+                var rows=names.Select(FindActive<RectTransform>).ToArray();
                 string state=StateJson();var disk=File.ReadAllBytes(app.SaveLocation);
                 Assert.That(reveal.Elapsed,Is.Zero);Assert.That(reveal.Duration,Is.EqualTo(1.2f).Within(.001f));
                 Assert.That(rows.All(r=>r.GetComponent<CanvasGroup>().alpha==0),Is.True);
@@ -39,11 +39,11 @@ namespace DiceCraft.Tests
                     yield return app.StartCoroutine(CaptureEdge07("S18-row"+i+"-font"+font));
                 }
                 Assert.That(reveal.IsPlaying,Is.False);
-                Assert.That(rows[5].text,Does.Contain("种子").And.Contain("调试对局"));
+                Assert.That(rows[5].GetComponent<TextMeshProUGUI>().text,Does.Contain("种子").And.Contain("调试对局"));
                 var paper=FindActive<RectTransform>("RunResult");
-                foreach(var label in rows.Where(r=>r.name!="EndBuild"))AssertSettlementInk07(label,V06ScreenRect(paper));
+                foreach(var row in rows)foreach(var label in row.GetComponentsInChildren<TextMeshProUGUI>())AssertSettlementInk07(label,V06ScreenRect(paper));
                 for(int i=0;i<rows.Length;i++)for(int j=i+1;j<rows.Length;j++)
-                    Assert.That(V06ScreenRect(rows[i].rectTransform).Overlaps(V06ScreenRect(rows[j].rectTransform)),Is.False,names[i]+" vs "+names[j]);
+                    Assert.That(V06ScreenRect(rows[i]).Overlaps(V06ScreenRect(rows[j])),Is.False,names[i]+" vs "+names[j]);
                 app.Refresh();Assert.That(reveal.IsPlaying,Is.False);Assert.That(reveal.Elapsed,Is.EqualTo(reveal.Duration));
                 Assert.That(StateJson(),Is.EqualTo(state));CollectionAssert.AreEqual(disk,File.ReadAllBytes(app.SaveLocation));
                 reveal.AutomaticTick=true;

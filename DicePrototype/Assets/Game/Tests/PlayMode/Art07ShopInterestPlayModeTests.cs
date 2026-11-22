@@ -52,6 +52,7 @@ namespace DiceCraft.Tests
             long rate=1L+app.Config.Controller("C01").parameters.extraInterestPerTen;
             Assert.That(receipt.interest,Is.EqualTo(rate*(receipt.interestPrincipal/app.Config.interestDivisor)));
             File.WriteAllText(Path.Combine(extra07.output,"fresh-interest-settlement.json"),JsonUtility.ToJson(receipt,true));
+            if(app.SettlementRevealPlaying07)yield return ExtraPress07("SkipSettlementReveal07");
             yield return ExtraPress07("SettlementContinue",true);yield return InterestCheck07(1,"interest-new-shop-after-settlement");
             yield return ExtraPress07("Controller_"+pig.instanceId);yield return ExtraPress07("SellController");yield return ExtraPress07("ConfirmSale",true);
             yield return InterestCheck07(0,"interest-after-selling-pig");ExtraFinish07();

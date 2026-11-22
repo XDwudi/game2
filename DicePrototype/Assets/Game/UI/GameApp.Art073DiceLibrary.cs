@@ -65,8 +65,8 @@ namespace DiceCraft
             int facing=FacingOf073(sheetRotation073);if(facing==sheetFacingShown073)return;sheetFacingShown073=facing;
             var face=sheetDie073.faces.First(f=>DiceTable.FaceIndex(f.faceId)==facing);int at=Array.IndexOf(sheetDie073.faces,face);
             // v1.1 (W09, text proposal 3): one decimal, the precision of the probability table.
-            string chance=sheetUnits073!=null&&at>=0&&at<sheetUnits073.Length?"\n本面概率 "+PlayerNumberFormat.Percent(sheetUnits073[at],10000):"";
-            sheetFacing073.text="正对你的面 · 面 "+(facing+1)+"\n"+FaceSummary07(face)+(sheetDie073.isGlass?" · 玻璃骰":"")+chance;
+            string chance=sheetUnits073!=null&&at>=0&&at<sheetUnits073.Length?"\n掷出概率 "+PlayerNumberFormat.Percent(sheetUnits073[at],10000):"";
+            sheetFacing073.text="正对你的是第 "+(facing+1)+" 面\n"+FaceSummary07(face)+(sheetDie073.isGlass?" · 玻璃骰":"")+chance;
         }
         /// <summary>
         /// Six "face" buttons in place of the flat face net. A press turns the real die to that face and,
@@ -74,7 +74,7 @@ namespace DiceCraft
         /// </summary>
         private void DrawFaceChips073(Transform parent,DieInstance die,string currentFace,string selectedFace,Action<string> select,bool readOnly)
         {
-            UiKit.Text(parent,"FaceLegend",readOnly?"整骰目标 · 不需要选面":"按“面”让骰子转到该面 · 白点：当前朝上",848,112,600,40,18,UiKit.Muted);
+            UiKit.Text(parent,"FaceLegend",readOnly?"改造整颗骰子，不用选面":"点“面 N”把骰子转过来 · 白点＝本手朝上的面",848,112,600,40,18,UiKit.Muted);
             for(int i=0;i<6;i++)
             {
                 string id="F0"+(i+1);var face=die.faces.First(f=>f.faceId==id);bool chosen=id==selectedFace;
@@ -93,7 +93,7 @@ namespace DiceCraft
             UiKit.Inset(parent,"FacingInset073",848,240,600,150);
             sheetFacing073=UiKit.Text(parent,"FacingFace073","",868,250,560,130,22,UiKit.TextColor);sheetFacing073.lineSpacing=6;
             sheetFacingShown073=-2;UpdateSheetFacing073();
-            UiKit.Text(parent,"FacingHint073","物理对面：面 1 / 面 6 · 面 2 / 面 5 · 面 3 / 面 4",848,400,600,36,17,UiKit.Muted);
+            UiKit.Text(parent,"FacingHint073","相对的面：1 和 6、2 和 5、3 和 4",848,400,600,36,17,UiKit.Muted);
             UiKit.FlatButton(parent,"StyleLegend073","骰子样式说明",1248,432,200,60,ShowDiceStyleLegend073,!IsBusy);
         }
         /// <summary>Stage screen: opens the dice library on the first die. Sixth cell of the item grid.</summary>
@@ -110,7 +110,7 @@ namespace DiceCraft
             var label=button.transform.Find("Label").GetComponent<TextMeshProUGUI>();
             label.text="查看骰子";label.fontSize=15*UiKit.FontScale;label.textWrappingMode=TextWrappingModes.NoWrap;
             label.rectTransform.anchoredPosition=new Vector2(2,-(size-36));label.rectTransform.sizeDelta=new Vector2(size-4,26);
-            Art07AttachTooltip(button,"view-dice","查看骰子","查看现有每颗骰子的六个面。拖动骰子可以旋转。","不改变骰序、投掷结果或随机数",null);
+            Art07AttachTooltip(button,"view-dice","查看骰子","查看你每颗骰子的六个面。","",null);
         }
     }
 }

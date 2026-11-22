@@ -14,6 +14,7 @@ namespace DiceCraft
         private void OpenNewRunPanel07()
         {
             bool fresh=PrepareModalMotion07("new-run07");
+            ShowMenuTray17(false);
             int generation=++newRunPreviewGeneration07;
             modal=true;diceSheet07=true;UiKit.Clear(overlay);table.Hide();main.gameObject.SetActive(false);
             var p=UiKit.Rect(overlay,"Dialog",440,220,1040,640);
@@ -31,15 +32,15 @@ namespace DiceCraft
             UiKit.Outline(p,"PaperFrame",0,0,1040,640,UiKit.Ink,2);
             UiKit.Outline(p,"DiceTrayFrame",30,150,364,236,Color.Lerp(UiKit.Ink,UiKit.Paper,.5f),1);
             UiKit.Box(p,"DiceTrayRaycast",32,152,360,232,Color.clear,true);
-            var title=UiKit.Text(p,"DialogTitle","新建挑战",24,4,880,88,40,UiKit.Ink);title.fontStyle=FontStyles.Bold;UiKit.Role(title,TextRole.ScreenTitle);
+            var title=UiKit.Text(p,"DialogTitle","新的一局",24,4,880,88,40,UiKit.Ink);title.fontStyle=FontStyles.Bold;UiKit.Role(title,TextRole.ScreenTitle);
             ReceiptRule071(p,"HeadingRule",24,92,992);
             var close=UiKit.FlatButton(p,"CloseDialog","×",952,12,64,64,CloseModal);
             close.GetComponentInChildren<TextMeshProUGUI>().color=UiKit.Ink;
-            UiKit.Text(p,"InitialDiceLabel","初始五骰 · 未投掷",32,96,360,48,20,UiKit.Ink);
-            UiKit.Text(p,"StartRules",Config.totalRollsPerHand+" 次总投掷\n"+Config.submissionsPerStage+" 次提交\n"+Config.initialGold+" 金币",32,410,360,190,24,UiKit.Ink);
+            UiKit.Text(p,"InitialDiceLabel","初始 "+Config.initialDiceCount+" 颗骰子",32,96,360,48,20,UiKit.Ink);
+            UiKit.Text(p,"StartRules","每手最多掷 "+Config.totalRollsPerHand+" 次\n每关 "+Config.submissionsPerStage+" 次提交\n起始金币 "+Config.initialGold,32,410,360,190,24,UiKit.Ink);
             ReceiptRule071(p,"StartRulesRule",32,400,360);
-            var seedLabel=UiKit.Text(p,"SeedLabel","种子（留空自动生成）",464,100,544,56,20,UiKit.Ink);seedLabel.fontStyle=FontStyles.Bold;
-            seedField=UiKit.Input(p,"SeedInput","留空自动生成","",464,164,456,72);
+            var seedLabel=UiKit.Text(p,"SeedLabel","种子（可选）",464,100,544,56,20,UiKit.Ink);seedLabel.fontStyle=FontStyles.Bold;
+            seedField=UiKit.Input(p,"SeedInput","留空则随机","",464,164,456,72);
             var random=UiKit.Button(p,"RandomSeed","",936,164,72,72,()=>
             {
                 var bytes=new byte[4];using(var rng=System.Security.Cryptography.RandomNumberGenerator.Create())rng.GetBytes(bytes);
@@ -47,19 +48,20 @@ namespace DiceCraft
             });
             var icon=UiKit.Box(random.transform,"RandomIcon",20,18,32,32,UiKit.Ink).GetComponent<UnityEngine.UI.Image>();
             icon.sprite=UiKit.Template("ui_icon_refresh");icon.raycastTarget=false;
-            var details=UiKit.Scroll(p,"NewRunDetails",464,248,544,288,288);
+            UiKit.Text(p,"SeedHelp16","同一个种子会掷出同样的骰子和商店",464,244,544,40,20,LabelOn11(p.Find("PaperRight") as RectTransform,PaperMuted071));
+            var details=UiKit.Scroll(p,"NewRunDetails",464,292,544,244,244);
             FillNewRunDetails07(details,"");
-            UiKit.ActionButton(p,"StartNew",ViewState==null?"开始新局":"覆盖并开始新局",464,552,544,64,()=>
+            Primary16(p,"StartNew",ViewState==null?"开始":"放弃当前进度并开始",464,552,544,64,()=>
             {
                 string value=seedField.text;uint parsed;
                 if(!string.IsNullOrWhiteSpace(value)&&!GameRng.TryParseSeed(value,out parsed))
                 {
-                    FillNewRunDetails07(details,"请输入 0 到 4294967295 的十进制整数。输入已保留。");
+                    FillNewRunDetails07(details,SeedError16);
                     seedField.ActivateInputField();return;
                 }
                 if(Session?.HasPendingSave==true){SaveFailure();return;}
                 CloseModal();StartNew(value);
-            },UiKit.Blue);
+            });
             FadeModal07(p,fresh,.18f,.10f);
             var reveal=UiKit.Box(p,"InitialDiceReveal",32,152,360,232,UiKit.Felt).GetComponent<UnityEngine.UI.Image>();
             var revealGroup=UiKit.Component<CanvasGroup>(reveal.gameObject);
@@ -73,11 +75,12 @@ namespace DiceCraft
         {
             UiKit.Clear(content);float y=0;const float width=526;
             AddNewRunText07(content,"SeedError",error,ref y,width,UiKit.Danger);
-            string summary=ViewState==null?"24 关 · 8 章\n每次有效操作后自动保存。":
-                $"将替换：第 {ViewState.stage.stageIndex+1} 关 · {PlayerNumberFormat.Gold(ViewState.gold)} 金币\n种子 {ViewState.seed} · {(ViewState.debugWorkspace?"调试":"普通")}对局\n开始后替换存档；取消保留原进度。";
+            string rules=$"共 {Config.stages.Length} 关（{(Config.stages.Length+2)/3} 章）。进度会自动保存。";
+            string summary=ViewState==null?rules:
+                $"当前存档（第 {ViewState.stage.stageIndex+1} 关 · {PlayerNumberFormat.Gold(ViewState.gold)} 金币）会被覆盖。\n关闭此窗口则保留原进度。";
             AddNewRunText07(content,"Overwrite",summary,ref y,width,UiKit.Ink);
-            if(ViewState!=null)AddNewRunText07(content,"RulesSummary","24 关 · 8 章\n每次有效操作后自动保存。",ref y,width,UiKit.Ink);
-            content.sizeDelta=new Vector2(content.sizeDelta.x,Mathf.Max(288,y));
+            if(ViewState!=null)AddNewRunText07(content,"RulesSummary",rules,ref y,width,UiKit.Ink);
+            content.sizeDelta=new Vector2(content.sizeDelta.x,Mathf.Max(244,y));
             var scroll=content.GetComponentInParent<UnityEngine.UI.ScrollRect>();scroll.StopMovement();
             scroll.verticalNormalizedPosition=1;content.anchoredPosition=Vector2.zero;
         }

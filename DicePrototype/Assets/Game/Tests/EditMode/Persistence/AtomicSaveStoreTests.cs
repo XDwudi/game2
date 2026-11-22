@@ -84,7 +84,7 @@ namespace DiceCraft.Tests
         {
             var store=PrepareTwoVersions();byte[] backup=File.ReadAllBytes(path+".backup");SetVersion(path,config.saveSchemaVersion,"p0.9.0");
             var restored=store.Load();Assert.That(restored,Is.Not.Null,store.LastLoadNotice);Assert.That(restored.actionSequence,Is.EqualTo(first.actionSequence));
-            Assert.That(store.LastLoadNotice,Does.Contain("有效备份"),"restoring the backup of this version is reported as before");Assert.That(store.LastIncompatibleSave,Is.Null);
+            Assert.That(store.LastLoadNotice,Is.EqualTo("存档文件损坏，已改用自动备份（可能回到稍早的进度）。"),"report recovery of the current version's backup");Assert.That(store.LastIncompatibleSave,Is.Null);
             Assert.That(File.Exists(path),Is.False);CollectionAssert.AreEqual(backup,File.ReadAllBytes(path+".backup"),"a file of this version is never deleted");
         }
 
@@ -153,7 +153,7 @@ namespace DiceCraft.Tests
             File.WriteAllBytes(path,bytes);File.SetLastWriteTimeUtc(path,writeTime);
             // An independently constructed reader must reject the changed active file.
             var independent=new AtomicSaveStore(path,config);Assert.That(independent.Load().actionSequence,Is.EqualTo(first.actionSequence));
-            Assert.That(independent.LastLoadNotice,Does.Contain("\u6709\u6548\u5907\u4efd"));
+            Assert.That(independent.LastLoadNotice,Is.EqualTo("存档文件损坏，已改用自动备份（可能回到稍早的进度）。"));
             store.Save(third);AssertRecoveredWrite(store,backup,bytes);
         }
 
@@ -174,7 +174,7 @@ namespace DiceCraft.Tests
             using(var sha=SHA256.Create())envelope.sha256=BitConverter.ToString(sha.ComputeHash(Encoding.UTF8.GetBytes(envelope.payload))).Replace("-","").ToLowerInvariant();
             File.WriteAllText(path,JsonUtility.ToJson(envelope));
             var restored=store.Load();Assert.That(restored,Is.Not.Null,store.LastLoadNotice);
-            Assert.That(restored.actionSequence,Is.EqualTo(third.actionSequence));Assert.That(store.LastLoadNotice,Does.Contain("有效备份"));
+            Assert.That(restored.actionSequence,Is.EqualTo(third.actionSequence));Assert.That(store.LastLoadNotice,Is.EqualTo("存档文件损坏，已改用自动备份（可能回到稍早的进度）。"));
             Assert.DoesNotThrow(()=>new GameSession(config,new MemorySaveStore(),restored));
         }
 

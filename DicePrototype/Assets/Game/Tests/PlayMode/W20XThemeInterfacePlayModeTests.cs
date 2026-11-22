@@ -217,11 +217,12 @@ namespace DiceCraft.Tests
                 // ---- B. Tints as drawn at named points. Steps: on the run end, a secondary button and the primary 再开一局.
                 yield return IdentityEndStage20X(app.Config.stages.Length-1);Click("SettlementContinue");yield return WaitForIdle();
                 Assert.That(app.Session.State.phase,Is.EqualTo("RunWon"));yield return Expect("run end",false);
+                // W15 removes the legacy sidebar. Check the two physical bevel steps on the real menu instead.
+                Click("ReturnMenu");yield return WaitForIdle();
                 foreach(var set in new[]{probe}.Concat(realSets))
                 {
-                    // 设置 / 暂停 is a secondary UiKit.Button, 再开一局 a primary one (UiKit.ActionButton).
-                    const string secondary="Pause",primary="Again";
-                    yield return TintPass20X("run end",set,new[]
+                    string secondary="MenuSettings",primary=HasActive("ContinueRun")?"ContinueRun":"NewRun";
+                    yield return TintPass20X("menu button steps",set,new[]
                     {
                         new TintPoint20X{name=secondary+"/Step (buttonStep)",target=()=>StepOf20X(Button(secondary)),key=()=>UiKit.ButtonStep,local=()=>StepPoint20X(StepOf20X(Button(secondary))),mayBeInk=!ReferenceEquals(set,probe)},
                         new TintPoint20X{name=primary+"/Step (buttonStepPrimary)",target=()=>StepOf20X(Button(primary)),key=()=>UiKit.ButtonStepPrimary,local=()=>StepPoint20X(StepOf20X(Button(primary))),mayBeInk=!ReferenceEquals(set,probe)},

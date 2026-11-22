@@ -82,9 +82,9 @@ namespace DiceCraft.Tests
             Assert.That(CardText10("CycleCard0", "KindTag"), Is.EqualTo("普通")); Assert.That(CardText10("CycleCard1", "KindTag"), Is.EqualTo("高压")); Assert.That(CardText10("CycleCard2", "KindTag"), Is.EqualTo("首领"));
             Assert.That(CardText10("CycleCard0", "Cleared"), Does.Contain("已通过"));
             string options = string.Join(" | ", FindActive<Transform>("CycleCard1").GetComponentsInChildren<TextMeshProUGUI>(true).Where(t => t.name == "OptionInfo").Select(t => t.text));
-            Assert.That(options, Does.Contain("600").And.Contain("+5").And.Contain("900").And.Contain("+10"));
+            Assert.That(options, Does.Contain("目标 600").And.Contain("奖励 5 金币").And.Contain("目标 900").And.Contain("奖励 10 金币"));
             Assert.That(CardText10("CycleCard2", "ModifierName"), Is.EqualTo(app.Config.Modifier("B25").displayName));
-            Assert.That(CardText10("CycleCard2", "ModifierText"), Is.EqualTo(app.Config.Modifier("B25").description));
+            Assert.That(CardText10("CycleCard2", "ModifierText"), Is.EqualTo(app.Config.Modifier("B25").shortText));
             Assert.That(CardText10("CycleCard2", "Loot"), Does.Contain(app.Config.Loot("L1").displayName));
             Assert.That(CardText10("CycleCard2", "Goal"), Is.EqualTo("1,000").Or.EqualTo("1000"));
             Assert.That(FindActive<Transform>("CycleCard1").Find("CurrentCycleCard"), Is.Not.Null, "In the shop the panel highlights the next stage.");
@@ -146,30 +146,29 @@ namespace DiceCraft.Tests
             // C50 (+20) and C46 (x2) are disabled; two rolls are left unused (+3 each): (20 + 6) x 12 x 2 x 5.
             Assert.That(app.Session.State.lastSubmission.breakdown.score, Is.EqualTo("3120")); Assert.That(app.Session.State.stage.qualified, Is.True);
             var end = app.Send(new SessionCommand { kind = CommandKind.EndStage }); Assert.That(end.accepted, Is.True, end.error); yield return WaitForIdle();
-            Assert.That(Text10("SettlementLoot10"), Does.Contain(app.Config.Loot("L1").displayName).And.Contain("商店"));
+            Assert.That(Text10("LootName15"), Is.EqualTo(app.Config.Loot("L1").displayName));
+            Assert.That(Text10("LootShort15").Replace("\n",""),Is.EqualTo(app.Config.Loot("L1").shortText));
             Click("SettlementContinue"); yield return WaitForIdle();
             Assert.That(app.Session.State.phase, Is.EqualTo("Shop"));
             var loot = app.Session.State.shop.offers.Where(o => o.groupId == "LOOT").ToArray();
             Assert.That(loot.Count(o => o.category == "controller"), Is.EqualTo(3)); Assert.That(loot.Count(o => o.category == "gold"), Is.EqualTo(1));
-            Assert.That(FindActive<Transform>("ControllerShelf").GetComponentsInChildren<Transform>(true).Any(t => loot.Any(o => t.name == "Offer_" + o.offerId)), Is.False, "Loot never mixes into the shelf.");
-            // V1.1 (W14, SHOP_LAYOUT 3, DEV_PLAN 4.4 item 5): the entrance says how many items are left to take.
-            Assert.That(Button("ViewGifts").GetComponentInChildren<TextMeshProUGUI>().text, Is.EqualTo("首领战利品（还可领 1 件）")); Assert.That(HasActive("GiftsPending10"), Is.True);
-            Click("ViewGifts");
-            Assert.That(Text10("GiftTitle_LOOT"), Does.Contain(app.Config.Loot("L1").displayName).And.Contain("还可以领 1 件"));
-            foreach (var offer in loot) Assert.That(HasActive("Product_" + offer.offerId), Is.True, offer.category);
+            Assert.That(HasActive("ControllerShelf") || HasActive("ViewGifts"), Is.False);
+            Assert.That(Text10("LootName15"),Is.EqualTo(app.Config.Loot("L1").displayName));
+            Assert.That(Text10("LootStatus15"),Is.EqualTo("还可以领 1 件"));
+            foreach (var offer in loot.Where(o=>o.category!="gold")) Assert.That(HasActive("Offer_" + offer.offerId), Is.True, offer.category);
+            Assert.That(HasActive("LootCashOut15"),Is.True);
             var pick = loot.First(o => o.category == "controller"); int owned = app.Session.State.controllers.Count; long gold = app.Session.State.gold;
             Assert.That(Button("Buy_" + pick.offerId).GetComponentInChildren<TextMeshProUGUI>().text, Is.EqualTo("领取"));
             Click("Buy_" + pick.offerId); yield return WaitForIdle();
             Assert.That(app.Session.State.controllers.Count, Is.EqualTo(owned + 1)); Assert.That(app.Session.State.controllers.Last().definitionId, Is.EqualTo(pick.contentId));
             Assert.That(app.Session.State.gold, Is.EqualTo(gold), "Loot is free.");
             Assert.That(HasActive("GiftsPending10"), Is.False);
-            // V1.1 (W14, DEV_PLAN 4.4 item 5): once the loot is taken the entrance leaves the top bar; the dialog itself still
-            // shows the closed group, opened here directly.
-            Assert.That(HasActive("ViewGifts"), Is.False, "No loot entrance after the loot is taken (and no shop gifts here).");
-            typeof(GameApp).GetMethod("ShowGifts10", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).Invoke(app, null);
-            Assert.That(Text10("GiftTitle_LOOT"), Does.Contain("已领完"));
-            foreach (var rest in loot.Where(o => o.offerId != pick.offerId)) Assert.That(Button("Buy_" + rest.offerId).interactable, Is.False, "The rest of the group is void.");
-            Click("CloseDialog");
+            Assert.That(HasActive("ViewGifts"), Is.False);
+            Assert.That(Text10("LootStatus15"), Is.EqualTo("已领完"));
+            foreach (var rest in loot.Where(o => o.offerId != pick.offerId && o.category!="gold"))
+                Assert.That(HasActive("Buy_" + rest.offerId), Is.False, "Unselected rewards have no claim button.");
+            Click("LootEnterShop15");
+            Assert.That(HasActive("ControllerShelf"),Is.True);Assert.That(HasActive("ViewGifts"),Is.False);
         }
 
         [UnityTest]
@@ -181,7 +180,7 @@ namespace DiceCraft.Tests
             yield return LoadBoundaryFixture(session.State); ResumeBoundaryFixture(); yield return WaitForIdle();
             yield return PlayFiveRedFours10();
             var end = app.Send(new SessionCommand { kind = CommandKind.EndStage }); Assert.That(end.accepted, Is.True, end.error); yield return WaitForIdle();
-            Assert.That(HasActive("SettlementLoot10"), Is.False, "An ordinary stage has no loot.");
+            Assert.That(HasActive("LootPlaque15"), Is.False, "An ordinary stage has no loot.");
             Click("SettlementContinue"); yield return WaitForIdle();
             var gifts = app.Session.State.shop.offers.Where(o => o.groupId == "GIFT_C111").ToArray();
             Assert.That(gifts.Length, Is.EqualTo(3)); Assert.That(gifts.All(o => o.category == "consumable"), Is.True);
@@ -201,9 +200,10 @@ namespace DiceCraft.Tests
             yield return LoadBoundaryFixture(session.State); ResumeBoundaryFixture(); yield return WaitForIdle();
             Click("Handbook"); Click("HandbookRules09");
             Assert.That(Text10("Rule09Title1"), Is.EqualTo("成长值"), "The v0.9 rows stay first.");
-            Assert.That(Text10("Rule09Title8"), Is.EqualTo("三关一周期")); Assert.That(Text10("Rule09Body8"), Does.Contain("高压").And.Contain("首领"));
+            Assert.That(Text10("Rule09Title8"), Is.EqualTo("每章三关")); Assert.That(Text10("Rule09Body8"), Does.Contain("高压").And.Contain("首领"));
             Assert.That(Text10("Rule09Title10"), Is.EqualTo("封印"));
-            Assert.That(Text10("Rule09Title15"), Is.EqualTo("本章首领 · " + app.Config.Modifier("B07").displayName)); Assert.That(Text10("Rule09Body15"), Does.Contain(app.Config.Modifier("B07").description));
+            Assert.That(Text10("Rule09Title15"), Is.EqualTo("本章首领 · " + app.Config.Modifier("B07").displayName));
+            Assert.That(Text10("Rule09Body15"), Does.Contain(app.Config.Modifier("B07").shortText));
             Click("CloseDialog");
         }
     }

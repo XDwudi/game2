@@ -72,14 +72,17 @@ class PageSceneAuditTests(unittest.TestCase):
 
     def test_shipped_themes_audit_as_before(self):
         # Swiss and sancai ship no page_scene: their audits print exactly what they printed before the check existed.
+        fallbacks = "".join("  OPTIONAL DEFAULT " + s["name"] + "\n" for s in CONTRACT["sprites"]
+                            if s.get("optionalOverride"))
         for theme in ("swiss", "sancai"):
             for strict in (False, True):
                 with self.subTest(theme=theme, strict=strict):
                     self.assertEqual(audit(theme, strict),
-                                     (0, f"theme {theme}: 53 sprites shipped, 0 referenced defaults not overridden\nAUDIT_OK\n"))
+                                     (0, f"theme {theme}: 53 sprites shipped, 0 referenced defaults not overridden\n"
+                                      + fallbacks + "AUDIT_OK\n"))
         # The comic kit ships one (W20 round 3).
         self.assertEqual(audit("comic", True), (0, "theme comic: 53 sprites shipped, 0 referenced defaults not overridden\n"
-                                                   "  OPTIONAL Table/page_scene 1920x1080\nAUDIT_OK\n"))
+                                                   + fallbacks + "  OPTIONAL Table/page_scene 1920x1080\nAUDIT_OK\n"))
 
 
 if __name__ == "__main__":

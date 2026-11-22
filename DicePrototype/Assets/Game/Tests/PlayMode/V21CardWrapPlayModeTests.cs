@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using NUnit.Framework;
@@ -47,6 +48,16 @@ namespace DiceCraft.Tests
                         {
                             var gallery = app.ShowCardGallery13(page);
                             yield return null;
+                            if (page <= 4)
+                            {
+                                var output = Path.GetFullPath(Path.Combine(Application.dataPath, "..", "..", "artifacts", "cache",
+                                    "v11", "w21", "gallery", Screen.width + "x" + Screen.height, theme.Id));
+                                Directory.CreateDirectory(output);
+                                yield return new WaitForEndOfFrame();
+                                var shot = ScreenCapture.CaptureScreenshotAsTexture();
+                                try { File.WriteAllBytes(Path.Combine(output, $"page-{page}-{percent}.png"), shot.EncodeToPNG()); }
+                                finally { UnityEngine.Object.Destroy(shot); }
+                            }
                             var order = app.canvas.GetComponentsInChildren<UnityEngine.UI.Graphic>(false);
                             foreach (var label in gallery.GetComponentsInChildren<TextMeshProUGUI>(false)
                                          .Where(t => t.name == "ShortText11" && t.gameObject.activeInHierarchy))

@@ -28,10 +28,12 @@ TITLE_FRAGMENTS = """
 三个 六个 同款 点数和 第张 重掷 还能掷 回车 小键盘 空格 菜单键 锁定颗 最多锁 提交 下一关
 开始挑战 开始第关 进入商店 查看整局结果 再开一局 继续对局 返回对局 重试保存 应用 保留
 放弃当前进度并开始 结束本关 结算 达标后可结束
+错乱乘积 可能的结果 得分明细 逐步明细 本手计分记录 你的骰子 卡牌顺序 卖出
+选择要改造的面 选择一颗骰子 领取骰子 购买骰子 选颗骰池里的骰子
 """
 FALLBACK_SYMBOLS = "²·‹›←↑→↓≈≤≥◆◇●✓×−…"
 ROLE_CALL = re.compile(
-    r'(?:PrimaryButton11|Section14|TextRole\.|"DialogTitle"|"ShopTitle"|'
+    r'(?:PrimaryButton11|Section14|Art07Modal\(|OpenModal\(|OpenDiceSheet07\(|TextRole\.|"DialogTitle"|"ShopTitle"|'
     r'"StageLabel11"|"StageGoal11"|"StageCardTitle11"|"BossModifierName"|"EndTitle"|"Cleared")'
 )
 

@@ -114,7 +114,7 @@ namespace DiceCraft.Tests
                 yield return app.StartCoroutine(LoadingScreen07("fast-ready"));
                 byte[] corrupt=System.Text.Encoding.UTF8.GetBytes("{ corrupt active");File.WriteAllBytes(file,corrupt);File.WriteAllBytes(file+".backup",valid);
                 yield return LoadBootstrap();Assert.That(StateJson(),Is.EqualTo(state));Assert.That(HasActive("LoadIssueDetails07"),Is.True);
-                Assert.That(InformationText07("RecoveryStateBody"),Does.Contain("备份检查点"));
+                Assert.That(InformationText07("RecoveryStateBody"),Is.EqualTo("存档文件损坏，已改用上一份备份，可能回到稍早的进度。"));
                 CollectionAssert.AreEqual(corrupt,File.ReadAllBytes(file));CollectionAssert.AreEqual(valid,File.ReadAllBytes(file+".backup"));
                 yield return app.StartCoroutine(LoadingScreen07("backup-ready-notice"));
                 // v1.1 (DEV_PLAN 4.5, W03 + W09): an incompatible active save and backup are deleted at startup, with no
@@ -132,7 +132,8 @@ namespace DiceCraft.Tests
                 File.WriteAllBytes(file,valid);File.WriteAllBytes(file+".backup",valid);
                 GameApp.StartupReadBarrierForTests07=path=>throw new IOException("isolated-worker-read-failure");
                 yield return LoadBootstrap();Assert.That(app.Session.State,Is.Null);Assert.That(HasActive("LoadIssueDetails07"),Is.True);
-                Assert.That(InformationText07("RecoveryDetailBody"),Does.Contain("isolated-worker-read-failure"));
+                Assert.That(HasActive("RecoveryDetailBody"),Is.False);
+                Click("ToggleLoadIssue16");Assert.That(InformationText07("RecoveryDetailBody"),Does.Contain("isolated-worker-read-failure"));
                 CollectionAssert.AreEqual(valid,File.ReadAllBytes(file));CollectionAssert.AreEqual(valid,File.ReadAllBytes(file+".backup"));
                 yield return app.StartCoroutine(LoadingScreen07("worker-error-ready-notice"));
             }

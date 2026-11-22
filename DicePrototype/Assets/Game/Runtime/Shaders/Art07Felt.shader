@@ -1,7 +1,9 @@
 Shader "DiceCraft/Art07/Felt"
 {
     Properties { _BaseMap("Felt",2D)="white"{} _TableMap("Table composition",2D)="white"{} _UseTableMap("Use table composition",Float)=0 _BaseColor("Color",Color)=(.09,.243,.25,1) _Grain("Grain",Float)=1 _Scanlines("Scanlines",Float)=0 _MenuDriftPixels("Menu drift pixels",Float)=0 _MenuBreath("Menu light breath",Float)=0 _Sweep072("Slow light sweep (v0.72)",Float)=0 _Dim11("Boss stage dim (v1.1)",Float)=0 _Vignette11("Boss stage vignette (v1.1)",Float)=0
-        _ChapterShift18("Chapter colour change and surface mask",Vector)=(0,0,0,0) }
+        _ChapterMasks18("Four chapter material masks (linear RGBA)",2D)="white"{}
+        _ChapterShift18("Chapter colour change and surface mask",Vector)=(0,0,0,0)
+        _MenuTray17("Menu tray",2D)="black"{} _ShowMenuTray17("Draw menu tray",Float)=0 }
     SubShader
     {
         Tags { "RenderType"="Opaque" "RenderPipeline"="UniversalPipeline" }
@@ -17,9 +19,11 @@ Shader "DiceCraft/Art07/Felt"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
             TEXTURE2D(_BaseMap);SAMPLER(sampler_BaseMap);
             TEXTURE2D(_TableMap);SAMPLER(sampler_TableMap);
+            TEXTURE2D(_MenuTray17);SAMPLER(sampler_MenuTray17);
+            TEXTURE2D(_ChapterMasks18);SAMPLER(sampler_ChapterMasks18);
             CBUFFER_START(UnityPerMaterial)
             float4 _BaseMap_ST;float4 _TableMap_TexelSize;half4 _BaseColor;half _UseTableMap;half _Grain;half _Scanlines;half _MenuDriftPixels;half _MenuBreath;half _Sweep072;half _Dim11;half _Vignette11;
-            float4 _ChapterShift18;
+            float4 _ChapterShift18;half _ShowMenuTray17;
             CBUFFER_END
             struct V{float4 pos:SV_POSITION;float2 uv:TEXCOORD0;float3 world:TEXCOORD1;};
             V vert(float4 p:POSITION,float2 uv:TEXCOORD0){V v;v.world=TransformObjectToWorld(p.xyz);v.pos=TransformWorldToHClip(v.world);v.uv=TRANSFORM_TEX(uv,_BaseMap);return v;}
@@ -52,7 +56,23 @@ Shader "DiceCraft/Art07/Felt"
                         float inward=13-length(max(q,0))-min(max(q.x,q.y),0);
                         float mask=_ChapterShift18.w<1.5 ? smoothstep(0,12,inward)
                             : smoothstep(.12,.65,min(tabletop.r,min(tabletop.g,tabletop.b)));
+                        if(_ChapterShift18.w>=3)
+                        {
+                            // Shared native-resolution RGBA image selects only each style's surface material.
+                            half4 coverage=SAMPLE_TEXTURE2D(_ChapterMasks18,sampler_ChapterMasks18,saturate(tableUV));
+                            mask=_ChapterShift18.w<3.5?coverage.r:_ChapterShift18.w<4.5?coverage.g:_ChapterShift18.w<5.5?coverage.b:coverage.a;
+                        }
                         tabletop=saturate(tabletop+mask*_ChapterShift18.rgb);
+                    }
+                    if (_ShowMenuTray17 > .5)
+                    {
+                        // The approved design rect is (90,424,1060,552) in the 1920x1080 top-left map.
+                        float2 trayUV=(tableUV*float2(1920,1080)-float2(90,104))/float2(1060,552);
+                        if (all(trayUV>=0) && all(trayUV<=1))
+                        {
+                            half4 tray=SAMPLE_TEXTURE2D(_MenuTray17,sampler_MenuTray17,trayUV);
+                            tabletop=lerp(tabletop,tray.rgb,tray.a);
+                        }
                     }
                     color=lerp(_BaseColor.rgb*.24,tabletop,inside);
                     // Grain/reduced-motion preferences affect only optional microdetail,

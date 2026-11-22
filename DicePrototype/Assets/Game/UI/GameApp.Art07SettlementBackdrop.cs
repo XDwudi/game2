@@ -37,8 +37,7 @@ namespace DiceCraft
                 // Freeze the current layout, not an in-between pose beside already-final labels.
                 table.FinishLayoutTransitions();
                 AlignSettlementBackdrop07();
-                var excluded=new HashSet<string>(new[]{"Stats07","ScorePanel","Pause","Handbook","PreviousSubmission","DebugWorkspace","DebugMark","ActionReason"},StringComparer.Ordinal);
-                var roots=main.Cast<Transform>().OfType<RectTransform>().Where(r=>r.gameObject.activeInHierarchy&&!excluded.Contains(r.name)).ToArray();
+                var roots=FrozeRoots15(main);
                 var dice=ViewState.dice.Select(d=>table.GetFaceOrientation(d.dieId)).Where(t=>t!=null&&t.gameObject.activeInHierarchy);
                 settlementBackdrop07.Capture(roots,dice,table.transform);
             }
@@ -83,75 +82,84 @@ namespace DiceCraft
             settlementBackdrop07.Show();
         }
 
-        // Recovery has no previous render frame. Reconstruct only recorded data, visibly labelled.
-        // This staging hierarchy is captured and hidden synchronously before any EOF/input frame.
+        private static readonly HashSet<string> BackdropOmissions15=new HashSet<string>(StringComparer.Ordinal)
+        {
+            "Stats07","ScorePanel","Pause","Handbook","PreviousSubmission","DebugWorkspace","DebugMark",
+            "Roll","Confirm","Clear","Submit","EndStage","Skip","ActionReason","ActionReasonUnderlay",
+            "Settle11","Qualified","QualifiedContinueIncome","GoalGap11","GoalGapLabel11","GoalReward11"
+        };
+        private static RectTransform[] FrozeRoots15(RectTransform root)
+        {
+            return root.Cast<Transform>().OfType<RectTransform>().Where(r=>r.gameObject.activeInHierarchy&&
+                !BackdropOmissions15.Contains(r.name)&&!r.name.StartsWith("QualifiedReward",StringComparison.Ordinal)).ToArray();
+        }
+
+        // Rebuild the same W11 drawing hierarchy from detached saved faces and cards. The staging
+        // input components never see an event: only their immutable graphic and die meshes are kept.
         private void BuildSavedSettlementBackdrop07()
         {
-            var record=ViewState.lastSubmission;
-            var snapshot=record?.snapshot?.stageId==ViewState.stage.stageId?record.snapshot:null;
+            var original=ViewState;var actualMain=main;var oldSources=controllerSourceCache;
             var stage=UiKit.Rect(main,"SavedSettlementBoardStaging07",0,0,1920,1080);
             var group=UiKit.Component<CanvasGroup>(stage.gameObject);group.interactable=false;group.blocksRaycasts=false;
-            bool compact=Compact07;
-            var controllers=snapshot?.equippedControllers??ViewState.controllers.ToArray();
-            int count=controllers.Length,shown=Math.Min(count>10?9:10,count);
-            bool small=count>5||compact;
-            float x0=compact?360:368,y0=compact?18:24,cw=compact?234:small?208:160,ch=compact?117:small?104:224,gap=compact?12:24;
-            for(int i=0;i<Math.Max(4,shown);i++)
+            var snapshot=original.lastSubmission?.snapshot;
+            if(snapshot?.stageId!=original.stage.stageId||snapshot?.runId!=original.runId)snapshot=null;
+            var saved=original.Clone();var hand=saved.hand=new HandState();
+            hand.hasRolled=snapshot!=null;hand.rollsRemaining=snapshot?.rollsRemaining??0;
+            hand.handId=snapshot?.handId??"";hand.rollsUsed=snapshot?.rollsUsed??0;
+            if(snapshot!=null)
             {
-                float x=x0+i%5*(cw+gap),y=y0+(small?i/5*(ch+(compact?18:16)):0);
-                if(i>=shown){UiKit.Outline(stage,"SavedControllerEmpty"+i,x,y,cw,ch,UiKit.PanelLight);continue;}
-                var c=controllers[i];var card=UiKit.Button(stage,"SavedController"+i,"",x,y,cw,ch,()=>{},true);
-                card.targetGraphic.color=UiKit.Paper;UiKit.CardSurface(card,small);
-                // v1.1 (W09): the restored backdrop is only a picture of the table; its developer captions are gone.
-                if(!small)DrawControllerFullBody07(card.transform,c.definitionId,"",c.enchantmentId,i+1);
-                else
+                saved.controllers=snapshot.equippedControllers.Select(c=>c.Clone()).ToList();
+                saved.stage.capacity=snapshot.capacity;saved.stage.remainingSubmissions=snapshot.submissionsRemainingBefore;
+                var shown=new HashSet<string>((snapshot.poolDice??Array.Empty<PoolDie>()).Select(d=>d.dieId),StringComparer.Ordinal);
+                // Dice granted at stage end were never on this table. Unrolled surviving dice may be absent from poolDice.
+                var receipt=original.processedReceipts.LastOrDefault(q=>q.settlement?.settlementId==original.lastStageSettlement.settlementId);
+                foreach(var id in receipt?.effects.Where(e=>e.kind=="DieAdded").Select(e=>e.dieId)??Enumerable.Empty<string>())
+                    if(!shown.Contains(id))saved.dice.RemoveAll(d=>d.dieId==id);
+                foreach(var die in snapshot.dice??Array.Empty<SubmissionDie>())
                 {
-                    bool tall=ch>=112;float icon=tall?64:48,tx=tall?84:68;
-                    DrawControllerRarity07(card.transform,c.definitionId,true,cw,ch);EnchantBadge(card.transform,c.enchantmentId,cw-40,2,28);
-                    UiKit.Text(card.transform,"Ordinal",(i+1).ToString(),cw-76,2,28,30,12,UiKit.Ink,TextAlignmentOptions.Center);
-                    Icon(card.transform,c.definitionId,12,38,icon);
-                    var name=UiKit.Text(card.transform,"Name",NameOf(c.definitionId),tx,28,cw-tx-12,tall?42:36,tall?18:16,UiKit.Ink,TextAlignmentOptions.Center);
-                    name.textWrappingMode=TextWrappingModes.NoWrap;name.overflowMode=TextOverflowModes.Ellipsis;
-                    UiKit.Text(card.transform,"State","",tx,tall?68:58,cw-tx-12,tall?34:32,14,UiKit.Ink,TextAlignmentOptions.Center);
+                    var restored=saved.dice.FirstOrDefault(d=>d.dieId==die.dieId);
+                    if(restored==null){restored=new DieInstance{dieId=die.dieId};saved.dice.Add(restored);}
+                    restored.faces=die.permanentFacesCopy.Select(f=>f.Clone()).ToArray();restored.lifetime=die.lifetime;restored.isGlass=die.isGlass;
+                    var face=restored.faces.First(f=>f.faceId==die.faceId);face.baseColor=die.currentColor;
+                    hand.orderedLockedIds.Add(die.dieId);
+                    hand.currentResults.Add(new DieHandState{dieId=die.dieId,currentFaceId=die.faceId,currentColor=die.currentColor,currentPip=die.currentPip,isLocked=true,hasRolled=true});
+                }
+                foreach(var die in snapshot.poolDice??Array.Empty<PoolDie>())
+                {
+                    var restored=saved.dice.FirstOrDefault(d=>d.dieId==die.dieId);
+                    if(restored==null)continue;
+                    var face=restored.faces.FirstOrDefault(f=>f.faceId==die.faceId);if(face!=null)face.baseColor=die.currentColor;
+                    hand.currentResults.Add(new DieHandState{dieId=die.dieId,currentFaceId=die.faceId,currentColor=die.currentColor,currentPip=die.currentPip,hasRolled=true});
                 }
             }
-            if(count>10)UiKit.Text(stage,"SavedControllerOverflow","共 "+count+" 张",x0+4*(cw+gap),y0+ch+(compact?18:16),cw,ch,20,UiKit.Paper,TextAlignmentOptions.Center);
-            float poolX=compact?360:368,poolY=compact?408:472,poolW=compact?1542:1528;
-            UiKit.Text(stage,"SavedBoardCaption","骰池",poolX+8,poolY,1000,36,compact?18:22,UiKit.Muted);
-            var submitted=snapshot?.dice??Array.Empty<SubmissionDie>();
-            var submittedIds=new HashSet<string>(submitted.Select(d=>d.dieId),StringComparer.Ordinal);
-            var remaining=ViewState.dice.Where(d=>!submittedIds.Contains(d.dieId)).Take(10).ToArray();
-            var poses=new List<Transform>();
-            for(int i=0;i<remaining.Length;i++)
+            int oldPool=poolPage,oldSlot=slotPage;
+            try
             {
-                int row=i/5,rowCount=Math.Min(5,remaining.Length-row*5);float cell=280;
-                float start=poolX+(poolW-rowCount*cell)/2;
-                var center=new Vector2(start+i%5*cell+90,poolY+(compact?84:remaining.Length>5?68:132)+row*(compact?96:136));
-                string id="settlement-pool-"+i;
-                table.ShowStaticPreview07(id,remaining[i].Clone(),center,Quaternion.Euler(0,18,0),compact?.72f:remaining.Length>5?1.04f:1.18f);
-                poses.Add(table.GetFaceOrientation("$static-preview:"+id));
-                UiKit.Text(stage,"SavedPoolState"+i,"",center.x+(compact?52:72),center.y-16,100,40,compact?14:17,UiKit.Muted);
+                main=stage;ViewState=saved;controllerSourceCache=null;poolPage=slotPage=0;
+                DrawCards11();DrawStageCard11();DrawTray11();DrawResources11();DrawSubmit11();
+                // The saved frame has no score presentation. Put the slot numbers on tabs, keep the bare table free of captions.
+                for(int i=0;i<Math.Min(8,saved.stage.capacity);i++)
+                {
+                    var placeholder=stage.Find("EmptySlot"+i);if(placeholder!=null)placeholder.gameObject.SetActive(false);
+                    var number=stage.Find("SlotIndex"+i) as RectTransform;if(number==null)continue;
+                    var chip=Surface11(stage,"SavedSlotTab15_"+i,number.anchoredPosition.x-2,-number.anchoredPosition.y-1,28,28,"ui_chip_formula",UiKit.Panel);
+                    number.gameObject.SetActive(false);TabLabel11(chip,"Ordinal",(i+1).ToString(),16,LabelOn11(chip));
+                }
+                table.FinishLayoutTransitions();Canvas.ForceUpdateCanvases();
+                var poses=saved.dice.Select(d=>table.GetFaceOrientation(d.dieId)).Where(p=>p!=null&&p.gameObject.activeInHierarchy);
+                var aliases=new Dictionary<string,string>(StringComparer.Ordinal);int poolIndex=0;
+                foreach(var die in saved.dice.OrderBy(d=>d.createdSerial))
+                {
+                    int slot=hand.orderedLockedIds.IndexOf(die.dieId);
+                    aliases[die.dieId]=slot>=0?"$static-preview:settlement-locked-"+slot:"$static-preview:settlement-pool-"+poolIndex++;
+                }
+                settlementBackdrop07.Capture(FrozeRoots15(stage),poses,table.transform,aliases);
             }
-            int capacity=snapshot?.capacity??ViewState.stage.capacity,slots=Math.Min(8,capacity),columns=compact?4:Math.Max(1,slots);
-            float sy=compact?657:756,sw=compact?228:152,sh=compact?102:124,sg=compact?18:24;
-            float sx=poolX+(poolW-columns*(sw+sg)+sg)/2;
-            UiKit.Text(stage,"SavedSlotsTitle","提交栏 "+submitted.Length+" / "+capacity,poolX+16,sy,1000,36,compact?18:22,UiKit.Paper);
-            for(int i=0;i<slots;i++)
+            finally
             {
-                float x=sx+i%columns*(sw+sg),y=sy+36+i/columns*(sh+18);bool used=i<submitted.Length;
-                UiKit.Outline(stage,"SavedSlot"+i,x,y,sw,sh,used?UiKit.Gold:UiKit.PanelLight,3);
-                UiKit.Text(stage,"SavedSlotIndex"+i,(i+1).ToString("00"),x+(used?(compact?126:94):8),y+4,50,32,16,UiKit.Muted);
-                if(!used)continue;
-                var source=submitted[i];var die=new DieInstance{dieId=source.dieId,lifetime=source.lifetime,isGlass=source.isGlass,faces=source.permanentFacesCopy.Select(f=>f.Clone()).ToArray()};
-                // A detached display copy contains the physical face's recorded current overlay.
-                var face=die.faces.First(f=>f.faceId==source.faceId);face.permanentPip=source.currentPip;face.baseColor=source.currentColor;
-                string id="settlement-locked-"+i;var center=new Vector2(x+(compact?82:44),y+(compact?52:62));
-                var rotation=Quaternion.AngleAxis(18,Vector3.up)*Quaternion.FromToRotation(DiceTable.Normals[DiceTable.FaceIndex(source.faceId)],Vector3.up);
-                table.ShowStaticPreview07(id,die,center,rotation,compact?.65f:.82f);poses.Add(table.GetFaceOrientation("$static-preview:"+id));
+                ViewState=original;main=actualMain;controllerSourceCache=oldSources;poolPage=oldPool;slotPage=oldSlot;
+                stage.gameObject.SetActive(false);table.Hide();visibleDice.Clear();dieCenters.Clear();controllerRects.Clear();lockedSlotRects07.Clear();GripAt11.Clear();
             }
-            Canvas.ForceUpdateCanvases();
-            try{settlementBackdrop07.Capture(stage.Cast<Transform>().OfType<RectTransform>(),poses,table.transform);}
-            finally{stage.gameObject.SetActive(false);table.HidePreview();}
         }
     }
 }

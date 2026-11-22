@@ -24,7 +24,7 @@ namespace DiceCraft
         private UnityEngine.UI.Button HitArea073(Transform parent,string name,float x,float y,float w,float h,Action click)
         {
             var area=UiKit.Box(parent,name,x,y,w,h,Color.clear,true);
-            var button=UiKit.Component<UnityEngine.UI.Button>(area.gameObject);button.onClick.RemoveAllListeners();
+            var button=UiKit.Component<PageButton15>(area.gameObject);button.onClick.RemoveAllListeners();
             button.targetGraphic=area.GetComponent<Image>();button.transition=UnityEngine.UI.Selectable.Transition.None;
             button.interactable=true;button.enabled=true;button.onClick.AddListener(()=>click?.Invoke());return button;
         }

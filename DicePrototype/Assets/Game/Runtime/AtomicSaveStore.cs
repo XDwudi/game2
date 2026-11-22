@@ -109,7 +109,7 @@ namespace DiceCraft
                 current = true;
                 if (TryRead(candidate, out RunState state, out Exception error))
                 {
-                    if (candidate != SavePath) LastLoadNotice = "活动存档不可读，已恢复上一份有效备份。";
+                    if (candidate != SavePath) LastLoadNotice = "存档文件损坏，已改用自动备份（可能回到稍早的进度）。";
                     return state;
                 }
                 if (first == null) first = error;
@@ -164,11 +164,11 @@ namespace DiceCraft
                 var e=JsonUtility.FromJson<Envelope>(File.ReadAllText(path,Encoding.UTF8));
                 // v1.1: another version's file is never read; Load deletes it first and Save overwrites it.
                 if(DeclaresOtherVersion(e))throw new InvalidDataException("存档来自其他版本。");
-                if(e==null||e.schema!=config.saveSchemaVersion||e.config!=config.configVersion)throw new InvalidDataException("存档内容不完整");
-                if(string.IsNullOrEmpty(e.payload)||Hash(e.payload)!=e.sha256)throw new InvalidDataException("存档校验失败");
+                if(e==null||e.schema!=config.saveSchemaVersion||e.config!=config.configVersion)throw new InvalidDataException("存档文件已损坏");
+                if(string.IsNullOrEmpty(e.payload)||Hash(e.payload)!=e.sha256)throw new InvalidDataException("存档文件已损坏");
                 state=JsonUtility.FromJson<RunState>(e.payload);
                 if(state==null||state.configVersion!=config.configVersion||state.saveSchemaVersion!=config.saveSchemaVersion||
-                   string.IsNullOrEmpty(state.runId)||state.dice==null||state.stage==null||state.gold<0)throw new InvalidDataException("存档内容不完整");
+                   string.IsNullOrEmpty(state.runId)||state.dice==null||state.stage==null||state.gold<0)throw new InvalidDataException("存档文件已损坏");
                 // Unity serializes null nested classes as all-default objects. Normalize
                 // only its exact empty placeholder before the first-ever Submit; a real
                 // or inconsistent historical record must still fail validation.

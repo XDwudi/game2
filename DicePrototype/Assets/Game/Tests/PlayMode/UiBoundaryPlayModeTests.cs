@@ -85,7 +85,7 @@ namespace DiceCraft.Tests
                 foreach (var die in after.dice)
                     Assert.That(JsonUtility.ToJson(die), Is.EqualTo(JsonUtility.ToJson(before.dice.Single(d => d.dieId == die.dieId))), "Remote must preserve permanent faces, colors, glass and physical IDs.");
                 Click("Skip");
-                if(breakTarget)Assert.That(FindActive<TextMeshProUGUI>("ActionReason").text,Does.Contain("玻璃骰已破碎 1 颗").And.Contain("提交容量保持"));
+                if(breakTarget)Assert.That(FindActive<TextMeshProUGUI>("ActionReason").text.Replace("\n",""),Does.Contain("1 颗玻璃骰碎了").And.Contain("提交栏格数不变"));
                 foreach (var result in after.hand.currentResults.Where(r => r.remoteOverride))
                 {
                     var orientation = app.table.GetFaceOrientation(result.dieId);
@@ -242,7 +242,7 @@ namespace DiceCraft.Tests
                 yield return WaitForIdle();
                 Assert.That(StateJson(), Is.EqualTo(committed));
                 if(kind==CommandKind.Roll)
-                    Assert.That(FindActive<TextMeshProUGUI>("ActionReason").text,Does.Contain("玻璃骰已破碎 1 颗").And.Contain("提交容量保持"));
+                    Assert.That(FindActive<TextMeshProUGUI>("ActionReason").text.Replace("\n",""),Does.Contain("1 颗玻璃骰碎了").And.Contain("提交栏格数不变"));
                 else
                 {
                     yield return LegacyClick07("PreviousSubmission");

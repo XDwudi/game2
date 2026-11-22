@@ -121,7 +121,7 @@ namespace DiceCraft
         public void OnEndDrag(PointerEventData e) { dragging = false; }
         public void OnPointerClick(PointerEventData e)
         {
-            if (e.dragging) return;
+            if (e.dragging || GameApp.PagePointerGuard15) return;
             if (faceClicked != null && table != null && table.TryPickFace073(slot, e.position, out int face)) { faceClicked(face); return; }
             clicked?.Invoke();
         }

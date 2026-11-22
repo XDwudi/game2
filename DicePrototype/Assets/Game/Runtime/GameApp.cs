@@ -76,12 +76,14 @@ namespace DiceCraft
         }
         private void RebuildView()
         {
+            if(!inMenu||!StartupReady07)ShowMenuTray17(false);
             if(!StartupReady07){DrawStartupLoad07();return;}
             // Pending selection and presentation flags do not mutate committed run data.
             // Reuse its detached snapshot until the session or accepted sequence changes.
             if(IsPresenting07 && lastPresentationBefore07!=null) ViewState=lastPresentationBefore07;
             else if(!ReferenceEquals(displayedSession,Session)||ViewState==null||ViewState.actionSequence!=Session.ActionSequence)
             { ViewState=Session?.State;displayedSession=Session;controllerSourceCache=null; }
+            SyncLootPage15();
             SyncSettlementBackdropView07();
             UiKit.Clear(main); table.Hide(); visibleDice.Clear(); dieCenters.Clear(); controllerRects.Clear();lockedSlotRects07.Clear();
             if(inMenu || ViewState==null) { inMenu=true; HideHighScore073(); ApplyTableMood11(); ClearScore11(); Menu(); if(Session.HasPendingSave)SaveFailure(); return; }
@@ -136,14 +138,14 @@ namespace DiceCraft
             if(Session!=null&&Session.HasPendingSave){SaveFailure();return;}
             uint seed;
             if(string.IsNullOrWhiteSpace(seedText)) { var bytes=new byte[4]; using(var rng=System.Security.Cryptography.RandomNumberGenerator.Create())rng.GetBytes(bytes);seed=BitConverter.ToUInt32(bytes,0); }
-            else if(!GameRng.TryParseSeed(seedText,out seed)){notice="请输入 0 到 4294967295 的十进制整数。"; Refresh();return;}
+            else if(!GameRng.TryParseSeed(seedText,out seed)){notice=SeedError16; Refresh();return;}
             UiKit.Release(main);UiKit.Release(overlay);
             tutorial=false; Session=new GameSession(Config,saves);inMenu=false;notice=""; Send(new SessionCommand{kind=CommandKind.NewRun,seed=seed});
         }
         public CommandResult Send(SessionCommand cmd)
         {
             if(!StartupReady07)return new CommandResult{accepted=false,error="存档仍在读取，请稍候。"};
-            if(IsControllerDragging)return new CommandResult{accepted=false,error="先完成或取消控制器拖拽。"};
+            if(IsControllerDragging)return new CommandResult{accepted=false,error="先完成或取消卡牌拖动。"};
             if(cmd.kind==CommandKind.ConfirmLocks)cmd.dieIds=Session.PendingIds;
             cmd.commandId=Guid.NewGuid().ToString("N");cmd.expectedActionSequence=Session.ActionSequence;
             if(!IsBusy)presentationBefore07=ViewState??Session.State;
@@ -164,7 +166,7 @@ namespace DiceCraft
             notice="";
             if(result.receipt!=null && result.receipt.effects!=null)
             {
-                notice=string.Join("；",result.receipt.effects.Where(e=>e.kind=="DieCopied"||e.kind=="FaceDyed"||e.kind=="DieBroken"||e.kind=="TemporaryDieExpired"||e.kind=="ControllerDestroyed").Select(EffectText));
+                notice=string.Join("；",result.receipt.effects.Where(e=>e.kind=="DieCopied"||e.kind=="FaceDyed"||e.kind=="DieBroken"||e.kind=="TemporaryDieExpired"||e.kind=="ControllerDestroyed").Select(e=>EffectText(e,result.receipt.submission?.snapshot)));
                 if(result.receipt.effects.Any(e=>e.kind=="ControllerDestroyed"))PlaySound("cannon");
                 if(result.receipt.effects.Any(e=>e.kind=="DieBroken"))PlaySound("break");
                 else if(result.receipt.effects.Any(e=>e.kind=="DieCopied"))PlaySound("copy");
@@ -190,7 +192,7 @@ namespace DiceCraft
             if(!result.duplicate)LogCommand(cmd,result);
         }
         private IEnumerator EndVisual(float seconds){float elapsed=0;while(elapsed<seconds){if(!modal)elapsed+=Time.unscaledDeltaTime;yield return null;}FinishTransactionEffects07();table.FinishRoll();presentationAudio07?.PlayCue("SFX_DICE_LAND");Session.Busy=false;visual=null;Refresh();}
-        public void SkipVisual(){if(CompleteDiceInteraction07()){table.FinishLayoutTransitions();return;}if(SettlementRevealPlaying07){CompleteSettlementReveal07();return;}if(IsPresenting07){presentationPlayer07.Skip();table.FinishLayoutTransitions();return;}if(visual!=null){StopCoroutine(visual);visual=null;}FinishTransactionEffects07();table.FinishRoll();if(Session!=null)Session.Busy=false;Refresh();table.FinishLayoutTransitions();}
+        public void SkipVisual(){if(LootRevealPlaying15){FinishLootReveal15();return;}if(CompleteDiceInteraction07()){table.FinishLayoutTransitions();return;}if(SettlementRevealPlaying07){CompleteSettlementReveal07();return;}if(IsPresenting07){presentationPlayer07.Skip();table.FinishLayoutTransitions();return;}if(visual!=null){StopCoroutine(visual);visual=null;}FinishTransactionEffects07();table.FinishRoll();if(Session!=null)Session.Busy=false;Refresh();table.FinishLayoutTransitions();}
         private void LegacyHeader()
         {
             UiKit.Text(main,"Brand","骰子构筑",36,24,330,60,38);
@@ -341,6 +343,7 @@ namespace DiceCraft
             TickDiceSheet073();
             TickRunClock07();
             TickNotice07();
+            TickLootReveal15();
             TickTerminalCue07();
             TickPresentation07();
             table.Paused=modal;
@@ -350,7 +353,7 @@ namespace DiceCraft
             if(IsControllerDragging){if(k.escapeKey.wasPressedThisFrame)CancelControllerDrag();return;}
             if(DisplayPreferences!=null&&DisplayPreferences.IsPending){if(k.escapeKey.wasPressedThisFrame)DisplayPreferences.Revert();return;}
             // V1.1 W14 (SHOP_LAYOUT 7): Esc leaves the shop's face pick before it opens the pause page.
-            if(k.escapeKey.wasPressedThisFrame){if(modal)CloseModal();else if(FacePickActive14)CancelFacePick14();else if(!inMenu)Pause();return;}
+            if(k.escapeKey.wasPressedThisFrame){if(modal)CloseModal();else if(FacePickActive14)CancelFacePick14();else if(lootFromShop15)EnterShop15();else if(!inMenu)Pause();return;}
             var selected=EventSystem.current!=null?EventSystem.current.currentSelectedGameObject:null;
             var input=selected!=null?selected.GetComponentInParent<TMP_InputField>():null;
             if(input!=null)
@@ -362,6 +365,13 @@ namespace DiceCraft
                 return;
             }
             if(inMenu||modal||Session==null||ViewState==null||IsBusy)return;
+            if(ViewState.phase=="StageSettlement"&&(k.enterKey.wasPressedThisFrame||k.numpadEnterKey.wasPressedThisFrame))
+            {
+                if(SettlementRevealPlaying07)CompleteSettlementReveal07();else ContinueSettlement15();
+                return;
+            }
+            if(LootPage15 && !FacePickActive14 && (k.enterKey.wasPressedThisFrame || k.numpadEnterKey.wasPressedThisFrame))
+            { if(LootRevealPlaying15) FinishLootReveal15(); else EnterShop15(); return; }
             if(Art07KeyPressed("Handbook")){ShowHandbook();return;}
             if(ViewState.phase!="Selecting"&&ViewState.phase!="HandReady")return;
             for(int i=0;i<DigitKeys.Length&&i<visibleDice.Count;i++)if(k[DigitKeys[i]].wasPressedThisFrame){Session.TogglePending(visibleDice[i]);Refresh();return;}
@@ -371,7 +381,7 @@ namespace DiceCraft
             else if(Art07KeyPressed("Submit"))Send(new SessionCommand{kind=CommandKind.Submit});
         }
         private void ReturnMenu(){if(!StartupReady07)return;CompleteSettlementReveal07();if(IsBusy)SkipVisual();if(Session.HasPendingSave){SaveFailure();return;}CloseModal();facePick14=null;inMenu=true; if(tutorial||IsDebugWorkspace){tutorial=false;Session=new GameSession(Config,saves,saves.Load());debugDraft=null;}Refresh();}
-        private void OnApplicationPause(bool paused){PauseNotices07(paused);if(paused){CancelControllerDrag();CancelDieDrag07();if(IsBusy)SkipVisual();CancelFacePick14();}}
+        private void OnApplicationPause(bool paused){PauseNotices07(paused);if(paused){FinishLootReveal15();CancelControllerDrag();CancelDieDrag07();if(IsBusy)SkipVisual();CancelFacePick14();}}
         private void OnDestroy(){ReleaseUiFontMaterials071();AbandonStartupLoad07();SaveRunClock07();FramePacer.Stop();UiKit.Font=null;}
         private void LogCommand(SessionCommand command,CommandResult result)
         {
@@ -392,6 +402,6 @@ namespace DiceCraft
         // Compact views: up to 15 digits in full, longer as "约 1.23×10^19".
         private static string CompactScore(string value)=>PlayerNumberFormat.Exact(value??"0");
         private string NameOf(string id){if(string.IsNullOrEmpty(id)||id=="none"||id=="scatter")return "散点";if(id=="all_blue"||id=="all_red")return Config.Color(id).displayName;if(id.StartsWith("B"))return Config.Modifier(id).displayName;if(id.StartsWith("L"))return Config.Loot(id).displayName;if(id=="GOLD")return "折现";if(id.StartsWith("C"))return Config.Controller(id).displayName;if(id.StartsWith("I"))return Config.Consumable(id).displayName;if(id.StartsWith("O"))return Config.Service(id).displayName;if(id.StartsWith("U"))return Config.Upgrade(id).displayName;return Config.Hand(id).displayName;}
-        private string Description(string id){if(id=="all_blue"||id=="all_red"){var c=Config.Color(id);return "全部提交骰为有效"+(id=="all_red"?"红":"蓝")+"色即成立，无最少数量。独立乘区，每级 +"+Factor(c.incrementPerLevel100)+"。";}if(id.StartsWith("B"))return Config.Modifier(id).description;if(id.StartsWith("L"))return Config.Loot(id).description;if(id=="GOLD")return "放弃这一组战利品，换成 "+Config.lootGoldValue+" 金币。";if(id.StartsWith("C"))return Config.Controller(id).description;if(id.StartsWith("I"))return Config.Consumable(id).description;if(id.StartsWith("O"))return Config.Service(id).description;if(id.StartsWith("U"))return Config.Upgrade(id).description;var h=Config.Hand(id);return "本局一直有效；每级倍率 +"+Factor(h.incrementPerLevel100)+"，最高"+h.maxLevel+"级。";}
+        private string Description(string id){if(id=="all_blue"||id=="all_red"){var c=Config.Color(id);return "提交的骰子全是"+(id=="all_red"?"红":"蓝")+"色即成立（1 颗也算）。每升 1 级倍率 +"+Factor(c.incrementPerLevel100)+"。";}if(id.StartsWith("B"))return Config.Modifier(id).description;if(id.StartsWith("L"))return Config.Loot(id).description;if(id=="GOLD")return "放弃这一组战利品，换成 "+Config.lootGoldValue+" 金币。";if(id.StartsWith("C"))return Config.Controller(id).description;if(id.StartsWith("I"))return Config.Consumable(id).description;if(id.StartsWith("O"))return Config.Service(id).description;if(id.StartsWith("U"))return Config.Upgrade(id).description;var h=Config.Hand(id);return "本局一直有效；每升 1 级倍率 +"+Factor(h.incrementPerLevel100)+"，最高 "+h.maxLevel+" 级。";}
     }
 }

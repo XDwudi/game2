@@ -190,8 +190,8 @@ namespace DiceCraft.Tests
                     {
                         Click(row);yield return null;Canvas.ForceUpdateCanvases();
                         var selection=FindActive<TextMeshProUGUI>("HandbookSelection");
-                        var viewport=FindActive<RectTransform>("HandbookSelectionScroll").Find("Viewport") as RectTransform;
-                        Inside20Z2(theme+" "+text+"% handbook "+row.Substring(12),selection,viewport,Clearance,report,failures);
+                        Assert.That(selection.isTextTruncated||selection.isTextOverflowing,Is.False,"All lines of the hand explanation fit without scrolling.");
+                        Inside20Z2(theme+" "+text+"% handbook "+row.Substring(12),selection,null,Clearance,report,failures);
                     }
                     if(HasActive("CloseDialog"))Click("CloseDialog");yield return null;
                 }

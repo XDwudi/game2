@@ -38,7 +38,7 @@ namespace DiceCraft.Tests
         [Test] public void SAVE_ART07_SuccessfulBackupNeverCarriesRejectedActiveVersionIntoUi()
         {
             var store=new AtomicSaveStore(path,config);store.Save(state);store.Save(state);var backup=File.ReadAllBytes(path+".backup");Version(path,3,"p0.5.0");
-            Assert.That(store.Load(),Is.Not.Null);Assert.That(store.LastLoadNotice,Does.Contain("有效备份"));Assert.That(store.LastIncompatibleSave,Is.Null);
+            Assert.That(store.Load(),Is.Not.Null);Assert.That(store.LastLoadNotice,Is.EqualTo("存档文件损坏，已改用自动备份（可能回到稍早的进度）。"));Assert.That(store.LastIncompatibleSave,Is.Null);
             CollectionAssert.AreEqual(backup,File.ReadAllBytes(path+".backup"));
         }
         // v1.1 rewrite (RULES_DELTA): the valid active file still loads, but the old-version backup next to it is deleted

@@ -69,7 +69,7 @@ namespace DiceCraft.Tests
             // The active debug clock remains independent, so returning cannot reset this value.
             PlayerPrefs.SetFloat(ordinaryClockKey,3661.25f);PlayerPrefs.Save();
             Assert.DoesNotThrow(()=>app.ReturnNormalWorkspace(),"Returning from debug must ignore non-Submit receipt placeholders, not parse their empty decimal fields.");
-            Assert.That(FindActive<TextMeshProUGUI>("EndStats").text,Does.Contain("用时  01:01:01"),"The first returned result frame must synchronize the ordinary clock before drawing.");
+            Assert.That(ResultValue15("EndDuration"),Is.EqualTo("01:01:01"),"The first returned result frame must synchronize the ordinary clock before drawing.");
             Assert.That(PlayerPrefs.GetFloat(ordinaryClockKey),Is.EqualTo(3661.25f));
             yield return null;
             Assert.That(app.SaveLocation,Is.EqualTo(ordinaryPath));Assert.That(app.IsDebugWorkspace,Is.False);
@@ -79,7 +79,7 @@ namespace DiceCraft.Tests
             yield return app.StartCoroutine(CaptureEdge07("S18-normal-terminal-return"));
             // Cold Bootstrap/Continue reaches the same statistics without a duplicate command.
             yield return LoadBootstrap();Click("ContinueRun");
-            Assert.That(FindActive<TextMeshProUGUI>("EndStats").text,Does.Contain("用时  01:01:01"),"Cold Continue must use the persisted duration on its first result frame, before Update.");
+            Assert.That(ResultValue15("EndDuration"),Is.EqualTo("01:01:01"),"Cold Continue must use the persisted duration on its first result frame, before Update.");
             Assert.That(PlayerPrefs.GetFloat(ordinaryClockKey),Is.EqualTo(3661.25f));
             yield return null;
             Assert.That(app.Session.State.phase,Is.EqualTo("RunFailed"));Assert.That(StateJson(),Is.EqualTo(ordinarySnapshot));
@@ -90,13 +90,13 @@ namespace DiceCraft.Tests
             Assert.That(app.UnlockDebug("XD is god"),Is.True);Assert.That(app.EnterDebugWorkspace(),Is.True);
             clockKeys.Add("art07.runSeconds."+app.Session.State.runId);
             PlayerPrefs.DeleteKey(ordinaryClockKey);PlayerPrefs.Save();app.ReturnNormalWorkspace();
-            Assert.That(FindActive<TextMeshProUGUI>("EndStats").text,Does.Contain("用时  旧存档未记录"));
+            Assert.That(ResultValue15("EndDuration"),Is.EqualTo("未记录"));
             Assert.That(PlayerPrefs.HasKey(ordinaryClockKey),Is.False);
             app.Refresh();yield return null;
-            Assert.That(FindActive<TextMeshProUGUI>("EndStats").text,Does.Contain("用时  旧存档未记录"));
+            Assert.That(ResultValue15("EndDuration"),Is.EqualTo("未记录"));
             Assert.That(PlayerPrefs.HasKey(ordinaryClockKey),Is.False);
             yield return LoadBootstrap();Click("ContinueRun");
-            Assert.That(FindActive<TextMeshProUGUI>("EndStats").text,Does.Contain("用时  旧存档未记录"));
+            Assert.That(ResultValue15("EndDuration"),Is.EqualTo("未记录"));
             Assert.That(PlayerPrefs.HasKey(ordinaryClockKey),Is.False);
             Assert.That(StateJson(),Is.EqualTo(ordinarySnapshot));CollectionAssert.AreEqual(ordinary,File.ReadAllBytes(ordinaryPath));
             AssertResultReloadStatistics07(expectedTotal,expectedMaximum,expectedMultiplier);
@@ -115,13 +115,17 @@ namespace DiceCraft.Tests
                 PlayerPrefs.Save();
             }
         }
+        private string ResultValue15(string name)
+        {
+            var text=FindActive<RectTransform>(name).Find("Value").GetComponent<TextMeshProUGUI>();
+            text.ForceMeshUpdate();return text.GetParsedText();
+        }
         private void AssertResultReloadStatistics07(long total,long maximum,int multiplier)
         {
-            string stats=FindActive<TextMeshProUGUI>("EndStats").text;
-            Assert.That(stats,Does.Contain("总得分  "+total.ToString("N0",System.Globalization.CultureInfo.InvariantCulture)));
-            Assert.That(stats,Does.Contain("最大单手  "+maximum.ToString("N0",System.Globalization.CultureInfo.InvariantCulture)));
-            Assert.That(stats,Does.Contain("最高倍率  ×"+multiplier+"\n"));
-            Assert.That(stats,Does.Contain("普通对局"));
+            Assert.That(ResultValue15("EndTotalScore"),Is.EqualTo(total.ToString("N0",System.Globalization.CultureInfo.InvariantCulture)));
+            Assert.That(ResultValue15("EndMaximumScore"),Is.EqualTo(maximum.ToString("N0",System.Globalization.CultureInfo.InvariantCulture)));
+            Assert.That(ResultValue15("EndMaximumMultiplier"),Is.EqualTo("×"+multiplier));
+            Assert.That(FindActive<TextMeshProUGUI>("EndStats").text,Is.EqualTo("种子 "+app.Session.State.seed));
         }
 
         [UnityTest] public IEnumerator PLAY_ART07_ResultScreensUseRealTerminalCommandsAndPreserveExactReceipts()
@@ -154,24 +158,24 @@ namespace DiceCraft.Tests
                 if(kind=="no-dice"){Click("Roll");app.SkipVisual();}
                 else {Click("Submit");app.SkipVisual();if(app.Session.State.phase=="StageSettlement")Click("SettlementContinue");}
                 Assert.That(app.Session.State.phase,Is.EqualTo(kind=="win"?"RunWon":"RunFailed"));
-                Assert.That(FindActive<TextMeshProUGUI>("EndTitle").text,Is.EqualTo(kind=="win"?"24 关完成":"本次挑战结束"));
+                Assert.That(FindActive<TextMeshProUGUI>("EndTitle").text,Is.EqualTo(kind=="win"?"24 关全部通过":"这一局结束了"));
                 string message=FindActive<TextMeshProUGUI>("EndMessage").text;
-                if(kind=="submissions")Assert.That(message,Does.Contain("提交次数已用尽"));
-                if(kind=="temporary")Assert.That(message,Does.Contain("本关已成功，但没有永久骰"));
-                if(kind=="no-dice")Assert.That(message,Does.Contain("活动骰已耗尽"));
+                if(kind=="submissions")Assert.That(message,Does.Contain("提交次数用完"));
+                if(kind=="temporary")Assert.That(message,Does.Contain("本关通过了，但没有骰子可以继续"));
+                if(kind=="no-dice")Assert.That(message,Does.Contain("没有骰子可用了"));
                 Assert.That(FindActive<TextMeshProUGUI>("EndStats").text,Does.Contain("调试对局"));
-                Assert.That(FindActive<TextMeshProUGUI>("EndStats").text,Does.Not.Contain("旧存档未记录"));
+                Assert.That(ResultValue15("EndDuration"),Does.Not.Contain("未记录").Or.EqualTo("调试时长未记录"));
                 if(kind=="win")
                 {
-                    Click("SkipResultReveal");Assert.That(app.Session.State.dice.Count,Is.EqualTo(6));Assert.That(app.Session.State.lastSubmission.snapshot.dice,Has.Length.EqualTo(5));
-                    Assert.That(FindActive<TextMeshProUGUI>("LastDiceTitle").text,Does.Contain("最终骰组"));
-                    foreach(var die in app.Session.State.dice)Assert.That(app.table.GetFaceOrientation(die.dieId)?.gameObject.activeInHierarchy,Is.True,die.dieId+" must be visible in the final dice set.");
+                    if(HasActive("SkipResultReveal"))Click("SkipResultReveal"); yield return null; Assert.That(app.Session.State.dice.Count,Is.EqualTo(6));Assert.That(app.Session.State.lastSubmission.snapshot.dice,Has.Length.EqualTo(5));
+                    Assert.That(FindActive<TextMeshProUGUI>("LastDiceTitle").text,Does.Contain("你的骰子"));
+                    foreach(var die in app.Session.State.dice)Assert.That(app.UiDice073.GetFaceOrientation("$static-preview:result-"+die.dieId)?.gameObject.activeInHierarchy,Is.True,die.dieId+" must be visible in the final dice set.");
                     var grown=app.Session.State.processedReceipts.SelectMany(r=>r.effects).Where(e=>e.kind=="FaceValueChanged"&&e.sourceId=="C36"&&e.oldValue==3&&e.newValue==4).ToArray();
                     Assert.That(grown,Has.Length.EqualTo(2));
                     foreach(var effect in grown)
                     {
                         Assert.That(app.Session.State.lastSubmission.snapshot.dice.Single(d=>d.dieId==effect.dieId).permanentFacesCopy.Single(f=>f.faceId==effect.faceId).permanentPip,Is.EqualTo(3));
-                        var mesh=app.table.GetFaceOrientation(effect.dieId).Find("Face_"+effect.faceId).GetComponent<MeshFilter>().sharedMesh;
+                        var mesh=app.UiDice073.GetFaceOrientation("$static-preview:result-"+effect.dieId).Find("Face_"+effect.faceId).GetComponent<MeshFilter>().sharedMesh;
                         Assert.That(mesh.name,Does.StartWith("Pips_4_"),"Final display must use the committed permanent upgrade, not the score snapshot.");
                     }
                 }

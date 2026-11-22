@@ -140,7 +140,8 @@ namespace DiceCraft.Tests
                 "Missing required Chinese glyphs: " + string.Join(",", missing ?? Array.Empty<uint>()));
             foreach (var label in app.canvas.GetComponentsInChildren<TextMeshProUGUI>())
                 Assert.That(label.font, Is.Not.Null, label.name);
-            Assert.That(Button("ContinueRun").interactable, Is.False);
+            Assert.That(HasActive("ContinueRun"), Is.False);
+            Assert.That(Button("NewRun").IsInteractable(), Is.True);
             yield return null;
         }
 
@@ -408,6 +409,7 @@ namespace DiceCraft.Tests
         private UnityEngine.UI.Button Button(string name) => FindActive<UnityEngine.UI.Button>(name);
         private void Click(string name)
         {
+            if(name=="SettlementContinue"&&app.SettlementRevealPlaying07)Click("SkipSettlementReveal07");
             var button = Button(name);
             Assert.That(button.interactable, Is.True, "UI button is disabled: " + name);
             button.onClick.Invoke();

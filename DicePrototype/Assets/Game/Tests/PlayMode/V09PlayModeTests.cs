@@ -136,9 +136,14 @@ namespace DiceCraft.Tests
             // 40 gold: principal 40 under the widened cap of 50 -> interest 8; C95 pays 3; two unused submissions pay 2; stage reward 5.
             Assert.That(r.interestPrincipalCap, Is.EqualTo(50)); Assert.That(r.interest, Is.EqualTo(8)); Assert.That(r.controllerIncome, Is.EqualTo(3));
             Assert.That(r.goldAfter, Is.EqualTo(40 + 5 + 2 + 8 + 3));
-            Assert.That(FindActive<TextMeshProUGUI>("SettlementControllerIncome").text, Is.EqualTo("铁饭碗  +3"));
-            Assert.That(FindActive<TextMeshProUGUI>("SettlementInterest").text, Does.Contain("+8").And.Contain("利滚利").And.Contain("50"));
-            Assert.That(FindActive<TextMeshProUGUI>("SettlementNetCash").text, Does.Contain("+18").And.Contain("58"));
+            if(app.SettlementRevealPlaying07)Click("SkipSettlementReveal07");
+            Assert.That(FindActive<TextMeshProUGUI>("SettlementControllerIncome").text, Is.EqualTo("铁饭碗 +3"));
+            Assert.That(FindActive<TextMeshProUGUI>("SettlementInterest").text, Is.EqualTo("利息 +8"));
+            Assert.That(FindActive<TextMeshProUGUI>("SettlementNetCash").text, Is.EqualTo("+18"));
+            Assert.That(FindActive<TextMeshProUGUI>("SettleGold15").text, Is.EqualTo("金币 40 → 58"));
+            Click("SettlementDetailsToggle15");
+            Assert.That(FindActive<TextMeshProUGUI>("SettlementInterestDetail").text, Does.Contain("每 5 金币 +1").And.Contain("利滚利：最多 +10"));
+            Assert.That(FindActive<TextMeshProUGUI>("OtherChange15_0").text,Does.Contain(app.Config.Controller("C58").displayName));
             Assert.That(app.Session.State.controllers.Single(c => c.definitionId == "C58").state.growth, Is.EqualTo(4), "C58 grows when the stage is cleared.");
         }
     }

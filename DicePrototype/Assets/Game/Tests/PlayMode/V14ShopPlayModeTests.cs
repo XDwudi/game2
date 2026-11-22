@@ -308,17 +308,17 @@ namespace DiceCraft.Tests
             shop.gold=50;yield return W14Load(shop);
             Assert.That(app.Session.IsLootPending,Is.True);
             var failures=new List<string>();
-            var leave=Button("LeaveShop");Assert.That(leave.interactable,Is.False);
-            Assert.That(FindActive<TextMeshProUGUI>("LeaveShopNote14").text,Is.EqualTo("先领取首领战利品"));
-            W14CheckLayout("loot-pending",failures);
-            Assert.That(Button("ViewGifts").GetComponentInChildren<TextMeshProUGUI>().text,Is.EqualTo("首领战利品（还可领 3 件）"));Assert.That(HasActive("GiftsPending10"),Is.True);
-            Assert.That(W11PrimaryColoured(Button("ViewGifts").targetGraphic.color),Is.False,"Q4 A: the loot entrance is not gold or primary.");
+            var leave=Button("LootEnterShop15");Assert.That(leave.interactable,Is.False);
+            Assert.That(FindActive<TextMeshProUGUI>("LootEnterNote15").text,Is.EqualTo("先领取或折现"));
+            Assert.That(HasActive("ControllerShelf")||HasActive("ViewGifts"),Is.False);
+            Assert.That(Text10("LootStatus15"),Is.EqualTo("还可以领 3 件"));
             yield return W14Shot("shop-loot-pending");
             // Take the first of three items: the shop unlocks; two are left and void on leaving.
             var item=app.Session.State.shop.offers.First(o=>o.groupId=="LOOT"&&o.category=="consumable");
-            Click("ViewGifts");Click("Buy_"+item.offerId);yield return WaitForIdle();if(HasActive("CloseDialog"))Click("CloseDialog");yield return Art073Settle(.3f);
+            Click("Buy_"+item.offerId);yield return WaitForIdle();if(HasActive("CloseDialog"))Click("CloseDialog");yield return Art073Settle(.3f);
             Assert.That(app.Session.IsLootPending,Is.False);
-            leave=Button("LeaveShop");Assert.That(leave.interactable,Is.True);
+            Assert.That(Text10("LootEnterNote15"),Is.EqualTo("剩下 2 件在商店右上角也能领"));
+            Click("LootEnterShop15");leave=Button("LeaveShop");Assert.That(leave.interactable,Is.True);
             Assert.That(FindActive<TextMeshProUGUI>("LeaveShopNote14").text,Is.EqualTo("还有 2 件战利品未领，离开后作废"));
             Assert.That(Button("ViewGifts").GetComponentInChildren<TextMeshProUGUI>().text,Is.EqualTo("首领战利品（还可领 2 件）"));
             W14CheckLayout("loot-left",failures);W14CheckTexts("loot-left",failures);

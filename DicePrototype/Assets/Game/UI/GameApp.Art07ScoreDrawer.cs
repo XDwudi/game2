@@ -21,9 +21,8 @@ namespace DiceCraft
             FadeModal07(p,false,.16f,.10f);
             UiKit.Component<Art07ScoreDrawerMotion>(p.gameObject).Begin(.16f,reduced);
             var trace=ScoreExplanation.Build(snapshot,b,Config);
-            var receipt=ViewState.processedReceipts.LastOrDefault(r=>r.command!=null&&r.command.kind==CommandKind.Submit);
             bool historical=ViewState.lastSubmission!=null&&snapshot.handId==ViewState.lastSubmission.snapshot.handId;
-            string effects=historical&&receipt!=null?string.Join("\n",receipt.effects.Select(EffectText)):string.Join("\n",Session.PreviewSubmissionEffects().Select(EffectText));
+            string effects=ScoreEffects16(snapshot,historical);
             var list=UiKit.Scroll(p,"ScoreDrawerTable",24,96,w-48,h-184,h-184);
             float contentWidth=list.rect.width-16,cursor=6;
             var formula=UiKit.Text(list,"Formula",ScoreFormula07(b),8,cursor,contentWidth,80,29,UiKit.Gold);
@@ -53,17 +52,17 @@ namespace DiceCraft
                 var die=snapshot.dice[i];var face=die.permanentFacesCopy.Single(f=>f.faceId==die.faceId);
                 // v1.1 (W09): "骰子 1 的第 3 面" instead of D001 / F03; colours without the R/B letters.
                 Row("Die"+i,(i+1)+". "+DieFaceName11(die.dieId,die.faceId),
-                    $"永久 {face.permanentPip} → 当前 {die.currentPip} → 有效 {b.effectivePips[i]}\n有效颜色 {ColorName07(b.effectiveColors[i])}\n永久六面和 {die.permanentSixFaceSum}",
-                    "本骰点数贡献\n"+b.pipContributions[i]+(b.sealedDice!=null&&i<b.sealedDice.Length&&b.sealedDice[i]?"（封印）":""),25,UiKit.Paper);
+                    DiceLayers16(face,die.currentPip,die.currentColor,b.effectivePips[i],b.effectiveColors[i])+"\n六面合计 "+die.permanentSixFaceSum,
+                    ScoreContribution16(b,i),25,UiKit.Paper);
                 for(int j=0;j<trace.dice[i].steps.Length;j++)
                 {
                     var step=trace.dice[i].steps[j];Row("Die"+i+"Step"+j,ScoreStepSource07(step,snapshot),ScoreStepCalculation07(step),ScoreValue07(step.after),23,UiKit.Paper);
                 }
             }
-            var title=UiKit.Text(list,"DrawerGlobalTitle","全局结算 · 中间不取整",8,cursor,contentWidth,48,28,UiKit.Gold);cursor+=FitHeight(title,48)+10;
+            var title=UiKit.Text(list,"DrawerGlobalTitle","整手计算",8,cursor,contentWidth,48,28,UiKit.Gold);cursor+=FitHeight(title,48)+10;
             for(int i=0;i<trace.global.Length;i++){var step=trace.global[i];Row("Global"+i,ScoreStepSource07(step,snapshot),ScoreStepCalculation07(step),ScoreValue07(step.after),25,UiKit.Paper);}
-            string triggered=b.triggeredControllerIds.Length==0?"本次无控制器触发":string.Join(" · ",b.triggeredControllerIds.Select(NameOf));
-            var footer=UiKit.Text(list,"Triggered",triggered+"\n永久复制/扩散只在提交后执行，不回溯更改本次分数。"+(effects.Length>0?(historical?"\n\n实际提交后效果：\n":"\n\n确认提交将执行：\n")+effects:""),8,cursor+12,contentWidth,260,25,UiKit.Teal);
+            string triggered=b.triggeredControllerIds.Length==0?"没有卡牌生效":string.Join(" · ",b.triggeredControllerIds.Select(NameOf));
+            var footer=UiKit.Text(list,"Triggered",triggered+"\n复制、染色等永久效果在计分后才发生，不影响这一手的分数。"+(effects.Length>0?(historical?"\n\n计分后发生了：\n":"\n\n提交后会发生：\n")+effects:""),8,cursor+12,contentWidth,260,25,UiKit.Teal);
             list.sizeDelta=new Vector2(list.sizeDelta.x,cursor+FitHeight(footer,260)+36);
             float bw=(w-48-36)/4,by=h-76;
             // v1.1 (W09): the copied formula is the decimal readout ("≈" where rounded), so the label no longer says "精确".
@@ -72,15 +71,57 @@ namespace DiceCraft
                 GUIUtility.systemCopyBuffer=ScoreFormula07(b);
                 var label=p.Find("CopyExactScore")?.GetComponentInChildren<TextMeshProUGUI>();if(label!=null)label.text="已复制";
             });
-            UiKit.Button(p,"FullScoreDetails","完整逐步明细",24+bw+12,by,bw,64,()=>ShowBreakdownComplete07(snapshot,b));
-            if(historical&&receipt07!=null)UiKit.Button(p,"ReplayReceipt","回放记录",24+2*(bw+12),by,bw,64,()=>{CloseModal();ReplayLastPresentation07();},!IsBusy);
-            if(historical&&HasCommittedPresentationDetails07(snapshot.handId))UiKit.Button(p,"ReceiptEffectsDetails","表现与后置",24+3*(bw+12),by,bw,64,ShowCommittedPresentationDetails07,!IsBusy);
+            UiKit.Button(p,"FullScoreDetails","逐步明细",24+bw+12,by,bw,64,()=>ShowBreakdownComplete07(snapshot,b));
+            if(historical&&HasCommittedPresentationDetails07(snapshot.handId))UiKit.Button(p,"ReplayReceipt","重播动画",24+2*(bw+12),by,bw,64,()=>{CloseModal();ReplayLastPresentation07();},!IsBusy);
+            if(historical&&HasCommittedPresentationDetails07(snapshot.handId))UiKit.Button(p,"ReceiptEffectsDetails","计分记录",24+3*(bw+12),by,bw,64,ShowCommittedPresentationDetails07,!IsBusy);
         }
-        // v1.1 (W09): every factor as a decimal with every digit kept ("≈" marks a rounded value); the enchantment as its
-        // actual factor instead of 2^n; "卡牌" for controllers (D2). The copy buttons copy exactly this readout.
-        private string ScoreFormula07(ScoreBreakdown b)=>$"基础 {Big(b.baseTotal)} × 牌型 {Factor(b.totalHandMult100)} × 颜色 {Factor(b.colorMult100)} × 红组 {Factor(b.redMult100)} × 卡牌 {PlayerNumberFormat.Ratio(ExactScoreMath.Parse(b.controllerMultiplierNumerator),ExactScoreMath.Parse(b.controllerMultiplierDenominator),PlayerNumberFormat.Unlimited)} × 附魔 {PlayerNumberFormat.Integer(EnchantFactor07(b.enchantMultiplierCount),PlayerNumberFormat.Unlimited)}{GlobalFactorText10(b)}\n全部相乘后向下取整一次 = {Big(b.score)}";
+        // W16b: only exact identity factors are omitted. The copied and visible formula use the same frozen score.
+        private string ScoreFormula07(ScoreBreakdown b)
+        {
+            var formula = new System.Text.StringBuilder("基础 " + Big(b.baseTotal));
+            void Factor100(string label,int units)
+            {
+                if (units != 100) formula.Append(" × ").Append(label).Append(" ").Append(Factor(units));
+            }
+            void Ratio(string label,string top,string bottom)
+            {
+                var n=ExactScoreMath.Parse(top);
+                var d=ExactScoreMath.Parse(bottom);
+                if (n != d) formula.Append(" × ").Append(label).Append(" ").Append(PlayerNumberFormat.Ratio(n,d,PlayerNumberFormat.Unlimited));
+            }
+            Factor100("牌型",b.totalHandMult100);
+            Factor100("颜色",b.colorMult100);
+            Factor100("红组",b.redMult100);
+            Ratio("卡牌",b.controllerMultiplierNumerator,b.controllerMultiplierDenominator);
+            if (b.enchantMultiplierCount > 0)
+                formula.Append(" × 附魔 ").Append(PlayerNumberFormat.Integer(EnchantFactor07(b.enchantMultiplierCount),PlayerNumberFormat.Unlimited));
+            if (b.globalFactors != null)
+                foreach (var factor in b.globalFactors) Ratio(NameOf(factor.abilityId),factor.numerator,factor.denominator);
+            return formula.Append("\n= ").Append(Big(b.score)).Append("（最后去掉小数）").ToString();
+        }
+
+        private static string DiceLayers16(FaceState face,int rolled,string rolledColor,int? scored,string scoredColor)
+        {
+            bool differs=face.permanentPip!=rolled || face.baseColor!=rolledColor ||
+                (scored.HasValue && (scored.Value!=rolled || scoredColor!=rolledColor));
+            if (!differs) return "点数 "+rolled+" · "+ColorName07(rolledColor);
+            string layer(int value,string color)=>value+" 点"+ColorName07(color)+"色";
+            return "骰面原本 "+layer(face.permanentPip,face.baseColor)+" · 这次掷出 "+layer(rolled,rolledColor)+
+                (scored.HasValue?" · 计分按 "+layer(scored.Value,scoredColor):"");
+        }
+
+        private string ScoreEffects16(SubmissionSnapshot snapshot,bool historical)
+        {
+            if(!historical)return string.Join("\n",Session.PreviewSubmissionEffects().Select(effect=>EffectText(effect,snapshot)));
+            var receipt=ViewState.processedReceipts.LastOrDefault(r=>r.command?.kind==CommandKind.Submit && r.submission?.snapshot?.handId==snapshot.handId);
+            return receipt?.effects==null?"":string.Join("\n",receipt.effects.Select(effect=>EffectText(effect,snapshot)));
+        }
+
+        private static string ScoreContribution16(ScoreBreakdown score,int index)
+            =>score.sealedDice!=null && index<score.sealedDice.Length && score.sealedDice[index]
+                ?"被封印：计 0":"这颗骰子计 "+score.pipContributions[index]+" 分";
         /// <summary>An exact step value as a decimal with every digit kept (no abbreviation and no markup in the breakdown).</summary>
         private static string ScoreValue07(string exact)=>PlayerNumberFormat.Exact(exact,PlayerNumberFormat.Unlimited);
-        private static string ScoreStepCalculation07(ScoreStep step)=>step.operation=="floor"?ScoreValue07(step.before)+" → 向下取整一次":ScoreValue07(step.before)+" "+step.operation+" "+ScoreValue07(step.operand);
+        private static string ScoreStepCalculation07(ScoreStep step)=>step.operation=="floor"?ScoreValue07(step.before)+" → 去掉小数":ScoreValue07(step.before)+" "+step.operation+" "+ScoreValue07(step.operand);
     }
 }

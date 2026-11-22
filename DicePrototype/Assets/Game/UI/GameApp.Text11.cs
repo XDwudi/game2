@@ -121,7 +121,7 @@ namespace DiceCraft
 
         // ---------------------------------------------------------------- hidden debug entry (text proposal 5 #2)
         private bool debugAccessRevealed11;
-        private bool SettingsPageOpen11=>modal&&modalIdentity07=="设置";
+        private bool SettingsPageOpen11=>modal&&modalIdentity07=="settings16";
         /// <summary>
         /// Shows the debug password row on the settings page for the rest of this session. Players never see it; the
         /// developer reveals it with Ctrl+Shift+D while the settings page is open. Revealing does not unlock anything.

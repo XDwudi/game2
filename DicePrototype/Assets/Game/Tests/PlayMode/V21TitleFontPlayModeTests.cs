@@ -18,15 +18,37 @@ namespace DiceCraft.Tests
             | TextRole.BossName | TextRole.PrimaryButton;
 
         [UnityTest]
-        public IEnumerator PLAY_V21_FW16_SancaiGoldenTitleFont()
+        public IEnumerator PLAY_V21_FW16_SancaiGoldenTitleFont() => TitleMeasurements21("sancai");
+        [UnityTest]
+        public IEnumerator PLAY_V21_FW16_ComicTitleFont() => TitleMeasurements21("comic");
+        [UnityTest]
+        public IEnumerator PLAY_V21_FW16_DecoTitleFont() => TitleMeasurements21("deco");
+        [UnityTest]
+        public IEnumerator PLAY_V21_FW16_GlassTitleFont() => TitleMeasurements21("glass");
+
+        [UnityTest]
+        public IEnumerator PLAY_V21_FW18_DefaultBaseFont() => TitleMeasurements21("default");
+        [UnityTest]
+        public IEnumerator PLAY_V21_FW18_SwissBaseFont() => TitleMeasurements21("swiss");
+
+        private static TextRole ExpectedRoles21(string theme)
+        {
+            if (theme == "default" || theme == "swiss") return TextRole.None;
+            var roles = GoldenRoles21;
+            if (theme == "comic" || theme == "glass") roles |= TextRole.SectionTitle;
+            if (theme == "glass") roles |= TextRole.CardName;
+            return roles;
+        }
+
+        private IEnumerator TitleMeasurements21(string theme)
         {
             Assert.That((Screen.width == 1920 && Screen.height == 1080) ||
                         (Screen.width == 1280 && Screen.height == 720), Is.True, "Use an actual supported window.");
             string output = Path.GetFullPath(Path.Combine(Application.dataPath, "..", "..", "artifacts", "cache",
-                "v11", "w21", "golden", Screen.width + "x" + Screen.height));
+                "v11", "w21", theme == "sancai" ? "golden" : Path.Combine("promotion", theme), Screen.width + "x" + Screen.height));
             Directory.CreateDirectory(output);
             var report = new List<string> { "Unity " + Application.unityVersion + " | " + Screen.width + "x" +
-                Screen.height + " | source " + IdentityHead20X(), "FW-03..08,16: sancai sample only. " +
+                Screen.height + " | source " + IdentityHead20X(), "FW-03..08,16 " + theme + ". " +
                 "Frames and contrast checked on named labels. Disabled labels are exempt from contrast only. " +
                 "FW-06 compares rendered Han ink in the same stage tag at the same size." };
             var failures = new List<string>();
@@ -38,8 +60,8 @@ namespace DiceCraft.Tests
                 foreach (int percent in new[] {100, 150})
                 {
                     W11Apply(IdentityWinningHand20X(0));
-                    yield return GoldenStyle21(percent);
-                    yield return GoldenScreen21("normal-goal", percent, output, report, failures, false,
+                    yield return GoldenStyle21(theme, percent);
+                    yield return GoldenScreen21("normal-goal", percent, output, report, failures, true,
                         (Label21("StageGoal11"), TextRole.BigNumber));
 
                     W11Apply(W11Scene(new[]{"C39","C139","C34","C56","C08"},new[]{1,2,3,4,5},"bbrbb",
@@ -51,7 +73,7 @@ namespace DiceCraft.Tests
                         (Label21("StageCardTitle11"), TextRole.SectionTitle), (Label21("BossModifierText"), TextRole.None));
 
                     yield return W14Load(W14ShopFixture(false));
-                    yield return GoldenStyle21(percent);
+                    yield return GoldenStyle21(theme, percent);
                     var firstOffer = app.Session.State.shop.offers.First(o => o.category == "controller");
                     var card = W14Main.Find("Offer_" + firstOffer.offerId);
                     Assert.That(card, Is.Not.Null, "A real shelf offer must be drawn on the shop canvas.");
@@ -66,15 +88,31 @@ namespace DiceCraft.Tests
 
                     yield return IdentityEndStage20X(3);
                     yield return Art073Settle(.45f);
+                    Assert.That(app.ViewState.stage.stageKind, Is.EqualTo("normal"));
+                    var reward = app.ViewState.lastStageSettlement;
+                    var total = Label21("SettlementNetCash");
+                    total.ForceMeshUpdate();
+                    Assert.That(total.GetParsedText(), Is.EqualTo("+" + PlayerNumberFormat.Gold(reward.goldAfter-reward.goldBefore)));
                     yield return GoldenScreen21("settlement", percent, output, report, failures, true,
-                        (Label21("Cleared"), TextRole.ScreenTitle), (Label21("SettlementStatus"), TextRole.None),
+                        (Label21("Cleared"), TextRole.ScreenTitle), (total, TextRole.BigNumber),
+                        (Label21("SettleGold15"), TextRole.None),
                         (Button("SettlementContinue").GetComponentInChildren<TextMeshProUGUI>(), TextRole.PrimaryButton));
+                    byte[] settlementSave = File.ReadAllBytes(app.SaveLocation);
+                    Click("SettlementDetailsToggle15");
+                    yield return GoldenScreen21("settlement-details", percent, output, report, failures, true,
+                        (Label21("Cleared"), TextRole.ScreenTitle),
+                        (Label21("SettlementBaseRewardDetail"), TextRole.None),
+                        (Label21("SettlementBaseRewardDetailAmount"), TextRole.None),
+                        (Button("SettlementDetailsToggle15").GetComponentInChildren<TextMeshProUGUI>(), TextRole.None),
+                        (Button("SettlementContinue").GetComponentInChildren<TextMeshProUGUI>(), TextRole.PrimaryButton));
+                    Click("SettlementDetailsToggle15");
+                    CollectionAssert.AreEqual(settlementSave, File.ReadAllBytes(app.SaveLocation));
 
                     var pick = ShopBoundaryFixture();
                     pick.shop.offers.Clear();
                     AddBoundaryOffer(pick, "pick-gold", "die_upgrade", "U06");
                     yield return W14Load(pick);
-                    yield return GoldenStyle21(percent);
+                    yield return GoldenStyle21(theme, percent);
                     string die = app.Session.State.dice.OrderBy(d => d.createdSerial).First().dieId;
                     Click("Buy_pick-gold"); Click("Target_" + die); Click("Face_F02");
                     yield return Art073Settle(.35f);
@@ -102,12 +140,13 @@ namespace DiceCraft.Tests
             Assert.That(failures, Is.Empty, string.Join("\n", failures));
         }
 
-        private IEnumerator GoldenStyle21(int percent)
+        private IEnumerator GoldenStyle21(string theme, int percent)
         {
-            app.ApplyTheme11("sancai");
-            Assert.That(app.ThemeId11, Is.EqualTo("sancai"));
-            Assert.That(UiKit.TitleFont, Is.Not.Null, "The player's Resources lookup must load the signed sample asset.");
-            Assert.That(ThemeRegistry.Current.TitleRoles, Is.EqualTo(GoldenRoles21));
+            app.ApplyTheme11(theme);
+            Assert.That(app.ThemeId11, Is.EqualTo(theme));
+            Assert.That(UiKit.TitleFont != null, Is.EqualTo(ExpectedRoles21(theme) != TextRole.None),
+                theme + ": the player must resolve exactly the approved title configuration.");
+            Assert.That(ThemeRegistry.Current.TitleRoles, Is.EqualTo(ExpectedRoles21(theme)));
             W11TextScale(percent);
             yield return W11Settle();
         }
@@ -129,12 +168,12 @@ namespace DiceCraft.Tests
             var inkRects = new Dictionary<TextMeshProUGUI, List<Rect>>();
             foreach (var (label, role) in samples)
             {
-                bool themed = (GoldenRoles21 & role) != 0;
+                bool themed = (ExpectedRoles21(app.ThemeId11) & role) != 0;
                 if (label.font != (themed ? UiKit.TitleFont : UiKit.Font) ||
                     (themed && (label.fontStyle != FontStyles.Normal || label.fontWeight != FontWeight.Regular)))
                     failures.Add(scope + " FW-04 " + W11bPath(label.transform) + ": " + label.font.name + " " + label.fontStyle);
                 label.ForceMeshUpdate();
-                if (role != TextRole.None || screen == "facepick-S3")
+                if (role != TextRole.None || screen == "facepick-S3" || screen.StartsWith("settlement",StringComparison.Ordinal))
                 {
                     inkRects[label] = W13GlyphCheck(label, scope, order, failures);
                     if (inkRects[label].Count == 0) failures.Add(scope + ": no rendered glyphs for " + label.name);
@@ -155,7 +194,7 @@ namespace DiceCraft.Tests
                     if (c.textElement == null || c.textElement.unicode != source ||
                         (c.fontAsset != UiKit.TitleFont && !chain.Contains(c.fontAsset)))
                         failures.Add(scope + " FW-03 " + label.name + " missing or wrong glyph U+" + source.ToString("X4"));
-                    if ((source == '·' || source == '→') && c.fontAsset != chain.FirstOrDefault())
+                    if (!UiKit.TitleFont.characterLookupTable.ContainsKey(source) && c.fontAsset != chain.FirstOrDefault())
                         failures.Add(scope + " FW-03 expected the physical bold fallback for U+" + source.ToString("X4"));
                 }
             }
@@ -191,7 +230,7 @@ namespace DiceCraft.Tests
                     report.Add(line);
                     if (ratio < GameApp.MinContrast11) failures.Add(line);
                 }
-                if (screen == "play")
+                if (screen == "play" && ExpectedRoles21(app.ThemeId11) != TextRole.None)
                     yield return CompareInk21(Label21("StageLabel11"), drawn.GetPixels32(), blank, scope, report, failures);
             }
             finally

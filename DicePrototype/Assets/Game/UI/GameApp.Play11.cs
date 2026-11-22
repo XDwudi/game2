@@ -122,7 +122,7 @@ namespace DiceCraft
             // move up and shrink as far as the caption needs at the larger text sizes (W11b).
             float dotsX=8+tagW+20;int chapters=Mathf.Max(1,Config.stages.Length/3),chapter=s.stage.stageIndex/3;
             string kindWord=StageKindLabel10(s.stage.stageIndex,StageRisk11);
-            string kindColored=BossActive11||PressureActive11?"<color="+Hex11(Color.Lerp(StageTint11,UiKit.TextColor,.25f))+">"+kindWord+"</color>":kindWord;
+            string kindColored=BossActive11||PressureActive11?"<color="+Hex11(CueOn11(bar,Color.Lerp(StageTint11,UiKit.TextColor,.25f)))+">"+kindWord+"</color>":kindWord;
             var caption=NoWrap11(UiKit.Text(bar,"Chapter",$"第 {chapter+1} 章 · "+kindColored,dotsX,36,chapters*24+40,32,Body11(c?17:20),LabelOn11(bar,UiKit.Muted)));
             caption.richText=true;caption.ForceMeshUpdate();
             var frameInsets=FrameInsets11(bar.GetComponent<Image>());
@@ -245,7 +245,11 @@ namespace DiceCraft
             for(int i=0;i<empty&&x+strip<=l.cards.xMax+.5f;i++)
             {
                 var slot=Surface11(main,"ControllerEmpty"+i,x,l.cards.y+8,strip,l.cards.height-16,"ui_slot_inventory",Color.white);
-                UiKit.Text(slot,"Plus","+",0,0,strip,l.cards.height-16,30,UiKit.Muted,TextAlignmentOptions.Center);
+                const float diameter = 40;
+                var dot = UiKit.Box(slot, "PlusDisc16", (strip - diameter) / 2, (l.cards.height - 16 - diameter) / 2, diameter, diameter, UiKit.Panel).GetComponent<Image>();
+                dot.sprite = UiKit.Template("ui_pip_dot");
+                dot.preserveAspect = true;
+                NoWrap11(UiKit.Text(dot.transform, "Plus", "+", 0, 0, diameter, diameter, 26 / UiKit.FontScale, LabelOn11(dot, UiKit.Muted), TextAlignmentOptions.Center));
                 x+=strip+gap;
             }
         }
@@ -305,12 +309,8 @@ namespace DiceCraft
             {
                 float top=14+headerH+6,boxH=h-26-top;
                 var box=UiKit.Rect(card,"BossModifier10",14,top,inner,boxH);
-                // Emblem placeholder until the W17 boss emblems exist: a block in the tier colour with tier bars.
-                var def=Config.Modifier(s.stage.modifierId);int bars=Mathf.Clamp(def.tier,1,4);
-                Color emblem=lifted?UiKit.PanelLight:def.tier>=4?UiKit.Boss:def.tier==3?UiKit.RarityRare:def.tier==2?UiKit.RarityAdvanced:UiKit.RarityCommon;
                 float emblemSize=c?60:72;
-                var mark=Surface11(box,"BossEmblem11",0,4,emblemSize,emblemSize,"ui_chip_formula",emblem);
-                for(int i=0;i<bars;i++)UiKit.Box(mark,"TierBar"+i,emblemSize*.22f,emblemSize*.22f+i*emblemSize*.17f,emblemSize*.56f,emblemSize*.08f,UiKit.Ink);
+                BossEmblem15(box,"BossEmblem11",s.stage.modifierId,0,4,emblemSize,true,lifted);
                 float colX=emblemSize+12,colW=inner-colX;
                 var name=NoWrap11(UiKit.Text(box,"BossModifierName",NameOf(s.stage.modifierId),colX,0,colW,40,c?20:28,LabelOn11(card,lifted?PaperMuted071:UiKit.Ink)));
                 name.fontStyle=FontStyles.Bold;UiKit.Role(name,TextRole.BossName);
@@ -357,7 +357,7 @@ namespace DiceCraft
             float lineSize=Body11(c?14:20),goalSize=c?28:42,ty=14+headerH+1;
             NoWrap11(UiKit.Text(card,"StageGoalLabel11","目标分数",14,ty,inner,Line11(lineSize),lineSize,LabelOn11(card,PaperMuted071)));ty+=Line11(lineSize);
             var goal=NoWrap11(UiKit.Text(card,"StageGoal11",CompactScore(s.stage.target),14,ty,inner,Line11(goalSize),goalSize,LabelOn11(card,PressureActive11?UiKit.Pressure:UiKit.Ink)));
-            goal.fontStyle=FontStyles.Bold;UiKit.Role(goal,TextRole.BigNumber);ty+=Line11(goalSize);
+              goal.fontStyle=FontStyles.Bold;UiKit.Role(goal,TextRole.BigNumber);UiKit.FitNumberInk21(goal);ty+=Line11(goalSize);
             int reward=s.stage.reward>0?s.stage.reward:StageRisk11?Config.stages[s.stage.stageIndex].riskReward:Config.stages[s.stage.stageIndex].normalReward;
             NoWrap11(UiKit.Text(card,"StageReward11","过关奖励 +"+reward+" 金币",14,ty,inner,Line11(lineSize),lineSize,LabelOn11(card,UiKit.Ink)));ty+=Line11(lineSize);
             string note=kind=="pressure"?(StageRisk11?"目标 ×1.5，过关金币 +5":"普通挑战，目标不变"):"提交栏 "+s.stage.capacity+" 格 · 每手掷 "+Session.InitialRolls+" 次";
@@ -552,7 +552,7 @@ namespace DiceCraft
             var button=SolidButton11(main,"ViewDice","查看骰子",x,y,w,h,()=>{var first=ViewState.dice.OrderBy(d=>d.createdSerial).FirstOrDefault();if(first!=null)ShowDie(first.dieId);},any&&!IsBusy,22);
             var icon=UiKit.Box(button.transform,"ViewDiceIcon",16,(h-40)*.5f,40,40,any&&!IsBusy?Color.white:new Color(1,1,1,.5f)).GetComponent<Image>();
             icon.sprite=UiKit.Template("ui_icon_dice_view");icon.raycastTarget=false;icon.preserveAspect=true;icon.gameObject.SetActive(icon.sprite!=null);
-            Art07AttachTooltip(button,"view-dice","查看骰子","查看每颗骰子的六个面。拖动骰子可以旋转。","不改变骰序、投掷结果或随机数",null);
+            Art07AttachTooltip(button,"view-dice","查看骰子","查看你每颗骰子的六个面。","",null);
         }
 
         // ---------------------------------------------------------------- submission tray (Submit11)
@@ -831,6 +831,15 @@ namespace DiceCraft
             // V1.1 (W20X): the table picture follows the screen drawn in this same redraw (page_scene off the play layout).
             ApplyTablePicture11();
             float mood=FramePhase11&&ViewState.phase!="StageSettlement"&&BossActive11?1:0;
+            if (BossEntryPlaying15)
+            {
+                bossEntry15.Paint();
+                BindBossEntryButtons15();
+            }
+            else SetTableMood11(mood);
+        }
+        private void SetTableMood11(float mood)
+        {
             if(Mathf.Approximately(mood,tableMoodShown11))return;
             var felt=GameObject.Find("Art07Felt");if(felt==null)return;var r=felt.GetComponent<Renderer>();if(r==null)return;
             var props=new MaterialPropertyBlock();r.GetPropertyBlock(props);

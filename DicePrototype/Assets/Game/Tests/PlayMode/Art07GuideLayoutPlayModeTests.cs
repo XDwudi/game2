@@ -92,7 +92,7 @@ namespace DiceCraft.Tests
                 string before=StateJson();byte[] disk=File.ReadAllBytes(app.SaveLocation);
                 var originalPositions=app.canvas.GetComponentsInChildren<RectTransform>(false).Where(r=>r.name.StartsWith("Controller_")||r.name.StartsWith("Item_")||r.name.StartsWith("ItemEmpty")||r.name=="ItemsTitle").ToDictionary(r=>r.name,r=>r.anchoredPosition);
                 Click("Handbook");Click("ReviewGuide");yield return new WaitForSecondsRealtime(.25f);
-                Assert.That(FindActive<TextMeshProUGUI>("GuideBody").text,Is.EqualTo("每手总投掷包含首掷。点击掷骰开始。"));
+                Assert.That(FindActive<TextMeshProUGUI>("GuideBody").text,Is.EqualTo("每手最多掷 "+app.Config.totalRollsPerHand+" 次。点“掷骰”开始。"));
                 GuideCheckLayout07("Roll");
                 var liveCards=app.Session.State.controllers.Select(item=>(RectTransform)Button("Controller_"+item.instanceId).transform).ToArray();
                 for(int i=0;i<liveCards.Length;i++)
@@ -126,7 +126,7 @@ namespace DiceCraft.Tests
         {
             Canvas.ForceUpdateCanvases();var paper=FindActive<RectTransform>("FirstRunGuide");Rect card=GuideCheckScreenRect07(paper);
             float scale=app.canvas.scaleFactor;
-            Assert.That(card.width,Is.EqualTo(400*scale).Within(1));Assert.That(card.height,Is.EqualTo(144*scale).Within(1));
+            Assert.That(card.width,Is.EqualTo(400*scale).Within(1));Assert.That(card.height,Is.EqualTo((UiKit.FontScale>1.01f?188:144)*scale).Within(1));
             Rect physicalPaper=GuidePhysicalPaperBounds071(paper);
             Assert.That(card.xMin,Is.GreaterThanOrEqualTo(Screen.safeArea.xMin));Assert.That(card.xMax,Is.LessThanOrEqualTo(Screen.safeArea.xMax));
             Assert.That(card.yMin,Is.GreaterThanOrEqualTo(Screen.safeArea.yMin));Assert.That(card.yMax,Is.LessThanOrEqualTo(Screen.safeArea.yMax));

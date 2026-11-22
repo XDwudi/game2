@@ -61,6 +61,7 @@ namespace DiceCraft
             if(baseMap!=null)props.SetTexture("_BaseMap",baseMap);
             if(tableMap!=null)props.SetTexture("_TableMap",tableMap);
             feltPicture11=tableMap;
+            BindChapterMasks18(props,chapterShift);
             props.SetVector(ChapterShiftId18,chapterShift);
             shownChapterShift18=chapterShift;
             props.SetColor("_BaseColor",theme.IsDefault?feltColor11.Value:theme.Palette.felt);
@@ -76,27 +77,19 @@ namespace DiceCraft
             if(picture==null||ReferenceEquals(picture,feltPicture11)&&shownChapterShift18==chapterShift)return;
             var r=FeltRenderer11;if(r==null)return;
             var props=new MaterialPropertyBlock();r.GetPropertyBlock(props);
+            BindChapterMasks18(props,chapterShift);
             props.SetTexture("_TableMap",picture);props.SetVector(ChapterShiftId18,chapterShift);
             r.SetPropertyBlock(props);
             feltPicture11=picture;
             shownChapterShift18=chapterShift;
         }
         /// <summary>The card gallery (a debug page drawn over the whole screen) is not the play layout.</summary>
-        private void SetGalleryBackdrop11(bool shown){galleryBackdrop11=shown;ApplyTablePicture11();}
+        private void SetGalleryBackdrop11(bool shown){galleryBackdrop11=shown;ShowMenuTray17(!shown&&inMenu);ApplyTablePicture11();}
 
         private void ThemeSettingsChoice11(Transform list,float y)
         {
-            var options=ThemeRegistry.Selectable(ThemeRegistry.ShowPreviewThemes);
             var current=ThemeRegistry.Current??ThemeRegistry.Find(GameTheme.DefaultId);
-            SettingsChoice07(list,"Theme","画面风格",current.DisplayName,y,()=>
-            {
-                int at=options.ToList().FindIndex(t=>t.Id==current.Id);
-                var next=options[(at+1)%options.Count];
-                PlayerPrefs.SetString(ThemeRegistry.PreferenceKey,next.Id);PlayerPrefs.Save();
-                ApplyTheme11(next.Id);
-                settingsNotice07="已切换为“"+next.DisplayName+"”风格。只改变外观，不影响对局与存档。";
-                ShowSettings07();
-            });
+            SettingsChoice07(list,"Theme","画面风格",current.DisplayName,y,ShowThemePicker16);
         }
     }
 }

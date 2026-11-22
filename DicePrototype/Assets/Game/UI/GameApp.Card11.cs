@@ -44,6 +44,8 @@ namespace DiceCraft
             public int ordinal;
             public long price=-1;
             public string availability;
+            public bool claim;
+            public DieInstance rewardDie;
             public Action buy;
             public Sprite art;
             public string buttonName,categoryText;
@@ -287,7 +289,7 @@ namespace DiceCraft
                 // Goods name their category above the name (CARD_TEMPLATE §3).
                 if(goods)
                 {
-                    var category=FitLine13(t,"Category13",GoodsCategory13(card.category),content.x+insetL,y,content.width-insetL-insetR,16,LabelOn11(face,PaperMuted071),TextAlignmentOptions.Center,false);
+                    var category=FitLine13(t,"Category13",card.rewardDie!=null?"特制骰子":GoodsCategory13(card.category),content.x+insetL,y,content.width-insetL-insetR,16,LabelOn11(face,PaperMuted071),TextAlignmentOptions.Center,false);
                     y+=category.rectTransform.rect.height;
                 }
                 // The short text is complete (TX-03): the picture gives way first (down to 56, a shop's to 72), then the text
@@ -322,7 +324,18 @@ namespace DiceCraft
                 }
                 art=Mathf.Max(floorArt,art);
                 float artX=(w-art)*.5f;
-                CardArt13(t,card,artX,artTop,art,false);
+                if(card.rewardDie!=null)
+                {
+                    float stripWidth=Mathf.Min(content.width,174),tile=(stripWidth-10)/6;
+                    float stripH=tile+Line11(16)+2;
+                    art=Mathf.Max(floorArt,art-stripH);
+                    artX=(w-art)*.5f;
+                    FaceStrip14(t,card.rewardDie,(w-stripWidth)*.5f,artTop+art+2,tile,LabelOn11(face,UiKit.Ink),gap:2);
+                    artTop+=stripH;
+                    card.picture(t,new Rect(artX,artTop-stripH,art,art));
+                }
+                else if(card.picture!=null)card.picture(t,new Rect(artX,artTop,art,art));
+                else CardArt13(t,card,artX,artTop,art,false);
                 var value=ValueBadge13(t,card,artX+2,artTop+2,content.x,content.xMax,18);
                 body.rectTransform.anchoredPosition=new Vector2(content.x,-(artTop+art+4));body.rectTransform.sizeDelta=new Vector2(content.width,Mathf.Max(textH,bottom-(artTop+art+4)));
                 if(enchanted)
@@ -508,6 +521,7 @@ namespace DiceCraft
         public const float PriceButtonMin14=60;
         private float PriceButtonHeight13(CardFace13 card,float width)
         {
+            if(card.claim)return PriceButtonMin14;
             if(!PriceTwoRows13(card,width))return Mathf.Max(PriceButtonMin14,Mathf.Ceil(20*UiKit.FontScale*1.46f)+12);
             return Mathf.Max(PriceButtonMin14,PriceRowHeight13+Mathf.Ceil(PriceReasonFont13(card,width)*UiKit.FontScale*1.4f)+2+PriceFrame13);
         }
@@ -525,6 +539,14 @@ namespace DiceCraft
         private void PriceButton13(Transform parent,CardFace13 card,float x,float y,float w,float h)
         {
             bool can=!card.sold&&string.IsNullOrEmpty(card.availability);
+            if(card.claim)
+            {
+                string claimWord=card.sold?"已领取":can?"领取":card.availability;
+                var claim=ShopButton14(parent,card.buttonName,claimWord,x,y,w,h,card.buy,can);
+                var label=claim.transform.Find("Label").GetComponent<TextMeshProUGUI>();
+                while(label.fontSize>19.5f&&label.GetPreferredValues(claimWord).x>w-16)label.fontSize=Mathf.Max(19.5f,label.fontSize-1);
+                return;
+            }
             var button=SolidButton11(parent,card.buttonName??"PriceButton13","",x,y,w,h,()=>{if(!IsBusy&&!modal)card.buy?.Invoke();},can,20);
             var face=(Image)button.targetGraphic;var root=button.transform;
             root.Find("Label")?.gameObject.SetActive(false);

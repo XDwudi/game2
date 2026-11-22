@@ -19,7 +19,7 @@ namespace DiceCraft
         private int settingsRenderedTab07=-1;
         private readonly Dictionary<string,Key> bindings07=new Dictionary<string,Key>();
         private static readonly string[] BindingActions07={"Roll","Lock","Submit","Clear","Handbook"};
-        private static readonly string[] BindingNames07={"掷骰","确认锁定","提交","清除待选","牌型手册"};
+        private static readonly string[] BindingNames07={"掷骰","锁定","提交","取消选择","牌型手册"};
         private static readonly Key[] BindingDefaults07={Key.R,Key.L,Key.Enter,Key.Backspace,Key.H};
 
         private void InitializeSettingsPreferences07()
@@ -58,7 +58,7 @@ namespace DiceCraft
                 {
                     if(!key.wasPressedThisFrame)continue;
                     if(key.keyCode==Key.Escape){rebindingAction07=null;settingsNotice07="已取消改键。";ShowSettings07();return true;}
-                    if(!BindingAllowed07(key.keyCode)){settingsNotice07="请选择普通单键；Esc、数字选择键和单独修饰键保留。";ShowSettings07();return true;}
+                    if(!BindingAllowed07(key.keyCode)){settingsNotice07="请换一个键（Esc、数字键和 Shift/Ctrl/Alt 不能用）。";ShowSettings07();return true;}
                     if(bindings07.Any(b=>b.Key!=rebindingAction07&&b.Value==key.keyCode)){settingsNotice07="该按键已用于另一动作，请选择其他按键。";ShowSettings07();return true;}
                     bindings07[rebindingAction07]=key.keyCode;PlayerPrefs.SetString("art07.key."+rebindingAction07,key.keyCode.ToString());
                     rebindingAction07=null;settingsNotice07="快捷键已保存。";ShowSettings07();return true;
@@ -66,7 +66,7 @@ namespace DiceCraft
                 return true;
             }
             // v1.1 (W09): Ctrl+Shift+D on the settings page reveals the developer's debug password row.
-            if(DebugRevealChord11(keyboard))return true;
+            if(ThemePickerKey16(keyboard)||DebugRevealChord11(keyboard))return true;
             // The project disables automatic navigation events; provide precise keyboard slider steps here.
             var selected=EventSystem.current?.currentSelectedGameObject;
             var slider=selected==null?null:selected.GetComponent<UnityEngine.UI.Slider>();
@@ -83,77 +83,92 @@ namespace DiceCraft
         private void Pause()
         {
             displayPanel=false;debugPanel=false;controllerOrderPanel=false;rebindingAction07=null;
-            var p=Art07Modal("暂停",640,220,640,640);
-            UiKit.Text(p,"Info","已提交的结果会保留。\n返回后继续当前对局。",24,96,592,124,26,UiKit.Muted);
-            UiKit.ActionButton(p,"Resume","返回对局",24,244,592,72,CloseModal,UiKit.Paper);
+            var p=Art07Modal("暂停",640,220,640,640,"pause16");
+            UiKit.Text(p,"Info","进度已自动保存。\n种子 "+ViewState.seed,24,96,592,124,26,LabelOn11(p,UiKit.Muted));
+            Primary16(p,"Resume","返回对局",24,244,592,72,CloseModal);
             UiKit.Button(p,"Settings","设置",24,332,592,72,ShowSettings07);
             UiKit.Button(p,"MainMenu",Session?.HasPendingSave==true?"处理保存问题":"保存并返回主菜单",24,420,592,72,()=>{if(Session?.HasPendingSave==true)SaveFailure();else ReturnMenu();});
-            if(IsBusy||SettlementRevealPlaying07)UiKit.Button(p,"Skip","显示最终结果",24,508,592,72,()=>{CloseModal();SkipVisual();});
+            if(IsBusy||SettlementRevealPlaying07||LootRevealPlaying15)UiKit.Button(p,"Skip","跳过演出",24,508,592,72,()=>{CloseModal();SkipVisual();});
         }
         private void ShowSettings07()
         {
             EnsureBindings07();
             float scrollPosition=settingsScroll07!=null&&settingsRenderedTab07==settingsTab07?settingsScroll07.verticalNormalizedPosition:1;
-            var p=Art07Modal("设置",320,96,1280,888);
+            var p=Art07Modal("设置",320,96,1280,888,"settings16");
+            Color panelText=LabelOn11(p,UiKit.TextColor),panelMuted=LabelOn11(p,UiKit.Muted);
             string[] tabs={"声音","画面","操作与辅助"};
-            for(int i=0;i<3;i++){int tab=i;UiKit.FlatButton(p,"SettingsTab"+i,tabs[i],24+i*416,80,400,64,()=>{rebindingAction07=null;settingsNotice07="";settingsTab07=tab;ShowSettings07();},true,tab==settingsTab07);}
-            float contentHeight=settingsTab07==2?Compact07?2120:1460:Compact07?1168:772;
+            for(int i=0;i<tabs.Length;i++)
+            {
+                int tab=i;
+                var button=UiKit.FlatButton(p,"SettingsTab"+i,tabs[i],24+i*416,80,400,64,()=>
+                {
+                    rebindingAction07=null;settingsNotice07="";settingsTab07=tab;ShowSettings07();
+                },true,tab==settingsTab07);
+                var label=button.GetComponentInChildren<TextMeshProUGUI>();
+                label.color=tab==settingsTab07?LabelOn11(button.targetGraphic as UnityEngine.UI.Image,UiKit.Gold):panelText;
+                if(tab==settingsTab07)UiKit.Box(button.transform,"SelectedRule16",40,57,320,3,label.color);
+            }
+            float contentHeight=settingsTab07==2?Large11?2120:1460:Large11?1168:772;
             var list=UiKit.Scroll(p,"SettingsPage"+settingsTab07,24,160,1232,616,contentHeight);
             if(settingsTab07==0)
             {
-                float stride=Compact07?172:112;
+                float stride=Large11?172:112;
                 Volume07(list,"Master","总音量",volume,0,v=>{volume=v;PlayerPrefs.SetFloat("volume",v);ApplyAudioPreferences07();});
                 Volume07(list,"Music","音乐",musicVolume07,stride,v=>{musicVolume07=v;PlayerPrefs.SetFloat("art07.music",v);ApplyAudioPreferences07();});
                 Volume07(list,"SFX","音效",sfxVolume07,stride*2,v=>{sfxVolume07=v;PlayerPrefs.SetFloat("art07.sfx",v);ApplyAudioPreferences07();});
                 Volume07(list,"UI","界面声音",uiVolume07,stride*3,v=>{uiVolume07=v;PlayerPrefs.SetFloat("art07.ui",v);ApplyAudioPreferences07();});
                 UiKit.Button(list,"Audition","短试听",824,stride*4+8,360,64,()=>PlaySound("lock"));
-                UiKit.Text(list,"AudioHelp","左右方向键微调已选滑块；静音保留所有视觉提示。",12,stride*4+94,1172,96,24,UiKit.Muted);
+                UiKit.Text(list,"AudioHelp","选中滑块后可用左右方向键微调。",12,stride*4+94,1172,96,24,panelMuted);
             }
             else if(settingsTab07==1)
             {
-                UiKit.Button(list,"DisplaySettings","自动尺寸 / 分辨率 / 显示器 / 显示模式",12,8,1172,80,ShowDisplaySettings);
+                UiKit.Button(list,"DisplaySettings","显示与分辨率  >",12,8,1172,80,ShowDisplaySettings);
                 // V1.1: the theme choice sits first among the appearance settings; the rows below moved down one stride.
-                float row=Compact07?168:112;
+                float row=Large11?168:112;
                 ThemeSettingsChoice11(list,124);
                 SettingsChoice07(list,"Quality","画面质量",new[]{"低","标准","高"}[quality07],124+row,()=>{quality07=(quality07+1)%3;PlayerPrefs.SetInt("art07.quality",quality07);ApplyArtPreferences07();ShowSettings07();});
-                SettingsChoice07(list,"Grain","背景颗粒",grain07?"开":"关",(Compact07?292:236)+row,()=>{grain07=!grain07;PlayerPrefs.SetInt("art07.grain",grain07?1:0);ApplyArtPreferences07();ShowSettings07();});
-                SettingsChoice07(list,"Scanlines","桌布扫描线",scanlines07?"开":"关",(Compact07?460:348)+row,()=>{scanlines07=!scanlines07;PlayerPrefs.SetInt("art07.scanlines",scanlines07?1:0);ApplyArtPreferences07();ShowSettings07();});
-                UiKit.Text(list,"QualityHint","画质只影响表现，保留骰点、锁定与倍率来源。\n低画质或减少动态时不显示扫描线。\n显示设置使用独立的 15 秒确认与回退。",12,(Compact07?640:476)+row,1172,160,24,UiKit.Muted);
+                SettingsChoice07(list,"Grain","背景颗粒",grain07?"开":"关",124+row*2,()=>{grain07=!grain07;PlayerPrefs.SetInt("art07.grain",grain07?1:0);ApplyArtPreferences07();ShowSettings07();});
+                SettingsChoice07(list,"Scanlines","桌布扫描线",scanlines07?"开":"关",124+row*3,()=>{scanlines07=!scanlines07;PlayerPrefs.SetInt("art07.scanlines",scanlines07?1:0);ApplyArtPreferences07();ShowSettings07();});
+                float hintTop=124+row*4+16;
+                var help=UiKit.Text(list,"QualityHint","画质只影响画面效果，不影响玩法。\n低画质或开启减少动态时没有扫描线。",12,hintTop,1172,160,24,panelMuted);
+                float height=Mathf.Ceil(help.GetPreferredValues(help.text,1172,Mathf.Infinity).y)+8;
+                help.rectTransform.sizeDelta=new Vector2(1172,height);
+                list.sizeDelta=new Vector2(list.sizeDelta.x,Mathf.Max(616,hintTop+height+16));
             }
             else
             {
-                float stride=Compact07?156:100,y=0;
+                float stride=Large11?156:100,y=0;
                 SettingsChoice07(list,"Speed","演出速度",SpeedLabel11(instant07?"Instant":fast?"Fast":"Normal"),y,()=>{if(instant07){instant07=false;fast=false;}else if(fast){instant07=true;fast=false;}else fast=true;PlayerPrefs.SetInt("fast",fast?1:0);PlayerPrefs.SetInt("art07.instant",instant07?1:0);ApplyArtPreferences07();ShowSettings07();});y+=stride;
                 SettingsChoice07(list,"Reduced","减少动态",reduced?"开":"关",y,()=>{reduced=!reduced;UiKit.ReducedMotion=reduced;PlayerPrefs.SetInt("reduced",reduced?1:0);ApplyArtPreferences07();ShowSettings07();});y+=stride;
                 SettingsChoice07(list,"TextScale","文字缩放",textScale07+"%",y,()=>{textScale07=textScale07==100?125:textScale07==125?150:100;UiKit.FontScale=textScale07/100f;PlayerPrefs.SetInt("art07.textScale",textScale07);CancelDieDrag07();CancelControllerDrag();Refresh();ShowSettings07();});y+=stride;
                 SettingsChoice07(list,"ColorAssist","红圆 / 蓝菱辅助",colorAssist07?"开":"关",y,()=>{colorAssist07=!colorAssist07;PlayerPrefs.SetInt("art07.colorAssist",colorAssist07?1:0);ApplyArtPreferences07();Refresh();ShowSettings07();});y+=stride;
                 SettingsChoice07(list,"Shake","桌面震动",shake07?"开":"关",y,()=>{shake07=!shake07;PlayerPrefs.SetInt("art07.shake",shake07?1:0);ApplyArtPreferences07();ShowSettings07();});y+=stride;
-                UiKit.Text(list,"KeysTitle","快捷键 · 点击后按一个新按键",12,y,1172,64,28,UiKit.Paper);y+=76;
+                UiKit.Text(list,"KeysTitle","快捷键 · 点击后按一个新按键",12,y,1172,64,28,panelText);y+=76;
                 for(int i=0;i<BindingActions07.Length;i++)
                 {
                     string action=BindingActions07[i];int index=i;
-                    UiKit.Text(list,"KeyLabel"+action,BindingNames07[index],12,y,420,64,24,UiKit.Muted);
-                    UiKit.Button(list,"Bind"+action,rebindingAction07==action?"等待按键…":Art07BindingLabel(action),460,y,724,64,()=>{rebindingAction07=action;settingsNotice07="按 Esc 取消改键。";ShowSettings07();});y+=76;
+                    UiKit.Text(list,"KeyLabel"+action,BindingNames07[index],12,y,Large11?1172:420,64,24,panelMuted);
+                    UiKit.Button(list,"Bind"+action,rebindingAction07==action?"等待按键…":Art07BindingLabel(action),Large11?12:460,y+(Large11?68:0),Large11?1172:724,64,()=>{rebindingAction07=action;settingsNotice07="按 Esc 取消改键。";ShowSettings07();});y+=Large11?148:76;
                 }
-                UiKit.Text(list,"ReservedKeys","Esc 关闭最上层；数字键保留骰子选择。输入框与模态层拦截下层快捷键。",12,y,1172,84,22,UiKit.Muted);y+=104;
-                UiKit.Button(list,"ResetKeys","恢复默认快捷键",460,y,724,64,()=>{for(int i=0;i<BindingActions07.Length;i++)PlayerPrefs.DeleteKey("art07.key."+BindingActions07[i]);bindings07.Clear();EnsureBindings07();settingsNotice07="已恢复默认快捷键。";ShowSettings07();});y+=96;
+                UiKit.Text(list,"ReservedKeys","Esc 关闭窗口；数字键 1–0 用来选骰子，不能改。",12,y,1172,84,22,panelMuted);y+=104;
+                UiKit.Button(list,"ResetKeys","恢复默认快捷键",Large11?12:460,y,Large11?1172:724,64,()=>{for(int i=0;i<BindingActions07.Length;i++)PlayerPrefs.DeleteKey("art07.key."+BindingActions07[i]);bindings07.Clear();EnsureBindings07();settingsNotice07="已恢复默认快捷键。";ShowSettings07();});y+=96;
                 // v1.1 (text proposal 5 #2): players never see the debug password row; Ctrl+Shift+D reveals it.
                 if(DebugAccessVisible11){DrawDebugAccess07(list,y);y+=260;}
                 list.sizeDelta=new Vector2(list.sizeDelta.x,y);
             }
-            UiKit.Text(p,"SettingsNotice",settingsNotice07,24,790,812,72,22,UiKit.Gold);
+            UiKit.Text(p,"SettingsNotice",settingsNotice07,24,Large11?782:790,812,Large11?96:72,22,LabelOn11(p,UiKit.Gold));
             UiKit.Button(p,"SettingsDone","完成",864,800,392,64,()=>{rebindingAction07=null;PlayerPrefs.Save();CloseModal();});
             settingsScroll07=list.GetComponentInParent<UnityEngine.UI.ScrollRect>();settingsScroll07.verticalNormalizedPosition=scrollPosition;settingsRenderedTab07=settingsTab07;
         }
         private void SettingsChoice07(Transform parent,string id,string label,string current,float y,Action change)
         {
-            UiKit.Text(parent,id+"Label",label,12,y,Compact07?1172:420,64,26,UiKit.Paper);
-            UiKit.Button(parent,id,current+"  >",Compact07?12:460,y+(Compact07?68:0),Compact07?1172:724,68,change);
+            UiKit.Text(parent,id+"Label",label,12,y,Large11?1172:420,64,26,SettingsInk16(parent,UiKit.TextColor));
+            UiKit.Button(parent,id,current+"  >",Large11?12:460,y+(Large11?68:0),Large11?1172:724,68,change);
         }
         private void Volume07(Transform p,string id,string label,float value,float y,Action<float> changed)
         {
-            UiKit.Text(p,id+"Label",label,12,y,420,64,28,UiKit.Paper);
-            float x=Compact07?12:460,sy=y+(Compact07?72:0),width=Compact07?984:524;
+            UiKit.Text(p,id+"Label",label,12,y,Large11?1172:420,64,28,SettingsInk16(p,UiKit.TextColor));
+            float x=Large11?12:460,sy=y+(Large11?72:0),width=Large11?984:524;
             var root=UiKit.Box(p,id+"Slider",x,sy,width,64,Color.clear,true);
             UiKit.Box(root,"Track",0,28,width,8,UiKit.PanelLight);
             var fillArea=UiKit.Rect(root,"FillArea",16,28,width-32,8);
@@ -167,7 +182,7 @@ namespace DiceCraft
             // Pool layout resets the driven anchors; an unchanged value otherwise skips Slider.UpdateVisuals.
             // Both assignments happen before rendering and without callbacks.
             slider.SetValueWithoutNotify(value==0?1:0);slider.SetValueWithoutNotify(value);
-            var number=UiKit.Text(p,id+"Value",Mathf.RoundToInt(value*100)+"%",1020,sy,164,64,28,UiKit.Gold,TextAlignmentOptions.Center);
+            var number=UiKit.Text(p,id+"Value",Mathf.RoundToInt(value*100)+"%",1020,sy,164,64,28,SettingsInk16(p,UiKit.Gold),TextAlignmentOptions.Center);
             slider.onValueChanged.AddListener(v=>{number.text=Mathf.RoundToInt(v*100)+"%";changed(v);});
         }
         private void DrawDebugAccess07(Transform p,float y)

@@ -107,7 +107,7 @@ namespace DiceCraft.Tests
             from=FindActive<DiePointer>("Controller_"+first);Assert.That(from.dragStart,Is.Null);Assert.That(from.dragged,Is.Null);Assert.That(from.dragEnd,Is.Null);
             ExecuteEvents.Execute(from.gameObject,data,ExecuteEvents.beginDragHandler);ExecuteEvents.Execute(from.gameObject,data,ExecuteEvents.dragHandler);ExecuteEvents.Execute(from.gameObject,data,ExecuteEvents.endDragHandler);
             Assert.That(app.IsControllerDragging,Is.False);Assert.That(StateJson(),Is.EqualTo(frozen));CollectionAssert.AreEqual(frozenDisk,File.ReadAllBytes(app.SaveLocation));
-            yield return LegacyClick07("Controller_"+first);Assert.That(FindActive<TextMeshProUGUI>("HeldRule").text,Does.Contain("关内顺序已固定"));
+            yield return LegacyClick07("Controller_"+first);Assert.That(FindActive<TextMeshProUGUI>("HeldRule").text,Does.Contain("关卡中不能卖出或调整顺序"));
             yield return LegacyClick07("CloseDialog");Assert.That(StateJson(),Is.EqualTo(frozen));
         }
 

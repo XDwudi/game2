@@ -33,6 +33,7 @@ namespace DiceCraft
         }
         private void DrawNavigation07()
         {
+            if(ViewState.phase=="RunWon"||ViewState.phase=="RunFailed")return;
             float x=Compact07?C07(24):40,w=Compact07?C07(192):288;
             if(FramePhase11)
             {
@@ -54,6 +55,7 @@ namespace DiceCraft
         }
         private void Header()
         {
+            if(ViewState.phase=="RunWon"||ViewState.phase=="RunFailed")return;
             bool c=Compact07;float x=c?18:24,y=c?18:24,w=c?324:320,h=c?1044:1032;
             // V1.1 (W11): the play screen and the stage select use the top bar; settlement and results keep the column.
             if(FramePhase11){TopBar11();return;}
@@ -147,7 +149,12 @@ namespace DiceCraft
         {
             ShowHandbook();
         }
-        private void ConfirmQuit07(){var p=OpenModal("退出游戏");UiKit.Text(p,"QuitHint","最近一次成功操作已保存。",40,160,1500,100,32);UiKit.ActionButton(p,"ConfirmQuit","退出",500,430,600,72,()=>Application.Quit(),UiKit.Paper);}
+        private void ConfirmQuit07()
+        {
+            var p=Art07Modal("退出游戏",560,330,800,420,"quit16");
+            UiKit.Text(p,"QuitHint","进度已自动保存。",24,112,752,96,26,LabelOn11(p),TextAlignmentOptions.Center);
+            UiKit.Button(p,"ConfirmQuit","退出",200,300,400,72,()=>Application.Quit());
+        }
         private void StagePreview()=>StagePreview10();
         private void DrawControllers07()
         {
@@ -492,19 +499,18 @@ namespace DiceCraft
             if(preview==null||snapshot==null)return;
             var factors=preview.minimum.multiplierFactors.Where(f=>f.abilityId=="C53").ToArray();
             string[] owners=factors.Select(f=>f.stateOwnerId).Distinct(StringComparer.Ordinal).ToArray();
-            var p=Art07Modal("随机结果 · 只读分支",496,400,1280,520);
+            var p=Art07Modal("错乱乘积 · 可能的结果",496,400,1280,520);
             var list=UiKit.Scroll(p,"RandomBranches",24,96,1232,336,336);float y=0;
             string range=preview.isRandom?"随机结果范围 "+CompactScore(preview.minimum.score)+" — "+CompactScore(preview.maximum.score):"仅下一次调试覆盖 · 预计 "+CompactScore(preview.minimum.score);
             Art07DetailSection(list,"RandomRange","总分范围",range,ref y,1200);
             // v1.1 (W09): cards are named by their printed position and name, never by instance id.
             var cards=snapshot.equippedControllers;
-            Func<string,string> card=id=>{string at=CardPosition11(cards,id);var item=cards?.FirstOrDefault(c=>c.instanceId==id);return (at==null?"":at+" ")+(item==null?NameOf("C53"):NameOf(item.definitionId));};
             foreach(string owner in owners)
             {
                 var emitters=factors.Where(f=>f.stateOwnerId==owner).Select(f=>f.emitterId).ToArray();
-                string sharing=emitters.Length>1?"共用 q · ":"独立 q · ";
+                string sharing=emitters.Length>1?"，模仿它的卡用同一个结果。":"。";
                 var forced=ViewState.isDebug&&ViewState.debugWorkspace?ViewState.randomOverrides.FirstOrDefault(o=>o.kind=="C53"&&o.sourceId==owner):null;
-                Art07DetailSection(list,"RandomOwner"+owner,sharing+card(owner),"使用此 q："+string.Join("、",emitters.Select(card))+(forced==null?"\n正式提交后才确定结果。":"\n仅下一次覆盖："+PlayerNumberFormat.Times(int.Parse(forced.value),2)),ref y,1200);
+                Art07DetailSection(list,"RandomOwner"+owner,NameOf("C53")+"（"+CardPosition11(cards,owner)+"）","提交时才抽取倍率"+sharing+(forced==null?"":"\n仅下一次覆盖："+PlayerNumberFormat.Times(int.Parse(forced.value),2)),ref y,1200);
             }
             if(owners.Length==1&&preview.isRandom)
             {
@@ -514,15 +520,15 @@ namespace DiceCraft
                     var branch=snapshot.Clone();branch.resolvedRandomChoices=new[]{new RandomMultiplierChoice{ownerInstanceId=owner,units2=q}};
                     var evaluated=ScoreCalculator.Preview(branch,Config);var exact=evaluated.minimum;
                     float rowHeight=Math.Max(80,80*UiKit.FontScale);
-                    UiKit.Text(list,"RandomFactor"+index,"q "+PlayerNumberFormat.Times(q,2),0,y,240,rowHeight-8,26,UiKit.Paper);
+                    UiKit.Text(list,"RandomFactor"+index,PlayerNumberFormat.Times(q,2),0,y,240,rowHeight-8,26,UiKit.Paper);
                     var score=UiKit.Text(list,"RandomScore"+index,CompactScore(exact.score),256,y,656,rowHeight-8,26,UiKit.Gold);score.overflowMode=TextOverflowModes.Ellipsis;
-                    UiKit.Button(list,"RandomBranch"+index,"查看分项",944,y,240,64,()=>ShowBreakdown(branch,exact));
+                    UiKit.Button(list,"RandomBranch"+index,"查看明细",944,y,240,64,()=>ShowBreakdown(branch,exact));
                     y+=rowHeight;index++;
                 }
             }
-            else if(owners.Length>1)Art07DetailSection(list,"RandomMultiple","多张"+NameOf("C53"),"仅列各来源与总范围，不展开组合列表。每张"+NameOf("C53")+"独立确定 q，模仿者与目标共用 q。",ref y,1200);
+            else if(owners.Length>1)Art07DetailSection(list,"RandomMultiple","多张"+NameOf("C53"),"每张各抽一次倍率，这里只列出总分范围。",ref y,1200);
             list.sizeDelta=new Vector2(list.sizeDelta.x,y+16);
-            UiKit.Text(p,"RandomReadOnly","浏览不会抽样、消耗覆盖或改变当前提交。",24,448,1232,60,24,UiKit.Muted);
+            UiKit.Text(p,"RandomReadOnly","查看不会抽取结果，也不影响这次提交。",24,448,1232,60,24,UiKit.Muted);
         }
         private void Settlement()
         { DrawSettlement07(); }

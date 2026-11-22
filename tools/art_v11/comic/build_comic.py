@@ -105,6 +105,7 @@ THEME_META = {
                     "style_kit.json；界面件与色板由 tools/art_v11/comic/build_comic.py 生成（说明见同目录 README.md）"),
     "order": 3,
     "preview": True,
+    "fonts": {"title": "Fonts/title", "roles": ["screenTitle", "stageNumber", "bigNumber", "bossName", "primaryButton", "sectionTitle"]},
 }
 
 
@@ -1093,7 +1094,7 @@ KEPT_UNREFERENCED = frozenset({"ui_price_chip", "ui_pedestal", "ui_frame_enchant
 
 def contract_sprites() -> list[dict]:
     return [s for s in json.loads(CONTRACT.read_text(encoding="utf-8"))["sprites"]
-            if s["referenced"] or s["name"] in KEPT_UNREFERENCED]
+            if (s["referenced"] or s["name"] in KEPT_UNREFERENCED) and not s.get("optionalOverride")]
 
 
 # ---------------------------------------------------------------------------------------------- table

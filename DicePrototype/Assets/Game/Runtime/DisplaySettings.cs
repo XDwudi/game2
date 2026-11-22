@@ -117,7 +117,7 @@ namespace DiceCraft
                 var modes=Screen.resolutions.Where(r=>r.width==c.width&&r.height==c.height).ToArray();
                 if(modes.Length==0||Screen.mainWindowDisplayInfo.name!=c.displayName)
                 {
-                    if(confirmation){transition=null;Notice="目标显示器不支持请求的独占分辨率，恢复原设置。";Revert();yield break;}
+                    if(confirmation){transition=null;Notice="目标显示器不支持这个分辨率，已恢复原设置。";Revert();yield break;}
                     c=SafeWindow();
                 }
                 else {var d=Screen.mainWindowDisplayInfo;var r=modes.OrderBy(v=>Math.Abs(v.refreshRateRatio.value-d.refreshRate.value)).First();c=c.Clone();c.refreshNumerator=r.refreshRateRatio.numerator;c.refreshDenominator=r.refreshRateRatio.denominator;}

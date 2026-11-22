@@ -63,7 +63,7 @@ def load_kit(root: Path = ROOT):
     for name, s in specs.items():
         own = theme / "UI" / (name + ".png")
         path = own if own.is_file() else ROOT / s["default"]
-        if not own.is_file() and s["referenced"]:
+        if not own.is_file() and s["referenced"] and not s.get("optionalOverride"):
             fallback.append(name)
         with Image.open(path) as im:
             kit[name] = im.convert("RGBA")

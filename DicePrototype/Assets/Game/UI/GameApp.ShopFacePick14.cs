@@ -162,7 +162,7 @@ namespace DiceCraft
         private string FacePickReason14(ShopOffer offer,FacePick14 pick)
         {
             if(pick==null||pick.dieId==null||!pick.whole&&pick.faceId==null)return "";
-            if(Session.IsLootPending)return "先领取首领战利品";
+            if(offer.groupId!="LOOT"&&Session.IsLootPending)return "先领取首领战利品";
             var die=ViewState.dice.FirstOrDefault(d=>d.dieId==pick.dieId);var face=die?.faces.FirstOrDefault(f=>f.faceId==pick.faceId);
             if(offer.category=="die_upgrade"&&!Session.IsUpgradeTargetLegal(offer.contentId,pick.dieId,pick.whole?null:pick.faceId))
             {
@@ -306,7 +306,7 @@ namespace DiceCraft
                     if(reason!=null)Line("PurchaseUnavailable",reason,20,ink,false);
                     else if(note!=null)Line("FacePickNote14",note,20,ink,false);
                     long cost=Session.GetOfferNetPrice(offer);
-                    Line("FacePickPrice14","价格 "+cost+"（你有 "+PlayerNumberFormat.Gold(ViewState.gold)+"）",20,muted,false);
+                    Line("FacePickPrice14",!string.IsNullOrEmpty(offer.groupId)?"免费":"价格 "+cost+"（你有 "+PlayerNumberFormat.Gold(ViewState.gold)+"）",20,muted,false);
                 }
             }
             // Buttons along the foot of the panel, right to left: 确认购买 ⦿N, 换一面 / 换一颗, 取消 (second-level: the screen's one
@@ -315,20 +315,23 @@ namespace DiceCraft
             float by=l.dice.height-ShopFoot14-4-60,bx=l.dice.width-ShopPad14;
             bool confirmShown=step=="S3";
             string swap=step=="S3"&&!pick.whole?"换一面":step=="S2"||step=="S3"&&pick.whole?"换一颗":null;
-            long confirmCost=Session.GetOfferNetPrice(offer);string confirmWord=offer.contentId=="O04"?"确认删除":"确认购买";
+            long confirmCost=Session.GetOfferNetPrice(offer);bool gift=!string.IsNullOrEmpty(offer.groupId);string confirmWord=gift?"确认领取":offer.contentId=="O04"?"确认删除":"确认购买";
             float wordW=ShopLabelWidth14(confirmWord,20),priceW=26+4+ShopLabelWidth14(confirmCost.ToString(CultureInfo.InvariantCulture),22);
             float swapW=swap==null?0:ShopLabelWidth14(swap,20),cancelLabelW=ShopLabelWidth14("取消",20);
-            float RowWidth(float p,float g)=>(confirmShown?p+wordW+10+priceW+p+g:0)+(swap!=null?swapW+2*p+g:0)+cancelLabelW+2*p+8;
+            float RowWidth(float p,float g)=>(confirmShown?p+wordW+(gift?0:10+priceW)+p+g:0)+(swap!=null?swapW+2*p+g:0)+cancelLabelW+2*p+8;
             float pad=16,gapB=10;if(RowWidth(pad,gapB)>l.dice.width-2*ShopPad14){pad=12;gapB=6;}
             if(confirmShown)
             {
                 bool can=FacePickReason14(offer,pick)==null&&!IsBusy&&!Session.HasPendingSave;
-                float cw=pad+wordW+10+priceW+pad;
+                float cw=2*pad+wordW+(gift?0:10+priceW);
                 var confirm=ShopButton14(panel,"ConfirmPurchase",confirmWord,bx-cw,by,cw,60,FacePickConfirm14,can);
                 var label=confirm.transform.Find("Label").GetComponent<TextMeshProUGUI>();var face=(Image)confirm.targetGraphic;
                 label.alignment=TextAlignmentOptions.MidlineLeft;label.rectTransform.anchoredPosition=new Vector2(pad,0);label.rectTransform.sizeDelta=new Vector2(wordW,60);
+                if(!gift)
+                {
                 var coin=UiKit.Box(confirm.transform,"Coin",pad+wordW+10,17,26,26,can?Color.white:Alpha14(Color.white,.6f)).GetComponent<Image>();coin.sprite=UiKit.Template("ui_icon_coin");coin.preserveAspect=true;coin.raycastTarget=false;
                 NoWrap11(UiKit.Text(confirm.transform,"Price",confirmCost.ToString(CultureInfo.InvariantCulture),pad+wordW+10+30,0,priceW-30,60,22,LabelOn11(face,can?UiKit.Gold:UiKit.Muted),TextAlignmentOptions.MidlineLeft)).fontStyle=FontStyles.Bold;
+                }
                 bx-=cw+gapB;
             }
             if(swap=="换一面"){float ww=swapW+2*pad;ShopButton14(panel,"ChangeFace14",swap,bx-ww,by,ww,60,()=>{if(facePick14!=null){facePick14.faceId=null;Refresh();}},!IsBusy);bx-=ww+gapB;}

@@ -493,7 +493,16 @@ namespace DiceCraft.Core
                         s.cycles[cycle].modifierId = DrawModifier(s, stageRng, cycle + 1, s.cycles.Select(c => c.modifierId)); s.stageRngState = stageRng.State; s.bossRerolls++;
                         s.lastEffects.Add(new EffectRecord { kind = "BossRerolled", sourceId = "O09", detail = before + ":" + s.cycles[cycle].modifierId, newValue = cycle + 1 });
                     }
-                    else if (offer.contentId == "O10") { s.interestCapPurchases++; s.lastEffects.Add(new EffectRecord { kind = "InterestCapRaised", sourceId = "O10", newValue = checked(cfg.maxInterestPrincipal + (long)cfg.interestPrincipalStep * s.interestCapPurchases) }); }
+                    else if (offer.contentId == "O10")
+                    {
+                        s.interestCapPurchases++;
+                        long maxInterest = InterestOnPrincipal(InterestPrincipalCap(s), Sources(s).Count(a => a.abilityId == "C01"));
+                        // Earlier saves record only the base plus purchased principal in newValue.
+                        // Capture the effective maximum here while the purchased run's equipment is still known.
+                        s.lastEffects.Add(new EffectRecord { kind = "InterestCapRaised", sourceId = "O10",
+                            newValue = checked(cfg.maxInterestPrincipal + (long)cfg.interestPrincipalStep * s.interestCapPurchases),
+                            detail = maxInterest.ToString(System.Globalization.CultureInfo.InvariantCulture) });
+                    }
                     else if (offer.contentId == "O11")
                     {
                         var effect = new GameRng(s.effectRngState); Check(EnchantRandomController(s, effect, "O11", null), "没有可以附魔的卡牌。");

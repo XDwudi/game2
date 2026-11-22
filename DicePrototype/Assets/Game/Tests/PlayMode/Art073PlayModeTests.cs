@@ -248,7 +248,7 @@ namespace DiceCraft.Tests
             var cells=app.canvas.GetComponentsInChildren<RectTransform>(false).Where(r=>r.name.StartsWith("StyleCell",StringComparison.Ordinal)).ToArray();
             Assert.That(cells.Length,Is.EqualTo(8));
             string[] names=cells.Select(c=>c.Find("NameChip/Name").GetComponent<TextMeshProUGUI>().text).ToArray();
-            CollectionAssert.AreEqual(new[]{"普通","光滑","粗糙","黄金","玻璃","复合","临时","锁定"},names);
+            CollectionAssert.AreEqual(new[]{"普通","光滑","粗糙","黄金","玻璃","多种叠加","临时","锁定"},names);
             var views=cells.Select(c=>c.GetComponentInChildren<Art073DieView>(false)).ToArray();
             Assert.That(views.All(v=>v!=null&&v.IsShown),Is.True);Assert.That(app.UiDice073.ActiveVisualCount,Is.EqualTo(8));
             // Finishes are separate submeshes over an unchanged pip mesh: plain 1, smooth/rough/gold 2.

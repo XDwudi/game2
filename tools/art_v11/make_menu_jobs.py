@@ -19,8 +19,9 @@ MATERIALS = {
 
 SUBJECT = (
     "One empty wide shallow tabletop tray, seen nearly overhead. Match the projected silhouette, "
-    "angle and proportions of reference 2: the entire back rim is visible, the two back corners "
-    "taper slightly inward, and the low near lip casts a narrow contact shadow. Light from upper left. "
+    "angle and proportions of reference 2. Use reference 1 alone for the rendering style. "
+    "The entire back rim is visible, the two back corners taper slightly inward, "
+    "and the low near lip casts a narrow contact shadow. Light from upper left. "
     "The central bed is a single uninterrupted resting surface for the runtime foreground. "
     "Show the complete tray alone on transparent ground with space around all four edges. "
     "No cards, dice, pips, letters, numbers, coins, people, emblems, captions, buttons, or artwork outside the silhouette."

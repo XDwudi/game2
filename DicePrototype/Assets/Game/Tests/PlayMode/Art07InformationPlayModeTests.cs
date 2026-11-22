@@ -32,6 +32,15 @@ namespace DiceCraft.Tests
         private string InformationText07(string id)=>FindActive<TextMeshProUGUI>(id).text;
         private string InformationButton07(string id)=>Button(id).GetComponentInChildren<TextMeshProUGUI>().text;
 
+        [TestCase(null, "理财顾问：计息的金币上限+10；道具打折有效，最低1金币。")]
+        [TestCase("12", "理财顾问：利息上限提高到每关 +12")]
+        public void PLAY_W16B_AdvisorOnlyShowsTheRecordedEffectiveMaximum(string detail,string expected)
+        {
+            var effect=new EffectRecord{kind="InterestCapRaised",sourceId="O10",newValue=35,detail=detail};
+            var method=typeof(GameApp).GetMethod("EffectText10",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic);
+            Assert.That(method.Invoke(app,new object[]{effect}),Is.EqualTo(expected));
+        }
+
         [UnityTest] public IEnumerator PLAY_ART07_InvalidSeedKeepsDialogAndInputUntilCorrected()
         {
             Click("NewRun");var input=FindActive<TMP_InputField>("SeedInput");
@@ -39,7 +48,7 @@ namespace DiceCraft.Tests
             {
                 input.text=invalid;Click("StartNew");yield return null;
                 Assert.That(FindActive<TMP_InputField>("SeedInput"),Is.SameAs(input));
-                Assert.That(input.text,Is.EqualTo(invalid));Assert.That(InformationText07("SeedError"),Does.Contain("输入已保留"));
+                Assert.That(input.text,Is.EqualTo(invalid));Assert.That(InformationText07("SeedError"),Is.EqualTo("种子只能是 0 到 4294967295 的整数。"));
                 Assert.That(app.Session.State,Is.Null);Assert.That(File.Exists(app.SaveLocation),Is.False);
             }
             input.text="70791";Click("StartNew");Assert.That(app.Session.State.seed,Is.EqualTo(70791));
@@ -66,13 +75,33 @@ namespace DiceCraft.Tests
             yield return null;
         }
 
+        [UnityTest] public IEnumerator PLAY_W16B_MimicChainNamesBothFrozenPositionsWithoutChangingTheSession()
+        {
+            var fixture=NewBoundaryFixture("w16b-mimic");
+            Equip09(fixture,"C41","C41","C53");
+            yield return LoadBoundaryFixture(fixture);ResumeBoundaryFixture();Click("StartStage");
+            yield return WaitForIdle();
+            string before=StateJson();
+            byte[] disk=File.ReadAllBytes(app.SaveLocation);
+            Click("Controller_"+fixture.controllers[0].instanceId);
+            string state=InformationText07("CurrentBody");
+            Assert.That(state,Does.StartWith("右边：第 2 张 "+app.Config.Controller("C41").displayName+"\n实际复制：第 3 张 "+app.Config.Controller("C53").displayName));
+            Assert.That(state,Does.Not.Contain("ITEM_").And.Not.Contain("上一手抽到"));
+            Click("CloseDialog");
+            Click("Controller_"+fixture.controllers[1].instanceId);
+            Assert.That(InformationText07("CurrentBody"),Does.StartWith("复制：右边的"+app.Config.Controller("C53").displayName));
+            Click("CloseDialog");
+            Assert.That(StateJson(),Is.EqualTo(before));CollectionAssert.AreEqual(disk,File.ReadAllBytes(app.SaveLocation));
+        }
+
         [UnityTest] public IEnumerator PLAY_ART07_RandomNineBranchesSharedOwnerAreExactAndReadOnly()
         {
             StartRun("70793");var scene=InformationScene07(Art07FixtureKind.SharedHalf);scene.randomOverrides.Clear();ApplyInformationScene07(scene);
             string before=StateJson();byte[] disk=File.ReadAllBytes(app.SaveLocation);var frozen=app.Session.PreviewSnapshot();
             string owner=app.Session.PreviewScoreRange().randomOwnerIds.Single();
             Assert.That(InformationText07("Hand"),Does.Contain("随机结果范围"));Click("RandomPreview");
-            Assert.That(InformationText07("RandomOwner"+owner+"Title"),Does.Contain("共用 q"));
+            Assert.That(InformationText07("RandomOwner"+owner+"Title"),Does.StartWith("错乱乘积（第 "));
+            Assert.That(InformationText07("RandomOwner"+owner+"Body"),Is.EqualTo("提交时才抽取倍率，模仿它的卡用同一个结果。"));
             int[] choices=app.Config.Controller("C53").parameters.factorUnits2;
             for(int i=0;i<choices.Length;i++)
             {
@@ -80,9 +109,16 @@ namespace DiceCraft.Tests
                 var exact=ScoreCalculator.Preview(branch,app.Config);Assert.That(exact.isRandom,Is.False);
                 // v1.1 (W09, text proposal 3): the branch score has thousands separators (same digits, PlayerNumberFormat).
                 Assert.That(InformationText07("RandomScore"+i),Is.EqualTo(PlayerNumberFormat.Exact(exact.minimum.score)));
-                Assert.That(InformationText07("RandomFactor"+i),Is.EqualTo("q ×"+(choices[i]/2m).ToString("0.#")));
+                Assert.That(InformationText07("RandomFactor"+i),Is.EqualTo("×"+(choices[i]/2m).ToString("0.#")));
             }
-            Assert.That(choices.Length,Is.EqualTo(9));Click("RandomBranch8");Click("CloseDialog");
+            Assert.That(choices.Length,Is.EqualTo(9));
+            for(int i=0;i<choices.Length;i++)
+            {
+                Click("RandomBranch"+i);
+                Assert.That(HasActive("CopyExactScore"),Is.True);
+                Click("CloseDialog");
+                if(i+1<choices.Length)Click("RandomPreview");
+            }
             Assert.That(StateJson(),Is.EqualTo(before));CollectionAssert.AreEqual(disk,File.ReadAllBytes(app.SaveLocation));
             scene=InformationScene07(Art07FixtureKind.SharedHalf);ApplyInformationScene07(scene);
             before=StateJson();disk=File.ReadAllBytes(app.SaveLocation);Click("RandomPreview");
@@ -90,7 +126,7 @@ namespace DiceCraft.Tests
             Click("CloseDialog");Assert.That(StateJson(),Is.EqualTo(before));CollectionAssert.AreEqual(disk,File.ReadAllBytes(app.SaveLocation));
             scene=InformationScene07(Art07FixtureKind.SharedHalf);scene.randomOverrides.Clear();
             var extra=scene.controllers[1].Clone();extra.acquiredSerial+=1;extra.instanceId="ITEM_"+extra.acquiredSerial.ToString("D5");scene.controllers.Add(extra);
-            ApplyInformationScene07(scene);before=StateJson();Click("RandomPreview");Assert.That(InformationText07("RandomMultipleBody"),Does.Contain("不展开组合列表"));
+            ApplyInformationScene07(scene);before=StateJson();Click("RandomPreview");Assert.That(InformationText07("RandomMultipleBody"),Is.EqualTo("每张各抽一次倍率，这里只列出总分范围。"));
             Assert.That(HasActive("RandomBranch0"),Is.False);Click("CloseDialog");Assert.That(StateJson(),Is.EqualTo(before));yield return null;
         }
 
@@ -105,14 +141,16 @@ namespace DiceCraft.Tests
             Assert.That(app.Session.State.phase,Is.EqualTo("StageSettlement"));var s=app.Session.State;
             var settlement=s.lastStageSettlement;var receipt=s.processedReceipts.Last(q=>q.settlement?.settlementId==settlement.settlementId);
             long earned=s.processedReceipts.Where(q=>q.submission!=null).SelectMany(q=>q.effects).Where(e=>e.kind=="SubmissionIncome").Sum(e=>e.newValue);
-            Assert.That(earned,Is.GreaterThan(0));Assert.That(InformationText07("SubmissionIncome"),Does.Contain("本关已入账").And.Contain("+"+earned+" 金币"));
+            Assert.That(InformationText07("SettlementNetCash"),Is.EqualTo("+"+PlayerNumberFormat.Gold(settlement.goldAfter-settlement.goldBefore)));
+            Click("SettlementDetailsToggle15");
+            Assert.That(earned,Is.GreaterThan(0));Assert.That(InformationText07("SubmissionIncome"),Is.EqualTo("本关提交时已得 +"+earned+" 金币（已算在上面的金币里）"));
             // v1.1 (W09, TX-02): each fund line names its card (both names are unique here), never its instance id.
             string fundText=InformationText07("FundGrowth");
-            Assert.That(fundText,Does.Contain(app.Config.Controller("C41").displayName+" · 卖价＋3 · 基金累计 6").And.Contain(app.Config.Controller("C52").displayName+" · 卖价＋3 · 基金累计 9").And.Contain("不进入钱包"));
+            Assert.That(fundText,Does.Contain(app.Config.Controller("C41").displayName+"卖价 +3（现价 "+app.Session.ControllerSalePriceIn(s,s.controllers.Single(c=>c.instanceId==mimic.instanceId))+"，卖出时才得到）").And.Contain(app.Config.Controller("C52").displayName+"卖价 +3（现价 "+app.Session.ControllerSalePriceIn(s,s.controllers.Single(c=>c.instanceId==fund.instanceId))+"，卖出时才得到）"));
             Assert.That(fundText,Does.Not.Contain(mimic.instanceId).And.Not.Contain(fund.instanceId));
             var expired=receipt.effects.Where(e=>e.kind=="TemporaryDieExpired").ToArray();Assert.That(expired.Length,Is.EqualTo(1));
-            Assert.That(InformationText07("TemporaryCleanup"),Does.Contain(GameApp.DieName11(expired[0].dieId)).And.Not.Contain(expired[0].dieId));
-            Assert.That(InformationText07("SettlementNetCash"),Does.Contain("+"+(settlement.goldAfter-settlement.goldBefore)));
+            Assert.That(InformationText07("TemporaryCleanup"),Is.EqualTo("本关的 "+expired.Length+" 颗临时骰已移除"));
+            Assert.That(HasActive("SettlementNetCash"),Is.False,"The details replace the summary.");
             string before=StateJson();byte[] disk=File.ReadAllBytes(app.SaveLocation);yield return null;
             Assert.That(StateJson(),Is.EqualTo(before));CollectionAssert.AreEqual(disk,File.ReadAllBytes(app.SaveLocation));
             long gold=s.gold;Click("SettlementContinue");Assert.That(app.Session.State.gold,Is.EqualTo(gold));
@@ -120,7 +158,7 @@ namespace DiceCraft.Tests
             scene=InformationScene07(Art07FixtureKind.G147);scene.controllers.Clear();scene.target="1";scene.remainingSubmissions=1;
             foreach(var die in scene.dice)die.lifetime="stage_temporary";
             ApplyInformationScene07(scene);Click("Submit");app.SkipVisual();
-            Assert.That(InformationText07("SettlementStatus"),Does.Contain("本关成功").And.Contain("永久骰已耗尽"));
+            Assert.That(InformationText07("SettleNote15"),Is.EqualTo("本关通过了，但你已经没有骰子，这一局结束。"));
             Click("SettlementContinue");Assert.That(app.Session.State.phase,Is.EqualTo("RunFailed"));Assert.That(app.Session.State.failureReason,Is.EqualTo("NoPermanentDice"));
         }
 

@@ -102,17 +102,17 @@ namespace DiceCraft
         private string Art07ItemUnavailable(OwnedItem item)
         {
             if(IsBusy||Session.HasPendingSave)return "等待当前操作完成。";
-            if(Session.PendingIds.Length>0)return "先确认锁定或清除待选。";
+            if(Session.PendingIds.Length>0)return "先锁定或取消选中的骰子。";
             var s=ViewState;var h=s.hand;
             if(s.phase!="HandReady"&&s.phase!="Selecting")return "此道具只能在关内使用。";
             if(item.contentId!="I08"&&ControllerRules.ModifierHas(Config,Session.CurrentModifierId,"NoItems"))return "首领减益“徒手”：本关不能使用道具。";
             switch(item.contentId)
             {
-                case "I01":return !h.hasRolled||h.orderedLockedIds.Count==0?"需要投掷并至少锁定一颗骰子。":h.redWave?"本手已经生效。":h.blueWave?"本手已经用了蓝色浪潮。":null;
-                case "I02":return s.phase!="HandReady"?"只能在本手首掷前使用。":s.dice.Count>=(s.isDebug?Config.debug.maxDice:Config.maxActiveDice)||(!s.isDebug&&s.dice.Count(d=>d.lifetime=="stage_temporary")>=Config.maxTemporaryDice)?"临时骰或活动骰数量已满。":null;
-                case "I03":return h.rollsRemaining<=0?"需要至少一次剩余投掷。":s.dice.Count(d=>!h.orderedLockedIds.Contains(d.dieId))<2?"需要两颗不同的未锁骰。":null;
-                case "I04":return h.largeBuff?"本手已经生效。":h.rollsRemaining<=0||!s.dice.Any(d=>!h.orderedLockedIds.Contains(d.dieId)&&d.faces.Any(f=>f.permanentPip==6))?"需要可投掷且含永久 6 点面的未锁骰。":null;
-                case "I05":return h.smallBuff?"本手已经生效。":h.rollsRemaining<=0||!s.dice.Any(d=>!h.orderedLockedIds.Contains(d.dieId)&&d.faces.Any(f=>f.permanentPip==1))?"需要可投掷且含永久 1 点面的未锁骰。":null;
+                case "I01":return !h.hasRolled||h.orderedLockedIds.Count==0?"需要先掷骰并锁定至少 1 颗骰子。":h.redWave?"本手已经生效。":h.blueWave?"本手已经用了蓝色浪潮。":null;
+                case "I02":return s.phase!="HandReady"?"本手第一次掷骰前才能用。":s.dice.Count>=(s.isDebug?Config.debug.maxDice:Config.maxActiveDice)||(!s.isDebug&&s.dice.Count(d=>d.lifetime=="stage_temporary")>=Config.maxTemporaryDice)?s.isDebug?$"骰子已到上限（总数最多 {Config.debug.maxDice} 颗）。":$"骰子已到上限（临时骰最多 {Config.maxTemporaryDice} 颗，总数最多 {Config.maxActiveDice} 颗）。":null;
+                case "I03":return h.rollsRemaining<=0?"需要至少一次剩余投掷。":s.dice.Count(d=>!h.orderedLockedIds.Contains(d.dieId))<2?"需要骰池里有 2 颗骰子。":null;
+                case "I04":return h.largeBuff?"本手已经生效。":h.rollsRemaining<=0||!s.dice.Any(d=>!h.orderedLockedIds.Contains(d.dieId)&&d.faces.Any(f=>f.permanentPip==6))?"需要骰池里有带 6 点面的骰子，且本手还能掷。":null;
+                case "I05":return h.smallBuff?"本手已经生效。":h.rollsRemaining<=0||!s.dice.Any(d=>!h.orderedLockedIds.Contains(d.dieId)&&d.faces.Any(f=>f.permanentPip==1))?"需要骰池里有带 1 点面的骰子，且本手还能掷。":null;
                 default:return ItemUnavailable10(item);
             }
         }
@@ -121,7 +121,7 @@ namespace DiceCraft
             // V1.1 W14 (SHOP_LAYOUT 7): the shelf's face upgrades and 删除骰子 are chosen on the table; a gift group's face
             // upgrade (铁匠铺, the loot's 骰面工坊) keeps the dice sheet until W15.
             if(string.IsNullOrEmpty(offer.groupId)&&(offer.category=="die_upgrade"||offer.contentId=="O04")&&ViewState.phase=="Shop"){BeginFacePick14(offer);return;}
-            if(offer.category=="die_upgrade"||offer.contentId=="O04"){TargetDie(offer,null);return;}
+            if(!string.IsNullOrEmpty(offer.groupId)&&offer.category=="die_upgrade"){InspectLootUpgrade15(offer);return;}
             // v1.1 (G3): a card you already own is bought like any other; the copy is added, nothing is replaced.
             if(offer.category=="new_die")
             {
@@ -141,9 +141,9 @@ namespace DiceCraft
             else Art07DetailSection(list,"Category","作用范围",offer.category=="consumable"?$"买下放进道具栏（{ViewState.inventory.Count}/{ViewState.consumableSlots}），用一次就消失。":"买下立即生效，持续到本局结束。",ref y,672,true);
             string error=Session.PurchaseError(offer.offerId);
             // v1.1 (W09): gold with thousands separators, "金币" instead of 余额 (text proposal 2.2); W14: 价格：5 金币（你有 7）.
-            Art07DetailSection(list,"Price","价格","价格："+Session.GetOfferPrice(offer)+" 金币（你有 "+PlayerNumberFormat.Gold(ViewState.gold)+"）"+(error==null?"":"\n"+error),ref y,672,true);
+            Art07DetailSection(list,"Price","价格",(!string.IsNullOrEmpty(offer.groupId)?"免费领取":"价格："+Session.GetOfferPrice(offer)+" 金币（你有 "+PlayerNumberFormat.Gold(ViewState.gold)+"）")+(error==null?"":"\n"+error),ref y,672,true);
             list.sizeDelta=new Vector2(list.sizeDelta.x,y+16);
-            UiKit.ActionButton(p,"ConfirmPurchase",offer.sold?"已购买":!string.IsNullOrEmpty(offer.groupId)?"免费领取":"支付 "+Session.GetOfferPrice(offer)+" 并购买",24,628,912,64,()=>{CloseModal();Send(new SessionCommand{kind=CommandKind.Buy,offerId=offer.offerId});},UiKit.Gold,error==null&&!IsBusy);
+            UiKit.ActionButton(p,"ConfirmPurchase",offer.sold?(string.IsNullOrEmpty(offer.groupId)?"已购买":"已领取"):!string.IsNullOrEmpty(offer.groupId)?"免费领取":"支付 "+Session.GetOfferPrice(offer)+" 并购买",24,628,912,64,()=>{CloseModal();Send(new SessionCommand{kind=CommandKind.Buy,offerId=offer.offerId});},UiKit.Gold,error==null&&!IsBusy);
         }
         private void BuyFooter(Transform p,ShopOffer offer,string die,string face)
         {

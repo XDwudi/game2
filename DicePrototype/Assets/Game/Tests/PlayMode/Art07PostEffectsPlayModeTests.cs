@@ -29,6 +29,14 @@ namespace DiceCraft.Tests
             var netZero=submit.receipt.effects.Where(e=>e.kind=="FaceValueChanged").ToArray();
             Assert.That(netZero,Has.Length.EqualTo(2),"Both growth targets must actually produce committed effects; an empty All() is not evidence.");
             Assert.That(netZero.All(e=>e.sourceId=="C36+C37"&&e.oldValue==e.newValue),Is.True);
+            var rows=app.CommittedPresentationDetails07;
+            foreach(string kind in new[]{"FaceValueChanged","FaceDyed"})
+            {
+                var changes=submit.receipt.effects.Where(e=>e.kind==kind).ToArray();Assert.That(changes,Is.Not.Empty,kind);
+                foreach(var e in changes)
+                    Assert.That(rows.Any(row=>row.Contains(GameApp.FaceName11(e.faceId))&&row.Contains("骰子："+GameApp.DieName11(e.dieId))
+                        &&row.Contains(kind=="FaceValueChanged"?"骰面点数":"染")),Is.True,kind+" "+e.faceId);
+            }
             string state=GameSession.StateHash(app.Session.State);byte[] save=File.ReadAllBytes(app.SaveLocation);
             yield return WaitFxPhase07(PresentationPhase.PostScore);
             CollectionAssert.AreEquivalent(new[]{scene.dice[0].dieId,scene.dice[1].dieId,scene.dice[4].dieId},app.UnchangedPermanentTargets07);
@@ -71,9 +79,18 @@ namespace DiceCraft.Tests
                 FxControllers07(s,"C07","C36","C38");s.remainingSubmissions=1;s.target="1";s.capacityOverride=3;s.submissionOrdinal=0;
                 s.orderedLockedIds=s.orderedLockedIds.Take(2).ToList();for(int i=0;i<s.currentResults.Count;i++)s.currentResults[i].isLocked=i<2;
                 s.dice[0].faces.Single(f=>f.faceId=="F06").permanentPip=3;s.currentResults[0].currentPip=1;s.currentResults[0].remoteOverride=true;
+                // A legal save can keep physical faces in different array orders on source and target.
+                var src=s.dice[0].faces;var dst=s.dice[1].faces;
+                foreach(var faces in new[]{src,dst})foreach(var f in faces.Where(f=>f.faceId=="F01"||f.faceId=="F02"))f.baseColor="blue";
+                src.Single(f=>f.faceId=="F01").permanentPip=2;src.Single(f=>f.faceId=="F02").permanentPip=5;
+                dst.Single(f=>f.faceId=="F01").permanentPip=1;dst.Single(f=>f.faceId=="F02").permanentPip=6;
+                int one=Array.FindIndex(dst,f=>f.faceId=="F01"),two=Array.FindIndex(dst,f=>f.faceId=="F02");
+                (dst[one],dst[two])=(dst[two],dst[one]);
                 s.dice[1].lifetime="stage_temporary";s.dice[1].createdStageId=app.Config.stages[0].stageId;
             });
             var submit=app.Send(new SessionCommand{kind=CommandKind.Submit});Assert.That(submit.accepted,Is.True,submit.error);string target=scene.dice[1].dieId;
+            Assert.That(app.CommittedPresentationDetails07.Single(line=>line.StartsWith("骰子复制完成")),
+                Does.Contain("第 1 面 1 点蓝 → 2 点蓝；第 2 面 6 点蓝 → 5 点蓝"));
             Assert.That(submit.receipt.effects.Any(e=>e.kind=="DieCopied"&&e.dieId==target&&e.otherDieId==scene.dice[0].dieId),Is.True);
             Assert.That(submit.receipt.effects.Any(e=>e.kind=="FaceValueChanged"&&e.dieId==target&&e.oldValue==3&&e.newValue==4),Is.True,"Copy must precede permanent growth.");
             Assert.That(submit.receipt.effects.Any(e=>e.kind=="TemporaryDieExpired"&&e.dieId==target),Is.True);Assert.That(app.Session.State.dice.Any(d=>d.dieId==target),Is.False);

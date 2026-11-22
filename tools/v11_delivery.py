@@ -3,9 +3,13 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+import re
 import subprocess
 import xml.etree.ElementTree as ET
-from quality_check import check_nunit
+if __package__:
+    from .quality_check import check_nunit
+else:
+    from quality_check import check_nunit
 
 ROOT = Path(__file__).resolve().parents[1]
 SCOPES = ["DicePrototype/Assets", "DicePrototype/Packages", "DicePrototype/ProjectSettings"]
@@ -16,6 +20,8 @@ HISTORICAL_MINIMUM = {"EditMode": 797, "PlayMode": 30}  # Verified v0.6 floor, n
 # GameApp.ArtVersion; moves to art1.1.0 when the v1.1 presentation (new play screen, themes) is frozen.
 ART_VERSION = "art0.7.3"
 ASSEMBLIES = {"DiceCraft.Core", "DiceCraft.Runtime", "DiceCraft.EditMode", "DiceCraft.PlayModeTests", "DiceCraft.Editor"}
+RESOLUTIONS = ("1920x1080", "1280x720")
+RESOLUTION_CASE = "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_CardReadability_ThreeFontsAtActual720Or1080"
 
 
 def sha(path):
@@ -36,8 +42,9 @@ def read_json(path):
     return json.loads(path.read_text(encoding="utf-8-sig"))
 
 
-def verify_nunit(path, platform, expected):
-    check_nunit(ROOT, path.relative_to(ROOT).as_posix(), expected, [])
+def verify_nunit(path, platform, expected, root=ROOT):
+    relative = path.relative_to(root).as_posix()
+    check_nunit(root, relative, expected, [])
     root = ET.parse(path).getroot()
     leaves = root.findall(".//test-case")
     names = [x.attrib["fullname"] for x in leaves]
@@ -53,7 +60,19 @@ def verify_nunit(path, platform, expected):
     platforms = [p.attrib.get("value") for p in root.findall(".//property") if p.attrib.get("name") == "platform"]
     if set(platforms) != {platform}:
         raise ValueError(f"{platform}: wrong report mode")
-    return {"mode": platform, "passed": expected, "names": sorted(names), "report": entry(path)}
+    return {"mode": platform, "passed": expected, "names": sorted(names),
+            "report": {"path": relative, "sha256": sha(path)}}
+
+
+def measured_resolution(path):
+    cases = [case for case in ET.parse(path).iter("test-case") if case.get("fullname") == RESOLUTION_CASE]
+    if len(cases) != 1 or cases[0].get("result") != "Passed":
+        raise ValueError("Missing passing actual GameView measurement: " + str(path))
+    measurements = re.findall(r"^Three fonts measured at (\d+x\d+) only\. The other resolution remains a separate required run\.$",
+                              cases[0].findtext("output", ""), re.MULTILINE)
+    if len(measurements) != 1 or measurements[0] not in RESOLUTIONS:
+        raise ValueError("Missing or ambiguous actual GameView dimensions: " + str(path))
+    return measurements[0]
 
 
 def identity():
@@ -88,15 +107,24 @@ def validate_discovery(inventory, mode, expected):
 def gate(args):
     tests = []
     inventories = []
-    for mode, report, expected in [("EditMode", args.edit, args.expect_edit_count), ("PlayMode", args.play, args.expect_play_count)]:
+    runs = [("EditMode", args.edit, args.expect_edit_count, None),
+            ("PlayMode", args.play_1080, args.expect_play_count, RESOLUTIONS[0]),
+            ("PlayMode", args.play_720, args.expect_play_count, RESOLUTIONS[1])]
+    for mode, report, expected, resolution in runs:
         path = ROOT / f"evidence/v11/unity/discovery-{mode}.json"
         inventory = read_json(path)
         names = validate_discovery(inventory, mode, expected)
         test = verify_nunit(ROOT / report, mode, len(names))
+        if resolution:
+            if measured_resolution(ROOT / report) != resolution:
+                raise ValueError("PlayMode report did not run at " + resolution)
+            test["resolution"] = resolution
         if test["names"] != sorted(names):
             raise ValueError("Executed suite differs from complete discovered inventory: " + mode)
         tests.append(test)
-        inventories.append(entry(path))
+        discovery = entry(path)
+        if discovery not in inventories:
+            inventories.append(discovery)
     proof = read_json(ROOT / args.pdb)
     assemblies = proof.get("assemblies", [])
     if proof.get("mismatches") != 0 or len(assemblies) != len(ASSEMBLIES) or {a["name"] for a in assemblies} != ASSEMBLIES:
@@ -165,7 +193,7 @@ def gate(args):
     files.extend([test["report"] for test in tests])
     files.append(entry(ROOT / args.pdb))
     files.extend(inventories)
-    result = {"schema": "v07-build-gate-1", "sourceCommit": head, "editModePassed": tests[0]["passed"],
+    result = {"schema": "v11-build-gate-1", "sourceCommit": head, "editModePassed": tests[0]["passed"],
               "playModePassed": tests[1]["passed"], "scopes": SCOPES, "identity": value, "tests": tests,
               "pdbAudit": entry(ROOT / args.pdb), "files": files,
               "expectedCounts": {"EditMode": args.expect_edit_count, "PlayMode": args.expect_play_count},
@@ -181,7 +209,8 @@ def main():
     sub.add_parser("identity")
     p = sub.add_parser("gate")
     p.add_argument("--edit", required=True)
-    p.add_argument("--play", required=True)
+    p.add_argument("--play-1080", required=True, help="Full PlayMode report, actual 1920x1080 GameView")
+    p.add_argument("--play-720", required=True, help="Full PlayMode report, actual 1280x720 GameView")
     p.add_argument("--pdb", required=True)
     p.add_argument("--expect-edit-count", required=True, type=int, help="Actual complete frozen Unity EditMode discovery count")
     p.add_argument("--expect-play-count", required=True, type=int, help="Actual complete frozen Unity PlayMode discovery count")

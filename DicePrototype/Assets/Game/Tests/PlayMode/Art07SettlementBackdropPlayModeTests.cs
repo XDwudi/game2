@@ -72,6 +72,7 @@ namespace DiceCraft.Tests
                     Assert.That(app.SettlementBackdropVisible07,Is.True);Assert.That(app.SettlementBackdropFromHistory07,Is.False);
                     Assert.That(app.SettlementBackdropGraphicCount07,Is.GreaterThan(0));Assert.That(app.SettlementBackdropDiceMeshCount07,Is.GreaterThan(0));
                     var backdrop=FindActive<Art07SettlementBackdrop>("SettlementBackdrop07");
+                    AssertReceiptBackdrop15(backdrop);
                     Assert.That(backdrop.transform.GetSiblingIndex(),Is.LessThan(FindActive<RectTransform>("Screen").GetSiblingIndex()));
                     Assert.That(backdrop.GetComponentsInChildren<UnityEngine.UI.Selectable>(true),Is.Empty);
                     string state=StateJson();var bytes=File.ReadAllBytes(app.SaveLocation);long sequence=app.Session.ActionSequence;
@@ -92,6 +93,7 @@ namespace DiceCraft.Tests
                 Assert.That(app.Session.State.phase,Is.EqualTo("StageSettlement"));Assert.That(app.SettlementRevealPlaying07||app.PresentationPlaying07,Is.False);
                 Assert.That(app.SettlementBackdropVisible07&&app.SettlementBackdropFromHistory07,Is.True);
                 Assert.That(StateJson(),Is.EqualTo(savedState));CollectionAssert.AreEqual(saved,File.ReadAllBytes(app.SaveLocation));
+                AssertReceiptBackdrop15(FindActive<Art07SettlementBackdrop>("SettlementBackdrop07"));
                 var frozen=GameObject.Find("SettlementFrozenDice07");Assert.That(frozen,Is.Not.Null);Assert.That(frozen.GetComponentsInChildren<Collider>(true),Is.Empty);
                 for(int i=0;i<Math.Min(8,savedSubmission.dice.Length);i++)
                 {

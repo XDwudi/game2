@@ -48,14 +48,14 @@ namespace DiceCraft.Tests
                 {
                     PrepareRealSettlement07(font);var motion=app.GetComponent<Art07SettlementReveal>();Assert.That(motion,Is.Not.Null);Assert.That(motion.IsPlaying,Is.True);
                     string state=StateJson();var disk=File.ReadAllBytes(app.SaveLocation);int begins=motion.Begins;
-                    var paper=FindActive<RectTransform>("Rewards");Assert.That(paper.sizeDelta,Is.EqualTo(new Vector2(880,744)));
+                    var paper=FindActive<RectTransform>("Rewards");Assert.That(paper.sizeDelta,Is.EqualTo(font>=125?new Vector2(1120,780):new Vector2(880,620)));
                     Assert.That(FindActive<UnityEngine.UI.Image>("SettlementScrim07").color.a,Is.EqualTo(.35f).Within(.001));
                     var rows=new[]{"SettlementBaseReward","SettlementUnusedReward","SettlementInterest"}.Select(FindActive<TextMeshProUGUI>).ToArray();
-                    Assert.That(rows.All(t=>t.GetComponent<CanvasGroup>().alpha==0),Is.True);
+                    Assert.That(rows.All(t=>t.GetComponentInParent<CanvasGroup>().alpha==0),Is.True);
                     yield return app.StartCoroutine(CaptureEdge07("settlement-font"+font+"-ms000"));
                     SettlementTick07(.18f);Assert.That(paper.localScale,Is.EqualTo(Vector3.one));
                     yield return app.StartCoroutine(CaptureEdge07("settlement-font"+font+"-ms180"));
-                    SettlementTick07(.05f);Assert.That(rows[0].GetComponent<CanvasGroup>().alpha,Is.EqualTo(.5f).Within(.01));Assert.That(rows[1].GetComponent<CanvasGroup>().alpha,Is.Zero);
+                    SettlementTick07(.05f);Assert.That(rows[0].GetComponentInParent<CanvasGroup>().alpha,Is.EqualTo(.5f).Within(.01));Assert.That(rows[1].GetComponentInParent<CanvasGroup>().alpha,Is.Zero);
                     app.Refresh();Assert.That(motion.Begins,Is.EqualTo(begins));Assert.That(motion.Elapsed,Is.EqualTo(.23f).Within(.001));
                     Click("Pause");SettlementTick07(.5f);Assert.That(motion.Elapsed,Is.EqualTo(.23f).Within(.001));Click("Resume");
                     foreach(float mark in new[]{.28f,.38f,.48f,.60f,.74f})
@@ -65,7 +65,7 @@ namespace DiceCraft.Tests
                         Assert.That(StateJson(),Is.EqualTo(state));CollectionAssert.AreEqual(disk,File.ReadAllBytes(app.SaveLocation));
                     }
                     Assert.That(motion.IsPlaying,Is.False);Assert.That(motion.ActiveCoinCount,Is.Zero);
-                    foreach(var row in rows)AssertSettlementInk07(row,V06ScreenRect((RectTransform)row.transform.parent.parent));
+                    foreach(var row in rows)AssertSettlementInk07(row,V06ScreenRect((RectTransform)row.transform.parent));
                     AssertSettlementInk07(FindActive<TextMeshProUGUI>("Cleared"),V06ScreenRect(paper));
                     app.Refresh();Assert.That(motion.Begins,Is.EqualTo(begins));Assert.That(motion.IsPlaying,Is.False);
                     long gold=app.Session.State.gold;int receiptCount=app.Session.State.processedReceipts.Count;Click("SettlementContinue");
@@ -124,7 +124,7 @@ namespace DiceCraft.Tests
             Assert.That(notice,Is.Null.Or.Empty,"No old-save notice on the menu.");
             Assert.That(File.Exists(file)||File.Exists(file+".backup")||File.Exists(archive),Is.False,"The incompatible active save, its backup and the earlier archive copy are deleted at startup.");
             Assert.That(Directory.GetFiles(saveDirectory,"*.legacy-schema*"),Is.Empty);
-            Assert.That(Button("ContinueRun").interactable,Is.False);Assert.That(InformationButton07("ContinueRun"),Is.EqualTo("继续对局"));
+            Assert.That(HasActive("ContinueRun"),Is.False);Assert.That(InformationButton07("NewRun"),Is.EqualTo("开始新的一局"));
             Assert.That(InformationText07("SavedSeed"),Is.EqualTo("暂无存档 · 开始你的第一局"));
             foreach(int font in new[]{100,125,150})
             {

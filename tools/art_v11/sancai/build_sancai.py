@@ -1681,7 +1681,7 @@ KEPT_UNREFERENCED = frozenset({"ui_price_chip", "ui_pedestal", "ui_frame_enchant
 
 def contract_sprites() -> list[dict]:
     return [s for s in json.loads(CONTRACT.read_text(encoding="utf-8"))["sprites"]
-            if s["referenced"] or s["name"] in KEPT_UNREFERENCED]
+            if (s["referenced"] or s["name"] in KEPT_UNREFERENCED) and not s.get("optionalOverride")]
 
 
 # ---------------------------------------------------------------------------------------------- table

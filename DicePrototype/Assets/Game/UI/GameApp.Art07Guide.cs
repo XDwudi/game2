@@ -54,13 +54,13 @@ namespace DiceCraft
             if(ViewState.hand!=null&&ViewState.hand.orderedLockedIds.Count>0&&guideStep07<3)guideStep07=3;
             if(shop)guideStep07=4;else if(guideStep07==4)return;
             // V1.1 (W11): the steps use the play screen's button words (掷骰 / 锁定 / 提交) and the glossary (选中, not 待选).
-            string[] title={"1 / 5  投掷","2 / 5  选中","3 / 5  锁定","4 / 5  提交","5 / 5  关末构筑"};
-            string[] body={"每手总投掷包含首掷。点击掷骰开始。","点选要留下的骰子；再点一次可以取消。","锁定后，本手不能移回骰池。","牌型、颜色、红组分别计算，再相乘。","买骰只增加骰池，提交栏需要另外扩容。"};
+            string[] title={"1 / 5  掷骰","2 / 5  选中","3 / 5  锁定","4 / 5  提交","5 / 5  商店"};
+            string[] body={"每手最多掷 "+Config.totalRollsPerHand+" 次。点“掷骰”开始。","点骰子选中，再点一次取消。","点“锁定”把选中的骰子放进提交栏。锁定后本手不能放回。","点“提交”计分。牌型、颜色、红组的倍率相乘。","买骰子只多一颗骰子，提交栏格数不变。"};
             RectTransform target=GuideElement07(shop?"DiceCounter":guideStep07==0?"Roll":guideStep07==1?
                 "Die_"+visibleDice.FirstOrDefault():guideStep07==2?"Confirm":"Submit");
             if(target==null)return;
             var obstacles=GuideObstacles07();Rect targetBounds=GuideBounds07(target);
-            const float w=400,h=144;
+            const float w=400;float h=GuideHeight16;
             Rect paperBounds;
             // V1.1 W14: the shop page is dense; its arrow takes the first free spot at the section's edge first, and the paper
             // then keeps clear of it (otherwise the paper could take the only free approach and leave no arrow).
@@ -75,15 +75,13 @@ namespace DiceCraft
         }
         private void DrawGuidePaper07(Rect bounds,string title,string body,bool shop)
         {
-            const float w=400,h=144;
+            const float w=400;float h=GuideHeight16;
             var paper=UiKit.Frame(main,"FirstRunGuide",bounds.x,bounds.y,w,h,UiKit.Paper,UiKit.Ink);
             float close=Mathf.Max(60,40/Mathf.Max(.1f,canvas.scaleFactor));
-            // At 150% the unchanged title/body need 46/88 reference pixels.
-            // The v0.71 sliced paper ends at y135.5 inside this 144px rect;
-            // stack the text through y135 instead of its transparent bottom edge.
+            // Leave the paper’s printed bottom border clear at both heights.
             float textWidth=w-close-40;
-            UiKit.Text(paper,"GuideTitle",title,16,1,textWidth,46,21,UiKit.Ink);
-            var description=UiKit.Text(paper,"GuideBody",body,16,47,textWidth,88,20,UiKit.Ink);
+            UiKit.Text(paper,"GuideTitle",title,16,1,textWidth,46,21,LabelOn11(paper,UiKit.Ink));
+            var description=UiKit.Text(paper,"GuideBody",body,16,47,textWidth,h-56,20,LabelOn11(paper,UiKit.Ink));
             description.textWrappingMode=TextWrappingModes.Normal;description.overflowMode=TextOverflowModes.Overflow;
             UiKit.ActionButton(paper,"DismissGuide","×",w-close-8,6,close,close,DismissGuide07,UiKit.Paper);
             AnimateGuide07(paper,shop);
@@ -227,14 +225,14 @@ namespace DiceCraft
             }
             if(string.IsNullOrEmpty(boundaryTip07))return false;
             // v1.1 (W09): the card is named, not shown by its id C53.
-            string body=boundaryTip07==ZeroRollHintKey07?"投掷用尽后，仍可选骰、锁定、排序和提交。":boundaryTip07==RandomHintKey07?NameOf("C53")+"的倍率在提交后揭示；预览与取消不会重新抽取。":"目标已达成：可以继续提交，也可以按“结束本关”结算。";
+            string body=boundaryTip07==ZeroRollHintKey07?"本手不能再掷了，但还能锁定、排序和提交。":boundaryTip07==RandomHintKey07?NameOf("C53")+"的倍率在提交时才抽取。":"已达标！可以继续提交，也可以按“结束本关”领奖励。";
             // Reuse the hint line. No paper card covers dice, score, or the action buttons.
             var reason=main.Find("ActionReason")?.GetComponent<TextMeshProUGUI>();
             if(reason==null)return false;
             // V1.1 (W11): the hint tab sits left of the action buttons; the close button takes its right end.
             var hint=L11.hint;
             reason.rectTransform.sizeDelta=new Vector2(hint.width-32-68,hint.height-12);
-            reason.text=BalancedLines11(reason,"首次提示 · "+body,hint.width-32-68);reason.color=LabelOn11(main.Find("ActionReasonUnderlay") as RectTransform,UiKit.Gold);
+            reason.text=BalancedLines11(reason,"提示："+body,hint.width-32-68);reason.color=LabelOn11(main.Find("ActionReasonUnderlay") as RectTransform,UiKit.Gold);
             UiKit.ActionButton(main,"DismissBoundaryHint07","×",hint.xMax-70,hint.y+(hint.height-60)*.5f,60,60,DismissBoundaryTip07,UiKit.Paper);
             return true;
         }

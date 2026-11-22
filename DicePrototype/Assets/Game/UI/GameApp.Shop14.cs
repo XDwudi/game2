@@ -56,6 +56,7 @@ namespace DiceCraft
             if(goodsPageShop14!=ViewState.shop.generationId){goodsPageShop14=ViewState.shop.generationId;goodsPage14=0;ownedDicePage14=0;counterPage14=0;facePick14=null;}
             if(facePick14!=null&&!FacePickStillValid14())facePick14=null;
             ShopTopButtons14(l);
+            if(LootPage15){DrawLootPage15(l);return;}
             ShopCards14(l);
             ShopGoods14(l);
             ShopBuild14(l);
@@ -128,7 +129,7 @@ namespace DiceCraft
             slots.pause=new Rect(right-IconW("设置"),y,IconW("设置"),h);right=slots.pause.x-10;
             slots.hand=new Rect(right-IconW("手册"),y,IconW("手册"),h);right=slots.hand.x-10;
             var groups=ViewState.shop?.groups;var loot=groups?.FirstOrDefault(g=>g.groupId=="LOOT"&&!g.closed);
-            slots.showGifts=loot!=null||groups!=null&&groups.Any(g=>g.groupId!="LOOT");
+            slots.showGifts=!LootPage15&&(loot!=null||groups!=null&&groups.Any(g=>g.groupId!="LOOT"));
             if(slots.showGifts)
             {
                 slots.giftsLabel=loot!=null?"首领战利品（还可领 "+Math.Max(0,loot.picks-loot.picked)+" 件）":"商店赠礼";
@@ -150,7 +151,7 @@ namespace DiceCraft
             var frame=FrameInsets11(bar.GetComponent<Image>());var slots=ShopTopRight14(l);
             int next=s.stage.stageIndex+1;bool last=next>=Config.stages.Length;
             float lineH=Line11(c?20:26),titleY=frame.w+Mathf.Max(0,(l.top.height-frame.w-frame.y-lineH)*.5f);
-            var title=FitLine13(bar,"ShopTitle",last?"商店":"商店 · 第 "+(next+1)+" 关前",frame.x+16,titleY,360,c?20:26,LabelOn11(bar,UiKit.TextColor),TextAlignmentOptions.MidlineLeft,true,role:TextRole.ScreenTitle);
+            var title=FitLine13(bar,"ShopTitle",LootPage15&&!lootFromShop15?"首领战利品":last?"商店":"商店 · 第 "+(next+1)+" 关前",frame.x+16,titleY,360,c?20:26,LabelOn11(bar,UiKit.TextColor),TextAlignmentOptions.MidlineLeft,true,role:TextRole.ScreenTitle);
             title.ForceMeshUpdate();float centreX=frame.x+16+title.textBounds.size.x+40,centreRight=slots.cash.x-l.top.x-8;
             // The next stage: kind and target; a boss stage leads its kind with the boss mark.
             string kind=last?"":Config.stages[next].stageKind;string text;
@@ -172,9 +173,7 @@ namespace DiceCraft
             centre.rectTransform.anchoredPosition=new Vector2(centreX+markW,-(frame.w+Mathf.Max(0,(l.top.height-frame.w-frame.y-centreH)*.5f)));
             if(kind=="boss")
             {
-                // Placeholder of the W17 boss emblem, as on the play screen's stage card: a block in the boss colour.
-                var mark=Surface11(bar,"BossMark14",centreX,(l.top.height-24)*.5f,22,22,"ui_chip_formula",UiKit.Boss);
-                mark.GetComponent<Image>().raycastTarget=false;
+                BossEmblem15(bar,"BossMark14",s.cycles[next/3].modifierId,centreX,(l.top.height-24)*.5f,22,false);
             }
             // Gold: the coin, the amount and 金币, as on the play screen's top bar.
             var g=slots.gold;float gx=g.x-l.top.x;
@@ -221,7 +220,7 @@ namespace DiceCraft
             if(slots.showGifts)
             {
                 var groups=ViewState.shop.groups;bool open=groups.Any(g=>!g.closed);
-                ShopButton14(main,"ViewGifts",slots.giftsLabel,slots.gifts.x,slots.gifts.y,slots.gifts.width,slots.gifts.height,ShowGifts10,free);
+                ShopButton14(main,"ViewGifts",slots.giftsLabel,slots.gifts.x,slots.gifts.y,slots.gifts.width,slots.gifts.height,OpenClaims15,free);
                 // Q4 A: no gold; a small Danger dot says something is still to be taken.
                 if(open){var dot=UiKit.Box(main,"GiftsPending10",slots.gifts.xMax-12,slots.gifts.y-2,14,14,UiKit.Danger).GetComponent<Image>();dot.sprite=UiKit.Template("ui_pip_dot");dot.raycastTarget=false;}
             }
@@ -307,7 +306,6 @@ namespace DiceCraft
             if(offer.category=="consumable"&&ViewState.inventory.Count>=ViewState.consumableSlots)return "道具栏已满";
             if(offer.category=="die_upgrade")
             {
-                if(gift)return "";
                 bool whole=offer.contentId=="U05";
                 foreach(var die in ViewState.dice.Where(d=>d.lifetime=="permanent"))
                     foreach(var face in whole?new FaceState[]{null}:die.faces)
@@ -321,7 +319,7 @@ namespace DiceCraft
                 return ViewState.dice.Count(d=>d.lifetime=="permanent")<=1?"至少留 1 颗骰子":"暂不能买";
             }
             string error=Session.PurchaseError(offer.offerId);
-            return error==null?"":offer.category=="new_die"?"骰子已满 "+Config.maxPermanentDice+" 颗":"暂不能买";
+            return error==null?"":offer.category=="new_die"?"骰子已满 "+Config.maxPermanentDice+" 颗":gift?"暂不能领":"暂不能买";
         }
 
         // ---------------------------------------------------------------- 升级与服务 (SHOP_LAYOUT 2, Q3)
@@ -560,7 +558,7 @@ namespace DiceCraft
                 Art07AttachTooltip(tile,item.instanceId,NameOf(item.definitionId),ShortText11(item.definitionId),BuildTileTip14(item),()=>ShowController(item,true));
             }
             if(cards.Count>10)ShopButton14(panel,"AllControllers14","全部 "+cards.Count+" 张",tileX+9*(BuildTileWidth14+4),tileY+(tileH-60)*.5f,BuildTileWidth14,60,ShowControllerOrder,!IsBusy,null,18);
-            if(cards.Count==0)FitLine13(panel,"NoOwned","还没有装备卡牌，买下后出现在这里。",ShopPad14+8,tileY+(l.tileH-Line11(20))*.5f,Mathf.Max(40,itemsX-ShopPad14-24),20,LabelOn11(panel,UiKit.Muted),TextAlignmentOptions.MidlineLeft,false);
+            if(cards.Count==0)FitLine13(panel,"NoOwned",LootPage15?"还没有装备卡牌，领取后出现在这里。":"还没有装备卡牌，买下后出现在这里。",ShopPad14+8,tileY+(l.tileH-Line11(20))*.5f,Mathf.Max(40,itemsX-ShopPad14-24),20,LabelOn11(panel,UiKit.Muted),TextAlignmentOptions.MidlineLeft,false);
             // Items: 道具 1/3 over up to five cells.
             var itemsTitle=FitLine13(panel,"OwnedItemsTitle","道具 "+ViewState.inventory.Count+(ViewState.debugWorkspace&&!CleanCapture11?"":"/"+ViewState.consumableSlots),itemsX,captionY,5*BuildItemSize14+24,18,LabelOn11(panel,UiKit.TextColor),TextAlignmentOptions.MidlineLeft,false);
             // V1.1 (W20Z2): the caption row was placed at fixed offsets (4 units from the top, ShopPad14 from the left), inside
@@ -661,7 +659,7 @@ namespace DiceCraft
         // ---------------------------------------------------------------- entrance (S10, v0.73 timing)
         private void BindShopEntrance14()
         {
-            var shelf=new[]{"Stats07","ControllerShelf","ShopProducts","Build14","DiceCounter","OwnedStrip","FacePick14","LeaveShop"}.Select(n=>main.Find(n) as RectTransform).Where(r=>r!=null&&r.gameObject.activeInHierarchy).ToList();
+            var shelf=new[]{"Stats07","ControllerShelf","ShopProducts","Build14","DiceCounter","OwnedStrip","FacePick14","LeaveShop"}.Where(n=>!cameFromLoot15||n!="Stats07"&&n!="Build14"&&n!="OwnedStrip").Select(n=>main.Find(n) as RectTransform).Where(r=>r!=null&&r.gameObject.activeInHierarchy).ToList();
             var cards=new List<RectTransform[]>();
             var controllers=ViewState.shop.offers.Where(o=>o.category=="controller"&&string.IsNullOrEmpty(o.groupId)).ToArray();
             foreach(var offer in controllers)cards.Add(new[]{main.Find("Offer_"+offer.offerId) as RectTransform});

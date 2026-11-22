@@ -109,6 +109,19 @@ namespace DiceCraft
             return true;
         }
 
+        public static void FitNumberInk21(TextMeshProUGUI label)
+        {
+            if (TitleFont == null || label.font != TitleFont) return;
+            label.ForceMeshUpdate();
+            var ink=label.textBounds;
+            var box=label.rectTransform.rect;
+            // A proportional numeral can have a negative bearing even when its advance fits.
+            float dx=Mathf.Clamp(0,box.xMin-ink.min.x,box.xMax-ink.max.x);
+            float dy=Mathf.Clamp(0,box.yMin-ink.min.y,box.yMax-ink.max.y);
+            if(Mathf.Abs(dx)>.01f || Mathf.Abs(dy)>.01f)
+                label.margin=new Vector4(dx,-dy,-dx,dy);
+        }
+
         // TMP's mspace tag is measured in ems. Apply it only to rolling digits in a themed number.
         public static string TitleDigits(string text)
         {
@@ -156,6 +169,7 @@ namespace DiceCraft
             var r = Rent(p,name,"Text",x,y,w,h); var t = Component<TextMeshProUGUI>(r.gameObject);
             t.font = Font; t.fontStyle = FontStyles.Normal; t.fontWeight = FontWeight.Regular;
             t.text = value; t.fontSize = size*FontScale; t.color = color ?? TextColor; t.alignment = align;
+            t.margin = Vector4.zero;
             t.raycastTarget = false; t.textWrappingMode = TextWrappingModes.Normal; t.overflowMode = TextOverflowModes.Overflow; return t;
         }
         public static UnityEngine.UI.Button Button(Transform p, string name, string value, float x, float y, float w, float h, Action click, bool enabled = true, bool primary = false)
@@ -166,7 +180,7 @@ namespace DiceCraft
             var face=Box(r,"Face",0,0,w,h-7,enabled?(primary?Gold:Paper):PanelLight);
             var faceImage=face.GetComponent<UnityEngine.UI.Image>();faceImage.sprite=Template("ui_button_bevel");faceImage.type=UnityEngine.UI.Image.Type.Sliced;
             Box(r,"Lip",14,5,w-28,1,enabled?new Color(1,1,1,.35f):Color.clear);
-            var b = Component<UnityEngine.UI.Button>(r.gameObject);b.onClick.RemoveAllListeners();b.targetGraphic=image;
+            var b = Component<PageButton15>(r.gameObject);b.onClick.RemoveAllListeners();b.targetGraphic=image;
             b.targetGraphic=face.GetComponent<UnityEngine.UI.Image>();
             var cs = b.colors; cs.normalColor = Color.white; cs.highlightedColor = new Color(1.08f,1.08f,1.08f); cs.pressedColor = new Color(.84f,.88f,.88f); cs.disabledColor = Color.white; b.colors = cs;
             b.interactable = enabled; b.onClick.AddListener(() => click?.Invoke());
@@ -312,7 +326,7 @@ namespace DiceCraft
     public sealed class DiePointer : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         public Action<PointerEventData> clicked, dragStart, dragged, dragEnd;
-        public void OnPointerClick(PointerEventData e) { if(!e.dragging) clicked?.Invoke(e); }
+        public void OnPointerClick(PointerEventData e) { if(!e.dragging&&!GameApp.PagePointerGuard15) clicked?.Invoke(e); }
         public void OnBeginDrag(PointerEventData e) { dragStart?.Invoke(e); }
         public void OnDrag(PointerEventData e) { dragged?.Invoke(e); }
         public void OnEndDrag(PointerEventData e) { dragEnd?.Invoke(e); }

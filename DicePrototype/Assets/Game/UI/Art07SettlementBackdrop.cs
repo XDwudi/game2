@@ -28,13 +28,15 @@ namespace DiceCraft
         public int DiceMeshCount=>activeDiceMeshes;
         public int CreatedUiMeshCount=>groups.Sum(g=>g.CreatedSnapshotMeshes);
         public int CreatedDiceMeshCount=>diceMeshes.Count;
+        public string[] CapturedRootNames15 { get; private set; } = Array.Empty<string>();
         public bool Visible { get; private set; }
         public bool HasCapture=>GraphicCount>0||activeDiceMeshes>0;
 
-        public void Capture(IEnumerable<RectTransform> roots,IEnumerable<Transform> orientations,Transform worldParent)
+        public void Capture(IEnumerable<RectTransform> roots,IEnumerable<Transform> orientations,Transform worldParent,IReadOnlyDictionary<string,string> dieNames=null)
         {
             Clear();gameObject.SetActive(true);table=worldParent.GetComponent<DiceTable>();
             var selected=roots.Where(r=>r!=null&&r.gameObject.activeInHierarchy).Distinct().ToArray();
+            CapturedRootNames15=selected.Select(r=>r.name).ToArray();
             var batch=new List<RectTransform>();int count=0;
             foreach(var root in selected)
             {
@@ -57,7 +59,8 @@ namespace DiceCraft
                     var filter=source.GetComponent<MeshFilter>();
                     if(!source.enabled||filter==null||filter.sharedMesh==null)continue;
                     var item=GetDiceMesh(activeDiceMeshes++);
-                    item.node.name=pose.parent.parent.name+"/"+source.name;
+                    string name=pose.parent.parent.name;
+                    item.node.name=(dieNames!=null&&dieNames.TryGetValue(name,out string alias)?alias:name)+"/"+source.name;
                     item.node.layer=source.gameObject.layer;
                     item.node.transform.SetPositionAndRotation(source.transform.position,source.transform.rotation);
                     item.planeY=source.transform.position.y;
@@ -122,7 +125,7 @@ namespace DiceCraft
         {
             Hide();foreach(var group in groups)group.DiscardPrepared();
             foreach(var mesh in diceMeshes){mesh.node.SetActive(false);mesh.filter.sharedMesh=null;mesh.renderer.sharedMaterials=Array.Empty<Material>();mesh.renderer.SetPropertyBlock(null);}
-            activeGroups=activeDiceMeshes=0;
+            activeGroups=activeDiceMeshes=0;CapturedRootNames15=Array.Empty<string>();
         }
         private void OnDisable()=>Hide();
         private void OnDestroy(){if(world!=null)Destroy(world.gameObject);}

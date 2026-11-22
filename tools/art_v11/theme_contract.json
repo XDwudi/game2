@@ -1,6 +1,6 @@
 {
   "scene": "DicePrototype/Assets/Game/Scenes/Bootstrap.unity",
-  "count": 94,
+  "count": 100,
   "sprites": [
     {
       "name": "badge_enchant_base10",
@@ -515,6 +515,74 @@
       "referenced": true
     },
     {
+      "name": "ui_emblem_tier1",
+      "default": "DicePrototype/Assets/Art/Art11/Surfaces/ui_emblem_tier1.png",
+      "size": [
+        352,
+        352
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": false,
+      "optionalOverride": true
+    },
+    {
+      "name": "ui_emblem_tier2",
+      "default": "DicePrototype/Assets/Art/Art11/Surfaces/ui_emblem_tier2.png",
+      "size": [
+        352,
+        352
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": false,
+      "optionalOverride": true
+    },
+    {
+      "name": "ui_emblem_tier3",
+      "default": "DicePrototype/Assets/Art/Art11/Surfaces/ui_emblem_tier3.png",
+      "size": [
+        352,
+        352
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": false,
+      "optionalOverride": true
+    },
+    {
+      "name": "ui_emblem_tier4",
+      "default": "DicePrototype/Assets/Art/Art11/Surfaces/ui_emblem_tier4.png",
+      "size": [
+        352,
+        352
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": false,
+      "optionalOverride": true
+    },
+    {
       "name": "ui_focus_frame",
       "default": "DicePrototype/Assets/Art/Art073/Surfaces/ui_focus_frame.png",
       "size": [
@@ -883,6 +951,23 @@
       "referenced": false
     },
     {
+      "name": "ui_icon_interest",
+      "default": "DicePrototype/Assets/Art/Art11/Surfaces/ui_icon_interest.png",
+      "size": [
+        96,
+        96
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": false,
+      "optionalOverride": true
+    },
+    {
       "name": "ui_icon_lock",
       "default": "DicePrototype/Assets/Art/Art071/Full/Symbols/ui_icon_lock.png",
       "size": [
@@ -1059,11 +1144,11 @@
       "referenced": false
     },
     {
-      "name": "ui_icon_submit",
-      "default": "DicePrototype/Assets/Art/Art071/Full/Symbols/ui_icon_submit.png",
+      "name": "ui_icon_stage",
+      "default": "DicePrototype/Assets/Art/Art11/Surfaces/ui_icon_stage.png",
       "size": [
-        256,
-        256
+        96,
+        96
       ],
       "border": [
         0.0,
@@ -1071,8 +1156,26 @@
         0.0,
         0.0
       ],
-      "pixelsPerUnit": 100.0,
-      "referenced": false
+      "pixelsPerUnit": 200.0,
+      "referenced": false,
+      "optionalOverride": true
+    },
+    {
+      "name": "ui_icon_submit",
+      "default": "DicePrototype/Assets/Art/Art11/Surfaces/ui_icon_submit.png",
+      "size": [
+        96,
+        96
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": false,
+      "optionalOverride": true
     },
     {
       "name": "ui_icon_temporary",

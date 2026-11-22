@@ -127,7 +127,7 @@ class Canvas:
 
 def contract_sprites() -> list[dict]:
     return [s for s in json.loads(CONTRACT.read_text(encoding="utf-8"))["sprites"]
-            if s["referenced"] or s["name"] in LEGACY_NAMES]
+            if (s["referenced"] or s["name"] in LEGACY_NAMES) and not s.get("optionalOverride")]
 
 
 def surface(spec: dict) -> Image.Image:

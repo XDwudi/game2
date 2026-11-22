@@ -1,18 +1,23 @@
-"""Build the approved W18 default play surface and the default/Swiss chapter tone ramps."""
+"""Build the approved W18 default play surface and the six chapter tone ramps and four style material masks."""
 
 import argparse
 import json
 from pathlib import Path
 
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageFilter
 
 
 ROOT = Path(__file__).resolve().parents[2]
 ASSETS = ROOT / "DicePrototype/Assets"
 OUTPUT = ASSETS / "Resources/ChapterTables18"
 DEFAULT_TABLE = ASSETS / "Art/Art072/Backgrounds/bg_table_scene.png"
-SWISS_TABLE = ASSETS / "Resources/Themes/swiss/Table/table_scene.png"
+TABLES = {
+    "swiss": ((249, 234, 219), -9),
+    "sancai": ((74, 42, 24), 7), "comic": ((2, 80, 198), -7),
+    "deco": ((21, 17, 13), 7), "glass": ((41, 40, 51), 7),
+}
+MASK_STYLES = ("sancai", "comic", "deco", "glass")
 QUIET = ((52, 374, 1408, 276), (52, 660, 1408, 60),
          (344, 740, 1136, 202), (32, 740, 360, 202))
 RGB_XYZ = np.array(((.4124564, .3575761, .1804375),
@@ -83,27 +88,54 @@ def check_surface(rgb, expected):
             raise ValueError(f"Nonuniform or incorrect quiet area {left},{top},{width},{height}")
 
 
+def material_coverage(rgb, color):
+    """Select the authored flat material and its antialiased edges, excluding unrelated decoration.
+
+    The comic blue printing, slate panes, lacquer and matte under the glaze are each the
+    exact base paint in their native raster. A two-pixel neighbourhood around that paint
+    admits only nearby shades. Gold, coloured glass, lead, ink and glazed rails stay fixed.
+    """
+    difference = np.max(np.abs(rgb.astype(np.int16) - np.asarray(color, dtype=np.int16)), axis=2)
+    core = (difference == 0).astype(np.uint8) * 255
+    nearby = np.asarray(Image.fromarray(core).filter(ImageFilter.MaxFilter(5)))
+    return np.rint(nearby * (1 - smoothstep(difference / 16.0))).astype(np.uint8)
+
+
 def build(destination):
     original = np.asarray(Image.open(DEFAULT_TABLE).convert("RGB"))
     base = (23, 62, 64)
-    swiss = (249, 234, 219)
     surface = default_play(original, base)
     check_surface(surface, base)
-    check_surface(np.asarray(Image.open(SWISS_TABLE).convert("RGB")), swiss)
     for old, new in ((original[:21], surface[:21]), (original[-21:], surface[-21:]),
                      (original[:,:21], surface[:,:21]), (original[:,-21:], surface[:,-21:])):
         if not np.array_equal(old, new):
             raise ValueError("The original rail was altered")
 
-    themes = [{"id": name, "colors": chapter_colors(color, delta)}
-              for name, color, delta in (("default", base, -7), ("swiss", swiss, -9))]
+    themes = [{"id": "default", "colors": chapter_colors(base, -7)}]
+    masks = []
+    for name, (color, delta) in TABLES.items():
+        path = ASSETS / "Resources/Themes" / name / "Table/table_scene.png"
+        rgb = np.asarray(Image.open(path).convert("RGB"))
+        check_surface(rgb, color)
+        row = {"id": name, "colors": chapter_colors(color, delta)}
+        if name in MASK_STYLES:
+            row["mask"] = 3 + MASK_STYLES.index(name)  # shader modes 3..6 address RGBA
+            mask = material_coverage(rgb, color)
+            for x, y, w, h in QUIET:
+                if not np.all(mask[y:y+h, x:x+w] == 255):
+                    raise ValueError(f"{name}: incomplete quiet material at {x},{y}")
+            if not np.any(mask == 0):
+                raise ValueError(f"{name}: missing locked decoration")
+            masks.append(mask)
+        themes.append(row)
     for theme in themes:
         if len(set(theme["colors"])) != 8:
             raise ValueError(f'{theme["id"]} has repeated chapter colours')
     destination.mkdir(parents=True, exist_ok=True)
+    Image.fromarray(np.stack(masks, axis=2)).save(destination / "material_masks.png", compress_level=9)
     Image.fromarray(surface).save(destination / "default_play.png", compress_level=9)
     (destination / "tones.json").write_text(json.dumps({"themes": themes}, indent=2) + "\n", encoding="utf-8")
-    print(f"W18_DEFAULT_SWISS_BUILT size=1920x1080 quiet=4/4 themes=2 chapters=8 output={destination}")
+    print(f"W18_SIX_TABLES_BUILT size=1920x1080 quiet=4/4 themes=6 chapters=8 output={destination}")
 
 
 if __name__ == "__main__":
