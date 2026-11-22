@@ -1,0 +1,107 @@
+{
+  "tool": "artgen-1.2",
+  "candidate": "ArtSource/Art11/default/loot/L3/r01/original.png",
+  "candidateSha256": "15b2f535fa254b78d3fb181896559f5b25cfb800c65317f9602e8eab4544c816",
+  "kitVersion": "style-kit-1.1",
+  "category": "illustration",
+  "rangeSource": "71 shipped illustrations (DicePrototype/Assets/Art/Art071/Illustrations/illustration_*.png)",
+  "lookTolerance": 0.03,
+  "anchors": [
+    {
+      "id": "C29",
+      "sha256": "d90d1d1934d710640faf7df1dc2fbd08d47a2f7f5b6f214618dc61894beb7cd9"
+    },
+    {
+      "id": "C48",
+      "sha256": "2a980127906cc58d0c6e5c9d0a6fd7bb92d4a01f14917da3a26957361599e6b5"
+    },
+    {
+      "id": "I07",
+      "sha256": "e9861c407b4f90338748d9a44db0b0c6fd9b43e43486cedc2b21af251e8e91a3"
+    },
+    {
+      "id": "C03",
+      "sha256": "c6f1c1b826391246547fe142bce4b132699f8dfa98a381b98861984ba4219717"
+    },
+    {
+      "id": "C01",
+      "sha256": "6e7292161ef233ecf2024a614689cf1096ce3a461b4f42ae270c83d506cf393c"
+    },
+    {
+      "id": "C42",
+      "sha256": "ec2dc4e93ea964e37285d8fda197476c6ca6dfadadcd1b97ad5c57846c0582c5"
+    },
+    {
+      "id": "O03",
+      "sha256": "3d9d8478fe4eb65aacc9214c5c6aab860ba58b8feb37db5ab5ee1d2ca02392d7"
+    },
+    {
+      "id": "C37",
+      "sha256": "bf8ef718fbf7c3b518bbbf273372d3da0ecede867a39c44e55d9094ea9c4435c"
+    }
+  ],
+  "indicators": {
+    "role.dark": {
+      "value": 0.3196,
+      "refMin": 0.2334,
+      "refMax": 0.663,
+      "look": false
+    },
+    "role.ivory": {
+      "value": 0.5977,
+      "refMin": 0.2232,
+      "refMax": 0.5806,
+      "look": false
+    },
+    "role.coral": {
+      "value": 0.0392,
+      "refMin": 0.0001,
+      "refMax": 0.4389,
+      "look": false
+    },
+    "role.cyan": {
+      "value": 0.0275,
+      "refMin": 0.0,
+      "refMax": 0.4455,
+      "look": false
+    },
+    "role.amber": {
+      "value": 0.001,
+      "refMin": 0.0,
+      "refMax": 0.1043,
+      "look": false
+    },
+    "role.other": {
+      "value": 0.015,
+      "refMin": 0.0046,
+      "refMax": 0.1741,
+      "look": false
+    },
+    "transparentShare": {
+      "value": 0.4913,
+      "refMin": 0.3564,
+      "refMax": 0.7399,
+      "look": false
+    },
+    "subjectWidthShare": {
+      "value": 0.8549,
+      "refMin": 0.6762,
+      "refMax": 0.9809,
+      "look": false
+    },
+    "subjectHeightShare": {
+      "value": 0.8118,
+      "refMin": 0.6276,
+      "refMax": 0.9577,
+      "look": false
+    },
+    "lightFringeShare": {
+      "value": 0.0,
+      "refMin": 0.0,
+      "refMax": 0.1345,
+      "look": false
+    }
+  },
+  "lookFlags": [],
+  "note": "Indicators locate drift for a human or independent reviewer. They are not pass/fail criteria."
+}

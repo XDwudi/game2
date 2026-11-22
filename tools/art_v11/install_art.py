@@ -34,6 +34,7 @@ from pathlib import Path
 import re
 import struct
 import sys
+import tempfile
 
 ROOT = Path(__file__).resolve().parents[2]
 SCHEMA = "w22i-art-install-1"
@@ -44,6 +45,7 @@ STYLES = ("swiss", "sancai", "comic", "deco", "glass")
 DEFAULT = "default"
 FAMILIES = ("seal", "constraint", "multiplier", "cards", "economy", "target", "final")
 CONTENT_LISTS = ("controllers", "consumables", "services", "diceUpgrades")
+LOOT_IDS = tuple("L" + str(index) for index in range(1, 7))
 REVISION = re.compile(r"^r(\d{2,})$")
 PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
 
@@ -217,6 +219,8 @@ def install(paths, styles, check=False, log=print):
             written += 1
         if target.is_dir():
             for old in sorted(target.glob("*.png")):
+                if old.name in {f"illustration_{key}.png" for key in LOOT_IDS}:
+                    continue  # W17 owns these six names in each theme's shared Art directory.
                 if (old.name.startswith("illustration_") or old.name.startswith("emblem_")) and old.name not in wanted:
                     if check:
                         differences.append(f"{paths.rel(old)}: not in the plan")
@@ -250,18 +254,61 @@ def install(paths, styles, check=False, log=print):
     return 0
 
 
+def install_loot(paths, styles, check=False, log=print):
+    """Validate all six records per requested style before installing a single file."""
+    from PIL import Image
+
+    planned = []
+    for style in styles:
+        target = paths.game / "Art/Art11/Loot" if style == DEFAULT else paths.target(style)
+        entries = []
+        for key in LOOT_IDS:
+            folder = paths.art / style / "loot" / key
+            item = choose(paths, folder, {"jobPath": paths.rel(folder/"job.json"), "contentId": key})
+            with Image.open(item["source"]) as image:
+                if image.mode != "RGBA" or image.size != (1254,1254) or image.getchannel("A").getextrema() != (0,255):
+                    raise InstallError(f"{paths.rel(item['source'])}: expected a 1254-square transparent RGBA illustration")
+            destination = target / f"illustration_{key}.png"
+            planned.append((destination, item["source"], item["sha256"]))
+            entries.append({"id":key,"asset":paths.rel(destination),**{k:v for k,v in item.items() if k!="source"}})
+        manifest = paths.manifests / f"{style}-loot.json"
+        data = (json.dumps({"style":style,"loot":entries}, indent=2)+"\n").encode("utf8")
+        planned.append((manifest,data,hashlib.sha256(data).hexdigest()))
+    differences = 0
+    for target, source, digest in planned:
+        if target.is_file() and sha256(target)==digest:
+            continue
+        differences += 1
+        if check:
+            log("DIFFERS "+paths.rel(target))
+            continue
+        target.parent.mkdir(parents=True, exist_ok=True)
+        with tempfile.NamedTemporaryFile(dir=target.parent,delete=False,suffix=".tmp") as temp:
+            temp.write(source if isinstance(source, bytes) else source.read_bytes())
+        temp_path=Path(temp.name)
+        try:
+            if sha256(temp_path)!=digest:
+                raise InstallError(f"Copy verification failed for {paths.rel(target)}")
+            temp_path.replace(target)
+        finally:
+            temp_path.unlink(missing_ok=True)
+    log(f"LOOT styles={','.join(styles)} illustrations={len(styles)*len(LOOT_IDS)} differences={differences}")
+    return int(check and differences>0)
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     parser.add_argument("--styles", default=",".join(STYLES + (DEFAULT,)),
                         help="comma list of styles (default: the five styles and default, whose emblems only are installed)")
     parser.add_argument("--check", action="store_true", help="verify the installed files and manifests; write nothing")
+    parser.add_argument("--loot", action="store_true", help="install the six W17 reward illustrations per selected style")
     args = parser.parse_args(argv)
     styles = [s.strip() for s in args.styles.split(",") if s.strip()]
     unknown = sorted(set(styles) - set(STYLES + (DEFAULT,)))
     if unknown:
         parser.error(f"unknown styles {unknown}")
     try:
-        return install(Paths(), styles, check=args.check)
+        return (install_loot if args.loot else install)(Paths(), styles, check=args.check)
     except InstallError as error:
         print(f"REFUSED {error}")
         return 2

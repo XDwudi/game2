@@ -39,7 +39,7 @@ ROOT = Path(__file__).resolve().parents[2]
 KIT_DEFAULT = Path("ArtSource/StyleKit/style_kit.json")
 CONFIG_DEFAULT = Path("DicePrototype/Assets/Game/Data/P0Config.json")
 LANCZOS = getattr(Image, "Resampling", Image).LANCZOS
-CONTENT_LISTS = ("controllers", "consumables", "services", "diceUpgrades")
+CONTENT_LISTS = ("controllers", "consumables", "services", "diceUpgrades", "lootKinds")
 LOOK_TOLERANCE = 0.03
 
 # Nearest-colour roles used only for drift indicators (never a pass/fail gate).

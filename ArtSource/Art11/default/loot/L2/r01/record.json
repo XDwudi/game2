@@ -1,0 +1,126 @@
+{
+  "schema": "artgen-record-1",
+  "toolVersion": "artgen-1.2",
+  "jobId": "V11-DEFAULT-L2",
+  "jobPath": "ArtSource/Art11/default/loot/L2/job.json",
+  "jobSha256": "72eb9cfa5fac49b0d83e64cb5ba745fdeb03ac8c091f8b40aca3f02a5fefc85d",
+  "category": "illustration",
+  "revision": "r01",
+  "mode": "new",
+  "transparentRequired": true,
+  "content": {
+    "contentId": "L2",
+    "list": "lootKinds",
+    "displayName": "附魔卡牌",
+    "configDescription": "3张带附魔的控制器，免费选1张。",
+    "configPath": "DicePrototype/Assets/Game/Data/P0Config.json",
+    "configSha256": "be01f53fafb0cd441acbf5341a813d5409931eb8bea6463c644af30698846151"
+  },
+  "styleKit": {
+    "path": "ArtSource/StyleKit/style_kit.json",
+    "sha256": "bc9631749bab5efa30d93b47f8c0d9c49ed2dd70204b5994ee5450871af31e6a",
+    "kitVersion": "style-kit-1.1",
+    "status": "PROPOSED: anchors picked by AI from the shipped v0.71 illustration set; awaiting user confirmation (docs/art/STYLE_GUIDE.md section 7)"
+  },
+  "references": [
+    {
+      "index": 1,
+      "path": "ArtSource/StyleKit/plates/illustration_plate_style-kit-1.png",
+      "sha256": "a653982f60b065b968c92551074e45e8666952b9a5fe38a4a91e661a55a5581c",
+      "role": "STYLE PLATE: eight finished illustrations from this game on a plain ivory backdrop. Copy their rendering exactly (outline weight, flat planes, halftone, colour roles, viewpoint, lighting). Do not copy their subjects, their layout or the backdrop."
+    }
+  ],
+  "prompt": {
+    "imagePromptPath": "ArtSource/Art11/default/loot/L2/r01/prompt.txt",
+    "imagePromptFileSha256": "411531954d54ebac167ea5fb12143b81f3ca0692c2d2877297f97325393be69d",
+    "agentRequestPath": "ArtSource/Art11/default/loot/L2/r01/codex-request.txt",
+    "agentRequestFileSha256": "16b70ddc146e8d9fd0a9e104597aa05aaf8d0b80d3a794c7974b44393a17fa53"
+  },
+  "codex": {
+    "command": [
+      "C:\\Users\\f\\AppData\\Local\\OpenAI\\Codex\\bin\\31fb36cfc4b38f05\\codex.EXE"
+    ],
+    "version": "codex-cli 0.171.0-alpha.13",
+    "exitCode": 0,
+    "threadId": "01a2042b-aad1-73d2-991b-bcf444ee2ad3",
+    "sessionLog": "C:\\Users\\f\\.codex\\sessions\\2026\\11\\22\\rollout-2026-11-22T11-51-40-01a2042b-aad1-73d2-991b-bcf444ee2ad3.jsonl",
+    "agentModel": "gpt-6.2-sol",
+    "usage": {
+      "input_tokens": 41321,
+      "cached_input_tokens": 34304,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 1014,
+      "reasoning_output_tokens": 271
+    },
+    "durationSeconds": 77.7,
+    "quotaUsedPercentFirst": 49.0,
+    "quotaUsedPercentLast": 49.0
+  },
+  "imageTool": {
+    "name": "image_gen.imagegen (Codex built-in)",
+    "modelSnapshot": "not exposed by the tool; OpenAI documents the built-in tool as gpt-image-2",
+    "generations": [
+      {
+        "id": "exec-fb43d541-10e2-4a36-9ead-6081515c8211",
+        "kind": "image_gen.generation",
+        "status": "completed",
+        "failure": null,
+        "revisedPrompt": "Create ONE standalone card-theme illustration. Subject: three blank cards fanned apart, a round enchantment seal attached to the upper right corner of the front card, one small glint beside the seal. The round upper-right seal must stay round and off center. The small glint is subordinate to the seal. Give each category a distinct silhouette at 96 pixels, including beside a boss emblem. Use no typography, numbers, actual card artwork, labels, price, card frame or interface overlays. Any die is an opaque ivory die with dark ink pips, no red or blue pips and no gold or glass faces. The item is a reward; gold is reserved for the specified prize accent, not a die face or a universal rarity color. Item-specific restrictions: no star-shaped jewel; no plus sign or multiplier; no lettering on the seal.\nStyle: Match the STYLE PLATE (reference image 1) exactly. High-resolution limited-colour screen-print illustration: bold, even dark petrol-ink outlines; broad flat colour planes; one hard-edged shadow plane per form; fine halftone dots only inside shaded planes; small crisp ivory highlights; light from the upper left. Objects are chunky, simplified and slightly toy-like, seen in three-quarter view from slightly above. Ceramic dice are rounded warm-ivory cubes with dark ink pips unless the subject asks for red or blue pips.\nColour roles: Warm ivory #F4E8CB for lit surfaces and dark petrol #173E40 for shadow planes, bases and dark parts carry most of the picture; ink #162629 for outlines and pips. Accents only, each on a few small areas: coral red #EC655D, cyan blue #55B6D9, amber gold #F3BA58 (amber only for coins, brass, rewards or a single highlight). No other hues, no gradients, no glow.\nComposition: One cohesive subject group of at most three objects, centred on a square canvas; the subject spans roughly 70 to 95 percent of the canvas width without touching the edges, with even transparent margin on every side; the silhouette must stay readable at 64 pixels. Two or three short action strokes or a small spark near the upper left of the subject are allowed when they express the effect (usually cyan; coral or ink when the subject is red or dark).\nOutput: True transparent alpha background with no backdrop of any colour. A single finished illustration, not a sheet of variants.\nAvoid: text, letters, numbers, labels, prices, card frames, UI elements, paper or coloured backdrop, ground scenery, checkerboard, a drop-shadow slab under the object, photorealism, 3D-render look, soft airbrush gradients, pixel art, neon glow, grunge, torn or burnt paper, human characters, expressive faces.",
+        "transparentBackground": true,
+        "inputImages": [
+          {
+            "path": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\StyleKit\\plates\\illustration_plate_style-kit-1.png",
+            "sha256": "a653982f60b065b968c92551074e45e8666952b9a5fe38a4a91e661a55a5581c"
+          }
+        ],
+        "savedPath": "C:\\Users\\f\\.codex\\generated_images\\01a2042b-aad1-73d2-991b-bcf444ee2ad3\\exec-fb43d541-10e2-4a36-9ead-6081515c8211.png",
+        "generationId": "a6f5713d-4a6c-44dc-a61c-b3ba6572254b"
+      }
+    ],
+    "runChecks": {
+      "imageCallCount": 1,
+      "generationCount": 1,
+      "callReferencedImagePaths": [
+        "E:/agent_workspace/gpt/game2/ArtSource/StyleKit/plates/illustration_plate_style-kit-1.png"
+      ],
+      "modelInputImages": [
+        {
+          "path": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\StyleKit\\plates\\illustration_plate_style-kit-1.png",
+          "sha256": "a653982f60b065b968c92551074e45e8666952b9a5fe38a4a91e661a55a5581c"
+        }
+      ],
+      "transparentRequested": true,
+      "callPromptExact": true,
+      "revisedPromptExact": true
+    }
+  },
+  "output": {
+    "sourcePath": "C:\\Users\\f\\.codex\\generated_images\\01a2042b-aad1-73d2-991b-bcf444ee2ad3\\exec-fb43d541-10e2-4a36-9ead-6081515c8211.png",
+    "archivedPath": "ArtSource/Art11/default/loot/L2/r01/original.png",
+    "sha256": "a75d658c88a7ac93f41c85e798f818f24dfa7abcec22f308908ac01ccc1ee7a8",
+    "copiedByteIdentical": true,
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alphaExtrema": [
+      0,
+      255
+    ],
+    "transparentShare": 0.5742,
+    "alphaBounds": [
+      101,
+      185,
+      1157,
+      1110
+    ],
+    "subjectWidthShare": 0.8421,
+    "subjectHeightShare": 0.7376,
+    "subjectAreaShare": 0.4194
+  },
+  "runValid": true,
+  "runProblems": [],
+  "status": "CANDIDATE: review pending",
+  "recordedUtc": "2026-11-22T16:52:58.021405+00:00"
+}

@@ -1,0 +1,70 @@
+{
+  "schema": "loot-subjects-1",
+  "source": "docs/specs/v11/SETTLEMENT_LAYOUT.md §8.1–8.2; DicePrototype/Assets/Game/Data/P0Config.json lootKinds; CP3-1",
+  "status": "Subject specification; default golden samples pending",
+  "defaults": {
+    "canvas": {"width": 1254, "height": 1254, "channels": "RGBA", "transparent": true},
+    "subjectWidthPercent": [70, 95],
+    "reviewAtPixels": [200, 160, 144, 96],
+    "sourcePath": "ArtSource/Art11/<theme>/loot/<id>/rNN/",
+    "spriteName": "illustration_<id>",
+    "previewSurfaces": ["paper", "felt"],
+    "cues": [
+      "Give each category a distinct silhouette at 96 pixels, including beside a boss emblem.",
+      "Use no typography, numbers, actual card artwork, labels, price, card frame or interface overlays.",
+      "Any die is an opaque ivory die with dark ink pips, no red or blue pips and no gold or glass faces.",
+      "The item is a reward; gold is reserved for the specified prize accent, not a die face or a universal rarity color."
+    ],
+    "reference": "Use the current theme's approved style-kit anchors. After the default goldens are signed, each matching default may be supplied only as a subject reference for the five redraws."
+  },
+  "subjects": {
+    "L1": {
+      "name": "稀有卡牌",
+      "mainObject": "three blank fanned cards with a top-center star gem",
+      "subject": "three blank cards fanned apart, one six-pointed star-shaped jewel set at the center of the front card's top edge",
+      "cues": ["Exactly three card silhouettes; the front jewel reads as six points at small size.", "Only the jewel carries a reward-gold accent."],
+      "avoid": ["no corner seal", "no large wash of a theme's rarity color", "no illustration printed on a card"],
+      "function": "从三张稀有卡牌中免费选一张。用六角星形识别稀有，换风格只换画法。"
+    },
+    "L2": {
+      "name": "附魔卡牌",
+      "mainObject": "three fanned cards with a round upper-right seal",
+      "subject": "three blank cards fanned apart, a round enchantment seal attached to the upper right corner of the front card, one small glint beside the seal",
+      "cues": ["The round upper-right seal must stay round and off center.", "The small glint is subordinate to the seal."],
+      "avoid": ["no star-shaped jewel", "no plus sign or multiplier", "no lettering on the seal"],
+      "function": "从三张附魔卡牌中免费选一张。和 L1 共用卡扇轮廓，优先看得出右上圆形附魔章。"
+    },
+    "L3": {
+      "name": "牌型精研",
+      "mainObject": "open handbook, three dice and two rising chevrons",
+      "subject": "an open handbook with three small dice arranged in one row across a page, two stacked upward chevrons alongside the row",
+      "cues": ["The open pages and precisely two upward chevrons convey study and two levels.", "The three dice have dark pips, with no recognizable hand or run."],
+      "avoid": ["no three matching faces", "no sequence of pips", "no text or page numbers", "no red or blue dice"],
+      "function": "选择一个牌型或颜色，直接升两级。不同点数或颜色都不应暗示特定选项。"
+    },
+    "L4": {
+      "name": "骰面工坊",
+      "mainObject": "small bench supporting a die and a file",
+      "subject": "a small workbench supporting a die, a hand file laid diagonally beside it and a few shavings on the bench",
+      "cues": ["A workbench with a tool working on a die surface distinguishes this from a gift box.", "The die remains opaque ivory with dark pips."],
+      "avoid": ["no completed colored, gilded or glass upgrade", "no floating upgrade symbol"],
+      "function": "可免费改造骰面，最多三次。工坊表示一组改造选择，不指定哪一种改造。"
+    },
+    "L5": {
+      "name": "特制骰子",
+      "mainObject": "open presentation box and a die on a ribboned cushion",
+      "subject": "an open presentation box revealing a single die on a cushion, a reward ribbon tied to the cushion beside the die",
+      "cues": ["One neutral die is the focus; the open lid and gold ribbon make a gift visible at small size.", "All visible die faces remain ivory with dark pips."],
+      "avoid": ["no repeating same-value faces", "no colored or gilded faces", "no glass die", "keep the ribbon away from faces"],
+      "function": "从同点、纯色、镀金骰中免费选一颗。礼盒表示整类奖励，具体候选由游戏中的立体骰子展示。"
+    },
+    "L6": {
+      "name": "道具补给",
+      "mainObject": "open supply satchel with three different items",
+      "subject": "an open supply satchel with three distinct items protruding from the opening, a stoppered potion bottle, a rolled scroll and a hanging charm",
+      "cues": ["Three distinguishable outlines and a soft bag silhouette, unlike L5's single die in a rigid box.", "Keep the potion neutral in color so it does not name a specific item."],
+      "avoid": ["no red or blue potion", "no coins", "no letters or runes on the scroll or charm"],
+      "function": "三种各不相同的道具，最多领取三件，数量仍受道具栏限制。"
+    }
+  }
+}

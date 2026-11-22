@@ -287,6 +287,8 @@ class InstallToolTests(unittest.TestCase):
         target = self.tree.target()
         (target / "illustration_C99.png").write_bytes(png_bytes(9))
         (target / "illustration_C99.png.meta").write_text("guid", encoding="utf-8")
+        (target / "illustration_L1.png").write_bytes(png_bytes(7))
+        (target / "illustration_L1.png.meta").write_text("loot-guid", encoding="utf-8")
         (target / "illustration_C01.png").write_bytes(png_bytes(99))
         code, text = self.tree.run(self.tool, check=True)
         self.assertEqual(code, 1)
@@ -297,6 +299,8 @@ class InstallToolTests(unittest.TestCase):
         self.assertIn("INSTALLED written=1 removed=1", text)
         self.assertFalse((target / "illustration_C99.png").exists())
         self.assertFalse((target / "illustration_C99.png.meta").exists())
+        self.assertEqual((target / "illustration_L1.png").read_bytes(), png_bytes(7))
+        self.assertEqual((target / "illustration_L1.png.meta").read_text(), "loot-guid")
         self.assertEqual(self.tree.run(self.tool, check=True)[0], 0)
 
 
