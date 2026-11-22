@@ -29,7 +29,7 @@ namespace DiceCraft.Editor
             if(regular==null)throw new InvalidOperationException("Missing existing Regular font: "+RegularPath);
             if(regular.faceInfo.pointSize!=PointSize || regular.atlasPadding!=Padding || regular.atlasWidth!=AtlasSize || regular.atlasHeight!=AtlasSize || regular.atlasRenderMode!=GlyphRenderMode.SDFAA)
                 throw new InvalidOperationException("Regular settings changed; review the font recipe before regenerating.");
-            uint[] required=regular.characterTable.Select(c=>c.unicode).Distinct().OrderBy(c=>c).ToArray();
+            uint[] required=V21TitleFontSetup.RequiredCharacters("bold");
             if(required.Length==0 || !required.Contains(0x2026u))
                 throw new InvalidOperationException("Regular character table must include U+2026.");
             var priorCharacters=regular.characterTable.ToArray();
@@ -55,8 +55,14 @@ namespace DiceCraft.Editor
                 bold=CreateBold(source,required);
                 created=true;
             }
-            // An existing good font is reused byte-for-byte. An incomplete or stale
-            // one fails validation; this tool never deletes/rebuilds an existing asset.
+            else
+            {
+                // Keep the existing sub-assets and glyph packing so previously baked glyphs
+                // retain their material, atlas IDs and coordinates. Only append missing glyphs.
+                ValidateBold(bold,regular.characterTable.Select(c=>c.unicode).ToArray());
+                var additions=required.Where(c=>!bold.characterLookupTable.ContainsKey(c)).ToArray();
+                if(additions.Length!=0)ExtendBold(bold,source,additions);
+            }
             ValidateBold(bold,required);
             if(priorWeights[7].regularTypeface!=null && priorWeights[7].regularTypeface!=bold)
                 throw new InvalidOperationException("Another Bold typeface is already configured; it has not been replaced.");
@@ -123,6 +129,34 @@ namespace DiceCraft.Editor
                 }
                 throw;
             }
+        }
+
+        private static void ExtendBold(TMP_FontAsset bold,Font source,uint[] additions)
+        {
+            // AssetDatabase reimports can clear the nonserialized editor-only source reference.
+            // Explicitly bind the hash-checked source for baking, then clear the runtime link.
+            bold.atlasPopulationMode=AtlasPopulationMode.Dynamic;
+            var encoded=new SerializedObject(bold);
+            encoded.FindProperty("m_SourceFontFile").objectReferenceValue=source;
+            encoded.ApplyModifiedPropertiesWithoutUndo();
+            try
+            {
+                if(!bold.TryAddCharacters(additions,out uint[] missing,true))
+                    throw new InvalidOperationException("Unable to extend Bold: "+string.Join(",",missing??Array.Empty<uint>()));
+            }
+            finally
+            {
+                bold.atlasPopulationMode=AtlasPopulationMode.Static;
+                EditorUtility.SetDirty(bold);
+            }
+            for(int i=0;i<bold.atlasTextureCount;i++)
+            {
+                var atlas=bold.atlasTextures[i];
+                atlas.name="DiceChineseBold Atlas "+i;
+                if(!AssetDatabase.Contains(atlas))AssetDatabase.AddObjectToAsset(atlas,bold);
+                EditorUtility.SetDirty(atlas);
+            }
+            AssetDatabase.SaveAssetIfDirty(bold);
         }
 
         private static void ValidateBold(TMP_FontAsset bold,uint[] required)
