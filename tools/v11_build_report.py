@@ -51,14 +51,16 @@ def parse(text):
         files[path] = int(value(row, "totalSize", "UInt64"))
     assets = set()
     packed_objects = 0
-    groups = 0
+    groups = set()
     for ref in rows(main, "m_Appendices", "PPtr<Object>"):
         target = value(ref, "m_PathID", "SInt64")
         if value(ref, "m_FileID", "int") != "0" or target not in objects:
             raise ValueError("Unresolved BuildReport appendix " + target)
         kind, body = objects[target]
         if kind == "PackedAssets":
-            groups += 1
+            if target in groups:
+                raise ValueError("Duplicate packed assets appendix " + target)
+            groups.add(target)
             for record in rows(body, "m_Contents", "BuildReportPackedAssetInfo"):
                 source = value(record, "buildTimeAssetPath", "string").replace("\\", "/")
                 guid = value(record, "sourceAssetGUID", "GUID")
@@ -66,9 +68,9 @@ def parse(text):
                     raise ValueError("Malformed packed asset GUID")
                 assets.add((source, guid))
                 packed_objects += 1
-    if not files or not packed_objects or groups != sum(kind == "PackedAssets" for kind, _ in objects.values()):
+    if not files or not packed_objects or groups != {key for key, (kind, _) in objects.items() if kind == "PackedAssets"}:
         raise ValueError("Incomplete native BuildReport packed asset or output inventory")
-    result.update(files=files, assets=assets, packedGroups=groups, packedObjects=packed_objects)
+    result.update(files=files, assets=assets, packedGroups=len(groups), packedObjects=packed_objects)
     return result
 
 

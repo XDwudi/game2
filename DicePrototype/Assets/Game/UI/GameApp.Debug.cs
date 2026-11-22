@@ -260,7 +260,7 @@ namespace DiceCraft
         }
         private void DrawDebugControllers(Transform p)
         {
-            UiKit.Text(p,"ControllerCount","控制器 "+debugDraft.controllers.Count+" / 32 · 允许同名与任意附魔",10,0,1450,40,26,UiKit.Teal);
+            UiKit.Text(p,"ControllerCount","卡牌 "+debugDraft.controllers.Count+" / 32 · 允许同名与任意附魔",10,0,1450,40,26,UiKit.Teal);
             float y=48;
             for(int i=0;i<debugDraft.controllers.Count;i++)
             {

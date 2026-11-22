@@ -122,10 +122,14 @@ public sealed class Runner
             if (offer.category != "gold") cur.lootPicks++;
         }
         if (result.accepted)
+        {
             recorded?.Add(new Dictionary<string, object> {
                 ["kind"] = kind.ToString(), ["seed"] = command.seed, ["risk"] = command.risk, ["offerId"] = command.offerId, ["itemInstanceId"] = command.itemInstanceId,
                 ["targetDieId"] = command.targetDieId, ["targetFaceId"] = command.targetFaceId, ["handId"] = command.handId,
                 ["dieIds"] = command.dieIds ?? Array.Empty<string>(), ["targetPips"] = command.targetPips ?? Array.Empty<int>() });
+            if (recorded != null && command.kind == CommandKind.ReorderControllers)
+                recorded[recorded.Count - 1]["controllerIds"] = command.controllerIds;
+        }
         return result;
     }
     /// <summary>A command the run cannot continue without.</summary>

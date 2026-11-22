@@ -67,6 +67,11 @@ class V11ConfigTests(unittest.TestCase):
                 self.assertIsInstance(details, str)
                 self.assertEqual(details, details.strip() if details else "")
                 self.assertLessEqual(len(new.pop("shortText")), 28)
+                if category == "services" and old["id"] == "O07":
+                    approved = next(row for row in self.audit["servicePriceRows"] if row["id"] == "O07")
+                    self.assertEqual(new["priceRule"], approved["shortText"])
+                    self.assertEqual(new["priceRule"], "6（整局限买1次）")
+                    new["priceRule"] = old["priceRule"]
                 if old["displayName"] != new["displayName"]:
                     changed_names.append(old["id"])
                     self.assertIn("控制器", old["displayName"])
@@ -89,7 +94,7 @@ class V11ConfigTests(unittest.TestCase):
 
     def test_overrides_apply_exactly_and_are_audited(self):
         applied = {(o["id"], o["field"]): o for o in self.audit["overrides"]}
-        self.assertEqual(set(applied), {("C51", "details"), ("C98", "details"), ("L1", "details"), ("L2", "details")})
+        self.assertEqual(set(applied), {("C51", "details"), ("C98", "details"), ("C100", "shortText"), ("L1", "details"), ("L2", "details")})
         rows = {row["id"]: row for group in self.content.values() for row in group}
         for (item_id, field), record in applied.items():
             self.assertEqual(rows[item_id][field], record["after"])

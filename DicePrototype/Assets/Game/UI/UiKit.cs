@@ -112,12 +112,23 @@ namespace DiceCraft
         public static void FitNumberInk21(TextMeshProUGUI label)
         {
             if (TitleFont == null || label.font != TitleFont) return;
+            label.margin=Vector4.zero;
             label.ForceMeshUpdate();
-            var ink=label.textBounds;
+            var min = new Vector2(float.PositiveInfinity,float.PositiveInfinity);
+            var max = new Vector2(float.NegativeInfinity,float.NegativeInfinity);
+            var info=label.textInfo;
+            for(int i=0;i<info.characterCount;i++)
+            {
+                var glyph=info.characterInfo[i];
+                if(!glyph.isVisible)continue;
+                min=Vector2.Min(min,glyph.bottomLeft);
+                max=Vector2.Max(max,glyph.topRight);
+            }
+            if(float.IsPositiveInfinity(min.x))return;
             var box=label.rectTransform.rect;
-            // A proportional numeral can have a negative bearing even when its advance fits.
-            float dx=Mathf.Clamp(0,box.xMin-ink.min.x,box.xMax-ink.max.x);
-            float dy=Mathf.Clamp(0,box.yMin-ink.min.y,box.yMax-ink.max.y);
+            // TMP line extents follow advances. Italic or padded numeric meshes can project past them.
+            float dx=Mathf.Clamp(0,box.xMin-min.x,box.xMax-max.x);
+            float dy=Mathf.Clamp(0,box.yMin-min.y,box.yMax-max.y);
             if(Mathf.Abs(dx)>.01f || Mathf.Abs(dy)>.01f)
                 label.margin=new Vector4(dx,-dy,-dx,dy);
         }

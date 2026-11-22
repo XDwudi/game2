@@ -90,14 +90,15 @@ namespace DiceCraft.Tests
                 string beforeHistory = StateJson();
                 Click("PreviousSubmission"); Click("FullScoreDetails");
                 string[] originalPanel = ReadHistoryPanel(count);
-                Assert.That(originalPanel[0], Does.EndWith("= " + System.Numerics.BigInteger.Parse(expectedScore.score).ToString("N0",System.Globalization.CultureInfo.InvariantCulture)));
+                Assert.That(originalPanel[0], Does.EndWith("= " + System.Numerics.BigInteger.Parse(expectedScore.score).ToString("N0",System.Globalization.CultureInfo.InvariantCulture) + "（最后去掉小数）"));
                 Assert.That(originalPanel[1], Does.Contain(app.Config.Controller(controllerId).displayName));
                 // v1.1 (W09, TX-02): the affected die and face are named ("骰子 2 的第 3 面"), never shown as D002 / F03.
                 Assert.That(originalPanel[1], Does.Contain(GameApp.DieName11(ids[1])));
                 Assert.That(originalPanel[1], Does.Not.Contain(ids[1]));
                 if (controllerId == "C07") Assert.That(originalPanel[1], Does.Contain(GameApp.DieName11(ids[0]) + " 的六面复制到" + GameApp.DieName11(ids[1])));
                 else Assert.That(originalPanel[1], Does.Contain(GameApp.DieFaceName11(ids[1], frozenSnapshot.dice[1].faceId) + "永久染红"));
-                Assert.That(originalPanel[3], Does.Contain("永久 2 → 当前 2"), "Historical detail must display pre-effect data.");
+                Assert.That(originalPanel[3], Does.Contain("点数 2 · 蓝").And.Contain("六面合计 12"),
+                    "Both effects happen after scoring: the second die in this receipt keeps its blue two and its original six faces.");
                 Assert.That(StateJson(), Is.EqualTo(beforeHistory));
                 Click("CloseDialog");
                 ClickDie(ids[0]); Click("Confirm");yield return WaitForIdle();

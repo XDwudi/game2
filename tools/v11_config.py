@@ -18,13 +18,18 @@ REMOVED_SHOP_FIELDS = ("controllersUniqueOwned", "allowDifferentEnchantReplaceme
 SAVE_SCHEMA_VERSION = 7
 
 
-def build(base=None, content=None):
+def build(base=None, content=None, audit=None):
     base = json.loads(SOURCE.read_bytes()) if base is None else base
     # Copy input so callers can compare it after generation.
     cfg = json.loads(json.dumps(base, ensure_ascii=False))
     if cfg["configVersion"] != "p1.0.0":
         raise ValueError("Expected frozen p1.0.0 base")
-    content = extract.extract(base=base)[0] if content is None else content
+    if content is None:
+        content, audit = extract.extract(base=base)
+    elif audit is None:
+        _, audit = extract.extract()
+    # The approved O07 price caption was the only service caption still exposing an engine label.
+    o07_price = next(row["shortText"] for row in audit["servicePriceRows"] if row["id"] == "O07")
     if set(content) != set(extract.CATEGORIES):
         raise ValueError("Text categories must exactly match the six definition categories")
     cfg["configVersion"] = "p1.1.0"
@@ -52,6 +57,8 @@ def build(base=None, content=None):
             if any(key in entry for key in ("shortText", "details")):
                 raise ValueError("Frozen base already contains v1.1 text fields")
             entry["displayName"] = entry["displayName"].replace("控制器", "卡牌")
+            if category == "services" and entry["id"] == "O07":
+                entry["priceRule"] = o07_price
             anchor = "description" if "description" in entry else "displayName"
             output = {}
             for key, value in entry.items():
@@ -77,7 +84,7 @@ def main():
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
     content, audit = extract.extract()
-    config_text = extract.render(build(content=content))
+    config_text = extract.render(build(content=content, audit=audit))
     outputs = ((extract.CONTENT, extract.render(content)), (extract.AUDIT, extract.render(audit)), (TARGET, config_text))
     if args.check:
         different = [str(path.relative_to(ROOT)) for path, text in outputs if not path.exists() or path.read_bytes() != text.encode("utf-8")]

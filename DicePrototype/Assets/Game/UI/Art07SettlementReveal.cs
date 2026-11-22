@@ -74,7 +74,9 @@ namespace DiceCraft
         }
         private static void Number(TextMeshProUGUI text,string value)
         {
-            if(text!=null&&text.text!=value)text.text=value;
+            if(text==null||text.text==value)return;
+            text.text=value;
+            UiKit.FitNumberInk21(text);
         }
         private void Evaluate()
         {

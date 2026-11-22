@@ -14,6 +14,8 @@ from unittest.mock import patch
 from tools import package_v11 as pack
 from tools import v11_build_report as native
 from tools import publish_v11_release as publish
+from tools import replay_v11 as replay
+from PIL import Image
 
 
 def write(root, name, data):
@@ -165,13 +167,18 @@ class Package11Tests(unittest.TestCase):
                         if platform == "macos":
                             info = archive.getinfo(f"{pack.TOP}/DicePrototype.app/Contents/MacOS/DiceCraft P0")
                             self.assertEqual(0o100755, info.external_attr >> 16)
-                    with self.assertRaises(FileExistsError):
-                        pack.package(self.root, platform, report, "mock")
-                    path.unlink()
-                    (self.root / "evidence/v11/packages" / (path.name + ".json")).unlink()
+                    receipt = self.root / "evidence/v11/packages" / (path.name + ".json")
+                    self.assertEqual(verified, pack.package(self.root, platform, report, "mock"))
+                    # Crash after archive publication: reproduce bytes, recover only the missing receipt.
+                    receipt.unlink()
                     os.utime(files[-1], (1000000000, 1000000000))
                     repeat = pack.package(self.root, platform, report, "mock")
                     self.assertEqual(verified["sha256"], repeat["sha256"])
+                    self.assertEqual(verified, pack.delivery.read_json(receipt))
+                    path.write_bytes(b"unrelated archive")
+                    with self.assertRaisesRegex(FileExistsError, "Existing player archive differs"):
+                        pack.package(self.root, platform, report, "mock")
+                    self.assertEqual(b"unrelated archive", path.read_bytes())
 
     def test_reject_same_resolution_twice_and_modified_nunit(self):
         gate = fixture_gate(self.root)
@@ -209,6 +216,26 @@ class Package11Tests(unittest.TestCase):
             pack.build_inputs(self.root, "windows", proof, data)
 
     def test_incomplete_native_serialization_refused(self):
+        header = ("ID: 1 (ClassID: 1125) BuildReport\n\tm_Summary  (BuildSummary)\n"
+                  + "\n".join("\t\t" + item for item in [
+                      "buildGUID " + "a" * 32 + " (GUID)", 'platformName "Win64" (string)',
+                      'buildProfilePath "profile" (string)', 'outputPath "player.exe" (string)',
+                      "totalSize 20 (UInt64)", "totalErrors 0 (int)", "buildResult 1 (int)"])
+                  + '\n\tm_Files  (vector)\n\t\tsize 1 (int)\n\t\tdata  (BuildReportFile)\n'
+                  + '\t\t\tpath "player.exe" (string)\n\t\t\ttotalSize 20 (UInt64)\n')
+        link = "\t\tdata  (PPtr<Object>)\n\t\t\tm_FileID 0 (int)\n\t\t\tm_PathID 2 (SInt64)\n"
+        group = ('ID: 2 (ClassID: 1126) PackedAssets\n\tm_Contents  (vector)\n\t\tsize 1 (int)\n'
+                 '\t\tdata  (BuildReportPackedAssetInfo)\n\t\t\tbuildTimeAssetPath "Assets/title.asset" (string)\n'
+                 '\t\t\tsourceAssetGUID ' + "b" * 32 + ' (GUID)\n')
+        vector = "\tm_Appendices  (vector)\n\t\tsize "
+        complete = header + vector + "1 (int)\n" + link + group
+        measured = native.parse(complete)
+        self.assertEqual({("Assets/title.asset", "b" * 32)}, measured["assets"])
+        self.assertEqual({"player.exe": 20}, measured["files"])
+        with self.assertRaisesRegex(ValueError, "Duplicate packed"):
+            native.parse(header + vector + "2 (int)\n" + link + link + group)
+        with self.assertRaisesRegex(ValueError, "Incomplete native"):
+            native.parse(complete + group.replace("ID: 2 ", "ID: 3 "))
         with self.assertRaisesRegex(ValueError, "one native"):
             native.parse("result: Succeeded")
         with self.assertRaisesRegex(ValueError, "Incomplete"):
@@ -234,6 +261,32 @@ class Publication11Tests(unittest.TestCase):
             report, data, _ = build(self.root, platform, assets, gate["identity"])
             with patch.object(pack, "read_native", return_value=data):
                 pack.package(self.root, platform, report, "mock")
+        self.windows = pack.delivery.read_json(self.root / "evidence/v11/packages" / (replay.WINDOWS + ".json"))
+        write(self.root, "evidence/v11/review/final.md", b"Independent W25 review fixture")
+        self.replay_dir = self.root / "evidence/v11/replays/final"
+        trace_path = write(self.root, "evidence/v11/replays/trace.json",
+                           {"configVersion": pack.VERSION, "seed": 5, "terminalPhase": "RunFailed",
+                            "steps": [{"kind": "NewRun", "seed": 5}, {"kind": "Submit"}]})
+        trace = replay.validated_trace(trace_path)
+        data_path = (self.root / "fresh/DicePrototype_Data").as_posix()
+        runs = []
+        for theme in replay.THEMES:
+            sub = self.replay_dir / theme
+            write(sub, "Player.log", b"Unity player fixture")
+            images = ["00-menu.png", "01-stage-preview.png", "02-final-RunFailed.png"]
+            for name in images:
+                Image.new("RGB", (32, 24), "red").save(sub / name)
+            write(sub, "tour.json", {"schema": "v11-windows-replay-1", "theme": theme, "images": images, "status": "completed",
+                                     "error": "", "buildGuid": self.windows["buildGuid"], "buildIdentity": json.dumps(gate["identity"]),
+                                     "unityVersion": "6000.6.7f1", "artVersion": "art1.1.0", "rulesVersion": pack.VERSION,
+                                     "isEditor": False, "platform": "WindowsPlayer", "traceSha256": pack.delivery.sha(trace_path),
+                                     "playerDataPath": data_path, "terminalPhase": "RunFailed", "stepsSent": 1, "traceSteps": 1,
+                                     "logErrors": 0, "finalStage": 1, "screenWidth": 32, "screenHeight": 24})
+            runs.append(replay.check_run(self.root, theme, sub, self.windows, trace_path, trace, data_path))
+        write(self.replay_dir, "index.json", {"schema": "v11-replay-index-1", "windowsPackageSha256": self.windows["sha256"],
+                                             "sourceCommit": commit, "buildGuid": self.windows["buildGuid"],
+                                             "playerDataPath": data_path, "verifiedExtractedFiles": self.windows["members"],
+                                             "trace": replay.ref(self.root, trace_path), "runs": runs})
 
     def git(self, *args):
         subprocess.run(["git", "-c", "user.name=Fixture", "-c", "user.email=fixture@example.invalid",
@@ -300,6 +353,35 @@ class Publication11Tests(unittest.TestCase):
         with patch.object(publish, "remote_refs", return_value=None), self.assertRaisesRegex(ValueError, "corrupt"):
             publish.execute(self.root, plan, notes, server)
         server.json.assert_not_called()
+
+    def test_replay_requires_actual_theme_identity_exception_free_log_and_images(self):
+        sub = self.replay_dir / "glass"
+        raw = sub / "tour.json"
+        initial = pack.delivery.read_json(raw)
+        for attr, bad in [("theme", "default"), ("isEditor", True), ("buildGuid", "x"), ("stepsSent", 0), ("logErrors", 1)]:
+            with self.subTest(attr=attr):
+                write(sub, raw.name, dict(initial, **{attr: bad}))
+                with self.assertRaisesRegex(ValueError, "actual theme"):
+                    replay.verify_index(self.root, self.replay_dir / "index.json", self.windows)
+        write(sub, raw.name, initial)
+        write(sub, "Player.log", b"NullReferenceException: player callback failed")
+        with self.assertRaisesRegex(ValueError, "Unity exception"):
+            replay.verify_index(self.root, self.replay_dir / "index.json", self.windows)
+        write(sub, "Player.log", b"Unity player fixture")
+        Image.new("RGB", (32, 24), "blue").save(sub / "00-menu.png")
+        with self.assertRaisesRegex(ValueError, "Changed Windows run"):
+            replay.verify_index(self.root, self.replay_dir / "index.json", self.windows)
+
+    def test_unpack_checks_payload_and_requires_fresh_members(self):
+        fresh = self.root / "r05-unpacked"
+        fresh.mkdir()
+        zip_path = self.root / "Releases" / pack.VERSION / replay.WINDOWS
+        exe = replay.extract_verified(zip_path, self.windows, fresh)
+        self.assertEqual("DicePrototype.exe", exe.name)
+        with self.assertRaises(FileExistsError):
+            replay.extract_verified(zip_path, self.windows, fresh)
+        with self.assertRaisesRegex(ValueError, "ZIP differs"):
+            replay.extract_verified(zip_path, dict(self.windows, sha256="0" * 64), fresh)
 
 
 if __name__ == "__main__":

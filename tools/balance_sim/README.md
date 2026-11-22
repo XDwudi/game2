@@ -11,7 +11,7 @@
 | `cards` | 每张控制器在两个参照构筑里的等效倍率（有它 ÷ 没它的期望整关得分）与触发率；成长卡各列两行（成长 0 与标明的中期成长值）；改骰面的卡另列“正常打 6 关 / 12 关之后”两行 |
 | `scen` | 手工搭好的场景：骰面养成的终态、乘区四件套、裸装过关概率，以及 v1.0 各新流派的成型状态 |
 | `run` | 机器人通过真实的 `GameSession` 用合法命令打完整局，输出逐关到达率、通过率、金币收支、购买统计、死亡分布，以及 v1.0 的关卡类型、首领减益、战利品、高压挑战统计 |
-| `trace` | 把机器人某一局开头的若干条命令录成 JSON（`--seed`、`--steps`、`--out`），供打包后的游戏用 `--art073-capture … --art073-trace …` 回放并截图 |
+| `trace` | 把机器人指定种子的一局命令录成 JSON。`--steps` 指定前缀长度，`--full` 录到胜利或失败，供打包后的游戏回放并截图 |
 
 ## 运行
 
@@ -55,8 +55,8 @@ dotnet $sim run --first 5000 --seeds 300 --threads 10 --prepared --out evidence/
 - `--prepared` 会改变对局（调序是真实命令），所以与普通机器人按种子成对比较，见 `v10_report_tables.py paired`。
 - 实测报告的表由 `v10_report_tables.py` 的 `pool / tension / gold / bosspool / pressure / lab / paired / cardwin / diversity` 模式生成，
   除 `lab`、`paired` 外都可以一次给多份 `run` 的 JSON，按局合并。
-- `trace` 录不了重排控制器（打包版的回放驱动不支持这条命令）。要录**整局**，先用很大的 `--steps` 让它报出这一局的命令数 N，
-  再用 `--steps N`；提示 `opening uses ReorderControllers` 就换一个通关种子。
+- 历史回放使用 `--steps N` 截取前 N 条命令。p1.1.0 发布验证用 `trace --full --seed 5000 --out <整局记录.json>`，同时记录控制器的重排顺序与终局阶段。
+  Windows 包生成后，在仓库根目录运行 `python tools/replay_v11.py --trace <整局记录.json> --out evidence/v11/replays/final`。运行器在新目录解压已核验的包，依次回放六套风格，保存截图、玩家日志和发布索引。
 
 ### 关卡目标候选与校准
 

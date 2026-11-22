@@ -527,7 +527,7 @@ namespace DiceCraft
             var doomed=AltarVictims09();var cards=ViewState.controllers;
             // v1.1 (text proposal 5 #5): practice and the debug workspace keep their own prefix.
             string capacity=IsPracticeRun11?"练习模式 · 持有 "+cards.Count+" 张 · 占用栏位 "+ControllerRules.OrdinaryUsed(cards):
-                ViewState.debugWorkspace&&!CleanCapture11?"调试配置 · 持有 "+cards.Count+" · 普通占槽 "+ControllerRules.OrdinaryUsed(cards):
+                ViewState.debugWorkspace&&!CleanCapture11?"调试配置 · 持有 "+cards.Count+" · 占用栏位 "+ControllerRules.OrdinaryUsed(cards):
                 "卡牌栏位 "+ControllerRules.OrdinaryUsed(cards)+"/"+ViewState.controllerSlots+" · 共 "+cards.Count+"/"+Config.maxControllerInstances+" 张";
             float captionY=4+(l.captionH-Line11(18))*.5f,itemsX=l.build.width-ShopPad14-(5*BuildItemSize14+4*6);
             var head=FitLine13(panel,"BuildTitle14","我的构筑",ShopPad14,captionY,140,18,LabelOn11(panel,UiKit.TextColor),TextAlignmentOptions.MidlineLeft,true);

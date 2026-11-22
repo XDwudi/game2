@@ -35,8 +35,8 @@ namespace DiceCraft
                 DieShadow073(cell,"Shadow",177,Large11?145:204,Large11?135:170);
                 if(i==7)
                 {
-                    var tray=UiKit.Box(cell,"Tray",82,Large11?144:206,190,Large11?24:30,Color.white).GetComponent<Image>();tray.sprite=UiKit.Template("ui_tray_front");tray.type=tray.sprite!=null?Image.Type.Sliced:Image.Type.Simple;
-                    UiKit.Text(tray.transform,"Number","1",0,0,190,Large11?24:26,17,LabelOn11(tray,UiKit.Muted),TextAlignmentOptions.Center);
+                    var tray=UiKit.Box(cell,"Tray",44,Large11?136:200,266,34,Color.white).GetComponent<Image>();tray.sprite=UiKit.Template("ui_tray_front");tray.type=tray.sprite!=null?Image.Type.Sliced:Image.Type.Simple;
+                    UiKit.Text(tray.transform,"Number","1",6,0,36,34,17,LabelOn11(tray,UiKit.Muted),TextAlignmentOptions.Center);
                 }
                 DieView073(cell,"StyleDie","style-"+i,die,57,Large11?16:20,240,Large11?150:200,1.5f,true,false);
                 if(i==6||i==7)

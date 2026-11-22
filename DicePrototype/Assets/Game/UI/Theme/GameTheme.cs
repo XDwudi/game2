@@ -72,7 +72,7 @@ namespace DiceCraft
         private Texture2D feltTile,tableScene,pageScene;
         private Sprite previewImage;
 
-        public static GameTheme CreateDefault()=>new GameTheme{Id=DefaultId,DisplayName="默认",Description="复古印刷骰桌",Order=0,Palette=new ThemePalette(),loaded=true};
+        public static GameTheme CreateDefault()=>new GameTheme{Id=DefaultId,DisplayName="默认",Description="",Order=0,Palette=new ThemePalette(),loaded=true};
 
         /// <summary>Tests only (W20X-02): a theme built in memory, never from a file, so no test picture ships under
         /// Resources. It is a preview theme with the given palette and table pictures; <paramref name="spritesFrom"/> lends it

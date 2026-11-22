@@ -118,7 +118,9 @@ namespace DiceCraft.Tests
                     {
                         if(!(graphics[g] is Image image)||!W11bPaints(image,true)||image.transform.IsChildOf(t.transform))continue;
                         Rect cover=V06ScreenRect(image.rectTransform);
-                        if(shown.Any(r=>cover.Contains(r.center))){failures.Add(loc+" covered by "+W11bPath(image.transform));break;}
+                        var masks=image.GetComponentsInParent<Mask>(false).Where(m=>m.isActiveAndEnabled).ToArray();
+                        if(shown.Any(r=>cover.Contains(r.center)&&masks.All(m=>V06ScreenRect(m.rectTransform).Contains(r.center))))
+                        {failures.Add(loc+" covered by "+W11bPath(image.transform));break;}
                     }
                 }
                 if(visible==0)failures.Add(stamp+" no visible popup text");

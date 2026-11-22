@@ -104,6 +104,7 @@ namespace DiceCraft
                 if (i != 3 || runClockKnown07) UiKit.Role(number, TextRole.BigNumber);
                 float measured = number.GetPreferredValues(number.text).x;
                 if (measured > w-32) number.fontSize *= (w-32)/measured;
+                UiKit.FitNumberInk21(number);
                 groups[i] = cell;
             }
             float buildY = large ? (won ? 544 : 640) : won ? 372 : 432;

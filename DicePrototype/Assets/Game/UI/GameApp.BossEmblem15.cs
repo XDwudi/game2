@@ -28,8 +28,12 @@ namespace DiceCraft
         {
             var modifier = Config.Modifier(modifierId);
             string spriteName = "emblem_" + BossEmblemFamily15(modifierId, modifier.tier);
-            var sprite = ThemeRegistry.Current?.ContentArt(spriteName)
-                ?? defaultBossEmblems15?.FirstOrDefault(icon => icon != null && icon.name == spriteName);
+            var sprite = ThemeRegistry.Current?.ContentArt(spriteName);
+            if(sprite==null)
+            {
+                sprite=defaultBossEmblems15?.FirstOrDefault(icon=>icon!=null&&icon.name==spriteName);
+                if(sprite==null || ThemeId11!=GameTheme.DefaultId) RecordMissingArt15(spriteName,sprite==null?"placeholder":"default");
+            }
             var root = UiKit.Rect(parent,name,x,y,size,size);
             var tierColor = lifted ? UiKit.PanelLight : modifier.tier >= 4 ? UiKit.Boss
                 : modifier.tier == 3 ? UiKit.RarityRare : modifier.tier == 2 ? UiKit.RarityAdvanced : UiKit.RarityCommon;
@@ -41,6 +45,14 @@ namespace DiceCraft
                 border.type=Image.Type.Simple;
                 border.preserveAspect=true;
                 border.raycastTarget=false;
+            }
+            else if(withFrame)
+            {
+                RecordMissingArt15("ui_emblem_tier"+modifier.tier,"placeholder");
+                var ring=UiKit.Ring(root,"TierFrameFallback15",0,0,size,size,tierColor);
+                float tickWidth=size*.075f;
+                for(int i=0;i<modifier.tier;i++)
+                    UiKit.Box(ring,"TierTick"+i,size*.5f+(i-(modifier.tier-1)*.5f)*tickWidth*1.5f-tickWidth*.5f,size*.94f,tickWidth,size*.035f,tierColor);
             }
             float inset = withFrame ? size * (16f/176) : 0;
             var face = UiKit.Box(root,"BossFamily15",inset,inset,size-2*inset,size-2*inset,

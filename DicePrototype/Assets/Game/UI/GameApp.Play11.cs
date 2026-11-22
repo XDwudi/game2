@@ -357,7 +357,7 @@ namespace DiceCraft
             float lineSize=Body11(c?14:20),goalSize=c?28:42,ty=14+headerH+1;
             NoWrap11(UiKit.Text(card,"StageGoalLabel11","目标分数",14,ty,inner,Line11(lineSize),lineSize,LabelOn11(card,PaperMuted071)));ty+=Line11(lineSize);
             var goal=NoWrap11(UiKit.Text(card,"StageGoal11",CompactScore(s.stage.target),14,ty,inner,Line11(goalSize),goalSize,LabelOn11(card,PressureActive11?UiKit.Pressure:UiKit.Ink)));
-              goal.fontStyle=FontStyles.Bold;UiKit.Role(goal,TextRole.BigNumber);UiKit.FitNumberInk21(goal);ty+=Line11(goalSize);
+            goal.fontStyle=FontStyles.Bold;UiKit.Role(goal,TextRole.BigNumber);UiKit.FitNumberInk21(goal);ty+=Line11(goalSize);
             int reward=s.stage.reward>0?s.stage.reward:StageRisk11?Config.stages[s.stage.stageIndex].riskReward:Config.stages[s.stage.stageIndex].normalReward;
             NoWrap11(UiKit.Text(card,"StageReward11","过关奖励 +"+reward+" 金币",14,ty,inner,Line11(lineSize),lineSize,LabelOn11(card,UiKit.Ink)));ty+=Line11(lineSize);
             string note=kind=="pressure"?(StageRisk11?"目标 ×1.5，过关金币 +5":"普通挑战，目标不变"):"提交栏 "+s.stage.capacity+" 格 · 每手掷 "+Session.InitialRolls+" 次";
@@ -505,10 +505,16 @@ namespace DiceCraft
                 var well=UiKit.Inset(main,roll?"RollBudgetWell11":"SubmitBudgetWell11",x,y,w,86);
                 var icon=UiKit.Rect(main,roll?"RollBudgetIcon":"SubmitBudgetIcon",x+14,y+25,36,36);
                 if(roll){var cup=UiKit.Box(icon,amount==0?"EmptyCup":"Cup",0,0,36,36,amount==0?new Color(1,1,1,.38f):Color.white).GetComponent<Image>();cup.sprite=UiKit.Template("ui_icon_roll");cup.raycastTarget=false;cup.preserveAspect=true;var other=icon.Find(amount==0?"Cup":"EmptyCup");if(other!=null)other.gameObject.SetActive(false);}
+                else if(UiKit.Template("ui_icon_submit") is Sprite submitSprite)
+                {
+                    var mark=UiKit.Box(icon,"SubmitMark",0,0,36,36,LabelOn11(well)).GetComponent<Image>();
+                    mark.sprite=submitSprite;mark.preserveAspect=true;
+                }
                 else
                 {
-                    UiKit.Box(icon,"Ticket",2,6,32,24,UiKit.Paper);UiKit.Box(icon,"TicketLine1",8,12,20,2,UiKit.Ink);UiKit.Box(icon,"TicketLine2",8,19,14,2,UiKit.Ink);
-                    UiKit.Box(icon,"LeftNotch",0,15,4,6,UiKit.Background);UiKit.Box(icon,"RightNotch",32,15,4,6,UiKit.Background);
+                    Color paper=LabelOn11(well),line=BestLabel11(paper,out _),cutout=RenderedFill11(well.GetComponent<Image>());
+                    UiKit.Box(icon,"Ticket",2,6,32,24,paper);UiKit.Box(icon,"TicketLine1",8,12,20,2,line);UiKit.Box(icon,"TicketLine2",8,19,14,2,line);
+                    UiKit.Box(icon,"LeftNotch",0,15,4,6,cutout);UiKit.Box(icon,"RightNotch",32,15,4,6,cutout);
                 }
                 NoWrap11(UiKit.Text(main,roll?"RollBudgetLabel":"SubmitBudgetLabel",roll?"还能掷":"还能提交",x+60,y,c?180:170,86,c?20:24,LabelOn11(well,UiKit.Muted),TextAlignmentOptions.MidlineLeft));
                 var value=NoWrap11(UiKit.Text(main,roll?"RollBudgetValue":"SubmitBudgetValue",amount.ToString(),x+w-130,y,116,86,c?44:52,LabelOn11(well,amount==0?UiKit.Muted:roll?UiKit.Teal:UiKit.Gold),TextAlignmentOptions.MidlineRight));

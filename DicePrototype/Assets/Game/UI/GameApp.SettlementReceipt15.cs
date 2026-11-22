@@ -29,6 +29,7 @@ namespace DiceCraft
             for(int i=0;i<chips.Count;i++)
             {
                 var chip=chips[i];var sprite=chip.icon.StartsWith("C",StringComparison.Ordinal)?CompactIcon13(chip.icon):UiKit.Template(chip.icon);
+                if(sprite==null && !chip.icon.StartsWith("C",StringComparison.Ordinal))RecordMissingArt15(chip.icon,"text-only");
                 var root=roots[i]=Surface11(area,chip.id+"Chip",0,0,1,height,"ui_chip_formula",Color.Lerp(UiKit.Paper,UiKit.Ink,.06f));
                 float left=sprite==null?12:12+iconSize+8;
                 var label=NoWrap11(UiKit.Text(root,chip.id,chip.Text,left,0,width-left-16,height,22,LabelOn11(root),TextAlignmentOptions.MidlineLeft));
@@ -93,7 +94,19 @@ namespace DiceCraft
                 if(other.Length>0)
                 {
                     Line("OtherChanges15","结算时的其他变化");
-                    for(int i=0;i<other.Length;i++)Line("OtherChange15_"+i,EffectText(other[i],receipt.submission?.snapshot));
+                    // An explicit EndStage has no submission of its own. Its stage's final saved hand supplies
+                    // the equipment order that point-in-time effects refer to.
+                    var hand=receipt.submission?.snapshot;
+                    if(hand==null && other.Any(e=>e.kind=="ControllerEnchanted"&&e.sourceId=="C114"))
+                        hand=ViewState.processedReceipts.Where(q=>q.actionSequence<receipt.actionSequence&&q.actionSequence>boundary
+                                &&q.submission?.snapshot?.stageId==r.stageId&&q.submission.snapshot.runId==ViewState.runId)
+                            .OrderByDescending(q=>q.actionSequence).Select(q=>q.submission.snapshot).FirstOrDefault();
+                    for(int i=0;i<other.Length;i++)
+                    {
+                        var effect=other[i];
+                        var snapshot=effect.kind=="ControllerEnchanted"&&effect.sourceId=="C114"?hand:receipt.submission?.snapshot;
+                        Line("OtherChange15_"+i,EffectText(effect,snapshot));
+                    }
                 }
             }
             list.sizeDelta=new Vector2(list.sizeDelta.x,y+12);
@@ -126,16 +139,7 @@ namespace DiceCraft
             foreach(var side in new[]{front,back}){side.pivot=new Vector2(.5f,.5f);side.anchoredPosition=new Vector2(w/2,-cardH/2);}
             var def=Config.Loot(r.lootKind);
             UiKit.Text(front,"LootCaption15","首领战利品",16,12,w-32,large?48:36,20,LabelOn11(front,PaperMuted071),TextAlignmentOptions.Center);
-            var picture=LootPictureSprite15(r.lootKind);
-            if(picture!=null)
-            {
-                var img=UiKit.Box(front,"LootPicture15",(w-160)*.5f,large?64:48,160,160,Color.white).GetComponent<Image>();img.sprite=picture;img.raycastTarget=false;img.preserveAspect=true;
-            }
-            else
-            {
-                var missing=Surface11(front,"LootPicture15",(w-160)*.5f,large?64:48,160,160,"ui_frame_block",UiKit.PanelLight);
-                UiKit.Text(missing,"MissingPicture15","战利品图\n占位",8,8,144,144,21,LabelOn11(missing),TextAlignmentOptions.Center);
-            }
+            DrawLootPicture15(front,r.lootKind,(w-160)*.5f,large?64:48,160);
             var item=NoWrap11(UiKit.Text(front,"LootName15",def.displayName,16,large?236:220,w-32,large?60:42,26,LabelOn11(front,UiKit.Ink),TextAlignmentOptions.Center));
             item.fontStyle=FontStyles.Bold;
             var shortText=UiKit.Text(front,"LootShort15",def.shortText,16,large?300:262,w-32,large?140:62,20,LabelOn11(front,UiKit.Ink),TextAlignmentOptions.Center);

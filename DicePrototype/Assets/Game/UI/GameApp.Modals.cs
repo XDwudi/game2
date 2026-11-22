@@ -44,7 +44,7 @@ namespace DiceCraft
                 UiKit.Box(p,"PanelTop",0,0,1600,515,UiKit.Panel,true);UiKit.Box(p,"PanelBottom",0,735,1600,55,UiKit.Panel,true);
                 UiKit.Box(p,"PanelLeft",0,515,1300,220,UiKit.Panel,true);UiKit.Box(p,"PanelRight",1580,515,20,220,UiKit.Panel,true);
             }
-            UiKit.Role(UiKit.Text(p,"DialogTitle",title,40,24,1390,62,37),TextRole.ScreenTitle);
+            UiKit.Role(UiKit.Text(p,"DialogTitle",title,40,Large11?18:24,1390,Large11?80:62,37),TextRole.ScreenTitle);
             UiKit.Button(p,"CloseDialog","×",1490,24,70,60,CloseModal);
             bool error=id=="save-failure16"||id=="load-issue16",manual=id=="handbook16";
             FadeModal07(p,fresh,error?.12f:manual?.14f:.16f,error||manual||id=="pause16"?.10f:.12f);
@@ -135,7 +135,7 @@ namespace DiceCraft
             UiKit.Box(p,"PanelTop",0,0,1504,112,UiKit.Panel,true);UiKit.Box(p,"PanelBottom",0,512,1504,376,UiKit.Panel,true);
             UiKit.Box(p,"PanelLeft",0,112,368,400,UiKit.Panel,true);UiKit.Box(p,"PanelRight",824,112,680,400,UiKit.Panel,true);
             UiKit.Outline(p,"Frame",0,0,1504,888,UiKit.Paper,3);
-            UiKit.Role(UiKit.Text(p,"DialogTitle",title,24,16,1360,56,32,UiKit.Paper),TextRole.ScreenTitle);
+            UiKit.Role(UiKit.Text(p,"DialogTitle",title,24,Large11?0:16,1360,Large11?70:56,32,UiKit.Paper),TextRole.ScreenTitle);
             UiKit.Button(p,"CloseDialog","×",1416,12,64,64,CloseModal);
             FadeModal07(p,fresh,.16f,.10f);
             // A stationary veil reveals the world-space preview through the stationary aperture.
@@ -151,7 +151,7 @@ namespace DiceCraft
             var die=candidates.FirstOrDefault(d=>d.dieId==selectedDie);
             bool whole=offer!=null&&(offer.contentId=="U05"||offer.contentId=="O04");
             var p=OpenDiceSheet07(offer==null?"你的骰子":NameOf(offer.contentId)+(whole?" · 选择一颗骰子":" · 选择要改造的面"));detailDieId=selectedDie;
-            UiKit.Text(p,"Source",offer==null?"拖动可以旋转骰子。":(string.IsNullOrEmpty(offer.groupId)?Session.GetOfferPrice(offer)+" 金币":"免费改造")+" · "+(whole?"改造整颗骰子":"只改造选中的这一面"),24,76,1424,34,19,UiKit.Muted);
+            UiKit.Text(p,"Source",offer==null?"拖动可以旋转骰子。":(string.IsNullOrEmpty(offer.groupId)?Session.GetOfferPrice(offer)+" 金币":"免费改造")+" · "+(whole?"改造整颗骰子":"只改造选中的这一面"),24,Large11?67:76,1424,Large11?46:34,19.5f,UiKit.Muted);
             var targets=UiKit.Scroll(p,"ShopTargetList",24,120,320,640,Math.Max(640,candidates.Length*104));
             var scroll=targets.GetComponentInParent<UnityEngine.UI.ScrollRect>();
             for(int i=0;i<candidates.Length;i++)
@@ -258,7 +258,7 @@ namespace DiceCraft
                 bool targetReady=whole||selectedFace!=null;
                 string error=targetReady?Session.PurchaseError(offer.offerId,die.dieId,whole?null:selectedFace):"请选一个面。";
                 bool same=targetReady&&offer.category=="die_upgrade"&&!Session.IsUpgradeTargetLegal(offer.contentId,die.dieId,whole?null:selectedFace);
-                string label=same?"这个目标不能再改造":!targetReady?"请选择目标面":offer.contentId=="O04"?"花 "+Session.GetOfferPrice(offer)+" 金币删除":!string.IsNullOrEmpty(offer.groupId)?"免费改造":"花 "+Session.GetOfferPrice(offer)+" 金币改造";
+                string label=same?"这个目标不能再改造":!targetReady?"请选一个面。":offer.contentId=="O04"?"花 "+Session.GetOfferPrice(offer)+" 金币删除":!string.IsNullOrEmpty(offer.groupId)?"免费改造":"花 "+Session.GetOfferPrice(offer)+" 金币改造";
                 var reason=UiKit.Scroll(p,"TargetPurchaseReason",368,792,456,72,72);
                 var reasonText=UiKit.Text(reason,"PurchaseUnavailable",error??"金币 "+PlayerNumberFormat.Gold(ViewState.gold)+" → "+PlayerNumberFormat.Integer((System.Numerics.BigInteger)ViewState.gold-Session.GetOfferPrice(offer)),0,0,420,64,19,error==null?UiKit.Muted:UiKit.Gold);reason.sizeDelta=new Vector2(reason.sizeDelta.x,FitHeight(reasonText,64));
                 UiKit.ActionButton(p,"ConfirmPurchase",label,848,800,600,64,()=>{CloseModal();Send(new SessionCommand{kind=CommandKind.Buy,offerId=offer.offerId,targetDieId=die.dieId,targetFaceId=whole?null:selectedFace});},UiKit.Gold,error==null&&!IsBusy);
@@ -268,7 +268,7 @@ namespace DiceCraft
         private void ShowNewDieOffer07(ShopOffer offer)
         {
             var die=offer.die;bool gift=!string.IsNullOrEmpty(offer.groupId);var p=OpenDiceSheet07(gift?"领取骰子":"购买骰子");
-            UiKit.Text(p,"Source",(gift?"领取后：":"买下后：")+"骰子 "+ViewState.dice.Count(d=>d.lifetime=="permanent")+" → "+(ViewState.dice.Count(d=>d.lifetime=="permanent")+1)+" 颗（提交栏仍是 "+Session.EffectiveCapacity+" 格）",24,76,1424,34,19,UiKit.Muted);
+            UiKit.Text(p,"Source",(gift?"领取后：":"买下后：")+"骰子 "+ViewState.dice.Count(d=>d.lifetime=="permanent")+" → "+(ViewState.dice.Count(d=>d.lifetime=="permanent")+1)+" 颗（提交栏仍是 "+Session.EffectiveCapacity+" 格）",24,Large11?67:76,1424,Large11?46:34,19.5f,UiKit.Muted);
             var attributes=UiKit.Scroll(p,"CandidateFaces",24,120,320,640,640);float y=0;
             foreach(var face in die.faces)Art07DetailSection(attributes,face.faceId,FaceName11(face.faceId),FaceSummary07(face),ref y,288);
             if(offer.priceReasons!=null&&offer.priceReasons.Length>0)Art07DetailSection(attributes,"PriceReasons","价格构成",string.Join(" · ",offer.priceReasons),ref y,288);
@@ -387,6 +387,14 @@ namespace DiceCraft
             // v1.1 (W09): dice and faces by name ("骰子 1 的第 2 面"), never by D001 / F02 or instance ids.
             switch(e.kind)
             {
+                case "ControllerEnchanted":
+                {
+                    var parts=(e.detail??"").Split(':');
+                    string target=e.sourceId=="C114"||snapshot!=null
+                        ? CardLabelIn11(parts[0],snapshot?.equippedControllers)??"一张卡牌"
+                        : CardLabel11(parts[0]);
+                    return NameOf(e.sourceId)+"："+target+" 获得附魔 "+EnchantShort(parts.LastOrDefault());
+                }
                 case "DieCopied":return NameOf(e.sourceId)+"："+DieName11(e.otherDieId)+" 的六面复制到"+DieName11(e.dieId);
                 case "FaceDyed":return NameOf(e.sourceId)+"："+DieFaceName11(e.dieId,e.faceId)+(e.sourceId=="C38"?"永久染蓝":"永久染红");
                 case "FaceValueChanged":return "骰面点数："+DieFaceName11(e.dieId,e.faceId)+" "+e.oldValue+" → "+e.newValue;
@@ -435,16 +443,18 @@ namespace DiceCraft
                     var button=UiKit.Component<UnityEngine.UI.Button>(hot.gameObject);button.enabled=true;button.interactable=true;button.targetGraphic=hot.GetComponent<UnityEngine.UI.Image>();button.onClick.RemoveAllListeners();button.onClick.AddListener(()=>choose(id));
                     UiKit.Outline(hot,"TargetEdge",0,0,112,112,chosen.Contains(id)?UiKit.Gold:UiKit.Paper,chosen.Contains(id)?4:2);
                 }
-                var p=UiKit.Frame(overlay,"Dialog",496,496,1280,400,UiKit.Panel,UiKit.Paper,true);
-                UiKit.Role(UiKit.Text(p,"DialogTitle","遥控骰子 · 选 2 颗骰池里的骰子",24,8,1136,48,27,UiKit.Paper),TextRole.ScreenTitle);
+                bool large=Large11;
+                var p=UiKit.Frame(overlay,"Dialog",496,496,1280,large?520:400,UiKit.Panel,UiKit.Paper,true);
+                var fill=(RectTransform)p.Find("Fill");
+                UiKit.Role(UiKit.Text(p,"DialogTitle","遥控骰子 · 选 2 颗骰池里的骰子",24,large?4:8,1136,large?64:48,27,LabelOn11(fill,UiKit.Paper)),TextRole.ScreenTitle);
                 UiKit.Button(p,"CloseDialog","×",1196,8,60,60,CloseModal);
                 FadeModal07(p,fresh);
-                UiKit.Text(p,"RemoteRule","会用掉这个道具和 1 次掷骰：选中的 2 颗掷出你指定的点数，其余照常掷。\n玻璃骰仍可能碎，碎了不退。",24,64,1232,64,17,UiKit.Muted);
+                UiKit.Text(p,"RemoteRule","会用掉这个道具和 1 次掷骰：选中的 2 颗掷出你指定的点数，其余照常掷。\n玻璃骰仍可能碎，碎了不退。",24,large?70:59,1232,large?94:72,19.5f,LabelOn11(fill,UiKit.Muted));
                 // The single visible row must align after every wheel tick and at both ends.
                 // Keep an 8-reference-pixel inter-row gap; do not count a trailing gap as content.
                 const float targetHeight=64,targetPitch=72;
                 int targetRows=(unlocked.Length+7)/8;
-                var targets=UiKit.Scroll(p,"RemoteTargetList",24,136,1232,targetHeight,Math.Max(targetHeight,targetRows*targetPitch-(targetPitch-targetHeight)));
+                var targets=UiKit.Scroll(p,"RemoteTargetList",24,large?170:136,1232,targetHeight,Math.Max(targetHeight,targetRows*targetPitch-(targetPitch-targetHeight)));
                 var scroll=targets.GetComponentInParent<UnityEngine.UI.ScrollRect>();scroll.scrollSensitivity=targetPitch;
                 for(int i=0;i<unlocked.Length;i++)
                 {
@@ -455,15 +465,17 @@ namespace DiceCraft
                 for(int slot=0;slot<2;slot++)
                 {
                     float x=24+slot*624;string id=slot<chosen.Count?chosen[slot]:null;
-                    UiKit.Text(p,id==null?"EmptyRemoteSlot"+slot:"Chosen"+id,"第 "+(slot+1)+" 颗："+(id==null?"请选择":DieName11(id)),x,208,600,36,20,id==null?UiKit.Muted:UiKit.Gold);
+                    UiKit.Text(p,id==null?"EmptyRemoteSlot"+slot:"Chosen"+id,"第 "+(slot+1)+" 颗："+(id==null?"请选择":DieName11(id)),x,large?240:208,600,large?54:36,20,LabelOn11(fill,id==null?UiKit.Muted:UiKit.Gold));
                     for(int n=1;n<=6;n++)
                     {
                         int pip=n;bool odd=ViewSources.Any(source=>source.abilityId=="C12")&&pip%2==1;
-                        UiKit.Button(p,id==null?"EmptyRemotePip"+slot+"_"+n:"RemotePip"+id+"_"+n,pip+(odd?"→"+(pip+1):""),x+(n-1)*96,248,88,64,()=>{if(id==null)return;targetScrollPosition=scroll.verticalNormalizedPosition;pips[id]=pip;draw();},id!=null,id!=null&&pips[id]==pip);
+                        var button=UiKit.Button(p,id==null?"EmptyRemotePip"+slot+"_"+n:"RemotePip"+id+"_"+n,pip+(odd?"→"+(pip+1):""),x+(n-1)*(large?102:96),large?300:248,large?98:88,large?72:64,()=>{if(id==null)return;targetScrollPosition=scroll.verticalNormalizedPosition;pips[id]=pip;draw();},id!=null,id!=null&&pips[id]==pip);
+                        var label=NoWrap11(button.transform.Find("Label").GetComponent<TextMeshProUGUI>());
+                        if(large)label.fontSize=20*UiKit.FontScale;
                     }
                 }
-                UiKit.Text(p,"RemoteSelection","已选 "+chosen.Count+"/2"+(ViewSources.Any(source=>source.abilityId=="C12")?"\n“3→4”表示“不要奇数”会把它算作 4":""),24,324,576,68,19.5f,LabelOn11(p,UiKit.Muted));
-                UiKit.ActionButton(p,"RemoteConfirm","使用并掷骰",648,328,608,64,()=>{CloseModal();Send(new SessionCommand{kind=CommandKind.UseItem,itemInstanceId=item.instanceId,dieIds=chosen.ToArray(),targetPips=chosen.Select(id=>pips[id]).ToArray()});},UiKit.Blue,chosen.Count==2&&!IsBusy&&Session.PendingIds.Length==0);
+                UiKit.Text(p,"RemoteSelection","已选 "+chosen.Count+"/2"+(ViewSources.Any(source=>source.abilityId=="C12")?"\n“3→4”表示“不要奇数”会把它算作 4":""),24,large?386:322,600,large?120:72,19.5f,LabelOn11(fill,UiKit.Muted));
+                UiKit.ActionButton(p,"RemoteConfirm","使用并掷骰",648,large?394:328,608,large?80:64,()=>{CloseModal();Send(new SessionCommand{kind=CommandKind.UseItem,itemInstanceId=item.instanceId,dieIds=chosen.ToArray(),targetPips=chosen.Select(id=>pips[id]).ToArray()});},UiKit.Blue,chosen.Count==2&&!IsBusy&&Session.PendingIds.Length==0);
             };
             draw();
         }

@@ -141,6 +141,7 @@ namespace DiceCraft.Editor
                 face.baseline = spec.baseline * units / face.scale;
                 font.faceInfo = face;
                 font.material.name = "title Material";
+                ShaderUtilities.UpdateShaderRatios(font.material);
                 font.atlasTexture.name = "title Atlas";
                 return font;
             }

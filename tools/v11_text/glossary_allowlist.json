@@ -6,6 +6,48 @@
       "location": "248:25",
       "text": "美术 {…} / 发行 {…}\n玩法 {…} / 存档 schema {…}\nUnity {…} / {…}\n源码 {…}\n配置 SHA-256\n{…}\n黄金样例 SHA-256\n{…}",
       "reason": "ShowBuildVersion 的“版本与构建”页，DEV_PLAN §6 TX-02 明确允许开发版本信息；只豁免这条完整文字中的 schema 标签。"
+    },
+    {
+      "rule": "dev-engine-label",
+      "file": "DicePrototype/Assets/Game/UI/GameApp.Art071Screens.cs",
+      "location": "55:89",
+      "text": "\n调试对局 · 种子 ",
+      "reason": "UI_REWRITES §2.15。菜单仅在独立调试存档显示种子，练习由 IsPracticeRun11 分支显示“练习模式”。"
+    },
+    {
+      "rule": "dev-engine-label",
+      "file": "DicePrototype/Assets/Game/UI/GameApp.Art07Results.cs",
+      "location": "53:76",
+      "text": " · 调试对局 · 不计普通成绩",
+      "reason": "UI_REWRITES §2.15。真实调试成绩携带 isDebug 标志，练习优先命中“练习模式 · 不计成绩”。"
+    },
+    {
+      "rule": "dev-engine-label",
+      "file": "DicePrototype/Assets/Game/UI/GameApp.Art07Settings.cs",
+      "location": "190:45",
+      "text": "调试口令",
+      "reason": "UI_REWRITES §2.13、§2.15。DrawDebugAccess07 仅在 DebugAccessVisible11 为真时绘制，默认设置不显示开发者入口。"
+    },
+    {
+      "rule": "dev-card-id",
+      "file": "DicePrototype/Assets/Game/UI/GameApp.Card11Gallery.cs",
+      "location": "239:51",
+      "text": "(a) 仍待修图：C33 C34 C107 C110 C111 · 临界：C88 C103 C113 C126 C127 C130 C131",
+      "reason": "W13a 开发图标相册 GalleryIconReview13 的逐图定位清单。ShowCardGallery13 仅从相册审查/捕获测试调用。"
+    },
+    {
+      "rule": "dev-card-id",
+      "file": "DicePrototype/Assets/Game/UI/GameApp.Card11Gallery.cs",
+      "location": "248:51",
+      "text": "(b) 最相近的图标对：C40/C87 · I11/U08 · U08/U10 · C08/C22 · C08/C79",
+      "reason": "W13a 开发图标相册 GalleryIconReview13 的两两对照清单。ShowCardGallery13 仅从相册审查/捕获测试调用。"
+    },
+    {
+      "rule": "dev-engine-label",
+      "file": "DicePrototype/Assets/Game/UI/GameApp.Play11.cs",
+      "location": "145:85",
+      "text": "调试对局",
+      "reason": "UI_REWRITES §2.15。桌面标识要求真实的独立调试工作区，练习优先显示“练习模式”。"
     }
   ],
   "policy": "每项必须包含 rule、file、location、text、reason，逐项精确匹配。只允许可解释的上下文例外（如版本与构建页），不得全文件豁免或隐藏待改写界面。"

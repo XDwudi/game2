@@ -60,12 +60,12 @@ namespace DiceCraft.Tests
         /// pixel unlike the centre fill (frame lines, a bevel, a lip, double lines); an open ring loses its margin and its
         /// line. Sliced borders are drawn at 1 / (pixels per unit x multiplier), shrunk when the rect is smaller than both.
         /// </summary>
-        private static Rect W11bInnerRect(Image image,bool ring)
+        private static Rect W11bInnerRect(Image image,bool ring,bool returnLocal=false)
         {
             var rt=image.rectTransform;
-            if(image.sprite==null||image.type!=Image.Type.Sliced)return V06ScreenRect(rt);
+            if(image.sprite==null||image.type!=Image.Type.Sliced)return returnLocal?rt.rect:V06ScreenRect(rt);
             var pixels=W11bSpritePixels(image.sprite,out int w,out int h);
-            if(pixels==null||w<3||h<3)return V06ScreenRect(rt);
+            if(pixels==null||w<3||h<3)return returnLocal?rt.rect:V06ScreenRect(rt);
             var border=image.sprite.border;var fill=pixels[(h/2)*w+w/2];
             int Inset(Func<int,Color32> at,int count,float border1)
             {
@@ -83,6 +83,7 @@ namespace DiceCraft.Tests
             float bottom=Inset(i=>pixels[i*w+midX],h,border.y),top=Inset(i=>pixels[(h-1-i)*w+midX],h,border.w);
             Rect local=rt.rect;float ppu=Mathf.Max(.0001f,image.pixelsPerUnit*image.pixelsPerUnitMultiplier);
             float sx=Mathf.Min(1,local.width/Mathf.Max(.0001f,(border.x+border.z)/ppu)),sy=Mathf.Min(1,local.height/Mathf.Max(.0001f,(border.y+border.w)/ppu));
+            if(returnLocal)return Rect.MinMaxRect(local.xMin+left/ppu*sx,local.yMin+bottom/ppu*sy,local.xMax-right/ppu*sx,local.yMax-top/ppu*sy);
             var a=rt.TransformPoint(new Vector3(local.xMin+left/ppu*sx,local.yMin+bottom/ppu*sy));
             var b=rt.TransformPoint(new Vector3(local.xMax-right/ppu*sx,local.yMax-top/ppu*sy));
             return Rect.MinMaxRect(Mathf.Min(a.x,b.x),Mathf.Min(a.y,b.y),Mathf.Max(a.x,b.x),Mathf.Max(a.y,b.y));
@@ -104,7 +105,7 @@ namespace DiceCraft.Tests
         /// outline and by the inner edge of every open ring drawn over it before the text. Null when only the table (or an
         /// open frame such as the tray) is under the text. <paramref name="order"/> is the canvas's graphics in drawing order.
         /// </summary>
-        private static Rect? W11bVisibleFrame(TextMeshProUGUI text,List<Rect> glyphs,Graphic[] order,out string surface)
+        private static Rect? W11bVisibleFrame(TextMeshProUGUI text,List<Rect> glyphs,Graphic[] order,out string surface,List<Image> layers=null)
         {
             surface=null;if(glyphs.Count==0)return null;
             var union=Rect.MinMaxRect(glyphs.Min(g=>g.xMin),glyphs.Min(g=>g.yMin),glyphs.Max(g=>g.xMax),glyphs.Max(g=>g.yMax));
@@ -117,12 +118,12 @@ namespace DiceCraft.Tests
                 if(overlap>=.5f*union.width*union.height)at=i;
             }
             if(at<0)return null;
-            var under=(Image)order[at];surface=W11bPath(under.transform);var frame=W11bInnerRect(under,false);
+            var under=(Image)order[at];layers?.Add(under);surface=W11bPath(under.transform);var frame=W11bInnerRect(under,false);
             for(int i=at+1;i<index;i++)
             {
                 if(!(order[i] is Image ring)||!W11bPaints(ring,false))continue;
                 if(!V06ScreenRect(ring.rectTransform).Contains(union.center))continue;
-                var inner=W11bInnerRect(ring,true);surface+=" + ring "+ring.name;
+                layers?.Add(ring);var inner=W11bInnerRect(ring,true);surface+=" + ring "+ring.name;
                 frame=Rect.MinMaxRect(Mathf.Max(frame.xMin,inner.xMin),Mathf.Max(frame.yMin,inner.yMin),Mathf.Min(frame.xMax,inner.xMax),Mathf.Min(frame.yMax,inner.yMax));
             }
             return frame;
@@ -148,7 +149,8 @@ namespace DiceCraft.Tests
         /// (WCAG: inactive components). Marks on the felt (slot numbers, empty-slot dots) are measured too: with a theme's
         /// onFelt token they must read (4.5:1 for the numbers, 3:1 for the dots); without one they keep today's colours.
         /// </summary>
-        private IEnumerator W11bContrastPass(string scope,List<string> report,List<string> failures,Transform root=null)
+        private IEnumerator W11bContrastPass(string scope,List<string> report,List<string> failures,Transform root=null,
+            Func<Transform,bool> foreground=null)
         {
             Canvas.ForceUpdateCanvases();
             var overlay=(Transform)typeof(GameApp).GetField("overlay",BindingFlags.NonPublic|BindingFlags.Instance).GetValue(app);
@@ -161,6 +163,7 @@ namespace DiceCraft.Tests
                 if(overlay!=null&&t.transform.IsChildOf(overlay))continue;
                 // V1.1 (W13): a pass over one view only (the card gallery drawn above the play screen).
                 if(root!=null&&!t.transform.IsChildOf(root))continue;
+                if(foreground!=null&&!foreground(t.transform))continue;
                 // A disabled control is exempt; a formula chip is a readout that only stops taking clicks while the hand scores.
                 var control=t.GetComponentInParent<Selectable>();
                 if(control!=null&&!control.interactable&&(control.transform.parent==null||control.transform.parent.name!="ScorePanel"))continue;
@@ -169,7 +172,8 @@ namespace DiceCraft.Tests
                 if(W11bVisibleFrame(t,rects,order,out string surface)==null)continue;
                 labels.Add(new KeyValuePair<TextMeshProUGUI,List<Rect>>(t,rects));surfaces[t]=surface;
             }
-            Assert.That(labels.Count,Is.GreaterThan(10),scope+": too few labels on surfaces.");
+            if(foreground==null)Assert.That(labels.Count,Is.GreaterThan(10),scope+": too few labels on surfaces.");
+            else Assert.That(labels.Count,Is.Positive,scope+": no foreground labels on surfaces.");
             var all=labels.Concat(felt).ToList();
             yield return new WaitForEndOfFrame();var drawn=ScreenCapture.CaptureScreenshotAsTexture();
             foreach(var pair in all)pair.Key.enabled=false;

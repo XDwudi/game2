@@ -83,9 +83,26 @@ namespace DiceCraft
             var themed = ThemeRegistry.Current?.ContentArt(name);
             if (themed != null) return themed;
             var fallback = lootIllustrations15?.FirstOrDefault(s => s != null && string.Equals(s.name, name, StringComparison.OrdinalIgnoreCase));
-            if ((fallback == null || ThemeId11 != GameTheme.DefaultId) && missingLoot15.Add(ThemeId11 + "/" + name))
-                Debug.Log("W15_MISSING_LOOT " + ThemeId11 + "/" + name);
+            if (fallback == null || ThemeId11 != GameTheme.DefaultId)
+                RecordMissingArt15(name, fallback == null ? "placeholder" : "default");
             return fallback;
+        }
+
+        private void RecordMissingArt15(string name, string fallback)
+        {
+            string item = ThemeId11 + "/" + name + " " + fallback;
+            if (missingLoot15.Add(item)) Debug.Log("W15_MISSING_ART " + item);
+        }
+
+        private void DrawLootPicture15(RectTransform parent,string kind,float x,float y,float size)
+        {
+            var sprite=LootPictureSprite15(kind);
+            var picture=UiKit.Box(parent,"LootPicture15",x,y,size,size,sprite!=null?Color.white:Color.clear);
+            var image=picture.GetComponent<Image>();
+            image.sprite=sprite;image.type=Image.Type.Simple;image.preserveAspect=true;image.raycastTarget=false;
+            if(sprite!=null)return;
+            UiKit.Outline(picture,"MissingLoot15",0,0,size,size,UiKit.Muted,2);
+            UiKit.Text(picture,"MissingPicture15",NameOf(kind).Substring(0,1),4,4,size-8,size-8,30,LabelOn11(parent),TextAlignmentOptions.Center);
         }
 
         private static int LootRemaining15(ShopGroup g) => g.closed ? 0 : Math.Max(0, g.picks - g.picked);
@@ -170,9 +187,9 @@ namespace DiceCraft
             var info=Surface11(main,"LootInfo15",r.x,r.y,r.width,r.height,"ui_section_panel",UiKit.Section(UiKit.Panel));
             float size=Large11?144:200, y=24, left=24, available=r.width-2*left;
             bool boss=group.groupId=="LOOT";
-            var art=boss?LootPictureSprite15(group.kind):ContentSprite071(group.kind);
             float x=(r.width-size)*.5f;
-            if(art!=null)
+            if(boss)DrawLootPicture15(info,group.kind,x,y,size);
+            else if(ContentSprite071(group.kind) is Sprite art)
             {
                 var image=UiKit.Box(info,"LootPicture15",x,y,size,size,Color.white).GetComponent<Image>();
                 image.sprite=art;image.preserveAspect=true;
@@ -205,7 +222,7 @@ namespace DiceCraft
             var card=new CardFace13{contentId=o.contentId,category=o.category,enchantment=o.controller?.enchantmentId??"none",
                 disabled=o.sold,sold=o.sold,price=unselected?-1:0,claim=true,buttonName="Buy_"+o.offerId,
                 availability=ShopAvailability14(o),buy=()=>Art07BuyOffer(o)};
-            if(o.controller!=null) card.value=ShopCardValue14(o.controller,out card.valueWarning);
+            if(o.category=="controller") card.value=ShopCardValue14(o.controller,out card.valueWarning);
             if(o.category=="new_die")
             {
                 card.rewardDie=o.die;card.label=dieName.title;card.text=dieName.subtitle;
@@ -249,7 +266,7 @@ namespace DiceCraft
             icon.sprite=UiKit.Template("ui_icon_arrow");icon.preserveAspect=true;
             if(note!=null)
             {
-                var caption=UiKit.Text(b.transform,"LootEnterNote15",note,8,top+mainH,r.width-16,r.height-mainH-10,
+                var caption=UiKit.Text(b.transform,"LootEnterNote15",note,8,top+mainH-(Large11?6:0),r.width-16,r.height-mainH-10,
                     Large11?19.5f/UiKit.FontScale:19.5f,LabelOn11(face),TextAlignmentOptions.Center);NoWrap11(caption);
             }
         }

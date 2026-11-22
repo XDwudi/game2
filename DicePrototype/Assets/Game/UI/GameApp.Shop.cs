@@ -10,29 +10,6 @@ namespace DiceCraft
     {
         // V1.1 W14: the A3 shop page (SHOP_LAYOUT.md); v0.73's single page and v0.7's tabs are gone.
         private void Shop()=>Shop14();
-        private void InventoryStrip(bool selling)
-        {
-            float y=878;controllerRects.Clear();
-            string controllerTitle=ViewState.debugWorkspace?$"控制器 · 调试配置 · 持有 {ViewState.controllers.Count} · 普通占槽 {ControllerRules.OrdinaryUsed(ViewState.controllers)}":$"控制器 · 普通槽 {ControllerRules.OrdinaryUsed(ViewState.controllers)}/{ViewState.controllerSlots} · 持有 {ViewState.controllers.Count}/{Config.maxControllerInstances}";
-            UiKit.Text(main,"ControllersTitle",controllerTitle,40,y-22,1100,30,21,UiKit.Muted);
-            int slots=Math.Min(10,Math.Max(ViewState.controllerSlots,ViewState.controllers.Count));float width=1100f/Math.Min(slots,5);
-            for(int i=0;i<slots;i++)
-            {
-                int row=i/5,col=i%5;float x=40+col*width,cy=y+18+row*63;
-                if(i<ViewState.controllers.Count){var item=ViewState.controllers[i];var b=UiKit.Button(main,"Controller_"+item.instanceId,NameOf(item.definitionId)+"\n"+EnchantShort(item.enchantmentId)+CompactControllerState(item),x,cy,width-10,53,()=>ShowController(item,selling),!IsBusy);b.GetComponentInChildren<TextMeshProUGUI>().fontSize=16;EnchantBadge(b.transform,item.enchantmentId,5,5,22);AttachControllerDrag(b,item);}
-                else {UiKit.Box(main,"ControllerEmpty"+i,x,cy,width-10,53,UiKit.Panel);UiKit.Text(main,"EmptyLabel"+i,"空槽",x+8,cy+10,width-26,32,18,UiKit.Muted,TextAlignmentOptions.Center);}
-            }
-            UiKit.Text(main,"ItemsTitle",$"局内道具  {ViewState.inventory.Count}/{ViewState.consumableSlots}",1190,y-22,690,30,21,UiKit.Muted);
-            int itemCount=Math.Min(5,ViewState.consumableSlots);inventoryPage=Math.Min(inventoryPage,Math.Max(0,(ViewState.consumableSlots-1)/5));float itemW=690f/itemCount;
-            UiKit.Button(main,"AllControllerStates","排列 / 全部状态",875,y-23,260,34,ShowControllerOrder);
-            if(ViewState.consumableSlots>5)UiKit.Button(main,"InventoryPage","道具页 "+(inventoryPage+1)+" >",1630,y-24,240,34,()=>{inventoryPage=(inventoryPage+1)%((ViewState.consumableSlots+4)/5);Refresh();});
-            for(int visible=0;visible<Math.Min(5,ViewState.consumableSlots-inventoryPage*5);visible++)
-            {
-                int i=visible+inventoryPage*5;float x=1190+visible*itemW;
-                if(i<ViewState.inventory.Count){var item=ViewState.inventory[i];var b=UiKit.Button(main,"Item_"+item.instanceId,NameOf(item.contentId),x,y+18,itemW-8,75,()=>ShowOwned(item,selling));b.GetComponentInChildren<TextMeshProUGUI>().fontSize=19;}
-                else{UiKit.Box(main,"ItemEmpty"+i,x,y+18,itemW-8,75,UiKit.Panel);UiKit.Text(main,"ItemEmptyText"+i,"空槽",x+5,y+42,itemW-18,28,18,UiKit.Muted,TextAlignmentOptions.Center);}
-            }
-        }
         private Sprite[] contentIndexSource073;
         private System.Collections.Generic.Dictionary<string,Sprite> contentIndex073;
         // v0.73: indexed once per icon set. The former scan read every sprite name (a native call and a new
@@ -84,7 +61,7 @@ namespace DiceCraft
             var list=PaperDetailScroll071(p,"ItemDetail",232,104,704,492);float y=0;
             Art07DetailSection(list,"Skill","道具效果",Description(item.contentId),ref y,672,true);
             string window=Config.Consumable(item.contentId).window;
-            Art07DetailSection(list,"Window","合法窗口",window=="Selecting"?"投掷后，至少已有一颗确认锁定的骰子。":window=="HandReady"?"本手第一次投掷前。":"本手投掷前或投掷后，先处理待锁选择。",ref y,672,true);
+            Art07DetailSection(list,"Window","何时能用",window=="Selecting"?"掷骰后且锁定了至少 1 颗骰子":window=="HandReady"?"本手第一次掷骰前":"本手任何时候",ref y,672,true);
             string reason=selling?null:Art07ItemUnavailable(item);
             Art07DetailSection(list,"UseState",selling?"出售结果":"当前状态",selling?"未使用道具固定卖价 1 金币；出售后失去这件库存。":reason??"当前可以使用；成功后消耗一件库存。",ref y,672,true);
             list.sizeDelta=new Vector2(list.sizeDelta.x,y+16);
@@ -144,14 +121,6 @@ namespace DiceCraft
             Art07DetailSection(list,"Price","价格",(!string.IsNullOrEmpty(offer.groupId)?"免费领取":"价格："+Session.GetOfferPrice(offer)+" 金币（你有 "+PlayerNumberFormat.Gold(ViewState.gold)+"）")+(error==null?"":"\n"+error),ref y,672,true);
             list.sizeDelta=new Vector2(list.sizeDelta.x,y+16);
             UiKit.ActionButton(p,"ConfirmPurchase",offer.sold?(string.IsNullOrEmpty(offer.groupId)?"已购买":"已领取"):!string.IsNullOrEmpty(offer.groupId)?"免费领取":"支付 "+Session.GetOfferPrice(offer)+" 并购买",24,628,912,64,()=>{CloseModal();Send(new SessionCommand{kind=CommandKind.Buy,offerId=offer.offerId});},UiKit.Gold,error==null&&!IsBusy);
-        }
-        private void BuyFooter(Transform p,ShopOffer offer,string die,string face)
-        {
-            long price=Session.GetOfferNetPrice(offer);
-            string error=Session.PurchaseError(offer.offerId,die,face);
-            UiKit.Text(p,"Price",$"价格 {price} 金币    ·    余额 {ViewState.gold} → {(System.Numerics.BigInteger)ViewState.gold-price}",40,585,1500,50,31,UiKit.Gold);
-            if(error!=null)UiKit.Text(p,"PurchaseUnavailable",error,40,635,1500,32,21,UiKit.Gold);
-            UiKit.Button(p,"ConfirmPurchase",error==null?(price<0?"购买并获得 "+(-price):"支付 "+price+" 并购买"):"暂不能购买",40,680,1500,64,()=>{CloseModal();Send(new SessionCommand{kind=CommandKind.Buy,offerId=offer.offerId,targetDieId=die,targetFaceId=face});},error==null,true);
         }
         private void ShowStudy()
         {

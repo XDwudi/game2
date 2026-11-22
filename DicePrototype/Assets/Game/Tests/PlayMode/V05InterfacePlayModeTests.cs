@@ -103,7 +103,7 @@ namespace DiceCraft.Tests
             Assert.That(app.Session.State.controllers.Count(c=>c.enchantmentId=="base10"),Is.EqualTo(1));
             string before=StateJson();yield return LoadBootstrap();ResumeBoundaryFixture();
             Assert.That(StateJson(),Is.EqualTo(before));string controllerTitle=FindActive<TextMeshProUGUI>("ControllerCapacity07").text;
-            Assert.That(controllerTitle,Does.Contain("调试配置"));Assert.That(controllerTitle,Does.Contain("普通占槽 2"));Assert.That(controllerTitle,Does.Not.Contain("/"));
+            Assert.That(controllerTitle,Does.Contain("调试配置"));Assert.That(controllerTitle,Does.Contain("占用栏位 2"));Assert.That(controllerTitle,Does.Not.Contain("/"));
         }
     }
 }

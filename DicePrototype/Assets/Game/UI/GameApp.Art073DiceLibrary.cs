@@ -67,6 +67,10 @@ namespace DiceCraft
             // v1.1 (W09, text proposal 3): one decimal, the precision of the probability table.
             string chance=sheetUnits073!=null&&at>=0&&at<sheetUnits073.Length?"\n掷出概率 "+PlayerNumberFormat.Percent(sheetUnits073[at],10000):"";
             sheetFacing073.text="正对你的是第 "+(facing+1)+" 面\n"+FaceSummary07(face)+(sheetDie073.isGlass?" · 玻璃骰":"")+chance;
+            var scroll=sheetFacing073.GetComponentInParent<UnityEngine.UI.ScrollRect>();
+            float height=FitHeight(sheetFacing073,scroll.viewport.rect.height);
+            scroll.content.sizeDelta=new Vector2(scroll.content.sizeDelta.x,height);
+            scroll.verticalNormalizedPosition=1;
         }
         /// <summary>
         /// Six "face" buttons in place of the flat face net. A press turns the real die to that face and,
@@ -90,11 +94,14 @@ namespace DiceCraft
                 }
                 if(chosen)UiKit.Ring(chip.transform,"SelectedH0",-5,-5,102,74,UiKit.Gold);
             }
-            UiKit.Inset(parent,"FacingInset073",848,240,600,150);
-            sheetFacing073=UiKit.Text(parent,"FacingFace073","",868,250,560,130,22,UiKit.TextColor);sheetFacing073.lineSpacing=6;
+            float insetHeight=Large11?174:150;
+            UiKit.Inset(parent,"FacingInset073",848,230,600,insetHeight);
+            var content=UiKit.Scroll(parent,"FacingSummary073",864,234,576,insetHeight-8,insetHeight-8);
+            sheetFacing073=UiKit.Text(content,"FacingFace073","",4,0,550,insetHeight-8,22,UiKit.TextColor);sheetFacing073.lineSpacing=6;
             sheetFacingShown073=-2;UpdateSheetFacing073();
-            UiKit.Text(parent,"FacingHint073","相对的面：1 和 6、2 和 5、3 和 4",848,400,600,36,17,UiKit.Muted);
-            UiKit.FlatButton(parent,"StyleLegend073","骰子样式说明",1248,432,200,60,ShowDiceStyleLegend073,!IsBusy);
+            UiKit.Text(parent,"FacingHint073","相对的面：1 和 6、2 和 5、3 和 4",848,Large11?399:386,600,Large11?45:40,19.5f,UiKit.Muted);
+            var legend=UiKit.FlatButton(parent,"StyleLegend073","骰子样式说明",Large11?1160:1248,Large11?442:432,Large11?288:200,60,ShowDiceStyleLegend073,!IsBusy);
+            NoWrap11(legend.transform.Find("Label").GetComponent<TextMeshProUGUI>());
         }
         /// <summary>Stage screen: opens the dice library on the first die. Sixth cell of the item grid.</summary>
         private void DrawViewDiceButton073(float x,float y,float size)

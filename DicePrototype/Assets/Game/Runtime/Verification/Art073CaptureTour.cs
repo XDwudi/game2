@@ -16,13 +16,13 @@ namespace DiceCraft.Verification
     /// buttons, style legend, face-upgrade target) and writes screenshots. It never touches the ordinary
     /// save, never changes rules, and is not a performance or acceptance probe.
     /// </summary>
-    public sealed class Art073CaptureTour:MonoBehaviour
+    public sealed partial class Art073CaptureTour:MonoBehaviour
     {
-        [Serializable]private sealed class Trace{public uint seed=0;public Step[] steps=null;}
+        [Serializable]private sealed class Trace{public string configVersion=null,terminalPhase=null;public uint seed=0;public Step[] steps=null;}
         [Serializable]private sealed class Step
         {
             public string kind=null,offerId=null,itemInstanceId=null,targetDieId=null,targetFaceId=null,handId=null;
-            public string[] dieIds=null;public int[] targetPips=null;public bool risk=false;public uint seed=0;
+            public string[] dieIds=null,controllerIds=null;public int[] targetPips=null;public bool risk=false;public uint seed=0;
         }
         [Serializable]private sealed class Report
         {
@@ -47,6 +47,8 @@ namespace DiceCraft.Verification
             var tour=new GameObject("Art073CaptureTour").AddComponent<Art073CaptureTour>();
             DontDestroyOnLoad(tour.gameObject);
             tour.directory=dir;
+            int release=Array.IndexOf(args,"--v11-replay-theme");
+            if(release>=0){tour.releaseTheme=release+1<args.Length?args[release+1]:"";Application.logMessageReceivedThreaded+=tour.CountReleaseLog;}
             int trace=Array.IndexOf(args,"--art073-trace");if(trace>=0&&trace+1<args.Length)tour.tracePath=Path.GetFullPath(args[trace+1]);
             int steps=Array.IndexOf(args,"--art073-steps");if(steps>=0&&steps+1<args.Length)tour.maxSteps=int.Parse(args[steps+1],CultureInfo.InvariantCulture);
             tour.reduced=Array.IndexOf(args,"--art073-reduced")>=0;
@@ -55,6 +57,7 @@ namespace DiceCraft.Verification
 
         private IEnumerator Start()
         {
+            if(releaseTheme!=null){yield return DriveReleaseRun();yield break;}
             IEnumerator run=Run();
             while(true)
             {
@@ -119,6 +122,11 @@ namespace DiceCraft.Verification
                     yield return CaptureOnce("pending-selection");
                 }
                 if(kind==CommandKind.Submit&&seen.Add("library"))yield return DiceLibrary(app);
+                if(kind==CommandKind.LeaveShop&&app.LootPage15&&!app.Session.IsLootPending)
+                {
+                    if(!Press("LootEnterShop15")||app.LootPage15)throw new InvalidOperationException("The resolved loot page did not return to the shop.");
+                    yield return new WaitForSecondsRealtime(.3f);
+                }
                 if(kind==CommandKind.LeaveShop&&seen.Add("upgrade-target"))yield return UpgradeTarget(app);
                 // v1.0: the stage-intel panel of the shop, and the loot / gift dialog whenever a shop has one.
                 if(kind==CommandKind.LeaveShop&&seen.Add("cycle-panel")&&Press("ViewCycle"))
@@ -127,7 +135,9 @@ namespace DiceCraft.Verification
                 }
                 if(kind==CommandKind.LeaveShop&&app.ViewState?.shop?.groups!=null&&app.ViewState.shop.groups.Count>0&&seen.Add("gifts-"+string.Join("+",app.ViewState.shop.groups.Select(g=>g.kind)))&&Press("ViewGifts"))
                 {
-                    yield return new WaitForSecondsRealtime(.6f);yield return Capture("shop-gifts-"+string.Join("-",app.ViewState.shop.groups.Select(g=>g.kind)));Press("CloseDialog");yield return new WaitForSecondsRealtime(.3f);
+                    yield return new WaitForSecondsRealtime(.6f);yield return Capture("shop-gifts-"+string.Join("-",app.ViewState.shop.groups.Select(g=>g.kind)));
+                    if(!app.LootFromShop15||!Press("LootEnterShop15")||app.LootPage15)throw new InvalidOperationException("Gift review did not return to the shop.");
+                    yield return new WaitForSecondsRealtime(.3f);
                 }
                 if(kind==CommandKind.LeaveShop&&seen.Add("shop-notice"))
                 {

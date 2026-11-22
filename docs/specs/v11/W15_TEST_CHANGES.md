@@ -15,6 +15,19 @@
 | `PLAY_V15_SE_EscapeFreezesAndEachEnterAdvancesExactlyOneStep` | 通过真实 Input System 键盘按 Esc 暂停和恢复；小键盘 Enter 跳过，主键盘 Enter 继续。只产生一次 Continue。 |
 | `V15ReceiptTermsTests` | 四组卡牌收入检查是否重复计入赏金；五组存钱罐、利滚利、理财顾问检查基础上限与加成上限的文字和数值。 |
 
+## 整合时补充的回归
+
+W24 与 W25 在整合时增加了以下路径。验证结果记录在 STATE 与对应 NUnit 报告。
+
+| 用例 | 补充检查 |
+| --- | --- |
+| `PLAY_V15_SE05_ClaimInFlightAndRetryKeepEnterShopDisabled` | 多选奖励已领一件，再次领取遇到写盘失败时，进店按钮须锁住。重试后复核库存、存盘与动作序号仅增加一次。 |
+| `PLAY_V15_SE09_FullInventorySaleMakesTheSamePendingOfferClaimable` | 满栏时卖出一件，重新检查同一待领取奖励的可用性。 |
+| `PLAY_V15_SE10_FaceAndWholeDieClaimsCancelAndPersistForBothSources` | 免费选面及整骰改造涵盖取消、确认、读档和两种来源。 |
+| `PLAY_V15_SE13_ThemeDefaultAndMissingUseTheRenderedFallbacks` | 逐级检查主题图、默认图和缺图表现。 |
+| `PLAY_V15_SE01_SE07_LootForegroundLayoutAndInk` | 六主题、两档字号核对实际前景、边界、对比与真实点击。 |
+| `PLAY_V25_C114_` 三例 | 真实点化、出售、同名卡位置变化和冷读档后，上一次提交能按当时顺序和名称显示受影响的卡。 |
+
 ## 结算文字对照
 
 | 玩家位置 | 已实施的文字与数源 |

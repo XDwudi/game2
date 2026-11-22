@@ -61,15 +61,21 @@ namespace DiceCraft.Tests
         private static string R20X(float v)=>(Mathf.Round(v*2)/2).ToString("0.#",CultureInfo.InvariantCulture);
 
         /// <summary>Adds the texts of <paramref name="scope"/> that stand on the table in this style.</summary>
-        private void CollectTableTexts20X(Dictionary<string,TableText20X> found,string screen,string theme,Transform scope)
+        private int CollectTableTexts20X(Dictionary<string,TableText20X> found,string screen,string theme,Transform scope)
         {
             Canvas.ForceUpdateCanvases();
+            int checkedLabels=0;
             var order=app.canvas.GetComponentsInChildren<Graphic>(false);
             foreach(var t in scope.GetComponentsInChildren<TextMeshProUGUI>(false))
             {
                 if(!t.enabled||!t.gameObject.activeInHierarchy||string.IsNullOrWhiteSpace(t.text))continue;
                 float alpha=t.color.a*t.canvasRenderer.GetInheritedAlpha();if(alpha<.05f)continue;
-                t.ForceMeshUpdate();var rects=W11bGlyphRects(t);if(rects.Count==0)continue;
+                t.ForceMeshUpdate();if(!t.GetParsedText().Any(PrintedCharacter24))continue;
+                var rects=W11bGlyphRects(t);if(rects.Count==0)continue;
+                foreach(var scroll in t.GetComponentsInParent<ScrollRect>(false))
+                    if(t.transform.IsChildOf(scroll.content))rects.RemoveAll(r=>!V06ScreenRect(scroll.viewport).Contains(r.center));
+                if(rects.Count==0)continue;
+                checkedLabels++;
                 if(W11bVisibleFrame(t,rects,order,out _)!=null)continue;
                 var union=Rect.MinMaxRect(rects.Min(r=>r.xMin),rects.Min(r=>r.yMin),rects.Max(r=>r.xMax),rects.Max(r=>r.yMax));
                 string path=W20XPath(t.transform,scope);string key=screen+"|"+path;
@@ -90,6 +96,7 @@ namespace DiceCraft.Tests
                 if(!entry.themes.Contains(theme))entry.themes.Add(theme);
                 var drawn=t.color;drawn.a=alpha;entry.colors[theme]=alpha>.995f?Hex20X(drawn,false):Hex20X(drawn,true);
             }
+            return checkedLabels;
         }
         private static string W20XPath(Transform t,Transform root)
         {
@@ -115,7 +122,7 @@ namespace DiceCraft.Tests
             b.Append("{\n  \"schema\": \"w20x-table-text-1\",\n");
             b.Append("  \"source\": ").Append(Json20X(source)).Append(",\n");
             b.Append("  \"note\": ").Append(Json20X("Texts the non-play screens draw with no opaque interface surface behind them. rect: the glyphs' ink, box: the text box; design units at 1920x1080, x and y from the top left. colors: the colour each style drew (RRGGBB, RRGGBBAA when see-through). themes: the styles in which the text stands on the table. veils: see-through layers between the table and the text, in drawing order. palette: the default style's values of the palette keys (ThemePalette).")).Append(",\n");
-            b.Append("  \"themes\": [").Append(string.Join(", ",IdentityThemes20X.Select(Json20X))).Append("],\n");
+            b.Append("  \"themes\": [").Append(string.Join(", ",ScreenThemes24.Select(Json20X))).Append("],\n");
             b.Append("  \"palette\": {");
             b.Append(string.Join(", ",PaletteOrder20X.Select(k=>{var f=typeof(ThemePalette).GetField(k);return f==null?null:Json20X(k)+": "+Json20X(ColorUtility.ToHtmlStringRGB((Color)f.GetValue(palette)));}).Where(x=>x!=null)));
             b.Append("},\n  \"entries\": [\n");
@@ -127,7 +134,7 @@ namespace DiceCraft.Tests
                     ", \"box\": ["+R20X(e.box.x)+", "+R20X(e.box.y)+", "+R20X(e.box.width)+", "+R20X(e.box.height)+"]"+
                     ", \"colorKey\": "+Json20X(e.colorKey)+
                     ", \"colors\": {"+string.Join(", ",e.colors.Select(p=>Json20X(p.Key)+": "+Json20X(p.Value)))+"}"+
-                    ", \"themes\": ["+string.Join(", ",IdentityThemes20X.Where(e.themes.Contains).Select(Json20X))+"]"+
+                    ", \"themes\": ["+string.Join(", ",ScreenThemes24.Where(e.themes.Contains).Select(Json20X))+"]"+
                     ", \"veils\": ["+string.Join(", ",e.veils.Select(Json20X))+"]}");
             }
             b.Append(string.Join(",\n",lines)).Append("\n  ]\n}\n");
@@ -142,86 +149,45 @@ namespace DiceCraft.Tests
             return keys;
         }
 
-        [UnityTest] public IEnumerator PLAY_W20X_03_TableTextOnNonPlayScreens()
+        // At 56 screens per style, the six-style catalog exceeded the real-window 180 s runner default.
+        [UnityTest,Timeout(600000)] public IEnumerator PLAY_W20X_03_TableTextOnNonPlayScreens()
         {
-            Assert.That(Screen.width==1920&&Screen.height==1080||Screen.width==1280&&Screen.height==720,Is.True,"Run at actual 1920x1080 or 1280x720.");
-            bool hadPreview=PlayerPrefs.HasKey(ThemeRegistry.PreviewKey);int previewValue=PlayerPrefs.GetInt(ThemeRegistry.PreviewKey,0);
-            string savedTheme=PlayerPrefs.GetString(ThemeRegistry.PreferenceKey,GameTheme.DefaultId);
-            var found=new Dictionary<string,TableText20X>(StringComparer.Ordinal);var screens=new List<string>();
-            IEnumerator Walk(string screen,Transform scope)
+            var found=new Dictionary<string,TableText20X>(StringComparer.Ordinal);
+            var counts=new List<string>();
+            foreach(string theme in ScreenThemes24)
             {
-                if(!screens.Contains(screen))screens.Add(screen);
-                foreach(string theme in IdentityThemes20X)
+                var seen=new HashSet<string>();int number=0;
+                IEnumerator Check(string name,params Transform[] roots)
                 {
-                    app.ApplyTheme11(theme);yield return Art073Settle(.35f);
-                    CollectTableTexts20X(found,screen,theme,scope??W14Main);
+                    int total=roots.Sum(root=>CollectTableTexts20X(found,name,theme,root));
+                    Assert.That(total,Is.GreaterThan(0),theme+" "+name+" has no real visible text");
+                    Assert.That(seen.Add(name),theme+" "+name);
+                    number+=total;
+                    IEnumerator CheckScrolled(ScrollRect scroll,int step)
+                    {
+                        // Retain the canonical page root in the key, so the same row reached twice is one catalog entry.
+                        var root=roots.First(r=>scroll.transform==r||scroll.transform.IsChildOf(r));
+                        number+=CollectTableTexts20X(found,name,theme,root);
+                        yield break;
+                    }
+                    yield return ScrollPages24(roots,CheckScrolled);
                 }
+                yield return Walk24(theme,100,Check);
+                Assert.That(seen,Is.EquivalentTo(RequiredScreens24),theme+" screen inventory");
+                counts.Add(theme+"="+seen.Count+" screens/"+number+" label samples");
+                TestContext.WriteLine(counts.Last());
             }
-            IEnumerator WalkModal(string screen,Action open)
-            {
-                if(!screens.Contains(screen))screens.Add(screen);
-                foreach(string theme in IdentityThemes20X)
-                {
-                    app.ApplyTheme11(theme);open();yield return Art073Settle(.35f);
-                    CollectTableTexts20X(found,screen,theme,Overlay20X);
-                    if(HasActive("CloseDialog"))Click("CloseDialog");yield return null;
-                }
-            }
-            try
-            {
-                PlayerPrefs.SetInt(ThemeRegistry.PreviewKey,1);GameApp.CleanCapture11=true;
-                // The menu and what opens over it.
-                yield return Walk("menu",null);
-                yield return WalkModal("menu-settings",()=>{Click("MenuSettings");Click("SettingsTab1");});
-                yield return WalkModal("menu-handbook",()=>Click("MenuHandbook"));
-                yield return WalkModal("menu-new-run",()=>Click("NewRun"));
-                // Stage select.
-                StartRun("72003");Assert.That(app.Session.State.phase,Is.EqualTo("StagePreview"));
-                yield return Walk("select",null);
-                // Run end: won after the last stage, failed when the last submission misses.
-                yield return IdentityEndStage20X(app.Config.stages.Length-1);Click("SettlementContinue");yield return WaitForIdle();
-                Assert.That(app.Session.State.phase,Is.EqualTo("RunWon"));
-                yield return Walk("run-won",null);
-                var failing=IdentityWinningHand20X(3);failing.target="99999999";failing.remainingSubmissions=1;W11Apply(failing);yield return W11Settle();
-                var miss=app.Send(new SessionCommand{kind=CommandKind.Submit});Assert.That(miss.accepted,Is.True,miss.error);app.SkipVisual();yield return W11Settle();
-                if(app.Session.State.phase=="StageSettlement"&&HasActive("SettlementContinue")){Click("SettlementContinue");yield return WaitForIdle();}
-                Assert.That(app.Session.State.phase,Is.EqualTo("RunFailed"));
-                yield return Walk("run-failed",null);
-                // The shops, the face pick and what opens over the shop.
-                yield return W14Load(W14ShopFixture(false));
-                string offer=app.Session.State.shop.offers.First(o=>o.category=="controller").offerId;
-                yield return Walk("shop-common",null);
-                yield return WalkModal("shop-offer-details",()=>Click("Offer_"+offer));
-                yield return WalkModal("shop-chapter",()=>Click("ViewCycle"));
-                yield return WalkModal("shop-handbook",()=>Click("Handbook"));
-                yield return WalkModal("shop-dice-styles",()=>app.ShowDiceStyleLegend073());
-                yield return W14Load(W14ShopFixture(true));
-                yield return Walk("shop-full",null);
-                var pick=ShopBoundaryFixture();pick.shop.offers.Clear();AddBoundaryOffer(pick,"pick-gold","die_upgrade","U06");
-                yield return W14Load(pick);
-                string die=app.Session.State.dice.OrderBy(d=>d.createdSerial).First().dieId;
-                Click("Buy_pick-gold");yield return Walk("facepick-s1",null);
-                Click("Target_"+die);yield return Walk("facepick-s2",null);
-                Click("Face_F02");yield return Walk("facepick-s3",null);
-                Click("CancelFacePick14");yield return null;
-            }
-            finally
-            {
-                GameApp.CleanCapture11=false;app.ApplyTheme11(GameTheme.DefaultId);
-                if(hadPreview)PlayerPrefs.SetInt(ThemeRegistry.PreviewKey,previewValue);else PlayerPrefs.DeleteKey(ThemeRegistry.PreviewKey);
-                PlayerPrefs.SetString(ThemeRegistry.PreferenceKey,savedTheme);PlayerPrefs.Save();
-            }
-            var entries=found.Values.OrderBy(e=>screens.IndexOf(e.screen)).ThenBy(e=>e.rect.y).ThenBy(e=>e.rect.x).ThenBy(e=>e.name,StringComparer.Ordinal).ToList();
-            string json=TableTextJson20X(entries,"PLAY_W20X_03_TableTextOnNonPlayScreens at "+Screen.width+"x"+Screen.height+", text 100 %, screens: "+string.Join(", ",screens));
-            string written=Path.Combine(W20XOutput("table-text"),"table_text.json");File.WriteAllText(written,json,new UTF8Encoding(false));
-            foreach(var e in entries)TestContext.WriteLine(e.screen+" "+e.name+" '"+e.text+"' "+e.colorKey+" on the table in "+string.Join(",",e.themes));
-            TestContext.WriteLine("W20X-03: "+entries.Count+" table texts on "+screens.Count+" screens, written to "+written);
-            Assert.That(screens.Count,Is.EqualTo(16),"Every non-play screen of the walk.");
+            string source="PLAY_W20X_03_TableTextOnNonPlayScreens "+Screen.width+"x"+Screen.height+
+                ", text 100 %, "+string.Join(", ",counts)+". Screens: "+string.Join(", ",RequiredScreens24);
+            var entries=found.Values.OrderBy(e=>e.screen,StringComparer.Ordinal).ThenBy(e=>e.name,StringComparer.Ordinal).ToList();
+            string written=Path.Combine(W20XOutput("table-text"),"table_text.json");
+            File.WriteAllText(written,TableTextJson20X(entries,source),new UTF8Encoding(false));
+            TestContext.WriteLine(source+"; table texts: "+entries.Count+"; "+written);
             string committed=Path.GetFullPath(Path.Combine(Application.dataPath,"..","..","tools","art_v11","table_text.json"));
-            Assert.That(File.Exists(committed),Is.True,"Commit the 1920x1080 list as tools/art_v11/table_text.json (written to "+written+").");
-            var expected=TableTextKeys20X(File.ReadAllText(committed));var actual=new HashSet<string>(entries.Select(e=>e.screen+"|"+e.name),StringComparer.Ordinal);
-            var added=actual.Except(expected).OrderBy(k=>k).ToList();var gone=expected.Except(actual).OrderBy(k=>k).ToList();
-            Assert.That(added.Count+gone.Count,Is.Zero,"The table texts changed; regenerate tools/art_v11/table_text.json from "+written+".\nNew on the table: "+string.Join("; ",added)+"\nNo longer on the table: "+string.Join("; ",gone));
+            var expected=TableTextKeys20X(File.ReadAllText(committed));
+            var actual=new HashSet<string>(entries.Select(e=>e.screen+"|"+e.name),StringComparer.Ordinal);
+            Assert.That(actual,Is.Empty,"Foreground text still lies directly on the table: "+string.Join(", ",actual));
+            Assert.That(actual,Is.EquivalentTo(expected),"Compare the measured 1080p file with the committed list: "+written);
         }
     }
 }

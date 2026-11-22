@@ -92,8 +92,9 @@ namespace DiceCraft
             var unit = NoWrap11(UiKit.Text(total,"SettleUnit15","金币",0,0,totalW,totalH,large?24:28,LabelOn11(total),TextAlignmentOptions.MidlineLeft));
             float unitW = Mathf.Ceil(unit.GetPreferredValues(unit.text).x)+4, available = totalW-unitW-36;
             value.fontSize = Mathf.Max(31.5f,Mathf.Min(value.fontSize,value.fontSize*available/Mathf.Max(1,value.GetPreferredValues(value.text).x)));
-            float numW = Mathf.Min(available,Mathf.Ceil(value.GetPreferredValues(value.text).x)+4), start = (totalW-numW-8-unitW)*.5f;
+            float numW = Mathf.Min(available,Mathf.Ceil(value.GetPreferredValues(value.text).x)+16), start = (totalW-numW-8-unitW)*.5f;
             value.rectTransform.anchoredPosition = new Vector2(start,0); value.rectTransform.sizeDelta = new Vector2(numW,totalH);
+            UiKit.FitNumberInk21(value);
             unit.rectTransform.anchoredPosition = new Vector2(start+numW+8,0); unit.rectTransform.sizeDelta = new Vector2(unitW,totalH);
             UiKit.Text(summary,"SettleGold15","金币 "+PlayerNumberFormat.Gold(r.goldBefore)+" → "+PlayerNumberFormat.Gold(r.goldAfter),0,large?184:152,leftW,large?56:40,24,ink,TextAlignmentOptions.Center);
             var chips = SettlementRewardTerms15.Chips(r);

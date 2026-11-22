@@ -52,7 +52,7 @@ namespace DiceCraft
             }
             else Primary16(p,"NewRun","开始新的一局",36,148,544,88,ShowNewRun07);
             string saved=hasSave?$"第 {ViewState.stage.stageIndex+1} 关 · {PlayerNumberFormat.Gold(ViewState.gold)} 金币":"暂无存档 · 开始你的第一局";
-            if(hasSave&&ViewState.debugWorkspace)saved+="\n调试对局 · 种子 "+ViewState.seed;
+            if(hasSave&&ViewState.debugWorkspace)saved+=(IsPracticeRun11?"\n练习模式 · 种子 ":"\n调试对局 · 种子 ")+ViewState.seed;
             UiKit.Text(p,"SavedSeed",saved,48,236,520,96,20,LabelOn11(p,PaperMuted071),TextAlignmentOptions.Center);
             float first=hasSave?442:342;
             UiKit.Button(p,"MenuHandbook","牌型手册",36,first,544,80,ShowMenuHandbook07);

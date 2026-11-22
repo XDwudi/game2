@@ -83,13 +83,21 @@ namespace DiceCraft
         private string CardLabel11(string instanceId,IList<ControllerInstance> cards=null)
         {
             cards=cards??ViewState?.controllers;
-            var card=cards?.FirstOrDefault(c=>c.instanceId==instanceId)??lastPresentationBefore07?.controllers.FirstOrDefault(c=>c.instanceId==instanceId);
-            if(card==null)return "一张卡牌";
+            var label=CardLabelIn11(instanceId,cards);
+            if(label!=null)return label;
+            var before=lastPresentationBefore07?.controllers.FirstOrDefault(c=>c.instanceId==instanceId);
+            return before==null?"一张卡牌":NameOf(before.definitionId);
+        }
+        private string CardLabelIn11(string instanceId,IList<ControllerInstance> cards)
+        {
+            if(string.IsNullOrEmpty(instanceId)||cards==null)return null;
+            var card=cards.FirstOrDefault(c=>c?.instanceId==instanceId);
+            if(card==null)return null;
             string name=NameOf(card.definitionId);
-            if(cards!=null&&cards.Count(c=>c.definitionId==card.definitionId)>1)
+            if(cards.Count(c=>c?.definitionId==card.definitionId)>1)
             {
                 int index=cards.IndexOf(card);
-                if(index>=0)name+="（第 "+(index+1).ToString(CultureInfo.InvariantCulture)+" 张）";
+                name+="（第 "+(index+1).ToString(CultureInfo.InvariantCulture)+" 张）";
             }
             return name;
         }

@@ -69,7 +69,7 @@ namespace DiceCraft
                     bool primary=preview!=null&&(preview.primaryHandId==r.handId||(r.handId=="scatter"&&(preview.primaryHandId=="none"||preview.primaryHandId=="scatter")));
                     bool chosen=preview!=null&&(preview.chosenGroupId==r.handId||(r.handId=="straight"&&preview.straightMult100>0));
                     if(primary)UiKit.Box(row.transform,"Structure",3,8,3,rowHeight-20,UiKit.Gold);
-                    UiKit.Text(row.transform,"Name",r.displayName,12,8,350,42,24,UiKit.Ink);
+                    UiKit.Text(row.transform,"Name",r.displayName,12,8,350,Large11?52:42,24,UiKit.Ink);
                     UiKit.Text(row.transform,"Level",r.maxLevel==0?"不能升级":"Lv."+r.level+" / "+r.maxLevel,390,8,306,42,20,PaperMuted071,TextAlignmentOptions.TopRight);
                     var numbers=r.example.Where(char.IsDigit).Select(c=>c-'0').Where(n=>n>=1&&n<=6).ToArray();
                     if (chosen)

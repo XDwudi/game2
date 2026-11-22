@@ -31,17 +31,6 @@ namespace DiceCraft
         private bool DisabledNext10(string instanceId)=>DisabledNextIds10().Contains(instanceId);
         /// <summary>What an owned controller sells for, including the recycler (C140).</summary>
         private long OwnedSalePrice10(ControllerInstance c)=>Session.ControllerSalePriceIn(ViewState,c);
-        /// <summary>
-        /// Names what raised the interest principal cap of a settlement. The cap itself comes from the receipt; the share
-        /// of the adviser service (O10) is its purchase count times the configured step, the rest is the snowball card (C96).
-        /// </summary>
-        private string InterestCapNote10(StageSettlement r)
-        {
-            if(r.interestPrincipalCap<=Config.maxInterestPrincipal)return "";
-            long adviser=(long)Config.interestPrincipalStep*ViewState.interestCapPurchases,snowball=r.interestPrincipalCap-Config.maxInterestPrincipal-adviser;
-            var names=new System.Collections.Generic.List<string>();if(snowball>0)names.Add(NameOf("C96"));if(adviser>0)names.Add(NameOf("O10"));
-            return "（"+string.Join("、",names)+"：计息本金上限 "+r.interestPrincipalCap+"）";
-        }
         private string StageKindLabel10(int stageIndex,bool risk)
         {
             string kind=Config.stages[Mathf.Clamp(stageIndex,0,Config.stages.Length-1)].stageKind;
@@ -404,7 +393,6 @@ namespace DiceCraft
                 case "DieAdded":return (string.IsNullOrEmpty(e.sourceId)?"":NameOf(e.sourceId)+"：")+"获得"+DieName11(e.dieId);
                 case "ItemGranted":return "百宝袋：获得 "+NameOf((e.detail??"").Split(':').LastOrDefault());
                 case "ControllerGranted":return "滥竽充数：获得 "+NameOf((e.detail??"").Split(':').LastOrDefault());
-                case "ControllerEnchanted":return NameOf(e.sourceId)+"："+NameOfInstance10((e.detail??"").Split(':')[0])+" 获得附魔 "+EnchantShort((e.detail??"").Split(':').LastOrDefault());
                 case "ControllerExpired":return "昙花一现：倍率耗尽，已消失";
                 case "RandomUpgrade":return "无心插柳："+DieFaceName11(e.dieId,e.faceId)+" 获得 "+NameOf(e.detail);
                 case "RandomUpgradeMissed":return "无心插柳："+DieFaceName11(e.dieId,e.faceId)+" 的 "+NameOf(e.detail)+" 落空";

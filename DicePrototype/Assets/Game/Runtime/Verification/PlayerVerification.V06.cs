@@ -216,15 +216,31 @@ namespace DiceCraft.Verification
             yield return PressTargetReady("Item_"+item.instanceId);
             yield return PressTargetReady("Use");
         }
+        private IEnumerator FindShopPage14(string section, string child, string previous, string next)
+        {
+            Transform Panel() => ActiveControl<RectTransform>(section);
+            bool CanPage(string button) => Panel().Find(button)?.GetComponent<Button>().IsInteractable() == true;
+            while (CanPage(previous) && Panel().Find(child) == null) yield return PressTargetReady(previous);
+            while (CanPage(next) && Panel().Find(child) == null) yield return PressTargetReady(next);
+            Require(Panel().Find(child) != null, "Missing " + child + " on the pages of " + section);
+        }
         private IEnumerator OpenShopOffer07(ShopOffer offer)
         {
-            if(offer.category=="controller")yield return PressTargetReady("Offer_"+offer.offerId);
+            if (offer.category == "controller") yield return PressTargetReady("Offer_" + offer.offerId);
             else
             {
-                int tab=offer.category=="consumable"?0:offer.category=="hand_upgrade"||offer.category=="color_upgrade"?1:offer.category=="die_upgrade"?2:offer.category=="service"?3:4;
-                yield return PressTargetReady("Tab"+tab);
-                yield return PressTargetReady("Inspect","Product_"+offer.offerId);
+                bool dice = offer.category == "new_die" || offer.category == "die_upgrade";
+                string row = "Product_" + offer.offerId;
+                yield return FindShopPage14(dice ? "DiceCounter" : "ShopProducts", row,
+                    dice ? "CounterPrev14" : "ProductsPrev14", dice ? "CounterNext14" : "ProductsNext14");
+                yield return PressTargetReady("Inspect", row);
             }
+        }
+        private IEnumerator SelectShopDie14(string id)
+        {
+            string target = "Target_" + id;
+            yield return FindShopPage14("OwnedStrip", target, "DicePagePrev14", "DicePageNext14");
+            yield return PressTargetReady(target);
         }
         private void RequireReadableButton07(string name)
         {
@@ -241,8 +257,10 @@ namespace DiceCraft.Verification
             phase="V07MenuSettings";
             string original=JsonUtility.ToJson(app.Session.State);string[] pending=app.Session.PendingIds;
             Require(GameApp.ArtVersion=="art0.7.3","The actual player is not the requested art baseline.");
-            foreach(string id in new[]{"ContinueRun","NewRun","MenuHandbook","MenuSettings","Quit"})ActiveControl<Button>(id);
-            Require(!ActiveControl<Button>("ContinueRun").IsInteractable(),"An empty isolated save must not offer Continue.");
+            foreach(string id in new[]{"NewRun","MenuHandbook","MenuSettings","Quit"})ActiveControl<Button>(id);
+            Require(!app.canvas.GetComponentsInChildren<Button>(false).Any(b=>b.name=="ContinueRun"),
+                "An empty isolated save must omit Continue from the menu.");
+            Require(ActiveControl<Button>("NewRun").IsInteractable(),"New Run must be available on the empty menu.");
             Require(app.contentIcons!=null&&app.contentIcons.Length==app.Config.activeContentCount&&app.contentIcons.All(s=>s!=null),"The built v0.7 content icon set is incomplete.");
             Require(app.enchantIcons!=null&&new[]{"slotless","base10","mult2","submit1","roll1"}.All(id=>app.enchantIcons.Any(s=>s!=null&&s.name=="badge_enchant_"+id)),"The five production v0.7 enchant badges are not bound.");
             yield return PressTargetReady("NewRun");Input("SeedInput","707");yield return PressTargetReady("CloseDialog");
@@ -290,31 +308,48 @@ namespace DiceCraft.Verification
             Require(JsonUtility.ToJson(app.Session.State)==original&&app.Session.PendingIds.SequenceEqual(pending)&&!File.Exists(normalSave),"Menu/settings inspection changed the empty ordinary checkpoint.");
             V06Check("v07-menu-settings-navigation","Actual seed cancel, handbook, three settings tabs, speed cycle and 720p/150% critical-control hit areas and label bounds; user preference keys restored",new Dictionary<string,object>{["textScale"]="150% at 1280x720",["iconCount"]=71,["enchantBadgeCount"]=5,["stateAndSaveUnchanged"]=true});
         }
-        private IEnumerator VerifyV07ShopTabs()
+        private IEnumerator VerifyShopShelves14()
         {
-            string before=GameSession.StateHash(app.Session.State),disk=FileHash(app.SaveLocation);var state=app.Session.State;
-            var offers=state.shop.offers.Where(o=>o.category=="controller").ToArray();
-            Require(offers.Length<=6,"Normal controller shelf exceeds its six-card art capacity.");
-            // The first-visit entrance is intentionally non-blocking. Compare tab geometry
-            // only after that real animation settles; tab redraw itself settles it immediately.
-            var entrance=ActiveControl<Art07ShopEntrance>("Screen");
-            double entranceDeadline=Time.realtimeSinceStartupAsDouble+3;
-            while(entrance.IsPlaying&&Time.realtimeSinceStartupAsDouble<entranceDeadline)yield return null;
-            Require(!entrance.IsPlaying,"Shop entrance did not settle within 3 seconds before tab geometry checks.");
-            var positions=offers.ToDictionary(o=>o.offerId,o=>ActiveControl<RectTransform>("Offer_"+o.offerId).anchoredPosition);
-            for(int tab=0;tab<5;tab++)
+            var state = app.Session.State;
+            string before = GameSession.StateHash(state), disk = FileHash(app.SaveLocation);
+            var regular = state.shop.offers.Where(o => string.IsNullOrEmpty(o.groupId)).ToArray();
+            var cards = regular.Where(o => o.category == "controller").ToArray();
+            Require(cards.Length <= 6, "Normal controller shelf exceeds its six-card capacity.");
+            var entrance = ActiveControl<Art07ShopEntrance>("Screen");
+            double deadline = Time.realtimeSinceStartupAsDouble + 3;
+            while (entrance.IsPlaying && Time.realtimeSinceStartupAsDouble < deadline) yield return null;
+            Require(!entrance.IsPlaying, "Shop entrance did not settle in three seconds.");
+            var positions = cards.ToDictionary(o => o.offerId, o => ActiveControl<RectTransform>("Offer_" + o.offerId).anchoredPosition);
+            foreach (bool dice in new[] { false, true })
             {
-                yield return PressTargetReady("Tab"+tab);
-                foreach(var offer in offers)Require(ActiveControl<RectTransform>("Offer_"+offer.offerId).anchoredPosition==positions[offer.offerId],"Switching lower tab moved the fixed controller shelf.");
-                var expected=state.shop.offers.Where(o=>tab==(o.category=="consumable"?0:o.category=="hand_upgrade"||o.category=="color_upgrade"?1:o.category=="die_upgrade"?2:o.category=="service"?3:o.category=="new_die"?4:-1)).Select(o=>"Product_"+o.offerId).OrderBy(x=>x).ToArray();
-                var actual=app.canvas.GetComponentsInChildren<Transform>(false).Where(t=>t.name.StartsWith("Product_",StringComparison.Ordinal)).Select(t=>t.name).OrderBy(x=>x).ToArray();
-                Require(actual.SequenceEqual(expected),"Shop tab "+tab+" contains wrong product category.");
-                Require(GameSession.StateHash(app.Session.State)==before&&FileHash(app.SaveLocation)==disk,"Tab navigation regenerated quotes, spent currency or changed RNG.");
-                yield return Capture("v07-shop-tab-"+tab);
+                string panel = dice ? "DiceCounter" : "ShopProducts", next = dice ? "CounterNext14" : "ProductsNext14";
+                string previous = dice ? "CounterPrev14" : "ProductsPrev14";
+                var expected = regular.Where(o => o.category != "controller" && (o.category == "new_die" || o.category == "die_upgrade") == dice)
+                    .Select(o => "Product_" + o.offerId).ToArray();
+                var seen = new HashSet<string>();
+                bool CanPage(string name) => ActiveControl<RectTransform>(panel).Find(name)?.GetComponent<Button>().IsInteractable() == true;
+                while (CanPage(previous)) yield return PressTargetReady(previous);
+                for (int page = 1; ; page++)
+                {
+                    foreach (Transform child in ActiveControl<RectTransform>(panel))
+                        if (child.gameObject.activeInHierarchy && child.name.StartsWith("Product_", StringComparison.Ordinal))
+                            Require(seen.Add(child.name), "Duplicate visible quote across pages: " + child.name);
+                    foreach (var card in cards)
+                        Require(ActiveControl<RectTransform>("Offer_" + card.offerId).anchoredPosition == positions[card.offerId], "Paging moved the card shelf.");
+                    yield return Capture("v11-shop-" + panel + "-" + page);
+                    if (!CanPage(next)) break;
+                    Require(page <= expected.Length, "Shop paging did not reach the last page.");
+                    yield return PressTargetReady(next);
+                }
+                Require(seen.SetEquals(expected), "Shelf pages did not show exactly the quoted products in " + panel);
+                while (CanPage(previous)) yield return PressTargetReady(previous);
             }
-            string counts=ActiveControl<TextMeshProUGUI>("ControllerCapacity07").text;
-            Require(counts.Contains("普通槽 "+ControllerRules.OrdinaryUsed(state.controllers)+"/"+state.controllerSlots)&&counts.Contains("总数 "+state.controllers.Count+"/"+app.Config.maxControllerInstances),"Normal shop ordinary/total counts are incorrect.");
-            V06Check("v07-shop-five-tabs-fixed-shelf","Actual five tab clicks; fixed controller positions; exact product category; full state/disk purity",new Dictionary<string,object>{["tabs"]=5,["controllerQuotes"]=offers.Length,["counts"]=counts});
+            string counts = ActiveControl<TextMeshProUGUI>("ControllerCapacity07").text;
+            Require(counts == "卡牌栏位 " + ControllerRules.OrdinaryUsed(state.controllers) + "/" + state.controllerSlots
+                + " · 共 " + state.controllers.Count + "/" + app.Config.maxControllerInstances + " 张", "Normal card capacity differs: " + counts);
+            Require(GameSession.StateHash(app.Session.State) == before && FileHash(app.SaveLocation) == disk, "Paging mutated shop state or save.");
+            V06Check("v11-shop-fixed-shelves", "Visible quotes across all pages; fixed card shelf; capacity caption; state/disk purity",
+                new Dictionary<string, object> { ["controllerQuotes"] = cards.Length, ["nonControllerQuotes"] = regular.Length - cards.Length, ["counts"] = counts });
         }
         private IEnumerator VerifyV07DiceSheet(string dieId)
         {
@@ -471,23 +506,24 @@ namespace DiceCraft.Verification
                 batchId = shop.shop.generationId + "/service", basePrice = app.Config.Service("O04").baseBuyPrice };
             shop.shop.offers.Add(upgrade); shop.shop.offers.Add(deletion);
             InstallDebugWorkspace(shop, "debug-target32-shop-save");
-            yield return CaptureResolutionSet("v06-shop-target32", () => InvokePrivate("TargetDie", upgrade, null, 1f), true, "ShopTargetList");
+            yield return OpenShopOffer07(upgrade);
+            yield return CaptureResolutionSet("v06-shop-target32");
             before = GameSession.StateHash(app.Session.State); disk = FileHash(app.SaveLocation);
-            yield return OpenShopOffer07(upgrade);RequirePanelRect07(208,96,1504,888);
-            Require(!ActiveControl<Button>("ConfirmPurchase").IsInteractable(),"An upgrade offer must not implicitly choose or purchase a target.");
-            yield return WheelToControl("Target_D032"); yield return PressTargetReady("Target_D032"); yield return PressTargetReady("Face_F01");
+            Require(app.FacePickActive14 && app.FacePickStep14 == "S1", "Upgrade did not open the on-table die picker.");
+            Require(!app.canvas.GetComponentsInChildren<Button>(false).Any(b => b.name == "ConfirmPurchase" && b.IsInteractable()),"An upgrade offer must not implicitly choose or purchase a target.");
+            yield return SelectShopDie14("D032"); yield return PressTargetReady("Face_F01");
             yield return Capture("v06-upgrade-D032-F01-preview");
-            yield return PressTargetReady("CloseDialog"); yield return null;
+            yield return PressTargetReady("CancelFacePick14"); yield return null;
             Require(GameSession.StateHash(app.Session.State) == before && FileHash(app.SaveLocation) == disk, "Cancelling late-list upgrade selection mutated state/wallet/RNG.");
-            yield return OpenShopOffer07(upgrade); yield return PressTargetReady("Target_D032"); yield return PressTargetReady("Face_F01");
+            yield return OpenShopOffer07(upgrade); yield return SelectShopDie14("D032"); yield return PressTargetReady("Face_F01");
             prior = app.Session.State; yield return PressTargetReady("ConfirmPurchase"); yield return WaitIdle(); after = app.Session.State;
             Require(after.actionSequence == prior.actionSequence + 1 && after.dice.Single(d => d.dieId == "D032").faces.Single(f => f.faceId == "F01").isGold
                 && after.shop.offers.Single(o => o.offerId == upgrade.offerId).sold && after.gold < prior.gold, "Late-list face purchase did not commit once on D032/F01.");
             before = GameSession.StateHash(after); disk = FileHash(app.SaveLocation);
-            yield return OpenShopOffer07(deletion); yield return PressTargetReady("Target_D031");
-            yield return Capture("v06-delete-D031-preview"); yield return PressTargetReady("CloseDialog"); yield return null;
+            yield return OpenShopOffer07(deletion); yield return SelectShopDie14("D031");
+            yield return Capture("v06-delete-D031-preview"); yield return PressTargetReady("CancelFacePick14"); yield return null;
             Require(GameSession.StateHash(app.Session.State) == before && FileHash(app.SaveLocation) == disk, "Cancelling late-list deletion changed state.");
-            yield return OpenShopOffer07(deletion); yield return PressTargetReady("Target_D031");
+            yield return OpenShopOffer07(deletion); yield return SelectShopDie14("D031");
             prior = app.Session.State; yield return PressTargetReady("ConfirmPurchase"); yield return WaitIdle(); after = app.Session.State;
             Require(after.actionSequence == prior.actionSequence + 1 && after.dice.Count == 31 && !after.dice.Any(d => d.dieId == "D031")
                 && after.dice.Any(d => d.dieId == "D032") && after.shop.offers.Single(o => o.offerId == deletion.offerId).sold,
@@ -507,8 +543,14 @@ namespace DiceCraft.Verification
         private void RequireRefreshLabel(int price)
         {
             Require(app.Session.GetRefreshPrice() == price, "Refresh session price differs from expected " + price);
-            string label = ActiveControl<Button>("RefreshControllers").GetComponentInChildren<TextMeshProUGUI>().text;
-            Require(label == (price==0?"本店首次免费":"刷新控制器  " + price), "Visible refresh price differs: " + label);
+            var refresh = ActiveControl<Button>("RefreshControllers").transform;
+            string label = refresh.Find("Label").GetComponent<TextMeshProUGUI>().text;
+            bool pending = app.Session.IsLootPending;
+            long gold = app.Session.State.gold;
+            string expected = pending ? "先领战利品" : gold < price ? "还差 " + (price - gold) : price == 0 ? "免费刷新" : "刷新";
+            var amount = refresh.Find("RefreshPrice")?.GetComponent<TextMeshProUGUI>();
+            Require(label == expected && (pending || price == 0 ? amount == null : amount != null && amount.text == price.ToString()),
+                "Visible refresh caption or price differs from the session quote: " + label + " " + amount?.text);
         }
         private IEnumerator VerifyRefreshClick(int price, List<Dictionary<string, object>> transactions)
         {
@@ -543,7 +585,7 @@ namespace DiceCraft.Verification
             string controllers = ShopQuoteFingerprint(true), others = ShopQuoteFingerprint(false);
             int price = app.Session.GetRefreshPrice();
             app.ShowDebugPanel(); yield return PressTargetReady("ResumeDebugSave"); yield return PressTargetReady("RunDebugScene");
-            yield return PressTargetReady("Tab0");
+            yield return null;
             Require(GameSession.StateHash(app.Session.State) == state && FileHash(app.SaveLocation) == disk
                 && ShopQuoteFingerprint(true) == controllers && ShopQuoteFingerprint(false) == others,
                 "Closing/reopening the shop through saved debug workspace redrew quotes or changed state/RNG/save.");
@@ -555,7 +597,7 @@ namespace DiceCraft.Verification
             Require(generatedShop.debugWorkspace && generatedShop.phase == "Shop" && generatedShop.shop.controllerRefreshCount == 0,
                 "Refresh UI requires a freshly generated valid debug Shop.");
             var fixture = generatedShop.Clone(); fixture.gold = 1000; fixture.freeFirstRefreshOwned = false;
-            InstallDebugWorkspace(fixture, "debug-refresh-shop-save"); yield return PressTargetReady("Tab0");
+            InstallDebugWorkspace(fixture, "debug-refresh-shop-save"); yield return null;
             var transactions = new List<Dictionary<string, object>>();
             foreach (int price in new[] { 3, 5, 7 })
             {
@@ -574,15 +616,15 @@ namespace DiceCraft.Verification
             var service = new ShopOffer { offerId = "OFFER_" + (fixture.nextOfferSerial++).ToString("D5"), category = "service", contentId = "O07",
                 batchId = fixture.shop.generationId + "/service", basePrice = app.Config.Service("O07").baseBuyPrice };
             fixture.shop.offers.Add(service);
-            InstallDebugWorkspace(fixture, "debug-free-refresh-shop-save"); yield return PressTargetReady("Tab3");
+            InstallDebugWorkspace(fixture, "debug-free-refresh-shop-save"); yield return null;
             long priceBefore = app.Session.GetOfferNetPrice(service), goldBefore = app.Session.State.gold;
             long seqBefore = app.Session.State.actionSequence;
-            yield return PressTargetReady("Inspect", "Product_" + service.offerId); yield return PressTargetReady("ConfirmPurchase"); yield return WaitIdle();
+            yield return OpenShopOffer07(service); yield return PressTargetReady("ConfirmPurchase"); yield return WaitIdle();
             Require(app.Session.State.freeFirstRefreshOwned && app.Session.State.gold == goldBefore - priceBefore
                 && app.Session.State.actionSequence == seqBefore + 1 && app.Session.State.shop.controllerRefreshCount == 0
                 && app.Session.State.shop.offers.Single(o => o.offerId == service.offerId).sold,
                 "O07 UI purchase did not apply the free first refresh service once.");
-            yield return PressTargetReady("Tab0"); RequireRefreshLabel(0);
+            yield return null; RequireRefreshLabel(0);
             yield return Capture("v06-shop-free-first-refresh-0");
             yield return VerifyRefreshClick(0, transactions); RequireRefreshLabel(5); yield return ReopenRefreshShop();
             yield return VerifyRefreshClick(5, transactions); RequireRefreshLabel(7); yield return ReopenRefreshShop();

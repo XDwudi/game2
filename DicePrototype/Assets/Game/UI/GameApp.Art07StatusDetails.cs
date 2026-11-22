@@ -53,56 +53,5 @@ namespace DiceCraft
             TrimRailButton072(UiKit.FlatButton(panel,"RecoveredDetails07","只读收据",width-(thin?910:250),thin?44:compact?58:84,230,60,()=>ShowBreakdown(record.snapshot,record.breakdown)),thin);
             return true;
         }
-        private void DrawQualifiedHeader07(float x,float y,float width,float height)
-        {
-            var p=UiKit.Frame(main,"Stats07",x,y,width,height,UiKit.Background,UiKit.PanelLight);UiKit.Surface(p,"ui_panel_hud");
-            int n=ViewState.stage.stageIndex+1;
-            UiKit.Text(p,"Brand","骰子构筑",18,8,width-36,52,26,UiKit.Paper);
-            UiKit.Text(p,"Stage",$"第 {n} 关 · 第 {(n-1)/3+1} 章",18,60,width-36,42,20,UiKit.Paper);
-            QualifiedStat07(p,"Target","目标分数",CompactScore(ViewState.stage.target),106,width,UiKit.Red);
-            // A dedicated 52px stamp strip stays clear of the real score title/value.
-            // It is reserved before the first stamp appears and after receipt handoff.
-            UiKit.Rect(p,"QualifiedStampSlot07",24,196,272,52);
-            string displayedStageScore=QualifiedStampPlayingForCurrentStage07&&IsPresenting07&&lastPresentationAfter07?.stage?.stageId==ViewState.stage.stageId
-                ?lastPresentationAfter07.stage.score:ViewState.stage.score;
-            QualifiedStat07(p,"StageScore","本关累计",CompactScore(displayedStageScore),252,width,UiKit.Blue,displayedStageScore);
-            if(qualifiedStamp07==null||qualifiedStage07!=ViewState.stage.stageId)
-            {
-                var badge=UiKit.Frame(p,"QualifiedSavedBadge07",width-44,256,28,28,UiKit.Gold,UiKit.Ink);
-                UiKit.Text(badge,"Check","✓",0,0,28,28,16,UiKit.Ink,TextAlignmentOptions.Center);
-            }
-            QualifiedStat07(p,"Money","金币",PlayerNumberFormat.Gold(ViewState.gold),342,width,UiKit.Gold);
-            // A final submission may enter S09 during the nonblocking stamp tail.
-            // Keep the score frame stable, but never show an old hand's action budgets there.
-            bool activeHand=ViewState.hand!=null&&(ViewState.phase=="HandReady"||ViewState.phase=="Selecting");
-            if(activeHand)DrawBudgetCounters07(p,432);
-            if(activeHand)
-            {
-                var r=Session.PreviewStageSettlement();
-                UiKit.Text(p,"Qualified","现在结束的奖励",18,508,width-36,40,18,UiKit.Gold);
-                if(r!=null)
-                {
-                    // v1.1 (W09): gold amounts with thousands separators (text proposal 3.3).
-                    string[] lines={"基础奖励  +"+PlayerNumberFormat.Gold(r.baseReward),"剩次奖励  +"+PlayerNumberFormat.Gold(r.unusedSubmissionReward),"预计利息  +"+PlayerNumberFormat.Gold(r.interest)+(r.controllerIncome>0?"  ·  铁饭碗 +"+PlayerNumberFormat.Gold(r.controllerIncome):"")};
-                    for(int i=0;i<lines.Length;i++)UiKit.Text(p,"QualifiedReward"+i,lines[i],18,548+i*40,width-36,40,18,UiKit.Paper);
-                }
-                // v1.1 (text proposal 5 #4): only with a 存钱罐 (own or copied), named instead of its id.
-                int income=ViewSources.Count(s=>s.abilityId=="C01")*Config.Controller("C01").parameters.goldPerValidSubmission;
-                if(income>0)UiKit.Text(p,"QualifiedContinueIncome","续交 "+NameOf("C01")+"  +"+income+" / 次",18,660,width-36,40,18,UiKit.Gold);
-            }
-            DrawModifierChip10(p,width); // p1.0.0: the boss readout stays visible after the stage is qualified
-            if(IsDebugWorkspace)UiKit.Box(main,"DebugMark",0,0,1920,6,UiKit.Violet);
-        }
-        private void QualifiedStat07(Transform parent,string id,string label,string value,float y,float width,Color color,string rawScore=null)
-        {
-            // rc.2: the same recessed well and colour key as the ordinary header; same rectangle as before.
-            UiKit.Inset(parent,id+"Frame",12,y,width-24,86);
-            UiKit.Box(parent,id+"Accent",16,y+12,3,62,new Color(color.r,color.g,color.b,.9f));
-            UiKit.Text(parent,id+"Label",label,26,y+2,width-52,34,16,UiKit.Muted);
-            if(rawScore!=null)StageProgress072(parent,y+12,width,16,width-56,rawScore,true);
-            var t=UiKit.Text(parent,id,value,26,y+34,width-52,50,23,color);
-            t.textWrappingMode=TextWrappingModes.NoWrap;t.overflowMode=TextOverflowModes.Ellipsis;
-            ReadoutStyle072(t,id,value);
-        }
     }
 }

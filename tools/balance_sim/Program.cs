@@ -55,7 +55,7 @@ public static class Program
                 case "cards": return Cards(int.Parse(Arg(args, "--hands", "1500")), Arg(args, "--out", null));
                 case "scen": return Scenarios(int.Parse(Arg(args, "--hands", "3000")), Arg(args, "--out", null));
                 case "probe": return Probe();
-                case "trace": return Trace(uint.Parse(Arg(args, "--seed", "5000")), int.Parse(Arg(args, "--steps", "80")), Arg(args, "--out", "trace.json"));
+                case "trace": return Trace(uint.Parse(Arg(args, "--seed", "5000")), int.Parse(Arg(args, "--steps", "80")), Arg(args, "--out", "trace.json"), args.Contains("--full"));
                 case "run": Runner.Prepared = args.Contains("--prepared"); Runner.Lab = args.Contains("--lab"); return Runs(uint.Parse(Arg(args, "--first", "1000")), int.Parse(Arg(args, "--seeds", "200")), Arg(args, "--out", null), args.Contains("--weak"), path);
                 default: Console.WriteLine("unknown mode"); return 2;
             }
@@ -702,9 +702,8 @@ public static class Program
     }
 
     // ------------------------------------------------------------------ trace
-    /// <summary>Records the bot's first commands of one run so the packaged game can replay them (capture tour).
-    /// The tour cannot send controller reordering, so a seed whose opening needs it is refused.</summary>
-    static int Trace(uint seed, int steps, string outPath)
+    /// <summary>Records a prefix for the historical tour, or all commands through the terminal phase for release verification.</summary>
+    static int Trace(uint seed, int steps, string outPath, bool full)
     {
         var runner = new Runner(cfg, P, new BotOptions()) { recorded = new List<Dictionary<string, object>>() };
         var log = runner.Play(seed);
@@ -713,9 +712,9 @@ public static class Program
             Console.WriteLine($"seed {seed}: trace run failed diagnostics: {log.fail}; shopRejected={log.shopRejected}; optionalRejected={log.rejected}; scoreMismatches={log.mispredicted}; quoteMismatches={log.quoteMismatch}");
             return 1;
         }
-        var all = runner.recorded; var head = all.Take(steps + 1).ToList();
-        if (head.Count <= steps) { Console.WriteLine($"seed {seed}: run ended after {all.Count - 1} commands, fewer than {steps}"); return 3; }
-        if (head.Any(s => (string)s["kind"] == "ReorderControllers")) { Console.WriteLine($"seed {seed}: opening uses ReorderControllers, pick another seed"); return 4; }
+        var all = runner.recorded; var head = full ? all : all.Take(steps + 1).ToList();
+        if (!full && head.Count <= steps) { Console.WriteLine($"seed {seed}: run ended after {all.Count - 1} commands, fewer than {steps}"); return 3; }
+        if (!full && head.Any(s => (string)s["kind"] == "ReorderControllers")) { Console.WriteLine($"seed {seed}: opening uses ReorderControllers, pick another seed"); return 4; }
         var replay = new GameSession(cfg, new MemorySaveStore()); int lootDecisions = 0, extraLootPicks = 0;
         var replayOptions = new JsonSerializerOptions { IncludeFields = true, Converters = { new System.Text.Json.Serialization.JsonStringEnumConverter() } };
         for (int i = 0; i < head.Count; i++)
@@ -731,7 +730,14 @@ public static class Program
             if (!result.accepted) throw new InvalidOperationException($"Trace replay rejected step {i} {command.kind}: {result.error}");
         }
         Console.WriteLine($"trace replay: accepted={head.Count}, rejected=0, initialLootDecisions={lootDecisions}, extraLootPicks={extraLootPicks}; full-run shopRejected={log.shopRejected}, scoreMismatches={log.mispredicted}");
-        File.WriteAllText(outPath, JsonSerializer.Serialize(new Dictionary<string, object> { ["seed"] = seed, ["configVersion"] = cfg.configVersion, ["policy"] = "balance_sim bot, legal commands only", ["steps"] = head },
+        var trace = new Dictionary<string, object> { ["seed"] = seed, ["configVersion"] = cfg.configVersion, ["policy"] = "balance_sim bot, legal commands only", ["steps"] = head };
+        if (full)
+        {
+            if (replay.State?.phase != "RunWon" && replay.State?.phase != "RunFailed")
+                throw new InvalidOperationException("Full trace did not reach a terminal phase");
+            trace["terminalPhase"] = replay.State.phase;
+        }
+        File.WriteAllText(outPath, JsonSerializer.Serialize(trace,
             new JsonSerializerOptions { WriteIndented = true, Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping }));
         Console.WriteLine($"seed {seed}: wrote {head.Count} steps ({string.Join(",", head.GroupBy(s => (string)s["kind"]).Select(g => g.Key + "=" + g.Count()))}); run reached stage {log.reached}, won={log.won}");
         return 0;

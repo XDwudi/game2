@@ -611,7 +611,7 @@ namespace DiceCraft
             var result=UiKit.Rect(p,"Result",1030,18,446,378);
             UiKit.Text(result,"After",(whole?"购买后 · ":"购买后\n")+UpgradeFaceDescription07(newDie,newFace,whole),0,0,442,218,25,UiKit.Paper);
             var current=after.hand?.currentResults.FirstOrDefault(d=>d.dieId==cmd.targetDieId);
-            UiKit.Text(result,"Current",current?.hasRolled==true?"当前投出另计："+current.currentPip+"点 "+ColorText07(current.currentColor):"当前投出：未生成\n未修改其他物理面",0,242,442,118,22,UiKit.Muted);
+            UiKit.Text(result,"Current",current?.hasRolled==true?"本手朝上："+current.currentPip+" 点"+ColorText07(current.currentColor)+"（这次不受影响）":"还没掷",0,242,442,118,22,UiKit.Muted);
             UiKit.Text(p,"TargetFace",whole?"整骰玻璃材质":FaceName11(faceId)+" · 永久面",504,354,450,48,23,UiKit.Gold,TextAlignmentOptions.Center);
             var focus=UiKit.Rect(p,"TargetOutline",566,70,304,260);UiKit.Outline(focus,"Line",0,0,304,260,UiKit.Gold,3);var focusGroup=UiKit.Component<CanvasGroup>(focus.gameObject);
             var wipe=UiKit.Box(p,"MaterialWipe",568,72,300,3,UiKit.Gold);

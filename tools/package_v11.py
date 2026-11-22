@@ -260,8 +260,6 @@ def package(root, platform, proof_path, binary2text):
     name = f"{TOP}-{TARGET[platform][-1]}.zip"
     archive = root / "Releases" / VERSION / name
     receipt = root / "evidence/v11/packages" / (name + ".json")
-    if archive.exists() or receipt.exists():
-        raise FileExistsError("An archive or receipt already exists for " + name)
     archive.parent.mkdir(parents=True, exist_ok=True)
     receipt.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(dir=archive.parent) as zip_temp, tempfile.TemporaryDirectory(dir=receipt.parent) as proof_temp:
@@ -279,12 +277,20 @@ def package(root, platform, proof_path, binary2text):
                  "macOSLaunch": "未验证" if platform == "macos" else "不适用"}
         draft = Path(proof_temp) / receipt.name
         draft.write_text(json.dumps(proof, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-        os.link(pending, archive)  # Both links publish atomically and refuse existing outputs.
+        # If interrupted between the two file publications, a retry rebuilds/reads back the ZIP
+        # and fills the missing side. A different archive or receipt is never overwritten.
+        if receipt.exists() and delivery.read_json(receipt) != proof:
+            raise FileExistsError("Existing package receipt differs: " + str(receipt))
+        try:
+            os.link(pending, archive)
+        except FileExistsError:
+            if delivery.sha(archive) != proof["sha256"]:
+                raise FileExistsError("Existing player archive differs: " + str(archive))
         try:
             os.link(draft, receipt)
-        except OSError:
-            archive.unlink()
-            raise
+        except FileExistsError:
+            if delivery.read_json(receipt) != proof:
+                raise FileExistsError("Existing package receipt differs: " + str(receipt))
     return proof
 
 

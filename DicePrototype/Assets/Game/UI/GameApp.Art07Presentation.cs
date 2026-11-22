@@ -241,7 +241,7 @@ namespace DiceCraft
                 case "TemporaryDieExpired":return "本关临时骰已到期";
                 case "hand_roll_bonus":return "附魔：掷骰 +"+e.Operand+" · 本手可掷 "+e.AfterValue;
                 case "qualified":return "本关目标已达成";
-                case "run_result":return e.AfterValue=="RunWon"?"24关完成":"本次挑战结束";
+                case "run_result":return e.AfterValue=="RunWon"?"24 关全部通过":"这一局结束了";
                 default:return "状态已更新";
             }
             string value=e.Operand??e.AfterValue??"";

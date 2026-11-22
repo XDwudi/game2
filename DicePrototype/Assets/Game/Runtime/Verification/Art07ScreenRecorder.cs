@@ -193,10 +193,26 @@ namespace DiceCraft.Verification
             if(app.Session.State.lastSubmission==null||app.Session.State.lastSubmission.breakdown.score=="0")throw new InvalidOperationException("No real positive submission for history/shop.");
             yield return Press("PreviousSubmission");yield return Capture("history-detail","S07","Historical detail from preceding real Submit receipt.");yield return Press("CloseDialog");
             if(app.Session.State.phase!="StageSettlement")yield return Press("EndStage",true);
+            // W15 guards Continue while the receipt is revealing. Record the final receipt and then use its real control.
+            double deadline=Time.realtimeSinceStartupAsDouble+10;
+            while(app.SettlementRevealPlaying07&&Time.realtimeSinceStartupAsDouble<deadline)yield return null;
+            if(app.SettlementRevealPlaying07)throw new TimeoutException("The stage receipt did not finish revealing.");
             yield return Capture("stage-settlement","S09","Real settlement after debug target met by Submit; not normal balance evidence.");yield return Press("SettlementContinue",true);
             state=app.Session.State;
             if(state.phase!="Shop"||state.shop.offers.Count(o=>o.category=="controller")!=6||state.shop.offers.Count(o=>o.category=="consumable")!=5)throw new InvalidOperationException("Expanded shop did not generate six/five quotes.");
-            for(int i=0;i<5;i++){yield return Press("Tab"+i);yield return Capture("shop-tab-"+i,"S10","Actual generated shop; fixed six controller quotes, lower tab "+i+".");}
+            // W14 presents the five former shop sections together. Inspect every one and record each real product page.
+            foreach(string id in new[]{"ControllerShelf","ShopProducts","DiceCounter","Build14","OwnedStrip"})Find<RectTransform>(id);
+            yield return Capture("shop-overview","S10","Actual expanded shop with the card shelf, upgrades, dice, build and owned dice.");
+            foreach(var pages in new[]{("ProductsNext14","ProductsPrev14","products"),("CounterNext14","CounterPrev14","dice")})
+            {
+                int page=1;
+                while(TryFind<Button>(pages.Item1)?.IsInteractable()==true)
+                {
+                    yield return Press(pages.Item1);
+                    yield return Capture("shop-"+pages.Item3+"-page-"+(++page),"S10","Actual next page on the expanded shop.");
+                }
+                while(page-->1)yield return Press(pages.Item2);
+            }
             yield return ApplyFixture(Art07FixtureKind.Debug32,false,true);yield return Capture("debug32-table","S21","Explicit 32 dice/controllers/items/capacity; real table pagination.");
             yield return Press("DebugWorkspace");yield return Press("ReloadDebugDraft");
             foreach(string tab in new[]{"DebugTab0","DebugTab3","DebugTab1","DebugNav3","DebugTab2","DebugNav5","DebugTab4"})
@@ -231,7 +247,7 @@ namespace DiceCraft.Verification
             var state=app.Session.State;
             if(state.dice.Count!=32||state.controllers.Count!=32||state.inventory.Count!=32)throw new InvalidOperationException("Applied Debug32 counts changed.");
             var controllers=TryFind<TextMeshProUGUI>("ControllerCount");
-            if(controllers!=null&&!controllers.text.StartsWith("控制器 32 / 32",StringComparison.Ordinal))throw new InvalidOperationException("Stale controller candidate form: "+controllers.text);
+            if(controllers!=null&&!controllers.text.StartsWith("卡牌 32 / 32",StringComparison.Ordinal))throw new InvalidOperationException("Stale controller candidate form: "+controllers.text);
             var dice=TryFind<TextMeshProUGUI>("DiceCount");if(dice!=null&&dice.text!="32 / 32")throw new InvalidOperationException("Stale dice candidate form: "+dice.text);
             var items=TryFind<TextMeshProUGUI>("ItemsDebug");if(items!=null&&!items.text.Contains("32 / 32"))throw new InvalidOperationException("Stale item candidate form: "+items.text);
             var face=TryFind<Button>("CurrentFace");var pip=TryFind<Button>("CurrentPip");

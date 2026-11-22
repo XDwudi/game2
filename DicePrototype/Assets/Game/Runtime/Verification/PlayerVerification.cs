@@ -504,9 +504,9 @@ namespace DiceCraft.Verification
                     ExportCheckpoint(state);
                 if (state.stage.qualified && state.phase == "HandReady" && screenshots.All(x => !x.StartsWith("normal-qualified", StringComparison.Ordinal))) yield return CaptureResolutionSet("normal-qualified-continue-or-end");
                 if (state.phase == "StageSettlement") yield return Capture("normal-stage-" + (state.stage.stageIndex + 1));
-                else if (state.phase == "Shop" && screenshots.All(x => !x.StartsWith("normal-shop", StringComparison.Ordinal)))
+                else if (state.phase == "Shop" && !app.LootPage15 && screenshots.All(x => !x.StartsWith("normal-shop", StringComparison.Ordinal)))
                     {
-                        yield return VerifyV07ShopTabs();
+                        yield return VerifyShopShelves14();
                         yield return CaptureResolutionSet("normal-shop");
                     }
                 else if (state.phase == "Selecting" && state.hand.hasRolled && !app.IsBusy && screenshots.All(x => !x.StartsWith("normal-selecting", StringComparison.Ordinal)))
