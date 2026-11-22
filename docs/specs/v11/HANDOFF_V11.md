@@ -214,8 +214,8 @@
 ## 7 仍待用户决定的事
 
 1. `codex/v1.1` 要不要先推送到 GitHub 作备份。如果接手的 GPT 在云端、要从 GitHub 拉代码，就必须先推送。
-2. 已发布的 p0.9、p1.0 预发布包里没有字体许可证，要不要补。p1.1.0 起按 FONTS_WRAP §6 带上。
-3. 清理 672 MB 的临时文件和测试留下的临时文件夹。
+2. ~~已发布的 p0.9、p1.0 预发布包里没有字体许可证~~ 已补（用户 2026-11-22“字体许可证补”）：两个发布各加附件 `FONT-LICENSES.zip` 并在说明里加了一段，游戏包没有改动（STATE）。p1.1.0 起按 FONTS_WRAP §6 把 `Licenses/` 放进包里。
+3. ~~`.git` 里 672 MB 的临时文件~~ 已删（用户 2026-11-22“清理git的文件夹”）。约 2.6 GiB 的零散对象等没有 agent 工作时用 `git -c gc.reflogExpire=never -c gc.reflogExpireUnreachable=never gc --prune=never` 打包（不删除对象，不要与 Unity 测试或其他 git 写入同时跑）。测试留下的临时文件夹没有清理，要删前先问用户。
 
 ## 8 接手后的第一步
 
