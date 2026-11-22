@@ -275,7 +275,8 @@ namespace DiceCraft
         private static float StageParagraph16(RectTransform card, string name, string value, float y, float size, Color color)
         {
             var text = UiKit.Text(card, name, value, 24, y, StageContent16, 1, size, color);
-            float h = Mathf.Ceil(text.GetPreferredValues(value, StageContent16, 0).y) + 3;
+            text.text = WrapParagraph21(text,value,StageContent16);
+            float h = Mathf.Ceil(text.GetPreferredValues(text.text, StageContent16, 0).y) + 3;
             text.rectTransform.sizeDelta = new Vector2(StageContent16, h);
             return y + h;
         }

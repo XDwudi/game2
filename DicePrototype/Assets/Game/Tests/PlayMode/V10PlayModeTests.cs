@@ -42,6 +42,12 @@ namespace DiceCraft.Tests
             // V1.1 (W11b, PLAY_LAYOUT 8 row 33): a two-line effect breaks at the punctuation nearest its middle; that line
             // break is the only difference from the short text.
             Assert.That(body.text.Replace("\n", ""), Is.EqualTo(app.Config.Modifier(modifierId).shortText)); Assert.That(body.isTextOverflowing, Is.False, "The short text of " + modifierId + " must fit its box.");
+            foreach(var paragraph in new[]{body,FindActive<TextMeshProUGUI>("BossLoot11")})
+            {
+                paragraph.ForceMeshUpdate();
+                Assert.That(paragraph.textInfo.lineCount,Is.EqualTo(1+paragraph.text.Count(c=>c=='\n')),
+                    modifierId+" "+paragraph.name+" must use explicit word-aware lines in the actual font");
+            }
             // Both lines must really be drawn: every non-blank character has a visible glyph that lies inside the readout.
             foreach (var text in new[] { FindActive<TextMeshProUGUI>("BossModifierName"), body })
             {

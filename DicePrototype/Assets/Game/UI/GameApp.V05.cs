@@ -23,9 +23,12 @@ namespace DiceCraft
             new[]{"栏位",$"卡牌栏位开局 {Config.initialControllerSlots} 个，商店服务“扩充栏位”最多加到 {Config.maxOrdinaryControllerSlots} 个。带“不占栏位”附魔的卡牌不占栏位；所有卡牌合计最多 {Config.maxControllerInstances} 张。"},
             new[]{"祭坛","每关开始时摧毁它右侧相邻的卡牌并成长。把它放在最右边就不会摧毁任何东西；想喂它，就把便宜的卡排在它右边。"}
         };
-        private void DrawHandbookRules09(Transform p)
+        private void DrawHandbookRules09(Transform p,RectTransform paper)
         {
-            var list=UiKit.Scroll(p,"HandbookScroll",24,144,1456,720,720);float y=8;
+            var frame=FrameInsets11(paper.GetComponent<UnityEngine.UI.Image>());
+            float top=Mathf.Max(144,-paper.anchoredPosition.y+frame.w+2);
+            float bottom=Mathf.Min(864,-paper.anchoredPosition.y+paper.rect.height-frame.y-2);
+            var list=UiKit.Scroll(p,"HandbookScroll",24,top,1456,bottom-top,720);float y=8;
             // p1.0.0: the cycle, boss and face-growth rules follow the v0.9 rows on the same page.
             var rules=HandbookRules09.Concat(HandbookRules10()).ToArray();
             for(int i=0;i<rules.Length;i++)
@@ -50,11 +53,17 @@ namespace DiceCraft
             UiKit.Button(p,"Tutorial","练习模式",688,12,352,60,()=>{CloseModal();BeginTutorial();});
             UiKit.Button(p,"ReviewGuide","重新查看引导",1056,12,336,60,ShowGuide07);
             // p0.9.0: a third page explains growth, retriggers, pool dice, hand multiplier adds and slots.
-            UiKit.FlatButton(p,"HandbookHands","牌型",24,76,476,60,()=>{handbookColors=false;handbookRules09=false;ShowHandbook();},true,!handbookColors&&!handbookRules09);
-            UiKit.FlatButton(p,"HandbookColors","颜色与红组",514,76,476,60,()=>{handbookColors=true;handbookRules09=false;ShowHandbook();},true,handbookColors&&!handbookRules09);
-            UiKit.FlatButton(p,"HandbookRules09","进阶规则",1004,76,476,60,()=>{handbookRules09=true;ShowHandbook();},true,handbookRules09);
+            void Tab(string id,string caption,float x,Action choose,bool selected)
+            {
+                var button=UiKit.FlatButton(p,id,caption,x,76,476,60,choose,true,selected);
+                if(selected)
+                    button.transform.Find("Label").GetComponent<TextMeshProUGUI>().color=CueOn11((UnityEngine.UI.Image)button.targetGraphic,UiKit.Gold);
+            }
+            Tab("HandbookHands","牌型",24,()=>{handbookColors=false;handbookRules09=false;ShowHandbook();},!handbookColors&&!handbookRules09);
+            Tab("HandbookColors","颜色与红组",514,()=>{handbookColors=true;handbookRules09=false;ShowHandbook();},handbookColors&&!handbookRules09);
+            Tab("HandbookRules09","进阶规则",1004,()=>{handbookRules09=true;ShowHandbook();},handbookRules09);
             var paper=UiKit.PaperFrame(p,"HandbookPaper",16,140,1472,732,UiKit.Paper);
-            if(handbookRules09){DrawHandbookRules09(p);Canvas.ForceUpdateCanvases();return;}
+            if(handbookRules09){DrawHandbookRules09(p,paper);Canvas.ForceUpdateCanvases();return;}
             var preview=Session?.PreviewScoreRange()?.minimum;
             if(!handbookColors)
             {

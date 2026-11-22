@@ -45,6 +45,11 @@ namespace DiceCraft
                 }
                 var label=UiKit.Box(cell,"NameChip",Large11?97:112,Large11?172:240,Large11?160:130,Large11?44:40,Color.white).GetComponent<Image>();label.sprite=UiKit.Template("ui_chip_label");label.type=label.sprite!=null?Image.Type.Sliced:Image.Type.Simple;
                 var name=UiKit.Text(label.transform,"Name",StyleNames073[i],0,0,Large11?160:130,Large11?44:40,22,LabelOn11(label,UiKit.Ink),TextAlignmentOptions.Center);name.fontStyle=FontStyles.Bold;
+                if(Large11)
+                {
+                    var frame=FrameInsets11(label);
+                    CenterLabelInk24(name,frame.w,label.rectTransform.rect.height-frame.y);
+                }
                 var note=UiKit.Text(cell,"Note",notes[i],16,Large11?222:288,322,Large11?130:58,19.5f,LabelOn11(back,UiKit.Muted),TextAlignmentOptions.Top);
                 note.lineSpacing=-6;
             }

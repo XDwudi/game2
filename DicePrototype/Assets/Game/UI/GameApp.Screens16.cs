@@ -62,7 +62,14 @@ namespace DiceCraft
                 var name=tile.transform.Find("Label").GetComponent<TextMeshProUGUI>();
                 name.rectTransform.anchoredPosition=new Vector2(8,-228);
                 name.rectTransform.sizeDelta=new Vector2(384,Large11?52:44);
-                name.color=LabelOn11(tile.targetGraphic as Image,UiKit.Ink);
+                var face=(Image)tile.targetGraphic;
+                name.color=LabelOn11(face,UiKit.Ink);
+                if(Large11)
+                {
+                    var r=preview.rectTransform;
+                    float top=-r.anchoredPosition.y+r.rect.height;
+                    CenterLabelInk24(name,top,face.rectTransform.rect.height-FrameInsets11(face).y);
+                }
                 if(selected)
                 {
                     UiKit.Outline(tile.transform,"CurrentTheme16",-4,-4,408,height+8,UiKit.Gold,4);

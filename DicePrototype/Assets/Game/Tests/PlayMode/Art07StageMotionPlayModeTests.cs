@@ -51,15 +51,22 @@ namespace DiceCraft.Tests
                 Assert.That(motion.IsPlaying,Is.True);Assert.That(motion.Duration,Is.EqualTo(reduce?.08f:.16f).Within(.0001));
                 Assert.That(motion.Offset,Is.EqualTo(reduce?0:20).Within(.01));
                 var controllers=app.canvas.GetComponentsInChildren<RectTransform>(false).Where(r=>r.name.StartsWith("Controller_",StringComparison.Ordinal)).ToDictionary(r=>r.name,r=>r.position);
+                var card=FindActive<RectTransform>("CycleCard0");
+                var entranceSamples=new List<(float position,float offset)>();
                 double deadline=Time.realtimeSinceStartupAsDouble+2;
                 while(motion.IsPlaying&&Time.realtimeSinceStartupAsDouble<deadline)
                 {
-                    Assert.That(FindActive<RectTransform>("CycleCard0").anchoredPosition.y,Is.EqualTo(-432-motion.Offset).Within(.01));
+                    entranceSamples.Add((card.anchoredPosition.y,motion.Offset));
                     AssertInteractionCheckpoint07(before,disk,seq);
                     foreach(var c in controllers)Assert.That(FindActive<RectTransform>(c.Key).position,Is.EqualTo(c.Value));
                     yield return null;
                 }
                 Assert.That(motion.IsPlaying,Is.False);Assert.That(motion.Elapsed,Is.EqualTo(motion.Duration).Within(.0001));Assert.That(motion.Offset,Is.Zero);
+                float settledY=card.anchoredPosition.y;
+                Assert.That(settledY,Is.EqualTo(UiKit.FontScale>=1.25f?-468f:-448f).Within(.01),"W16 stage row at rest.");
+                Assert.That(entranceSamples,Is.Not.Empty);
+                foreach(var sample in entranceSamples)
+                    Assert.That(sample.position,Is.EqualTo(settledY-sample.offset).Within(.01),"Rendered position must follow the real entrance offset.");
                 yield return StageMotionPointer07("Normal");Assert.That(motion.EnterSequence,Is.EqualTo(enters));Assert.That(motion.IsPlaying,Is.False);AssertInteractionCheckpoint07(before,disk,seq);
                 yield return StageMotionPng07("stage-"+(reduce?"reduced":"normal")+"-settled");
                 yield return StageMotionPointer07("StartStage");Assert.That(app.Session.State.phase,Is.EqualTo("HandReady"));Assert.That(app.IsBusy,Is.False);

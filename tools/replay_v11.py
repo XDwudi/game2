@@ -87,6 +87,18 @@ def check_run(root, theme, directory, proof, trace_path, trace, data_path):
             or tour.get("terminalPhase") != trace["terminalPhase"] or tour.get("traceSteps") != steps
             or tour.get("stepsSent") != steps or tour.get("logErrors") != 0 or tour.get("finalStage") != trace["finalStage"]):
         raise ValueError("R-05 actual theme, player identity, logs or completed trace differs: " + theme)
+    title_atlas = {key: tour.get("titleAtlas" + key) for key in
+                   ("Format", "Readable", "Width", "Height", "MipCount", "TextureBytes", "RuntimeBytes")}
+    if theme in pack.THEMES:
+        if (not title_atlas["Format"] or title_atlas["Readable"] is not False
+                or (title_atlas["Width"], title_atlas["Height"]) != (2048, 2048)
+                or not isinstance(title_atlas["MipCount"], int) or title_atlas["MipCount"] < 1
+                or not isinstance(title_atlas["TextureBytes"], int) or title_atlas["TextureBytes"] <= 0
+                or not isinstance(title_atlas["RuntimeBytes"], int) or title_atlas["RuntimeBytes"] < 0):
+            raise ValueError("Missing Windows title atlas measurement: " + theme)
+    elif title_atlas != {"Format": "", "Readable": False, "Width": 0, "Height": 0,
+                         "MipCount": 0, "TextureBytes": 0, "RuntimeBytes": 0}:
+        raise ValueError("Unexpected theme-specific title atlas: " + theme)
     text = log.read_text(encoding="utf-8-sig", errors="replace")
     if not text.strip() or ERROR_LINE.search(text):
         raise ValueError("Empty player log or Unity exception: " + theme)
@@ -117,7 +129,7 @@ def check_run(root, theme, directory, proof, trace_path, trace, data_path):
                 visible_pages.add(pixels)
         pictures.append(ref(root, path))
     return {"theme": theme, "exitCode": 0, "report": ref(root, raw), "playerLog": ref(root, log),
-            "images": pictures, "steps": steps, "terminalPhase": tour["terminalPhase"]}
+            "images": pictures, "steps": steps, "terminalPhase": tour["terminalPhase"], "titleAtlas": title_atlas}
 
 
 def verify_index(root, index_path, proof):

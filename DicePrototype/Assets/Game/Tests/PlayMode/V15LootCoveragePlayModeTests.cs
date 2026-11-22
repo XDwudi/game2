@@ -8,6 +8,7 @@ using DiceCraft.Core;
 using NUnit.Framework;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
 
@@ -344,6 +345,39 @@ namespace DiceCraft.Tests
             Assert.That(StateJson(),Is.EqualTo(state),name);CollectionAssert.AreEqual(disk,File.ReadAllBytes(app.SaveLocation),name);
         }
 
+        private void CheckLootDieTargets15(ShopOffer[] offers)
+        {
+            Canvas.ForceUpdateCanvases();
+            foreach(var offer in offers)
+            {
+                var card=FindActive<RectTransform>("Product_"+offer.offerId);
+                var die=card.GetComponentInChildren<Art073DieView>();
+                var cell=(RectTransform)die.transform;
+                var claim=Button("Buy_"+offer.offerId);
+                Assert.That(claim.IsInteractable(),Is.True,offer.offerId);
+                Assert.That(Art073Inside(V06ScreenRect(cell),V06ScreenRect(card)),Is.True,offer.offerId);
+                foreach(float x in new[]{-29.5f,29.5f})
+                    foreach(float y in new[]{-29.5f,29.5f})
+                    {
+                        var corner=cell.rect.center+new Vector2(x,y);
+                        var point=RectTransformUtility.WorldToScreenPoint(null,cell.TransformPoint(corner));
+                        Assert.That(Art071RaycastTarget(point),Is.SameAs(die.gameObject),offer.offerId+" preview "+corner);
+                    }
+                var claimBox=V06ScreenRect((RectTransform)claim.transform);
+                Assert.That(Art073Overlap(V06ScreenRect(cell),claimBox,0),Is.False,offer.offerId);
+                Assert.That(Art071RaycastTarget(claimBox.center),Is.SameAs(claim.gameObject),offer.offerId+" claim");
+            }
+            var first=FindActive<RectTransform>("Product_"+offers[0].offerId).GetComponentInChildren<Art073DieView>();
+            var firstCell=(RectTransform)first.transform;
+            var edge=RectTransformUtility.WorldToScreenPoint(null,firstCell.TransformPoint(firstCell.rect.center+Vector2.right*29.5f));
+            var target=Art071RaycastTarget(edge);
+            var pointer=new PointerEventData(EventSystem.current){position=edge,button=PointerEventData.InputButton.Left};
+            Assert.That(target,Is.SameAs(first.gameObject));
+            ExecuteEvents.Execute(target,pointer,ExecuteEvents.pointerClickHandler);
+            Assert.That(HasActive("CandidateFaces"),Is.True,"Clicking the die opens its details without claiming it.");
+            Click("CloseDialog");
+        }
+
         [UnityTest] public IEnumerator PLAY_V15_SE13_ThemeDefaultAndMissingUseTheRenderedFallbacks()
         {
             yield return LoadBoundaryFixture(BeforeBossLoot15("L1"));ResumeBoundaryFixture();FinalOptions07("Instant",false);
@@ -456,11 +490,19 @@ namespace DiceCraft.Tests
                         if(kind=="L4")UpgradeQuote24(shop,"LOOT","U06");
                         yield return Load(shop);yield return Check(kind+"-P0");
                         var offers=GroupOffers24(shop);
+                        if(kind=="L5")
+                        {
+                            string state=StateJson();
+                            CheckLootDieTargets15(offers);
+                            yield return W11Settle();
+                            Assert.That(StateJson(),Is.EqualTo(state),"Previewing a die must not claim it.");
+                        }
                         var first=kind=="L4"?offers.First(o=>o.contentId=="U06"):offers[0];
                         foreach(var offer in new[]{first}.Concat(offers.Where(o=>o.offerId!=first.offerId)))
                         {
                             if(!HasActive("Buy_"+offer.offerId)||!Button("Buy_"+offer.offerId).interactable)continue;
-                            Click("Buy_"+offer.offerId);
+                            if(kind=="L5")Art071PointerClick("Buy_"+offer.offerId);
+                            else Click("Buy_"+offer.offerId);
                             if(kind=="L4")
                             {
                                 bool sample=offer.offerId==first.offerId;

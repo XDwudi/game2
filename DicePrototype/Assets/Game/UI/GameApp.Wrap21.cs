@@ -28,6 +28,11 @@ namespace DiceCraft
         private static string WrapLines21(TextMeshProUGUI label, string text, float width, int maxLines)
             => WrapMeasured21(label, text, width, maxLines, label.fontSize, false);
 
+        // These paragraphs grow or fit their font to the measured height. Keep the balanced two-line
+        // layout when it fits, and give longer texts explicit whole-word lines before TMP measures them.
+        private static string WrapParagraph21(TextMeshProUGUI label,string text,float width)
+            => WrapMeasured21(label,text,width,2,label.fontSize,true) ?? WrapLines21(label,text,width,int.MaxValue) ?? text;
+
         private static string WrapBalanced21(TextMeshProUGUI label, string text, float width)
         {
             if (string.IsNullOrEmpty(text) || text.IndexOf('\n') >= 0 || text.Length < 6) return text;

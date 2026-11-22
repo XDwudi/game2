@@ -283,11 +283,17 @@ class Publication11Tests(unittest.TestCase):
                 frame = Image.new("RGB", replay.WINDOW_SIZE, (20 + theme_index, 60 + i, 80))
                 frame.paste("white", (32, 64, 180, 110))
                 frame.save(sub / name, compress_level=1)
+            custom_title = theme in pack.THEMES
+            atlas_size = 2048 if custom_title else 0
             write(sub, "tour.json", {"schema": "v11-windows-replay-1", "theme": theme, "images": images, "status": "completed",
                                      "error": "", "buildGuid": self.windows["buildGuid"], "buildIdentity": json.dumps(gate["identity"]),
                                      "unityVersion": "6000.6.7f1", "artVersion": "art1.1.0", "rulesVersion": pack.VERSION,
                                      "isEditor": False, "platform": "WindowsPlayer", "traceSha256": pack.delivery.sha(trace_path),
                                      "playerDataPath": data_path, "terminalPhase": "RunFailed", "stepsSent": 3, "traceSteps": 3,
+                                     "titleAtlasFormat": "R8_UNorm" if custom_title else "", "titleAtlasReadable": False,
+                                     "titleAtlasWidth": atlas_size, "titleAtlasHeight": atlas_size,
+                                     "titleAtlasMipCount": int(custom_title), "titleAtlasTextureBytes": atlas_size**2,
+                                     "titleAtlasRuntimeBytes": atlas_size**2,
                                      "logErrors": 0, "finalStage": 1, "screenWidth": 1920, "screenHeight": 1080})
             runs.append(replay.check_run(self.root, theme, sub, self.windows, trace_path, trace, data_path))
         write(self.replay_dir, "index.json", {"schema": "v11-replay-index-1", "windowsPackageSha256": self.windows["sha256"],

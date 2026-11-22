@@ -335,7 +335,7 @@ namespace DiceCraft
                 {
                     name.fontSize=nameSize;body.fontSize=bodySize;lootText.fontSize=lootSize;
                     // Two-line effect and reward texts break at the punctuation nearest their middle (no one-word last line).
-                    body.text=BalancedLines11(body,bodyText,colW);lootText.text=BalancedLines11(lootText,lootLine,lootW);
+                    body.text=WrapParagraph21(body,bodyText,colW);lootText.text=WrapParagraph21(lootText,lootLine,lootW);
                     nameH=Mathf.Ceil(name.GetPreferredValues(name.text).y)+2;
                     bodyH=Mathf.Ceil(body.GetPreferredValues(body.text,colW,0).y)+2;
                     lootTop=Mathf.Max(4+emblemSize,nameH+bodyH)+6;

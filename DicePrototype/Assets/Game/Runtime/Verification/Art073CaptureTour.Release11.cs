@@ -7,6 +7,8 @@ using System.Security.Cryptography;
 using System.Threading;
 using DiceCraft.Core;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering;
+using UnityEngine.Profiling;
 
 namespace DiceCraft.Verification
 {
@@ -18,7 +20,26 @@ namespace DiceCraft.Verification
                 playerDataPath,traceSha256,terminalPhase,unityVersion,artVersion,rulesVersion;
             public bool isEditor;
             public int screenWidth,screenHeight,stepsSent,traceSteps,logErrors,finalStage;
+            public string titleAtlasFormat="";
+            public bool titleAtlasReadable;
+            public int titleAtlasWidth,titleAtlasHeight,titleAtlasMipCount;
+            public long titleAtlasTextureBytes,titleAtlasRuntimeBytes;
             public List<string> images;
+
+            public void MeasureTitleAtlas(Texture2D atlas)
+            {
+                if(atlas==null)return;
+                titleAtlasWidth=atlas.width;
+                titleAtlasHeight=atlas.height;
+                titleAtlasMipCount=atlas.mipmapCount;
+                titleAtlasFormat=atlas.graphicsFormat.ToString();
+                titleAtlasReadable=atlas.isReadable;
+                titleAtlasRuntimeBytes=Profiler.GetRuntimeMemorySizeLong(atlas);
+                // Storage of the texture data. The profiler also counts native object overhead.
+                for(int mip=0;mip<titleAtlasMipCount;mip++)
+                    titleAtlasTextureBytes+=GraphicsFormatUtility.ComputeMipmapSize(
+                        Mathf.Max(1,atlas.width>>mip),Mathf.Max(1,atlas.height>>mip),atlas.graphicsFormat);
+            }
         }
         private string releaseTheme;
         private int releaseLogErrors;
@@ -91,6 +112,7 @@ namespace DiceCraft.Verification
             measured.traceSteps=trace.steps.Length-1;
             yield return Settle(app);
             yield return new WaitForEndOfFrame();
+            measured.MeasureTitleAtlas(UiKit.TitleFont?.atlasTexture);
             measured.screenWidth=Screen.width;measured.screenHeight=Screen.height;
             if(measured.screenWidth!=1920||measured.screenHeight!=1080)
                 throw new InvalidOperationException("R-05 requires an actual 1920x1080 player window.");

@@ -101,6 +101,16 @@ namespace DiceCraft
             box=Rect.MinMaxRect(left-rect.xMin,rect.yMax-top,right-rect.xMin,rect.yMax-bottom);
             return true;
         }
+        // Place the actual lettering between two visible edges, including a themed button's bottom lip.
+        // Both edges and the label position use the parent’s top-left layout coordinates.
+        private static void CenterLabelInk24(TMPro.TextMeshProUGUI label,float top,float bottom)
+        {
+            if(!GlyphBox11(label,out var ink))return;
+            var rect=label.rectTransform;
+            float centre=-rect.anchoredPosition.y+ink.center.y;
+            rect.anchoredPosition+=Vector2.up*(centre-(top+bottom)*.5f);
+        }
+
         /// <summary>The text box of a label centred on a chip as the player sees it (W11b), in the chip's own layout coordinates
         /// (x right, y down from its top-left): as wide as the inside of the chip's drawn frame and as tall as the chip,
         /// centred on that inside, so a chip with a lip at its foot does not push its label onto the lip.</summary>

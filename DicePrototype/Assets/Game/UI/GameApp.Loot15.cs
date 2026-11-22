@@ -228,8 +228,7 @@ namespace DiceCraft
             if(o.category=="new_die")
             {
                 card.rewardDie=o.die;card.label=dieName.title;card.text=dieName.subtitle;
-                card.picture=(t,r)=>DieView073(t,"DiePreview073","shop-die-"+o.offerId,o.die,r.x,r.y,r.width,r.height,
-                    r.height/140f,false,true,()=>{if(!IsBusy)InspectOffer(o);});
+                card.picture=(t,r)=>OfferDiePreview14(t,r,o);
             }
             if(o.category=="hand_upgrade")
             {

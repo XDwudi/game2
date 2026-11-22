@@ -41,6 +41,7 @@ namespace DiceCraft
             ReceiptRule071(p,"StartRulesRule",32,400,360);
             var seedLabel=UiKit.Text(p,"SeedLabel","种子（可选）",464,100,544,56,20,UiKit.Ink);seedLabel.fontStyle=FontStyles.Bold;
             seedField=UiKit.Input(p,"SeedInput","留空则随机","",464,164,456,72);
+            seedField.placeholder.color=LabelOn11((RectTransform)seedField.transform,UiKit.Muted);
             var random=UiKit.Button(p,"RandomSeed","",936,164,72,72,()=>
             {
                 var bytes=new byte[4];using(var rng=System.Security.Cryptography.RandomNumberGenerator.Create())rng.GetBytes(bytes);

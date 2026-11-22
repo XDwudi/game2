@@ -405,8 +405,10 @@ namespace DiceCraft.Tests
                     {
                         var b=sample.box;
                         float strongest=0;bool outsideOwn=false,outsideFrame=false;
-                        for(int y=Mathf.Max(0,Mathf.CeilToInt(b.yMin));y<=Mathf.Min(shot.height-1,Mathf.FloorToInt(b.yMax));y++)
-                        for(int x=Mathf.Max(0,Mathf.CeilToInt(b.xMin));x<=Mathf.Min(shot.width-1,Mathf.FloorToInt(b.xMax));x++)
+                        // The sample below is the pixel centre (x+.5,y+.5). Include centres inside the
+                        // glyph even when a one-pixel stroke straddles an integer boundary at 720p.
+                        for(int y=Mathf.Max(0,Mathf.CeilToInt(b.yMin-.5f));y<=Mathf.Min(shot.height-1,Mathf.FloorToInt(b.yMax-.5f));y++)
+                        for(int x=Mathf.Max(0,Mathf.CeilToInt(b.xMin-.5f));x<=Mathf.Min(shot.width-1,Mathf.FloorToInt(b.xMax-.5f));x++)
                         {
                             var on=drawn[y*shot.width+x];var off=blank[y*shot.width+x];
                             int change=Math.Abs(on.r-off.r)+Math.Abs(on.g-off.g)+Math.Abs(on.b-off.b);

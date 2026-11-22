@@ -444,6 +444,15 @@ namespace DiceCraft
             }
             if(faces.Length==0&&counterPage14==pages-1)FitLine13(panel,"NoUpgrades","本店暂无改造",ShopPad14+8,y+8,w-16,18,LabelOn11(panel,UiKit.Muted),TextAlignmentOptions.MidlineLeft,false);
         }
+        // Real dice draw at their supplied scale and cell centre. The transparent cell also owns click and drag.
+        private Art073DieView OfferDiePreview14(Transform parent,Rect art,ShopOffer offer)
+        {
+            float padX=Mathf.Max(8,(60-art.width)*.5f),padY=Mathf.Max(8,(60-art.height)*.5f);
+            return DieView073(parent,"DiePreview073","shop-die-"+offer.offerId,offer.die,
+                art.x-padX,art.y-padY,art.width+2*padX,art.height+2*padY,art.height/140f,false,true,
+                ()=>{if(!IsBusy)InspectOffer(offer);});
+        }
+
         private void NewDieRow14(Transform parent,ShopOffer offer,DieName14 title,float x,float y,float w,float h)
         {
             var face=new CardFace13{contentId="new_die",category="new_die",label=title.title,categoryText=title.subtitle,price=Session.GetOfferNetPrice(offer),sold=offer.sold,disabled=offer.sold,
@@ -451,7 +460,7 @@ namespace DiceCraft
             Art073DieView view=null;
             // The block holds the real die (drag turns it, a click opens the candidate's details); its hit area is the whole
             // block over the frame band, at least 60 units (SH-06).
-            face.picture=(t,r)=>{float grow=Mathf.Max(8,(60-r.width)*.5f);view=DieView073(t,"DiePreview073","shop-die-"+offer.offerId,offer.die,r.x-grow,r.y-grow,r.width+2*grow,r.height+2*grow,r.height/140f,false,true,()=>{if(!IsBusy)InspectOffer(offer);});};
+            face.picture=(t,r)=>view=OfferDiePreview14(t,r,offer);
             var row=DrawCard13(parent,"Product_"+offer.offerId,x,y,w,h,face,CardSize13.Compact,()=>{if(!IsBusy)InspectOffer(offer);},!IsBusy);
             if(title.same)
             {

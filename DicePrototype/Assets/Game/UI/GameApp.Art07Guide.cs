@@ -80,7 +80,14 @@ namespace DiceCraft
             float close=Mathf.Max(60,40/Mathf.Max(.1f,canvas.scaleFactor));
             // Leave the paper’s printed bottom border clear at both heights.
             float textWidth=w-close-40;
-            UiKit.Text(paper,"GuideTitle",title,16,1,textWidth,46,21,LabelOn11(paper,UiKit.Ink));
+            var heading=UiKit.Text(paper,"GuideTitle",title,16,1,textWidth,46,21,LabelOn11(paper,UiKit.Ink));
+            if(GlyphBox11(heading,out var titleInk))
+            {
+                var at=heading.rectTransform.anchoredPosition;
+                float topFrame=FrameInsets11(paper.GetComponent<Image>()).w;
+                float inset=Mathf.Max(-at.y,topFrame+2-titleInk.yMin);
+                heading.rectTransform.anchoredPosition=new Vector2(at.x,-inset);
+            }
             var description=UiKit.Text(paper,"GuideBody",body,16,47,textWidth,h-56,20,LabelOn11(paper,UiKit.Ink));
             description.textWrappingMode=TextWrappingModes.Normal;description.overflowMode=TextOverflowModes.Overflow;
             UiKit.ActionButton(paper,"DismissGuide","×",w-close-8,6,close,close,DismissGuide07,UiKit.Paper);

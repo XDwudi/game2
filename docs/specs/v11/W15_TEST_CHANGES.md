@@ -53,3 +53,7 @@ W24 与 W25 在整合时增加了以下路径。验证结果记录在 STATE 与�
 | `PLAY_V15_SE11_BossEntranceRealStartAndSpeeds` | 从选关进入首领关，在真实场景里检查演出切换、速度与最终对局。 |
 
 两种窗口分别取证；实测结果和已知缺口记在 [STATE](../../STATE.md)。
+
+六套 `PLAY_V15_SE01_SE07_LootForegroundLayoutAndInk` 在操作检查中增加 L5 候选骰四角和相邻领取按钮的真实射线命中。预览的透明点击区沿用商店 60 设计单位的下限，在 720p 至少为 40 像素。另测从预览边缘进入详情、回退、点击领取后的动作及存档。[首次实测与截图](../../../artifacts/cache/v11/w24-loot/hit720/REVIEW.md)
+
+`PLAY_V25_InstalledBossEmblemsOnFourRealScreens` 覆盖六套、七族和两档字号。对局中逐一核对族图、档边和实际精灵，另在选关情报、结算与领奖验证对应图像及标签，覆盖 22、60／72 和 176 的实际显示尺寸。

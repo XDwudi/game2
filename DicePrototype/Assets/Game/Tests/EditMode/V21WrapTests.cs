@@ -63,6 +63,8 @@ namespace DiceCraft.Tests
             foreach (var c in config.consumables) entries.Add(c.id, c.shortText);
             foreach (var c in config.services) entries.Add(c.id, c.shortText);
             foreach (var c in config.diceUpgrades) entries.Add(c.id, c.shortText);
+            Assert.That(config.bossModifiers.Length,Is.EqualTo(39));
+            Assert.That(config.lootKinds.Length,Is.EqualTo(6));
             foreach (var c in config.bossModifiers) entries.Add(c.id, c.shortText);
             foreach (var c in config.lootKinds) entries.Add(c.id, c.shortText);
             Assert.That(entries.Count, Is.EqualTo(184 + 39 + 6));
@@ -87,6 +89,7 @@ namespace DiceCraft.Tests
             string output = Path.GetFullPath(Path.Combine(Application.dataPath, "../../artifacts/cache/v11/w21/wrap"));
             Directory.CreateDirectory(output);
             var exceptions = new HashSet<string>();
+            var measured = new HashSet<string>();
             var problems = new List<string>();
             int layouts = 0, notShown = 0;
             using (var report = new StreamWriter(Path.Combine(output, "layouts.tsv")))
@@ -94,7 +97,8 @@ namespace DiceCraft.Tests
                 report.WriteLine("theme\tscenario\tid\twidth\tfont\tcap\tart\ttext\tlines");
                 foreach (var frame in V21WrapMatrix.Themes)
                 foreach (var entry in entries)
-                foreach (var row in V21WrapMatrix.Cases(breaker, Measure, frame, entry.Key, entry.Value))
+                foreach (var row in V21WrapMatrix.Cases(breaker, Measure, frame, entry.Key, entry.Value,
+                    entry.Key.StartsWith("L",StringComparison.Ordinal) ? config.Loot(entry.Key).displayName : null))
                 {
                     string context = row.theme + "/" + row.scenario + "/" + row.id;
                     layouts++;
@@ -105,6 +109,7 @@ namespace DiceCraft.Tests
                         if (row.scenario.StartsWith("goods", StringComparison.Ordinal)) { notShown++; continue; }
                         problems.Add(context + " has no layout"); continue;
                     }
+                    measured.Add(context);
                     if (row.lines.Replace("\n", "").Replace(" · ", "") != row.text.Replace(" · ", ""))
                         problems.Add(context + " changes text");
                     int pos = 0;
@@ -131,11 +136,32 @@ namespace DiceCraft.Tests
                         problems.Add(context + " orphan");
                 }
             }
-            foreach (string issue in exceptions)
+            // The C116 cut falls in both nested words. Only the specified cut contexts are permitted.
+            var allowed = new[]{"default","sancai"}.SelectMany(theme=>new[]{theme+"/table7/C116 永久",
+                theme+"/table7/C116 永久骰",theme+"/table7/C124 更容易"});
+            problems.AddRange(exceptions.Except(allowed));
+            foreach(var frame in V21WrapMatrix.Themes)
+            foreach(int percent in new[]{100,150})
             {
-                string context = issue.Split(' ')[0];
-                if (context != "default/table7/C116" && context != "sancai/table7/C116" &&
-                    context != "default/table7/C124" && context != "sancai/table7/C124") problems.Add(issue);
+                void Require(string variant,string id)
+                {
+                    string key=frame.theme+"/"+variant+percent+"/"+id;
+                    if(!measured.Contains(key))problems.Add("Missing measured layout "+key);
+                }
+                foreach(var boss in config.bossModifiers){Require("stage",boss.id);Require("stage-select",boss.id);}
+                foreach(var loot in config.lootKinds)
+                {
+                    foreach(string variant in new[]{"stage","stage-select","claim","settlement"})Require(variant,loot.id);
+                    if(frame.bossLootWidth!=344)Require("stage-lifted",loot.id);
+                }
+                foreach(var upgrade in config.diceUpgrades)Require("face",upgrade.id);
+                Require("face","O04");
+                for(int i=0;i<V21WrapMatrix.FaceLines.Length;i++)
+                {
+                    string key=frame.theme+"/face",suffix=percent+"/F"+i;
+                    if(!measured.Contains(key+suffix)&&!measured.Contains(key+"-beside-die"+suffix))
+                        problems.Add("Missing measured face sample "+frame.theme+" "+percent+" F"+i);
+                }
             }
             TestContext.WriteLine("FW-11 layouts=" + layouts + ", optional goods texts too long for two lines=" + notShown +
                                   ", word breaks=" + string.Join(", ", exceptions) + ", output=" + output);

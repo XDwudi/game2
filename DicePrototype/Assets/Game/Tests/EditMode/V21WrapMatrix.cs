@@ -9,20 +9,20 @@ namespace DiceCraft.Tests
         public sealed class Frame
         {
             public string theme;
-            public float shopSides, shopTop, shopBottom, tableSides, tableTop, tableBottom, ring;
-            public Frame(string theme, float shopSides, float shopTop, float shopBottom, float tableSides, float tableTop, float tableBottom, float ring)
+            public float shopSides, shopTop, shopBottom, tableSides, tableTop, tableBottom, ring, bossLootWidth;
+            public Frame(string theme, float shopSides, float shopTop, float shopBottom, float tableSides, float tableTop, float tableBottom, float ring, float bossLootWidth)
             {
                 this.theme = theme; this.shopSides = shopSides; this.shopTop = shopTop; this.shopBottom = shopBottom;
-                this.tableSides = tableSides; this.tableTop = tableTop; this.tableBottom = tableBottom; this.ring = ring;
+                this.tableSides = tableSides; this.tableTop = tableTop; this.tableBottom = tableBottom; this.ring = ring; this.bossLootWidth = bossLootWidth;
             }
         }
         public static readonly Frame[] Themes = {
-            new Frame("default", 29.5f, 13.5f, 17f, 24.5f, 11f, 14.5f, 6f),
-            new Frame("swiss", 10f, 5f, 5f, 10f, 5f, 5f, 9f),
-            new Frame("sancai", 21f, 10.5f, 12.5f, 25f, 12.5f, 14.5f, 5.5f),
-            new Frame("comic", 16f, 5.5f, 10.5f, 16f, 5.5f, 10.5f, 5f),
-            new Frame("deco", 18f, 9f, 9f, 18f, 9f, 9f, 4.5f),
-            new Frame("glass", 18f, 9f, 9f, 18f, 9f, 9f, 5f)
+            new Frame("default", 29.5f, 13.5f, 17f, 24.5f, 11f, 14.5f, 6f, 344),
+            new Frame("swiss", 10f, 5f, 5f, 10f, 5f, 5f, 9f, 342),
+            new Frame("sancai", 21f, 10.5f, 12.5f, 25f, 12.5f, 14.5f, 5.5f, 342),
+            new Frame("comic", 16f, 5.5f, 10.5f, 16f, 5.5f, 10.5f, 5f, 339.5f),
+            new Frame("deco", 18f, 9f, 9f, 18f, 9f, 9f, 4.5f, 341.5f),
+            new Frame("glass", 18f, 9f, 9f, 18f, 9f, 9f, 5f, 339)
         };
 
         // Templates with actual runtime substitutions from GameApp.ShopFacePick14. Includes each S1 prompt,
@@ -38,7 +38,11 @@ namespace DiceCraft.Tests
             "这一面已经是光滑的，换一个面", "这一面已经是粗糙的，换一个面", "这一面已经是红色，换一个面",
             "这一面已经是蓝色，换一个面", "这颗已经是玻璃骰，换一颗", "这一面已经镀金，换一个面",
             "这一面已经是 6 点，换一个面", "这一面已经是 1 点，换一个面", "对面已经和这一面相同，换一个面",
-            "至少要留 1 颗骰子", "还差 10 金币", "先领取首领战利品", "第 3 颗 · 红面多 · 大点", "价格 12（你有 24）", "选要改的面：点下面的方块，或点骰子上的面"
+            "至少要留 1 颗骰子", "还差 10 金币", "先领取首领战利品", "第 3 颗 · 红面多 · 大点", "价格 12（你有 24）", "选要改的面：点下面的方块，或点骰子上的面",
+            "删除 第 3 颗 · 金面 2 · 红面多", "免费", "第 1 颗 · 金面 2 · 红五面",
+            "4 点蓝面 → 4 点红面", "4 点红面 → 4 点蓝面", "4 点红面 → 4 点红面（黄金）",
+            "4 点红面 → 5 点红面", "4 点红面 → 3 点红面", "4 点红面 → 4 点红面（权重 2）",
+            "4 点红面 → 4 点红面（粗糙）"
         };
 
         public struct Row
@@ -47,34 +51,51 @@ namespace DiceCraft.Tests
             public float width, font, art;
             public int cap;
         }
-        public static IEnumerable<Row> Cases(LineBreak21 breaker, Func<char, float> advanceEm, Frame frame, string id, string text)
+        public static IEnumerable<Row> Cases(LineBreak21 breaker, Func<char, float> advanceEm, Frame frame, string id, string text, string lootName = null)
         {
             bool controller = id.StartsWith("C", StringComparison.Ordinal);
             bool info = id.StartsWith("B", StringComparison.Ordinal) || id.StartsWith("L", StringComparison.Ordinal);
-            string Wrap(float width, float font, int cap) => breaker.Wrap(text, width / font, cap, advanceEm);
-            Row Result(string name, float width, float font, int cap, float art = 0) => new Row {
-                theme = frame.theme, scenario = name, id = id, text = text, width = width, font = font, cap = cap,
-                lines = Wrap(width, font, cap), art = art
+            Row Result(string name, float width, float font, int cap, string value = null, bool balanced = false) => new Row {
+                theme = frame.theme, scenario = name, id = id, text = value ?? text, width = width, font = font, cap = cap,
+                lines = breaker.Wrap(value ?? text, width / font, cap, advanceEm, balanced)
             };
+            Row Paragraph(string name, float width, float font, string value)
+            {
+                var row = Result(name,width,font,2,value,true);
+                return row.lines != null ? row : Result(name,width,font,int.MaxValue,value);
+            }
 
             foreach (float scale in new[] { 1f, 1.5f })
             {
                 if (id.StartsWith("F", StringComparison.Ordinal) || id.StartsWith("U", StringComparison.Ordinal) || id == "O04")
-                    yield return Result("face" + Percent(scale), 440, 20 * scale, int.MaxValue);
+                {
+                    bool dieName = text.StartsWith("第 ",StringComparison.Ordinal) && !text.Contains(" → ");
+                    bool besideDie = dieName || text.StartsWith("选要改的面：",StringComparison.Ordinal);
+                    yield return Result((besideDie ? "face-beside-die" : "face") + Percent(scale),
+                        besideDie ? 308 : 440,20 * scale,dieName ? 2 : int.MaxValue,balanced:dieName);
+                }
                 if (id.StartsWith("F", StringComparison.Ordinal)) continue;
                 if (info)
                 {
                     // Stage card's effect/reward columns at both text sizes (GameApp.Play11).
                     bool reward = id.StartsWith("L", StringComparison.Ordinal);
-                    float width = reward ? 344 : 392 - 36 - (scale == 1 ? 72 : 60) - 12;
-                    if (reward) text = "通关奖励：" + text;
+                    // StageCardInside11 reads the style's double ring. A lifted boss has no rings.
+                    float width = reward ? frame.bossLootWidth : 392 - 36 - (scale == 1 ? 72 : 60) - 12;
+                    string stage = reward ? "通关奖励：" + text : text;
                     float initial = reward ? Math.Max(19.5f, 18 * scale) : 20 * scale;
                     for (float font = initial; ; font = Math.Max(19.5f, font - 1))
                     {
-                        yield return Result("stage" + Percent(scale), width, font, int.MaxValue);
+                        yield return Paragraph("stage" + Percent(scale),width,font,stage);
+                        if(reward && width != 344) yield return Paragraph("stage-lifted" + Percent(scale),344,font,stage);
                         if (font <= 19.5f) break;
                     }
-                    if (reward) text = text.Substring("通关奖励：".Length);
+                    string selected = reward ? "战利品 · " + lootName + "：" + text : text;
+                    yield return Paragraph("stage-select" + Percent(scale),424,19.5f * scale,selected);
+                    if(reward)
+                    {
+                        yield return Result("claim" + Percent(scale),424,24 * scale,2,text,true);
+                        yield return Result("settlement" + Percent(scale),scale == 1 ? 400 : 480,20 * scale,2,text,true);
+                    }
                     continue;
                 }
                 foreach (bool twoPrices in new[] { false, true })
@@ -110,7 +131,7 @@ namespace DiceCraft.Tests
                 float faceTop = shop ? frame.shopTop : frame.tableTop;
                 float cy = faceTop + frame.ring + 3;
                 float y = controller ? Math.Max(cy, faceTop + frame.ring / 2 + (shop ? 17 : 15) + 2)
-                    : cy + Ceil(16 * scale * 1.46f) + 2;
+                    : cy + Ceil(Math.Max(19.5f,16 * scale) * 1.46f) + 2;
                 float height = shop ? (scale > 1 ? 364 : 348) : 244;
                 float bottom = height - (shop ? frame.shopBottom : frame.tableBottom) - frame.ring - 3;
                 if (shop) bottom -= (twoPrices ? (scale == 1 ? 79 : 97) : 60) + 6;
