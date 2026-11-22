@@ -3,12 +3,34 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+import re
+import uuid
 
 from PIL import Image
 
 
 ROOT = Path(__file__).resolve().parents[2]
 FRAME = (1060, 552)
+
+
+def install_import_settings(target, theme):
+    if theme == "default":
+        return
+    template = target.with_name("default.png.meta").read_text(encoding="utf-8")
+    pattern = r"(?m)^guid: ([0-9a-f]{32})$"
+    source_guid = re.search(pattern, template)
+    if source_guid is None:
+        raise ValueError("The default tray importer must have a Unity GUID.")
+    meta = target.with_suffix(".png.meta")
+    if meta.exists():
+        existing_guid = re.search(pattern, meta.read_text(encoding="utf-8"))
+        if existing_guid is None:
+            raise ValueError(f"Invalid existing Unity GUID in {meta}")
+        guid = existing_guid.group(1)
+    else:
+        guid = uuid.uuid5(uuid.UUID(source_guid.group(1)), theme).hex
+    settings = re.sub(pattern, "guid: " + guid, template, count=1)
+    meta.write_text(settings, encoding="utf-8", newline="\n")
 
 
 def install(theme, revision):
@@ -38,6 +60,7 @@ def install(theme, revision):
     result.paste(tray,offset)
     target = ROOT / "DicePrototype/Assets/Resources/MenuArt17" / (theme+".png")
     target.parent.mkdir(parents=True,exist_ok=True)
+    install_import_settings(target, theme)
     result.save(target)
     entry = {"revision":revision,"sourceSha256":digest,"alphaCrop":crop,"frame":FRAME,"size":size,
              "offset":offset,"asset":target.relative_to(ROOT).as_posix(),
