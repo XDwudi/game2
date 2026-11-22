@@ -14,6 +14,66 @@ namespace DiceCraft.Tests
     public sealed partial class GameplayPlayModeTests
     {
         [UnityTest]
+        public IEnumerator PLAY_V21_FW18_StagePressureHintDrawsCompleteParentheses()
+        {
+            Assert.That(Screen.width == 1280 && Screen.height == 720 || Screen.width == 1920 && Screen.height == 1080);
+            var originalTheme = app.ThemeId11;
+            int originalScale = Mathf.RoundToInt(UiKit.FontScale * 100);
+            bool originalClean = GameApp.CleanCapture11;
+            string folder = Path.GetFullPath(Path.Combine(Application.dataPath, "../../artifacts/cache/v11/w21/pressure-hint",
+                Screen.width + "x" + Screen.height));
+            Directory.CreateDirectory(folder);
+            try
+            {
+                GameApp.CleanCapture11 = true;
+                StartRun("24016");
+                foreach (string theme in new[] { "default", "swiss", "sancai", "comic", "deco", "glass" })
+                {
+                    app.ApplyTheme11(theme);
+                    Assert.That(app.ThemeId11, Is.EqualTo(theme));
+                    foreach (int percent in new[] { 100, 150 })
+                    {
+                        W11TextScale(percent);
+                        string scope = theme + "-" + percent;
+                        yield return RolloutShot18(Path.Combine(folder, scope));
+                        AssertPressureHintLines16("到这一关时再选择。高压挑战：目标 ×1.5，过关奖励 10 金币（普通 5）。", scope);
+                    }
+                }
+            }
+            finally
+            {
+                GameApp.CleanCapture11 = originalClean;
+                app.ApplyTheme11(originalTheme);
+                W11TextScale(originalScale);
+            }
+        }
+
+        private void AssertPressureHintLines16(string expected, string scope)
+        {
+            var label = FindActive<TextMeshProUGUI>("PressureHint");
+            label.ForceMeshUpdate();
+            Assert.That(label.GetParsedText().Replace("\n", ""), Is.EqualTo(expected), scope);
+            Assert.That(label.isTextTruncated || label.isTextOverflowing, Is.False, scope);
+            var lines = new List<string>();
+            for (int row = 0; row < label.textInfo.lineCount; row++)
+            {
+                var line = label.textInfo.lineInfo[row];
+                var ink = new List<char>();
+                for (int i = line.firstCharacterIndex; i <= line.lastCharacterIndex; i++)
+                {
+                    var character = label.textInfo.characterInfo[i];
+                    if (char.IsWhiteSpace(character.character)) continue;
+                    Assert.That(character.isVisible, Is.True, scope + "/" + character.character);
+                    ink.Add(character.character);
+                }
+                Assert.That(ink, Is.Not.Empty, scope + " empty rendered line");
+                Assert.That(ink[ink.Count - 1], Is.Not.EqualTo('（'), scope + "/" + new string(ink.ToArray()));
+                lines.Add(new string(ink.ToArray()));
+            }
+            TestContext.WriteLine(scope + " PressureHint: " + string.Join(" / ", lines));
+        }
+
+        [UnityTest]
         public IEnumerator PLAY_V16_StageSelectionAndChapterIntelSixStyles()
         {
             Assert.That((Screen.width == 1920 && Screen.height == 1080) || (Screen.width == 1280 && Screen.height == 720));
@@ -68,7 +128,7 @@ namespace DiceCraft.Tests
                         Assert.That(start.Find("Label").GetComponent<TextMeshProUGUI>().GetParsedText(), Is.EqualTo("开始第 2 关"));
                         for (int i = 0; i < 3; i++) Rect16(main.Find("CycleCard" + i) as RectTransform, 32 + 488 * i,
                             percent == 150 ? 468 : 448, 472, percent == 150 ? 592 : 452);
-                        Assert.That(FindActive<TextMeshProUGUI>("PressureHint").text, Does.Contain("×1.5").And.Contain("10 金币（普通 5）"));
+                        AssertPressureHintLines16("高压挑战：目标 ×1.5，过关奖励 10 金币（普通 5）。", theme + "-" + percent);
                         Assert.That(CardText10("CycleCard2", "ModifierText"), Is.EqualTo(app.Config.Modifier("B25").shortText));
                         var sections = new List<Transform> { strip, entry, rules, start };
                         sections.AddRange(Enumerable.Range(0, 3).Select(i => main.Find("CycleCard" + i)));
