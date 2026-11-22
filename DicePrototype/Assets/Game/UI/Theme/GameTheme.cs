@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 namespace DiceCraft
@@ -31,7 +32,21 @@ namespace DiceCraft
             public int order;
             public bool preview;
             public ThemePalette.Hexes palette;
+            public FontsFile fonts;
         }
+
+        [Serializable]
+        private sealed class FontsFile
+        {
+            public string title;
+            public string[] roles;
+        }
+
+        private FontsFile fonts;
+        public TMP_FontAsset TitleFont { get; private set; }
+        public TextRole TitleRoles { get; private set; }
+        private const TextRole DefaultTitleRoles = TextRole.ScreenTitle | TextRole.StageNumber
+            | TextRole.BigNumber | TextRole.BossName | TextRole.PrimaryButton;
 
         public string Id{get;private set;}
         public string DisplayName{get;private set;}
@@ -62,12 +77,14 @@ namespace DiceCraft
         /// <summary>Tests only (W20X-02): a theme built in memory, never from a file, so no test picture ships under
         /// Resources. It is a preview theme with the given palette and table pictures; <paramref name="spritesFrom"/> lends it
         /// another theme's sprites (a copy of a real theme with other tints).</summary>
-        public static GameTheme CreateForTests(string id,ThemePalette palette,Texture2D table=null,Texture2D page=null,GameTheme spritesFrom=null)
+        public static GameTheme CreateForTests(string id,ThemePalette palette,Texture2D table=null,Texture2D page=null,GameTheme spritesFrom=null,
+            TMP_FontAsset titleFont=null,TextRole titleRoles=DefaultTitleRoles)
         {
             if(string.IsNullOrEmpty(id)||id==DefaultId)throw new ArgumentException("A test theme needs its own id.",nameof(id));
             spritesFrom?.EnsureLoaded();
             return new GameTheme{Id=id,DisplayName=id,Description="",Order=1000,Preview=true,Palette=palette??new ThemePalette(),loaded=true,
-                templates=spritesFrom?.templates,artFrom=spritesFrom,feltTile=spritesFrom?.feltTile,tableScene=table,pageScene=page};
+                templates=spritesFrom?.templates,artFrom=spritesFrom,feltTile=spritesFrom?.feltTile,tableScene=table,pageScene=page,
+                TitleFont=titleFont,TitleRoles=titleFont!=null?titleRoles:TextRole.None};
         }
 
         internal static GameTheme FromFile(TextAsset file)
@@ -78,7 +95,7 @@ namespace DiceCraft
             catch(Exception e){Debug.LogWarning("V11 theme file ignored: "+e.Message);return null;}
             if(data==null||string.IsNullOrEmpty(data.id)||data.id==DefaultId)return null;
             return new GameTheme{Id=data.id,DisplayName=string.IsNullOrEmpty(data.displayName)?data.id:data.displayName,
-                Description=data.description??"",Order=data.order,Preview=data.preview,Palette=ThemePalette.From(data.palette)};
+                Description=data.description??"",Order=data.order,Preview=data.preview,Palette=ThemePalette.From(data.palette),fonts=data.fonts};
         }
 
         /// <summary>Loads this theme's sprites and textures on first use, so unused themes cost no memory. Content art is not
@@ -93,6 +110,14 @@ namespace DiceCraft
             tableScene=Resources.Load<Texture2D>(root+"Table/table_scene");
             pageScene=Resources.Load<Texture2D>(root+"Table/page_scene");
             previewImage=Resources.Load<Sprite>(root+"preview");
+            if(!string.IsNullOrEmpty(fonts?.title))
+            {
+                TitleFont=Resources.Load<TMP_FontAsset>(root+fonts.title);
+                if(TitleFont==null)Debug.LogWarning("V11 missing theme title font: "+root+fonts.title);
+                else if(fonts.roles==null)TitleRoles=DefaultTitleRoles;
+                else foreach(string name in fonts.roles)
+                    if(Enum.TryParse(name,true,out TextRole role))TitleRoles|=role;
+            }
         }
 
         private static Dictionary<string,Sprite> Index(IEnumerable<Sprite> sprites)
@@ -187,6 +212,8 @@ namespace DiceCraft
             if(Current!=null&&!ReferenceEquals(Current,theme))ScheduleRelease(Current);
             Current=theme;
             UiKit.Palette=theme.Palette;
+            UiKit.TitleFont=theme.TitleFont;
+            UiKit.TitleRoles=theme.TitleRoles;
             UiKit.ThemeTemplate=theme.IsDefault?null:(Func<string,Sprite>)theme.Template;
             Changed?.Invoke(theme);
             return theme;
@@ -226,6 +253,7 @@ namespace DiceCraft
             if(releaseHooked){Canvas.willRenderCanvases-=ReleasePending;releaseHooked=false;}
             pendingRelease=null;
             themes=null;testThemes.Clear();Current=null;UiKit.Palette=null;UiKit.ThemeTemplate=null;
+            UiKit.TitleFont=null;UiKit.TitleRoles=TextRole.None;
         }
 
         private static readonly HashSet<string> testThemes=new HashSet<string>(StringComparer.Ordinal);

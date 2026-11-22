@@ -22,6 +22,7 @@ namespace DiceCraft
         public void ApplyTheme11(string id,bool redraw=true)
         {
             var theme=ThemeRegistry.Activate(id);
+            RetainTitleFallback21(theme.TitleFont);
             // V1.1 (W11c): the measured sprite fills and frames belong to the sprites of the theme that drew them.
             ClearSurfaceCaches11();ClearCardCaches13();
             ApplyThemeToTable11(theme);
@@ -56,10 +57,12 @@ namespace DiceCraft
             if(feltColor11==null){feltBaseMap11=shared.GetTexture("_BaseMap");feltTableMap11=shared.GetTexture("_TableMap");feltColor11=shared.GetColor("_BaseColor");}
             var props=new MaterialPropertyBlock();r.GetPropertyBlock(props);
             var baseMap=theme.FeltTile!=null?theme.FeltTile:feltBaseMap11;
-            var tableMap=TablePicture11(theme);
+            var tableMap=ChapterPicture18(theme,TablePicture11(theme),out var chapterShift);
             if(baseMap!=null)props.SetTexture("_BaseMap",baseMap);
             if(tableMap!=null)props.SetTexture("_TableMap",tableMap);
             feltPicture11=tableMap;
+            props.SetVector(ChapterShiftId18,chapterShift);
+            shownChapterShift18=chapterShift;
             props.SetColor("_BaseColor",theme.IsDefault?feltColor11.Value:theme.Palette.felt);
             r.SetPropertyBlock(props);
         }
@@ -69,10 +72,14 @@ namespace DiceCraft
         private void ApplyTablePicture11()
         {
             var theme=ThemeRegistry.Current;if(theme==null||feltColor11==null)return;
-            var picture=TablePicture11(theme);if(picture==null||ReferenceEquals(picture,feltPicture11))return;
+            var picture=ChapterPicture18(theme,TablePicture11(theme),out var chapterShift);
+            if(picture==null||ReferenceEquals(picture,feltPicture11)&&shownChapterShift18==chapterShift)return;
             var r=FeltRenderer11;if(r==null)return;
-            var props=new MaterialPropertyBlock();r.GetPropertyBlock(props);props.SetTexture("_TableMap",picture);r.SetPropertyBlock(props);
+            var props=new MaterialPropertyBlock();r.GetPropertyBlock(props);
+            props.SetTexture("_TableMap",picture);props.SetVector(ChapterShiftId18,chapterShift);
+            r.SetPropertyBlock(props);
             feltPicture11=picture;
+            shownChapterShift18=chapterShift;
         }
         /// <summary>The card gallery (a debug page drawn over the whole screen) is not the play layout.</summary>
         private void SetGalleryBackdrop11(bool shown){galleryBackdrop11=shown;ApplyTablePicture11();}

@@ -143,7 +143,7 @@ namespace DiceCraft
             var p=UiKit.PaperFrame(parent,"CycleCard"+slot,x,y,CycleW10,CycleH10,UiKit.Paper,UiKit.Ink);
             if(v.current)UiKit.Ring(p,"CurrentCycleCard",-4,-4,CycleW10+5,CycleH10+4,UiKit.Gold);
             UiKit.Box(p,"KindStrip",24,16,inner,4,tint);
-            var title=UiKit.Text(p,"Title","第 "+(v.stageIndex+1)+" 关",24,24,280,58,30,UiKit.Ink);title.fontStyle=FontStyles.Bold;title.textWrappingMode=TextWrappingModes.NoWrap;
+            var title=UiKit.Text(p,"Title","第 "+(v.stageIndex+1)+" 关",24,24,280,58,30,UiKit.Ink);title.fontStyle=FontStyles.Bold;UiKit.Role(title,TextRole.StageNumber);title.textWrappingMode=TextWrappingModes.NoWrap;
             var stamp=UiKit.Rect(p,"KindSeal",CycleW10-142,32,116,44);if(v.stageKind!="normal")stamp.localRotation=Quaternion.Euler(0,0,-6);
             UiKit.Outline(stamp,"StampBorder",0,0,116,44,tint,2);
             UiKit.Text(stamp,"KindTag",v.stageKind=="boss"?"首领":v.stageKind=="pressure"?"高压":"普通",4,0,108,44,18,tint,TextAlignmentOptions.Center);
@@ -162,9 +162,9 @@ namespace DiceCraft
                 string target=BossTarget10(v,lifted);
                 UiKit.Text(p,"GoalLabel",target!=v.normalTarget?"目标分数（已含首领减益）":"目标分数",24,96,inner,28,16,PaperMuted071);
                 string compact=CompactScore(target);
-                var goal=UiKit.Text(p,"Goal",compact,24,120,inner,54,compact.Length>10?26:UiKit.FontScale>1?28:36,UiKit.Ink);goal.fontStyle=FontStyles.Bold;goal.textWrappingMode=TextWrappingModes.NoWrap;
+                var goal=UiKit.Text(p,"Goal",compact,24,120,inner,54,compact.Length>10?26:UiKit.FontScale>1?28:36,UiKit.Ink);goal.fontStyle=FontStyles.Bold;UiKit.Role(goal,TextRole.BigNumber);goal.textWrappingMode=TextWrappingModes.NoWrap;
                 UiKit.Text(p,"ModifierLabel",lifted?"首领减益（已解除）":"首领减益",24,176,inner,26,16,PaperMuted071);
-                var name=UiKit.Text(p,"ModifierName",NameOf(v.modifierId),24,198,inner,38,24,lifted?PaperMuted071:UiKit.Danger);name.fontStyle=FontStyles.Bold;name.textWrappingMode=TextWrappingModes.NoWrap;
+                var name=UiKit.Text(p,"ModifierName",NameOf(v.modifierId),24,198,inner,38,24,lifted?PaperMuted071:UiKit.Danger);name.fontStyle=FontStyles.Bold;UiKit.Role(name,TextRole.BossName);name.textWrappingMode=TextWrappingModes.NoWrap;
                 var text=UiKit.Text(p,"ModifierText",Description(v.modifierId),24,236,inner,58,16,lifted?PaperMuted071:UiKit.Ink);text.overflowMode=TextOverflowModes.Ellipsis;text.lineSpacing=-6;
                 if(own&&entry!=null&&entry.scapegoat)UiKit.Text(p,"ModifierLift","替罪羊会在入关时解除它",24,294,inner,24,15,UiKit.Teal);
                 UiKit.Box(p,"LootRule",24,320,inner,1,Color.Lerp(UiKit.Ink,UiKit.Paper,.65f));
@@ -174,7 +174,7 @@ namespace DiceCraft
             {
                 UiKit.Text(p,"GoalLabel","目标分数",24,104,inner,34,18,PaperMuted071);
                 string compact=CompactScore(tutorial&&own?"50":v.normalTarget);
-                var goal=UiKit.Text(p,"Goal",compact,24,138,inner,82,compact.Length>10?30:UiKit.FontScale>1?34:44,UiKit.Ink);goal.fontStyle=FontStyles.Bold;goal.textWrappingMode=TextWrappingModes.NoWrap;
+                var goal=UiKit.Text(p,"Goal",compact,24,138,inner,82,compact.Length>10?30:UiKit.FontScale>1?34:44,UiKit.Ink);goal.fontStyle=FontStyles.Bold;UiKit.Role(goal,TextRole.BigNumber);goal.textWrappingMode=TextWrappingModes.NoWrap;
                 UiKit.Text(p,"Reward","过关奖励  +"+v.normalReward+" 金币",24,224,inner,50,23,UiKit.Ink);
                 if(own)
                 {

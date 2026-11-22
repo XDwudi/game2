@@ -70,7 +70,8 @@ namespace DiceCraft.Tests
             }
             row.renderedCharacterCount=rendered.Count;row.renderedText=new string(rendered.ToArray());
             if(ink.Count>0)row.ink=Rect.MinMaxRect(ink.Min(p=>p.x),-ink.Max(p=>p.y),ink.Max(p=>p.x),-ink.Min(p=>p.y));
-            if(row.text!=expected)row.errors.Add("Text differs from the current configured value: "+expected);
+            if(text.name=="ShortText11"&&(card.rect.height>=200||card.Find("PriceButton13")!=null))CheckCardLines21(text,expected,card.name,row.errors);
+            if((text.name=="ShortText11"?row.text.Replace("\n",""):row.text)!=expected)row.errors.Add("Text differs from the current configured value: "+expected);
             if(row.renderedText!=CardWithoutSpace07(expected))row.errors.Add("Visible nonzero glyph quads differ from the complete current text.");
             if(row.renderedCharacterCount!=row.expectedVisibleCharacters||row.textInfoCharacterCount<row.expectedVisibleCharacters)row.errors.Add("Missing rendered characters (including blank Ellipsis lines).");
             if(row.overflow||row.truncated)row.errors.Add("TMP overflow/truncation.");

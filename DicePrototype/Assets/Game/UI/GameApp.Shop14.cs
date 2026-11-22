@@ -91,7 +91,7 @@ namespace DiceCraft
                 on=Surface11(panel,"HeaderStrip",f.x,f.w,r.width-f.x-f.z,ShopHead14-f.w-2,"ui_section_header",UiKit.Caption(UiKit.PanelLight));
             }
             float lineH=Line11(22),top=strip?f.w+(ShopHead14-f.w-2-lineH)*.5f:f.w+4;
-            var label=FitLine13(panel,titleName,title,f.x+14,top,Mathf.Min(titleMax,r.width-f.x-f.z-28),22,LabelOn11(on,UiKit.TextColor),TextAlignmentOptions.MidlineLeft,true);
+            var label=FitLine13(panel,titleName,title,f.x+14,top,Mathf.Min(titleMax,r.width-f.x-f.z-28),22,LabelOn11(on,UiKit.TextColor),TextAlignmentOptions.MidlineLeft,true,role:TextRole.SectionTitle);
             label.ForceMeshUpdate();titleRight=f.x+14+label.textBounds.size.x+2;
             return panel;
         }
@@ -115,7 +115,7 @@ namespace DiceCraft
             else text.rectTransform.sizeDelta=new Vector2(w-16,h);
             return b;
         }
-        private static float ShopLabelWidth14(string text,float font)=>Mathf.Ceil(PreferredWidth11(text,Mathf.Max(font,19.5f/Mathf.Max(.01f,UiKit.FontScale))))+4;
+        private static float ShopLabelWidth14(string text,float font,TMP_FontAsset face=null)=>Mathf.Ceil(PreferredWidth11(text,Mathf.Max(font,19.5f/Mathf.Max(.01f,UiKit.FontScale)),face))+4;
 
         // ---------------------------------------------------------------- top bar (SHOP_LAYOUT 3)
         private struct ShopTopSlots14 { public Rect gold,cash,cycle,gifts,hand,pause; public bool showGifts; public string giftsLabel; }
@@ -150,7 +150,7 @@ namespace DiceCraft
             var frame=FrameInsets11(bar.GetComponent<Image>());var slots=ShopTopRight14(l);
             int next=s.stage.stageIndex+1;bool last=next>=Config.stages.Length;
             float lineH=Line11(c?20:26),titleY=frame.w+Mathf.Max(0,(l.top.height-frame.w-frame.y-lineH)*.5f);
-            var title=FitLine13(bar,"ShopTitle",last?"商店":"商店 · 第 "+(next+1)+" 关前",frame.x+16,titleY,360,c?20:26,LabelOn11(bar,UiKit.TextColor),TextAlignmentOptions.MidlineLeft,true);
+            var title=FitLine13(bar,"ShopTitle",last?"商店":"商店 · 第 "+(next+1)+" 关前",frame.x+16,titleY,360,c?20:26,LabelOn11(bar,UiKit.TextColor),TextAlignmentOptions.MidlineLeft,true,role:TextRole.ScreenTitle);
             title.ForceMeshUpdate();float centreX=frame.x+16+title.textBounds.size.x+40,centreRight=slots.cash.x-l.top.x-8;
             // The next stage: kind and target; a boss stage leads its kind with the boss mark.
             string kind=last?"":Config.stages[next].stageKind;string text;
@@ -648,7 +648,7 @@ namespace DiceCraft
             var leave=UiKit.ActionButton(main,"LeaveShop","下一关",l.leave.x,l.leave.y,l.leave.width,l.leave.height,()=>{CloseModal();CancelFacePick14();Send(new SessionCommand{kind=CommandKind.LeaveShop});},UiKit.Primary,enabled);
             var face=(Image)leave.targetGraphic;float faceH=l.leave.height-7;
             var label=leave.transform.Find("Label").GetComponent<TextMeshProUGUI>();
-            label.fontSize=(c?20:34)*UiKit.FontScale;label.fontStyle=FontStyles.Bold;NoWrap11(label);label.color=LabelOn11(face,enabled?(Color?)null:label.color);
+            label.fontSize=(c?20:34)*UiKit.FontScale;label.fontStyle=FontStyles.Bold;UiKit.Role(label,TextRole.PrimaryButton);NoWrap11(label);label.color=LabelOn11(face,enabled?(Color?)null:label.color);
             float labelW=label.GetPreferredValues("下一关").x,arrow=c?30:42,labelH=Mathf.Ceil(label.fontSize*1.3f);
             float noteH=note!=null?Line11(Body11(18)):0,blockH=labelH+noteH,top=Mathf.Max(0,(faceH-blockH)*.5f);
             float startX=(l.leave.width-(labelW+10+arrow))*.5f;

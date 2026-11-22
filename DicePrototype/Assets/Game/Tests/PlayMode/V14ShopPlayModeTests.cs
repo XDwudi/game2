@@ -47,7 +47,7 @@ namespace DiceCraft.Tests
             {
                 PlayerPrefs.SetInt(ThemeRegistry.PreviewKey,1);GameApp.CleanCapture11=true;
                 StartRun("71401");
-                foreach(string theme in new[]{"default","swiss"})
+                foreach(string theme in new[]{"default","swiss","sancai","comic","deco","glass"})
                 {
                     app.ApplyTheme11(theme);Assert.That(app.ThemeId11,Is.EqualTo(theme));
                     foreach(int percent in new[]{100,150})
@@ -221,7 +221,9 @@ namespace DiceCraft.Tests
             {
                 var body=FindActive<RectTransform>("Offer_"+o.offerId).Find("ShortText11")?.GetComponent<TextMeshProUGUI>();
                 if(body==null||!body.gameObject.activeInHierarchy){failures.Add(scope+": Offer_"+o.offerId+" shows no short text (TX-03)");continue;}
-                if(body.text!=app.Config.Controller(o.contentId).shortText)failures.Add(scope+": Offer_"+o.offerId+" short text differs from the configuration");
+                string configured=app.Config.Controller(o.contentId).shortText;
+                if(body.text.Replace("\n","")!=configured)failures.Add(scope+": Offer_"+o.offerId+" short text differs from the configuration");
+                CheckCardLines21(body,configured,scope,failures);
             }
         }
 
@@ -373,7 +375,7 @@ namespace DiceCraft.Tests
                     Assert.That(app.FacePickStep14,Is.EqualTo("S1"));Assert.That(HasActive("FacePickVeil14"),Is.True);Assert.That(HasActive("ShopTargetList"),Is.False,"No dice sheet in the shop.");
                     Assert.That(HasActive("DialogTitle"),Is.False,"The face pick is not a modal.");
                     foreach(var d in dice)Assert.That(Button("Target_"+d.dieId).interactable,Is.True,d.dieId);
-                    Assert.That(FindActive<TextMeshProUGUI>("FacePickPrompt14").text,Does.StartWith("选一颗骰子，再选要改的面"));
+                    Assert.That(FindActive<TextMeshProUGUI>("FacePickPrompt14").text.Replace("\n",""),Does.StartWith("选一颗骰子，再选要改的面"));
                     W14AssertNoIds(theme+" S1");Unchanged("S1");
                     foreach(int percent in new[]{100,150}){W11TextScale(percent);yield return null;yield return W14Shot("pick-S1-"+theme+"-text"+percent);W14CheckTexts(theme+"-S1-"+percent,failures,"FacePick14","OwnedStrip");W14ButtonsInside("FacePick14",theme+"-S1-"+percent,failures);}
                     W11TextScale(100);
@@ -396,9 +398,9 @@ namespace DiceCraft.Tests
                     Assert.That(app.FacePickStep14,Is.EqualTo("S3"));Assert.That(app.FacePickFace14,Is.EqualTo("F02"));
                     var f2=dice[0].faces.First(x=>x.faceId=="F02");
                     string faceText=f2.permanentPip+" 点"+(f2.baseColor=="red"?"红":"蓝")+"面";
-                    Assert.That(FindActive<TextMeshProUGUI>("PurchasePreviewBody").text,Does.StartWith(faceText).And.EndWith("（黄金）"));
-                    Assert.That(FindActive<TextMeshProUGUI>("FacePickNote14").text,Is.EqualTo("朝上提交时这颗计分 ×2"));
-                    Assert.That(FindActive<TextMeshProUGUI>("FacePickPrice14").text,Is.EqualTo("价格 "+app.Config.Upgrade("U06").buyPrice+"（你有 "+PlayerNumberFormat.Gold(gold)+"）"));
+                    Assert.That(FindActive<TextMeshProUGUI>("PurchasePreviewBody").text.Replace("\n",""),Does.StartWith(faceText).And.EndWith("（黄金）"));
+                    Assert.That(FindActive<TextMeshProUGUI>("FacePickNote14").text.Replace("\n",""),Is.EqualTo("朝上提交时这颗计分 ×2"));
+                    Assert.That(FindActive<TextMeshProUGUI>("FacePickPrice14").text.Replace("\n",""),Is.EqualTo("价格 "+app.Config.Upgrade("U06").buyPrice+"（你有 "+PlayerNumberFormat.Gold(gold)+"）"));
                     Assert.That(Button("ConfirmPurchase").interactable,Is.True);Assert.That(W11PrimaryColoured(Button("ConfirmPurchase").targetGraphic.color),Is.False,"Second-level style.");
                     W14AssertNoIds(theme+" S3");Unchanged("S3");
                     foreach(int percent in new[]{100,150}){W11TextScale(percent);yield return null;yield return W14Shot("pick-S3-"+theme+"-text"+percent);W14CheckTexts(theme+"-S3-"+percent,failures,"FacePick14","OwnedStrip");W14ButtonsInside("FacePick14",theme+"-S3-"+percent,failures);}
@@ -419,8 +421,8 @@ namespace DiceCraft.Tests
                     seq=app.Session.ActionSequence;gold=app.Session.State.gold;
                     Click("Buy_pick-glass");Click("Target_"+dice[1].dieId);yield return null;
                     Assert.That(app.FacePickStep14,Is.EqualTo("S3"));Assert.That(HasActive("Face_F01"),Is.False,"A whole-die upgrade has no faces to choose.");
-                    Assert.That(FindActive<TextMeshProUGUI>("PurchasePreviewBody").text,Does.StartWith("第 2 颗 · ").And.EndWith(" → 玻璃骰"));
-                    Assert.That(FindActive<TextMeshProUGUI>("FacePickNote14").text,Is.EqualTo("计分 ×3；每次掷到它有 "+app.Session.GlassBreakPercentIn(app.Session.State)+"% 概率碎掉，锁定后不会碎"));
+                    Assert.That(FindActive<TextMeshProUGUI>("PurchasePreviewBody").text.Replace("\n",""),Does.StartWith("第 2 颗 · ").And.EndWith(" → 玻璃骰"));
+                    Assert.That(FindActive<TextMeshProUGUI>("FacePickNote14").text.Replace("\n",""),Is.EqualTo("计分 ×3；每次掷到它有 "+app.Session.GlassBreakPercentIn(app.Session.State)+"% 概率碎掉，锁定后不会碎"));
                     Click("ChangeDie14");yield return null;Assert.That(app.FacePickStep14,Is.EqualTo("S1"));
                     Click("Target_"+dice[1].dieId);Click("ConfirmPurchase");
                     Assert.That(app.Session.ActionSequence,Is.EqualTo(seq+1));Assert.That(app.Session.State.dice.Single(d=>d.dieId==dice[1].dieId).isGlass,Is.True);
@@ -429,8 +431,8 @@ namespace DiceCraft.Tests
                     seq=app.Session.ActionSequence;int count=app.Session.State.dice.Count;
                     Click("Buy_pick-remove");Click("Target_"+dice[2].dieId);yield return null;
                     Assert.That(app.FacePickStep14,Is.EqualTo("S3"));
-                    Assert.That(FindActive<TextMeshProUGUI>("PurchasePreviewBody").text,Does.StartWith("删除 第 3 颗 · "));
-                    Assert.That(FindActive<TextMeshProUGUI>("FacePickNote14").text,Is.EqualTo("连同它的改造一起删除；提交栏仍是 "+app.Session.EffectiveCapacity+" 格"));
+                    Assert.That(FindActive<TextMeshProUGUI>("PurchasePreviewBody").text.Replace("\n",""),Does.StartWith("删除 第 3 颗 · "));
+                    Assert.That(FindActive<TextMeshProUGUI>("FacePickNote14").text.Replace("\n",""),Is.EqualTo("连同它的改造一起删除；提交栏仍是 "+app.Session.EffectiveCapacity+" 格"));
                     Assert.That(Button("ConfirmPurchase").GetComponentInChildren<TextMeshProUGUI>().text,Is.EqualTo("确认删除"));
                     Click("ConfirmPurchase");
                     Assert.That(app.Session.ActionSequence,Is.EqualTo(seq+1));Assert.That(app.Session.State.dice.Count,Is.EqualTo(count-1));Assert.That(app.Session.State.dice.Any(d=>d.dieId==dice[2].dieId),Is.False);
@@ -455,7 +457,7 @@ namespace DiceCraft.Tests
             yield return W14Load(fixture);string state=StateJson();
             Click("Buy_pick-gold");Click("Target_"+fixture.dice[0].dieId);Click("Face_F03");yield return null;
             Assert.That(app.FacePickStep14,Is.EqualTo("S3"));
-            Assert.That(FindActive<TextMeshProUGUI>("PurchaseUnavailable").text,Is.EqualTo("这一面已经镀金，换一个面"));
+            Assert.That(FindActive<TextMeshProUGUI>("PurchaseUnavailable").text.Replace("\n",""),Is.EqualTo("这一面已经镀金，换一个面"));
             Assert.That(Button("ConfirmPurchase").interactable,Is.False);
             app.CancelFacePick14();yield return null;Assert.That(app.FacePickStep14,Is.EqualTo("S0"));Assert.That(StateJson(),Is.EqualTo(state));
         }

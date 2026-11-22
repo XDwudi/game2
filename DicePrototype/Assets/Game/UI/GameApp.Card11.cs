@@ -157,12 +157,13 @@ namespace DiceCraft
         /// <summary>A one-line label that shrinks (down to the 19.5-unit body size) until its drawn glyphs fit its width with a
         /// unit to spare, measured on TMP's own mesh (a bold label paints past the font's advances). <paramref name="maxPx"/>
         /// caps the starting size when the caller needs the line smaller; the label is as tall as its line (Line11).</summary>
-        private static TextMeshProUGUI FitLine13(Transform parent,string name,string text,float x,float y,float w,float size,Color color,TextAlignmentOptions align,bool bold,float maxPx=0)
+        private static TextMeshProUGUI FitLine13(Transform parent,string name,string text,float x,float y,float w,float size,Color color,TextAlignmentOptions align,bool bold,float maxPx=0,TextRole role=TextRole.None)
         {
             float px=size*UiKit.FontScale;if(maxPx>0)px=Mathf.Min(px,Mathf.Max(19.5f,maxPx));
             float min=Mathf.Min(px,19.5f);
             var label=NoWrap11(UiKit.Text(parent,name,text,x,y,w,Mathf.Ceil(px*1.46f)+2,px/UiKit.FontScale,color,align));
             if(bold)label.fontStyle=FontStyles.Bold;
+            UiKit.Role(label,role);
             for(;;)
             {
                 label.fontSize=px;label.ForceMeshUpdate();
@@ -297,18 +298,27 @@ namespace DiceCraft
                 float minArt=shop?72:56,floorArt=Mathf.Min(40,content.width-8),namePx=0,textH=0,art=0,artTop=0;
                 for(int shrink=0;shrink<20;shrink++)
                 {
-                    var nameLabel=FitLine13(t,"Name",title,content.x+insetL,y,content.width-insetL-insetR,22,LabelOn11(face,UiKit.Ink),TextAlignmentOptions.Center,true,namePx);
+                    var nameLabel=FitLine13(t,"Name",title,content.x+insetL,y,content.width-insetL-insetR,22,LabelOn11(face,UiKit.Ink),TextAlignmentOptions.Center,true,namePx,TextRole.CardName);
                     artTop=y+nameLabel.rectTransform.rect.height+2;
                     float font=20*UiKit.FontScale;
                     for(int step=0;step<60;step++)
                     {
-                        body.fontSize=font;textH=Mathf.Ceil(body.GetPreferredValues(text,content.width,0).y)+2;
+                        body.fontSize=font;
+                        body.text=WrapLines21(body,text,content.width,int.MaxValue)??text;
+                        textH=Mathf.Ceil(body.GetPreferredValues(body.text,content.width,0).y)+2;
                         art=Mathf.Min(content.width-8,bottom-artTop-4-textH);
                         if(art>=minArt||font<=19.5f)break;
                         font=Mathf.Max(19.5f,font-1);
                     }
                     if(art>=floorArt||nameLabel.fontSize<=19.51f)break;
                     namePx=Mathf.Max(19.5f,nameLabel.fontSize-1.5f);
+                }
+                if(art<floorArt)
+                {
+                    float room=bottom-artTop-4-floorArt;
+                    FitWrappedBody21(body,text,content.width,room,card.contentId);
+                    textH=Mathf.Ceil(body.GetPreferredValues(body.text,content.width,0).y)+2;
+                    art=Mathf.Min(content.width-8,bottom-artTop-4-textH);
                 }
                 art=Mathf.Max(floorArt,art);
                 float artX=(w-art)*.5f;
@@ -325,6 +335,19 @@ namespace DiceCraft
                 break;
             }
             if(priceH>0)PriceButton13(t,card,content.x,content.yMax-priceH,content.width,priceH);
+        }
+
+        // At the illustration / font floor, give the solver the line budget TMP can actually draw.
+        private static void FitWrappedBody21(TextMeshProUGUI body,string text,float width,float room,string id)
+        {
+            float one=body.GetPreferredValues("字",width,0).y;
+            float step=body.GetPreferredValues("字\n字",width,0).y-one;
+            int lines=1+Mathf.FloorToInt((room-one)/Mathf.Max(1,step));
+            string wrapped=lines>0?WrapLines21(body,text,width,lines):null;
+            body.text=wrapped??text;
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            if(wrapped==null)Debug.Log("W21_WRAP_FALLBACK "+id+" width="+width+" size="+body.fontSize);
+#endif
         }
 
         private void DrawCompactCard13(Transform t,CardFace13 card,Rect inner,float w,float h,string rarity,Color tint,string title,string text,bool goods)
@@ -385,10 +408,27 @@ namespace DiceCraft
                 // the 19.5 floor.
                 float below=Mathf.Max(textTop,blockArea.yMax+gem*.5f+4),room=Mathf.Max(1,content.yMax-below);
                 var body=UiKit.Text(t,"ShortText11",text,content.x,below,content.width,room,20,LabelOn11(face,UiKit.Ink),TextAlignmentOptions.TopLeft);
-                body.lineSpacing=-14;body.enableAutoSizing=false;body.fontSize=19.5f;
-                // Not shown when it does not fit whole even at the floor (§2: the hover and the details have it).
-                if(body.GetPreferredValues(text,content.width,0).y>room+.5f)body.gameObject.SetActive(false);
-                else{body.enableAutoSizing=true;body.fontSizeMax=20*UiKit.FontScale;body.fontSizeMin=19.5f;}
+                body.lineSpacing=-14;body.enableAutoSizing=false;
+                int low=390,high=Mathf.Max(low,Mathf.RoundToInt(20*UiKit.FontScale*20));
+                int best=-1;string bestText=null;
+                while(low<=high)
+                {
+                    int mid=(low+high)/2;
+                    body.fontSize=mid/20f;
+                    string wrapped=WrapLines21(body,text,content.width,int.MaxValue);
+                    if(wrapped!=null&&body.GetPreferredValues(wrapped,content.width,0).y<=room+.5f)
+                    {
+                        best=mid;bestText=wrapped;low=mid+1;
+                    }
+                    else high=mid-1;
+                }
+                if(best>=0){body.fontSize=best/20f;body.text=bestText;}
+                else
+                {
+                    body.fontSize=19.5f;
+                    FitWrappedBody21(body,text,content.width,room+.5f,card.contentId);
+                    if(body.GetPreferredValues(body.text,content.width,0).y>room+.5f)body.gameObject.SetActive(false);
+                }
             }
             else
             {
@@ -405,8 +445,7 @@ namespace DiceCraft
                 // when that break still fits the row.
                 if(priced)
                 {
-                    string balanced=BalancedLines11(body,text,textW);
-                    if(balanced!=text&&body.GetPreferredValues(balanced,textW,0).y<=room+.5f)body.text=balanced;
+                    body.text=WrapLines21(body,text,textW,2)??text;
                 }
                 if(body.GetPreferredValues(body.text,textW,0).y>room+.5f)body.gameObject.SetActive(false);
             }

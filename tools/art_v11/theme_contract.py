@@ -156,6 +156,14 @@ def cmd_audit(theme: str, strict: bool, themes_root: Path = THEMES) -> int:
             else:
                 optional.append(f"Table/{name} {size[0]}x{size[1]}")
     missing = [n for n, s in sprites.items() if s["referenced"] and n not in shipped]
+    manifest = folder.parent / "theme.json"
+    if manifest.exists():
+        fonts = json.loads(manifest.read_text(encoding="utf-8")).get("fonts")
+        if fonts is not None:
+            if not isinstance(fonts, dict) or fonts.get("title") != "Fonts/title":
+                problems.append("FONT: expected title resource Fonts/title")
+            elif not (folder.parent / "Fonts" / "title.asset").is_file():
+                missing.append("Fonts/title")
     print(f"theme {theme}: {len(shipped)} sprites shipped, {len(missing)} referenced defaults not overridden")
     for item in optional:
         print("  OPTIONAL " + item)

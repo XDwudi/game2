@@ -44,7 +44,7 @@ namespace DiceCraft
                 UiKit.Box(p,"PanelTop",0,0,1600,515,UiKit.Panel,true);UiKit.Box(p,"PanelBottom",0,735,1600,55,UiKit.Panel,true);
                 UiKit.Box(p,"PanelLeft",0,515,1300,220,UiKit.Panel,true);UiKit.Box(p,"PanelRight",1580,515,20,220,UiKit.Panel,true);
             }
-            UiKit.Text(p,"DialogTitle",title,40,24,1390,62,37);
+            UiKit.Role(UiKit.Text(p,"DialogTitle",title,40,24,1390,62,37),TextRole.ScreenTitle);
             UiKit.Button(p,"CloseDialog","×",1490,24,70,60,CloseModal);
             bool error=title=="本次结果尚未保存"||title=="存档读取说明"||title=="存档恢复说明",manual=title.Contains("手册"),newRun=title=="新建挑战";
             FadeModal07(p,fresh,error?.12f:manual?.14f:newRun?.18f:.16f,error||manual||newRun||title=="暂停"?.10f:.12f);
@@ -135,7 +135,7 @@ namespace DiceCraft
             UiKit.Box(p,"PanelTop",0,0,1504,112,UiKit.Panel,true);UiKit.Box(p,"PanelBottom",0,512,1504,376,UiKit.Panel,true);
             UiKit.Box(p,"PanelLeft",0,112,368,400,UiKit.Panel,true);UiKit.Box(p,"PanelRight",824,112,680,400,UiKit.Panel,true);
             UiKit.Outline(p,"Frame",0,0,1504,888,UiKit.Paper,3);
-            UiKit.Text(p,"DialogTitle",title,24,16,1360,56,32,UiKit.Paper);
+            UiKit.Role(UiKit.Text(p,"DialogTitle",title,24,16,1360,56,32,UiKit.Paper),TextRole.ScreenTitle);
             UiKit.Button(p,"CloseDialog","×",1416,12,64,64,CloseModal);
             FadeModal07(p,fresh,.16f,.10f);
             // A stationary veil reveals the world-space preview through the stationary aperture.
@@ -422,7 +422,7 @@ namespace DiceCraft
                     UiKit.Outline(hot,"TargetEdge",0,0,112,112,chosen.Contains(id)?UiKit.Gold:UiKit.Paper,chosen.Contains(id)?4:2);
                 }
                 var p=UiKit.Frame(overlay,"Dialog",496,496,1280,400,UiKit.Panel,UiKit.Paper,true);
-                UiKit.Text(p,"DialogTitle","遥控骰子 · 选择两颗未锁骰",24,8,1136,48,27,UiKit.Paper);
+                UiKit.Role(UiKit.Text(p,"DialogTitle","遥控骰子 · 选择两颗未锁骰",24,8,1136,48,27,UiKit.Paper),TextRole.ScreenTitle);
                 UiKit.Button(p,"CloseDialog","×",1196,8,60,60,CloseModal);
                 FadeModal07(p,fresh);
                 UiKit.Text(p,"RemoteRule","消耗本道具及 1 次投掷，全部未锁骰照常投掷。\n玻璃可能损坏；目标损坏不补选、不退还。颜色与物理面照常抽取。",24,64,1232,64,17,UiKit.Muted);

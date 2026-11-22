@@ -116,7 +116,7 @@ namespace DiceCraft
             float tagW=c?176:160;
             var tag=Surface11(bar,"StageTag11",8,8,tagW,56,"ui_chip_formula",StageTint11);
             var stage=NoWrap11(UiKit.Text(tag,"StageLabel11",$"第 {n} 关",0,2,tagW,48,c?24:28,UiKit.TextColor,TextAlignmentOptions.Center));
-            stage.fontStyle=FontStyles.Bold;stage.color=LabelOn11(tag);
+            stage.fontStyle=FontStyles.Bold;UiKit.Role(stage,TextRole.StageNumber);stage.color=LabelOn11(tag);
             // Eight chapter points and, under them, the chapter caption with the stage kind. The caption's glyphs end above the
             // bar's drawn bottom frame (read from the bar's art: the default bar has an inner line 15 units up), and the points
             // move up and shrink as far as the caption needs at the larger text sizes (W11b).
@@ -299,7 +299,8 @@ namespace DiceCraft
                 title=(lifted?"减益已解除 · ":"首领减益 · ")+tier;
             }
             else title=StageKindLabel10(s.stage.stageIndex,StageRisk11);
-            NoWrap11(UiKit.Text(header,"StageCardTitle11",title,12,0,inner-24,headerH,Body11(c?18:22),LabelOn11(header),TextAlignmentOptions.MidlineLeft));
+            var section=NoWrap11(UiKit.Text(header,"StageCardTitle11",title,12,0,inner-24,headerH,Body11(c?18:22),LabelOn11(header),TextAlignmentOptions.MidlineLeft));
+            UiKit.Role(section,TextRole.SectionTitle);
             if(boss)
             {
                 float top=14+headerH+6,boxH=h-26-top;
@@ -312,7 +313,7 @@ namespace DiceCraft
                 for(int i=0;i<bars;i++)UiKit.Box(mark,"TierBar"+i,emblemSize*.22f,emblemSize*.22f+i*emblemSize*.17f,emblemSize*.56f,emblemSize*.08f,UiKit.Ink);
                 float colX=emblemSize+12,colW=inner-colX;
                 var name=NoWrap11(UiKit.Text(box,"BossModifierName",NameOf(s.stage.modifierId),colX,0,colW,40,c?20:28,LabelOn11(card,lifted?PaperMuted071:UiKit.Ink)));
-                name.fontStyle=FontStyles.Bold;
+                name.fontStyle=FontStyles.Bold;UiKit.Role(name,TextRole.BossName);
                 var body=UiKit.Text(box,"BossModifierText",ShortText11(s.stage.modifierId),colX,40,colW,40,20,LabelOn11(card,lifted?PaperMuted071:UiKit.Ink));
                 body.lineSpacing=-14;body.enableAutoSizing=false;
                 string loot=s.stage.stageIndex/3<s.cycles.Count?s.cycles[s.stage.stageIndex/3].lootKind:null;
@@ -356,7 +357,7 @@ namespace DiceCraft
             float lineSize=Body11(c?14:20),goalSize=c?28:42,ty=14+headerH+1;
             NoWrap11(UiKit.Text(card,"StageGoalLabel11","目标分数",14,ty,inner,Line11(lineSize),lineSize,LabelOn11(card,PaperMuted071)));ty+=Line11(lineSize);
             var goal=NoWrap11(UiKit.Text(card,"StageGoal11",CompactScore(s.stage.target),14,ty,inner,Line11(goalSize),goalSize,LabelOn11(card,PressureActive11?UiKit.Pressure:UiKit.Ink)));
-            goal.fontStyle=FontStyles.Bold;ty+=Line11(goalSize);
+            goal.fontStyle=FontStyles.Bold;UiKit.Role(goal,TextRole.BigNumber);ty+=Line11(goalSize);
             int reward=s.stage.reward>0?s.stage.reward:StageRisk11?Config.stages[s.stage.stageIndex].riskReward:Config.stages[s.stage.stageIndex].normalReward;
             NoWrap11(UiKit.Text(card,"StageReward11","过关奖励 +"+reward+" 金币",14,ty,inner,Line11(lineSize),lineSize,LabelOn11(card,UiKit.Ink)));ty+=Line11(lineSize);
             string note=kind=="pressure"?(StageRisk11?"目标 ×1.5，过关金币 +5":"普通挑战，目标不变"):"提交栏 "+s.stage.capacity+" 格 · 每手掷 "+Session.InitialRolls+" 次";
@@ -786,41 +787,10 @@ namespace DiceCraft
                 if(s.stage.qualified)UiKit.Ring(end.transform,"QualifiedGoldBorder",-4,-4,l.end.width+8,l.end.height+4,UiKit.Reward);
             }
         }
-        /// <summary>
-        /// A text that needs two lines breaks where the two halves are most even: after the punctuation nearest the middle
-        /// (，；：。、！？ and closing quotes, or in place of a " · " separator), else at the balanced character; each line
-        /// keeps at least three characters, so there is never a one- or two-character last line (W11b). Measured at the
-        /// label's largest auto size; a text that fits on one line is returned unchanged.
-        /// </summary>
+        // Hints keep their two-line punctuation preference while sharing the card vocabulary.
         private static string BalancedLines11(TextMeshProUGUI label,string text,float width)
-        {
-            if(string.IsNullOrEmpty(text)||text.IndexOf('\n')>=0||text.Length<6)return text;
-            // Glyph advances of the label's font at its largest size (no layout pass per candidate).
-            float px=label.enableAutoSizing?label.fontSizeMax:label.fontSize;
-            var prefix=new float[text.Length+1];
-            for(int i=0;i<text.Length;i++)
-            {
-                float advance=GlyphAdvance11(label.font??UiKit.Font,text[i],px,0);
-                prefix[i+1]=prefix[i]+(advance>=0?advance:(text[i]<0x2E80?.62f:1f)*px);
-            }
-            float total=prefix[text.Length];
-            if(total<=width)return text;
-            const string after="，。；：、！？）”",before="（“";
-            int best=-1,bestSkip=0;float bestScore=float.MaxValue;
-            for(int i=3;i<=text.Length-3;i++)
-            {
-                // A " · " separator is replaced by the break itself; a break never starts or ends a line with a space.
-                int skip=i+3<=text.Length&&text[i]==' '&&text[i+1]=='·'&&text[i+2]==' '?3:0;
-                if(skip==0&&(text[i]==' '||text[i-1]==' '))continue;
-                if(text.Length-(i+skip)<3)continue;
-                bool punctuation=skip>0||after.IndexOf(text[i-1])>=0||before.IndexOf(text[i])>=0;
-                float a=prefix[i],b=total-prefix[i+skip];
-                // Prefer punctuation, then balance; a line wider than the box costs most.
-                float score=Mathf.Max(a,b)+(punctuation?0:width*.6f)+(a>width||b>width?width*4:0);
-                if(score<bestScore){bestScore=score;best=i;bestSkip=skip;}
-            }
-            return best<0?text:text.Substring(0,best)+"\n"+text.Substring(best+bestSkip);
-        }
+            =>WrapBalanced21(label,text,width)??text;
+
         private UnityEngine.UI.Button PrimaryButton11(string name,string label,Action click,bool enabled,Layout11 l)
         {
             var b=UiKit.ActionButton(main,name,label,l.primary.x,l.primary.y,l.primary.width,l.primary.height,click,UiKit.Primary,enabled);

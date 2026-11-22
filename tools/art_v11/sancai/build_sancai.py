@@ -82,6 +82,10 @@ THEME_META = {
                     "tools/art_v11/sancai/build_sancai.py 生成（说明见同目录 README.md）"),
     "order": 2,
     "preview": True,
+    "fonts": {
+        "title": "Fonts/title",
+        "roles": ["screenTitle", "stageNumber", "bigNumber", "bossName", "primaryButton"],
+    },
 }
 
 

@@ -247,12 +247,12 @@ namespace DiceCraft
             FitLine13(panel,"FacePickCategory14",category,stripRight-catW-4,(ShopHead14-Line11(18))*.5f,catW+4,18,LabelOn11(strip,UiKit.Muted),TextAlignmentOptions.MidlineRight,false);
             Color ink=LabelOn11(panel,UiKit.TextColor),muted=LabelOn11(panel,UiKit.Muted);
             float x=ShopPad14+4,w=l.dice.width-2*(ShopPad14+4),y=ShopHead14+10;
-            TextMeshProUGUI Line(string name,string text,float size,Color color,bool bold,bool balanced=false)
+            TextMeshProUGUI Line(string name,string text,float size,Color color,bool bold)
             {
                 var label=UiKit.Text(panel,name,text,x,y,w,10,Mathf.Max(size,19.5f/Mathf.Max(.01f,UiKit.FontScale)),color,TextAlignmentOptions.TopLeft);
                 if(bold)label.fontStyle=FontStyles.Bold;label.textWrappingMode=TextWrappingModes.Normal;label.enableAutoSizing=false;
                 // A prompt that wraps breaks at its punctuation (before the bracket, after a comma), not mid-phrase.
-                if(balanced)label.text=BalancedLines11(label,text,w);
+                label.text=WrapLines21(label,text,w,int.MaxValue)??text;
                 float h=Mathf.Ceil(label.GetPreferredValues(label.text,w,0).y)+2;label.rectTransform.sizeDelta=new Vector2(w,h);y+=h+6;return label;
             }
             string step=FacePickStep14;
@@ -260,7 +260,7 @@ namespace DiceCraft
             {
                 Line("FacePickShort14",ShortText11(offer.contentId),20,ink,false);
                 string prompt=offer.contentId=="U05"?"选一颗骰子，整颗变成玻璃骰":offer.contentId=="O04"?"选一颗要删除的骰子":"选一颗骰子，再选要改的面";
-                Line("FacePickPrompt14",prompt+"（在下面的“我的骰子”里）",20,ink,true,true);
+                Line("FacePickPrompt14",prompt+"（在下面的“我的骰子”里）",20,ink,true);
             }
             else
             {
@@ -284,6 +284,7 @@ namespace DiceCraft
                 {
                     var prompt=UiKit.Text(panel,"FacePickPrompt14","选要改的面：点下面的方块，或点骰子上的面",textX,rowTop+labelH+6,textW,10,20,ink,TextAlignmentOptions.TopLeft);
                     prompt.enableAutoSizing=false;prompt.textWrappingMode=TextWrappingModes.Normal;
+                    prompt.text=WrapLines21(prompt,prompt.text,textW,int.MaxValue)??prompt.text;
                     float promptH=Mathf.Ceil(prompt.GetPreferredValues(prompt.text,textW,0).y)+2;
                     prompt.rectTransform.sizeDelta=new Vector2(textW,promptH);rowH=Mathf.Max(rowH,labelH+6+promptH);
                 }

@@ -251,7 +251,8 @@ namespace DiceCraft.Tests
                 report.Add("view "+Screen.width+"x"+Screen.height+"; themes with table_scene: "+string.Join(", ",withTable.Select(t=>t.Id))+"; with page_scene: "+string.Join(", ",withTable.Where(t=>t.PageScene!=null).Select(t=>t.Id)));
                 // The play screen: table_scene (a stage before the boss: no dim, no vignette).
                 StartRun("72011");
-                W11Apply(W11Scene(W11Cards3,new[]{4,4,6,2,4},"bbbrb",2,true));yield return W11Settle();
+                // Chapter one is the authored colour. W18 measures the later chapter tints in their own real play states.
+                W11Apply(W11Scene(W11Cards3,new[]{4,4,6,2,4},"bbbrb",2,true,stageIndex:0));yield return W11Settle();
                 foreach(var theme in withTable)
                 {
                     app.ApplyTheme11(theme.Id);yield return Art073Settle(.35f);

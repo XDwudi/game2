@@ -198,12 +198,12 @@ namespace DiceCraft
         }
         /// <summary>Width of a one-line text at a design size: the font's own glyph advances (main font, then its fallbacks),
         /// an em-based estimate only for a glyph no font has loaded yet. Rich-text tags count as text (a safe overestimate).</summary>
-        private static float PreferredWidth11(string text,float size)
+        private static float PreferredWidth11(string text,float size,TMP_FontAsset font=null)
         {
             if(string.IsNullOrEmpty(text))return 0;float w=0,px=size*UiKit.FontScale;
             foreach(char ch in text)
             {
-                float advance=GlyphAdvance11(UiKit.Font,ch,px,0);
+                float advance=GlyphAdvance11(font??UiKit.Font,ch,px,0);
                 w+=advance>=0?advance:(ch<0x2E80?(ch==' '?.3f:.62f):1f)*px;
             }
             return Mathf.Ceil(w)+1;
@@ -212,7 +212,7 @@ namespace DiceCraft
         {
             if(font==null||depth>3)return -1;
             if(font.characterLookupTable!=null&&font.characterLookupTable.TryGetValue(ch,out var c)&&c.glyph!=null)
-                return c.glyph.metrics.horizontalAdvance*px/Mathf.Max(1,font.faceInfo.pointSize)*(font.faceInfo.scale>0?font.faceInfo.scale:1);
+                return c.glyph.metrics.horizontalAdvance*c.scale*c.glyph.scale*px/Mathf.Max(1,font.faceInfo.pointSize)*(font.faceInfo.scale>0?font.faceInfo.scale:1);
             if(font.fallbackFontAssetTable!=null)foreach(var fallback in font.fallbackFontAssetTable){float a=GlyphAdvance11(fallback,ch,px,depth+1);if(a>=0)return a;}
             return -1;
         }

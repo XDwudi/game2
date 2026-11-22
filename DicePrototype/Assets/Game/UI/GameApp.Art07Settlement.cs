@@ -54,7 +54,7 @@ namespace DiceCraft
             shownSettlements07.Add(identity);if(armedSettlement07==identity)armedSettlement07=null;
             var scrim=UiKit.Box(main,"SettlementScrim07",0,0,1920,1080,new Color(0,0,0,.35f),true);SettlementSkipTarget07(scrim);
             var p=UiKit.PaperFrame(main,"Rewards",520,168,880,744,UiKit.Paper,UiKit.Ink,true);SettlementSkipTarget07(p);
-            var cleared=UiKit.Text(p,"Cleared","第 "+(ViewState.stage.stageIndex+1)+" 关完成",24,20,560,76,UiKit.FontScale>1?32:42,UiKit.Ink);cleared.fontStyle=FontStyles.Bold;
+            var cleared=UiKit.Text(p,"Cleared","第 "+(ViewState.stage.stageIndex+1)+" 关完成",24,20,560,76,UiKit.FontScale>1?32:42,UiKit.Ink);cleared.fontStyle=FontStyles.Bold;UiKit.Role(cleared,TextRole.ScreenTitle);
             var skip=UiKit.FlatButton(p,"SkipSettlementReveal07","跳过演出",604,28,252,60,CompleteSettlementReveal07);
             skip.GetComponentInChildren<TextMeshProUGUI>().color=UiKit.Ink;
             UiKit.Text(p,"FinalStageScore",CompactScore(r.score)+" / "+CompactScore(r.target),24,108,832,60,28,UiKit.Ink);
@@ -101,7 +101,8 @@ namespace DiceCraft
             bool exhausted=ViewState.failureReason=="NoPermanentDice"&&ViewState.stage.settlementContinuation=="RunFailed";
             UiKit.Text(p,"SettlementStatus",exhausted?"本关成功 · 永久骰已耗尽，整局结束。":"本关奖励已处理。",24,574,832,62,24,UiKit.Ink);
             ReceiptRule071(p,"ReceiptActionRule",24,640,832);
-            UiKit.ActionButton(p,"SettlementContinue",exhausted?"查看结果 →":ViewState.stage.settlementContinuation=="Shop"?"进入商店 →":"查看整局结果 →",24,648,832,72,()=>{CompleteSettlementReveal07();Send(new SessionCommand{kind=CommandKind.Continue});},UiKit.Blue,!IsBusy&&!Session.HasPendingSave);
+            var primaryButton=UiKit.ActionButton(p,"SettlementContinue",exhausted?"查看结果 →":ViewState.stage.settlementContinuation=="Shop"?"进入商店 →":"查看整局结果 →",24,648,832,72,()=>{CompleteSettlementReveal07();Send(new SessionCommand{kind=CommandKind.Continue});},UiKit.Blue,!IsBusy&&!Session.HasPendingSave);
+            UiKit.Role(primaryButton.GetComponentInChildren<TextMeshProUGUI>(),TextRole.PrimaryButton);
 
             // Symbols are below every HUD/paper label. They never cover wallet digits or controls.
             var coinLayer=UiKit.Rect(main,"SettlementCoins07",0,0,1920,1080);coinLayer.SetAsFirstSibling();

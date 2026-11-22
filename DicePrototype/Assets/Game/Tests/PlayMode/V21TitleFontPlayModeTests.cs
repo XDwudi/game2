@@ -1,0 +1,258 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using NUnit.Framework;
+using TMPro;
+using UnityEngine;
+using UnityEngine.TestTools;
+using UnityEngine.UI;
+
+namespace DiceCraft.Tests
+{
+    public sealed partial class GameplayPlayModeTests
+    {
+        private const TextRole GoldenRoles21 = TextRole.ScreenTitle | TextRole.StageNumber | TextRole.BigNumber
+            | TextRole.BossName | TextRole.PrimaryButton;
+
+        [UnityTest]
+        public IEnumerator PLAY_V21_FW16_SancaiGoldenTitleFont()
+        {
+            Assert.That((Screen.width == 1920 && Screen.height == 1080) ||
+                        (Screen.width == 1280 && Screen.height == 720), Is.True, "Use an actual supported window.");
+            string output = Path.GetFullPath(Path.Combine(Application.dataPath, "..", "..", "artifacts", "cache",
+                "v11", "w21", "golden", Screen.width + "x" + Screen.height));
+            Directory.CreateDirectory(output);
+            var report = new List<string> { "Unity " + Application.unityVersion + " | " + Screen.width + "x" +
+                Screen.height + " | source " + IdentityHead20X(), "FW-03..08,16: sancai sample only. " +
+                "Frames and contrast checked on named labels. Disabled labels are exempt from contrast only. " +
+                "FW-06 compares rendered Han ink in the same stage tag at the same size." };
+            var failures = new List<string>();
+            bool priorClean = GameApp.CleanCapture11;
+            try
+            {
+                GameApp.CleanCapture11 = true;
+                PlayerPrefs.SetInt("reduced", 1);
+                foreach (int percent in new[] {100, 150})
+                {
+                    W11Apply(IdentityWinningHand20X(0));
+                    yield return GoldenStyle21(percent);
+                    yield return GoldenScreen21("normal-goal", percent, output, report, failures, false,
+                        (Label21("StageGoal11"), TextRole.BigNumber));
+
+                    W11Apply(W11Scene(new[]{"C39","C139","C34","C56","C08"},new[]{1,2,3,4,5},"bbrbb",
+                        0,false,stageIndex:8,modifier:"B02",target:"13500",score:"0",items:2));
+                    yield return W11Settle();
+                    yield return GoldenScreen21("play", percent, output, report, failures, true,
+                        (Label21("StageLabel11"), TextRole.StageNumber), (Label21("BossModifierName"), TextRole.BossName),
+                        (Button("Roll").GetComponentInChildren<TextMeshProUGUI>(), TextRole.PrimaryButton),
+                        (Label21("StageCardTitle11"), TextRole.SectionTitle), (Label21("BossModifierText"), TextRole.None));
+
+                    yield return W14Load(W14ShopFixture(false));
+                    yield return GoldenStyle21(percent);
+                    var firstOffer = app.Session.State.shop.offers.First(o => o.category == "controller");
+                    var card = W14Main.Find("Offer_" + firstOffer.offerId);
+                    Assert.That(card, Is.Not.Null, "A real shelf offer must be drawn on the shop canvas.");
+                    var cardName = Label21("Name", card);
+                    cardName.ForceMeshUpdate();
+                    Assert.That(cardName.GetParsedText(), Is.EqualTo(app.Config.Controller(firstOffer.contentId).displayName));
+                    Assert.That(cardName.textInfo.characterInfo.Take(cardName.textInfo.characterCount).Any(c => c.isVisible), Is.True);
+                    yield return GoldenScreen21("shop", percent, output, report, failures, true,
+                        (Label21("ShopTitle"), TextRole.ScreenTitle), (Label21("ControllerShelfTitle"), TextRole.SectionTitle),
+                        (cardName, TextRole.CardName),
+                        (Button("LeaveShop").GetComponentInChildren<TextMeshProUGUI>(), TextRole.PrimaryButton));
+
+                    yield return IdentityEndStage20X(3);
+                    yield return Art073Settle(.45f);
+                    yield return GoldenScreen21("settlement", percent, output, report, failures, true,
+                        (Label21("Cleared"), TextRole.ScreenTitle), (Label21("SettlementStatus"), TextRole.None),
+                        (Button("SettlementContinue").GetComponentInChildren<TextMeshProUGUI>(), TextRole.PrimaryButton));
+
+                    var pick = ShopBoundaryFixture();
+                    pick.shop.offers.Clear();
+                    AddBoundaryOffer(pick, "pick-gold", "die_upgrade", "U06");
+                    yield return W14Load(pick);
+                    yield return GoldenStyle21(percent);
+                    string die = app.Session.State.dice.OrderBy(d => d.createdSerial).First().dieId;
+                    Click("Buy_pick-gold"); Click("Target_" + die); Click("Face_F02");
+                    yield return Art073Settle(.35f);
+                    Assert.That(app.FacePickStep14, Is.EqualTo("S3"));
+                    // S3 dims the shop behind its veil. The undimmed shop title is sampled in "shop";
+                    // here the visible title, chosen die and face, and ways to return or confirm belong to FacePick14.
+                    var foreground = W14Main.Find("FacePick14");
+                    Assert.That(foreground, Is.Not.Null);
+                    yield return GoldenScreen21("facepick-S3", percent, output, report, failures, true,
+                        (Label21("FacePickTitle14", foreground), TextRole.SectionTitle),
+                        (Label21("FacePickDieLabel14", foreground), TextRole.None),
+                        (Label21("PurchasePreviewBody", foreground), TextRole.None),
+                        (foreground.Find("ChangeFace14/Label").GetComponent<TextMeshProUGUI>(), TextRole.None),
+                        (foreground.Find("CancelFacePick14/Label").GetComponent<TextMeshProUGUI>(), TextRole.None),
+                        (foreground.Find("ConfirmPurchase/Label").GetComponent<TextMeshProUGUI>(), TextRole.None));
+                }
+            }
+            finally
+            {
+                report.AddRange(failures.Select(f => "FAIL " + f));
+                File.WriteAllLines(Path.Combine(output, "font-measurements.txt"), report);
+                GameApp.CleanCapture11 = priorClean;
+                if (app != null) app.ApplyTheme11(GameTheme.DefaultId, false);
+            }
+            Assert.That(failures, Is.Empty, string.Join("\n", failures));
+        }
+
+        private IEnumerator GoldenStyle21(int percent)
+        {
+            app.ApplyTheme11("sancai");
+            Assert.That(app.ThemeId11, Is.EqualTo("sancai"));
+            Assert.That(UiKit.TitleFont, Is.Not.Null, "The player's Resources lookup must load the signed sample asset.");
+            Assert.That(ThemeRegistry.Current.TitleRoles, Is.EqualTo(GoldenRoles21));
+            W11TextScale(percent);
+            yield return W11Settle();
+        }
+
+        private TextMeshProUGUI Label21(string name, Transform under = null)
+        {
+            var labels = (under == null ? app.canvas.transform : under).GetComponentsInChildren<TextMeshProUGUI>(false);
+            var hit = labels.FirstOrDefault(t => t.enabled && t.name == name);
+            Assert.That(hit, Is.Not.Null, "Expected live label " + name);
+            return hit;
+        }
+
+        private IEnumerator GoldenScreen21(string screen, int percent, string output, List<string> report,
+            List<string> failures, bool saveShot, params (TextMeshProUGUI label, TextRole role)[] samples)
+        {
+            string scope = screen + "-" + percent;
+            Canvas.ForceUpdateCanvases();
+            var order = app.canvas.GetComponentsInChildren<Graphic>(false);
+            var inkRects = new Dictionary<TextMeshProUGUI, List<Rect>>();
+            foreach (var (label, role) in samples)
+            {
+                bool themed = (GoldenRoles21 & role) != 0;
+                if (label.font != (themed ? UiKit.TitleFont : UiKit.Font) ||
+                    (themed && (label.fontStyle != FontStyles.Normal || label.fontWeight != FontWeight.Regular)))
+                    failures.Add(scope + " FW-04 " + W11bPath(label.transform) + ": " + label.font.name + " " + label.fontStyle);
+                label.ForceMeshUpdate();
+                if (role != TextRole.None || screen == "facepick-S3")
+                {
+                    inkRects[label] = W13GlyphCheck(label, scope, order, failures);
+                    if (inkRects[label].Count == 0) failures.Add(scope + ": no rendered glyphs for " + label.name);
+                    float designSize = label.textInfo.characterInfo.Take(label.textInfo.characterCount)
+                        .Where(c => c.isVisible).Select(c => c.pointSize).DefaultIfEmpty(0f).Min();
+                    if (designSize < 19.5f || (Screen.height == 720 && designSize * app.canvas.scaleFactor < 12.99f))
+                        failures.Add(scope + " FW-08 " + label.name + " size " + designSize);
+                    report.Add(scope + " " + W11bPath(label.transform) + " " + role + " " + label.font.name +
+                        " | " + designSize + " design, " + (designSize * app.canvas.scaleFactor).ToString("F2") + " px");
+                }
+                if (!themed) continue;
+                for (int i = 0; i < label.textInfo.characterCount; i++)
+                {
+                    var c = label.textInfo.characterInfo[i];
+                    if (char.IsWhiteSpace(c.character)) continue;
+                    uint source = label.text[c.index];
+                    var chain = UiKit.TitleFont.fallbackFontAssetTable;
+                    if (c.textElement == null || c.textElement.unicode != source ||
+                        (c.fontAsset != UiKit.TitleFont && !chain.Contains(c.fontAsset)))
+                        failures.Add(scope + " FW-03 " + label.name + " missing or wrong glyph U+" + source.ToString("X4"));
+                    if ((source == '·' || source == '→') && c.fontAsset != chain.FirstOrDefault())
+                        failures.Add(scope + " FW-03 expected the physical bold fallback for U+" + source.ToString("X4"));
+                }
+            }
+
+            yield return new WaitForEndOfFrame();
+            var drawn = ScreenCapture.CaptureScreenshotAsTexture();
+            try
+            {
+                if (saveShot) File.WriteAllBytes(Path.Combine(output, scope + ".png"), drawn.EncodeToPNG());
+                foreach (var label in inkRects.Keys) label.enabled = false;
+                yield return new WaitForEndOfFrame();
+                var blank = Screen20Xb();
+                foreach (var label in inkRects.Keys) label.enabled = true;
+                Canvas.ForceUpdateCanvases();
+                foreach (var entry in inkRects)
+                {
+                    var label = entry.Key;
+                    var button = label.GetComponentInParent<Selectable>();
+                    if (button != null && !button.interactable)
+                    { report.Add(scope + " FW-07 disabled, exempt: " + W11bPath(label.transform)); continue; }
+                    var colors = new List<Color32>();
+                    foreach (Rect rect in entry.Value)
+                        for (int y = Mathf.Max(0, Mathf.FloorToInt(rect.yMin)); y < Mathf.Min(drawn.height, Mathf.CeilToInt(rect.yMax)); y++)
+                            for (int x = Mathf.Max(0, Mathf.FloorToInt(rect.xMin)); x < Mathf.Min(drawn.width, Mathf.CeilToInt(rect.xMax)); x++)
+                                colors.Add(blank[y * drawn.width + x]);
+                    if (colors.Count == 0) { failures.Add(scope + " FW-07 no backdrop pixels " + label.name); continue; }
+                    colors.Sort((a,b) => GameApp.Luminance11(a).CompareTo(GameApp.Luminance11(b)));
+                    var fill = colors[colors.Count / 2];
+                    float ratio = GameApp.Contrast11(label.color, fill);
+                    string line = scope + " FW-07 " + W11bPath(label.transform) + " foreground #" +
+                        ColorUtility.ToHtmlStringRGB(label.color) + " actual background #" + ColorUtility.ToHtmlStringRGB(fill) +
+                        " contrast " + ratio.ToString("F2", CultureInfo.InvariantCulture);
+                    report.Add(line);
+                    if (ratio < GameApp.MinContrast11) failures.Add(line);
+                }
+                if (screen == "play")
+                    yield return CompareInk21(Label21("StageLabel11"), drawn.GetPixels32(), blank, scope, report, failures);
+            }
+            finally
+            {
+                foreach (var label in inkRects.Keys) if (label != null) label.enabled = true;
+                UnityEngine.Object.Destroy(drawn);
+            }
+        }
+
+        // Compare the visible top and bottom of each Han glyph (not the padded SDF mesh). Use subpixel
+        // threshold crossings on the row's strongest stroke to avoid rounding a half-pixel budget at 720p.
+        private static List<float> HanInkCenters21(TextMeshProUGUI label, Color32[] frame, Color32[] blank)
+        {
+            var centers = new List<float>();
+            label.ForceMeshUpdate();
+            foreach (var c in label.textInfo.characterInfo.Take(label.textInfo.characterCount))
+            {
+                if (c.character < 0x4e00 || c.character > 0x9fff) continue;
+                Vector3 a = label.transform.TransformPoint(c.bottomLeft), b = label.transform.TransformPoint(c.topRight);
+                int y0 = Mathf.Max(0, Mathf.FloorToInt(a.y)-1), y1 = Mathf.Min(Screen.height-1, Mathf.CeilToInt(b.y)+1);
+                var rows = new float[y1-y0+1];
+                for (int y = y0; y <= y1; y++)
+                    for (int x = Mathf.Max(0, Mathf.FloorToInt(a.x)); x < Mathf.Min(Screen.width, Mathf.CeilToInt(b.x)); x++)
+                    {
+                        int i = y * Screen.width + x;
+                        var p = frame[i]; var q = blank[i];
+                        rows[y-y0] = Mathf.Max(rows[y-y0], Math.Abs(p.r-q.r) + Math.Abs(p.g-q.g) + Math.Abs(p.b-q.b));
+                    }
+                float threshold = rows.Max() * .5f;
+                Assert.That(threshold, Is.GreaterThan(5f), "no visible ink for " + c.character);
+                int lo = Array.FindIndex(rows, k => k >= threshold), hi = Array.FindLastIndex(rows, k => k >= threshold);
+                float bottom = lo > 0 ? lo - 1 + Mathf.InverseLerp(rows[lo-1], rows[lo], threshold) : lo;
+                float top = hi+1 < rows.Length ? hi + Mathf.InverseLerp(rows[hi], rows[hi+1], threshold) : hi;
+                centers.Add(y0 + (bottom+top)*.5f);
+            }
+            return centers;
+        }
+
+        private IEnumerator CompareInk21(TextMeshProUGUI stage, Color32[] title, Color32[] blank,
+            string scope, List<string> report, List<string> failures)
+        {
+            var themed = HanInkCenters21(stage, title, blank);
+            var font = stage.font; var style = stage.fontStyle; var weight = stage.fontWeight;
+            try
+            {
+                stage.font = UiKit.Font;
+                stage.fontStyle = FontStyles.Bold;
+                stage.ForceMeshUpdate();
+                yield return new WaitForEndOfFrame();
+                var baseline = HanInkCenters21(stage, Screen20Xb(), blank);
+                Assert.That(themed.Count, Is.EqualTo(2), "Expected 第 and 关 in the stage tag.");
+                Assert.That(baseline.Count, Is.EqualTo(themed.Count));
+                float em = stage.fontSize * app.canvas.scaleFactor;
+                float delta = (themed.Average() - baseline.Average()) / em;
+                string result = scope + " FW-06 " + stage.text + " themed centers=[" +
+                    string.Join(", ", themed) + "] base centers=[" + string.Join(", ", baseline) +
+                    "] pixels/em=" + em + " signed mean offset=" + delta.ToString("F4", CultureInfo.InvariantCulture);
+                report.Add(result);
+                if (Mathf.Abs(delta) > .03f) failures.Add(result);
+            }
+            finally { stage.font = font; stage.fontStyle = style; stage.fontWeight = weight; stage.ForceMeshUpdate(); }
+        }
+    }
+}

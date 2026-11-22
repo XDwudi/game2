@@ -98,7 +98,7 @@ namespace DiceCraft
                 UiKit.Outline(tag,"PrintedTag",0,0,200,44,UiKit.Hex("87535A"),1);
                 UiKit.Text(tag,"Label",ViewState.failureReason=="NoDice"?"活动骰耗尽":ViewState.failureReason=="NoPermanentDice"?"无永久骰":"未达关卡目标",8,2,184,40,UiKit.FontScale>1?16:20,UiKit.Hex("87535A"),TextAlignmentOptions.Center);
             }
-            var title=UiKit.Text(p,"EndTitle",won?"24 关完成":"本次挑战结束",40,28,896,100,UiKit.FontScale>1?40:58,UiKit.Ink);title.fontStyle=FontStyles.Bold;
+            var title=UiKit.Text(p,"EndTitle",won?"24 关完成":"本次挑战结束",40,28,896,100,UiKit.FontScale>1?40:58,UiKit.Ink);title.fontStyle=FontStyles.Bold;UiKit.Role(title,TextRole.ScreenTitle);
             ReceiptRule071(p,"ResultHeadingRule",40,132,896);
             var delta=BigInteger.Max(0,ExactScoreMath.Parse(ViewState.stage.target)-ExactScoreMath.Parse(ViewState.stage.score));
             string detail=won?"这一桌，属于你的构筑。":failure+"\n距离本关目标还差 "+CompactScore(delta.ToString())+" 分。";
@@ -123,7 +123,8 @@ namespace DiceCraft
             var build=UiKit.Text(p,"EndBuild","构筑  "+(ViewState.controllers.Count==0?"无控制器":string.Join(" · ",ViewState.controllers.Select(c=>NameOf(c.definitionId)))),40,won?436:504,896,won?96:100,UiKit.FontScale>1?17:23,UiKit.Ink);build.overflowMode=TextOverflowModes.Ellipsis;
             if(won)victoryRows[4]=build.rectTransform;
             ReceiptRule071(p,"ResultActionRule",40,634,896);
-            UiKit.ActionButton(p,"Again","再开一局",40,650,280,66,ShowNewRun07,UiKit.Blue);
+            var primaryButton=UiKit.ActionButton(p,"Again","再开一局",40,650,280,66,ShowNewRun07,UiKit.Blue);
+            UiKit.Role(primaryButton.GetComponentInChildren<TextMeshProUGUI>(),TextRole.PrimaryButton);
             UiKit.ActionButton(p,"EndBreakdown","查看构筑",348,650,280,66,ShowControllerOrder,UiKit.Paper);
             UiKit.ActionButton(p,"ReturnMenu","返回主菜单",656,650,280,66,ReturnMenu,UiKit.Paper);
             var reveal=UiKit.Component<Art07ScreenReveal>(main.gameObject);

@@ -127,7 +127,7 @@ namespace DiceCraft
             var p=OpenModal(title);UiKit.Clear(p);
             p.anchoredPosition=new Vector2(x,-y);p.sizeDelta=new Vector2(width,height);
             UiKit.Outline(p,"Frame",0,0,width,height,UiKit.Paper,3);
-            UiKit.Text(p,"DialogTitle",title,24,8,width-128,80,32,UiKit.Paper);
+            UiKit.Role(UiKit.Text(p,"DialogTitle",title,24,8,width-128,80,32,UiKit.Paper),TextRole.ScreenTitle);
             UiKit.Button(p,"CloseDialog","×",width-88,12,64,64,CloseModal);
             return p;
         }

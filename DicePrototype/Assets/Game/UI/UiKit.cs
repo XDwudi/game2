@@ -8,6 +8,13 @@ using UnityEngine.UI;
 
 namespace DiceCraft
 {
+    [Flags]
+    public enum TextRole
+    {
+        None = 0, ScreenTitle = 1, SectionTitle = 2, StageNumber = 4,
+        BigNumber = 8, CardName = 16, BossName = 32, PrimaryButton = 64
+    }
+
     public static class UiKit
     {
         // V1.1: every colour token reads the active theme's palette (UI/Theme). The default palette holds the
@@ -90,6 +97,31 @@ namespace DiceCraft
             return templateIndex.TryGetValue(name,out var hit)&&hit!=null?hit:null;
         }
         public static TMP_FontAsset Font;
+        public static TMP_FontAsset TitleFont { get; internal set; }
+        public static TextRole TitleRoles { get; internal set; }
+
+        public static bool Role(TextMeshProUGUI label, TextRole role)
+        {
+            if (TitleFont == null || (TitleRoles & role) == 0) return false;
+            label.font = TitleFont;
+            label.fontStyle = FontStyles.Normal;
+            label.fontWeight = FontWeight.Regular;
+            return true;
+        }
+
+        // TMP's mspace tag is measured in ems. Apply it only to rolling digits in a themed number.
+        public static string TitleDigits(string text)
+        {
+            if (string.IsNullOrEmpty(text) || TitleFont == null || (TitleRoles & TextRole.BigNumber) == 0) return text;
+            float widest = 0;
+            for (uint digit = '0'; digit <= '9'; digit++)
+                if (TitleFont.characterLookupTable.TryGetValue(digit, out var c))
+                    widest = Mathf.Max(widest, c.glyph.metrics.horizontalAdvance * c.scale * c.glyph.scale);
+            if (widest <= 0) return text;
+            var face = TitleFont.faceInfo;
+            string em = (widest * face.scale / face.pointSize).ToString("0.####", System.Globalization.CultureInfo.InvariantCulture);
+            return System.Text.RegularExpressions.Regex.Replace(text, "[0-9]+", "<mspace=" + em + "em>$0</mspace>");
+        }
         public static Color Hex(string s) { ColorUtility.TryParseHtmlString("#" + s, out Color c); return c; }
         public static RectTransform Rect(Transform parent, string name, float x, float y, float w, float h)
         {
@@ -180,7 +212,9 @@ namespace DiceCraft
         {
             var b=Button(p,name,value,x,y,w,h,click,enabled,true);
             b.targetGraphic.color=enabled?color:Panel;
-            b.GetComponentInChildren<TextMeshProUGUI>().color=enabled?(color==Danger?TextColor:Ink):TextColor;
+            var label=b.GetComponentInChildren<TextMeshProUGUI>();
+            label.color=enabled?(color==Danger?TextColor:Ink):TextColor;
+            if(color==Primary)Role(label,TextRole.PrimaryButton);
             return b;
         }
         public static RectTransform Frame(Transform p,string name,float x,float y,float w,float h,Color fill,Color? edge=null,bool raycast=false)

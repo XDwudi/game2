@@ -31,7 +31,7 @@ namespace DiceCraft
             UiKit.Outline(p,"PaperFrame",0,0,1040,640,UiKit.Ink,2);
             UiKit.Outline(p,"DiceTrayFrame",30,150,364,236,Color.Lerp(UiKit.Ink,UiKit.Paper,.5f),1);
             UiKit.Box(p,"DiceTrayRaycast",32,152,360,232,Color.clear,true);
-            var title=UiKit.Text(p,"DialogTitle","新建挑战",24,4,880,88,40,UiKit.Ink);title.fontStyle=FontStyles.Bold;
+            var title=UiKit.Text(p,"DialogTitle","新建挑战",24,4,880,88,40,UiKit.Ink);title.fontStyle=FontStyles.Bold;UiKit.Role(title,TextRole.ScreenTitle);
             ReceiptRule071(p,"HeadingRule",24,92,992);
             var close=UiKit.FlatButton(p,"CloseDialog","×",952,12,64,64,CloseModal);
             close.GetComponentInChildren<TextMeshProUGUI>().color=UiKit.Ink;

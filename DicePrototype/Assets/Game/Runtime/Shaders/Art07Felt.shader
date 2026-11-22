@@ -1,6 +1,7 @@
 Shader "DiceCraft/Art07/Felt"
 {
-    Properties { _BaseMap("Felt",2D)="white"{} _TableMap("Table composition",2D)="white"{} _UseTableMap("Use table composition",Float)=0 _BaseColor("Color",Color)=(.09,.243,.25,1) _Grain("Grain",Float)=1 _Scanlines("Scanlines",Float)=0 _MenuDriftPixels("Menu drift pixels",Float)=0 _MenuBreath("Menu light breath",Float)=0 _Sweep072("Slow light sweep (v0.72)",Float)=0 _Dim11("Boss stage dim (v1.1)",Float)=0 _Vignette11("Boss stage vignette (v1.1)",Float)=0 }
+    Properties { _BaseMap("Felt",2D)="white"{} _TableMap("Table composition",2D)="white"{} _UseTableMap("Use table composition",Float)=0 _BaseColor("Color",Color)=(.09,.243,.25,1) _Grain("Grain",Float)=1 _Scanlines("Scanlines",Float)=0 _MenuDriftPixels("Menu drift pixels",Float)=0 _MenuBreath("Menu light breath",Float)=0 _Sweep072("Slow light sweep (v0.72)",Float)=0 _Dim11("Boss stage dim (v1.1)",Float)=0 _Vignette11("Boss stage vignette (v1.1)",Float)=0
+        _ChapterShift18("Chapter colour change and surface mask",Vector)=(0,0,0,0) }
     SubShader
     {
         Tags { "RenderType"="Opaque" "RenderPipeline"="UniversalPipeline" }
@@ -18,6 +19,7 @@ Shader "DiceCraft/Art07/Felt"
             TEXTURE2D(_TableMap);SAMPLER(sampler_TableMap);
             CBUFFER_START(UnityPerMaterial)
             float4 _BaseMap_ST;float4 _TableMap_TexelSize;half4 _BaseColor;half _UseTableMap;half _Grain;half _Scanlines;half _MenuDriftPixels;half _MenuBreath;half _Sweep072;half _Dim11;half _Vignette11;
+            float4 _ChapterShift18;
             CBUFFER_END
             struct V{float4 pos:SV_POSITION;float2 uv:TEXCOORD0;float3 world:TEXCOORD1;};
             V vert(float4 p:POSITION,float2 uv:TEXCOORD0){V v;v.world=TransformObjectToWorld(p.xyz);v.pos=TransformWorldToHClip(v.world);v.uv=TRANSFORM_TEX(uv,_BaseMap);return v;}
@@ -41,6 +43,17 @@ Shader "DiceCraft/Art07/Felt"
                     float2 tableUV=(uv-.5)*fit+.5;
                     half inside=step(0,tableUV.x)*step(tableUV.x,1)*step(0,tableUV.y)*step(tableUV.y,1);
                     half3 tabletop=SAMPLE_TEXTURE2D(_TableMap,sampler_TableMap,saturate(tableUV)).rgb;
+                    if(_ChapterShift18.w>0)
+                    {
+                        // The default felt starts inside the authored rounded wooden rail
+                        // (20 px inset, radius 13). Swiss ink and red stay outside its paper mask.
+                        float2 size=_TableMap_TexelSize.zw;
+                        float2 q=abs((tableUV-.5)*size)-(size*.5-33);
+                        float inward=13-length(max(q,0))-min(max(q.x,q.y),0);
+                        float mask=_ChapterShift18.w<1.5 ? smoothstep(0,12,inward)
+                            : smoothstep(.12,.65,min(tabletop.r,min(tabletop.g,tabletop.b)));
+                        tabletop=saturate(tabletop+mask*_ChapterShift18.rgb);
+                    }
                     color=lerp(_BaseColor.rgb*.24,tabletop,inside);
                     // Grain/reduced-motion preferences affect only optional microdetail,
                     // never the table silhouette. Do not double the generated felt texture.
