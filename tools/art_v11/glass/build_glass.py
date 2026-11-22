@@ -1569,7 +1569,9 @@ def card_back() -> Image.Image:
 # W14's shop stopped drawing ui_price_chip, ui_pedestal and ui_frame_enchant; the contract regenerated on 2026-11-18 lists
 # them as unreferenced, and this kit does not draw them (STATE, W14 decision 4: "黑金与彩绘玻璃按 50 张做").
 def contract_sprites() -> list[dict]:
-    return [s for s in json.loads(CONTRACT.read_text(encoding="utf-8"))["sprites"] if (s["referenced"]) and not s.get("optionalOverride")]
+    """Keep building the bottom tab shipped before W16 retired it."""
+    return [s for s in json.loads(CONTRACT.read_text(encoding="utf-8"))["sprites"]
+            if (s["referenced"] or s["name"] == "ui_tab_bottom") and not s.get("optionalOverride")]
 
 
 NEUTRAL_ICONS = ("ui_icon_arrow", "ui_icon_book", "ui_icon_gear", "ui_icon_refresh", "ui_pip_dot", "fx_score_spark",

@@ -54,16 +54,17 @@ DEFAULT_PALETTE = {
 
 # ---------------------------------------------------------------------------------------------- kit
 def load_kit(root: Path = ROOT):
-    """The deco kit as written under `root` (a build folder), every referenced sprite of the contract; a missing one is
+    """The deco kit as written under `root` (a build folder), every shipped sprite of the contract; a missing one is
     the default sprite (the game's fallback) and is listed. The palette is theme.json's, buttonSecondary included (W20Y,
     named on every image that draws it)."""
     theme = Path(root) / bd.THEME
     specs = {s["name"]: s for s in json.loads(bd.CONTRACT.read_text(encoding="utf-8"))["sprites"]}
+    required = {s["name"] for s in bd.contract_sprites()}
     kit, fallback = {}, []
     for name, s in specs.items():
         own = theme / "UI" / (name + ".png")
         path = own if own.is_file() else ROOT / s["default"]
-        if not own.is_file() and s["referenced"] and not s.get("optionalOverride"):
+        if not own.is_file() and name in required:
             fallback.append(name)
         with Image.open(path) as im:
             kit[name] = im.convert("RGBA")

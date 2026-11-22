@@ -571,7 +571,7 @@ def contact_sheet(kit: bg.Kit, table: Image.Image, page: Image.Image, palette: d
     the small marks at real size on their hosts (1x and 2x); the wordmark on the paper panel; the table and the page with
     the calm zones, the bounding rectangles and the action row's free rectangle marked; the palette; the concept pages."""
     P = dict(palette)
-    specs = [s for s in json.loads(bg.CONTRACT.read_text(encoding="utf-8"))["sprites"] if s["referenced"] and not s.get("optionalOverride")]
+    specs = bg.contract_sprites()
     W = 2400
     sheet = Image.new("RGB", (W, 9000), DARK_BG)
     d = ImageDraw.Draw(sheet)

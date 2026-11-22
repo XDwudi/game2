@@ -55,6 +55,9 @@ class SettlementMaskTests(unittest.TestCase):
                 self.assertEqual(row["pixelsPerUnit"], 200)
                 self.assertEqual(sprite.getextrema(), ((255, 255), (255, 255), (255, 255), (0, 255)))
                 self.assertEqual(sprite.size, (352,352) if "tier" in name else (96,96))
+                with Image.open(ROOT / row["default"]) as shipped:
+                    self.assertEqual((shipped.mode, shipped.size), (sprite.mode, sprite.size))
+                    self.assertEqual(shipped.tobytes(), sprite.tobytes())
 
     def test_frames_keep_clear_window_clear_stamp_and_readable_tier(self):
         stamp = None

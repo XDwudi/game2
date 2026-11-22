@@ -22,7 +22,8 @@ REVIEW = Path("ArtSource/Art11/sancai/contact_sheet.png")
 CONTRACT = json.loads((ROOT / "tools/art_v11/theme_contract.json").read_text(encoding="utf-8"))
 # W14's shop stopped drawing these three; the contract regenerated on 2026-11-18 lists them as unreferenced (53 -> 50).
 # This kit was built before that and still ships them, so its checks keep covering them (STATE, W14 decision 4).
-KEPT_UNREFERENCED = {"ui_price_chip", "ui_pedestal", "ui_frame_enchant"}
+# W16 retired the bottom tab from the runtime after all five themes had shipped it.
+KEPT_UNREFERENCED = {"ui_price_chip", "ui_pedestal", "ui_frame_enchant", "ui_tab_bottom"}
 SPRITES = [sprite for sprite in CONTRACT["sprites"] if (sprite["referenced"] or sprite["name"] in KEPT_UNREFERENCED) and not sprite.get("optionalOverride")]
 BY_NAME = {sprite["name"]: sprite for sprite in SPRITES}
 
@@ -589,7 +590,10 @@ class SancaiArtTests(unittest.TestCase):
         self.assertGreaterEqual(float(contrast(value, warning)), 1.5)
 
     def test_theme_json_schema(self):
-        self.assertEqual(set(self.theme), {"id", "displayName", "description", "order", "preview", "palette"})
+        self.assertEqual(set(self.theme), {"id", "displayName", "description", "order", "preview", "fonts", "palette"})
+        self.assertEqual(self.theme["fonts"], {"title": "Fonts/title",
+                          "roles": ["screenTitle", "stageNumber", "bigNumber", "bossName", "primaryButton"]})
+        self.assertTrue((ROOT / THEME / "Fonts/title.asset").is_file())
         self.assertEqual(self.theme["id"], "sancai")
         self.assertEqual(self.theme["displayName"], "唐三彩陶坊")
         self.assertEqual(self.theme["order"], 2)

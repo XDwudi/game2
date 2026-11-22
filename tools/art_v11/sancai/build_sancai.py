@@ -1676,7 +1676,8 @@ def render_sprite(spec: dict) -> Image.Image:
 
 # W14's shop stopped drawing these three; the contract regenerated on 2026-11-18 lists them as unreferenced.
 # Coordinator decision (2026-11-18): this finished kit keeps them, so its outputs stay byte-identical.
-KEPT_UNREFERENCED = frozenset({"ui_price_chip", "ui_pedestal", "ui_frame_enchant"})
+# W16 retired the bottom tab from the runtime after all five themes had shipped it.
+KEPT_UNREFERENCED = frozenset({"ui_price_chip", "ui_pedestal", "ui_frame_enchant", "ui_tab_bottom"})
 
 
 def contract_sprites() -> list[dict]:

@@ -8,6 +8,7 @@ import unittest
 
 import numpy as np
 from PIL import Image
+from tools.art_v11.theme_contract import OPTIONAL_UI_OVERRIDES
 
 
 sys.dont_write_bytecode = True
@@ -32,7 +33,7 @@ class DefaultSurfaceTests(unittest.TestCase):
 
     def test_every_border_has_a_plate_and_a_shipped_file(self):
         self.assertEqual(set(self.builder.BORDERS), set(self.plates))
-        self.assertEqual({p.stem for p in SURFACES.glob("*.png")}, set(self.plates))
+        self.assertEqual({p.stem for p in SURFACES.glob("*.png")}, set(self.plates) | OPTIONAL_UI_OVERRIDES)
 
     def test_shipped_pixels_match_regeneration(self):
         for name, pixels in self.images.items():
@@ -46,7 +47,9 @@ class DefaultSurfaceTests(unittest.TestCase):
         mirrored = {}
         for name, values, zero in re.findall(r'\{"(\w+)",(?:new Vector4\(([^)]*)\)|(Vector4\.zero))\}', text):
             mirrored[name] = (0, 0, 0, 0) if zero else tuple(int(v) for v in values.split(","))
-        self.assertEqual(mirrored, {name: tuple(border) for name, border in self.builder.BORDERS.items()})
+        borders = {name: tuple(border) for name, border in self.builder.BORDERS.items()}
+        borders.update({name: (0, 0, 0, 0) for name in OPTIONAL_UI_OVERRIDES})
+        self.assertEqual(mirrored, borders)
 
     def test_card_template_sprites_are_tintable_shapes(self):
         for name in CARD_TEMPLATE:

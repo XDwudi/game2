@@ -69,7 +69,8 @@ MAX_FELT_RGB_DEVIATION = 0
 # W14's shop stopped drawing ui_price_chip, ui_pedestal and ui_frame_enchant; the contract regenerated on 2026-11-18
 # lists them as unreferenced. Coordinator decision (2026-11-18): the three finished kits keep them, so their outputs stay
 # byte-identical and the review sheet keeps working; new kits (deco, glass) build the referenced set only.
-LEGACY_NAMES = frozenset({"ui_price_chip", "ui_pedestal", "ui_frame_enchant"})
+# W16 retired the bottom tab from the runtime after all five themes had shipped it.
+LEGACY_NAMES = frozenset({"ui_price_chip", "ui_pedestal", "ui_frame_enchant", "ui_tab_bottom"})
 
 
 class Canvas:

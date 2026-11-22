@@ -20,8 +20,9 @@ ROOT = Path(__file__).resolve().parents[1]
 THEME = Path("DicePrototype/Assets/Resources/Themes/deco")
 REVIEW = Path("ArtSource/Art11/deco/contact_sheet.png")
 CONTRACT = json.loads((ROOT / "tools/art_v11/theme_contract.json").read_text(encoding="utf-8"))
-# Built after the contract was regenerated on 2026-11-18: only the referenced sprites ship (W14 decision 4).
-SPRITES = [sprite for sprite in CONTRACT["sprites"] if (sprite["referenced"]) and not sprite.get("optionalOverride")]
+# The bottom tab shipped before W16 retired it. Its original artwork must still rebuild.
+SPRITES = [sprite for sprite in CONTRACT["sprites"]
+           if (sprite["referenced"] or sprite["name"] == "ui_tab_bottom") and not sprite.get("optionalOverride")]
 BY_NAME = {sprite["name"]: sprite for sprite in SPRITES}
 
 # Written from the game's callers, independently of the generator: pieces the code multiplies by palette colours
@@ -1037,7 +1038,10 @@ class DecoArtTests(unittest.TestCase):
         self.assertGreaterEqual(max(float(contrast(hex_rgb(p[k]), tab)) for k in ("ink", "paper", "textColor")), 4.95)
 
     def test_theme_json_schema(self):
-        self.assertEqual(set(self.theme), {"id", "displayName", "description", "order", "preview", "palette"})
+        self.assertEqual(set(self.theme), {"id", "displayName", "description", "order", "preview", "fonts", "palette"})
+        self.assertEqual(self.theme["fonts"], {"title": "Fonts/title",
+                          "roles": ["screenTitle", "stageNumber", "bigNumber", "bossName", "primaryButton"]})
+        self.assertTrue((ROOT / THEME / "Fonts/title.asset").is_file())
         self.assertEqual(self.theme["id"], "deco")
         self.assertEqual(self.theme["displayName"], "黑金装饰艺术")
         self.assertEqual(self.theme["order"], 4)
@@ -1088,7 +1092,10 @@ class DecoArtTests(unittest.TestCase):
 
     # ------------------------------------------------------------------ determinism
     def test_full_build_is_byte_deterministic(self):
-        self.assertEqual(self.first_hashes, self.second_hashes)
+        self.assertEqual(set(self.first_hashes), set(self.second_hashes))
+        for relative, digest in self.first_hashes.items():
+            with self.subTest(asset=relative):
+                self.assertEqual(digest, self.second_hashes[relative])
 
     def test_shipped_assets_match_regeneration(self):
         for relative, digest in self.first_hashes.items():

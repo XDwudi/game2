@@ -1480,8 +1480,9 @@ def render_sprite(spec: dict) -> Image.Image:
 
 
 def contract_sprites() -> list[dict]:
-    """The referenced sprites of the regenerated contract (2026-11-18: 50). Unreferenced ones are not drawn."""
-    return [s for s in json.loads(CONTRACT.read_text(encoding="utf-8"))["sprites"] if (s["referenced"]) and not s.get("optionalOverride")]
+    """Keep building the bottom tab shipped before W16 retired it."""
+    return [s for s in json.loads(CONTRACT.read_text(encoding="utf-8"))["sprites"]
+            if (s["referenced"] or s["name"] == "ui_tab_bottom") and not s.get("optionalOverride")]
 
 
 # ---------------------------------------------------------------------------------------------- table
