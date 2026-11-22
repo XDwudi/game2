@@ -88,9 +88,12 @@ namespace DiceCraft.Verification
             app.ApplyTheme11(releaseTheme);
             measured.theme=app.ThemeId11;
             measured.rulesVersion=app.Config.configVersion;
-            measured.screenWidth=Screen.width;measured.screenHeight=Screen.height;
             measured.traceSteps=trace.steps.Length-1;
             yield return Settle(app);
+            yield return new WaitForEndOfFrame();
+            measured.screenWidth=Screen.width;measured.screenHeight=Screen.height;
+            if(measured.screenWidth!=1920||measured.screenHeight!=1080)
+                throw new InvalidOperationException("R-05 requires an actual 1920x1080 player window.");
             yield return CaptureRelease(app,"menu");
             app.StartNew(trace.seed.ToString(CultureInfo.InvariantCulture));
             yield return Settle(app);

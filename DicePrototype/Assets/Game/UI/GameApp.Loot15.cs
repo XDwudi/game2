@@ -169,10 +169,12 @@ namespace DiceCraft
 
         private void DrawClaimTabs15(RectTransform panel, ShopGroup[] groups)
         {
-            float x=20,w=(panel.rect.width-40-(groups.Length-1)*8)/groups.Length;
+            // The transparent tabs reveal the header strip. Keep it in their real background chain.
+            var strip=(RectTransform)panel.Find("HeaderStrip");
+            float x=20-strip.anchoredPosition.x,y=4+strip.anchoredPosition.y,w=(panel.rect.width-40-(groups.Length-1)*8)/groups.Length;
             foreach(var g in groups)
             {
-                var b=UiKit.FlatButton(panel,"GiftTab_"+g.groupId,GroupName15(g)+"（"+LootStatus15(g)+"）",x,4,w,60,()=>
+                var b=UiKit.FlatButton(strip,"GiftTab_"+g.groupId,GroupName15(g)+"（"+LootStatus15(g)+"）",x,y,w,60,()=>
                 {lootGroup15=g.groupId;facePick14=null;Refresh();},!IsBusy,g.groupId==lootGroup15);
                 var t=b.transform.Find("Label").GetComponent<TextMeshProUGUI>();
                 t.fontSize=22*UiKit.FontScale;t.color=LabelOn11((Image)b.targetGraphic);
@@ -268,6 +270,23 @@ namespace DiceCraft
             {
                 var caption=UiKit.Text(b.transform,"LootEnterNote15",note,8,top+mainH-(Large11?6:0),r.width-16,r.height-mainH-10,
                     Large11?19.5f/UiKit.FontScale:19.5f,LabelOn11(face),TextAlignmentOptions.Center);NoWrap11(caption);
+                if(GlyphBox11(caption,out var ink))
+                {
+                    var frame=FrameInsets11(face);
+                    float innerBottom=face.rectTransform.rect.height-frame.y-1;
+                    float over=-caption.rectTransform.anchoredPosition.y+ink.yMax-innerBottom;
+                    if(over>0)caption.rectTransform.anchoredPosition+=Vector2.up*over;
+                    if(GlyphBox11(label,out var heading))
+                    {
+                        float noteTop=-caption.rectTransform.anchoredPosition.y+ink.yMin;
+                        float lift=Mathf.Min(top+heading.yMax+1-noteTop,top+heading.yMin-frame.w);
+                        if(lift>0)
+                        {
+                            label.rectTransform.anchoredPosition+=Vector2.up*lift;
+                            icon.rectTransform.anchoredPosition+=Vector2.up*lift;
+                        }
+                    }
+                }
             }
         }
 

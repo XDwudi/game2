@@ -55,7 +55,7 @@ dotnet $sim run --first 5000 --seeds 300 --threads 10 --prepared --out evidence/
 - `--prepared` 会改变对局（调序是真实命令），所以与普通机器人按种子成对比较，见 `v10_report_tables.py paired`。
 - 实测报告的表由 `v10_report_tables.py` 的 `pool / tension / gold / bosspool / pressure / lab / paired / cardwin / diversity` 模式生成，
   除 `lab`、`paired` 外都可以一次给多份 `run` 的 JSON，按局合并。
-- 历史回放使用 `--steps N` 截取前 N 条命令。p1.1.0 发布验证用 `trace --full --seed 5000 --out <整局记录.json>`，同时记录控制器的重排顺序与终局阶段。
+- 历史回放使用 `--steps N` 截取前 N 条命令。p1.1.0 发布验证用 `trace --full --seed 5000 --out <整局记录.json>`。模拟器逐步重放命令，记录重排顺序、终局关号与阶段，以及首次进入各类界面和领取战利品的截图顺序，供 Windows 玩家包逐项核对。
   Windows 包生成后，在仓库根目录运行 `python tools/replay_v11.py --trace <整局记录.json> --out evidence/v11/replays/final`。运行器在新目录解压已核验的包，依次回放六套风格，保存截图、玩家日志和发布索引。
 
 ### 关卡目标候选与校准

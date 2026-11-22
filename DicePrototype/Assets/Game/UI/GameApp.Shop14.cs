@@ -529,12 +529,12 @@ namespace DiceCraft
             string capacity=IsPracticeRun11?"练习模式 · 持有 "+cards.Count+" 张 · 占用栏位 "+ControllerRules.OrdinaryUsed(cards):
                 ViewState.debugWorkspace&&!CleanCapture11?"调试配置 · 持有 "+cards.Count+" · 占用栏位 "+ControllerRules.OrdinaryUsed(cards):
                 "卡牌栏位 "+ControllerRules.OrdinaryUsed(cards)+"/"+ViewState.controllerSlots+" · 共 "+cards.Count+"/"+Config.maxControllerInstances+" 张";
-            float captionY=4+(l.captionH-Line11(18))*.5f,itemsX=l.build.width-ShopPad14-(5*BuildItemSize14+4*6);
-            var head=FitLine13(panel,"BuildTitle14","我的构筑",ShopPad14,captionY,140,18,LabelOn11(panel,UiKit.TextColor),TextAlignmentOptions.MidlineLeft,true);
+            float captionSize=Body11(18),captionY=4+(l.captionH-Line11(captionSize))*.5f,itemsX=l.build.width-ShopPad14-(5*BuildItemSize14+4*6);
+            var head=FitLine13(panel,"BuildTitle14","我的构筑",ShopPad14,captionY,140,captionSize,LabelOn11(panel,UiKit.TextColor),TextAlignmentOptions.MidlineLeft,true);
             head.ForceMeshUpdate();float x=ShopPad14+head.textBounds.size.x+16;
-            var cap=FitLine13(panel,"ControllerCapacity07",capacity,x,captionY,Mathf.Max(40,itemsX-x-16),18,LabelOn11(panel,UiKit.Muted),TextAlignmentOptions.MidlineLeft,false);
+            var cap=FitLine13(panel,"ControllerCapacity07",capacity,x,captionY,Mathf.Max(40,itemsX-x-16),captionSize,LabelOn11(panel,UiKit.Muted),TextAlignmentOptions.MidlineLeft,false);
             cap.ForceMeshUpdate();x+=cap.textBounds.size.x+14;
-            var order=FitLine13(panel,"OwnedControllersTitle",doomed.Count>0?"红框的卡会被祭坛摧毁，拖动可避开":"拖动调整顺序",x,captionY,Mathf.Max(40,itemsX-x-16),18,
+            var order=FitLine13(panel,"OwnedControllersTitle",doomed.Count>0?"红框的卡会被祭坛摧毁，拖动可避开":"拖动调整顺序",x,captionY,Mathf.Max(40,itemsX-x-16),captionSize,
                 doomed.Count>0?CueOn11(panel,UiKit.Danger):LabelOn11(panel,UiKit.Muted),TextAlignmentOptions.MidlineLeft,false);
             float tileY=4+l.captionH+2;int shown=cards.Count>10?9:cards.Count;
             // V1.1 (W22i, W20Z2 finding): the row keeps 2 units inside the panel's drawn frame (BuildTileRow14).
@@ -560,7 +560,7 @@ namespace DiceCraft
             if(cards.Count>10)ShopButton14(panel,"AllControllers14","全部 "+cards.Count+" 张",tileX+9*(BuildTileWidth14+4),tileY+(tileH-60)*.5f,BuildTileWidth14,60,ShowControllerOrder,!IsBusy,null,18);
             if(cards.Count==0)FitLine13(panel,"NoOwned",LootPage15?"还没有装备卡牌，领取后出现在这里。":"还没有装备卡牌，买下后出现在这里。",ShopPad14+8,tileY+(l.tileH-Line11(20))*.5f,Mathf.Max(40,itemsX-ShopPad14-24),20,LabelOn11(panel,UiKit.Muted),TextAlignmentOptions.MidlineLeft,false);
             // Items: 道具 1/3 over up to five cells.
-            var itemsTitle=FitLine13(panel,"OwnedItemsTitle","道具 "+ViewState.inventory.Count+(ViewState.debugWorkspace&&!CleanCapture11?"":"/"+ViewState.consumableSlots),itemsX,captionY,5*BuildItemSize14+24,18,LabelOn11(panel,UiKit.TextColor),TextAlignmentOptions.MidlineLeft,false);
+            var itemsTitle=FitLine13(panel,"OwnedItemsTitle","道具 "+ViewState.inventory.Count+(ViewState.debugWorkspace&&!CleanCapture11?"":"/"+ViewState.consumableSlots),itemsX,captionY,5*BuildItemSize14+24,captionSize,LabelOn11(panel,UiKit.TextColor),TextAlignmentOptions.MidlineLeft,false);
             // V1.1 (W20Z2): the caption row was placed at fixed offsets (4 units from the top, ShopPad14 from the left), inside
             // the default frame but on a thicker one (deco's gold frame, comic's ink line): it keeps 2 units inside the drawn frame.
             KeepRowInsideFrame14(panel,new[]{head,cap,order},itemsTitle);

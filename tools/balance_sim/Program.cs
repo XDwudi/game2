@@ -716,6 +716,8 @@ public static class Program
         if (!full && head.Count <= steps) { Console.WriteLine($"seed {seed}: run ended after {all.Count - 1} commands, fewer than {steps}"); return 3; }
         if (!full && head.Any(s => (string)s["kind"] == "ReorderControllers")) { Console.WriteLine($"seed {seed}: opening uses ReorderControllers, pick another seed"); return 4; }
         var replay = new GameSession(cfg, new MemorySaveStore()); int lootDecisions = 0, extraLootPicks = 0;
+        var captureLabels = new List<string> { "menu", "stage-preview" };
+        var visited = new HashSet<string>(StringComparer.Ordinal);
         var replayOptions = new JsonSerializerOptions { IncludeFields = true, Converters = { new System.Text.Json.Serialization.JsonStringEnumConverter() } };
         for (int i = 0; i < head.Count; i++)
         {
@@ -728,6 +730,13 @@ public static class Program
                 foreach (string id in command.dieIds) if (!replay.TogglePending(id)) throw new InvalidOperationException("Trace replay has an illegal pending die: " + id);
             var result = replay.Execute(command);
             if (!result.accepted) throw new InvalidOperationException($"Trace replay rejected step {i} {command.kind}: {result.error}");
+            if (full && i > 0)
+            {
+                var reached = replay.State;
+                string label = reached.phase + "-" + reached.stage.stageKind;
+                if (visited.Add(label)) captureLabels.Add(label);
+                if (replay.IsLootPending && visited.Add("loot")) captureLabels.Add("loot");
+            }
         }
         Console.WriteLine($"trace replay: accepted={head.Count}, rejected=0, initialLootDecisions={lootDecisions}, extraLootPicks={extraLootPicks}; full-run shopRejected={log.shopRejected}, scoreMismatches={log.mispredicted}");
         var trace = new Dictionary<string, object> { ["seed"] = seed, ["configVersion"] = cfg.configVersion, ["policy"] = "balance_sim bot, legal commands only", ["steps"] = head };
@@ -736,6 +745,9 @@ public static class Program
             if (replay.State?.phase != "RunWon" && replay.State?.phase != "RunFailed")
                 throw new InvalidOperationException("Full trace did not reach a terminal phase");
             trace["terminalPhase"] = replay.State.phase;
+            captureLabels.Add("final-" + replay.State.phase);
+            trace["captureLabels"] = captureLabels;
+            trace["finalStage"] = replay.State.stage.stageIndex + 1;
         }
         File.WriteAllText(outPath, JsonSerializer.Serialize(trace,
             new JsonSerializerOptions { WriteIndented = true, Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping }));

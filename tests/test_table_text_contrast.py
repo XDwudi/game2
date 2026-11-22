@@ -4,6 +4,7 @@ import contextlib
 import importlib.util
 import io
 import json
+import re
 import sys
 import tempfile
 import unittest
@@ -196,17 +197,31 @@ class ShippedListTests(unittest.TestCase):
 
     def test_the_list_loads_and_every_shipped_style_runs(self):
         data = tool.load_list(tool.LIST)
-        self.assertGreater(len(data["entries"]), 0)
-        for e in data["entries"]:
-            x, y, w, h = e["rect"]
-            self.assertTrue(0 <= x and 0 <= y and x + w <= tool.DESIGN[0] + 1 and y + h <= tool.DESIGN[1] + 1, e)
-        for theme in ["default"] + sorted(p.name for p in tool.THEMES.iterdir() if (p / "theme.json").exists()):
-            on_table = [e for e in data["entries"] if theme not in data["themes"] or theme in e["themes"]]
+        themes = ["default"] + sorted(p.name for p in tool.THEMES.iterdir() if (p / "theme.json").exists())
+        self.assertCountEqual(data["themes"], themes)
+        prefix = "PLAY_W20X_03_TableTextOnNonPlayScreens 1920x1080, text 100 %, "
+        self.assertTrue(data["source"].startswith(prefix))
+        counts, separator, screen_list = data["source"][len(prefix):].partition(". Screens: ")
+        self.assertTrue(separator)
+        screens = screen_list.split(", ")
+        self.assertEqual(len(screens), 56)
+        self.assertNotIn("", screens)
+        self.assertEqual(len(set(screens)), len(screens))
+        observed = []
+        for item in counts.split(", "):
+            match = re.fullmatch(r"([a-z]+)=(\d+) screens/(\d+) label samples", item)
+            self.assertIsNotNone(match, item)
+            theme, pages, samples = match.groups()
+            self.assertEqual(int(pages), len(screens))
+            self.assertGreaterEqual(int(samples), len(screens))
+            observed.append(theme)
+        self.assertCountEqual(observed, themes)
+        self.assertEqual(data["entries"], [], "Every foreground label on all measured pages belongs on a surface.")
+        for theme in themes:
             for mapping in ("authored", "drawn"):
                 with self.subTest(theme=theme, mapping=mapping):
                     result = tool.check(theme, mapping=mapping)
-                    self.assertEqual(result["entries"], len(on_table))
-                    self.assertTrue(all(1.0 <= r["worst"] <= 21.0 for r in result["rows"]))
+                    self.assertEqual((result["entries"], result["below"], result["rows"]), (0, 0, []))
 
     def test_the_drawn_mapping_squeezes_a_scaled_picture_like_the_felt_shader(self):
         # A 1920x1080 picture imported at 2048x1024 (nPOTScale 1) is fitted by the 2:1 aspect: 960 rows of picture between

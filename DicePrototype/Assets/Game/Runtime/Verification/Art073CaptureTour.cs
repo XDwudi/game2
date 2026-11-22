@@ -48,7 +48,13 @@ namespace DiceCraft.Verification
             DontDestroyOnLoad(tour.gameObject);
             tour.directory=dir;
             int release=Array.IndexOf(args,"--v11-replay-theme");
-            if(release>=0){tour.releaseTheme=release+1<args.Length?args[release+1]:"";Application.logMessageReceivedThreaded+=tour.CountReleaseLog;}
+            if(release>=0)
+            {
+                // The verification launcher chooses the window size independently of normal player preferences.
+                GameApp.SuppressStartupDisplay=true;
+                tour.releaseTheme=release+1<args.Length?args[release+1]:"";
+                Application.logMessageReceivedThreaded+=tour.CountReleaseLog;
+            }
             int trace=Array.IndexOf(args,"--art073-trace");if(trace>=0&&trace+1<args.Length)tour.tracePath=Path.GetFullPath(args[trace+1]);
             int steps=Array.IndexOf(args,"--art073-steps");if(steps>=0&&steps+1<args.Length)tour.maxSteps=int.Parse(args[steps+1],CultureInfo.InvariantCulture);
             tour.reduced=Array.IndexOf(args,"--art073-reduced")>=0;

@@ -1,6 +1,9 @@
 """Prepare the local p1.1.0-rc.1 release plan. Only --execute contacts the remote.
 
 python tools/publish_v11_release.py --notes docs/RELEASE_NOTES_V11_RC1.md
+
+With an untracked review under evidence/, bind the final review file's SHA-256 in
+the committed notes as an HTML comment: <!-- W25 SHA-256: <hash> -->.
 """
 import argparse
 import hashlib
@@ -27,10 +30,15 @@ TAG = "p1.1.0-rc.1"
 TITLE = f"骰子构筑 v1.1 试玩版（{TAG}）"
 ROOT = pack.ROOT
 API = previous.API
+RELEASE_TOOLS = (
+    "tools/publish_v11_release.py", "tools/publish_v10_release.py", "tools/package_v11.py", "tools/package_v10.py",
+    "tools/replay_v11.py", "tools/v11_build_report.py", "tools/v11_delivery.py", "tools/quality_check.py",
+    "tools/macos/v071/package_checks.py", "tools/balance_sim/Program.cs", "tools/balance_sim/Runner.cs",
+)
 
 
 def git(root, *args):
-    return subprocess.check_output(["git", *args], cwd=root, text=True).strip()
+    return subprocess.check_output(["git", "-c", "core.quotePath=false", *args], cwd=root, text=True, encoding="utf-8").strip()
 
 
 def checked_ref(root, ref):
@@ -40,12 +48,19 @@ def checked_ref(root, ref):
     return path
 
 
+def verify_release_sources(root, target, files):
+    tracked = git(root, "ls-files", "--", *files).splitlines()
+    if set(tracked) != set(files) or subprocess.run(
+            ["git", "diff", "--quiet", target, "--", *files], cwd=root).returncode:
+        raise ValueError("Release inputs must match the release target commit")
+
+
 def plan_release(root, notes_path, replays_path="evidence/v11/replays/final/index.json", review_path="evidence/v11/review/final.md"):
     if git(root, "remote", "get-url", "origin") != previous.REMOTE:
         raise ValueError("Unexpected origin")
     branch = git(root, "branch", "--show-current")
-    if not branch:
-        raise ValueError("Expected a checked-out release branch")
+    if branch != "codex/v1.1":
+        raise ValueError("Expected the v1.1 development branch")
     target = git(root, "rev-parse", "HEAD")
     gate = pack.delivery.read_json(root / pack.GATE)
     frozen = gate["sourceCommit"]
@@ -63,6 +78,16 @@ def plan_release(root, notes_path, replays_path="evidence/v11/replays/final/inde
     body = notes.read_text(encoding="utf-8-sig")
     if not body.strip():
         raise ValueError("Empty release notes")
+    review = pack.contained(root, review_path)
+    if not review.read_text(encoding="utf-8-sig").strip():
+        raise ValueError("The W25 independent review is empty")
+    release_files = [*RELEASE_TOOLS, pack.README, notes.relative_to(root).as_posix()]
+    review_name = review.relative_to(root).as_posix()
+    if git(root, "ls-files", "--", review_name):
+        release_files.append(review_name)
+    elif f"<!-- W25 SHA-256: {pack.delivery.sha(review)} -->" not in body:
+        raise ValueError("Bind the local W25 report in committed notes with <!-- W25 SHA-256: <hash> -->")
+    verify_release_sources(root, target, release_files)
     assets = []
     replay_index = None
     for platform, spec in pack.TARGET.items():
@@ -77,6 +102,8 @@ def plan_release(root, notes_path, replays_path="evidence/v11/replays/final/inde
                 or proof["members"] < 1 or package.stat().st_size != proof["bytes"]
                 or pack.delivery.sha(package) != proof["sha256"]):
             raise ValueError("Package does not match the frozen proof: " + name)
+        if proof["files"].get(pack.TOP + "/开始游玩.txt") != pack.delivery.sha(root / pack.README):
+            raise ValueError("Player README in the archive differs from the release target: " + name)
         build = pack.delivery.read_json(checked_ref(root, proof["buildReport"]))
         checked_ref(root, proof["nativeBuildReport"])
         if (build["schema"] != "v11-player-build-1" or build["platform"] != spec[1] or build["result"] != "Succeeded"
@@ -89,9 +116,6 @@ def plan_release(root, notes_path, replays_path="evidence/v11/replays/final/inde
         assets.append({"name": name, "bytes": proof["bytes"], "sha256": proof["sha256"], "platform": platform,
                        "buildGuid": build["buildGuid"], "packageReceipt": {"path": ref, "sha256": pack.delivery.sha(root / ref)},
                        "buildReport": proof["buildReport"], "nativeBuildReport": proof["nativeBuildReport"]})
-    review = pack.contained(root, review_path)
-    if not review.read_text(encoding="utf-8-sig").strip():
-        raise ValueError("The W25 independent review is empty")
     plan = {"schema": "v11-release-plan-1", "tag": TAG, "title": TITLE, "branch": branch, "target": target,
             "sourceCommit": frozen, "identity": gate["identity"], "gateSha256": pack.delivery.sha(root / pack.GATE),
             "notes": replay.ref(root, notes), "w25Review": replay.ref(root, review), "windowsReplays": replay_index, "assets": assets}

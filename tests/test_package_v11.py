@@ -1,6 +1,7 @@
 import hashlib
 import json
 import os
+import shutil
 import struct
 import subprocess
 import sys
@@ -251,9 +252,12 @@ class Publication11Tests(unittest.TestCase):
         write(self.root, pack.README, b"fixture README")
         self.notes = "docs/fixture.md"
         write(self.root, self.notes, b"Fixture release notes")
-        self.git("init", "-q", "-b", "codex/v11-fixture")
+        write(self.root, "evidence/v11/review/final.md", b"Independent W25 review fixture")
+        for tool in publish.RELEASE_TOOLS:
+            write(self.root, tool, b"fixture tool source")
+        self.git("init", "-q", "-b", "codex/v1.1")
         self.git("remote", "add", "origin", publish.previous.REMOTE)
-        self.git("add", "DicePrototype", "docs")
+        self.git("add", "DicePrototype", "docs", "tools", "evidence/v11/review/final.md")
         self.git("commit", "--quiet", "-m", "Synthetic fixture only")
         commit = publish.git(self.root, "rev-parse", "HEAD")
         gate = fixture_gate(self.root, commit)
@@ -262,26 +266,29 @@ class Publication11Tests(unittest.TestCase):
             with patch.object(pack, "read_native", return_value=data):
                 pack.package(self.root, platform, report, "mock")
         self.windows = pack.delivery.read_json(self.root / "evidence/v11/packages" / (replay.WINDOWS + ".json"))
-        write(self.root, "evidence/v11/review/final.md", b"Independent W25 review fixture")
         self.replay_dir = self.root / "evidence/v11/replays/final"
+        labels = ["menu", "stage-preview", "HandReady-normal", "Selecting-normal", "RunFailed-normal", "final-RunFailed"]
         trace_path = write(self.root, "evidence/v11/replays/trace.json",
                            {"configVersion": pack.VERSION, "seed": 5, "terminalPhase": "RunFailed",
-                            "steps": [{"kind": "NewRun", "seed": 5}, {"kind": "Submit"}]})
+                            "captureLabels": labels, "finalStage": 1,
+                            "steps": [{"kind": "NewRun", "seed": 5}, {"kind": "StartStage"}, {"kind": "Roll"}, {"kind": "Submit"}]})
         trace = replay.validated_trace(trace_path)
         data_path = (self.root / "fresh/DicePrototype_Data").as_posix()
         runs = []
-        for theme in replay.THEMES:
+        for theme_index, theme in enumerate(replay.THEMES):
             sub = self.replay_dir / theme
             write(sub, "Player.log", b"Unity player fixture")
-            images = ["00-menu.png", "01-stage-preview.png", "02-final-RunFailed.png"]
-            for name in images:
-                Image.new("RGB", (32, 24), "red").save(sub / name)
+            images = [f"{i:02d}-{label}.png" for i, label in enumerate(labels)]
+            for i, name in enumerate(images):
+                frame = Image.new("RGB", replay.WINDOW_SIZE, (20 + theme_index, 60 + i, 80))
+                frame.paste("white", (32, 64, 180, 110))
+                frame.save(sub / name, compress_level=1)
             write(sub, "tour.json", {"schema": "v11-windows-replay-1", "theme": theme, "images": images, "status": "completed",
                                      "error": "", "buildGuid": self.windows["buildGuid"], "buildIdentity": json.dumps(gate["identity"]),
                                      "unityVersion": "6000.6.7f1", "artVersion": "art1.1.0", "rulesVersion": pack.VERSION,
                                      "isEditor": False, "platform": "WindowsPlayer", "traceSha256": pack.delivery.sha(trace_path),
-                                     "playerDataPath": data_path, "terminalPhase": "RunFailed", "stepsSent": 1, "traceSteps": 1,
-                                     "logErrors": 0, "finalStage": 1, "screenWidth": 32, "screenHeight": 24})
+                                     "playerDataPath": data_path, "terminalPhase": "RunFailed", "stepsSent": 3, "traceSteps": 3,
+                                     "logErrors": 0, "finalStage": 1, "screenWidth": 1920, "screenHeight": 1080})
             runs.append(replay.check_run(self.root, theme, sub, self.windows, trace_path, trace, data_path))
         write(self.replay_dir, "index.json", {"schema": "v11-replay-index-1", "windowsPackageSha256": self.windows["sha256"],
                                              "sourceCommit": commit, "buildGuid": self.windows["buildGuid"],
@@ -306,6 +313,9 @@ class Publication11Tests(unittest.TestCase):
         self.assertEqual(2, len(plan["assets"]))
         before = plan["planSha256"]
         write(self.root, self.notes, b"New fixture release wording")
+        with self.assertRaisesRegex(ValueError, "release target commit"):
+            publish.plan_release(self.root, self.notes)
+        self.git("commit", "-am", "Updated release notes")
         after, _ = publish.plan_release(self.root, self.notes)
         self.assertNotEqual(before, publish.plan_digest(after))
         tampered = next((self.root / "Releases" / pack.VERSION).glob("*.zip"))
@@ -326,6 +336,25 @@ class Publication11Tests(unittest.TestCase):
         raw.write_bytes(b"changed evidence")
         with self.assertRaisesRegex(ValueError, "evidence has changed"):
             publish.plan_release(self.root, self.notes)
+
+    def test_release_refuses_uncommitted_tools_and_unbound_local_review(self):
+        tool = self.root / publish.RELEASE_TOOLS[0]
+        previous = tool.read_bytes()
+        tool.write_bytes(b"uncommitted change")
+        with self.assertRaisesRegex(ValueError, "release target commit"):
+            publish.plan_release(self.root, self.notes)
+        tool.write_bytes(previous)
+        local = write(self.root, "evidence/v11/review/local.md", b"Local evidence fixture")
+        with self.assertRaisesRegex(ValueError, "W25 SHA-256"):
+            publish.plan_release(self.root, self.notes, review_path=local.relative_to(self.root))
+        write(self.root, self.notes, f"Notes\n<!-- W25 SHA-256: {pack.delivery.sha(local)} -->".encode())
+        self.git("commit", "-am", "Bind local review evidence")
+        plan, _ = publish.plan_release(self.root, self.notes, review_path=local.relative_to(self.root))
+        self.assertEqual(plan["w25Review"], replay.ref(self.root, local))
+        write(self.root, pack.README, b"different archived README")
+        self.git("commit", "-am", "Outdated packaged README fixture")
+        with self.assertRaisesRegex(ValueError, "README in the archive"):
+            publish.plan_release(self.root, self.notes, review_path=local.relative_to(self.root))
 
     def test_draft_retry_reuses_verified_assets_before_publishing(self):
         from unittest.mock import Mock
@@ -369,8 +398,60 @@ class Publication11Tests(unittest.TestCase):
             replay.verify_index(self.root, self.replay_dir / "index.json", self.windows)
         write(sub, "Player.log", b"Unity player fixture")
         Image.new("RGB", (32, 24), "blue").save(sub / "00-menu.png")
-        with self.assertRaisesRegex(ValueError, "Changed Windows run"):
+        with self.assertRaisesRegex(ValueError, "Screenshot dimensions"):
             replay.verify_index(self.root, self.replay_dir / "index.json", self.windows)
+
+    def test_screenshot_sequence_and_visible_theme_differences(self):
+        index_path = self.replay_dir / "index.json"
+        index = pack.delivery.read_json(index_path)
+        trace_path = self.root / index["trace"]["path"]
+        trace = replay.validated_trace(trace_path)
+        folder = self.replay_dir / "glass"
+        tour_path = folder / "tour.json"
+        tour = pack.delivery.read_json(tour_path)
+        def read_run():
+            return replay.check_run(self.root, "glass", folder, self.windows, trace_path, trace, index["playerDataPath"])
+        write(folder, "tour.json", dict(tour, images=tour["images"][:2] + tour["images"][-1:]))
+        with self.assertRaisesRegex(ValueError, "phases reached"):
+            read_run()
+        write(folder, "tour.json", dict(tour, screenWidth=32, screenHeight=24))
+        with self.assertRaisesRegex(ValueError, "1920x1080"):
+            read_run()
+        write(folder, "tour.json", tour)
+        menu = folder / "00-menu.png"
+        Image.new("RGB", replay.WINDOW_SIZE, "red").save(menu, compress_level=1)
+        with self.assertRaisesRegex(ValueError, "Uniform screenshot"):
+            read_run()
+        with Image.open(self.replay_dir / "default" / menu.name) as duplicate:
+            duplicate.save(menu, compress_level=0)
+        index["runs"][-1] = read_run()
+        write(self.replay_dir, "index.json", index)
+        with self.assertRaisesRegex(ValueError, "identical menu pixels"):
+            replay.verify_index(self.root, index_path, self.windows)
+
+    def test_incomplete_capture_can_retry_same_destination_and_reuse_verified_result(self):
+        trace = self.root / "evidence/v11/replays/trace.json"
+        target = self.replay_dir.with_name("retry")
+        with patch.object(replay.subprocess, "run", side_effect=RuntimeError("interrupted")):
+            with self.assertRaisesRegex(RuntimeError, "interrupted"):
+                replay.collect(self.root, trace, target, 2)
+        self.assertFalse(target.exists())
+        self.assertEqual(len(list(target.parent.glob("retry.attempt-*"))), 1)
+
+        def capture(command, **kwargs):
+            theme = command[command.index("--v11-replay-theme") + 1]
+            folder = Path(command[command.index("--art073-capture") + 1])
+            shutil.copytree(self.replay_dir / theme, folder, dirs_exist_ok=True)
+            tour = pack.delivery.read_json(folder / "tour.json")
+            tour["playerDataPath"] = (Path(command[0]).parent / "DicePrototype_Data").as_posix()
+            write(folder, "tour.json", tour)
+
+        with patch.object(replay.subprocess, "run", side_effect=capture) as player:
+            first = replay.collect(self.root, trace, target, 2)
+            self.assertEqual(player.call_count, len(replay.THEMES))
+        with patch.object(replay.subprocess, "run", side_effect=AssertionError("unexpected launch")):
+            self.assertEqual(first, replay.collect(self.root, trace, target, 2))
+        self.assertEqual(len(list(target.parent.glob("retry.attempt-*"))), 1)
 
     def test_unpack_checks_payload_and_requires_fresh_members(self):
         fresh = self.root / "r05-unpacked"

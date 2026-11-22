@@ -208,6 +208,23 @@ namespace DiceCraft.Tests
             }
         }
 
+        private float LootTextFloor24(TextMeshProUGUI text)
+        {
+            switch(text.name)
+            {
+                case "Money":return 31.5f;
+                case "LootName15":return 32;
+                case "LootShort15":return 24*UiKit.FontScale;
+                case "LootDetails15":return 19.5f*UiKit.FontScale;
+                case "LootCashNote15":return 20*UiKit.FontScale;
+                case "Price" when text.transform.parent.name=="LootCashOut15":return 22*UiKit.FontScale;
+                case "Label" when text.transform.parent.name=="LootCashOut15":return 20*UiKit.FontScale;
+                case "Label" when text.transform.parent.name=="LootEnterShop15":
+                    return (app.LootFromShop15||UiKit.FontScale>1.01f?20:34)*UiKit.FontScale;
+                default:return 19.5f;
+            }
+        }
+
         private IEnumerator CheckLootView24(string name,List<string> report,List<string> failures)
         {
             yield return W11Settle();
@@ -265,11 +282,35 @@ namespace DiceCraft.Tests
             var main=W14Main;var graphics=app.canvas.GetComponentsInChildren<Graphic>(false);
             var visible=main.GetComponentsInChildren<TextMeshProUGUI>(false).Where(t=>t.enabled&&Foreground(t.transform)&&!string.IsNullOrWhiteSpace(t.text)).ToArray();
             Assert.That(visible,Is.Not.Empty);
+            if(!picking)
+            {
+                var tiles=FindActive<RectTransform>("Build14").Cast<Transform>().Where(c=>c.gameObject.activeInHierarchy&&c.name.StartsWith("Controller_",StringComparison.Ordinal));
+                foreach(var tile in tiles)
+                    if(!visible.Any(t=>t.name=="Ordinal"&&t.transform.parent==tile))
+                        failures.Add(name+" missing equipped-card sequence number on "+tile.name);
+            }
             foreach(var t in visible)
             {
-                W13GlyphCheck(t,name,graphics,failures);
-                float minimum=t.name=="Money"?31.5f:19.5f;
+                var glyphs=W13GlyphCheck(t,name,graphics,failures);
+                float minimum=LootTextFloor24(t);
+                var tile=t.transform.parent;
+                if(t.name=="Ordinal"&&tile.parent!=null&&tile.parent.name=="Build14")
+                {
+                    // CARD_TEMPLATE E3: the sequence number lives in a 20-unit disc. Value badges remain body text.
+                    var disc=tile.Find("OrdinalDisc11") as RectTransform;
+                    int at=app.Session.State.controllers.FindIndex(c=>"Controller_"+c.instanceId==tile.name);
+                    if(at<0||t.text!=(at+1).ToString()||disc==null||!disc.gameObject.activeInHierarchy
+                        ||disc.rect.size!=new Vector2(20,20)||glyphs.Any(g=>!Art073Inside(g,V06ScreenRect(disc))))
+                        failures.Add(name+" invalid equipped-card sequence marker "+W11bPath(t.transform));
+                    minimum=12;
+                }
                 if(t.fontSize<minimum-.01f)failures.Add(name+" "+W11bPath(t.transform)+" text size "+t.fontSize+" below "+minimum);
+                if(t.name=="LootEnterNote15")
+                {
+                    var title=t.transform.parent.Find("Label").GetComponent<TextMeshProUGUI>();
+                    if(W11bGlyphRects(title).Any(a=>glyphs.Any(g=>W13Overlap(a,g))))
+                        failures.Add(name+" shop button title overlaps its second line");
+                }
             }
             var controls=main.GetComponentsInChildren<Button>(false).Where(b=>Foreground(b.transform)).ToArray();
             foreach(var b in controls)
@@ -289,6 +330,14 @@ namespace DiceCraft.Tests
             int first=report.Count;
             yield return W11bContrastPass(name,report,failures,main,picking?(Func<Transform,bool>)Foreground:null);
             Assert.That(report.Count,Is.GreaterThan(first),name+" did not sample any real text background");
+            foreach(var t in visible)
+            {
+                var button=t.transform.parent.GetComponent<Button>();
+                if(button==null||!button.IsInteractable())continue;
+                string key=name+" "+W11bPath(t.transform)+" on ";
+                if(!report.Skip(first).Any(line=>line.StartsWith(key,StringComparison.Ordinal)))
+                    failures.Add(name+" no captured background for active button text "+W11bPath(t.transform));
+            }
             W14AssertNoIds(name);
             report.Add(name+" sections "+bounds.Count+", cards "+cards.Length+", visible text "+visible.Length+", buttons "+controls.Length);
             yield return LootShot24(name);

@@ -241,10 +241,10 @@ namespace DiceCraft
             var offer=FacePickOffer14;var pick=facePick14;if(offer==null)return;bool c=Large11;
             var panel=Section14(main,"FacePick14","FacePickTitle14",NameOf(offer.contentId),l.dice,out float titleRight);
             var strip=panel.Find("HeaderStrip") as RectTransform;
-            string category=offer.category=="service"?"服务":"骰面改造";float catW=ShopLabelWidth14(category,18);
+            string category=offer.category=="service"?"服务":"骰面改造";float categorySize=Body11(18),catW=ShopLabelWidth14(category,categorySize);
             // Inside the header strip's drawn frame (its right end carries the strip's decoration).
             var stripFrame=FrameInsets11(strip.GetComponent<Image>());float stripRight=strip.anchoredPosition.x+strip.sizeDelta.x-stripFrame.z-12;
-            FitLine13(panel,"FacePickCategory14",category,stripRight-catW-4,(ShopHead14-Line11(18))*.5f,catW+4,18,LabelOn11(strip,UiKit.Muted),TextAlignmentOptions.MidlineRight,false);
+            FitLine13(panel,"FacePickCategory14",category,stripRight-catW-4,(ShopHead14-Line11(categorySize))*.5f,catW+4,categorySize,LabelOn11(strip,UiKit.Muted),TextAlignmentOptions.MidlineRight,false);
             Color ink=LabelOn11(panel,UiKit.TextColor),muted=LabelOn11(panel,UiKit.Muted);
             float x=ShopPad14+4,w=l.dice.width-2*(ShopPad14+4),y=ShopHead14+10;
             TextMeshProUGUI Line(string name,string text,float size,Color color,bool bold)

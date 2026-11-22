@@ -168,8 +168,13 @@ namespace DiceCraft
             UiKit.Role(label,role);
             for(;;)
             {
-                label.fontSize=px;label.ForceMeshUpdate();
-                if(px<=min||label.textBounds.size.x<=w-1)break;
+                label.fontSize=px;
+                // A centred theme title can overhang on one side even when its advance fits the card.
+                bool fitsInk=true;
+                if(role==TextRole.CardName)
+                    fitsInk=!GlyphBox11(label,out var ink)||ink.xMin>=0&&ink.xMax<=w;
+                else label.ForceMeshUpdate();
+                if(px<=min||fitsInk&&label.textBounds.size.x<=w-1)break;
                 px=Mathf.Max(min,px-1);
             }
             label.rectTransform.sizeDelta=new Vector2(w,Mathf.Ceil(px*1.46f)+2);
@@ -289,7 +294,7 @@ namespace DiceCraft
                 // Goods name their category above the name (CARD_TEMPLATE §3).
                 if(goods)
                 {
-                    var category=FitLine13(t,"Category13",card.rewardDie!=null?"特制骰子":GoodsCategory13(card.category),content.x+insetL,y,content.width-insetL-insetR,16,LabelOn11(face,PaperMuted071),TextAlignmentOptions.Center,false);
+                    var category=FitLine13(t,"Category13",card.rewardDie!=null?"特制骰子":GoodsCategory13(card.category),content.x+insetL,y,content.width-insetL-insetR,Body11(16),LabelOn11(face,PaperMuted071),TextAlignmentOptions.Center,false);
                     y+=category.rectTransform.rect.height;
                 }
                 // The short text is complete (TX-03): the picture gives way first (down to 56, a shop's to 72), then the text
