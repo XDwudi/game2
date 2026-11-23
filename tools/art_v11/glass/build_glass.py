@@ -129,7 +129,7 @@ THEME_META = {
                     "ArtSource/StyleKit/themes/glass/concepts 与 style_kit.json；界面件与色板由 "
                     "tools/art_v11/glass/build_glass.py 生成（说明见同目录 README.md）"),
     "order": 5,
-    "preview": True,
+    "preview": False,
     "fonts": {"title": "Fonts/title", "roles": ["screenTitle", "stageNumber", "bigNumber", "bossName", "primaryButton", "sectionTitle", "cardName"]},
 }
 

@@ -266,6 +266,14 @@ class SwissArtTests(unittest.TestCase):
                     np.testing.assert_array_equal(centre, np.broadcast_to(centre[:, :1], centre.shape))
         self.assertGreater(checked, 0, "No horizontal-only sliced assets were checked.")
 
+    def test_shipped_theme_json_matches_regeneration(self):
+        relative = self.builder.THEME / "theme.json"
+        shipped = (ROOT / relative).read_text(encoding="utf-8")
+        self.assertIs(json.loads(shipped)["preview"], False)
+        self.assertEqual(shipped, self.builder.theme_json())
+        self.assertEqual((self.first / relative).read_bytes(), shipped.encode("utf-8"))
+        self.assertEqual((self.second / relative).read_bytes(), shipped.encode("utf-8"))
+
     def test_full_build_is_byte_deterministic(self):
         self.assertEqual(self.first_hashes, self.second_hashes)
 

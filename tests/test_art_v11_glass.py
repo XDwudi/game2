@@ -1115,7 +1115,7 @@ class GlassArtTests(unittest.TestCase):
         self.assertEqual(self.theme["id"], "glass")
         self.assertEqual(self.theme["displayName"], "彩绘玻璃")
         self.assertEqual(self.theme["order"], 5)
-        self.assertIs(self.theme["preview"], True)
+        self.assertIs(self.theme["preview"], False)
         self.assertIn("ArtSource/StyleKit/themes/glass/concepts", self.theme["description"])
         source = (ROOT / "DicePrototype/Assets/Game/UI/Theme/ThemePalette.cs").read_text(encoding="utf-8")
         declared = re.search(r"class Hexes\s*\{\s*public string ([^;]+);", source).group(1)

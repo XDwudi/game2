@@ -885,7 +885,7 @@ class ComicArtTests(unittest.TestCase):
         self.assertEqual(self.theme["id"], "comic")
         self.assertEqual(self.theme["displayName"], "爆彩连环漫画")
         self.assertEqual(self.theme["order"], 3)
-        self.assertIs(self.theme["preview"], True)
+        self.assertIs(self.theme["preview"], False)
         self.assertIn("ArtSource/StyleKit/themes/comic/concepts", self.theme["description"])
         source = (ROOT / "DicePrototype/Assets/Game/UI/Theme/ThemePalette.cs").read_text(encoding="utf-8")
         declared = re.search(r"class Hexes\s*\{\s*public string ([^;]+);", source).group(1)

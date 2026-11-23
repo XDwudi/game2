@@ -81,7 +81,7 @@ THEME_META = {
                     "依据：ArtSource/StyleKit/themes/sancai/concepts 与 style_kit.json；界面件与色板由 "
                     "tools/art_v11/sancai/build_sancai.py 生成（说明见同目录 README.md）"),
     "order": 2,
-    "preview": True,
+    "preview": False,
     "fonts": {
         "title": "Fonts/title",
         "roles": ["screenTitle", "stageNumber", "bigNumber", "bossName", "primaryButton"],

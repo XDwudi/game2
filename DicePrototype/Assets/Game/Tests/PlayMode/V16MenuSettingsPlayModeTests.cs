@@ -91,9 +91,9 @@ namespace DiceCraft.Tests
             bool hadPreview=PlayerPrefs.HasKey(ThemeRegistry.PreviewKey);
             try
             {
-                PlayerPrefs.SetInt(ThemeRegistry.PreviewKey,1);
+                PlayerPrefs.DeleteKey(ThemeRegistry.PreviewKey);
                 Click("MenuSettings");Click("SettingsTab1");Click("Theme");
-                var choices=ThemeRegistry.Selectable(true);
+                var choices=ThemeRegistry.Selectable(ThemeRegistry.ShowPreviewThemes);
                 Assert.That(choices.Count,Is.EqualTo(6));
                 for(int i=0;i<choices.Count;i++)
                 {
@@ -102,7 +102,10 @@ namespace DiceCraft.Tests
                     float height=UiKit.FontScale>=1.25f?285:277;
                     Assert.That(panel.anchoredPosition,Is.EqualTo(new Vector2(24+(i%3)*416,-(140+(i/3)*(height+16)))));
                     var preview=tile.transform.Find("ThemePreview16").GetComponent<Image>();
-                    Assert.That(preview.sprite,Is.Not.Null,choices[i].Id);
+                    var id=choices[i].Id;
+                    var expected=Resources.Load<Sprite>(choices[i].IsDefault?"ThemePreviews/default":"Themes/"+id+"/preview");
+                    Assert.That(expected,Is.Not.Null,id);
+                    Assert.That(preview.sprite,Is.SameAs(expected),id);
                     Assert.That(preview.sprite.rect.size,Is.EqualTo(new Vector2(480,270)));
                     Assert.That(preview.raycastTarget,Is.False);
                     bool current=choices[i].Id==app.ThemeId11;

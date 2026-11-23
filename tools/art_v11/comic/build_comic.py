@@ -104,7 +104,7 @@ THEME_META = {
                     "黄色平行四边形标题条，主按钮旁一个爆炸星，字下面一律平涂。依据：ArtSource/StyleKit/themes/comic/concepts 与 "
                     "style_kit.json；界面件与色板由 tools/art_v11/comic/build_comic.py 生成（说明见同目录 README.md）"),
     "order": 3,
-    "preview": True,
+    "preview": False,
     "fonts": {"title": "Fonts/title", "roles": ["screenTitle", "stageNumber", "bigNumber", "bossName", "primaryButton", "sectionTitle"]},
 }
 

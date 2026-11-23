@@ -120,7 +120,7 @@ THEME_META = {
                     "依据：ArtSource/StyleKit/themes/deco/concepts 与 style_kit.json；界面件与色板由 "
                     "tools/art_v11/deco/build_deco.py 生成（说明见同目录 README.md）"),
     "order": 4,
-    "preview": True,
+    "preview": False,
     "fonts": {"title": "Fonts/title", "roles": ["screenTitle", "stageNumber", "bigNumber", "bossName", "primaryButton"]},
 }
 

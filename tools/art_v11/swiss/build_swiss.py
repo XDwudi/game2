@@ -1,7 +1,7 @@
 """W12/W12b: deterministic Swiss UI vectors; 4x rasterization, one Lanczos downsample.
 
-The contract owns dimensions, slice borders and PPU. No Unity files or palette
-configuration are written. All fonts are repository assets; no OS font fallback.
+The contract owns dimensions, slice borders and PPU. The descriptor below owns the released palette
+and registry metadata. All fonts are repository assets; no OS font fallback.
 """
 from __future__ import annotations
 
@@ -21,6 +21,46 @@ LATIN = ROOT / "DicePrototype/Assets/TextMesh Pro/Fonts/LiberationSans.ttf"
 SS = 4
 RULE = 10
 CHAMFER = 16
+
+
+DESCRIPTOR = {
+    "id": "swiss",
+    "displayName": "瑞士现代主义",
+    "description": "暖白纸面、黑色块与粗黑线、红色斜切，硬边平涂。依据：ArtSource/StyleKit/themes/swiss/concepts；色板来自界面件生成器的建议（tools/art_v11/swiss/README.md）",
+    "order": 1,
+    "preview": False,
+    "palette": {
+        "background": "151618",
+        "felt": "FFFFFF",
+        "panel": "151618",
+        "panelLight": "4E4E4E",
+        "paper": "F9EADB",
+        "ink": "000000",
+        "textColor": "FCF1E0",
+        "muted": "C8BEB5",
+        "gold": "E80E16",
+        "teal": "C8BEB5",
+        "red": "EC655D",
+        "blue": "55B6D9",
+        "violet": "96948E",
+        "danger": "D60D0E",
+        "shadow": "000000",
+        "ghost": "96948E",
+        "primary": "E80E16",
+        "reward": "E80E16",
+        "boss": "E80E16",
+        "pressure": "E80E16",
+        "rarityCommon": "96948E",
+        "rarityAdvanced": "4E4E4E",
+        "rarityRare": "E80E16",
+        "onFelt": "151618",
+        "valueBadge": "151618"
+    }
+}
+
+
+def theme_json() -> str:
+    return json.dumps(DESCRIPTOR, ensure_ascii=False, indent=2) + "\n"
 
 
 def rgba(value: str, alpha: int = 255) -> tuple[int, int, int, int]:
@@ -615,6 +655,9 @@ def build(output_root: Path = ROOT) -> list[Path]:
     save(THEME / "Table/table_scene.png", table)
     save(THEME / "Table/felt_tile.png", felt_tile())
     save(THEME / "preview.png", preview())
+    descriptor = output_root / THEME / "theme.json"
+    descriptor.write_text(theme_json(), encoding="utf-8", newline="\n")
+    written.append(descriptor)
     save(REVIEW / "contact_sheet.png", review_sheet(sprites, specs, table))
     return written
 
@@ -650,4 +693,4 @@ if __name__ == "__main__":
     paths = build()
     specs = contract_sprites()
     print(f"SWISS_BUILT {len(specs)} UI sprites ({sum(s['referenced'] for s in specs)} referenced, "
-          f"{sum(not s['referenced'] for s in specs)} legacy) / {len(paths)} PNGs total / supersampling {SS}x")
+          f"{sum(not s['referenced'] for s in specs)} legacy) / {len(paths)} output files / supersampling {SS}x")
