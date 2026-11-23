@@ -121,9 +121,40 @@ namespace DiceCraft.Tests
                 +ExtraFileHash07(Path.Combine(Application.dataPath,"Game/Tests/PlayMode/V11PlayScreenAxPlayModeTests.cs"));
             File.WriteAllText(Path.Combine(run,"input.txt"),input);
             TestContext.Out.WriteLine("AX01_RUN "+run+" "+input);
+            var failures=new List<string>();
             foreach(var mode in new[]{Art07RecordingMode.NormalHighest,Art07RecordingMode.FastHighest,Art07RecordingMode.NormalQualified})
-                yield return W11Ax01AllFrames(mode,Path.Combine(run,mode.ToString()));
+            {
+                string directory=Path.Combine(run,mode.ToString());
+                yield return Ax01CompleteTrack(W11Ax01AllFrames(mode,directory),directory,failures);
+            }
+            Assert.That(failures,Is.Empty,string.Join("\n",failures));
+        }
 
+        // Run all three evidence tracks even when a preceding comparison or recorder failed.
+        // Dispose every iterator so calibration, camera capture, and recorder finally blocks still run.
+        private static IEnumerator Ax01CompleteTrack(IEnumerator track,string directory,List<string> failures)
+        {
+            var stack=new Stack<IEnumerator>();stack.Push(track);
+            try
+            {
+                while(stack.Count>0)
+                {
+                    var current=stack.Peek();bool more=false;object value=null;Exception failure=null;
+                    try {more=current.MoveNext();if(more)value=current.Current;}
+                    catch(Exception ex){failure=ex;}
+                    if(failure!=null)
+                    {
+                        Directory.CreateDirectory(directory);
+                        File.WriteAllText(Path.Combine(directory,"track-failure.txt"),failure.ToString());
+                        failures.Add(Path.GetFileName(directory)+": "+failure.Message);
+                        break;
+                    }
+                    if(!more){(stack.Pop() as IDisposable)?.Dispose();continue;}
+                    if(value is IEnumerator nested&&!(value is CustomYieldInstruction)){stack.Push(nested);continue;}
+                    yield return value;
+                }
+            }
+            finally {while(stack.Count>0)(stack.Pop() as IDisposable)?.Dispose();}
         }
 
         [Serializable] private sealed class Ax01Die
@@ -131,6 +162,7 @@ namespace DiceCraft.Tests
             public string id;
             public Vector2[] hull;
             public int inside, changed;
+            public bool displayedLocked, poolTargetHit, insidePoolTarget, moving;
         }
 
         [Serializable] private sealed class Ax01Frame
@@ -138,7 +170,12 @@ namespace DiceCraft.Tests
             public int unityFrame;
             public string phase, background, backgroundSha256, image, imageSha256;
             public bool playing, stampPlaying, stampVisible;
-            public string recordingStage;
+            public string recordingStage, viewPhase, viewHand, submittedHand, slotsTitle, rollText, ownership;
+            public bool viewRolled, preRollVeil;
+            public int capacity, emptySlots, highScoreTier;
+            public float highScoreElapsed;
+            public string[] shownLocked;
+            public Rect[] stampRects;
             public RectInt bounds;
             public Ax01Die[] dice;
         }
@@ -209,19 +246,69 @@ namespace DiceCraft.Tests
             }
         }
 
-        private Ax01Frame Ax01Geometry(string[] ids)
+        private static Rect Ax01ScreenRect(RectTransform r)
+        {
+            var corners=new Vector3[4];
+            r.GetWorldCorners(corners);
+            var points=corners.Select(p=>RectTransformUtility.WorldToScreenPoint(null,p)).ToArray();
+            return Rect.MinMaxRect(points.Min(p=>p.x),points.Min(p=>p.y),points.Max(p=>p.x),points.Max(p=>p.y));
+        }
+
+        private Ax01Frame Ax01Geometry(string[] ids,string submittedHand=null)
         {
             var dice=new List<Ax01Die>();
+            var view=app.ViewState;
+            var screen=app.canvas.transform.Find("Screen");
+            var controls=screen.Cast<Transform>().Where(t=>t.gameObject.activeInHierarchy).ToLookup(t=>t.name);
+            Transform Control(string name)=>controls[name].SingleOrDefault();
+            var roll=Control("Roll")?.GetComponent<UnityEngine.UI.Button>();
+            var title=Control("SlotsTitle")?.GetComponent<TMP_Text>();
+            var stampLayer=app.canvas.transform.Find("Art07QualifiedLayer");
+            var stampRects=new List<Rect>();
+            if(stampLayer!=null)
+                foreach(string part in new[]{"FullStamp","PersistentBadge"})
+                {
+                    var layer=stampLayer.Find(part)?.GetComponent<CanvasGroup>();
+                    if(layer!=null&&layer.isActiveAndEnabled&&layer.alpha>0)
+                        stampRects.Add(Ax01ScreenRect((RectTransform)layer.transform));
+                }
             foreach(string id in ids)
             {
                 var p=app.table.GetFaceOrientation(id);
                 var body=p==null?null:p.Find("Body")?.GetComponent<Renderer>();
                 bool draw=body!=null&&body.enabled&&body.gameObject.activeInHierarchy&&!body.forceRenderingOff;
-                dice.Add(new Ax01Die{id=id,hull=draw?W11DieHull(id,.16f).ToArray():Array.Empty<Vector2>()});
+                var hull=draw?W11DieHull(id,.16f).ToArray():Array.Empty<Vector2>();
+                bool locked=view.hand.orderedLockedIds.Contains(id);
+                var hit=Control("Die_"+id) as RectTransform;
+                bool poolHit=!locked&&hit!=null&&hit.GetComponent<DiePointer>()!=null;
+                var center=draw?hull.Aggregate(Vector2.zero,(sum,point)=>sum+point)/hull.Length:Vector2.zero;
+                dice.Add(new Ax01Die{id=id,hull=hull,displayedLocked=locked,moving=app.table.LayoutPlayingFor07(id),
+                    poolTargetHit=poolHit,insidePoolTarget=poolHit&&draw&&RectTransformUtility.RectangleContainsScreenPoint(hit,center,null)});
             }
             var all=dice.SelectMany(d=>d.hull).ToArray();
-            var stamp=app.canvas.transform.Find("Art07QualifiedLayer/FullStamp")?.GetComponent<CanvasGroup>();
-            var frame=new Ax01Frame{stampPlaying=app.QualifiedStampPlaying07,stampVisible=stamp!=null&&stamp.isActiveAndEnabled&&stamp.alpha>.01f,unityFrame=Time.frameCount,phase=app.CurrentPresentationPhase07?.ToString(),playing=app.PresentationPlaying07,dice=dice.ToArray()};
+            var stamp=stampLayer?.Find("FullStamp")?.GetComponent<CanvasGroup>();
+            var frame=new Ax01Frame
+            {
+                unityFrame=Time.frameCount,phase=app.CurrentPresentationPhase07?.ToString(),playing=app.PresentationPlaying07,
+                stampPlaying=app.QualifiedStampPlaying07,stampVisible=stamp!=null&&stamp.isActiveAndEnabled&&stamp.alpha>0,
+                stampRects=stampRects.ToArray(),highScoreTier=app.HighScoreTierShown073,highScoreElapsed=app.HighScoreElapsed073,
+                submittedHand=submittedHand,viewHand=view.hand.handId,viewPhase=view.phase,viewRolled=view.hand.hasRolled,
+                shownLocked=view.hand.orderedLockedIds.ToArray(),capacity=view.stage.capacity,slotsTitle=title?.text,
+                rollText=roll!=null&&roll.interactable?roll.GetComponentInChildren<TMP_Text>().text:null,
+                preRollVeil=Control("PreRollVeil11")!=null,
+                emptySlots=Enumerable.Range(0,view.stage.capacity).Count(i=>Control("EmptySlot"+i)!=null),dice=dice.ToArray()
+            };
+            if(submittedHand!=null)
+            {
+                bool rail=frame.viewHand==submittedHand&&frame.shownLocked.SequenceEqual(ids)
+                    &&frame.slotsTitle=="提交栏 "+ids.Length+" / "+frame.capacity;
+                bool newPool=frame.viewHand!=submittedHand&&frame.viewPhase=="HandReady"&&!frame.viewRolled
+                    &&frame.shownLocked.Length==0&&frame.slotsTitle=="提交栏 0 / "+frame.capacity
+                    &&frame.emptySlots==frame.capacity&&frame.preRollVeil&&frame.rollText!=null
+                    &&frame.rollText.StartsWith("掷骰",StringComparison.Ordinal)
+                    &&dice.All(d=>d.poolTargetHit&&d.hull.Length>0);
+                frame.ownership=rail?"submitted":newPool?(dice.Any(d=>d.moving||!d.insidePoolTarget)?"returning-to-pool":"next-hand-pool"):"unexplained";
+            }
             if(all.Length>0)
             {
                 int x0=Mathf.Clamp(Mathf.FloorToInt(all.Min(v=>v.x)),0,Screen.width-1);
@@ -276,7 +363,12 @@ namespace DiceCraft.Tests
                     }
                     probe.flipY=errors[1]<errors[0];
                     var match=probe.Read(geometry.bounds,probe.flipY);
-                    try {Ax01Compare(geometry,full,match);}
+                    try
+                    {
+                        Ax01Compare(geometry,full,match);
+                        File.WriteAllBytes(Path.Combine(dir,"calibration-off-camera.png"),match.EncodeToPNG());
+                        File.WriteAllBytes(Path.Combine(dir,"calibration-off.png"),full.EncodeToPNG());
+                    }
                     finally {UObj.Destroy(match);}
                     File.WriteAllText(Path.Combine(dir,"calibration-off.json"),JsonUtility.ToJson(geometry,true));
                     foreach(var die in geometry.dice)
@@ -305,6 +397,7 @@ namespace DiceCraft.Tests
                     var rectPixels=full.GetPixels(Mathf.RoundToInt(screen.x)-6,Mathf.RoundToInt(screen.y)-6,12,12);
                     Assert.That(rectPixels.Count(c=>c.r>.85f&&c.g<.15f&&c.b>.85f),Is.GreaterThan(100),
                         "The deliberate foreground patch must actually be painted over this die.");
+                    File.WriteAllBytes(Path.Combine(dir,"calibration-cover-camera.png"),reference.EncodeToPNG());
                     File.WriteAllText(Path.Combine(dir,"calibration-cover.json"),JsonUtility.ToJson(geometry,true));
                     File.WriteAllBytes(Path.Combine(dir,"calibration-cover.png"),full.EncodeToPNG());
                     Assert.That(geometry.dice[0].changed,Is.GreaterThan(200),"A painted UI square over the first die must fail the real comparison.");
@@ -330,6 +423,7 @@ namespace DiceCraft.Tests
                 var recorder=Art07VisualRecorder.Begin(app,recording,mode);
                 try
                 {
+                    string submittedHand=app.Session.State.hand.handId;
                     var ids=app.Session.State.hand.orderedLockedIds.ToArray();
                     Assert.That(ids,Is.Not.Empty);Assert.That(ids.Distinct().Count(),Is.EqualTo(ids.Length));
                     bool submitted=false;
@@ -341,7 +435,7 @@ namespace DiceCraft.Tests
                         submitted|=app.PresentationPlaying07;
                         if(submitted)
                         {
-                            var frame=Ax01Geometry(ids);
+                            var frame=Ax01Geometry(ids,submittedHand);
                             if(frame.bounds.width>0)
                             {
                                 var pixels=probe.Read(frame.bounds,probe.flipY);
@@ -400,9 +494,22 @@ namespace DiceCraft.Tests
                                 }
                             }
                             finally {UObj.DestroyImmediate(shown);if(bare!=null)UObj.DestroyImmediate(bare);}
+                            // A committed hand still shows its submitted dice until its real HUD hands them to
+                            // the following unrolled hand. The body IDs persist while they move back under the pool veil.
+                            if(frame.ownership=="unexplained"||frame.playing&&frame.ownership!="submitted")
+                                issues.Add("frame "+row.unityFrame+" inconsistent ownership: "+frame.ownership+" "+frame.viewHand+" "+frame.slotsTitle+" "+frame.rollText);
                             foreach(var die in frame.dice)
-                                if((frame.playing||die.hull.Length>0)&&(die.inside<=200||die.changed>2||die.hull.Any(p=>p.x<0||p.y<0||p.x>=Screen.width||p.y>=Screen.height)))
-                                    issues.Add("frame "+row.unityFrame+" "+die.id+" "+die.changed+"/"+die.inside);
+                            {
+                                if(frame.playing||frame.ownership=="submitted"||die.displayedLocked)
+                                    if(die.inside<=200||die.changed>2||die.hull.Any(p=>p.x<0||p.y<0||p.x>=Screen.width||p.y>=Screen.height))
+                                        issues.Add("frame "+row.unityFrame+" "+die.id+" "+die.changed+"/"+die.inside);
+                                if(die.hull.Length==0||frame.stampRects.Length==0)continue;
+                                // A disjoint rectangle proves every painted stamp pixel misses this die even
+                                // while the next-hand pre-roll veil legitimately changes every body pixel.
+                                var box=Rect.MinMaxRect(die.hull.Min(p=>p.x),die.hull.Min(p=>p.y),die.hull.Max(p=>p.x),die.hull.Max(p=>p.y));
+                                if(frame.stampRects.Any(r=>r.Overlaps(box)))
+                                    issues.Add("frame "+row.unityFrame+" verify overlapping stamp and "+die.id);
+                            }
                             writer.WriteLine(JsonUtility.ToJson(frame));
                             // PNG decoding runs after the capture clock and outside gameplay performance checks.
                             if(i%8==7){writer.Flush();yield return null;}
@@ -417,6 +524,7 @@ namespace DiceCraft.Tests
                         Assert.That(refs.Values.Any(f=>!f.playing&&f.stampPlaying&&f.stampVisible),Is.True,"The nonblocking stamp tail was not captured.");
                         Assert.That(refs[rows[rows.Length-1].unityFrame].stampPlaying,Is.False);
                     }
+                    Assert.That(refs[rows.Last().unityFrame].ownership,Is.EqualTo("next-hand-pool"),"All submitted dice must finish returning to their new hand's actual pool targets.");
                     Assert.That(issues,Is.Empty,string.Join("\n",issues.Take(15)));
                 }
                 finally {if(recorder.IsRecording)recorder.Cancel();UObj.Destroy(recorder.gameObject);}
