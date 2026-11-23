@@ -55,9 +55,18 @@ namespace DiceCraft.Tests
             for(int i=0;i<now.Length;i++){Assert.That(now[i].path,Is.EqualTo(extraSources07[i].path));Assert.That(now[i].sha256,Is.EqualTo(extraSources07[i].sha256),now[i].path);}
             Assert.That(typeof(GameApp).Module.ModuleVersionId.ToString(),Is.EqualTo(extra07.runtimeMvid));
         }
-        private IEnumerator ExtraBegin07()
+        private IEnumerator ExtraBegin07(string pixelEvidenceScene=null)
         {
-            string output=Path.Combine(saveDirectory,"extra-capture");Directory.CreateDirectory(output);
+            string output=Path.Combine(saveDirectory,"extra-capture");
+            if(pixelEvidenceScene!=null&&Environment.GetEnvironmentVariable("DICE_W25_PIXEL_EVIDENCE")=="1")
+            {
+                // Setup already gives this test a unique isolated save directory. Only its capture output is redirected.
+                string run=Path.GetFileName(saveDirectory);
+                output=Path.GetFullPath(Path.Combine(Application.dataPath,"..","..","artifacts","cache","v11","w25",
+                    Screen.width+"x"+Screen.height,pixelEvidenceScene,run));
+                TestContext.WriteLine("W25 pixel evidence: "+output);
+            }
+            Directory.CreateDirectory(output);
             extraSources07=ExtraSourceSnapshot07();string manifest=string.Join("\n",extraSources07.Select(s=>s.path+" "+s.sha256));
             File.WriteAllText(Path.Combine(output,"source-snapshot.sha256"),manifest,new UTF8Encoding(false));
             extra07=new ExtraReport07{startedUtc=DateTime.UtcNow.ToString("O"),output=output,unity=Application.unityVersion,platform=Application.platform.ToString(),os=SystemInfo.operatingSystem,

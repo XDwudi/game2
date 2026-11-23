@@ -104,12 +104,16 @@ namespace DiceCraft
             var snapshot=original.lastSubmission?.snapshot;
             if(snapshot?.stageId!=original.stage.stageId||snapshot?.runId!=original.runId)snapshot=null;
             var saved=original.Clone();var hand=saved.hand=new HandState();
+            // FinalizeStage clears the hand. The last submission is the saved source of its dice and rolls.
             hand.hasRolled=snapshot!=null;hand.rollsRemaining=snapshot?.rollsRemaining??0;
             hand.handId=snapshot?.handId??"";hand.rollsUsed=snapshot?.rollsUsed??0;
+            // The receipt records unused submissions after the scoring command, including any budget changes.
+            // Its value also drives the remaining-submissions chip on the settlement paper.
+            saved.stage.remainingSubmissions=original.lastStageSettlement.remainingSubmissions;
             if(snapshot!=null)
             {
                 saved.controllers=snapshot.equippedControllers.Select(c=>c.Clone()).ToList();
-                saved.stage.capacity=snapshot.capacity;saved.stage.remainingSubmissions=snapshot.submissionsRemainingBefore;
+                saved.stage.capacity=snapshot.capacity;
                 var shown=new HashSet<string>((snapshot.poolDice??Array.Empty<PoolDie>()).Select(d=>d.dieId),StringComparer.Ordinal);
                 // Dice granted at stage end were never on this table. Unrolled surviving dice may be absent from poolDice.
                 var receipt=original.processedReceipts.LastOrDefault(q=>q.settlement?.settlementId==original.lastStageSettlement.settlementId);

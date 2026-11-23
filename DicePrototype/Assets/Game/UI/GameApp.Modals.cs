@@ -70,8 +70,8 @@ namespace DiceCraft
             var list=UiKit.Scroll(p,"SaveFailureDetails",24,100,912,392,392);float y=0;
             ModalSection16(list,p,"Message","可以采取的操作","这一步的结果还没存进存档（可能磁盘已满或没有写入权限）。\n“重试保存”会保存同一个结果，不会重新掷骰或重复扣钱。\n“放弃”会回到上次保存的进度。",ref y,880);
             if(saveErrorExpanded07)ModalSection16(list,p,"Error","保存错误",notice,ref y,880);list.sizeDelta=new Vector2(list.sizeDelta.x,y+16);
-            UiKit.Button(p,"ExpandSaveError",saveErrorExpanded07?"收起错误详情":"展开错误详情",24,508,448,60,()=>{saveErrorExpanded07=!saveErrorExpanded07;SaveFailure();});
-            UiKit.Button(p,"CopySaveError","复制错误详情",488,508,448,60,()=>{GUIUtility.systemCopyBuffer=notice??"";});
+            CenterButtonLabel16(UiKit.Button(p,"ExpandSaveError",saveErrorExpanded07?"收起错误详情":"展开错误详情",24,508,448,60,()=>{saveErrorExpanded07=!saveErrorExpanded07;SaveFailure();}));
+            CenterButtonLabel16(UiKit.Button(p,"CopySaveError","复制错误详情",488,508,448,60,()=>{GUIUtility.systemCopyBuffer=notice??"";}));
             Primary16(p,"RetrySave","重试保存",24,580,912,60,()=>
             {
                 if(!Session.HasPendingSave)return;

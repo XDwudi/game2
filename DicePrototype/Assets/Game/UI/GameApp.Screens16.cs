@@ -31,6 +31,14 @@ namespace DiceCraft
             return button;
         }
 
+        private static void CenterButtonLabel16(Button button, float below = 0)
+        {
+            var face = (Image)button.targetGraphic;
+            var frame = FrameInsets11(face);
+            var label = button.transform.Find("Label").GetComponent<TextMeshProUGUI>();
+            CenterLabelInk24(label, Mathf.Max(frame.w, below), face.rectTransform.rect.height - frame.y);
+        }
+
         private TextMeshProUGUI pickerHelp16;
 
         private void ShowThemePicker16()
@@ -64,12 +72,8 @@ namespace DiceCraft
                 name.rectTransform.sizeDelta=new Vector2(384,Large11?52:44);
                 var face=(Image)tile.targetGraphic;
                 name.color=LabelOn11(face,UiKit.Ink);
-                if(Large11)
-                {
-                    var r=preview.rectTransform;
-                    float top=-r.anchoredPosition.y+r.rect.height;
-                    CenterLabelInk24(name,top,face.rectTransform.rect.height-FrameInsets11(face).y);
-                }
+                var picture = preview.rectTransform;
+                CenterButtonLabel16(tile, picture.rect.height - picture.anchoredPosition.y);
                 if(selected)
                 {
                     UiKit.Outline(tile.transform,"CurrentTheme16",-4,-4,408,height+8,UiKit.Gold,4);

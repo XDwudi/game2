@@ -61,7 +61,7 @@ namespace DiceCraft
                 var title=confirm.Find("DialogTitle")?.GetComponent<TextMeshProUGUI>();if(title!=null){title.fontSize=26*UiKit.FontScale;title.rectTransform.sizeDelta=new Vector2(590,64);}
                 displayCountdown=UiKit.Text(confirm,"DisplayCountdown",Screen.width+" × "+Screen.height+" · "+DisplaySettings.ModeName(Screen.fullScreenMode)+"\n"+DisplayPreferences.SecondsLeft+" 秒内确认，否则恢复原设置。",24,100,672,128,24,UiKit.Gold);
                 Primary16(confirm,"ConfirmDisplay","保留",24,264,324,64,()=>{if(DisplayPreferences.Confirm()){displayDraft=null;ShowDisplaySettings();}},DisplayPreferences.CanConfirm);
-                UiKit.Button(confirm,"RevertDisplay","恢复 [Esc]",372,264,324,64,DisplayPreferences.Revert);
+                CenterButtonLabel16(UiKit.Button(confirm,"RevertDisplay","恢复 [Esc]",372,264,324,64,DisplayPreferences.Revert));
                 return;
             }
             var p=OpenModal("显示设置");
@@ -86,6 +86,7 @@ namespace DiceCraft
                     displayDraft = DisplayPreferences.Choice(selected, mode, size.x, size.y);
                     ShowDisplaySettings();
                 });
+                CenterButtonLabel16(button);
                 if (displayDraft.mode == mode) MarkDisplayChoice16(button);
             }
             var resolutions=DisplayPreferences.Resolutions(selected,displayDraft.mode);

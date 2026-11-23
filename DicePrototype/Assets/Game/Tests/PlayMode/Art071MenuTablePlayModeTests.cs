@@ -235,7 +235,7 @@ namespace DiceCraft.Tests
         [UnityTest]
         public IEnumerator PLAY_ART071_TableWorldGpuMatchesAuthoredDirectionAndSurvivesGrainAndReduced()
         {
-            MenuTableActualViewport071(); yield return ExtraBegin07();
+            MenuTableActualViewport071(); yield return ExtraBegin07("table-world");
             // Shared fixture already restores reduced. Register these additional profile keys before touching their real UI.
             foreach (string key in new[] { "art07.grain", "art07.scanlines" })
                 if (!intPreferences.ContainsKey(key)) intPreferences[key] = PlayerPrefs.HasKey(key) ? (int?)PlayerPrefs.GetInt(key) : null;

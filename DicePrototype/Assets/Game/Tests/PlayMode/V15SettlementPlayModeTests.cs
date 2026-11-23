@@ -38,7 +38,7 @@ namespace DiceCraft.Tests
             public string[] dieIds=null;
             public bool risk=false;
         }
-        private static readonly string[] ReceiptBoardRoots15={"StageCard11","Tray11","PoolTab11","SubmitInfo11","LockedTray071"};
+        private static readonly string[] ReceiptBoardRoots15={"StageCard11","Tray11","PoolTab11","SubmitInfo11","LockedTray071","RollBudgetValue","SubmitBudgetValue"};
         private static readonly int[] ColdReceiptScales15={100,150};
 
         // Play the recorded first chapter using only a normal session. The two target EndStage clicks and
@@ -63,6 +63,10 @@ namespace DiceCraft.Tests
                 {
                     FinalOptions07("Normal",false);
                     yield return ShopEntranceFrame07();
+                    var ready=app.Session.State;
+                    Assert.That(InformationText07("RollBudgetValue"),Is.EqualTo(ready.hand.rollsRemaining.ToString()),"live hand at EndStage");
+                    Assert.That(InformationText07("SubmitBudgetValue"),Is.EqualTo(ready.stage.remainingSubmissions.ToString()),"live stage at EndStage");
+                    TestContext.WriteLine($"SE14 live stage {stage+1}: rolls {ready.hand.rollsRemaining}, submissions {ready.stage.remainingSubmissions}.");
                     var live=ReceiptBoardRoots15.ToDictionary(n=>n,n=>V06ScreenRect(FindActive<RectTransform>(n)));
                     ShopEntrancePointer07("EndStage");
                     Assert.That(app.Session.State.phase,Is.EqualTo("StageSettlement"));
@@ -111,6 +115,15 @@ namespace DiceCraft.Tests
                 Assert.That(backdrop.GraphicCount,Is.GreaterThan(0));Assert.That(backdrop.DiceMeshCount,Is.GreaterThan(0));
                 var board=FindActive<RectTransform>("Screen").Find("SavedSettlementBoardStaging07");
                 Assert.That(board,Is.Not.Null);Assert.That(board.gameObject.activeSelf,Is.False);
+                var snapshot=saved.lastSubmission.snapshot;
+                int unused=saved.lastStageSettlement.remainingSubmissions;
+                // Each sampled run ends early, so the final receipt and pre-submit snapshot are distinct.
+                Assert.That(snapshot.submissionsRemainingBefore,Is.Not.EqualTo(unused),tag+" must exercise two different counts");
+                Assert.That(InformationText07("SettlementUnusedReward"),Does.Contain($"剩余提交 {unused} 次"),tag+" paper chip");
+                Assert.That(board.Find("SubmitBudgetValue").GetComponent<TextMeshProUGUI>().text,Is.EqualTo(unused.ToString()),tag+" cold committed count");
+                Assert.That(board.Find("RollBudgetValue").GetComponent<TextMeshProUGUI>().text,Is.EqualTo(snapshot.rollsRemaining.ToString()),tag+" cold historical hand");
+                CollectionAssert.IsSubsetOf(new[]{"SubmitBudgetValue","RollBudgetValue"},backdrop.CapturedRootNames15);
+                TestContext.WriteLine($"SE14 cold {tag}: saved hand {snapshot.handId}, rolls {snapshot.rollsRemaining}, submitted with {snapshot.submissionsRemainingBefore}, unused {unused}.");
                 foreach(var item in live)
                 {
                     var restored=board.Find(item.Key) as RectTransform;Assert.That(restored,Is.Not.Null,item.Key);
@@ -120,9 +133,15 @@ namespace DiceCraft.Tests
                 }
                 var frozen=GameObject.Find("SettlementFrozenDice07");
                 Assert.That(frozen,Is.Not.Null);Assert.That(frozen.GetComponentsInChildren<Collider>(true),Is.Empty);
-                var dice=saved.lastSubmission.snapshot.dice;
+                var dice=snapshot.dice;
+                var lockedBodies=frozen.GetComponentsInChildren<MeshRenderer>(false)
+                    .Where(m=>m.name.StartsWith("$static-preview:settlement-locked-",StringComparison.Ordinal)&&m.name.EndsWith("/Body",StringComparison.Ordinal)).ToArray();
+                Assert.That(lockedBodies.Length,Is.EqualTo(Math.Min(8,dice.Length)),tag+" visible historical submission page");
                 for(int i=0;i<Math.Min(8,dice.Length);i++)
                 {
+                    var body=lockedBodies.Single(m=>m.name=="$static-preview:settlement-locked-"+i+"/Body");
+                    var slot=(RectTransform)board.Find("Slot"+i);
+                    Assert.That(V06ScreenRect(slot).Contains(app.table.viewCamera.WorldToScreenPoint(body.bounds.center)),Is.True,tag+" historical die outside slot "+i);
                     var die=dice[i];string face="$static-preview:settlement-locked-"+i+"/Face_"+die.faceId;
                     var mesh=frozen.GetComponentsInChildren<MeshFilter>(false).Single(m=>m.name==face);
                     Assert.That(mesh.sharedMesh.name,Does.StartWith("Pips_"+die.currentPip+"_"));
@@ -136,6 +155,37 @@ namespace DiceCraft.Tests
                 CollectionAssert.AreEqual(bytes,File.ReadAllBytes(path));
             }
             yield return NormalReceiptPath15(2,scale,Verify);
+        }
+
+        [UnityTest] public IEnumerator PLAY_V15_SE14_AutomaticReceiptKeepsZeroUnusedAndRecordedExtraRoll()
+        {
+            var fixture=NewBoundaryFixture("se14-auto-extra-roll");
+            string item=BoundaryItem(fixture,"I07");
+            var memory=new MemorySaveStore();
+            var core=new GameSession(app.Config,memory,fixture);
+            CoreShopStep(core,CommandKind.StartStage);
+            var ready=core.State;ready.stage.target="1";ready.stage.remainingSubmissions=1;
+            core=new GameSession(app.Config,memory,ready);
+            CoreShopStep(core,CommandKind.Roll);
+            int afterRoll=core.State.hand.rollsRemaining;
+            var grant=core.Execute(new SessionCommand{kind=CommandKind.UseItem,itemInstanceId=item,
+                commandId="se14-extra-roll",expectedActionSequence=core.ActionSequence});
+            Assert.That(grant.accepted,Is.True,grant.error);
+            Assert.That(core.State.hand.rollsRemaining,Is.EqualTo(afterRoll+1));
+            foreach(var die in core.State.dice)Assert.That(core.TogglePending(die.dieId),Is.True);
+            CoreShopStep(core,CommandKind.ConfirmLocks);CoreShopStep(core,CommandKind.Submit);
+            var settled=core.State;
+            Assert.That(settled.phase,Is.EqualTo("StageSettlement"));
+            Assert.That(settled.lastSubmission.snapshot.submissionsRemainingBefore,Is.EqualTo(1));
+            Assert.That(settled.lastStageSettlement.remainingSubmissions,Is.Zero);
+            Assert.That(settled.lastSubmission.snapshot.rollsRemaining,Is.EqualTo(afterRoll+1));
+            yield return LoadBoundaryFixture(settled);ResumeBoundaryFixture();
+            var board=FindActive<RectTransform>("Screen").Find("SavedSettlementBoardStaging07");
+            Assert.That(app.SettlementBackdropFromHistory07,Is.True);
+            Assert.That(board.Find("SubmitBudgetValue").GetComponent<TextMeshProUGUI>().text,Is.EqualTo("0"));
+            Assert.That(board.Find("RollBudgetValue").GetComponent<TextMeshProUGUI>().text,Is.EqualTo((afterRoll+1).ToString()));
+            Assert.That(InformationText07("SettlementUnusedReward"),Does.Contain("剩余提交 0 次"));
+            yield return WriteReceiptShot15("automatic-zero-unused-extra-roll-cold");
         }
 
         [UnityTest,Timeout(90000)] public IEnumerator PLAY_V15_SE15_OrdinaryReceiptBlocksSecondPointerAtSamePosition()

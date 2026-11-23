@@ -164,40 +164,62 @@ namespace DiceCraft.Tests
                 GameApp.Contrast11((Color32)c,background)>=GameApp.PickContrast11);
         }
 
-        private void CheckPrimaryArrow24(string scope,Image arrow,Color32[] drawn,Color32[] background,int width,int height,
-            bool adjusted,List<string> report,List<string> failures)
+        private IEnumerator CheckPrimaryArrow24(string scope,string path,Image arrow,Color32[] drawn,Color32[] background,
+            int width,int height,bool adjusted,List<string> report,List<string> failures)
         {
-            var sprite=W11bSpritePixels(arrow.sprite,out int sw,out int sh);
-            if(sprite==null){failures.Add(scope+" unreadable actual primary arrow sprite");return;}
-            var area=V06ScreenRect(arrow.rectTransform);
-            if(arrow.preserveAspect)
+            // Capture the same Image, including sprite padding, UVs and pixel adjustment, on a black matte.
+            // Place the reference above the foreground: an obstruction in the original frame must still fail.
+            var matte=UnityEngine.Object.Instantiate(arrow,arrow.transform.parent,false);
+            try
             {
-                float size=Mathf.Min(area.width/sw,area.height/sh);
-                var centre=area.center;area.size=new Vector2(sw*size,sh*size);area.center=centre;
-            }
-            int samples=0,misses=0;float lowest=float.PositiveInfinity;
-            for(int y=Mathf.Max(0,Mathf.CeilToInt(area.yMin));y<Mathf.Min(height,Mathf.FloorToInt(area.yMax));y++)
-            for(int x=Mathf.Max(0,Mathf.CeilToInt(area.xMin));x<Mathf.Min(width,Mathf.FloorToInt(area.xMax));x++)
-            {
-                // Only the opaque white core of the authored sprite represents the full-strength
-                // ink. Include the whole pixel footprint and a bilinear texel margin at 720p.
-                int x0=Mathf.Clamp(Mathf.FloorToInt((x-area.xMin)*sw/area.width-.5f),0,sw-1);
-                int x1=Mathf.Clamp(Mathf.FloorToInt((x+1-area.xMin)*sw/area.width+.5f),0,sw-1);
-                int y0=Mathf.Clamp(Mathf.FloorToInt((y-area.yMin)*sh/area.height-.5f),0,sh-1);
-                int y1=Mathf.Clamp(Mathf.FloorToInt((y+1-area.yMin)*sh/area.height+.5f),0,sh-1);
-                bool solid=true;
-                for(int sy=y0;solid&&sy<=y1;sy++)for(int sx=x0;sx<=x1;sx++)
+                matte.name="ArrowContrastProbe24";matte.raycastTarget=false;
+                var brush=UnityEngine.Object.Instantiate(arrow,matte.transform,false);
+                var rect=brush.rectTransform;
+                rect.anchorMin=Vector2.zero;rect.anchorMax=Vector2.one;rect.pivot=arrow.rectTransform.pivot;
+                rect.offsetMin=rect.offsetMax=Vector2.zero;rect.localRotation=Quaternion.identity;rect.localScale=Vector3.one;
+                brush.raycastTarget=false;brush.color=Color.white;brush.enabled=true;
+                matte.sprite=null;matte.overrideSprite=null;matte.type=Image.Type.Simple;matte.material=null;
+                matte.color=Color.black;matte.enabled=true;
+                var canvas=matte.gameObject.AddComponent<Canvas>();
+                canvas.overrideSorting=true;canvas.sortingLayerID=arrow.GetComponentInParent<Canvas>().sortingLayerID;
+                canvas.sortingOrder=short.MaxValue;
+                Canvas.ForceUpdateCanvases();yield return new WaitForEndOfFrame();
+                var reference=Screen20Xb();
+                var area=V06ScreenRect(arrow.rectTransform);
+                int left=Mathf.Max(0,Mathf.CeilToInt(area.xMin)),right=Mathf.Min(width,Mathf.FloorToInt(area.xMax));
+                int bottom=Mathf.Max(0,Mathf.CeilToInt(area.yMin)),top=Mathf.Min(height,Mathf.FloorToInt(area.yMax));
+                int samples=0,misses=0;float lowest=float.PositiveInfinity;
+                for(int y=bottom;y<top;y++)for(int x=left;x<right;x++)
                 {
-                    var pixel=sprite[sy*sw+sx];
-                    if(pixel.a<254||pixel.r<254||pixel.g<254||pixel.b<254){solid=false;break;}
+                    int i=y*width+x;var pixel=reference[i];
+                    if(pixel.r<254||pixel.g<254||pixel.b<254)continue;
+                    float ratio=GameApp.Contrast11(drawn[i],background[i]);samples++;
+                    lowest=Mathf.Min(lowest,ratio);
+                    if(!PrimaryPick24(ratio,background[i],adjusted))misses++;
                 }
-                if(!solid)continue;
-                int i=y*width+x;float ratio=GameApp.Contrast11(drawn[i],background[i]);samples++;
-                lowest=Mathf.Min(lowest,ratio);
-                if(!PrimaryPick24(ratio,background[i],adjusted))misses++;
+                string line=scope+" primary arrow, visible core pixels="+samples+", minimum contrast="+lowest.ToString("F3")+", misses="+misses;
+                report.Add(line);if(samples<3||misses>0)failures.Add(line);
+
+                // Three native-pixel crops in draw / background / mask order allow offline verification of every reported pixel.
+                if(right>left&&top>bottom)
+                {
+                    int w=right-left,h=top-bottom;var strip=new Color32[3*w*h];
+                    for(int y=0;y<h;y++)
+                    {
+                        int i=(bottom+y)*width+left,j=y*w*3;
+                        Array.Copy(drawn,i,strip,j,w);Array.Copy(background,i,strip,j+w,w);Array.Copy(reference,i,strip,j+2*w,w);
+                    }
+                    var proof=new Texture2D(w*3,h,TextureFormat.RGBA32,false);
+                    try
+                    {
+                        proof.SetPixels32(strip);proof.Apply();
+                        var dir=Path.Combine(Path.GetDirectoryName(path),"primary-arrow");Directory.CreateDirectory(dir);
+                        File.WriteAllBytes(Path.Combine(dir,Path.GetFileName(path)),proof.EncodeToPNG());
+                    }
+                    finally {UnityEngine.Object.Destroy(proof);}
+                }
             }
-            string line=scope+" primary arrow, visible core pixels="+samples+", minimum contrast="+lowest.ToString("F3")+", misses="+misses;
-            report.Add(line);if(samples<3||misses>0)failures.Add(line);
+            finally {matte.gameObject.SetActive(false);UnityEngine.Object.Destroy(matte.gameObject);}
         }
 
         // Both the screenshot matrix and the table-text inventory must see real scrolled rows.
@@ -594,7 +616,7 @@ namespace DiceCraft.Tests
                     // Hide only this arrow; text, other images and the exact button face remain drawn.
                     arrow.enabled=false;yield return new WaitForEndOfFrame();
                     var arrowBackground=Screen20Xb();
-                    CheckPrimaryArrow24(scope,arrow,drawn,arrowBackground,shot.width,shot.height,adjusted,report,failures);
+                    yield return CheckPrimaryArrow24(scope,path,arrow,drawn,arrowBackground,shot.width,shot.height,adjusted,report,failures);
                     arrow.enabled=true;
                 }
                 foreach(var label in measured.Keys)label.enabled=false;

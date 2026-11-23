@@ -193,7 +193,7 @@ namespace DiceCraft.Tests
         [UnityTest]
         public IEnumerator PLAY_ART071_TemporaryShadowActualGpuSamePoseHasVisibleLighterContactShadow()
         {
-            yield return ExtraBegin07();
+            yield return ExtraBegin07("temporary-shadow");
             StartRun("719190"); Click("StartStage"); yield return WaitForIdle();
             Assert.That(app.PlayBackdrop11, Is.True, "Measure a gameplay die against the in-game felt.");
             bool appEnabled = app.enabled; app.enabled = false; app.table.Hide();

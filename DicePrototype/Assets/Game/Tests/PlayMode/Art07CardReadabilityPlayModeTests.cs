@@ -239,7 +239,7 @@ namespace DiceCraft.Tests
         [UnityTest] public IEnumerator PLAY_ART07_CardReadability_ThreeFontsAtActual720Or1080()
         {
             Assert.That(Screen.width==1920&&Screen.height==1080||Screen.width==1280&&Screen.height==720,Is.True,"Run this test once at actual 1920x1080 and again at actual 1280x720; no fake viewport or skipped configuration.");
-            int width=Screen.width,height=Screen.height;yield return ExtraBegin07();
+            int width=Screen.width,height=Screen.height;yield return ExtraBegin07("hud-card-glyphs");
             foreach(int font in new[]{100,125,150})
             {
                 yield return CardSetFont07(font);if(app.Session.State==null)StartRun("70820");
