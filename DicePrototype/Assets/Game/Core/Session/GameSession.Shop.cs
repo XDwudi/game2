@@ -6,6 +6,12 @@ namespace DiceCraft.Core
 {
     public sealed partial class GameSession
     {
+        public const string UpgradeTargetRejected = "强化目标无效或已具备相同属性。";
+        public const string UnknownDieUpgrade = "未知骰子强化。";
+        public const string SelfStudyLimitReached = "本店自选研习机会已使用。";
+        public const string NewDieUnavailable = "永久骰数量已满或候选无效。";
+        public const string ServiceUnavailable = "此服务已达上限或没有合法目标。";
+
         private int ShopCapacity(RunState s) { return s.isDebug && s.debugCapacityOverride > 0 ? s.debugCapacityOverride : ControllerRules.Capacity(s.controllers, cfg, false, ActiveBindings(s), ActiveRules(s)); }
         private int PermanentCount(RunState s) { return s.dice.Count(x => x.lifetime == "permanent"); }
         private int Level(RunState s, string id) { return s.handLevels.Concat(s.colorLevels).First(x => x.handId == id).level; }
@@ -426,11 +432,11 @@ namespace DiceCraft.Core
                 case "die_upgrade":
                     var d = s.dice.FirstOrDefault(x => x.dieId == dieId);
                     var f = d == null ? null : d.faces.FirstOrDefault(x => x.faceId == faceId);
-                    Check(UpgradeTargetLegal(d, f, offer.contentId), "强化目标无效或已具备相同属性。");
+                    Check(UpgradeTargetLegal(d, f, offer.contentId), UpgradeTargetRejected);
                     break;
-                case "new_die": Check(ServiceLegal(s, "O03") && offer.die != null, "永久骰数量已满或候选无效。"); break;
+                case "new_die": Check(ServiceLegal(s, "O03") && offer.die != null, NewDieUnavailable); break;
                 case "service":
-                    Check(ServiceLegal(s, offer.contentId), "此服务已达上限或没有合法目标。");
+                    Check(ServiceLegal(s, offer.contentId), ServiceUnavailable);
                     if (offer.contentId == "O04") Check(s.dice.Any(x => x.dieId == dieId && x.lifetime == "permanent"), "请选择永久骰子。");
                     break;
                 case "gold": Check(group != null && offer.contentId == "GOLD", "折现报价无效。"); break;
@@ -553,7 +559,7 @@ namespace DiceCraft.Core
                         opposite.permanentPip = f.permanentPip; opposite.baseColor = f.baseColor;
                         s.lastEffects.Add(new EffectRecord { kind = "FaceMirrored", sourceId = id, dieId = dieId, faceId = opposite.faceId, detail = f.baseColor, oldValue = before, newValue = opposite.permanentPip }); break;
                     }
-                default: throw new RuleViolation("未知骰子强化。");
+                default: throw new RuleViolation(UnknownDieUpgrade);
             }
             d.dataRevision++;
             s.lastEffects.Add(new EffectRecord { kind = "DieUpgraded", sourceId = id, dieId = dieId, faceId = faceId });
@@ -562,7 +568,7 @@ namespace DiceCraft.Core
         private void Study(RunState s, string handId)
         {
             RequirePhase(s, "Shop"); RequireLootResolved(s);
-            Check(s.shop.selfStudyUsed < cfg.shop.selfStudyLimit, "本店自选研习机会已使用。");
+            Check(s.shop.selfStudyUsed < cfg.shop.selfStudyLimit, SelfStudyLimitReached);
             Check(IsHandLegal(s, handId), "牌型已满级，或当前容量/永久骰数量不足。");
             int price = HandPrice(s, handId, true); Check(s.gold >= price, "金币不足。");
             s.gold = checked(s.gold - price); s.handLevels.Concat(s.colorLevels).First(x => x.handId == handId).level++; s.shop.selfStudyUsed++; Grow(s, "C61", cfg.Controller("C61").parameters.growthPerEvent);

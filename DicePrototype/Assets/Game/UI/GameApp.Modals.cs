@@ -256,7 +256,7 @@ namespace DiceCraft
             else
             {
                 bool targetReady=whole||selectedFace!=null;
-                string error=targetReady?Session.PurchaseError(offer.offerId,die.dieId,whole?null:selectedFace):"请选一个面。";
+                string error=targetReady?PlayerShopReason16(Session.PurchaseError(offer.offerId,die.dieId,whole?null:selectedFace),offer,die.dieId,whole?null:selectedFace):"请选一个面。";
                 bool same=targetReady&&offer.category=="die_upgrade"&&!Session.IsUpgradeTargetLegal(offer.contentId,die.dieId,whole?null:selectedFace);
                 string label=same?"这个目标不能再改造":!targetReady?"请选一个面。":offer.contentId=="O04"?"花 "+Session.GetOfferPrice(offer)+" 金币删除":!string.IsNullOrEmpty(offer.groupId)?"免费改造":"花 "+Session.GetOfferPrice(offer)+" 金币改造";
                 var reason=UiKit.Scroll(p,"TargetPurchaseReason",368,792,456,72,72);
@@ -291,7 +291,7 @@ namespace DiceCraft
                 float rulesHeight=FitHeight(rules,0);
                 content.sizeDelta=new Vector2(content.sizeDelta.x,Mathf.Max(viewHeight,rulesHeight));
             }
-            string error=Session.PurchaseError(offer.offerId);int price=Session.GetOfferPrice(offer);
+            string error=PlayerShopReason16(Session.PurchaseError(offer.offerId),offer);int price=Session.GetOfferPrice(offer);
             var reason=UiKit.Scroll(p,"CandidatePurchaseReason",368,760,456,104,104);
             var reasonText=UiKit.Text(reason,"PurchaseUnavailable",error??(gift?"免费领取":"金币 "+PlayerNumberFormat.Gold(ViewState.gold)+" → "+PlayerNumberFormat.Integer((System.Numerics.BigInteger)ViewState.gold-price)),0,0,424,100,21,error==null?UiKit.Gold:UiKit.Muted);reason.sizeDelta=new Vector2(reason.sizeDelta.x,FitHeight(reasonText,100));
             UiKit.ActionButton(p,"ConfirmPurchase",gift?"免费领取":"花 "+price+" 金币购买",848,800,600,64,()=>{CloseModal();Send(new SessionCommand{kind=CommandKind.Buy,offerId=offer.offerId});},UiKit.Gold,error==null&&!IsBusy);

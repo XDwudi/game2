@@ -716,7 +716,9 @@ public static class Program
         if (!full && head.Count <= steps) { Console.WriteLine($"seed {seed}: run ended after {all.Count - 1} commands, fewer than {steps}"); return 3; }
         if (!full && head.Any(s => (string)s["kind"] == "ReorderControllers")) { Console.WriteLine($"seed {seed}: opening uses ReorderControllers, pick another seed"); return 4; }
         var replay = new GameSession(cfg, new MemorySaveStore()); int lootDecisions = 0, extraLootPicks = 0;
-        var captureLabels = new List<string> { "menu", "stage-preview" };
+        // Fixed menu routes precede NewRun. Command-dependent overlays are inserted at the
+        // actual boundary and do not add commands to the recording.
+        var captureLabels = new List<string> { "menu", "handbook", "settings", "new-run", "stage-preview" };
         var visited = new HashSet<string>(StringComparer.Ordinal);
         var replayOptions = new JsonSerializerOptions { IncludeFields = true, Converters = { new System.Text.Json.Serialization.JsonStringEnumConverter() } };
         for (int i = 0; i < head.Count; i++)
@@ -727,14 +729,32 @@ public static class Program
             var offer = command.kind == CommandKind.Buy ? state.shop?.offers.FirstOrDefault(o => o.offerId == command.offerId) : null;
             if (offer?.groupId == "LOOT") { if (replay.IsLootPending) lootDecisions++; else extraLootPicks++; }
             if (command.kind == CommandKind.ConfirmLocks)
+            {
                 foreach (string id in command.dieIds) if (!replay.TogglePending(id)) throw new InvalidOperationException("Trace replay has an illegal pending die: " + id);
+                if (full && replay.PendingIds.Length > 0 && visited.Add("play-pending")) captureLabels.Add("play-pending");
+            }
             var result = replay.Execute(command);
             if (!result.accepted) throw new InvalidOperationException($"Trace replay rejected step {i} {command.kind}: {result.error}");
             if (full && i > 0)
             {
                 var reached = replay.State;
+                if (command.kind == CommandKind.Submit && visited.Add("play-scoring")) captureLabels.Add("play-scoring");
                 string label = reached.phase + "-" + reached.stage.stageKind;
                 if (visited.Add(label)) captureLabels.Add(label);
+                if (reached.phase == "HandReady" && reached.stage.stageKind == "normal" && visited.Add("pause"))
+                    captureLabels.Add("pause");
+                if (command.kind == CommandKind.ConfirmLocks && reached.phase == "Selecting" &&
+                    reached.hand.orderedLockedIds.Count > 0 && visited.Add("play-locked")) captureLabels.Add("play-locked");
+                if (command.kind == CommandKind.Submit && reached.phase == "HandReady" && !visited.Contains("score-details"))
+                {
+                    var receipt = reached.lastSubmission;
+                    if (ScoreExplanation.Build(receipt.snapshot, receipt.breakdown, cfg).global.Any(s => s.operation == "×" && s.operand != "1"))
+                    {
+                        visited.Add("score-details");
+                        captureLabels.Add("score-details");
+                        captureLabels.Add("score-steps");
+                    }
+                }
                 if (replay.IsLootPending && visited.Add("loot")) captureLabels.Add("loot");
             }
         }

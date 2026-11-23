@@ -163,36 +163,35 @@ namespace DiceCraft
         {
             if(pick==null||pick.dieId==null||!pick.whole&&pick.faceId==null)return "";
             if(offer.groupId!="LOOT"&&Session.IsLootPending)return "先领取首领战利品";
-            var die=ViewState.dice.FirstOrDefault(d=>d.dieId==pick.dieId);var face=die?.faces.FirstOrDefault(f=>f.faceId==pick.faceId);
             if(offer.category=="die_upgrade"&&!Session.IsUpgradeTargetLegal(offer.contentId,pick.dieId,pick.whole?null:pick.faceId))
-            {
-                switch(offer.contentId)
-                {
-                    case "U01":return "这一面已经是光滑的，换一个面";
-                    case "U02":return "这一面已经是粗糙的，换一个面";
-                    case "U03":return "这一面已经是红色，换一个面";
-                    case "U04":return "这一面已经是蓝色，换一个面";
-                    case "U05":return "这颗已经是玻璃骰，换一颗";
-                    case "U06":return "这一面已经镀金，换一个面";
-                    case "U08":return "这一面已经是 "+Config.maxPipValue+" 点，换一个面";
-                    case "U09":return "这一面已经是 "+Config.minPipValue+" 点，换一个面";
-                    case "U10":return "这一面的权重已到上限 "+Config.maxFaceWeight+"，换一个面";
-                    case "U11":return "对面已经和这一面相同，换一个面";
-                    default:
-                    {
-                        // Not reachable with the current upgrades (U07 is always legal): the session's own reason (SHOP_LAYOUT 7.2).
-                        string rule=Session.PurchaseError(offer.offerId,pick.dieId,pick.whole?null:pick.faceId);
-                        return string.IsNullOrEmpty(rule)?"暂不能买":rule.TrimEnd('。');
-                    }
-                }
-            }
+                return SelectedUpgradeReason16(offer,pick.dieId,pick.faceId);
             long cost=Session.GetOfferNetPrice(offer);
             if(cost>ViewState.gold)return "还差 "+(cost-ViewState.gold)+" 金币";
             string error=Session.PurchaseError(offer.offerId,pick.dieId,pick.whole?null:pick.faceId);
             if(error==null)return null;
-            if(offer.contentId=="O04"&&ViewState.dice.Count(d=>d.lifetime=="permanent")<=1)return "至少要留 1 颗骰子";
-            return error.TrimEnd('。');
+            return PlayerShopReason16(error,offer,pick.dieId,pick.faceId).TrimEnd('。');
         }
+        // The approved S3 wording also describes a rejected purchase with the same fully selected target.
+        private string SelectedUpgradeReason16(ShopOffer offer,string dieId,string faceId)
+        {
+            var die=ViewState?.dice.FirstOrDefault(d=>d.dieId==dieId&&d.lifetime=="permanent");
+            if(offer?.category!="die_upgrade"||die==null||offer.contentId!="U05"&&!die.faces.Any(f=>f.faceId==faceId))return "这个目标不能再改造";
+            switch(offer.contentId)
+            {
+                case "U01":return "这一面已经是光滑的，换一个面";
+                case "U02":return "这一面已经是粗糙的，换一个面";
+                case "U03":return "这一面已经是红色，换一个面";
+                case "U04":return "这一面已经是蓝色，换一个面";
+                case "U05":return "这颗已经是玻璃骰，换一颗";
+                case "U06":return "这一面已经镀金，换一个面";
+                case "U08":return "这一面已经是 "+Config.maxPipValue+" 点，换一个面";
+                case "U09":return "这一面已经是 "+Config.minPipValue+" 点，换一个面";
+                case "U10":return "这一面的权重已到上限 "+Config.maxFaceWeight+"，换一个面";
+                case "U11":return "对面已经和这一面相同，换一个面";
+                default:return "这个目标不能再改造";
+            }
+        }
+
         /// <summary>S3's change line and its note (SHOP_LAYOUT 7.2, columns 3 and 4).</summary>
         private void FacePickChange14(ShopOffer offer,FacePick14 pick,out string change,out string note)
         {

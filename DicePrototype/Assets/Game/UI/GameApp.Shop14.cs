@@ -315,11 +315,13 @@ namespace DiceCraft
             if(offer.contentId=="O04")
             {
                 var any=ViewState.dice.FirstOrDefault(d=>d.lifetime=="permanent");
-                if(any!=null&&Session.PurchaseError(offer.offerId,any.dieId,null)==null)return "";
-                return ViewState.dice.Count(d=>d.lifetime=="permanent")<=1?"至少留 1 颗骰子":"暂不能买";
+                string removalError=Session.PurchaseError(offer.offerId,any?.dieId);
+                if(removalError==null)return "";
+                return LastDieRemovalBlocked16(offer,removalError)?"至少留 1 颗骰子":"暂不能买";
             }
             string error=Session.PurchaseError(offer.offerId);
-            return error==null?"":offer.category=="new_die"?"骰子已满 "+Config.maxPermanentDice+" 颗":gift?"暂不能领":"暂不能买";
+            if(error==null)return "";
+            return NewDieLimit16(offer,error)??(gift?"暂不能领":"暂不能买");
         }
 
         // ---------------------------------------------------------------- 升级与服务 (SHOP_LAYOUT 2, Q3)

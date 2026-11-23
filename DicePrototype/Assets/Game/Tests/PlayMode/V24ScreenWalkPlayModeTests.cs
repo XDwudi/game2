@@ -47,6 +47,8 @@ namespace DiceCraft.Tests
                 int start=errors.Count;
                 IEnumerator Capture(string name,params Transform[] roots)
                 {
+                    if ((name=="menu-empty" || name=="menu-saved") && HasActive("Toast"))
+                        errors.Add("FAIL "+theme+" "+scale+" "+name+" | unexpected transient notice in the ordinary menu capture");
                     var foreground=ForegroundRoots24(name,roots);
                     var action=PrimaryAction24(name,foreground,report,errors);
                     yield return Frame24(theme+" "+scale+" "+name,Path.Combine(dir,name+".png"),foreground,report,errors,action);
@@ -308,10 +310,12 @@ namespace DiceCraft.Tests
                     yield return primaryBoundary("notice-full",Overlay20X);Click("CloseDialog");
                 }
                 StartRun("24016");yield return Page("select-common",W14Main);
-                if(primaryBoundary!=null)yield return PrimaryStageBoundary24(primaryBoundary);
                 Click("Pause");yield return Page("pause",Overlay20X);Click("MainMenu");
                 yield return Page("menu-saved",W14Main);Click("NewRun");yield return Page("new-saved",Overlay20X);Click("CloseDialog");
-                Click("ContinueRun");Click("StartStage");yield return WaitForIdle();
+                Click("ContinueRun");
+                // Capture the ordinary menus before exercising and abandoning a real failed save.
+                if(primaryBoundary!=null)yield return PrimaryStageBoundary24(primaryBoundary);
+                Click("StartStage");yield return WaitForIdle();
                 using(var locked=new FileStream(app.SaveLocation,FileMode.Open,FileAccess.Read,FileShare.Read))
                 {
                     Click("Roll");Assert.That(app.Session.HasPendingSave,Is.True);

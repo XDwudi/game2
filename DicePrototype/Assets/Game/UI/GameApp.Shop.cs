@@ -93,6 +93,68 @@ namespace DiceCraft
                 default:return ItemUnavailable10(item);
             }
         }
+        private const string UnavailableShopReason16="这件商品暂时不能购买。";
+
+        private static bool LastDieRemovalBlocked16(ShopOffer offer,string reason)=>
+            reason==GameSession.ServiceUnavailable&&offer?.category=="service"&&offer.contentId=="O04";
+
+        private string NewDieLimit16(ShopOffer offer,string reason)
+        {
+            if(reason!=GameSession.NewDieUnavailable||offer?.category!="new_die"||offer.die==null||ViewState==null)return null;
+            if(ViewState.dice.Count(d=>d.lifetime=="permanent")>=Config.maxPermanentDice)return "骰子已满 "+Config.maxPermanentDice+" 颗";
+            if(ViewState.dice.Count>=Config.maxActiveDice)return "骰子已满 "+Config.maxActiveDice+" 颗";
+            return null;
+        }
+
+        private string PlayerShopReason16(string reason,ShopOffer offer,string dieId=null,string faceId=null)
+        {
+            switch(reason)
+            {
+                case "商品不存在。":return "商品不存在或已售罄。";
+                case "请选择永久骰子。":return "请选择骰子。";
+                case "普通卡牌栏位或总张数已满，可先出售卡牌。":
+                    return ViewState?.controllers.Count>=Config.maxControllerInstances
+                        ?"卡牌已满 "+Config.maxControllerInstances+" 张，先卖掉一张。":"卡牌栏位已满，先卖掉一张。";
+                case "道具栏位已满，可先出售道具。":return "道具栏已满，先卖掉一件。";
+                case "牌型已满级，或当前容量/永久骰数量不足。":return "这个牌型已满级，或骰子/提交栏不够。";
+                case GameSession.UpgradeTargetRejected:return SelectedUpgradeReason16(offer,dieId,faceId);
+                case GameSession.SelfStudyLimitReached:return "本店指定升级已用完";
+                case GameSession.NewDieUnavailable:
+                    string limit=NewDieLimit16(offer,reason);
+                    return limit==null?UnavailableShopReason16:limit+"。";
+                case GameSession.ServiceUnavailable:
+                    if(LastDieRemovalBlocked16(offer,reason))return "至少要留 1 颗骰子。";
+                    if(offer?.category!="service")return UnavailableShopReason16;
+                    switch(offer.contentId)
+                    {
+                        case "O11":return "没有可以附魔的卡牌。";
+                        case "O07":return "已购买";
+                        case "O01":case "O02":case "O05":case "O06":case "O08":case "O10":
+                            return "这项服务已用到上限。";
+                        default:return UnavailableShopReason16;
+                    }
+                case "商品类别无效。":case "没有可用附魔候选。":case "附魔抽样未覆盖票值。":
+                case "本商店已经生成。":case "未知战利品种类。":case "当前没有商店。":case "没有活动挑战。":
+                case "卡牌报价实例无效。":case "卡牌附魔不合法。":case "折现报价无效。":case "未知商品类型。":
+                case "没有可以附魔的卡牌。":case "服务不能以此方式购买。":case GameSession.UnknownDieUpgrade:case "没有合法的卡牌候选。":
+                    return UnavailableShopReason16;
+                default:return reason;
+            }
+        }
+
+        private void QueueCommandRejection16(SessionCommand cmd,string reason)
+        {
+            string shown=null;
+            if(cmd.kind==CommandKind.Buy||cmd.kind==CommandKind.Sell||cmd.kind==CommandKind.Study||cmd.kind==CommandKind.RefreshControllers)
+            {
+                var offer=ViewState?.shop?.offers.FirstOrDefault(o=>o.offerId==cmd.offerId);
+                string formatted=PlayerShopReason16(reason,offer,cmd.targetDieId,cmd.targetFaceId);
+                if(formatted!=reason)shown=formatted;
+                if(shown==UnavailableShopReason16)Debug.LogWarning("商店操作被拒："+reason);
+            }
+            QueueFormattedNotice16(reason,true,shown);
+        }
+
         private void InspectOffer(ShopOffer offer)
         {
             // V1.1 W14 (SHOP_LAYOUT 7): the shelf's face upgrades and 删除骰子 are chosen on the table; a gift group's face
@@ -117,7 +179,7 @@ namespace DiceCraft
             }
             // V1.1 W14 (UI_REWRITES Shop.cs:134): what the purchase does, in the player's words.
             else Art07DetailSection(list,"Category","作用范围",offer.category=="consumable"?$"买下放进道具栏（{ViewState.inventory.Count}/{ViewState.consumableSlots}），用一次就消失。":"买下立即生效，持续到本局结束。",ref y,672,true);
-            string error=Session.PurchaseError(offer.offerId);
+            string error=PlayerShopReason16(Session.PurchaseError(offer.offerId),offer);
             // v1.1 (W09): gold with thousands separators, "金币" instead of 余额 (text proposal 2.2); W14: 价格：5 金币（你有 7）.
             Art07DetailSection(list,"Price","价格",(!string.IsNullOrEmpty(offer.groupId)?"免费领取":"价格："+Session.GetOfferPrice(offer)+" 金币（你有 "+PlayerNumberFormat.Gold(ViewState.gold)+"）")+(error==null?"":"\n"+error),ref y,672,true);
             list.sizeDelta=new Vector2(list.sizeDelta.x,y+16);

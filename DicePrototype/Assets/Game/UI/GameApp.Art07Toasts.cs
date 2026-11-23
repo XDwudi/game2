@@ -21,13 +21,14 @@ namespace DiceCraft
         private bool toastApplicationPaused07;
         private int toastLastDrawFrame07=-1;
 
-        private void QueueNotice07(string text,bool error=false)
+        private void QueueNotice07(string text,bool error=false)=>QueueFormattedNotice16(text,error,null);
+        private void QueueFormattedNotice16(string text,bool error,string playerText)
         {
             noticeText07=text??"";
             if(string.IsNullOrEmpty(noticeText07)){toasts07.Clear();HideNotices07();toastDirty07=false;return;}
             // Keep the original text for existing save-error copy/detail handlers.
-            string detail=error&&InternalNotice16(noticeText07)?noticeText07:null;
-            string shown=detail==null?noticeText07:"操作没有完成（内部错误）。点“详情”可复制错误信息。";
+            string detail=error&&(InternalNotice16(noticeText07)||playerText==UnavailableShopReason16)?noticeText07:null;
+            string shown=playerText??(detail==null?noticeText07:"操作没有完成（内部错误）。点“详情”可复制错误信息。");
             var duplicate=toasts07.FirstOrDefault(t=>t.text==shown&&t.detail==detail&&t.error==error);
             if(duplicate!=null)duplicate.visibleSeconds=0;
             else toasts07.Add(new Toast07{text=shown,detail=detail,error=error});

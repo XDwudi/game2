@@ -235,7 +235,7 @@ namespace DiceCraft.Verification
             yield return new WaitForSecondsRealtime(.9f);
         }
         private IEnumerator CaptureOnce(string label){if(seen.Add(label))yield return Capture(label);}
-        private IEnumerator Capture(string label)
+        private IEnumerator Capture(string label, Action<string> onCaptured=null)
         {
             yield return new WaitForEndOfFrame();
             string name=report.images.Count.ToString("00",CultureInfo.InvariantCulture)+"-"+label+".png";
@@ -243,6 +243,7 @@ namespace DiceCraft.Verification
             try{File.WriteAllBytes(Path.Combine(directory,name),shot.EncodeToPNG());}
             finally{Destroy(shot);}
             report.images.Add(name);
+            onCaptured?.Invoke(name);
         }
         private void WriteReport()=>File.WriteAllText(Path.Combine(directory,"tour.json"),JsonUtility.ToJson(report,true));
     }

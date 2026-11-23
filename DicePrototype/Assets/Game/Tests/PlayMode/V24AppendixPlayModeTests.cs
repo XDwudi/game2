@@ -320,6 +320,38 @@ namespace DiceCraft.Tests
 
         [UnityTest, Timeout(600000)]
         public IEnumerator PLAY_V24_TX06_MatrixShopGoods()
+            => RunShopAppendix(ShopGoodsAppendix());
+
+        // Unity Test Framework drives yielded iterators outside their parent iterator. If a nested
+        // real click or fixture throws, dispose the entire chain here so the outer finally writes
+        // partial measurements once; let the original failure and stack reach NUnit unchanged.
+        private static IEnumerator RunShopAppendix(IEnumerator body)
+        {
+            var active = new Stack<IEnumerator>();
+            active.Push(body);
+            try
+            {
+                while (active.Count > 0)
+                {
+                    var current = active.Peek();
+                    if (!current.MoveNext())
+                    {
+                        (active.Pop() as IDisposable)?.Dispose();
+                        continue;
+                    }
+                    if (current.Current is IEnumerator child && !(child is CustomYieldInstruction))
+                        active.Push(child);
+                    else
+                        yield return current.Current;
+                }
+            }
+            finally
+            {
+                while (active.Count > 0) (active.Pop() as IDisposable)?.Dispose();
+            }
+        }
+
+        private IEnumerator ShopGoodsAppendix()
         {
             var run = StartAppendix(nameof(PLAY_V24_TX06_MatrixShopGoods));
             try
@@ -327,9 +359,13 @@ namespace DiceCraft.Tests
                 var defs = app.Config.consumables.Select(d => (d.id, d.shortText, d.details, category: "consumable"))
                     .Concat(app.Config.services.Where(d => d.id != "O03").Select(d => (d.id, d.shortText, d.details, category: "service"))).ToArray();
                 var baseline = ShopBoundaryFixture();
-                for (int i = 0; i < defs.Length; i += 3)
+                // Ordinary initial shops have two consumable quotes and two service quotes.
+                // Use the configured starting capacity even when one whole batch is the same category.
+                int batchSize = Math.Min(app.Config.shop.initialConsumableOffers, app.Config.shop.serviceOffers);
+                Assert.That(batchSize, Is.Positive, "The ordinary shop needs space for these quotes.");
+                for (int i = 0; i < defs.Length; i += batchSize)
                 {
-                    var batch = defs.Skip(i).Take(3).ToArray();
+                    var batch = defs.Skip(i).Take(batchSize).ToArray();
                     var fixture = baseline.Clone();
                     fixture.shop.offers.Clear();
                     foreach (var d in batch) AddBoundaryOffer(fixture, d.id, d.category, d.id);

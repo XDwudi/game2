@@ -112,13 +112,15 @@ namespace DiceCraft.Tests
             Assert.That(Button("ConfirmPurchase").interactable, Is.False);
             // v1.1: Core rejections now use D2 and the glossary ("卡牌", "栏位"; RULES_DELTA section 10).
             // The ordinary offer dialog shows the refusal in its price section (the replacement dialog had its own section).
-            Assert.That(FindActive<TextMeshProUGUI>("PriceBody").text, Does.Contain(app.Session.PurchaseError(controller.offerId)).And.Contain("卡牌"));
+            Assert.That(app.Session.PurchaseError(controller.offerId),Is.EqualTo("普通卡牌栏位或总张数已满，可先出售卡牌。"));
+            Assert.That(FindActive<TextMeshProUGUI>("PriceBody").text,Does.Contain("卡牌栏位已满，先卖掉一张。"));
             Assert.That(StateJson(), Is.EqualTo(before));
             Click("CloseDialog");
             yield return InspectOfferCard(consumable.offerId);
             Assert.That(app.Session.PurchaseError(consumable.offerId), Is.Not.Null);
             Assert.That(Button("ConfirmPurchase").interactable, Is.False);
-            Assert.That(FindActive<TextMeshProUGUI>("PriceBody").text, Does.Contain(app.Session.PurchaseError(consumable.offerId)).And.Contain("栏位"));
+            Assert.That(app.Session.PurchaseError(consumable.offerId),Is.EqualTo("道具栏位已满，可先出售道具。"));
+            Assert.That(FindActive<TextMeshProUGUI>("PriceBody").text,Does.Contain("道具栏已满，先卖掉一件。"));
             Assert.That(StateJson(), Is.EqualTo(before), "Inspecting an ineligible offer must not charge, sell or consume it.");
             Click("CloseDialog");
             yield return null;

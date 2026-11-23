@@ -32,7 +32,7 @@ namespace DiceCraft.Tests
                     Assert.That(app.Session.EffectiveCapacity, Is.EqualTo(4));
                     yield return OpenBoundaryOffer("straight");
                     Assert.That(Button("ConfirmPurchase").interactable, Is.False);
-                    Assert.That(FindActive<TextMeshProUGUI>("PriceBody").text, Does.Contain("容量"));
+                    Assert.That(FindActive<TextMeshProUGUI>("PriceBody").text, Does.Contain("这个牌型已满级，或骰子/提交栏不够。"));
                     Click("CloseDialog"); Click("Study");
                     Assert.That(HasActive("StudyBuystraight"), Is.False, "Self-study must apply the same reduced capacity immediately.");
                     Click("CloseDialog");
@@ -172,9 +172,17 @@ namespace DiceCraft.Tests
             yield return BuyBoundaryOffer(candidates[0].offerId);
             Assert.That(app.Session.State.dice.Count, Is.EqualTo(8));
             string full = StateJson();
+            Assert.That(PriceWord14(candidates[1].offerId),Is.EqualTo("骰子已满 "+app.Config.maxPermanentDice+" 颗"));
+            var missing=app.Send(new SessionCommand{kind=CommandKind.Buy,offerId="remove"});
+            Assert.That(missing.accepted,Is.False);
+            Assert.That(missing.error,Is.EqualTo("请选择永久骰子。"));
+            yield return null;
+            Assert.That(ToastLabels07().Any(label=>label.text=="请选择骰子。"),Is.True);
+            Assert.That(StateJson(),Is.EqualTo(full));
             yield return OpenBoundaryOffer(candidates[1].offerId);
             Assert.That(Button("ConfirmPurchase").interactable, Is.False);
-            Assert.That(FindActive<TextMeshProUGUI>("PurchaseUnavailable").text, Does.Contain("已满"));
+            Assert.That(FindActive<TextMeshProUGUI>("PurchaseUnavailable").text, Is.EqualTo("骰子已满 "+app.Config.maxPermanentDice+" 颗。"));
+            Assert.That(app.Session.PurchaseError(candidates[1].offerId),Is.EqualTo("永久骰数量已满或候选无效。"));
             Click("CloseDialog"); Assert.That(StateJson(), Is.EqualTo(full));
             yield return OpenBoundaryOffer("remove"); Click("Target_D001"); Click("CancelFacePick14");
             Assert.That(StateJson(), Is.EqualTo(full), "Cancelling deletion must retain the entire die and its upgrades.");
@@ -201,10 +209,79 @@ namespace DiceCraft.Tests
             AddBoundaryOffer(fixture, "last-remove", "service", "O04");
             yield return LoadBoundaryFixture(fixture); ResumeBoundaryFixture();
             string lastDieState = StateJson();
+            Assert.That(PriceWord14("last-remove"),Is.EqualTo("至少留 1 颗骰子"));
+            Assert.That(app.Session.PurchaseError("last-remove",fixture.dice[0].dieId),Is.EqualTo("此服务已达上限或没有合法目标。"));
             yield return OpenBoundaryOffer("last-remove"); Click("Target_" + fixture.dice[0].dieId);
             Assert.That(Button("ConfirmPurchase").interactable, Is.False);
             Assert.That(FindActive<TextMeshProUGUI>("PurchaseUnavailable").text, Is.EqualTo("至少要留 1 颗骰子"));
             Click("CancelFacePick14"); Assert.That(StateJson(), Is.EqualTo(lastDieState));
+        }
+
+        [UnityTest]
+        public IEnumerator PLAY_TX07_SellingTheLastUnenchantedCardGivesTheTableItsActualRejectionReason()
+        {
+            var fixture=ShopBoundaryFixture();
+            fixture.controllers.Clear();
+            var unenchanted=BoundaryController(fixture,"C02");
+            fixture.controllers.Add(unenchanted);
+            fixture.shop.offers.Clear();
+            AddBoundaryOffer(fixture,"table-tx07","service","O11");
+            yield return LoadBoundaryFixture(fixture);ResumeBoundaryFixture();
+
+            yield return OpenBoundaryOffer("table-tx07");
+            Assert.That(Button("ConfirmPurchase").interactable,Is.True);
+            Click("CloseDialog");Click("Controller_"+unenchanted.instanceId);Click("SellController");Click("ConfirmSale");
+            yield return WaitForIdle();
+            string before=StateJson();
+            yield return OpenBoundaryOffer("table-tx07");
+            Assert.That(Button("ConfirmPurchase").interactable,Is.False);
+            Assert.That(DialogLabel("PriceBody"),Does.Contain("没有可以附魔的卡牌。").And.Not.Contain("合法目标"));
+            Assert.That(app.Session.PurchaseError("table-tx07"),Is.EqualTo("此服务已达上限或没有合法目标。"));
+            Click("CloseDialog");
+            var rejected=app.Send(new SessionCommand{kind=CommandKind.Buy,offerId="table-tx07"});
+            Assert.That(rejected.accepted,Is.False);
+            Assert.That(rejected.error,Is.EqualTo("此服务已达上限或没有合法目标。"));
+            yield return null;
+            Assert.That(ToastLabels07().Any(label=>label.text=="没有可以附魔的卡牌。"),Is.True);
+            Assert.That(StateJson(),Is.EqualTo(before));
+        }
+
+        [UnityTest]
+        public IEnumerator PLAY_TX07_TotalDiceLimitUsesTheActiveCapOnTheShelfAndInTheOffer()
+        {
+            var fixture=ShopBoundaryFixture();
+            var candidate=fixture.shop.offers.First(o=>o.category=="new_die");
+            fixture.shop.offers=new System.Collections.Generic.List<ShopOffer>{candidate};
+            while(fixture.dice.Count<app.Config.maxPermanentDice-1)
+                fixture.dice.Add(DiceFactory.CreateStandard(app.Config,fixture.nextDieSerial++));
+            while(fixture.dice.Count<app.Config.maxActiveDice)
+                fixture.dice.Add(DiceFactory.CreateStandard(app.Config,fixture.nextDieSerial++,"stage_temporary",fixture.stage.stageId));
+            // A valid restored state can carry these dice; ordinary settlement expires the temporary ones.
+            yield return LoadBoundaryFixture(fixture);ResumeBoundaryFixture();
+            string before=StateJson();
+            string activeLimit="骰子已满 "+app.Config.maxActiveDice+" 颗";
+            Assert.That(PriceWord14(candidate.offerId),Is.EqualTo(activeLimit));
+            yield return OpenBoundaryOffer(candidate.offerId);
+            Assert.That(FindActive<TextMeshProUGUI>("PurchaseUnavailable").text,Is.EqualTo(activeLimit+"。"));
+            Assert.That(Button("ConfirmPurchase").interactable,Is.False);
+            Assert.That(StateJson(),Is.EqualTo(before));
+        }
+
+        [UnityTest]
+        public IEnumerator PLAY_TX07_UnknownPurchaseDiagnosticKeepsRawDetailsAndGameLog()
+        {
+            var fixture=ShopBoundaryFixture();
+            yield return LoadBoundaryFixture(fixture);ResumeBoundaryFixture();
+            const string raw="折现报价无效。";
+            LogAssert.Expect(LogType.Warning,"商店操作被拒："+raw);
+            W11Invoke("QueueCommandRejection16",new SessionCommand{kind=CommandKind.Buy},raw);
+            app.Refresh();yield return null;
+            Assert.That(ToastLabels07().Any(label=>label.text=="这件商品暂时不能购买。"),Is.True);
+            Click("ToastDetails07");
+            Assert.That(InformationText07("NoticeDetailBody"),Is.EqualTo(raw));
+            string original=GUIUtility.systemCopyBuffer;
+            try { Click("CopyInternalError16");Assert.That(GUIUtility.systemCopyBuffer,Is.EqualTo(raw)); }
+            finally { GUIUtility.systemCopyBuffer=original; }
         }
 
         private RunState ShopBoundaryFixture()

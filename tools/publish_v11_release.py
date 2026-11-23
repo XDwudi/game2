@@ -34,6 +34,7 @@ RELEASE_TOOLS = (
     "tools/publish_v11_release.py", "tools/publish_v10_release.py", "tools/package_v11.py", "tools/package_v10.py",
     "tools/replay_v11.py", "tools/v11_build_report.py", "tools/v11_delivery.py", "tools/quality_check.py",
     "tools/macos/v071/package_checks.py", "tools/balance_sim/Program.cs", "tools/balance_sim/Runner.cs",
+    "tools/v11_text/glossary_rules.json",
 )
 
 

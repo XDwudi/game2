@@ -28,6 +28,60 @@ def write(root, name, data):
     return path
 
 
+def release_trace_fixture():
+    # Synthetic packaging boundary. The seeded Core replay is independently exercised by BalanceSim.
+    labels = ["menu", "handbook", "settings", "new-run", "stage-preview",
+              "HandReady-normal", "pause", "Selecting-normal", "play-pending", "play-locked", "play-scoring", "score-details", "score-steps",
+              "StageSettlement-normal", "Shop-normal", "StagePreview-pressure", "HandReady-pressure",
+              "Selecting-pressure", "StageSettlement-pressure", "Shop-pressure", "StagePreview-boss",
+              "HandReady-boss", "Selecting-boss", "StageSettlement-boss", "Shop-boss", "loot",
+              "StagePreview-normal", "RunFailed-normal", "final-RunFailed"]
+    steps = [{"kind": "NewRun", "seed": 5}]
+    for stage in range(3):
+        steps.extend([{"kind": "StartStage"}, {"kind": "Roll"},
+                      {"kind": "ConfirmLocks", "dieIds": ["D001"]}, {"kind": "Submit"},
+                      {"kind": "EndStage"}, {"kind": "Continue"}])
+        if stage == 2:
+            steps.append({"kind": "Buy", "offerId": "fixture-loot"})
+        steps.append({"kind": "LeaveShop"})
+    steps.extend([{"kind": "StartStage"}, {"kind": "Roll"},
+                  {"kind": "ConfirmLocks", "dieIds": ["D001"]}, {"kind": "Submit"}])
+    return {"configVersion": pack.VERSION, "seed": 5, "terminalPhase": "RunFailed", "finalStage": 4,
+            "captureLabels": labels, "steps": steps}
+
+
+class ReplayPageContractTests(unittest.TestCase):
+    def test_missing_misordered_or_unrelated_release_page_rejected(self):
+        with tempfile.TemporaryDirectory() as directory:
+            for label in (*replay.MENU_PAGES, *replay.PLAY_PAGES, "score-details", "score-steps"):
+                trace = release_trace_fixture()
+                trace["captureLabels"].remove(label)
+                with self.subTest(missing=label), self.assertRaises(ValueError):
+                    replay.validated_trace(write(Path(directory), "trace.json", trace))
+            for old, new in (("play-pending", "play-locked"), ("loot", "Shop-normal")):
+                trace = release_trace_fixture()
+                labels = trace["captureLabels"]
+                a, b = labels.index(old), labels.index(new)
+                labels[a], labels[b] = labels[b], labels[a]
+                with self.subTest(swapped=old), self.assertRaises(ValueError):
+                    replay.validated_trace(write(Path(directory), "trace.json", trace))
+            trace = release_trace_fixture()
+            trace["captureLabels"].insert(-2, "fabricated-page")
+            with self.assertRaises(ValueError):
+                replay.validated_trace(write(Path(directory), "trace.json", trace))
+            trace = release_trace_fixture()
+            for step in trace["steps"]:
+                if step["kind"] == "ConfirmLocks":
+                    step["dieIds"] = []
+            with self.assertRaisesRegex(ValueError, "selected dice"):
+                replay.validated_trace(write(Path(directory), "trace.json", trace))
+
+    def test_complete_release_trace_keeps_all_required_states(self):
+        with tempfile.TemporaryDirectory() as directory:
+            expected = release_trace_fixture()
+            self.assertEqual(replay.validated_trace(write(Path(directory), "trace.json", expected)), expected)
+
+
 def fixture_fonts(root):
     m = pack.delivery.read_json(pack.ROOT / pack.MANIFEST)
     packed = set()
@@ -309,6 +363,103 @@ class Package11Tests(unittest.TestCase):
             native.rows("\tm_Files  (vector)\n\t\tsize 2 (int)\n\t\tdata  (BuildReportFile)\n", "m_Files", "BuildReportFile")
 
 
+def release_text_frame(image):
+    fields = [{"path": "Screen/Title", "text": "测试文字"}]
+    frame = {"image": image, "fields": fields}
+    if image.endswith("-score-details.png"):
+        field = {"path": "Overlay/Dialog/ScoreDrawerTable/Viewport/Content/Formula",
+                 "text": "基础 1,200 × 牌型 1.25\n= 1,500（最后去掉小数）"}
+    elif image.endswith("-score-steps.png"):
+        field = {"path": "Overlay/Dialog/ScoreDetail/Viewport/Content/GlobalStep2", "text": "牌型：1,200 × 1.25 → 1,500"}
+        # This distinct, legitimate row may also be exported from the same scroll area.
+        fields.append({"path": "Overlay/Dialog/ScoreDetail/Viewport/Content/GlobalStep3",
+                       "text": "卡牌：1,500 × 2 → 3,000"})
+    else:
+        return frame
+    fields.append(field)
+    frame["scoreFocus"] = dict(field, handId="H0001")
+    return frame
+
+
+class ReplayText11Tests(unittest.TestCase):
+    def test_score_capture_requires_the_targeted_rendered_fields_from_one_hand(self):
+        names = ["11-score-details.png", "12-score-steps.png"]
+        def check(frames):
+            return replay.check_frame_text(pack.ROOT, {"textFrames": frames}, names, "default")
+        def fresh():
+            return [release_text_frame(name) for name in names]
+        self.assertEqual(check(fresh()), 5)
+        for index in (0, 1):
+            with self.subTest(missing_focus=index), self.assertRaisesRegex(ValueError, "score focus"):
+                frames = fresh()
+                del frames[index]["scoreFocus"]
+                check(frames)
+            with self.subTest(missing_field=index), self.assertRaisesRegex(ValueError, "rendered field"):
+                frames = fresh()
+                frames[index]["fields"].pop()
+                check(frames)
+            with self.subTest(ambiguous_field=index), self.assertRaisesRegex(ValueError, "rendered field"):
+                frames = fresh()
+                frames[index]["fields"].append(dict(frames[index]["fields"][-1]))
+                check(frames)
+        for field, value in (("path", "Overlay/Dialog/ScoreDetail/Viewport/Content/GlobalStep3"),
+                             ("text", "卡牌：1,500 × 2 → 3,000")):
+            with self.subTest(mixed_focus=field), self.assertRaisesRegex(ValueError, "rendered field"):
+                frames = fresh()
+                frames[1]["scoreFocus"][field] = value
+                check(frames)
+        for index, field, value in (
+                (0, "path", "Overlay/Dialog/ScoreDetail/Viewport/Content/Formula"),
+                (0, "text", "1/2 × ="),
+                (1, "path", "Overlay/Dialog/ScoreDetail/Viewport/Content/Global2"),
+                (1, "text", "牌型：1,200 × 1 → 1,200"),
+                (1, "text", "牌型：已计算 × 已结算 → 完成")):
+            with self.subTest(invalid_target=value), self.assertRaisesRegex(ValueError, "focused score"):
+                frames = fresh()
+                frames[index]["scoreFocus"][field] = value
+                frames[index]["fields"][-1][field] = value
+                check(frames)
+        frames = fresh()
+        frames[1]["scoreFocus"]["handId"] = "H0002"
+        with self.assertRaisesRegex(ValueError, "share a captured hand"):
+            check(frames)
+        frames = fresh()
+        approximate = "卡牌：1,500 × ≈0.33 → ≈499.99"
+        frames[1]["fields"][-1]["text"] = frames[1]["scoreFocus"]["text"] = approximate
+        self.assertEqual(check(frames), 5)
+
+    def test_runtime_text_checks_rendered_values_not_internal_control_paths(self):
+        names = ["00-menu.png", "01-stage-preview.png"]
+        frames = [{"image": name, "fields": [{"path": "Stage/D001/F01", "text": "第 2/8 章 · 倍率 ×1.25"}]}
+                  for name in names]
+        def check(data):
+            return replay.check_frame_text(pack.ROOT, {"textFrames": data}, names, "swiss")
+        self.assertEqual(check(frames), 2)
+        frames[0]["fields"].extend([{"path": "Settings/BindRoll/Label", "text": "K"},
+                                    {"path": "Bar/Roll/Label", "text": "掷骰 [K]"},
+                                    {"path": "Score/Formula", "text": "基础 120 × 卡牌 1.25"},
+                                    {"path": "Chapter/Value", "text": "2/8"}])
+        self.assertEqual(check(frames), 6)
+        for bad in ([], frames[::-1], [frames[0], dict(frames[1], fields=[])],
+                    [frames[0], dict(frames[1], fields=[{"path": "", "text": "确认"}])]):
+            with self.subTest(bad=bad), self.assertRaises(ValueError):
+                check(bad)
+        for value in ("卡牌C118", "骰子D001", "第F01面", "道具ITEM_100", "速度 Fast", "p1.1.0",
+                      "服务O04", "奖励L2", "商品 OFFER_00125", "阶段 HandReady", "阶段 Shop", "art1.1.0",
+                      "牌型 two_pair", "颜色 all_red", "附魔 slotless",
+                      "×39/10", "倍率：39/10", "基础 120 × 首领减益 1/2", "容量 K 5", "S.Count", "IOException"):
+            frames[1]["fields"][0]["text"] = value
+            with self.subTest(value=value), self.assertRaisesRegex(ValueError, "player text: swiss/01-"):
+                check(frames)
+        frames[1]["fields"] = [{"path": "Score/Title", "text": "卡牌倍率"},
+                               {"path": "Score/Value", "text": "39／10"}]
+        with self.assertRaisesRegex(ValueError, "score fraction in player text"):
+            check(frames)
+        frames[1]["fields"] = [{"path": "Score/Factor4/Label", "text": "39/10"}]
+        with self.assertRaisesRegex(ValueError, "score fraction in player text"):
+            check(frames)
+
+
 class Publication11Tests(unittest.TestCase):
     def setUp(self):
         temp = tempfile.TemporaryDirectory()
@@ -322,6 +473,11 @@ class Publication11Tests(unittest.TestCase):
         write(self.root, "evidence/v11/review/final.md", b"Independent W25 review fixture")
         for tool in publish.RELEASE_TOOLS:
             write(self.root, tool, b"fixture tool source")
+        glossary = "tools/v11_text/glossary_rules.json"
+        write(self.root, glossary, (pack.ROOT / glossary).read_bytes())
+        write(self.root, pack.delivery.CONFIG, {"handDefinitions": [{"id": "pair"}],
+                                                "colorDefinitions": [{"id": "all_red"}],
+                                                "enchantments": [{"id": "none"}]})
         self.git("init", "-q", "-b", "codex/v1.1")
         self.git("remote", "add", "origin", publish.previous.REMOTE)
         self.git("add", "DicePrototype", "docs", "tools", "evidence/v11/review/final.md")
@@ -339,11 +495,9 @@ class Publication11Tests(unittest.TestCase):
         self.enterContext(patch.object(pack, "read_native", side_effect=lambda path, _: self.native_reports[path]))
         self.windows = pack.delivery.read_json(self.root / "evidence/v11/packages" / (replay.WINDOWS + ".json"))
         self.replay_dir = self.root / "evidence/v11/replays/final"
-        labels = ["menu", "stage-preview", "HandReady-normal", "Selecting-normal", "RunFailed-normal", "final-RunFailed"]
-        trace_path = write(self.root, "evidence/v11/replays/trace.json",
-                           {"configVersion": pack.VERSION, "seed": 5, "terminalPhase": "RunFailed",
-                            "captureLabels": labels, "finalStage": 1,
-                            "steps": [{"kind": "NewRun", "seed": 5}, {"kind": "StartStage"}, {"kind": "Roll"}, {"kind": "Submit"}]})
+        recorded = release_trace_fixture()
+        labels = recorded["captureLabels"]
+        trace_path = write(self.root, "evidence/v11/replays/trace.json", recorded)
         trace = replay.validated_trace(trace_path)
         data_path = (self.root / "fresh/DicePrototype_Data").as_posix()
         runs = []
@@ -358,15 +512,17 @@ class Publication11Tests(unittest.TestCase):
             custom_title = theme in pack.THEMES
             atlas_size = 2048 if custom_title else 0
             write(sub, "tour.json", {"schema": "v11-windows-replay-1", "theme": theme, "images": images, "status": "completed",
+                                     "textFrames": [release_text_frame(name) for name in images],
                                      "error": "", "buildGuid": self.windows["buildGuid"], "buildIdentity": json.dumps(gate["identity"]),
                                      "unityVersion": "6000.6.7f1", "artVersion": "art1.1.0", "rulesVersion": pack.VERSION,
                                      "isEditor": False, "platform": "WindowsPlayer", "traceSha256": pack.delivery.sha(trace_path),
-                                     "playerDataPath": data_path, "terminalPhase": "RunFailed", "stepsSent": 3, "traceSteps": 3,
+                                     "playerDataPath": data_path, "terminalPhase": "RunFailed", "stepsSent": len(trace["steps"])-1,
+                                     "traceSteps": len(trace["steps"])-1,
                                      "titleAtlasFormat": "R8_UNorm" if custom_title else "", "titleAtlasReadable": False,
                                      "titleAtlasWidth": atlas_size, "titleAtlasHeight": atlas_size,
                                      "titleAtlasMipCount": int(custom_title), "titleAtlasTextureBytes": atlas_size**2,
                                      "titleAtlasRuntimeBytes": atlas_size**2,
-                                     "logErrors": 0, "finalStage": 1, "screenWidth": 1920, "screenHeight": 1080})
+                                     "logErrors": 0, "finalStage": trace["finalStage"], "screenWidth": 1920, "screenHeight": 1080})
             runs.append(replay.check_run(self.root, theme, sub, self.windows, trace_path, trace, data_path))
         write(self.replay_dir, "index.json", {"schema": "v11-replay-index-1", "windowsPackageSha256": self.windows["sha256"],
                                              "sourceCommit": commit, "buildGuid": self.windows["buildGuid"],

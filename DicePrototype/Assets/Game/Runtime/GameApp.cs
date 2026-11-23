@@ -132,7 +132,7 @@ namespace DiceCraft
             PrepareSettlementBackdrop07(cmd);
             var result=Session.Execute(cmd);
             ResolveSettlementBackdrop07(cmd,result);
-            if(!result.accepted){DiscardPreparedDiceInteraction07();DiscardPreparedTransactionVisual07();QueueNotice07(result.error??"操作未完成",true);PlaySound("reject");Refresh();return result;}
+            if(!result.accepted){DiscardPreparedDiceInteraction07();DiscardPreparedTransactionVisual07();QueueCommandRejection16(cmd,result.error??"操作未完成");PlaySound("reject");Refresh();return result;}
             if(result.noChange){DiscardPreparedDiceInteraction07();DiscardPreparedTransactionVisual07();return result;}
             if(result.duplicate){DiscardPreparedDiceInteraction07();DiscardPreparedTransactionVisual07();}
             if(cmd.kind==CommandKind.NewRun)StartRunClock07();
