@@ -114,7 +114,7 @@ def plan_release(root, notes_path, replays_path="evidence/v11/replays/final/inde
         native = pack.read_native(native_path, binary2text)
         if native["buildGUID"] != build["buildGuid"] or native["platformName"] != spec[2]:
             raise ValueError("Native release build identity differs: " + name)
-        if proof.get("requiredArtPathGuids") != pack.required_art_inventory(root, native["assets"]):
+        if proof.get("requiredArtPathGuids") != pack.required_art_inventory(root, native["packedBytesByAsset"]):
             raise ValueError("Release art inventory differs from native BuildReport: " + name)
         if proof.get("fontSizeReport") != pack.fw09_size_report(root, platform, native, proof["bytes"]):
             raise ValueError("FW-09 measurements differ from native BuildReport: " + name)

@@ -155,6 +155,7 @@ namespace DiceCraft.Tests
             // C50 (+20) and C46 (x2) are disabled; two rolls are left unused (+3 each): (20 + 6) x 12 x 2 x 5.
             Assert.That(app.Session.State.lastSubmission.breakdown.score, Is.EqualTo("3120")); Assert.That(app.Session.State.stage.qualified, Is.True);
             var end = app.Send(new SessionCommand { kind = CommandKind.EndStage }); Assert.That(end.accepted, Is.True, end.error); yield return WaitForIdle();
+            if (app.SettlementRevealPlaying07) Click("SkipSettlementReveal07");
             Assert.That(Text10("LootName15"), Is.EqualTo(app.Config.Loot("L1").displayName));
             Assert.That(Text10("LootShort15").Replace("\n",""),Is.EqualTo(app.Config.Loot("L1").shortText));
             Click("SettlementContinue"); yield return WaitForIdle();

@@ -99,8 +99,8 @@ def asset_guid(path):
     return guid[1]
 
 
-def required_art_inventory(root, packed):
-    """F-THEME-02. Match each frozen source PNG and its meta GUID to one native packed row."""
+def required_art_inventory(root, packed_bytes_by_asset):
+    """F-THEME-02. Require native object data for each frozen PNG and meta GUID."""
     verified = {}
     seen_guids = set()
     for theme in PLAYER_THEMES:
@@ -112,8 +112,11 @@ def required_art_inventory(root, packed):
             if not source.is_file() or not Path(str(source) + ".meta").is_file():
                 raise ValueError("Missing release art source or meta: " + path)
             guid = asset_guid(source)
-            if guid in seen_guids or guid == "0" * 32 or (path, guid) not in packed:
+            size = packed_bytes_by_asset.get((path, guid))
+            if guid in seen_guids or guid == "0" * 32 or size is None:
                 raise ValueError("Missing or ambiguous native art path and GUID: " + path)
+            if size <= 0:
+                raise ValueError("Zero packed bytes for required release art: " + path)
             seen_guids.add(guid)
             verified[path] = guid
     return verified
@@ -337,7 +340,7 @@ def package(root, platform, proof_path, binary2text):
         raise ValueError("Native Unity BuildReport has changed")
     native = read_native(native_path, binary2text)
     files, checksums, executables = build_inputs(root, platform, report, native)
-    required_art = required_art_inventory(root, native["assets"])
+    required_art = required_art_inventory(root, native["packedBytesByAsset"])
     fonts, forbidden_names, forbidden_hashes = check_font_assets(root, native["assets"], checksums)
     if any(Path(p).name.casefold() in forbidden_names or sha in forbidden_hashes for p, sha in checksums.items()):
         raise ValueError("Player contains a loose title font source")

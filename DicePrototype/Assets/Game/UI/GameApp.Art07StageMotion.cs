@@ -138,7 +138,9 @@ namespace DiceCraft
             Reduced=reduced; Fast=fast; paint=draw; sameStage=same; paused=pause;
             Elapsed=0; Playing=true; Paint();
         }
-        public void Complete()
+        public void Complete() => Finish(true);
+
+        private void Finish(bool drawFinalFrame)
         {
             if(!Playing)return;
             Elapsed=Duration; Playing=false;
@@ -146,7 +148,7 @@ namespace DiceCraft
             paint = null;
             sameStage = null;
             paused = null;
-            finalPaint?.Invoke(0,1,1,1);
+            if (drawFinalFrame) finalPaint?.Invoke(0,1,1,1);
         }
         public void Tick(float seconds)
         {
@@ -174,7 +176,9 @@ namespace DiceCraft
         }
         private void OnApplicationFocus(bool focused){if(!focused)Complete();}
         private void OnApplicationPause(bool value){if(value)Complete();}
-        private void OnDisable(){Complete();}
+        // A scene can already be unloading while its canvas and materials still compare non-null.
+        // Discard the clock and its captured scene references without drawing into that scene.
+        private void OnDisable(){Finish(false);}
     }
 
 }

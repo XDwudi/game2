@@ -47,15 +47,16 @@ namespace DiceCraft.Tests
                 int start=errors.Count;
                 IEnumerator Capture(string name,params Transform[] roots)
                 {
-                    var action = PrimaryAction24(name,roots,report,errors);
-                    yield return Frame24(theme+" "+scale+" "+name,Path.Combine(dir,name+".png"),roots,report,errors,action);
+                    var foreground=ForegroundRoots24(name,roots);
+                    var action=PrimaryAction24(name,foreground,report,errors);
+                    yield return Frame24(theme+" "+scale+" "+name,Path.Combine(dir,name+".png"),foreground,report,errors,action);
                     IEnumerator PageStep(ScrollRect scroll,int step)
                     {
                         string detail=name+"-"+scroll.name+"-"+step;
-                        PrimaryAction24(name,roots,report,errors);
+                        PrimaryAction24(name,foreground,report,errors);
                         yield return Frame24(detail,Path.Combine(dir,detail+".png"),new[]{scroll.viewport.transform},report,errors);
                     }
-                    yield return ScrollPages24(roots,PageStep);
+                    yield return ScrollPages24(foreground,PageStep);
                 }
                 // These four SC-03 boundary views do not extend the established W20X 56-screen inventory.
                 var extraSeen=new HashSet<string>();
@@ -63,7 +64,7 @@ namespace DiceCraft.Tests
                 {
                     Assert.That(extraSeen.Add(page),Is.True,page);
                     yield return new WaitForSecondsRealtime(.2f);
-                    var fg=PrimaryRoots24(roots);
+                    var fg=ForegroundRoots24(page,roots);
                     var action=PrimaryAction24(page,fg,report,errors);
                     string folder=Path.Combine(dir,"primary-extra");Directory.CreateDirectory(folder);
                     yield return Frame24(theme+" "+scale+" "+page,Path.Combine(folder,page+".png"),fg,report,errors,action);
@@ -84,13 +85,22 @@ namespace DiceCraft.Tests
 
         // SC-03 counts active, painted buttons in the current foreground. A coloured outline,
         // text, or a modal's underlying game is not another primary button.
-        private Transform[] PrimaryRoots24(Transform[] roots)
+        private Transform[] ForegroundRoots24(string page,Transform[] roots)
         {
-            // Dialog is the active surface. A scrim, tooltip or renderer-only fading tail can coexist with it.
-            return roots.Select(r=>r==Overlay20X ? r.Find("Dialog") : r).ToArray();
+            var overlay=Overlay20X;
+            return roots.Select(root=>
+            {
+                Assert.That(root!=null&&root.gameObject.activeInHierarchy,Is.True,page+" inactive foreground root");
+                if(root!=overlay)return root;
+                // UiKit pools Rect:Dialog and Box:Dialog separately under the same overlay.
+                // The first namesake may be inactive after navigating from New Run to Quit.
+                var dialogs=root.Cast<Transform>().Where(child=>child.name=="Dialog"&&child.gameObject.activeInHierarchy).ToArray();
+                Assert.That(dialogs.Length,Is.EqualTo(1),page+" active Dialog count");
+                return dialogs[0];
+            }).ToArray();
         }
 
-        private Button PrimaryAction24(string page,Transform[] roots,List<string> report,List<string> errors)
+        private Button PrimaryAction24(string page,Transform[] foreground,List<string> report,List<string> errors)
         {
             string expected;
             switch(page)
@@ -115,8 +125,8 @@ namespace DiceCraft.Tests
                     expected=""; break;
                 default: return null;
             }
-            var foreground=PrimaryRoots24(roots);Assert.That(foreground.All(r=>r!=null&&r.gameObject.activeInHierarchy),Is.True,page);
             var controls=foreground.SelectMany(r=>r.GetComponentsInChildren<Button>(false)).Distinct().ToArray();
+            if(page=="quit")Assert.That(controls.Any(b=>b.name=="ConfirmQuit"&&b.IsInteractable()),Is.True,"quit confirmation control in foreground");
             // A disabled primary-coloured face still looks like a primary action. Count its paint,
             // then independently check the expected action can actually be used.
             var active=controls.Where(b=>b.targetGraphic is Image face && W11bPaints(face,true)&& W11PrimaryColoured(face.color)).ToArray();

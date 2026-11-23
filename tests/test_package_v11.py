@@ -212,15 +212,22 @@ class Package11Tests(unittest.TestCase):
 
     def test_native_release_art_requires_the_frozen_tray_and_loot_path_guid_pairs(self):
         gate = fixture_gate(self.root)
+        write(self.root, pack.README, b"player guide")
         report, data, _ = build(self.root, "windows", self.assets, gate["identity"])
         for path in ("Assets/Resources/MenuArt17/deco.png", "Assets/Art/Art11/Loot/illustration_L1.png",
                      "Assets/Resources/Themes/swiss/Art/illustration_L6.png"):
             guid = dict(self.art)[path]
             for wrong in (set(), {(path, "1" * 32), ("Assets/Moved.png", guid)}):
-                bad = dict(data, assets=self.assets.difference({(path, guid)}) | wrong)
+                packed = self.assets.difference({(path, guid)}) | wrong
+                bad = dict(data, assets=packed, packedBytesByAsset={asset: 31 for asset in packed})
                 with (self.subTest(path=path, wrong=wrong), patch.object(pack, "read_native", return_value=bad),
                       patch.object(pack.subprocess, "run"), self.assertRaisesRegex(ValueError, "native art path and GUID")):
                     pack.package(self.root, "windows", report, "mock")
+            empty = data["packedBytesByAsset"].copy()
+            empty[path, guid] = 0
+            with (self.subTest(empty=path), patch.object(pack, "read_native", return_value=dict(data, packedBytesByAsset=empty)),
+                  patch.object(pack.subprocess, "run"), self.assertRaisesRegex(ValueError, "Zero packed bytes")):
+                pack.package(self.root, "windows", report, "mock")
         self.assertFalse((self.root / "Releases").exists())
 
     def test_reject_same_resolution_twice_and_modified_nunit(self):
@@ -280,6 +287,16 @@ class Package11Tests(unittest.TestCase):
         contents = group[group.index("\t\tdata  (BuildReportPackedAssetInfo)"):].replace("packedSize 7", "packedSize 11")
         both = complete.replace("m_Contents  (vector)\n\t\tsize 1", "m_Contents  (vector)\n\t\tsize 2") + contents
         self.assertEqual(native.parse(both)["packedBytesByAsset"][("Assets/title.asset", "b" * 32)], 18)
+        path = "Assets/Resources/MenuArt17/glass.png"
+        guid = dict(self.art)[path]
+        tray = group.replace("Assets/title.asset", path).replace("b" * 32, guid)
+        empty_group = tray.replace("ID: 2 ", "ID: 3 ").replace("packedSize 7", "packedSize 0")
+        two_groups = header + vector + "2 (int)\n" + link + link.replace("m_PathID 2", "m_PathID 3") + tray + empty_group
+        measured = native.parse(two_groups)
+        self.assertEqual(measured["packedGroups"], 2)
+        self.assertEqual(measured["packedBytesByAsset"], {(path, guid): 7})
+        sizes = {key: 31 for key in self.art if key != (path, guid)}
+        self.assertEqual(pack.required_art_inventory(self.root, sizes | measured["packedBytesByAsset"]), dict(self.art))
         with self.assertRaisesRegex(ValueError, "packed asset size"):
             native.parse(complete.replace("packedSize 7", "packedSize -1"))
         with self.assertRaisesRegex(ValueError, "Duplicate packed"):
@@ -414,7 +431,12 @@ class Publication11Tests(unittest.TestCase):
         write(self.root, receipt, original)
         natives = self.native_reports[self.root / original["nativeBuildReport"]["path"]]
         path = "Assets/Resources/Themes/glass/Art/illustration_L2.png"
-        natives["assets"].remove((path, original["requiredArtPathGuids"][path]))
+        key = (path, original["requiredArtPathGuids"][path])
+        natives["packedBytesByAsset"][key] = 0
+        with self.assertRaisesRegex(ValueError, "Zero packed bytes"):
+            publish.plan_release(self.root, self.notes)
+        natives["assets"].remove(key)
+        del natives["packedBytesByAsset"][key]
         with self.assertRaisesRegex(ValueError, "native art path and GUID"):
             publish.plan_release(self.root, self.notes)
 
