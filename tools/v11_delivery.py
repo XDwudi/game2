@@ -17,8 +17,8 @@ IDENTITY = "DicePrototype/Assets/Resources/BuildIdentity.json"
 CONFIG = "DicePrototype/Assets/Game/Data/P0Config.json"
 GOLDEN = "DicePrototype/Assets/Game/Data/GoldenScores.json"
 HISTORICAL_MINIMUM = {"EditMode": 797, "PlayMode": 30}  # Verified v0.6 floor, never the v1.1 final count.
-# GameApp.ArtVersion; moves to art1.1.0 when the v1.1 presentation (new play screen, themes) is frozen.
-ART_VERSION = "art0.7.3"
+# Embedded build identity and runtime presentation version must agree at export.
+ART_VERSION = "art1.1.0"
 ASSEMBLIES = {"DiceCraft.Core", "DiceCraft.Runtime", "DiceCraft.EditMode", "DiceCraft.PlayModeTests", "DiceCraft.Editor"}
 RESOLUTIONS = ("1920x1080", "1280x720")
 RESOLUTION_CASE = "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_CardReadability_ThreeFontsAtActual720Or1080"

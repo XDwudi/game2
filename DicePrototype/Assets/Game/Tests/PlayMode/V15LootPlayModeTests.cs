@@ -31,14 +31,22 @@ namespace DiceCraft.Tests
             return session.State;
         }
 
-        [UnityTest] public IEnumerator PLAY_V17_DefaultLootIllustrationsInReceiptAndPicker()
+        [UnityTest] public IEnumerator PLAY_V17_DefaultLootIllustrationsInReceiptAndPicker() => LootPictures17(GameTheme.DefaultId);
+        [UnityTest] public IEnumerator PLAY_V23_ThemedLootInReceiptAndPicker([ValueSource(nameof(Styles22i))] string theme)
+            => LootPictures17(theme);
+
+        private IEnumerator LootPictures17(string theme)
         {
             string dir=Path.GetFullPath(Path.Combine(Application.dataPath,"..","..","artifacts","cache","v11","w17","loot",
                 Screen.width+"x"+Screen.height));
+            if (theme != GameTheme.DefaultId) dir = Path.Combine(dir, theme);
             Directory.CreateDirectory(dir);
             string previous=app.ThemeId11;
+            var evidence=new System.Collections.Generic.List<string>();
+            string report=Path.Combine(dir,"reward-render.txt");
             try
             {
+                Assert.That(app.Config.lootKinds.Select(k=>k.id),Is.EquivalentTo(Enumerable.Range(1,6).Select(n=>"L"+n)));
                 foreach(var kind in app.Config.lootKinds)
                 {
                     var fixture=BeforeBossLoot15(kind.id);
@@ -47,25 +55,80 @@ namespace DiceCraft.Tests
                         yield return LoadBoundaryFixture(fixture);
                         ResumeBoundaryFixture();
                         FinalOptions07("Instant",false);
-                        app.ApplyTheme11(GameTheme.DefaultId);
+                        app.ApplyTheme11(theme);
+                        Assert.That(app.ThemeId11,Is.EqualTo(theme));
                         W11TextScale(scale);
+                        long receiptSequence=app.Session.ActionSequence;
                         foreach(bool receipt in new[]{true,false})
                         {
                             if(!receipt){Click("SettlementContinue");yield return WaitForIdle();}
                             yield return new WaitForEndOfFrame();
                             var picture=FindActive<UnityEngine.UI.Image>("LootPicture15");
+                            Assert.That(app.Session.State.phase,Is.EqualTo(receipt ? "StageSettlement" : "Shop"),kind.id);
+                            Assert.That(app.LootPage15,Is.EqualTo(!receipt),kind.id);
+                            Assert.That(app.Session.ActionSequence,Is.EqualTo(receiptSequence+(receipt ? 0 : 1)),kind.id);
+                            var owner=FindActive<RectTransform>(receipt ? "LootFront15" : "LootInfo15");
+                            Assert.That(picture.transform.IsChildOf(owner),Is.True,kind.id);
+                            Assert.That(HasActive(receipt ? "LootInfo15" : "LootFront15"),Is.False,kind.id);
                             Assert.That(picture.sprite,Is.Not.Null,kind.id);
                             Assert.That(picture.sprite.name,Is.EqualTo("illustration_"+kind.id));
+                            var expected = theme == GameTheme.DefaultId
+                                ? app.lootIllustrations15.Single(s => s.name == "illustration_" + kind.id)
+                                : Resources.Load<Sprite>("Themes/" + theme + "/Art/illustration_" + kind.id);
+                            Assert.That(expected, Is.Not.Null, theme + "/" + kind.id);
+                            Assert.That(picture.sprite, Is.SameAs(expected), theme + "/" + kind.id);
                             Assert.That(picture.rectTransform.rect.width,Is.GreaterThanOrEqualTo(144));
+                            Assert.That(picture.canvasRenderer.GetInheritedAlpha(),Is.GreaterThan(.99f),kind.id);
+                            var pixels=V06ScreenRect(picture.rectTransform);
+                            Assert.That(pixels.width,Is.GreaterThan(60));Assert.That(pixels.height,Is.GreaterThan(60));
+                            Assert.That(Art073Inside(pixels,new Rect(0,0,Screen.width,Screen.height)),Is.True,kind.id);
                             var shot=ScreenCapture.CaptureScreenshotAsTexture();
-                            try { File.WriteAllBytes(Path.Combine(dir,$"{kind.id}-{(receipt?"receipt":"picker")}-{scale}.png"),shot.EncodeToPNG()); }
-                            finally { UnityEngine.Object.Destroy(shot); }
+                            string stem=$"{kind.id}-{(receipt?"receipt":"picker")}-{scale}";
+                            Texture2D hidden=null,restored=null;
+                            try
+                            {
+                                string sha=WriteArtFrame23(Path.Combine(dir,stem+".png"),shot);
+                                picture.enabled=false;
+                                Canvas.ForceUpdateCanvases();
+                                yield return new WaitForEndOfFrame();
+                                hidden=ScreenCapture.CaptureScreenshotAsTexture();
+                                picture.enabled=true;
+                                Canvas.ForceUpdateCanvases();
+                                yield return new WaitForEndOfFrame();
+                                restored=ScreenCapture.CaptureScreenshotAsTexture();
+                                int visible=StableRewardPixels23(shot,hidden,restored,pixels);
+                                evidence.Add($"{theme} | {stem}.png | {expected.name} | {Screen.width}x{Screen.height} | sha256={sha} | stable picture pixels={visible}");
+                                File.WriteAllLines(report,evidence);
+                                Assert.That(visible,Is.GreaterThan(120),theme+"/"+stem+" must contribute pixels to the actual rendered viewport.");
+                            }
+                            finally
+                            {
+                                picture.enabled=true;UnityEngine.Object.Destroy(shot);
+                                if(hidden!=null)UnityEngine.Object.Destroy(hidden);
+                                if(restored!=null)UnityEngine.Object.Destroy(restored);
+                            }
                         }
                     }
                 }
             }
             finally { W11TextScale(100);app.ApplyTheme11(previous,false); }
         }
+
+        private static int StableRewardPixels23(Texture2D first,Texture2D hidden,Texture2D restored,Rect area)
+        {
+            var before=first.GetPixels32();var off=hidden.GetPixels32();var after=restored.GetPixels32();
+            int visible=0;
+            for(int y=Mathf.CeilToInt(area.yMin);y<Mathf.FloorToInt(area.yMax);y++)
+                for(int x=Mathf.CeilToInt(area.xMin);x<Mathf.FloorToInt(area.xMax);x++)
+                {
+                    int i=y*first.width+x;
+                    if(RewardRgbDistance23(before[i],after[i])<=3 && RewardRgbDistance23(before[i],off[i])>15)visible++;
+                }
+            return visible;
+        }
+
+        private static int RewardRgbDistance23(Color32 a,Color32 b) =>
+            Mathf.Max(Mathf.Abs(a.r-b.r),Mathf.Max(Mathf.Abs(a.g-b.g),Mathf.Abs(a.b-b.b)));
 
         [UnityTest] public IEnumerator PLAY_V15_SE08_SixLootKindsUseTheirRealOffersAndClaimExactlyOnce()
         {

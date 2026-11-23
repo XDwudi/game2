@@ -56,7 +56,7 @@ def file_ids(folder):
     found = {}
     for path in folder.glob("*.png"):
         match = re.match(r"^illustration_([a-z]+\d+)\.png$", path.name, re.IGNORECASE)
-        if match:
+        if match and match.group(1).upper() not in {"L1", "L2", "L3", "L4", "L5", "L6"}:
             found[match.group(1).upper()] = path
     return found
 

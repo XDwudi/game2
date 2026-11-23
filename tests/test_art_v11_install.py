@@ -141,7 +141,13 @@ class InstalledArtTests(unittest.TestCase):
             listed = {e["file"] for e in data["illustrations"] + data["emblems"]}
             with self.subTest(style=style, part="folder"):
                 installed = {p.name for p in target.glob("*.png")}
-                self.assertEqual(installed, listed, "nothing beside the manifest's files")
+                if style != "default":
+                    cards = {f"illustration_{key}.png" for key in self.ids}
+                    self.assertEqual(len(cards), 184)
+                    self.assertEqual(installed, listed | {f"illustration_L{i}.png" for i in range(1, 7)})
+                    self.assertEqual(cards, {e["file"] for e in data["illustrations"]})
+                else:
+                    self.assertEqual(installed, listed)
                 others = sorted(p.name for p in target.iterdir()
                                 if not (p.suffix == ".png" or p.name.endswith(".png.meta")))
                 self.assertEqual(others, [], "only PNGs and the .meta Unity writes")
@@ -149,6 +155,33 @@ class InstalledArtTests(unittest.TestCase):
                 with self.subTest(style=style, item=key):
                     source = ROOT / entry["record"].rsplit("/", 1)[0] / "original.png"
                     self.assertEqual((target / entry["file"]).read_bytes(), source.read_bytes())
+
+    def test_every_style_has_six_independently_recorded_reward_sprites(self):
+        seen_hashes = set()
+        for style in (*STYLES, "default"):
+            manifest = json.loads((MANIFESTS / f"{style}-loot.json").read_bytes())
+            self.assertEqual(manifest["style"], style)
+            entries = manifest["loot"]
+            self.assertCountEqual((e["id"] for e in entries), [f"L{i}" for i in range(1,7)])
+            for entry in entries:
+                folder = ART / style / "loot" / entry["id"]
+                revision = entry["revision"]
+                record_path = folder / revision / "record.json"
+                record = json.loads(record_path.read_bytes())
+                dest = ROOT / "DicePrototype/Assets/Art/Art11/Loot" if style=="default" else ROOT / TARGETS[style]
+                target = dest / ("illustration_"+entry["id"]+".png")
+                self.assertEqual(entry["record"],record_path.relative_to(ROOT).as_posix())
+                self.assertEqual(entry["asset"],target.relative_to(ROOT).as_posix())
+                self.assertIs(record["runValid"],True)
+                self.assertEqual(record["jobPath"],(folder/"job.json").relative_to(ROOT).as_posix())
+                self.assertEqual((revision,entry["id"]),(record["revision"],record["content"]["contentId"]))
+                self.assertEqual(record["output"]["archivedPath"],(folder/revision/"original.png").relative_to(ROOT).as_posix())
+                self.assertEqual(sha256(folder/revision/"original.png"),entry["sha256"])
+                self.assertEqual(sha256(target),entry["sha256"])
+                self.assertEqual(record["output"]["sha256"],entry["sha256"])
+                self.assertNotIn(entry["sha256"],seen_hashes,style+"/"+entry["id"])
+                seen_hashes.add(entry["sha256"])
+        self.assertEqual(len(seen_hashes),36)
 
     def test_tool_check_passes_on_the_repository(self):
         result = subprocess.run([sys.executable, "-B", str(TOOL), "--check"], cwd=ROOT, capture_output=True, text=True,
@@ -212,6 +245,80 @@ class FixtureTree:
 
     def target(self, style="swiss"):
         return self.game / ("Art/Art11/Emblems" if style == "default" else f"Resources/Themes/{style}/Art")
+
+
+class ApprovedLootCliTests(unittest.TestCase):
+    """Exercise the normal script with its real argument parser and checkout-relative paths."""
+
+    def setUp(self):
+        from PIL import Image
+        self.temp = tempfile.TemporaryDirectory(prefix="w23-loot-cli-")
+        self.addCleanup(self.temp.cleanup)
+        self.root = Path(self.temp.name)
+        self.cli = self.root / "tools/art_v11/install_art.py"
+        self.cli.parent.mkdir(parents=True)
+        shutil.copyfile(TOOL,self.cli)
+        self.receipt = self.cli.parent / "install_manifests/w23-rollout.json"
+        self.receipt.parent.mkdir()
+        self.target = self.root / TARGETS["swiss"]
+        self.data = {"schema":"w23-reviewed-art-1","items":[]}
+        for style in STYLES:
+            for key in ["L1","L2","L3","L4","L5","L6","menu"]:
+                row = dict(theme=style,id=key,revision="r01",sourceSha256="a"*64,sha256="a"*64,recordSha256="b"*64)
+                self.data["items"].append(row)
+                if style != "swiss" or key == "menu":
+                    continue
+                with Image.new("RGBA",(1254,1254)) as image:
+                    image.putpixel((0,0),(int(key[1:]),120,30,255))
+                    self.revision(key,"r01",image,row)
+        self.receipt.write_text(json.dumps(self.data),encoding="utf8")
+
+    def revision(self,key,name,image,row=None):
+        folder = self.root / "ArtSource/Art11/swiss/loot" / key / name
+        folder.mkdir(parents=True)
+        original = folder / "original.png"
+        image.save(original)
+        digest = sha256(original)
+        record = folder / "record.json"
+        record.write_text(json.dumps(dict(revision=name,runValid=True,
+            jobPath=(folder.parent/"job.json").relative_to(self.root).as_posix(),content={"contentId":key},
+            output={"archivedPath":original.relative_to(self.root).as_posix(),"sha256":digest})),encoding="utf8")
+        if row is not None:
+            row.update(sourceSha256=digest,sha256=digest,recordSha256=sha256(record))
+
+    def cli_result(self,*extra):
+        return subprocess.run([sys.executable,"-B",str(self.cli),"--loot","--styles","swiss",*extra],
+                              cwd=self.root,text=True,capture_output=True,timeout=60)
+
+    def test_install_and_check_keep_reviewed_original_when_newer_generation_is_valid(self):
+        from PIL import Image
+        with Image.new("RGBA",(1254,1254)) as image:
+            image.putpixel((2,3),(100,10,240,255))
+            self.revision("L1","r02",image)
+        for args in [(),("--check",)]:
+            result = self.cli_result(*args)
+            self.assertEqual(result.returncode,0,result.stdout+result.stderr)
+            self.assertEqual(sha256(self.target/"illustration_L1.png"),self.data["items"][0]["sourceSha256"])
+        self.receipt.unlink()
+        self.assertEqual(self.cli_result().returncode,0)
+        later = self.root / "ArtSource/Art11/swiss/loot/L1/r02/original.png"
+        self.assertEqual(sha256(self.target/"illustration_L1.png"),sha256(later))
+
+    def test_each_tampered_pin_refuses_before_installing_any_part_of_the_batch(self):
+        approved = self.data["items"][5]
+        original = dict(approved)
+        for suspect in [dict(sourceSha256="0"*64,sha256="0"*64),dict(recordSha256="f"*64),
+                        dict(revision="r99"),dict(id="L1")]:
+            with self.subTest(suspect=suspect):
+                approved.update(suspect)
+                self.receipt.write_text(json.dumps(self.data),encoding="utf8")
+                for command in [(),("--check",)]:
+                    result=self.cli_result(*command)
+                    self.assertEqual(result.returncode,2,result.stdout+result.stderr)
+                    self.assertIn("REFUSED",result.stdout)
+                    self.assertFalse(self.target.exists())
+                    self.assertFalse((self.receipt.parent/"swiss-loot.json").exists())
+                approved.update(original)
 
 
 class InstallToolTests(unittest.TestCase):

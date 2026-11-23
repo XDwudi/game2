@@ -217,7 +217,7 @@ namespace DiceCraft.Tests
         {
             Directory.CreateDirectory(ReceiptOutput15);Canvas.ForceUpdateCanvases();yield return new WaitForEndOfFrame();
             var shot=ScreenCapture.CaptureScreenshotAsTexture();
-            try{File.WriteAllBytes(Path.Combine(ReceiptOutput15,name+".png"),shot.EncodeToPNG());}
+            try{WriteArtFrame23(Path.Combine(ReceiptOutput15,name+".png"),shot);}
             finally{UnityEngine.Object.Destroy(shot);}
         }
 

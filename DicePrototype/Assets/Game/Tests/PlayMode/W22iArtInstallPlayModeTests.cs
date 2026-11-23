@@ -313,8 +313,11 @@ namespace DiceCraft.Tests
                 yield return new WaitForEndOfFrame();var first=ScreenCapture.CaptureScreenshotAsTexture();
                 var loaded=new HashSet<Texture2D>();
                 foreach(string id in ids)loaded.Add(swiss.ContentArt("illustration_"+id).texture);
+                var loot=app.Config.lootKinds.Select(k=>k.id).ToArray();
+                Assert.That(loot,Is.EquivalentTo(Enumerable.Range(1,6).Select(n=>"L"+n)));
+                foreach(string id in loot)loaded.Add(swiss.ContentArt("illustration_"+id).texture);
                 foreach(string family in Families22i)loaded.Add(swiss.ContentArt("emblem_"+family).texture);
-                Assert.That(loaded.Count,Is.EqualTo(ids.Length+Families22i.Length),"every picture is its own texture");
+                Assert.That(loaded.Count,Is.EqualTo(ids.Length+loot.Length+Families22i.Length),"every picture is its own texture");
                 int Resident()=>Resources.FindObjectsOfTypeAll<Texture2D>().Count(t=>loaded.Contains(t));
                 Assert.That(Resident(),Is.EqualTo(loaded.Count),"loaded");
                 app.HideCardGallery13();
@@ -386,10 +389,13 @@ namespace DiceCraft.Tests
                         // The whole set (what the card gallery or a long run reaches): every illustration and emblem once.
                         var style=ThemeRegistry.Current;clock.Restart();int found=0;
                         foreach(string id in ids)if(style.ContentArt("illustration_"+id)!=null)found++;
+                        var loot=app.Config.lootKinds.Select(k=>k.id).ToArray();
+                        Assert.That(loot,Is.EquivalentTo(Enumerable.Range(1,6).Select(n=>"L"+n)));
+                        foreach(string id in loot)if(style.ContentArt("illustration_"+id)!=null)found++;
                         foreach(string family in Families22i)if(style.ContentArt("emblem_"+family)!=null)found++;
                         double all=clock.Elapsed.TotalMilliseconds;
                         var full=Textures22();
-                        Assert.That(found,Is.EqualTo(ids.Length+Families22i.Length),theme+": every illustration and emblem");
+                        Assert.That(found,Is.EqualTo(ids.Length+loot.Length+Families22i.Length),theme+": all card illustrations, loot illustrations, and emblems");
                         report.Add(theme+" pass "+pass+": ApplyTheme11 "+switched.ToString("0.0",CultureInfo.InvariantCulture)+" ms, drawn "+drawn.ToString("0.0",CultureInfo.InvariantCulture)+" ms; on the shop the style's art adds "+
                             (shown["art"].count-before["art"].count)+" textures "+Mb22(shown["art"].data-before["art"].data)+" data / "+Mb22(shown["art"].runtime-before["art"].runtime)+" runtime (all textures "+Mb22(shown["all"].runtime-before["all"].runtime)+" runtime); "+
                             "the whole set ("+found+") asked in "+all.ToString("0.0",CultureInfo.InvariantCulture)+" ms, then style art loaded "+full["art"].count+" textures "+Mb22(full["art"].data)+" data / "+Mb22(full["art"].runtime)+" runtime; all textures "+Mb22(full["all"].runtime)+" runtime");

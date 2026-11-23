@@ -19,11 +19,55 @@ namespace DiceCraft.Tests
         [UnityTest] public IEnumerator PLAY_V17_DefaultMenuNoTrayBaseline() => MenuComparison17(false);
         [UnityTest] public IEnumerator PLAY_V17_DefaultMenuTrayGolden() => MenuComparison17(true);
 
-        private IEnumerator MenuComparison17(bool compare)
+        [UnityTest] public IEnumerator PLAY_V23_MenuTrayAcrossThemes([ValueSource(nameof(Styles22i))] string theme)
+            => MenuComparison17(true, theme);
+
+        [UnityTest] public IEnumerator PLAY_V23_PausingAnActiveBossRestoresTheMenuLightingAndResumesTheSameHand()
+        {
+            var fixture=ShopAfterStage10(1);
+            fixture.isDebug=false;
+            fixture.debugWorkspace=false;
+            var session=new GameSession(app.Config,new MemorySaveStore(),fixture);
+            CoreShopStep(session,CommandKind.LeaveShop);
+            CoreShopStep(session,CommandKind.StartStage);
+            Assert.That(session.State.stage.stageKind,Is.EqualTo("boss"));
+            Assert.That(session.State.stage.modifierNullified,Is.False);
+            Assert.That(session.State.stage.modifierId,Is.Not.Null.And.Not.Empty);
+            new AtomicSaveStore(app.SaveLocation,app.Config,SaveSlotPolicy.Normal).Save(session.State);
+            yield return LoadBootstrap();
+            yield return MenuPress17("ContinueRun");
+            string save=ExtraFileHash07(app.SaveLocation),state=ExtraStateHash07();
+            long sequence=app.Session.ActionSequence;
+            var felt=GameObject.Find("Art07Felt").GetComponent<Renderer>();
+            var properties=new MaterialPropertyBlock();
+            void CheckLighting(bool menu)
+            {
+                felt.GetPropertyBlock(properties);
+                Assert.That(properties.GetFloat("_Dim11"),Is.EqualTo(menu ? 0f : .26f).Within(.001f));
+                Assert.That(properties.GetFloat("_Vignette11"),Is.EqualTo(menu ? 0f : .5f).Within(.001f));
+                Assert.That(properties.GetFloat("_ShowMenuTray17"),Is.EqualTo(menu ? 1f : 0f));
+                Assert.That(app.Session.ActionSequence,Is.EqualTo(sequence));
+                Assert.That(ExtraStateHash07(),Is.EqualTo(state));
+                Assert.That(ExtraFileHash07(app.SaveLocation),Is.EqualTo(save));
+            }
+            CheckLighting(false);
+            yield return MenuPress17("Pause");
+            yield return MenuPress17("MainMenu");
+            Assert.That(HasActive("ContinueRun"),Is.True);
+            CheckLighting(true);
+            yield return CaptureReleasedTheme11("main-menu-from-active-boss");
+            yield return MenuPress17("ContinueRun");
+            CheckLighting(false);
+            Assert.That(HasActive("BossModifierName"),Is.True);
+            yield return CaptureReleasedTheme11("resumed-active-boss");
+        }
+
+        private IEnumerator MenuComparison17(bool compare, string theme = GameTheme.DefaultId)
         {
             Assert.That((Screen.width == 1920 && Screen.height == 1080) || (Screen.width == 1280 && Screen.height == 720));
             string output = Path.GetFullPath(Path.Combine(Application.dataPath, "..", "..", "artifacts", "cache", "v11",
                 "w17", compare ? "golden" : "baseline", Screen.width + "x" + Screen.height));
+            if (theme != GameTheme.DefaultId) output = Path.Combine(output, theme);
             Directory.CreateDirectory(output);
             var report = new List<string> { IdentityHead20X() + " | Unity " + Application.unityVersion + " | " + Screen.width + "x" + Screen.height };
             var failures = new List<string>();
@@ -42,7 +86,8 @@ namespace DiceCraft.Tests
             try
             {
                 GameApp.CleanCapture11 = true;
-                app.ApplyTheme11(GameTheme.DefaultId);
+                app.ApplyTheme11(theme);
+                Assert.That(app.ThemeId11,Is.EqualTo(theme));
                 Assert.That(app.Session.State, Is.Null, "The test fixture opens with an empty isolated save slot.");
                 foreach (bool saved in new[] { false, true })
                 {
@@ -69,20 +114,23 @@ namespace DiceCraft.Tests
                         var off = ScreenCapture.CaptureScreenshotAsTexture();
                         try
                         {
-                            File.WriteAllBytes(Path.Combine(output, id + "-off.png"), off.EncodeToPNG());
+                            WriteArtFrame23(Path.Combine(output, id + "-off.png"), off);
                             if (!compare) continue;
                             yield return new WaitForEndOfFrame();
                             var offRepeat = Screen20Xb();
                             Switch(true); yield return Art073Settle(.25f);
                             Assert.That(felt.HasProperty("_MenuTray17") && felt.HasProperty("_ShowMenuTray17"), Is.True);
-                            Assert.That(Tray(), Is.Not.Null, "Bound default tray texture");
+                            var expectedTray = Resources.Load<Texture2D>("MenuArt17/" + theme);
+                            Assert.That(expectedTray, Is.Not.Null, theme + " tray asset");
+                            report.Add(id+" | "+theme+" | Resources/MenuArt17/"+expectedTray.name);
+                            Assert.That(Tray(), Is.SameAs(expectedTray), "The menu binds the current style's own tray");
                             Assert.That(Shown(), Is.GreaterThan(.99f), id);
                             AssertMenuForeground17(saved);
                             yield return new WaitForEndOfFrame();
                             var on = ScreenCapture.CaptureScreenshotAsTexture();
                             try
                             {
-                                File.WriteAllBytes(Path.Combine(output, id + "-on.png"), on.EncodeToPNG());
+                                WriteArtFrame23(Path.Combine(output, id + "-on.png"), on);
                                 MenuCrops17(on, output, id);
                                 yield return new WaitForEndOfFrame();
                                 var onRepeat = Screen20Xb();
@@ -113,6 +161,41 @@ namespace DiceCraft.Tests
                     yield return MenuPress17("ContinueRun");
                     Assert.That(HasActive("StartStage"));
                     Assert.That(Shown(), Is.LessThan(.01f), "The stage selector uses its own table.");
+                    Assert.That(Tray(), Is.SameAs(Texture2D.blackTexture), "No menu artwork retained on the stage table.");
+                    // Switching in a live run cannot restore a tray or write a save. The real menu
+                    // must subsequently bind the newly selected artwork, then rebind the first style.
+                    string state=ExtraStateHash07(),save=ExtraFileHash07(app.SaveLocation);
+                    long sequence=app.Session.ActionSequence;
+                    app.ApplyTheme11(GameTheme.DefaultId); yield return Art073Settle(.25f);
+                    Assert.That(Shown(), Is.LessThan(.01f));
+                    Assert.That(Tray(), Is.SameAs(Texture2D.blackTexture));
+                    Assert.That(ExtraStateHash07(),Is.EqualTo(state));Assert.That(ExtraFileHash07(app.SaveLocation),Is.EqualTo(save));
+                    Assert.That(app.Session.ActionSequence,Is.EqualTo(sequence));
+                    yield return MenuPress17("Pause"); yield return MenuPress17("MainMenu");
+                    state=ExtraStateHash07();save=ExtraFileHash07(app.SaveLocation);sequence=app.Session.ActionSequence;
+                    Assert.That(Shown(), Is.GreaterThan(.99f));
+                    Assert.That(Tray(),Is.SameAs(Resources.Load<Texture2D>("MenuArt17/"+GameTheme.DefaultId)));
+                    app.ApplyTheme11(theme); yield return Art073Settle(.25f);
+                    Assert.That(Shown(), Is.GreaterThan(.99f));
+                    Assert.That(Tray(),Is.SameAs(Resources.Load<Texture2D>("MenuArt17/"+theme)));
+                    if(theme==GameTheme.DefaultId)
+                    {
+                        const string missing="w23-missing-menu";
+                        ThemeRegistry.RegisterForTests(GameTheme.CreateForTests(missing,new ThemePalette()));
+                        try
+                        {
+                            app.ApplyTheme11(missing);yield return Art073Settle(.25f);
+                            Assert.That(app.ThemeId11,Is.EqualTo(missing));
+                            Assert.That(Shown(),Is.LessThan(.01f),"A style without a tray shows the real table and live foreground.");
+                            Assert.That(Tray(),Is.SameAs(Texture2D.blackTexture),"No previous theme's tray remains bound.");
+                            AssertMenuForeground17(true);
+                        }
+                        finally {app.ApplyTheme11(theme);ThemeRegistry.UnregisterForTests(missing);}
+                        yield return Art073Settle(.25f);
+                        Assert.That(Tray(),Is.SameAs(Resources.Load<Texture2D>("MenuArt17/"+theme)));
+                    }
+                    Assert.That(ExtraStateHash07(),Is.EqualTo(state));Assert.That(ExtraFileHash07(app.SaveLocation),Is.EqualTo(save));
+                    Assert.That(app.Session.ActionSequence,Is.EqualTo(sequence));
                 }
             }
             finally
@@ -130,6 +213,32 @@ namespace DiceCraft.Tests
             Assert.That(Button(name).IsInteractable(), Is.True, name);
             Art071PointerClick(name);
             yield return WaitForIdle(); yield return Art073Settle(.25f);
+        }
+
+        [Serializable]
+        private sealed class ArtFrameEvidence23
+        {
+            public string path,sha256,caseName,head;
+            public int width,height;
+        }
+
+        private static string WriteArtFrame23(string path,Texture2D picture)
+        {
+            string cache=Path.GetFullPath(Path.Combine(Application.dataPath,"..","..","artifacts","cache","v11"))+Path.DirectorySeparatorChar;
+            string full=Path.GetFullPath(path);
+            Assert.That(full.StartsWith(cache,StringComparison.OrdinalIgnoreCase),Is.True,full);
+            byte[] encoded=picture.EncodeToPNG();
+            File.WriteAllBytes(full,encoded);
+            string digest;
+            using(var sha=System.Security.Cryptography.SHA256.Create())
+                digest=BitConverter.ToString(sha.ComputeHash(encoded)).Replace("-","").ToLowerInvariant();
+            var frame=new ArtFrameEvidence23{
+                path=full.Substring(cache.Length).Replace(Path.DirectorySeparatorChar,'/'),
+                sha256=digest,width=picture.width,height=picture.height,caseName=TestContext.CurrentContext.Test.FullName,
+                head=IdentityHead20X()
+            };
+            TestContext.WriteLine("W23_FRAME "+JsonUtility.ToJson(frame));
+            return digest;
         }
 
         private void AssertMenuForeground17(bool saved)
@@ -193,7 +302,7 @@ namespace DiceCraft.Tests
                 try
                 {
                     cut.SetPixels(frame.GetPixels(left, bottom, width, height)); cut.Apply();
-                    File.WriteAllBytes(Path.Combine(output, id + "-" + name + ".png"), cut.EncodeToPNG());
+                    WriteArtFrame23(Path.Combine(output, id + "-" + name + ".png"), cut);
                 }
                 finally { UnityEngine.Object.Destroy(cut); }
             }

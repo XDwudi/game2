@@ -893,7 +893,7 @@ namespace DiceCraft
         {
             // V1.1 (W20X): the table picture follows the screen drawn in this same redraw (page_scene off the play layout).
             ApplyTablePicture11();
-            float mood=FramePhase11&&ViewState.phase!="StageSettlement"&&BossActive11?1:0;
+            float mood=!inMenu&&FramePhase11&&ViewState.phase!="StageSettlement"&&BossActive11?1:0;
             if (BossEntryPlaying15)
             {
                 bossEntry15.Paint();

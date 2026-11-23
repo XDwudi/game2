@@ -193,6 +193,8 @@ def discover(source):
         if not match or not path.is_file():
             continue
         content_id = match.group(1).upper()
+        if content_id in {"L1", "L2", "L3", "L4", "L5", "L6"}:
+            continue  # Boss rewards have their own pictures in the receipt and picker.
         if content_id in found:
             raise SystemExit(f"duplicate illustration id {content_id}: {found[content_id].name}, {path.name}")
         found[content_id] = path

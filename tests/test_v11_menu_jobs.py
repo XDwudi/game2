@@ -33,6 +33,36 @@ class MenuJobTests(unittest.TestCase):
                 install_menu_tray.install_import_settings(target, theme)
                 self.assertEqual(contents, meta.read_text(encoding="utf-8"))
 
+    def test_all_six_installed_trays_match_their_native_sources_and_importers(self):
+        from PIL import Image
+        base = ROOT / "DicePrototype/Assets/Resources/MenuArt17"
+        reference = (base / "default.png.meta").read_text(encoding="utf8").splitlines()
+        sources, assets, guids = set(), set(), set()
+        for theme in ("default", *menu.MATERIALS):
+            with self.subTest(theme=theme):
+                folder = ROOT / "ArtSource/Art11" / theme / "menu"
+                installed = artgen.load_json(folder / "install.json")
+                revision = folder / installed["revision"]
+                record = artgen.load_json(revision / "record.json")
+                original = revision / "original.png"
+                target = base / (theme + ".png")
+                self.assertIs(record["runValid"], True)
+                self.assertEqual(record["revision"], revision.name)
+                self.assertEqual(record["jobPath"], (folder / "job.json").relative_to(ROOT).as_posix())
+                self.assertEqual(record["output"]["archivedPath"], original.relative_to(ROOT).as_posix())
+                self.assertEqual(artgen.sha256_file(original), record["output"]["sha256"])
+                self.assertEqual(installed["sourceSha256"], record["output"]["sha256"])
+                self.assertEqual(installed["asset"], target.relative_to(ROOT).as_posix())
+                self.assertEqual(artgen.sha256_file(target), installed["sha256"])
+                with Image.open(target) as picture:
+                    self.assertEqual((picture.size,picture.mode), ((1060,552),"RGBA"))
+                settings = target.with_suffix(".png.meta").read_text(encoding="utf8").splitlines()
+                self.assertEqual(settings[2:],reference[2:])
+                sources.add(installed["sourceSha256"])
+                assets.add(installed["sha256"])
+                guids.add(settings[1])
+        self.assertEqual((len(sources),len(assets),len(guids)), (6,6,6))
+
     def test_jobs_match_actual_theme_ids_and_the_menu_material_spec(self):
         descriptors = (ROOT / "DicePrototype/Assets/Resources/Themes").glob("*/theme.json")
         themes = {artgen.load_json(path)["id"] for path in descriptors}

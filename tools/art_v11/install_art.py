@@ -111,13 +111,14 @@ def revisions(folder):
     return [name for _, name in sorted(found)]
 
 
-def choose(paths, folder, expect):
+def choose(paths, folder, expect, revision=None):
     """The latest revision with a valid record, checked against the record. `expect` holds the record fields that must
     match: jobPath, and contentId for an illustration. Returns the manifest entry (without id or family)."""
     if not folder.is_dir():
         raise InstallError(f"{paths.rel(folder)}: no such folder")
     chosen, record = None, None
-    for name in reversed(revisions(folder)):
+    candidates = [revision] if revision is not None else reversed(revisions(folder))
+    for name in candidates:
         path = folder / name / "record.json"
         if not path.is_file():
             continue  # an interrupted run that was never recorded
@@ -129,6 +130,8 @@ def choose(paths, folder, expect):
             chosen, record = name, data
             break
     if chosen is None:
+        if revision is not None:
+            raise InstallError(f"{paths.rel(folder)}/{revision}: approved revision lacks a valid record")
         raise InstallError(f"{paths.rel(folder)}: no revision has a record with runValid true")
     record_path = folder / chosen / "record.json"
     where = paths.rel(record_path)
@@ -254,17 +257,53 @@ def install(paths, styles, check=False, log=print):
     return 0
 
 
+def reviewed_rollout(paths):
+    """Read the approved W23 source pins if this checkout has received its initial rollout."""
+    manifest = paths.manifests / "w23-rollout.json"
+    if not manifest.exists():
+        return {}
+    expected = {(style, key) for style in STYLES for key in (*LOOT_IDS, "menu")}
+    pins = {}
+    try:
+        data = json.loads(manifest.read_bytes())
+        if data["schema"] != "w23-reviewed-art-1" or not isinstance(data["items"], list):
+            raise ValueError("unsupported schema or rows")
+        for entry in data["items"]:
+            pair = entry["theme"], entry["id"]
+            if pair not in expected or pair in pins:
+                raise ValueError(f"unknown or duplicate theme/id {pair!r}")
+            if not REVISION.fullmatch(entry["revision"]):
+                raise ValueError(f"{pair!r}: invalid revision")
+            for field in ("sourceSha256", "sha256", "recordSha256"):
+                if not re.fullmatch(r"[0-9a-f]{64}",entry[field]):
+                    raise ValueError(f"{pair!r}: invalid {field}")
+            if pair[1] != "menu" and entry["sourceSha256"] != entry["sha256"]:
+                raise ValueError(f"{pair!r}: reward bytes must equal the selected original")
+            pins[pair] = entry
+        if set(pins) != expected:
+            raise ValueError("expected the five complete themes, each with six rewards and one tray")
+    except (OSError, ValueError, KeyError, TypeError) as error:
+        raise InstallError(f"{paths.rel(manifest)}: invalid approved rollout ({error})") from error
+    return pins
+
+
 def install_loot(paths, styles, check=False, log=print):
     """Validate all six records per requested style before installing a single file."""
     from PIL import Image
 
+    pins = reviewed_rollout(paths)
     planned = []
     for style in styles:
         target = paths.game / "Art/Art11/Loot" if style == DEFAULT else paths.target(style)
         entries = []
         for key in LOOT_IDS:
             folder = paths.art / style / "loot" / key
-            item = choose(paths, folder, {"jobPath": paths.rel(folder/"job.json"), "contentId": key})
+            pin = pins.get((style,key))
+            item = choose(paths, folder, {"jobPath": paths.rel(folder/"job.json"), "contentId": key},
+                          revision=pin["revision"] if pin else None)
+            if pin and (item["sha256"] != pin["sourceSha256"] or
+                        sha256(paths.root / item["record"]) != pin["recordSha256"]):
+                raise InstallError(f"{style}/{key}: original or generation record differs from the approved W23 revision {pin['revision']}")
             with Image.open(item["source"]) as image:
                 if image.mode != "RGBA" or image.size != (1254,1254) or image.getchannel("A").getextrema() != (0,255):
                     raise InstallError(f"{paths.rel(item['source'])}: expected a 1254-square transparent RGBA illustration")
@@ -301,7 +340,7 @@ def main(argv=None):
     parser.add_argument("--styles", default=",".join(STYLES + (DEFAULT,)),
                         help="comma list of styles (default: the five styles and default, whose emblems only are installed)")
     parser.add_argument("--check", action="store_true", help="verify the installed files and manifests; write nothing")
-    parser.add_argument("--loot", action="store_true", help="install the six W17 reward illustrations per selected style")
+    parser.add_argument("--loot", action="store_true", help="install six reward illustrations per style, using approved W23 revisions wherever a rollout receipt exists")
     args = parser.parse_args(argv)
     styles = [s.strip() for s in args.styles.split(",") if s.strip()]
     unknown = sorted(set(styles) - set(STYLES + (DEFAULT,)))

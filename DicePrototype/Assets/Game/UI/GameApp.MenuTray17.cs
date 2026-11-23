@@ -13,21 +13,32 @@ namespace DiceCraft
         // Render into the felt before real-time shadows. All live card art and dice stay in their original layers.
         public void ShowMenuTray17(bool show)
         {
-            if (show && menuTrayTheme17 != ThemeId11)
+            var previous=menuTray17;
+            if (!show)
+            {
+                menuTray17=null;
+                menuTrayTheme17=null;
+            }
+            else if (menuTrayTheme17 != ThemeId11)
             {
                 menuTrayTheme17 = ThemeId11;
                 menuTray17 = Resources.Load<Texture2D>("MenuArt17/" + menuTrayTheme17);
             }
             bool visible = show && menuTray17 != null;
-            if (!visible && !trayVisible17) return;
-            var felt = FeltRenderer11;
-            if (felt == null) return;
-            var props = new MaterialPropertyBlock();
-            felt.GetPropertyBlock(props);
-            if (visible) props.SetTexture(MenuTrayTexture17,menuTray17);
-            props.SetFloat(MenuTrayVisible17,visible ? 1f : 0f);
-            felt.SetPropertyBlock(props);
-            trayVisible17 = visible;
+            if (visible || trayVisible17)
+            {
+                var felt=FeltRenderer11;
+                if (felt!=null)
+                {
+                    var props=new MaterialPropertyBlock();
+                    felt.GetPropertyBlock(props);
+                    props.SetTexture(MenuTrayTexture17,visible ? menuTray17 : Texture2D.blackTexture);
+                    props.SetFloat(MenuTrayVisible17,visible ? 1f : 0f);
+                    felt.SetPropertyBlock(props);
+                    trayVisible17=visible;
+                }
+            }
+            if (previous!=null && previous!=menuTray17) Resources.UnloadAsset(previous);
         }
     }
 }

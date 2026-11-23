@@ -71,16 +71,21 @@ namespace DiceCraft.Presentation.Tests
             foreach(string style in Styles)
             {
                 var pngs=Pngs("Assets/Resources/Themes/"+style+"/Art");
-                Assert.That(pngs.Count(p=>Path.GetFileName(p).StartsWith("illustration_")),Is.EqualTo(184),style+": illustrations");
+                var lootNames=Enumerable.Range(1,6).Select(n=>"illustration_L"+n).ToArray();
+                var pictures=pngs.Select(Path.GetFileNameWithoutExtension).Where(n=>n.StartsWith("illustration_")).ToArray();
+                Assert.That(pictures.Where(n=>n.StartsWith("illustration_L")), Is.EquivalentTo(lootNames), style+": six reward categories");
+                var cards=pictures.Except(lootNames).ToArray();
+                Assert.That(cards.Length,Is.EqualTo(184),style+": card illustrations");
+                Assert.That(cards,Is.EquivalentTo(Pngs(Icons+"/"+style).Select(p=>"illustration_"+Path.GetFileNameWithoutExtension(p).Substring("icon_".Length))),style+": the 184 card icons have matching card illustrations");
                 Assert.That(pngs.Where(p=>Path.GetFileName(p).StartsWith("emblem_")).Select(Path.GetFileNameWithoutExtension),
                     Is.EquivalentTo(Families.Select(f=>"emblem_"+f)),style+": emblems");
-                Assert.That(pngs.Length,Is.EqualTo(184+7),style+": nothing else");
+                Assert.That(pngs.Length,Is.EqualTo(184+7+6),style+": nothing else");
                 foreach(string asset in pngs){AssertArtImport(asset,reference);checkedFiles++;}
             }
             var emblems=Pngs(DefaultEmblems);
             Assert.That(emblems.Select(Path.GetFileNameWithoutExtension),Is.EquivalentTo(Families.Select(f=>"emblem_"+f)),"the default style's emblems");
             foreach(string asset in emblems){AssertArtImport(asset,reference);checkedFiles++;}
-            Assert.That(checkedFiles,Is.EqualTo(5*191+7));
+            Assert.That(checkedFiles,Is.EqualTo(5*(184+7+6)+7));
             TestContext.WriteLine("W22i: kept uncompressed (a side not a multiple of 4 after the 1024 cap): "+uncompressed.Count+": "+string.Join(", ",uncompressed));
         }
 
