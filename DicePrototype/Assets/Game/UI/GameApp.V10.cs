@@ -321,7 +321,8 @@ namespace DiceCraft
 
         private void StageTooltip16(RectTransform p, string role, string id, float y, float h, bool inDialog)
         {
-            var hit = HitArea073(p, role + "Details16", 24, y, StageContent16, h, null);
+            // Stage details are hover-only. A plain raycast surface keeps the text out of button navigation.
+            var hit = UiKit.Box(p, role + "Details16", 24, y, StageContent16, h, Color.clear, true);
             Art07AttachTooltip(hit, "stage-" + id, NameOf(id), Details11(id), ShortText11(id), null, "", inDialog);
         }
 

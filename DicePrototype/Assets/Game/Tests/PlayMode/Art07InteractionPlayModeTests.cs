@@ -88,7 +88,12 @@ namespace DiceCraft.Tests
                     Assert.That(candidate.processedReceipts.Last().command.kind,Is.EqualTo(risk?CommandKind.ChooseChallenge:CommandKind.StartStage));
                     Assert.That(candidate.phase,Is.EqualTo(risk?"StagePreview":"HandReady"));Assert.That(candidate.stage.started,Is.EqualTo(!risk));
                     // A second start attempt and failed retry must preserve the exact frozen candidate.
-                    Click("CloseDialog");Click("StartStage");Click("RetrySave");
+                    Click("CloseDialog");
+                    var disabledStart=Button("StartStage");Assert.That(disabledStart.IsInteractable(),Is.False);
+                    var pointer=new PointerEventData(EventSystem.current){button=PointerEventData.InputButton.Left};
+                    ExecuteEvents.Execute(disabledStart.gameObject,pointer,ExecuteEvents.pointerClickHandler);
+                    AssertInteractionCheckpoint07(before,disk,seq);
+                    app.Refresh();Click("RetrySave");
                     Assert.That(app.Session.HasPendingSave,Is.True);AssertInteractionCheckpoint07(before,disk,seq);
                     Assert.That(JsonUtility.ToJson(JsonUtility.FromJson<RunState>(JsonUtility.FromJson<TestSaveEnvelope>(File.ReadAllText(app.SaveLocation+".tmp")).payload)),Is.EqualTo(frozenCandidate));
                     Assert.That(InteractionLogLines07(log),Is.EqualTo(logged));

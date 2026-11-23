@@ -34,10 +34,51 @@ MANIFEST = "DicePrototype/Assets/Game/Fonts/fonts_manifest.json"
 GATE = "evidence/v11/unity/build-gate.json"
 README = "docs/PLAYER_README_V11.txt"
 THEMES = ("comic", "deco", "glass", "sancai")
+PLAYER_THEMES = ("default", "swiss", "sancai", "comic", "deco", "glass")
+BINARY2TEXT = shutil.which("binary2text") or "E:/unity/6000.6.7f1/Editor/Data/Tools/binary2text.exe"
 REQUIRED_LICENSES = {"NotoSansCJKsc-OFL.txt", "NotoSansSC-Bold-OFL.txt", "MaShanZheng-OFL.txt",
                      "ZCOOLKuaiLe-OFL.txt", "ZCOOLXiaoWei-OFL.txt", "NotoSerifSC-OFL.txt"}
 TARGET = {"windows": ("Windows/DicePrototype.exe", "StandaloneWindows64", "Win64", "Windows_x64", "win-x64"),
           "macos": ("macOS/DicePrototype.app", "StandaloneOSX", "OSXUniversal", "macOS_Universal", "macos-universal")}
+
+
+# Frozen FW-09 comparison, verified against both native Unity reports, archives and release readbacks.
+V10_SIZE_BASELINE = {
+    "release": "p1.0.0-rc.1",
+    "sourceCommit": "c7d93792189e5bad6a34435e2fa5a231cf7f3641",
+    "sourcePath": "DicePrototype",
+    "sourceTree": "6bde351b51119019eae213a81391e75d61e80477",
+    "remoteReadback": {"path": "evidence/v10/delivery/github-release-p1.0.0-rc.1.json",
+     "sha256": "23b0b3e59497c6753f763bb40184cf7a6ce804e2b5fa2b122f3ba104c2b6f474"},
+    "platforms": {
+        "windows": {
+            "buildGuid": "c1ece476a2f54dab8cd922b175438544",
+            "nativeBytes": 538658274,
+            "zipBytes": 362557580,
+            "nativeReport": {"path": "DicePrototype/Library/BuildHistory/20261115-203756Z-b0136681/b01366817ab7aef4db08ac8e96da07a2.buildreport",
+             "sha256": "74c99dc7184c13e741d001cd8e44e43ef9368b4a46928ba81fa95e5f313fc57d"},
+            "buildSummary": {"path": "evidence/v10/unity/build-windows-20261115-203823.json",
+             "sha256": "1b2c57358f9a10037f75def50356ad84f8e9a9bfe0fc3915aa72387ebe59beea"},
+            "packageReceipt": {"path": "evidence/v10/packages/DicePrototype-p1.0.0-win-x64.zip.json",
+             "sha256": "9123284a9f0bb8eb92bdb5ea703a0cd5a298c3f246ca3c3a494035b790320f00"},
+            "archive": {"path": "Releases/p1.0.0/DicePrototype-p1.0.0-win-x64.zip",
+             "sha256": "69e783f8895243a14f10412b7a47d236f9a283489f670f334311af5b77cb6471"},
+        },
+        "macos": {
+            "buildGuid": "400351e873564c47a359e1f5010debcf",
+            "nativeBytes": 670607783,
+            "zipBytes": 402910309,
+            "nativeReport": {"path": "DicePrototype/Library/BuildHistory/20261115-203852Z-8721491f/8721491f23ab84b4bb1a6191cb501e65.buildreport",
+             "sha256": "807a180b6857d064d335bc80604467c816d794239395b8aaf620b2fc3fd85eaa"},
+            "buildSummary": {"path": "evidence/v10/unity/build-macos-20261115-203918.json",
+             "sha256": "2c23c311455fe6f7caee79b5aad3e273d581c87c8119419e1eb226b868ff1e4b"},
+            "packageReceipt": {"path": "evidence/v10/packages/DicePrototype-p1.0.0-macos-universal.zip.json",
+             "sha256": "4d107a94939c60bde2edde328e61195f958832f47329b9d269d549a279f8de2a"},
+            "archive": {"path": "Releases/p1.0.0/DicePrototype-p1.0.0-macos-universal.zip",
+             "sha256": "413878c3dc8267941e3a61dec87bfc56a2e7a4d6016a49f66e54132f171af6af"},
+        },
+    },
+}
 
 
 def digest(data):
@@ -49,6 +90,33 @@ def contained(root, relative):
     if not path.is_relative_to(root.resolve()) or Path(relative).is_absolute():
         raise ValueError("Expected repository-relative path: " + str(relative))
     return path
+
+
+def asset_guid(path):
+    guid = re.search(r"^guid: ([0-9a-f]{32})$", Path(str(path) + ".meta").read_text(encoding="utf-8-sig"), re.M)
+    if not guid:
+        raise ValueError("Missing Unity asset GUID: " + str(path))
+    return guid[1]
+
+
+def required_art_inventory(root, packed):
+    """F-THEME-02. Match each frozen source PNG and its meta GUID to one native packed row."""
+    verified = {}
+    seen_guids = set()
+    for theme in PLAYER_THEMES:
+        loot = "Assets/Art/Art11/Loot" if theme == "default" else f"Assets/Resources/Themes/{theme}/Art"
+        paths = [f"Assets/Resources/MenuArt17/{theme}.png",
+                 *(f"{loot}/illustration_L{n}.png" for n in range(1, 7))]
+        for path in paths:
+            source = root / "DicePrototype" / path
+            if not source.is_file() or not Path(str(source) + ".meta").is_file():
+                raise ValueError("Missing release art source or meta: " + path)
+            guid = asset_guid(source)
+            if guid in seen_guids or guid == "0" * 32 or (path, guid) not in packed:
+                raise ValueError("Missing or ambiguous native art path and GUID: " + path)
+            seen_guids.add(guid)
+            verified[path] = guid
+    return verified
 
 
 def check_font_assets(root, packed, loose):
@@ -63,11 +131,9 @@ def check_font_assets(root, packed, loose):
     prohibited_names, prohibited_hashes = set(), set()
 
     def asset_info(path):
-        guid = re.search(r"^guid: ([0-9a-f]{32})$", Path(str(path) + ".meta").read_text(encoding="utf-8-sig"), re.M)
-        if not guid:
-            raise ValueError("Missing font asset GUID: " + str(path))
+        guid = asset_guid(path)
         asset_path = path.relative_to(root / "DicePrototype").as_posix().casefold()
-        return asset_path in paths or guid[1] in guids
+        return asset_path in paths or guid in guids
 
     for theme in THEMES:
         title = root / f"DicePrototype/Assets/Resources/Themes/{theme}/Fonts/title.asset"
@@ -93,6 +159,30 @@ def check_font_assets(root, packed, loose):
         liberation = any(asset_info(path) for path in lib_file.parent.rglob("LiberationSans*")
                          if path.suffix in {".asset", ".mat"})
     return fonts + (extras if liberation else []), prohibited_names, prohibited_hashes
+
+
+def fw09_size_report(root, platform, native, zip_bytes):
+    baseline = V10_SIZE_BASELINE["platforms"][platform]
+    titles = {}
+    for theme in THEMES:
+        asset = f"Assets/Resources/Themes/{theme}/Fonts/title.asset"
+        guid = asset_guid(root / "DicePrototype" / asset)
+        size = native["packedBytesByAsset"].get((asset, guid))
+        if size is None:
+            raise ValueError("No native packed data for title atlas path and GUID: " + theme)
+        titles[theme] = {"asset": asset, "guid": guid, "packedObjectBytes": size}
+    native_bytes = int(native["totalSize"])
+    return {
+        "titleAssets": titles,
+        "baselineRelease": V10_SIZE_BASELINE["release"],
+        "baselineSourceCommit": V10_SIZE_BASELINE["sourceCommit"],
+        "baselineSourcePath": V10_SIZE_BASELINE["sourcePath"],
+        "baselineSourceTree": V10_SIZE_BASELINE["sourceTree"],
+        "baselineRemoteReadback": V10_SIZE_BASELINE["remoteReadback"],
+        "platformBaseline": baseline,
+        "currentNativeBytes": native_bytes, "wholeNativeBuildDeltaBytes": native_bytes - baseline["nativeBytes"],
+        "currentZipBytes": zip_bytes, "wholeZipDeltaBytes": zip_bytes - baseline["zipBytes"],
+    }
 
 
 def license_bundle(root, fonts):
@@ -247,6 +337,7 @@ def package(root, platform, proof_path, binary2text):
         raise ValueError("Native Unity BuildReport has changed")
     native = read_native(native_path, binary2text)
     files, checksums, executables = build_inputs(root, platform, report, native)
+    required_art = required_art_inventory(root, native["assets"])
     fonts, forbidden_names, forbidden_hashes = check_font_assets(root, native["assets"], checksums)
     if any(Path(p).name.casefold() in forbidden_names or sha in forbidden_hashes for p, sha in checksums.items()):
         raise ValueError("Player contains a loose title font source")
@@ -271,6 +362,8 @@ def package(root, platform, proof_path, binary2text):
                  "buildReport": {"path": proof_path.relative_to(root).as_posix(), "sha256": delivery.sha(proof_path)},
                  "nativeBuildReport": report["nativeBuildReport"], "packedGroups": native["packedGroups"],
                  "packedObjects": native["packedObjects"], "playModeResolutions": list(delivery.RESOLUTIONS),
+                 "requiredArtPathGuids": required_art,
+                 "fontSizeReport": fw09_size_report(root, platform, native, pending.stat().st_size),
                  "excludedTitleSourceFiles": sorted(forbidden_names),
                  "liberationSansIncluded": any(f["packageFile"] == "LiberationSans-OFL.txt" for f in fonts),
                  "fontLicenses": sorted(licenses), "universalBinaries": executables,
@@ -298,8 +391,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--platform", required=True, choices=TARGET)
     parser.add_argument("--build-report", required=True, help="Repository-relative Unity build proof JSON")
-    parser.add_argument("--binary2text", default=shutil.which("binary2text") or
-                        "E:/unity/6000.6.7f1/Editor/Data/Tools/binary2text.exe")
+    parser.add_argument("--binary2text", default=BINARY2TEXT)
     args = parser.parse_args()
     proof = package(ROOT, args.platform, contained(ROOT, args.build_report), args.binary2text)
     print(json.dumps({k: proof[k] for k in ("package", "bytes", "sha256", "members")}))

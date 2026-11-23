@@ -434,7 +434,9 @@ namespace DiceCraft
                     int mid=(low+high)/2;
                     body.fontSize=mid/20f;
                     string wrapped=WrapLines21(body,text,content.width,int.MaxValue);
-                    if(wrapped!=null&&body.GetPreferredValues(wrapped,content.width,0).y<=room+.5f)
+                    if(wrapped!=null)body.text=wrapped;
+                    if(wrapped!=null)body.ForceMeshUpdate();
+                    if(wrapped!=null&&!body.isTextOverflowing&&!body.isTextTruncated)
                     {
                         best=mid;bestText=wrapped;low=mid+1;
                     }

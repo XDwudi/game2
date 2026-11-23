@@ -47,18 +47,147 @@ namespace DiceCraft.Tests
                 int start=errors.Count;
                 IEnumerator Capture(string name,params Transform[] roots)
                 {
-                    yield return Frame24(theme+" "+scale+" "+name,Path.Combine(dir,name+".png"),roots,report,errors);
+                    var action = PrimaryAction24(name,roots,report,errors);
+                    yield return Frame24(theme+" "+scale+" "+name,Path.Combine(dir,name+".png"),roots,report,errors,action);
                     IEnumerator PageStep(ScrollRect scroll,int step)
                     {
                         string detail=name+"-"+scroll.name+"-"+step;
+                        PrimaryAction24(name,roots,report,errors);
                         yield return Frame24(detail,Path.Combine(dir,detail+".png"),new[]{scroll.viewport.transform},report,errors);
                     }
                     yield return ScrollPages24(roots,PageStep);
                 }
-                try { yield return Walk24(theme,scale,Capture); }
-                finally { File.WriteAllLines(Path.Combine(dir,"measurements.txt"),report.Concat(errors.Skip(start))); }
+                // These four SC-03 boundary views do not extend the established W20X 56-screen inventory.
+                var extraSeen=new HashSet<string>();
+                IEnumerator Extra(string page,params Transform[] roots)
+                {
+                    Assert.That(extraSeen.Add(page),Is.True,page);
+                    yield return new WaitForSecondsRealtime(.2f);
+                    var fg=PrimaryRoots24(roots);
+                    var action=PrimaryAction24(page,fg,report,errors);
+                    string folder=Path.Combine(dir,"primary-extra");Directory.CreateDirectory(folder);
+                    yield return Frame24(theme+" "+scale+" "+page,Path.Combine(folder,page+".png"),fg,report,errors,action);
+                }
+                try
+                {
+                    yield return Walk24(theme,scale,Capture,Extra);
+                    CollectionAssert.AreEquivalent(new[]{"settings-confirm","notice-full","select-busy","select-save-pending"},extraSeen);
+                }
+                finally
+                {
+                    FinishHitAreas16(report,errors);
+                    File.WriteAllLines(Path.Combine(dir,"measurements.txt"),report.Concat(errors.Skip(start)));
+                }
             }
             Assert.That(errors,Is.Empty,string.Join("\n",errors));
+        }
+
+        // SC-03 counts active, painted buttons in the current foreground. A coloured outline,
+        // text, or a modal's underlying game is not another primary button.
+        private Transform[] PrimaryRoots24(Transform[] roots)
+        {
+            // Dialog is the active surface. A scrim, tooltip or renderer-only fading tail can coexist with it.
+            return roots.Select(r=>r==Overlay20X ? r.Find("Dialog") : r).ToArray();
+        }
+
+        private Button PrimaryAction24(string page,Transform[] roots,List<string> report,List<string> errors)
+        {
+            string expected;
+            switch(page)
+            {
+                case "menu-empty": expected="NewRun"; break;
+                case "menu-saved": expected="ContinueRun"; break;
+                case "new-empty": case "new-saved": expected="StartNew"; break;
+                case "pause": expected="Resume"; break;
+                case "save-failure": expected="RetrySave"; break;
+                case "settings-display": expected="ApplyDisplay"; break;
+                case "settings-confirm": expected="ConfirmDisplay"; break;
+                case "startup": case "notice-full": expected=""; break;
+                case "select-busy": case "select-save-pending":
+                    expected="";break;
+                case "select-common": case "select-pressure": case "select-boss-goat": case "select-boss-disabled":
+                    expected=app.IsBusy||app.Session.HasPendingSave ? "" : "StartStage"; break;
+                case "settings-0": case "settings-1": case "settings-2": case "settings-themes":
+                case "handbook-hands": case "handbook-colours": case "handbook-rules": case "shop-handbook":
+                case "chapter-intel": case "dice-styles": case "version": case "quit": case "load-recovery":
+                case "guide-1": case "guide-2": case "guide-3": case "guide-4": case "guide-5":
+                case "hint-0": case "hint-1": case "hint-2":
+                    expected=""; break;
+                default: return null;
+            }
+            var foreground=PrimaryRoots24(roots);Assert.That(foreground.All(r=>r!=null&&r.gameObject.activeInHierarchy),Is.True,page);
+            var controls=foreground.SelectMany(r=>r.GetComponentsInChildren<Button>(false)).Distinct().ToArray();
+            // A disabled primary-coloured face still looks like a primary action. Count its paint,
+            // then independently check the expected action can actually be used.
+            var active=controls.Where(b=>b.targetGraphic is Image face && W11bPaints(face,true)&& W11PrimaryColoured(face.color)).ToArray();
+            string names=string.Join(",",active.Select(button=>button.name));
+            string row=page+" SC-03 primary ["+names+"], expected ["+expected+"]";
+            report.Add(row);
+            if(names!=expected)errors.Add(row);
+            var primary=active.FirstOrDefault(b=>b.name==expected);
+            if(primary!=null&&!primary.IsInteractable())errors.Add(page+" primary action is disabled: "+expected);
+            return primary;
+        }
+
+        private static bool AdjustedPrimaryFace24(Image face)
+        {
+            // Match the real W11b rule, including its 8-bit rounding: same hue family alone
+            // cannot prove that a sub-4.95 result comes from a permitted surface adjustment.
+            Color32 applied=face.color;
+            foreach(var toward in new[]{Color.black,Color.white})
+            {
+                var tint=UiKit.Primary;
+                for(int step=1;step<=24;step++)
+                {
+                    tint=Color.Lerp(tint,toward,.05f);
+                    if(((Color32)tint).Equals(applied))return true;
+                }
+            }
+            return false;
+        }
+
+        private static bool PrimaryPick24(float contrast,Color32 background,bool adjusted)
+        {
+            if(contrast>=GameApp.PickContrast11)return true;
+            if(contrast<GameApp.MinContrast11||!adjusted)return false;
+            return !new[]{UiKit.Ink,UiKit.Paper,UiKit.TextColor}.Any(c=>
+                GameApp.Contrast11((Color32)c,background)>=GameApp.PickContrast11);
+        }
+
+        private void CheckPrimaryArrow24(string scope,Image arrow,Color32[] drawn,Color32[] background,int width,int height,
+            bool adjusted,List<string> report,List<string> failures)
+        {
+            var sprite=W11bSpritePixels(arrow.sprite,out int sw,out int sh);
+            if(sprite==null){failures.Add(scope+" unreadable actual primary arrow sprite");return;}
+            var area=V06ScreenRect(arrow.rectTransform);
+            if(arrow.preserveAspect)
+            {
+                float size=Mathf.Min(area.width/sw,area.height/sh);
+                var centre=area.center;area.size=new Vector2(sw*size,sh*size);area.center=centre;
+            }
+            int samples=0,misses=0;float lowest=float.PositiveInfinity;
+            for(int y=Mathf.Max(0,Mathf.CeilToInt(area.yMin));y<Mathf.Min(height,Mathf.FloorToInt(area.yMax));y++)
+            for(int x=Mathf.Max(0,Mathf.CeilToInt(area.xMin));x<Mathf.Min(width,Mathf.FloorToInt(area.xMax));x++)
+            {
+                // Only the opaque white core of the authored sprite represents the full-strength
+                // ink. Include the whole pixel footprint and a bilinear texel margin at 720p.
+                int x0=Mathf.Clamp(Mathf.FloorToInt((x-area.xMin)*sw/area.width-.5f),0,sw-1);
+                int x1=Mathf.Clamp(Mathf.FloorToInt((x+1-area.xMin)*sw/area.width+.5f),0,sw-1);
+                int y0=Mathf.Clamp(Mathf.FloorToInt((y-area.yMin)*sh/area.height-.5f),0,sh-1);
+                int y1=Mathf.Clamp(Mathf.FloorToInt((y+1-area.yMin)*sh/area.height+.5f),0,sh-1);
+                bool solid=true;
+                for(int sy=y0;solid&&sy<=y1;sy++)for(int sx=x0;sx<=x1;sx++)
+                {
+                    var pixel=sprite[sy*sw+sx];
+                    if(pixel.a<254||pixel.r<254||pixel.g<254||pixel.b<254){solid=false;break;}
+                }
+                if(!solid)continue;
+                int i=y*width+x;float ratio=GameApp.Contrast11(drawn[i],background[i]);samples++;
+                lowest=Mathf.Min(lowest,ratio);
+                if(!PrimaryPick24(ratio,background[i],adjusted))misses++;
+            }
+            string line=scope+" primary arrow, visible core pixels="+samples+", minimum contrast="+lowest.ToString("F3")+", misses="+misses;
+            report.Add(line);if(samples<3||misses>0)failures.Add(line);
         }
 
         // Both the screenshot matrix and the table-text inventory must see real scrolled rows.
@@ -83,7 +212,7 @@ namespace DiceCraft.Tests
             }
         }
 
-        private IEnumerator Walk24(string theme,int scale,Visit24 visit)
+        private IEnumerator Walk24(string theme,int scale,Visit24 visit,Visit24 primaryBoundary=null)
         {
             Assert.That(Screen.width==1920&&Screen.height==1080||Screen.width==1280&&Screen.height==720);
             var seen=new HashSet<string>();string oldDirectory=saveDirectory;
@@ -121,8 +250,31 @@ namespace DiceCraft.Tests
                 Click("CloseDialog");Click("MenuSettings");
                 for(int i=0;i<3;i++){Click("SettingsTab"+i);yield return Page("settings-"+i,Overlay20X);}
                 Click("SettingsTab1");Click("Theme");yield return Page("settings-themes",Overlay20X);Click("ThemeDone16");
-                Click("DisplaySettings");yield return Page("settings-display",Overlay20X);W11Invoke("CloseModal");
+                Click("DisplaySettings");yield return Page("settings-display",Overlay20X);
+                if(primaryBoundary!=null)
+                {
+                    // The draft is the unchanged actual mode, monitor and size. Exercise the real
+                    // apply/confirmation route using the walk's isolated display preference file.
+                    var actual=app.DisplayPreferences.ReadActual();Click("ApplyDisplay");
+                    double deadline=Time.realtimeSinceStartupAsDouble+12;
+                    while(app.DisplayPreferences.IsPending&&!app.DisplayPreferences.CanConfirm&&Time.realtimeSinceStartupAsDouble<deadline)yield return null;
+                    Assert.That(app.DisplayPreferences.IsPending&&app.DisplayPreferences.CanConfirm,Is.True,app.DisplayPreferences.Notice);
+                    var confirmed=app.DisplayPreferences.ReadActual();
+                    Assert.That(new[]{confirmed.width,confirmed.height},Is.EqualTo(new[]{actual.width,actual.height}));
+                    Assert.That(confirmed.displayName,Is.EqualTo(actual.displayName));Assert.That(confirmed.mode,Is.EqualTo(actual.mode));
+                    yield return primaryBoundary("settings-confirm",Overlay20X);Click("ConfirmDisplay");
+                    Assert.That(app.DisplayPreferences.IsPending,Is.False);
+                }
+                W11Invoke("CloseModal");
+                if(primaryBoundary!=null)
+                {
+                    string detail=string.Join("\n",app.Config.lootKinds.Select(k=>k.shortText));
+                    W11Invoke("QueueNotice07",detail,false);app.Refresh();yield return null;
+                    Click("ToastDetails07");Assert.That(InformationText07("NoticeDetailBody"),Is.EqualTo(detail));
+                    yield return primaryBoundary("notice-full",Overlay20X);Click("CloseDialog");
+                }
                 StartRun("24016");yield return Page("select-common",W14Main);
+                if(primaryBoundary!=null)yield return PrimaryStageBoundary24(primaryBoundary);
                 Click("Pause");yield return Page("pause",Overlay20X);Click("MainMenu");
                 yield return Page("menu-saved",W14Main);Click("NewRun");yield return Page("new-saved",Overlay20X);Click("CloseDialog");
                 Click("ContinueRun");Click("StartStage");yield return WaitForIdle();
@@ -148,6 +300,31 @@ namespace DiceCraft.Tests
                 if(preview)PlayerPrefs.SetInt(ThemeRegistry.PreviewKey,previewValue);else PlayerPrefs.DeleteKey(ThemeRegistry.PreviewKey);
                 if(hasTheme)PlayerPrefs.SetString(ThemeRegistry.PreferenceKey,previous);else PlayerPrefs.DeleteKey(ThemeRegistry.PreferenceKey);
             }
+        }
+
+        private IEnumerator PrimaryStageBoundary24(Visit24 capture)
+        {
+            var before=File.ReadAllBytes(app.SaveLocation);long seq=app.Session.ActionSequence;
+            // Stage preview does not start a transaction clock itself; inject the same transient
+            // Busy flag used by the presenter and by SE-05. Never change the committed state.
+            app.Session.Busy=true;
+            try
+            {
+                app.Refresh();Assert.That(Button("StartStage").IsInteractable(),Is.False);
+                yield return capture("select-busy",W14Main);
+            }
+            finally {app.Session.Busy=false;app.Refresh();}
+            using(new FileStream(app.SaveLocation,FileMode.Open,FileAccess.Read,FileShare.Read))
+            {
+                Click("StartStage");Assert.That(app.Session.HasPendingSave,Is.True);
+                // The player can dismiss the error modal; now the pending selection is the actual foreground.
+                Click("CloseDialog");Assert.That(app.Session.State.phase,Is.EqualTo("StagePreview"));
+                Assert.That(Button("StartStage").IsInteractable(),Is.False);
+                yield return capture("select-save-pending",W14Main);
+                CollectionAssert.AreEqual(before,File.ReadAllBytes(app.SaveLocation));
+            }
+            app.Refresh();Click("AbandonPendingSave");Assert.That(app.Session.HasPendingSave,Is.False);
+            Assert.That(app.Session.ActionSequence,Is.EqualTo(seq));CollectionAssert.AreEqual(before,File.ReadAllBytes(app.SaveLocation));
         }
 
         private IEnumerator Startup24(Visit24 visit)
@@ -350,13 +527,13 @@ namespace DiceCraft.Tests
 
         // W11b's legacy pass excludes the entire modal layer. These samples use the supplied foreground
         // (including the modal itself), the same real glyph geometry and a second frame with only its ink hidden.
-        private IEnumerator Frame24(string scope,string path,Transform[] roots,List<string> report,List<string> failures)
+        private IEnumerator Frame24(string scope,string path,Transform[] roots,List<string> report,List<string> failures,Button primary=null)
         {
             Canvas.ForceUpdateCanvases();
             var order=app.canvas.GetComponentsInChildren<Graphic>(false);
             var labels=roots.SelectMany(r=>r.GetComponentsInChildren<TextMeshProUGUI>(false)).Distinct()
                 .Where(t=>t.isActiveAndEnabled&&!string.IsNullOrWhiteSpace(t.text)&&t.color.a*t.canvasRenderer.GetInheritedAlpha()>.05f).ToArray();
-            var measured=new Dictionary<TextMeshProUGUI,List<(Rect box,Color32 colour,char character)>>();
+            var measured=new Dictionary<TextMeshProUGUI,List<(Rect box,Color32 colour,char character,float points)>>();
             var bounds=new Dictionary<TextMeshProUGUI,InkBounds24>();
             foreach(var label in labels)
             {
@@ -375,7 +552,7 @@ namespace DiceCraft.Tests
                     clip=Rect.MinMaxRect(Math.Max(clip.xMin,vp.xMin),Math.Max(clip.yMin,vp.yMin),
                         Math.Min(clip.xMax,vp.xMax),Math.Min(clip.yMax,vp.yMax));
                 }
-                var samples=new List<(Rect box,Color32 colour,char character)>();
+                var samples=new List<(Rect box,Color32 colour,char character,float points)>();
                 var visible=ink.Where(box=>box.xMin>=clip.xMin&&box.xMax<=clip.xMax&&box.yMin>=clip.yMin&&box.yMax<=clip.yMax).ToList();
                 if(scrolls.Length==0&&visible.Count!=ink.Count)failures.Add(id+" visible foreground outside the screen");
                 if(visible.Count==0)continue;
@@ -384,22 +561,40 @@ namespace DiceCraft.Tests
                 {
                     var c=chars[i];var b=ink[i];
                     if(b.xMin<clip.xMin||b.xMax>clip.xMax||b.yMin<clip.yMin||b.yMax>clip.yMax)continue;
-                    samples.Add((b,c.color,c.character));
+                    samples.Add((b,c.color,c.character,c.pointSize));
                 }
                 if(samples.Count>0)measured[label]=samples;
             }
+            MeasureScreenAccess16(path,roots,measured,report,failures);
             Assert.That(measured.Count,Is.GreaterThan(0),scope+" has no foreground text in its viewport");
+            bool adjusted=primary!=null&&AdjustedPrimaryFace24((Image)primary.targetGraphic);
+            if(primary!=null&&!measured.Keys.Any(t=>t.GetComponentInParent<Button>()==primary))
+                failures.Add(scope+" primary has no visible label");
             yield return new WaitForEndOfFrame();
+            var arrow=primary!=null ? primary.transform.Find("Arrow")?.GetComponent<Image>() : null;
+            bool arrowWasEnabled=arrow!=null&&arrow.enabled;
+            if(primary!=null && primary.name=="StartStage" && (arrow==null || !arrow.isActiveAndEnabled || arrow.sprite==null))
+                failures.Add(scope+" StartStage is missing its visible arrow");
             var shot=ScreenCapture.CaptureScreenshotAsTexture();
             try
             {
                 File.WriteAllBytes(path,shot.EncodeToPNG());var drawn=shot.GetPixels32();
+                if(arrow!=null&&arrow.isActiveAndEnabled&&arrow.sprite!=null)
+                {
+                    // Hide only this arrow; text, other images and the exact button face remain drawn.
+                    arrow.enabled=false;yield return new WaitForEndOfFrame();
+                    var arrowBackground=Screen20Xb();
+                    CheckPrimaryArrow24(scope,arrow,drawn,arrowBackground,shot.width,shot.height,adjusted,report,failures);
+                    arrow.enabled=true;
+                }
                 foreach(var label in measured.Keys)label.enabled=false;
                 yield return new WaitForEndOfFrame();var blank=Screen20Xb();
                 foreach(var pair in measured)
                 {
                     var label=pair.Key;var control=label.GetComponentInParent<Selectable>();
                     float lowest=float.MaxValue;
+                    bool primaryText=primary!=null&&control==primary;
+                    float bestStroke=1;int opaqueStrokes=0,opaqueMisses=0;
                     var boundary=bounds[label];string id=scope+" "+W20XPath(label.transform,app.canvas.transform);
                     foreach(var sample in pair.Value)
                     {
@@ -414,6 +609,16 @@ namespace DiceCraft.Tests
                             int change=Math.Abs(on.r-off.r)+Math.Abs(on.g-off.g)+Math.Abs(on.b-off.b);
                             strongest=Mathf.Max(strongest,change);
                             if(change<3)continue;
+                            if(primaryText)
+                            {
+                                float observed=GameApp.Contrast11(on,off);
+                                bestStroke=Mathf.Max(bestStroke,observed);
+                                // The edge of an anti-aliased glyph is blended by design. Full-strength
+                                // ink is independently attributable when all three rendered channels
+                                // equal the TMP mesh colour and the pixel changes on hiding this label.
+                                if(on.r==sample.colour.r&&on.g==sample.colour.g&&on.b==sample.colour.b)
+                                {opaqueStrokes++;if(!PrimaryPick24(observed,off,adjusted))opaqueMisses++;}
+                            }
                             var point=new Vector3(x+.5f,y+.5f);
                             if(!boundary.label.Contains(point))outsideOwn=true;
                             if(boundary.paper!=null)
@@ -428,13 +633,28 @@ namespace DiceCraft.Tests
                         if(outsideFrame)failures.Add(id+" '"+sample.character+"' has painted pixels outside "+boundary.surface);
                         if(strongest<3)failures.Add(id+" '"+sample.character+"' has no visible ink at "+b);
                         int cx=Mathf.Clamp(Mathf.RoundToInt(b.center.x),0,shot.width-1),cy=Mathf.Clamp(Mathf.RoundToInt(b.center.y),0,shot.height-1);
-                        lowest=Mathf.Min(lowest,GameApp.Contrast11(sample.colour,blank[cy*shot.width+cx]));
+                        Color bg=blank[cy*shot.width+cx];
+                        float inkContrast=GameApp.Contrast11(sample.colour,bg);
+                        lowest=Mathf.Min(lowest,inkContrast);
+                        if(primaryText&&!PrimaryPick24(inkContrast,bg,adjusted))
+                            failures.Add(id+" '"+sample.character+"' misses the primary ink pick on the actual surface ("+inkContrast.ToString("F3")+", W11b adjustment="+adjusted+")");
                     }
                     string row=scope+" "+W11bPath(label.transform)+" "+pair.Value.Count+" glyphs, min contrast "+lowest.ToString("F2");
                     report.Add(row);if((control==null||control.IsInteractable())&&lowest<GameApp.MinContrast11)failures.Add(row);
+                    if(primaryText)
+                    {
+                        string stroke=id+" primary ink, strongest drawn contrast="+bestStroke.ToString("F3")+
+                            ", full-strength pixels="+opaqueStrokes+", misses="+opaqueMisses;
+                        report.Add(stroke);if(bestStroke<GameApp.MinContrast11||opaqueMisses!=0)failures.Add(stroke);
+                    }
                 }
             }
-            finally{foreach(var label in measured.Keys)if(label!=null)label.enabled=true;UnityEngine.Object.Destroy(shot);}
+            finally
+            {
+                if(arrow!=null)arrow.enabled=arrowWasEnabled;
+                foreach(var label in measured.Keys)if(label!=null)label.enabled=true;
+                UnityEngine.Object.Destroy(shot);
+            }
         }
     }
 }

@@ -55,7 +55,8 @@ def verify_release_sources(root, target, files):
         raise ValueError("Release inputs must match the release target commit")
 
 
-def plan_release(root, notes_path, replays_path="evidence/v11/replays/final/index.json", review_path="evidence/v11/review/final.md"):
+def plan_release(root, notes_path, replays_path="evidence/v11/replays/final/index.json",
+                 review_path="evidence/v11/review/final.md", binary2text=pack.BINARY2TEXT):
     if git(root, "remote", "get-url", "origin") != previous.REMOTE:
         raise ValueError("Unexpected origin")
     branch = git(root, "branch", "--show-current")
@@ -105,11 +106,18 @@ def plan_release(root, notes_path, replays_path="evidence/v11/replays/final/inde
         if proof["files"].get(pack.TOP + "/开始游玩.txt") != pack.delivery.sha(root / pack.README):
             raise ValueError("Player README in the archive differs from the release target: " + name)
         build = pack.delivery.read_json(checked_ref(root, proof["buildReport"]))
-        checked_ref(root, proof["nativeBuildReport"])
+        native_path = checked_ref(root, proof["nativeBuildReport"])
         if (build["schema"] != "v11-player-build-1" or build["platform"] != spec[1] or build["result"] != "Succeeded"
                 or build["errors"] != 0 or build["nativeBuildReport"] != proof["nativeBuildReport"]
                 or build["buildGuid"] != proof["buildGuid"] or not re.fullmatch("[0-9a-f]{32}", build["buildGuid"])):
             raise ValueError("Release build chain differs: " + name)
+        native = pack.read_native(native_path, binary2text)
+        if native["buildGUID"] != build["buildGuid"] or native["platformName"] != spec[2]:
+            raise ValueError("Native release build identity differs: " + name)
+        if proof.get("requiredArtPathGuids") != pack.required_art_inventory(root, native["assets"]):
+            raise ValueError("Release art inventory differs from native BuildReport: " + name)
+        if proof.get("fontSizeReport") != pack.fw09_size_report(root, platform, native, proof["bytes"]):
+            raise ValueError("FW-09 measurements differ from native BuildReport: " + name)
         pack.verify_gate(root, gate, build)
         if platform == "windows":
             replay_index = replay.verify_index(root, pack.contained(root, replays_path), proof)
@@ -249,10 +257,11 @@ def main():
     parser.add_argument("--notes", required=True, help="Repository-relative release notes")
     parser.add_argument("--replays", default="evidence/v11/replays/final/index.json", help="R-05 index from replay_v11.py")
     parser.add_argument("--review", default="evidence/v11/review/final.md", help="Final W25 independent review report")
+    parser.add_argument("--binary2text", default=pack.BINARY2TEXT, help="Unity binary2text for both frozen native reports")
     parser.add_argument("--expect-plan-sha256", help="Check against an earlier local dry run")
     parser.add_argument("--execute", action="store_true")
     args = parser.parse_args()
-    plan, notes = plan_release(ROOT, args.notes, args.replays, args.review)
+    plan, notes = plan_release(ROOT, args.notes, args.replays, args.review, args.binary2text)
     fingerprint = plan_digest(plan)
     if args.expect_plan_sha256 and args.expect_plan_sha256 != fingerprint:
         raise ValueError("The release plan changed since the dry run")

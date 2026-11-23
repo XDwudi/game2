@@ -322,7 +322,8 @@ namespace DiceCraft
                 // the innermost line the card draws, read from the drawn frame and the boss rings (StageCardInside11), on the
                 // left, the right and below; until W20Z2 it began at the content's edge, on the inner ring of wider rings.
                 var inside=StageCardInside11(card,boss&&!lifted,w,h);
-                float lootX=Mathf.Max(12,inside.xMin+2-14),lootW=Mathf.Max(40,Mathf.Min(inner,inside.xMax-2-14)-lootX);
+                float titleInset=12+(GlyphBox11(section,out var sectionInk)?Mathf.Max(0,sectionInk.xMin):0);
+                float lootX=Mathf.Max(titleInset+2,inside.xMin+2-14),lootW=Mathf.Max(40,Mathf.Min(inner,inside.xMax-2-14)-lootX);
                 float lootRoom=Mathf.Min(boxH,inside.yMax-2-top);
                 var lootText=UiKit.Text(box,"BossLoot11",string.IsNullOrEmpty(loot)?"终局首领 · 通关即胜利":"通关奖励："+ShortText11(loot),lootX,0,lootW,40,18,LabelOn11(card,lifted?PaperMuted071:Color.Lerp(UiKit.Ink,UiKit.Boss,.55f)));
                 lootText.lineSpacing=-14;lootText.enableAutoSizing=false;
@@ -349,6 +350,17 @@ namespace DiceCraft
                 name.rectTransform.sizeDelta=new Vector2(colW,nameH);
                 body.rectTransform.anchoredPosition=new Vector2(colX,-nameH);body.rectTransform.sizeDelta=new Vector2(colW,bodyH);
                 lootText.rectTransform.anchoredPosition=new Vector2(lootX,-lootTop);lootText.rectTransform.sizeDelta=new Vector2(lootW,lootH);
+                // With two multiline paragraphs the full TMP line boxes can be taller than the
+                // card at the body-size floor. Pack their visible ink with a two-unit gap.
+                if(lootTop+lootH>lootRoom&&GlyphBox11(name,out var nameInk)&&
+                    GlyphBox11(body,out var bodyInk)&&GlyphBox11(lootText,out var lootInk))
+                {
+                    float bodyTop=nameInk.height+2-bodyInk.yMin;
+                    float lootInkTop=Mathf.Max(4+emblemSize,bodyTop+bodyInk.yMax)+2;
+                    name.rectTransform.anchoredPosition=new Vector2(colX,nameInk.yMin);
+                    body.rectTransform.anchoredPosition=new Vector2(colX,-bodyTop);
+                    lootText.rectTransform.anchoredPosition=new Vector2(lootX,lootInk.yMin-lootInkTop);
+                }
                 var open=HitArea073(card,"BossModifierOpen",0,0,w-8,h-10,()=>{if(!IsBusy)ShowCycle10();});
                 Art07AttachTooltip(open,"boss-modifier",NameOf(s.stage.modifierId),Details11(s.stage.modifierId),lifted?"已解除":"本关生效",()=>{if(!IsBusy)ShowCycle10();});
                 return;

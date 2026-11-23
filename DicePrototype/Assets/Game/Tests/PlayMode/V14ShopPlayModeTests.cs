@@ -319,6 +319,10 @@ namespace DiceCraft.Tests
             Assert.That(app.Session.IsLootPending,Is.False);
             Assert.That(Text10("LootEnterNote15"),Is.EqualTo("剩下 2 件在商店右上角也能领"));
             Click("LootEnterShop15");leave=Button("LeaveShop");Assert.That(leave.interactable,Is.True);
+            var entrance=W14Main.GetComponent<Art07ShopEntrance>();Assert.That(entrance,Is.Not.Null);
+            double visibleBy=Time.realtimeSinceStartupAsDouble+5;
+            while(entrance.IsPlaying&&Time.realtimeSinceStartupAsDouble<visibleBy)yield return null;
+            Assert.That(entrance.IsPlaying,Is.False,"Measure the actual shop and its leave note after the shelf has appeared.");
             Assert.That(FindActive<TextMeshProUGUI>("LeaveShopNote14").text,Is.EqualTo("还有 2 件战利品未领，离开后作废"));
             Assert.That(Button("ViewGifts").GetComponentInChildren<TextMeshProUGUI>().text,Is.EqualTo("首领战利品（还可领 2 件）"));
             W14CheckLayout("loot-left",failures);W14CheckTexts("loot-left",failures);

@@ -261,6 +261,8 @@ namespace DiceCraft.Tests
             Color32[] Capture(string name)
             {
                 app.table.Hide();
+                // This comparison isolates the original table texture. W17 exercises the composited tray separately.
+                app.ShowMenuTray17(false);
                 // Freeze only decorative drift/breath so the comparison isolates pixels; preserve the actual preference values.
                 var block = new MaterialPropertyBlock(); receiver.GetPropertyBlock(block); block.SetFloat("_MenuDriftPixels", 0); block.SetFloat("_MenuBreath", 0); receiver.SetPropertyBlock(block);
                 RenderPipeline.SubmitRenderRequest(app.table.viewCamera, new RenderPipeline.StandardRequest { destination = target });

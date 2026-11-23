@@ -45,7 +45,9 @@ namespace DiceCraft
 
         private void PaintBossEntry15(float shift, float stamp, float alpha, float mood)
         {
-            var card = main?.Find("StageCard11") as RectTransform;
+            // During scene unload Unity can destroy the canvas before it disables the motion.
+            if (main == null) return;
+            var card = main.Find("StageCard11") as RectTransform;
             if (card != null)
             {
                 card.anchoredPosition = new Vector2(L11.stage.x + shift, -L11.stage.y);
@@ -140,7 +142,11 @@ namespace DiceCraft
         {
             if(!Playing)return;
             Elapsed=Duration; Playing=false;
-            paint?.Invoke(0,1,1,1);
+            var finalPaint = paint;
+            paint = null;
+            sameStage = null;
+            paused = null;
+            finalPaint?.Invoke(0,1,1,1);
         }
         public void Tick(float seconds)
         {

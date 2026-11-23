@@ -70,7 +70,7 @@ namespace DiceCraft.Tests
             Assert.That(FindActive<Transform>("Controller_" + altar).Find("AltarVictim09"), Is.Null);
             Click("LeaveShop"); yield return WaitForIdle();
             Assert.That(app.Session.State.phase, Is.EqualTo("StagePreview"));
-            Assert.That(FindActive<TextMeshProUGUI>("ControllerOrderWarning").text, Does.Contain("祭坛将摧毁").And.Contain(app.Config.Controller("C50").displayName));
+            Assert.That(FindActive<TextMeshProUGUI>("ControllerOrderWarning").text, Does.Contain("开始本关时祭坛会摧毁："+app.Config.Controller("C50").displayName+"。把祭坛放到最右边可以避免。"));
             Assert.That(app.Session.State.controllers.Count, Is.EqualTo(3), "Nothing is destroyed before the stage starts.");
             Click("StartStage"); yield return WaitForIdle();
             Assert.That(app.Session.State.stage.started, Is.True);

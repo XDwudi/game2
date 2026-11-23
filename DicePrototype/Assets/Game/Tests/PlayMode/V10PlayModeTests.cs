@@ -145,6 +145,9 @@ namespace DiceCraft.Tests
             Assert.That(Text10("BossModifierName"), Does.Contain(app.Config.Modifier("B25").displayName)); Assert.That(Text10("BossModifierText"), Is.EqualTo(app.Config.Modifier("B25").shortText));
             Assert.That(CardState09("C50"), Is.EqualTo("本关失效")); Assert.That(CardState09("C46"), Is.EqualTo("本关失效"));
             Assert.That(Text10("Chapter"), Does.Contain("首领关"));
+            double entryDeadline = Time.realtimeSinceStartupAsDouble + 3;
+            while (app.BossEntryPlaying15 && Time.realtimeSinceStartupAsDouble < entryDeadline) yield return null;
+            Assert.That(app.BossEntryPlaying15, Is.False, "Read the settled modifier after its entrance.");
             AssertBossReadoutVisible10("B25");
             yield return PlayFiveRedFours10();
             // After the first hand the previous-hand button exists and the qualified header is drawn: the readout must still be there, uncovered.

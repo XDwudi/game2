@@ -460,6 +460,15 @@ namespace DiceCraft
             if(cmd.kind!=CommandKind.Buy&&cmd.kind!=CommandKind.RefreshControllers)return false;
             EnsureTransactionMotion07();
             LastTransactionSummary07=CommittedTransactionSummary07(cmd,before,after);
+            var offerBefore=before.shop?.offers.FirstOrDefault(o=>o.offerId==cmd.offerId);
+            bool claim=LootPage15&&!string.IsNullOrEmpty(offerBefore?.groupId);
+            // Keep a newly awarded die visible even when it starts the next debug-inventory page.
+            if(claim&&!result.duplicate&&offerBefore.category=="new_die")
+            {
+                var ordered=after.dice.OrderBy(d=>d.createdSerial).ToArray();
+                int index=Array.FindIndex(ordered,d=>!before.dice.Any(prior=>prior.dieId==d.dieId));
+                if(index>=0)ownedDicePage14=index/OwnedDicePerPage14;
+            }
             if(result.duplicate||instant07||after.phase!="Shop"){DiscardPreparedTransactionVisual07();if(!result.duplicate)Refresh();return true;}
             if(preparedTransactionId07!=cmd.commandId)transactionMotion07.DiscardPrepared();preparedTransactionId07=null;
             ReturnLibraryEffects07(true);modalTail07?.CancelTail();transactionGate07=true;Session.Busy=true;Refresh();Canvas.ForceUpdateCanvases();
@@ -472,7 +481,7 @@ namespace DiceCraft
                 foreach(var offer in after.shop.offers.Where(o=>o.category=="controller"&&string.IsNullOrEmpty(o.groupId)))foreach(var root in TransactionOfferRoots07(offer))transactionMotion07.TrackReveal(root,.10f,.18f,true);
                 return true;
             }
-            var bought=before.shop.offers.FirstOrDefault(o=>o.offerId==cmd.offerId);
+            var bought=offerBefore;
             if(bought==null){CompleteTransactionVisual07();return true;}
             if(bought.category=="die_upgrade")
             {
@@ -482,7 +491,9 @@ namespace DiceCraft
             {
                 BeginExpansionTransaction07(bought,before,after);return true;
             }
-            transactionMotion07.Begin("purchase",.34f,.16f,true,fast,reduced,CompleteTransactionVisual07,LootReceiptTicks15(bought,after));
+            bool deliver=claim&&(bought.category=="controller"||bought.category=="consumable");
+            bool showOwnedDie=claim&&bought.category=="new_die";
+            transactionMotion07.Begin("purchase",deliver||showOwnedDie?.50f:.34f,.16f,true,fast,reduced,CompleteTransactionVisual07,LootReceiptTicks15(bought,after),halfFast:claim);
             foreach(var root in TransactionOfferRoots07(after.shop.offers.FirstOrDefault(o=>o.offerId==cmd.offerId)))transactionMotion07.TrackReveal(root,.16f,.001f);
             var controller=after.controllers.FirstOrDefault(c=>!before.controllers.Any(b=>b.instanceId==c.instanceId));
             var item=after.inventory.FirstOrDefault(c=>!before.inventory.Any(b=>b.instanceId==c.instanceId));
@@ -490,7 +501,9 @@ namespace DiceCraft
             if(controller!=null)
             {
                 acquiredTransactionInstance07=controller.instanceId;FocusTransactionAcquisition07();
-                var target=FindTransactionRect07("Controller_"+controller.instanceId);transactionMotion07.TrackReveal(target,.16f,.18f,false,true);
+                var target=FindTransactionRect07("Controller_"+controller.instanceId);
+                if(deliver)transactionMotion07.DeliverTo(target,.34f,.16f);
+                else transactionMotion07.TrackReveal(target,.16f,.18f,false,true);
                 // v1.1 (W09): the summary names the card; its instance id is never shown. The sale price is the capped
                 // one of the committed state (decision D5), not the ordinary price of the offer.
                 LastTransactionSummary07="已装备 "+NameOf(controller.definitionId)+" · "+AcquiredCardState11(controller,after)+" · "+EnchantShort(controller.enchantmentId);
@@ -498,12 +511,19 @@ namespace DiceCraft
             else if(item!=null)
             {
                 acquiredTransactionInstance07=item.instanceId;var target=FindTransactionRect07("ShopItem_"+item.instanceId);
-                if(target==null)target=TransactionAcquisitionCard07(bought,item.instanceId,null);
-                transactionMotion07.TrackReveal(target,.16f,.18f,false,true);LastTransactionSummary07="已获得 "+NameOf(item.contentId);
+                if(deliver)transactionMotion07.DeliverTo(target,.34f,.16f);
+                else
+                {
+                    if(target==null)target=TransactionAcquisitionCard07(bought,item.instanceId,null);
+                    transactionMotion07.TrackReveal(target,.16f,.18f,false,true);
+                }
+                LastTransactionSummary07="已获得 "+NameOf(item.contentId);
             }
             else if(die!=null)
             {
-                var target=TransactionAcquisitionCard07(bought,die.dieId,die);transactionMotion07.TrackReveal(target,.16f,.18f,false,true);
+                var target=claim?FindTransactionRect07("OwnedDie_"+die.dieId):TransactionAcquisitionCard07(bought,die.dieId,die);
+                if(showOwnedDie)transactionMotion07.TrackReveal(target,reduced?0:.34f,reduced?.50f:.16f);
+                else transactionMotion07.TrackReveal(target,.16f,.18f,false,true);
                 LastTransactionSummary07="已加入"+DieName11(die.dieId)+" · 永久骰 "+before.dice.Count(d=>d.lifetime=="permanent")+"→"+after.dice.Count(d=>d.lifetime=="permanent")+" · 提交栏格数不变";
             }
             else if(string.IsNullOrEmpty(LastTransactionSummary07))LastTransactionSummary07="已购买 "+NameOf(bought.contentId)+" · 实际净支出 "+(before.gold-after.gold);
@@ -637,7 +657,8 @@ namespace DiceCraft
                 focusGroup.alpha=reduced?1:time<=.1f?1:.35f;wipe.gameObject.SetActive(!reduced&&time>=.06f&&time<=.3f);wipe.anchoredPosition=new Vector2(568,-(72+256*blend));
             };
             cleanupTransactionView07=()=>{upgradeSurface07?.Finish();permanentTransition07?.Finish();if(body!=null)body.SetPropertyBlock(bodyOriginal);if(target!=null){target.GetPropertyBlock(props);props.SetColor("_BaseColor",newFace.baseColor=="red"?UiKit.Red:UiKit.Blue);target.SetPropertyBlock(props);}table.HidePreview();};
-            transactionMotion07.Begin("die_upgrade",seconds,0,false,fast,reduced,CompleteTransactionVisual07,tick);
+            bool claim=LootPage15&&!string.IsNullOrEmpty(bought.groupId);
+            transactionMotion07.Begin("die_upgrade",seconds,0,false,fast,reduced,CompleteTransactionVisual07,tick,halfFast:claim);
             transactionMotion07.HideUntilFinished(FindTransactionRect07("ShopProducts"));transactionMotion07.TrackReveal(result,.18f,.18f);
         }
         private static string UpgradeFaceDescription07(DieInstance die,FaceState face,bool whole)

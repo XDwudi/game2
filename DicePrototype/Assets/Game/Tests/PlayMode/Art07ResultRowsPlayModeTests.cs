@@ -41,7 +41,19 @@ namespace DiceCraft.Tests
                 Assert.That(reveal.IsPlaying,Is.False);
                 Assert.That(rows[5].GetComponent<TextMeshProUGUI>().text,Does.Contain("种子").And.Contain("调试对局"));
                 var paper=FindActive<RectTransform>("RunResult");
-                foreach(var row in rows)foreach(var label in row.GetComponentsInChildren<TextMeshProUGUI>())AssertSettlementInk07(label,V06ScreenRect(paper));
+                foreach(var row in rows)
+                {
+                    var visible=row.GetComponentsInChildren<TextMeshProUGUI>(false)
+                        .Where(t=>t.isActiveAndEnabled&&!string.IsNullOrWhiteSpace(t.text)).ToArray();
+                    Assert.That(visible,Is.Not.Empty,row.name);
+                    foreach(var label in visible)AssertSettlementInk07(label,V06ScreenRect(paper));
+                }
+                // Each build tile intentionally has an empty generic Button/Label plus its actual printed Name.
+                foreach(var owned in app.Session.State.controllers)
+                {
+                    var name=rows[4].Find("Controller_"+owned.instanceId+"/Name").GetComponent<TextMeshProUGUI>();
+                    Assert.That(name.text.Replace("\n",""),Is.EqualTo(app.Config.Controller(owned.definitionId).displayName));
+                }
                 for(int i=0;i<rows.Length;i++)for(int j=i+1;j<rows.Length;j++)
                     Assert.That(V06ScreenRect(rows[i]).Overlaps(V06ScreenRect(rows[j])),Is.False,names[i]+" vs "+names[j]);
                 app.Refresh();Assert.That(reveal.IsPlaying,Is.False);Assert.That(reveal.Elapsed,Is.EqualTo(reveal.Duration));

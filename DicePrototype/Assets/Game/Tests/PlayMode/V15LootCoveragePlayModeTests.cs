@@ -209,6 +209,60 @@ namespace DiceCraft.Tests
             }
         }
 
+        [UnityTest,Timeout(120000)] public IEnumerator PLAY_V15_SE11_UpgradeFastClockForLootBlacksmithAndPaidShelf()
+        {
+            foreach(string source in new[]{"LOOT","GIFT_C113","shelf"})
+            foreach(string upgrade in new[]{"U06","U05"})
+            {
+                bool paid=source=="shelf",whole=upgrade=="U05";
+                var shop=paid?ShopBoundaryFixture():LootShop24("L4",source=="GIFT_C113");
+                ShopOffer quote;
+                if(paid)
+                {
+                    shop.shop.offers.Clear();AddBoundaryOffer(shop,"standard-face-service","die_upgrade",upgrade);
+                    quote=shop.shop.offers.Single();
+                }
+                else quote=UpgradeQuote24(shop,source,upgrade);
+                yield return W14Load(shop);FinalOptions07("Instant",false);
+                if(source=="GIFT_C113")
+                {
+                    Click("LootCashOut15");yield return WaitForIdle();Click("LootEnterShop15");Click("ViewGifts");Click("GiftTab_GIFT_C113");
+                }
+                FinalOptions07("Fast",false);
+                yield return new WaitForSecondsRealtime(.31f);yield return ShopEntranceFrame07();
+                ShopEntrancePointer07("Buy_"+quote.offerId);ChooseLootDie24(quote);if(!whole)ChooseLootFace24(quote);
+                Assert.That(app.FacePickStep14,Is.EqualTo("S3"));
+                var die=app.FacePickDie14;var face=app.FacePickFace14;
+                long oldGold=app.Session.State.gold,seq=app.Session.ActionSequence;
+                long price=app.Session.GetOfferNetPrice(quote);
+                yield return ShopEntranceFrame07();ShopEntrancePointer07("ConfirmPurchase");
+                Assert.That(app.Session.ActionSequence,Is.EqualTo(seq+1));
+                Assert.That(app.Session.State.gold,Is.EqualTo(oldGold-(paid?price:0)));
+                var committed=app.Session.State;var bytes=File.ReadAllBytes(app.SaveLocation);
+                var changed=committed.dice.Single(d=>d.dieId==die);
+                if(whole)Assert.That(changed.isGlass,Is.True);
+                else Assert.That(changed.faces.Single(f=>f.faceId==face).isGold,Is.True);
+                var motion=app.canvas.transform.Find("Art07TransactionMotion").GetComponent<DiceCraft.Presentation.Art07TransactionMotion>();
+                float expected=paid?.15f:whole?.21f:.18f;
+                app.enabled=false;
+                try
+                {
+                    Assert.That(motion.Kind,Is.EqualTo("die_upgrade"));Assert.That(motion.IsPlaying,Is.True);
+                    Assert.That(motion.Duration,Is.EqualTo(expected).Within(.0001f),source+" "+upgrade);
+                    motion.Tick(expected*.5f,false);
+                    Assert.That(app.table.GetFaceOrientation("$die-preview")?.gameObject.activeInHierarchy,Is.True);
+                    yield return LootShot24("se11-fast-"+source+"-"+upgrade);
+                    motion.Tick(expected*.5f-.001f,false);Assert.That(motion.IsPlaying,Is.True);
+                    Assert.That(motion.Elapsed,Is.EqualTo(expected-.001f).Within(.0002f));
+                    motion.Tick(.0012f,false);Assert.That(motion.IsPlaying||app.Session.Busy,Is.False);
+                    Assert.That(app.FacePickStep14,Is.EqualTo("S0"));Assert.That(app.LootPage15,Is.EqualTo(!paid));
+                    Assert.That(GameSession.StateHash(app.Session.State),Is.EqualTo(GameSession.StateHash(committed)));
+                    Assert.That(app.Session.ActionSequence,Is.EqualTo(seq+1));CollectionAssert.AreEqual(bytes,File.ReadAllBytes(app.SaveLocation));
+                }
+                finally {app.enabled=true;}
+            }
+        }
+
         private float LootTextFloor24(TextMeshProUGUI text)
         {
             switch(text.name)

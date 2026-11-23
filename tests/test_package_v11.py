@@ -47,6 +47,19 @@ def fixture_fonts(root):
     return m, packed
 
 
+def fixture_release_art(root):
+    packed = set()
+    for theme in ("default", "swiss", "sancai", "comic", "deco", "glass"):
+        directory = "Assets/Art/Art11/Loot" if theme == "default" else f"Assets/Resources/Themes/{theme}/Art"
+        images = [f"{directory}/illustration_{kind}.png" for kind in ("L1", "L2", "L3", "L4", "L5", "L6")]
+        for path in [*images, f"Assets/Resources/MenuArt17/{theme}.png"]:
+            guid = hashlib.md5(path.encode()).hexdigest()
+            write(root, "DicePrototype/" + path, b"fixture source for native pack inventory")
+            write(root, "DicePrototype/" + path + ".meta", f"guid: {guid}\n".encode())
+            packed.add((path, guid))
+    return packed
+
+
 def fixture_gate(root, commit="a" * 40):
     identity = dict(sourceCommit=commit, releaseVersion=pack.VERSION, contentConfigVersion=pack.VERSION,
                     saveSchemaVersion=7, artVersion="art1.1.0", backend="Mono", unityEditorVersion="6000.6.7f1")
@@ -111,7 +124,8 @@ def build(root, platform, packed, identity):
               "playerFiles": [{"path": p.relative_to(output.parent).as_posix(), "sha256": pack.delivery.sha(p)} for p in files]}
     data = {"buildGUID": guid, "buildResult": "1", "totalErrors": "0", "outputPath": str(output),
             "totalSize": str(report["bytes"]), "buildProfilePath": report["profile"], "platformName": native_target,
-            "assets": packed, "files": {str(p): p.stat().st_size for p in files}, "packedObjects": 4, "packedGroups": 1}
+            "assets": packed, "packedBytesByAsset": {asset: 31 for asset in packed},
+            "files": {str(p): p.stat().st_size for p in files}, "packedObjects": len(packed), "packedGroups": 1}
     native_file = "evidence/v11/unity/test-" + platform + ".buildreport"
     path = write(root, native_file, b"test input for the mocked binary2text boundary")
     report["nativeBuildReport"] = {"path": native_file, "sha256": pack.delivery.sha(path)}
@@ -124,6 +138,8 @@ class Package11Tests(unittest.TestCase):
         self.addCleanup(temp.cleanup)
         self.root = Path(temp.name).resolve()
         self.manifest, self.assets = fixture_fonts(self.root)
+        self.art = fixture_release_art(self.root)
+        self.assets.update(self.art)
 
     def test_font_licenses_have_exact_ofl_bytes_and_separate_copyright(self):
         fonts, _, _ = pack.check_font_assets(self.root, self.assets, {})
@@ -158,7 +174,20 @@ class Package11Tests(unittest.TestCase):
                 report, data, files = build(self.root, platform, self.assets, gate["identity"])
                 with patch.object(pack, "read_native", return_value=data), patch.object(pack.subprocess, "run"):
                     verified = pack.package(self.root, platform, report, "mock")
+                    self.assertEqual(len(verified["requiredArtPathGuids"]), 42)
+                    self.assertEqual(verified["requiredArtPathGuids"], dict(self.art))
                     path = self.root / "Releases" / pack.VERSION / verified["package"]
+                    fw = verified["fontSizeReport"]
+                    self.assertFalse((self.root / "evidence/v10").exists())
+                    self.assertEqual(len(fw["baselineRemoteReadback"]["sha256"]), 64)
+                    self.assertEqual(fw["wholeZipDeltaBytes"], path.stat().st_size - fw["platformBaseline"]["zipBytes"])
+                    self.assertEqual(fw["wholeNativeBuildDeltaBytes"], int(data["totalSize"]) - fw["platformBaseline"]["nativeBytes"])
+                    self.assertEqual({t: v["packedObjectBytes"] for t, v in fw["titleAssets"].items()},
+                                     {t: 31 for t in pack.THEMES})
+                    wrong_guid = dict(data, packedBytesByAsset={(a, "0" * 32): n
+                                      for (a, _), n in data["packedBytesByAsset"].items()})
+                    with self.assertRaisesRegex(ValueError, "path and GUID"):
+                        pack.fw09_size_report(self.root, platform, wrong_guid, path.stat().st_size)
                     with zipfile.ZipFile(path) as archive:
                         self.assertEqual(verified["members"], len(archive.namelist()))
                         for name in pack.REQUIRED_LICENSES | {"README.txt"}:
@@ -180,6 +209,19 @@ class Package11Tests(unittest.TestCase):
                     with self.assertRaisesRegex(FileExistsError, "Existing player archive differs"):
                         pack.package(self.root, platform, report, "mock")
                     self.assertEqual(b"unrelated archive", path.read_bytes())
+
+    def test_native_release_art_requires_the_frozen_tray_and_loot_path_guid_pairs(self):
+        gate = fixture_gate(self.root)
+        report, data, _ = build(self.root, "windows", self.assets, gate["identity"])
+        for path in ("Assets/Resources/MenuArt17/deco.png", "Assets/Art/Art11/Loot/illustration_L1.png",
+                     "Assets/Resources/Themes/swiss/Art/illustration_L6.png"):
+            guid = dict(self.art)[path]
+            for wrong in (set(), {(path, "1" * 32), ("Assets/Moved.png", guid)}):
+                bad = dict(data, assets=self.assets.difference({(path, guid)}) | wrong)
+                with (self.subTest(path=path, wrong=wrong), patch.object(pack, "read_native", return_value=bad),
+                      patch.object(pack.subprocess, "run"), self.assertRaisesRegex(ValueError, "native art path and GUID")):
+                    pack.package(self.root, "windows", report, "mock")
+        self.assertFalse((self.root / "Releases").exists())
 
     def test_reject_same_resolution_twice_and_modified_nunit(self):
         gate = fixture_gate(self.root)
@@ -227,12 +269,19 @@ class Package11Tests(unittest.TestCase):
         link = "\t\tdata  (PPtr<Object>)\n\t\t\tm_FileID 0 (int)\n\t\t\tm_PathID 2 (SInt64)\n"
         group = ('ID: 2 (ClassID: 1126) PackedAssets\n\tm_Contents  (vector)\n\t\tsize 1 (int)\n'
                  '\t\tdata  (BuildReportPackedAssetInfo)\n\t\t\tbuildTimeAssetPath "Assets/title.asset" (string)\n'
+                 '\t\t\tpackedSize 7 (UInt64)\n'
                  '\t\t\tsourceAssetGUID ' + "b" * 32 + ' (GUID)\n')
         vector = "\tm_Appendices  (vector)\n\t\tsize "
         complete = header + vector + "1 (int)\n" + link + group
         measured = native.parse(complete)
         self.assertEqual({("Assets/title.asset", "b" * 32)}, measured["assets"])
         self.assertEqual({"player.exe": 20}, measured["files"])
+        self.assertEqual({("Assets/title.asset", "b" * 32): 7}, measured["packedBytesByAsset"])
+        contents = group[group.index("\t\tdata  (BuildReportPackedAssetInfo)"):].replace("packedSize 7", "packedSize 11")
+        both = complete.replace("m_Contents  (vector)\n\t\tsize 1", "m_Contents  (vector)\n\t\tsize 2") + contents
+        self.assertEqual(native.parse(both)["packedBytesByAsset"][("Assets/title.asset", "b" * 32)], 18)
+        with self.assertRaisesRegex(ValueError, "packed asset size"):
+            native.parse(complete.replace("packedSize 7", "packedSize -1"))
         with self.assertRaisesRegex(ValueError, "Duplicate packed"):
             native.parse(header + vector + "2 (int)\n" + link + link + group)
         with self.assertRaisesRegex(ValueError, "Incomplete native"):
@@ -249,6 +298,7 @@ class Publication11Tests(unittest.TestCase):
         self.addCleanup(temp.cleanup)
         self.root = Path(temp.name).resolve()
         _, assets = fixture_fonts(self.root)
+        assets.update(fixture_release_art(self.root))
         write(self.root, pack.README, b"fixture README")
         self.notes = "docs/fixture.md"
         write(self.root, self.notes, b"Fixture release notes")
@@ -261,10 +311,15 @@ class Publication11Tests(unittest.TestCase):
         self.git("commit", "--quiet", "-m", "Synthetic fixture only")
         commit = publish.git(self.root, "rev-parse", "HEAD")
         gate = fixture_gate(self.root, commit)
+        self.native_reports = {}
         for platform in pack.TARGET:
             report, data, _ = build(self.root, platform, assets, gate["identity"])
+            native_path = self.root / pack.delivery.read_json(report)["nativeBuildReport"]["path"]
+            self.native_reports[native_path] = data
             with patch.object(pack, "read_native", return_value=data):
                 pack.package(self.root, platform, report, "mock")
+        # Keep the synthetic binary2text boundary for the release dry-run's independent reread as well.
+        self.enterContext(patch.object(pack, "read_native", side_effect=lambda path, _: self.native_reports[path]))
         self.windows = pack.delivery.read_json(self.root / "evidence/v11/packages" / (replay.WINDOWS + ".json"))
         self.replay_dir = self.root / "evidence/v11/replays/final"
         labels = ["menu", "stage-preview", "HandReady-normal", "Selecting-normal", "RunFailed-normal", "final-RunFailed"]
@@ -327,6 +382,40 @@ class Publication11Tests(unittest.TestCase):
         tampered = next((self.root / "Releases" / pack.VERSION).glob("*.zip"))
         tampered.write_bytes(b"other bytes")
         with self.assertRaisesRegex(ValueError, "Package does not match"):
+            publish.plan_release(self.root, self.notes)
+
+    def test_title_atlas_records_readable_and_unavailable_without_a_performance_threshold(self):
+        sub = self.replay_dir / "deco"
+        raw = sub / "tour.json"
+        tour = pack.delivery.read_json(raw)
+        original = dict(tour)
+        trace_path = self.replay_dir.parent / "trace.json"
+        trace = replay.validated_trace(trace_path)
+        def checked(values):
+            write(sub, "tour.json", values)
+            return replay.check_run(self.root, "deco", sub, self.windows, trace_path, trace, tour["playerDataPath"])
+        measured = checked(dict(tour, titleAtlasReadable=True, titleAtlasRuntimeBytes=0))["titleAtlas"]
+        self.assertIs(measured["Readable"], True)
+        self.assertEqual(measured["RuntimeBytesStatus"], "unavailable")
+        self.assertEqual(measured["TextureBytes"], original["titleAtlasTextureBytes"])
+        for key, invalid in (("titleAtlasMipCount", True), ("titleAtlasTextureBytes", False),
+                             ("titleAtlasRuntimeBytes", True), ("titleAtlasReadable", 0), ("titleAtlasFormat", ["R8_UNorm"])):
+            with self.subTest(key=key), self.assertRaisesRegex(ValueError, "atlas measurement"):
+                checked(dict(tour, **{key: invalid}))
+
+    def test_release_rereads_native_art_even_if_a_receipt_claims_all_42(self):
+        receipt = self.root / "evidence/v11/packages" / (replay.WINDOWS + ".json")
+        original = pack.delivery.read_json(receipt)
+        stale = dict(original)
+        del stale["requiredArtPathGuids"]
+        write(self.root, receipt, stale)
+        with self.assertRaisesRegex(ValueError, "art inventory differs"):
+            publish.plan_release(self.root, self.notes)
+        write(self.root, receipt, original)
+        natives = self.native_reports[self.root / original["nativeBuildReport"]["path"]]
+        path = "Assets/Resources/Themes/glass/Art/illustration_L2.png"
+        natives["assets"].remove((path, original["requiredArtPathGuids"][path]))
+        with self.assertRaisesRegex(ValueError, "native art path and GUID"):
             publish.plan_release(self.root, self.notes)
 
     def test_frozen_sources_and_native_receipt_bound(self):
@@ -399,6 +488,13 @@ class Publication11Tests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, "actual theme"):
                     replay.verify_index(self.root, self.replay_dir / "index.json", self.windows)
         write(sub, raw.name, initial)
+        trace_path = self.replay_dir.parent / "trace.json"
+        trace = replay.validated_trace(trace_path)
+        for marker in (b"W15_MISSING_ART glass/illustration_L3 default", b"W15_MISSING_ART glass/emblem_seal placeholder",
+                       b"V11 missing theme title font: Themes/glass/Fonts/title"):
+            write(sub, "Player.log", b"Unity player fixture\n" + marker + b"\nUnityEngine.Debug:Log(Object)\n")
+            with self.subTest(marker=marker), self.assertRaisesRegex(ValueError, "Missing release art or title font"):
+                replay.check_run(self.root, "glass", sub, self.windows, trace_path, trace, initial["playerDataPath"])
         write(sub, "Player.log", b"NullReferenceException: player callback failed")
         with self.assertRaisesRegex(ValueError, "Unity exception"):
             replay.verify_index(self.root, self.replay_dir / "index.json", self.windows)

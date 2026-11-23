@@ -120,7 +120,7 @@ namespace DiceCraft.Tests
                     if (f2.isGold) traits.Add("黄金"); if (f2.baseWeight > 1) traits.Add("权重 " + f2.baseWeight);
                     string faceText = f2.permanentPip + " 点" + (f2.baseColor == "red" ? "红" : "蓝") + "面" + (traits.Count > 0 ? "（" + string.Join("、", traits) + "）" : "");
                     string others = string.Join("、", Enumerable.Range(app.Config.minPipValue, app.Config.maxPipValue - app.Config.minPipValue + 1).Where(n => n != f2.permanentPip));
-                    Assert.That(FindActive<TextMeshProUGUI>("PurchasePreviewBody").text, Is.EqualTo(faceText + " → 随机变成 " + others + " 之一"));
+                    Assert.That(FindActive<TextMeshProUGUI>("PurchasePreviewBody").text.Replace("\n", ""), Is.EqualTo(faceText + " → 随机变成 " + others + " 之一"));
                     Assert.That(FindActive<TextMeshProUGUI>("FacePickNote14").text, Is.EqualTo("颜色、纹理、黄金不变；买下时才抽"));
                 }
                 Click("CancelFacePick14");

@@ -60,7 +60,9 @@ namespace DiceCraft.Tests
             string state=GameSession.StateHash(app.Session.State);byte[] save=File.ReadAllBytes(app.SaveLocation);app.SkipVisual();
             Assert.That(app.StablePresentationResultVisible07,Is.True);Assert.That(VisibleFinalText07("StableResultScore07").text,Is.EqualTo("0"));
             // V1.1 (W11): the post-score changes stay beside the record button; the zero reason is the card chip's own value.
-            Assert.That(VisibleFinalText07("StableResultFactors07").text,Does.Contain("后置").And.Contain("提交收入"));
+            var income=app.Session.State.processedReceipts.Last().effects.Single(e=>e.kind=="SubmissionIncome");
+            Assert.That(income.newValue,Is.Positive);
+            Assert.That(VisibleFinalText07("StableResultFactors07").text,Does.Contain("后置").And.Contain("提交得 +"+income.newValue+" 金币"));
             Assert.That(Button("Factor4").transform.Find("Label").GetComponent<TextMeshProUGUI>().text,Does.Contain("没有有效 5 点"));
             Click("StablePresentationDetails07");yield return null;Click("CloseDialog");
             Assert.That(app.StablePresentationResultVisible07,Is.True);Assert.That(GameSession.StateHash(app.Session.State),Is.EqualTo(state));CollectionAssert.AreEqual(save,File.ReadAllBytes(app.SaveLocation));

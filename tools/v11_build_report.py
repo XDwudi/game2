@@ -49,7 +49,7 @@ def parse(text):
         if not path or path in files:
             raise ValueError("Invalid or duplicate build output " + path)
         files[path] = int(value(row, "totalSize", "UInt64"))
-    assets = set()
+    packed_by_asset = {}
     packed_objects = 0
     groups = set()
     for ref in rows(main, "m_Appendices", "PPtr<Object>"):
@@ -66,11 +66,15 @@ def parse(text):
                 guid = value(record, "sourceAssetGUID", "GUID")
                 if not re.fullmatch("[0-9a-f]{32}", guid):
                     raise ValueError("Malformed packed asset GUID")
-                assets.add((source, guid))
+                packed_size = value(record, "packedSize", "UInt64")
+                if not re.fullmatch(r"[0-9]+", packed_size):
+                    raise ValueError("Malformed packed asset size")
+                key = (source, guid)
+                packed_by_asset[key] = packed_by_asset.get(key, 0) + int(packed_size)
                 packed_objects += 1
     if not files or not packed_objects or groups != {key for key, (kind, _) in objects.items() if kind == "PackedAssets"}:
         raise ValueError("Incomplete native BuildReport packed asset or output inventory")
-    result.update(files=files, assets=assets, packedGroups=len(groups), packedObjects=packed_objects)
+    result.update(files=files, assets=set(packed_by_asset), packedBytesByAsset=packed_by_asset, packedGroups=len(groups), packedObjects=packed_objects)
     return result
 
 

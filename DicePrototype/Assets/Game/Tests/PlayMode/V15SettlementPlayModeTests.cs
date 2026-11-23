@@ -25,6 +25,144 @@ namespace DiceCraft.Tests
 
         private string ReceiptOutput15=>Path.GetFullPath(Path.Combine(Application.dataPath,"..","..","artifacts","cache","v11","w15",
             Screen.width+"x"+Screen.height,"receipts"));
+
+        [Serializable] private sealed class ReceiptTrace15
+        {
+            public uint seed=0;
+            public string configVersion=null;
+            public ReceiptStep15[] steps=null;
+        }
+        [Serializable] private sealed class ReceiptStep15
+        {
+            public string kind=null,offerId=null;
+            public string[] dieIds=null;
+            public bool risk=false;
+        }
+        private static readonly string[] ReceiptBoardRoots15={"StageCard11","Tray11","PoolTab11","SubmitInfo11","LockedTray071"};
+        private static readonly int[] ColdReceiptScales15={100,150};
+
+        // Play the recorded first chapter using only a normal session. The two target EndStage clicks and
+        // subsequent menu ContinueRun clicks hit actual controls; neither a fixture save nor debug unlock is used.
+        private IEnumerator NormalReceiptPath15(int lastStage,int scale,Func<int,Dictionary<string,Rect>,IEnumerator> visit)
+        {
+            var path=Path.Combine(Application.dataPath,"..","..","evidence","v11","balance","trace_p110_5000.json");
+            var trace=JsonUtility.FromJson<ReceiptTrace15>(File.ReadAllText(path));
+            Assert.That(trace.configVersion,Is.EqualTo(app.Config.configVersion));
+            Assert.That(trace.steps[0].kind,Is.EqualTo("NewRun"));
+            StartRun(trace.seed.ToString());FinalOptions07("Instant",false);
+            Click("Pause");Click("Settings");Click("SettingsTab2");
+            for(int n=0;n<3&&Mathf.Abs(UiKit.FontScale-scale/100f)>.001f;n++)Click("TextScale");
+            Assert.That(UiKit.FontScale,Is.EqualTo(scale/100f).Within(.001f));Click("SettingsDone");
+            Assert.That(app.Session.State.isDebug||app.Session.State.debugWorkspace,Is.False);
+            for(int i=1;i<trace.steps.Length;i++)
+            {
+                var step=trace.steps[i];var kind=(CommandKind)Enum.Parse(typeof(CommandKind),step.kind);
+                int stage=app.Session.State.stage.stageIndex;
+                Assert.That(kind,Is.Not.EqualTo(CommandKind.ApplyDebugScene));
+                if(kind==CommandKind.EndStage&&(stage==0||stage==lastStage))
+                {
+                    FinalOptions07("Normal",false);
+                    yield return ShopEntranceFrame07();
+                    var live=ReceiptBoardRoots15.ToDictionary(n=>n,n=>V06ScreenRect(FindActive<RectTransform>(n)));
+                    ShopEntrancePointer07("EndStage");
+                    Assert.That(app.Session.State.phase,Is.EqualTo("StageSettlement"));
+                    yield return ShopEntranceFrame07();
+                    if(app.SettlementRevealPlaying07)ShopEntrancePointer07("SkipSettlementReveal07");
+                    yield return visit(stage,live);
+                    if(stage==lastStage)yield break;
+                    FinalOptions07("Instant",false);
+                    continue;
+                }
+                if(kind==CommandKind.ConfirmLocks)
+                {
+                    foreach(var id in step.dieIds)Assert.That(app.Session.TogglePending(id),Is.True);
+                    app.Refresh();
+                }
+                var result=app.Send(new SessionCommand{kind=kind,risk=step.risk,offerId=step.offerId,dieIds=step.dieIds??Array.Empty<string>()});
+                Assert.That(result.accepted,Is.True,"normal seed "+trace.seed+" step "+i+" "+kind+" "+result.error);
+                yield return WaitForIdle();
+            }
+            Assert.Fail("The recorded chapter ended before the requested live settlement.");
+        }
+
+        [UnityTest,Timeout(180000)] public IEnumerator PLAY_V15_SE14_NormalMenuContinuesLiveOrdinaryAndBossReceipts(
+            [ValueSource(nameof(ColdReceiptScales15))] int scale)
+        {
+            IEnumerator Verify(int stage,Dictionary<string,Rect> live)
+            {
+                string tag="normal-save-"+(stage==0?"ordinary":"boss")+"-"+scale;
+                Assert.That(app.Session.State.stage.stageKind,Is.EqualTo(stage==0?"normal":"boss"));
+                Assert.That(app.SettlementBackdropVisible07,Is.True);
+                Assert.That(app.SettlementBackdropFromHistory07,Is.False);
+                AssertReceiptBackdrop15(FindActive<Art07SettlementBackdrop>("SettlementBackdrop07"));
+                var saved=app.Session.State;long seq=app.Session.ActionSequence;
+                string path=app.SaveLocation,hash=GameSession.StateHash(saved);byte[] bytes=File.ReadAllBytes(path);
+                Assert.That(Path.GetFileName(path),Is.EqualTo("active-run.json"));
+                Assert.That(GameSession.StateHash(new AtomicSaveStore(path,app.Config,SaveSlotPolicy.Normal).Load()),Is.EqualTo(hash));
+                yield return WriteReceiptShot15(tag+"-live");
+                yield return LoadBootstrap();yield return ShopEntranceFrame07();
+                ShopEntrancePointer07("ContinueRun");yield return ShopEntranceFrame07();
+                Assert.That(app.SaveLocation,Is.EqualTo(path));Assert.That(app.Session.State.isDebug||app.Session.State.debugWorkspace,Is.False);
+                Assert.That(app.Session.State.phase,Is.EqualTo("StageSettlement"));Assert.That(UiKit.FontScale,Is.EqualTo(scale/100f).Within(.001f));
+                Assert.That(app.SettlementRevealPlaying07||app.PresentationPlaying07,Is.False);
+                Assert.That(app.SettlementBackdropFromHistory07&&app.SettlementBackdropVisible07,Is.True);
+                var backdrop=FindActive<Art07SettlementBackdrop>("SettlementBackdrop07");
+                AssertReceiptBackdrop15(backdrop);Assert.That(backdrop.GetComponentsInChildren<Selectable>(true),Is.Empty);
+                Assert.That(backdrop.GraphicCount,Is.GreaterThan(0));Assert.That(backdrop.DiceMeshCount,Is.GreaterThan(0));
+                var board=FindActive<RectTransform>("Screen").Find("SavedSettlementBoardStaging07");
+                Assert.That(board,Is.Not.Null);Assert.That(board.gameObject.activeSelf,Is.False);
+                foreach(var item in live)
+                {
+                    var restored=board.Find(item.Key) as RectTransform;Assert.That(restored,Is.Not.Null,item.Key);
+                    var rect=V06ScreenRect(restored);
+                    Assert.That(Vector2.Distance(rect.min,item.Value.min),Is.LessThan(2),tag+" "+item.Key+" minimum");
+                    Assert.That(Vector2.Distance(rect.max,item.Value.max),Is.LessThan(2),tag+" "+item.Key+" maximum");
+                }
+                var frozen=GameObject.Find("SettlementFrozenDice07");
+                Assert.That(frozen,Is.Not.Null);Assert.That(frozen.GetComponentsInChildren<Collider>(true),Is.Empty);
+                var dice=saved.lastSubmission.snapshot.dice;
+                for(int i=0;i<Math.Min(8,dice.Length);i++)
+                {
+                    var die=dice[i];string face="$static-preview:settlement-locked-"+i+"/Face_"+die.faceId;
+                    var mesh=frozen.GetComponentsInChildren<MeshFilter>(false).Single(m=>m.name==face);
+                    Assert.That(mesh.sharedMesh.name,Does.StartWith("Pips_"+die.currentPip+"_"));
+                    var index=board.Find("SlotIndex"+i);
+                    Assert.That(index!=null&&index.gameObject.activeSelf,Is.False,tag+" bare slot caption");
+                    Assert.That(board.Find("SavedSlotTab15_"+i+"/Ordinal"),Is.Not.Null);
+                }
+                yield return WriteReceiptShot15(tag+"-cold");
+                Assert.That(GameSession.StateHash(app.Session.State),Is.EqualTo(hash));
+                Assert.That(app.Session.ActionSequence,Is.EqualTo(seq));
+                CollectionAssert.AreEqual(bytes,File.ReadAllBytes(path));
+            }
+            yield return NormalReceiptPath15(2,scale,Verify);
+        }
+
+        [UnityTest,Timeout(90000)] public IEnumerator PLAY_V15_SE15_OrdinaryReceiptBlocksSecondPointerAtSamePosition()
+        {
+            IEnumerator Verify(int stage,Dictionary<string,Rect> live)
+            {
+                yield return ShopEntranceFrame07();
+                var proceed=FindActive<RectTransform>("SettlementContinue");
+                var point=RectTransformUtility.WorldToScreenPoint(null,proceed.TransformPoint(proceed.rect.center));
+                long earlier=app.Session.ActionSequence;
+                Art071PointerClick("SettlementContinue",point);
+                double started=Time.realtimeSinceStartupAsDouble;
+                Assert.That(app.LootPage15,Is.False);Assert.That(app.Session.State.phase,Is.EqualTo("Shop"));
+                Assert.That(app.Session.ActionSequence,Is.EqualTo(earlier+1));var bytes=File.ReadAllBytes(app.SaveLocation);
+                yield return ShopEntranceFrame07();
+                while(Time.realtimeSinceStartupAsDouble-started<.1)yield return null;
+                Assert.That(GameApp.PagePointerGuard15,Is.True,"Second point missed the 0.1–0.3 s protection window.");
+                Assert.That(V06ScreenRect(FindActive<RectTransform>("LeaveShop")).Contains(point),Is.True);
+                Art071PointerClick("LeaveShop",point);
+                Assert.That(app.Session.State.phase,Is.EqualTo("Shop"));Assert.That(app.Session.ActionSequence,Is.EqualTo(earlier+1));
+                CollectionAssert.AreEqual(bytes,File.ReadAllBytes(app.SaveLocation));
+                while(Time.realtimeSinceStartupAsDouble-started<.32)yield return null;
+                Assert.That(GameApp.PagePointerGuard15,Is.False);Art071PointerClick("LeaveShop",point);
+                Assert.That(app.Session.State.phase,Is.EqualTo("StagePreview"));Assert.That(app.Session.ActionSequence,Is.EqualTo(earlier+2));
+            }
+            yield return NormalReceiptPath15(0,100,Verify);
+        }
         private IEnumerator WriteReceiptShot15(string name)
         {
             Directory.CreateDirectory(ReceiptOutput15);Canvas.ForceUpdateCanvases();yield return new WaitForEndOfFrame();

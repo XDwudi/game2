@@ -194,6 +194,8 @@ namespace DiceCraft.Tests
         public IEnumerator PLAY_ART071_TemporaryShadowActualGpuSamePoseHasVisibleLighterContactShadow()
         {
             yield return ExtraBegin07();
+            StartRun("719190"); Click("StartStage"); yield return WaitForIdle();
+            Assert.That(app.PlayBackdrop11, Is.True, "Measure a gameplay die against the in-game felt.");
             bool appEnabled = app.enabled; app.enabled = false; app.table.Hide();
             var die = DiceFactory.CreateStandard(app.Config, 9190);
             var hand = new DieHandState { dieId = die.dieId, currentFaceId = "F01", currentPip = 1, currentColor = "red", hasRolled = true };

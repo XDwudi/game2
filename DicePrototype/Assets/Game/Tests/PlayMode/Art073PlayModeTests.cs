@@ -46,7 +46,7 @@ namespace DiceCraft.Tests
             Assert.That(hit.width,Is.GreaterThanOrEqualTo(39.9f));Assert.That(hit.height,Is.GreaterThanOrEqualTo(39.9f));
             Assert.That(app.UiDice073.ActiveVisualCount,Is.Zero,"No interface die is drawn on the plain stage screen.");
             Click("ViewDice");
-            Assert.That(FindActive<TextMeshProUGUI>("DialogTitle").text,Does.StartWith("骰库"));
+            Assert.That(FindActive<TextMeshProUGUI>("DialogTitle").text,Is.EqualTo("你的骰子"));
             var dice=app.Session.State.dice.OrderBy(d=>d.createdSerial).ToArray();
             foreach(var die in dice)Assert.That(HasActive("Target_"+die.dieId),Is.True,die.dieId);
             yield return Art073Settle();
@@ -65,7 +65,7 @@ namespace DiceCraft.Tests
                 double deadline=Time.realtimeSinceStartupAsDouble+2;while(app.SheetTurning073&&Time.realtimeSinceStartupAsDouble<deadline)yield return null;
                 Assert.That(app.SheetFacingFace073,Is.EqualTo(face),"face button "+(face+1));
                 Assert.That(app.table.PreviewFacingFace073(),Is.EqualTo(face),"drawn pose "+(face+1));
-                Assert.That(FindActive<TextMeshProUGUI>("FacingFace073").text,Does.Contain("面 "+(face+1)).And.Contain(dice[0].faces[face].permanentPip+"点"));
+                Assert.That(FindActive<TextMeshProUGUI>("FacingFace073").text,Does.Contain("正对你的是第 "+(face+1)+" 面").And.Contain(dice[0].faces[face].permanentPip+" 点"));
                 Assert.That(FindActive<Transform>("Face_F0"+(face+1)).Find("SelectedH0").gameObject.activeSelf,Is.True);
             }
             // Dragging turns it and keeps the pose; a point on the facing face picks that face.
@@ -171,14 +171,14 @@ namespace DiceCraft.Tests
             ExecuteEvents.Execute(sale.gameObject,new PointerEventData(EventSystem.current),ExecuteEvents.endDragHandler);
             Assert.That(Quaternion.Angle(pose,sale.Rotation),Is.GreaterThan(20f));
             ExecuteEvents.Execute(sale.gameObject,new PointerEventData(EventSystem.current){button=PointerEventData.InputButton.Left},ExecuteEvents.pointerClickHandler);
-            Assert.That(FindActive<TextMeshProUGUI>("DialogTitle").text,Does.StartWith("加入骰子"));
+            Assert.That(FindActive<TextMeshProUGUI>("DialogTitle").text,Is.EqualTo("购买骰子"));
             yield return null;yield return null;
             Assert.That(app.UiDice073.ActiveVisualCount,Is.Zero,"Screen dice hide while a modal owns the screen.");
             Click("CloseDialog");yield return Art073Settle(.3f);
             Assert.That(app.UiDice073.ActiveVisualCount,Is.EqualTo(forSale+owned));
             // An owned die opens the dice library on itself.
             ExecuteEvents.Execute(strip[1].gameObject,new PointerEventData(EventSystem.current){button=PointerEventData.InputButton.Left},ExecuteEvents.pointerClickHandler);
-            Assert.That(FindActive<TextMeshProUGUI>("DialogTitle").text,Does.StartWith("骰库"));
+            Assert.That(FindActive<TextMeshProUGUI>("DialogTitle").text,Is.EqualTo("你的骰子"));
             Assert.That(FindActive<TextMeshProUGUI>("LayersBody"),Is.Not.Null);Click("CloseDialog");yield return null;
             Assert.That(StateJson(),Is.EqualTo(state));Assert.That(app.Session.ActionSequence,Is.EqualTo(sequence));CollectionAssert.AreEqual(disk,File.ReadAllBytes(app.SaveLocation));
         }

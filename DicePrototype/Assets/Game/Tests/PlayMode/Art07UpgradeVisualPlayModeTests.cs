@@ -80,7 +80,7 @@ namespace DiceCraft.Tests
                                     Assert.That(faceRenderers[i].transform.localToWorldMatrix,Is.EqualTo(transforms[i]),"The flip must not rotate a physical face or another die face.");
                                 }
                                 Texture2D shot=null;yield return CaptureUpgradeGpu07(upgrade+"-font"+fontScale+"-p"+Mathf.RoundToInt(progress*100),t=>shot=t);shots.Add(shot);
-                                AssertUpgradeLabelGlyphs07(upgrade,fontScale,progress>=.80f);
+                                AssertUpgradeLabelGlyphs07(upgrade,fontScale,progress>=.80f,die.dieId);
                                 TestContext.WriteLine("UPGRADE_GPU "+upgrade+" progress="+progress+" stage="+surface.VisibleFaceStage+" turn="+surface.TurnDegrees+" frame="+Time.frameCount);
                                 if(upgrade=="U07"&&progress>.35f&&progress<.60f)
                                 {
@@ -137,7 +137,7 @@ namespace DiceCraft.Tests
                         // visible result labels near the end of each compressed clock.
                         clock.Tick(clock.Duration*.99f-clock.Elapsed,false);
                         Texture2D labels=null;yield return CaptureUpgradeGpu07(upgrade+"-font"+fontScale+(reduce?"-reduced":"-fast")+"-labels",t=>labels=t);
-                        try{AssertUpgradeLabelGlyphs07(upgrade,fontScale,true);}finally{if(labels!=null)UnityEngine.Object.Destroy(labels);}
+                        try{AssertUpgradeLabelGlyphs07(upgrade,fontScale,true,die.dieId);}finally{if(labels!=null)UnityEngine.Object.Destroy(labels);}
                         app.SkipVisual();Assert.That(surface.IsActive,Is.False);Assert.That(clock.IsPlaying,Is.False);Assert.That(app.Session.Busy,Is.False);
                         Assert.That(surface.GetComponentsInChildren<MeshRenderer>(true).Count(r=>r.gameObject.activeInHierarchy),Is.Zero);
                         Assert.That(GameSession.StateHash(app.Session.State),Is.EqualTo(state));CollectionAssert.AreEqual(disk,File.ReadAllBytes(app.SaveLocation));
@@ -149,7 +149,7 @@ namespace DiceCraft.Tests
             {if(hadFast)PlayerPrefs.SetInt("fast",oldFast);else PlayerPrefs.DeleteKey("fast");if(hadReduced)PlayerPrefs.SetInt("reduced",oldReduced);else PlayerPrefs.DeleteKey("reduced");if(hadScale)PlayerPrefs.SetInt("art07.textScale",oldScale);else PlayerPrefs.DeleteKey("art07.textScale");}
         }
 
-        private void AssertUpgradeLabelGlyphs07(string upgrade,int fontScale,bool requireResult)
+        private void AssertUpgradeLabelGlyphs07(string upgrade,int fontScale,bool requireResult,string dieId)
         {
             var panel=TransactionRect07("PhysicalUpgrade07");
             var bounds=panel.rect;var inside=Rect.MinMaxRect(bounds.xMin+3,bounds.yMin+3,bounds.xMax-3,bounds.yMax-3);
@@ -196,7 +196,11 @@ namespace DiceCraft.Tests
             Assert.That(before.text,Does.StartWith("购买前"));Assert.That(after.text,Does.StartWith("购买后"));
             foreach(var text in new[]{before,after})Assert.That(text.text,Does.Contain("物理权重 "),"Physical weight must not disappear to fit the panel.");
             if(upgrade=="U05"){Assert.That(before.text,Does.Contain("骰体：陶瓷"));Assert.That(after.text,Does.Contain("骰体：玻璃"));}
-            Assert.That(panel.Find("Result/Current").GetComponent<TMP_Text>().text,Does.Contain("当前投出"));
+            var roll=app.Session.State.hand?.currentResults.FirstOrDefault(r=>r.dieId==dieId);
+            string current=roll?.hasRolled==true
+                ? "本手朝上："+roll.currentPip+" 点"+(roll.currentColor=="red"?"红":"蓝")+"（这次不受影响）"
+                : "还没掷";
+            Assert.That(panel.Find("Result/Current").GetComponent<TMP_Text>().text,Is.EqualTo(current));
         }
 
         private Art07TransactionMotion UpgradeTransactionClock07()

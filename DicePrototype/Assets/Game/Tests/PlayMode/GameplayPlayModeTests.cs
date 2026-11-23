@@ -29,6 +29,8 @@ namespace DiceCraft.Tests
         private readonly Dictionary<string, int?> intPreferences = new Dictionary<string, int?>();
         private readonly Dictionary<string, string> bindingPreferences = new Dictionary<string, string>();
         private float? originalVolume;
+        private string originalThemePreference;
+        private string originalActiveTheme;
 
         [UnitySetUp]
         public IEnumerator Setup()
@@ -36,10 +38,13 @@ namespace DiceCraft.Tests
             saveDirectory = Path.Combine(Application.temporaryCachePath, "DiceCraftTests_" + Guid.NewGuid().ToString("N"));
             Directory.CreateDirectory(saveDirectory);
             GameApp.SaveDirectoryOverride = saveDirectory; GameApp.SuppressStartupDisplay=true;
+            originalThemePreference=PlayerPrefs.HasKey(ThemeRegistry.PreferenceKey)?PlayerPrefs.GetString(ThemeRegistry.PreferenceKey):null;
+            originalActiveTheme=ThemeRegistry.Current?.Id;
+            PlayerPrefs.DeleteKey(ThemeRegistry.PreferenceKey);
             // v0.73: the quality preference is isolated like the others. A test that fails after switching to
             // low quality used to leave it behind (an iterator's finally does not run when a nested wait throws),
             // and every later test that assumes the standard default then failed with it.
-            foreach (string key in new[] {"fast", "reduced", "shopTab", "art07.instant", "art07.textScale", "art07.guideSeen", "art07.quality"})
+            foreach (string key in new[] {"fast", "reduced", "shopTab", "art07.instant", "art07.textScale", "art07.guideSeen", "art07.quality", ThemeRegistry.PreviewKey})
             {
                 intPreferences[key] = PlayerPrefs.HasKey(key) ? (int?)PlayerPrefs.GetInt(key) : null;
                 PlayerPrefs.SetInt(key, 0);
@@ -83,6 +88,9 @@ namespace DiceCraft.Tests
             foreach(var preference in bindingPreferences)
                 if(preference.Value!=null)PlayerPrefs.SetString(preference.Key,preference.Value);
                 else PlayerPrefs.DeleteKey(preference.Key);
+            if(originalThemePreference!=null)PlayerPrefs.SetString(ThemeRegistry.PreferenceKey,originalThemePreference);
+            else PlayerPrefs.DeleteKey(ThemeRegistry.PreferenceKey);
+            ThemeRegistry.Activate(originalActiveTheme??GameTheme.DefaultId);
             if (originalVolume.HasValue) PlayerPrefs.SetFloat("volume", originalVolume.Value);
             else PlayerPrefs.DeleteKey("volume");
             PlayerPrefs.Save();

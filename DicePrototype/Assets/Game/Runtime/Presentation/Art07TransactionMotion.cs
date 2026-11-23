@@ -9,7 +9,15 @@ namespace DiceCraft.Presentation
     /// <summary>Visual-only transaction clock. Captured meshes have no Buttons, events, or rule data.</summary>
     public sealed class Art07TransactionMotion : MonoBehaviour
     {
-        private sealed class SnapshotMesh { public RectTransform rect; public CanvasRenderer renderer; public Mesh mesh; public Material material; }
+        private sealed class SnapshotMesh
+        {
+            public RectTransform rect;
+            public CanvasRenderer renderer;
+            public Mesh mesh;
+            public Material material;
+            public bool clipped;
+            public Vector3 localClipMin,localClipMax;
+        }
         private sealed class Track
         {
             public RectTransform rect; public CanvasGroup group; public float alpha, delay, duration; public Vector3 scale, position; public Quaternion rotation;
@@ -24,6 +32,9 @@ namespace DiceCraft.Presentation
         private Action finished;
         private bool reduced, shrinkOld;
         private float oldDuration, timeScale=1;
+        private Vector2 sourceSize,flightStart,flightEnd;
+        private float flightEndScale,flightDuration;
+        private Transform clipCanvas;
         public bool IsPlaying { get; private set; }
         public bool IsPrepared { get; private set; }
         public float Elapsed { get; private set; }
@@ -40,8 +51,9 @@ namespace DiceCraft.Presentation
             var all=actual.SelectMany(r=>r.GetComponentsInChildren<Graphic>(false)).Distinct().ToArray();
             var corners=new Vector3[4];Vector3 low=Vector3.positiveInfinity,high=Vector3.negativeInfinity;
             foreach(var r in actual){r.GetWorldCorners(corners);foreach(var corner in corners){var local=transform.InverseTransformPoint(corner);low=Vector3.Min(low,local);high=Vector3.Max(high,local);}}
+            sourceSize=actual.Length==0?Vector2.zero:(Vector2)(high-low);
             snapshot.anchoredPosition=actual.Length==0?Vector2.zero:(Vector2)((low+high)*.5f);snapshot.localScale=Vector3.one;
-            var canvas=GetComponentInParent<Canvas>().rootCanvas;int count=0;
+            var canvas=GetComponentInParent<Canvas>().rootCanvas;clipCanvas=canvas.transform;int count=0;
             foreach(var g in all)
             {
                 if(!g.isActiveAndEnabled||g.canvasRenderer.cull||g.canvasRenderer.GetInheritedAlpha()<=0)continue;
@@ -68,7 +80,15 @@ namespace DiceCraft.Presentation
                 bool clipped=false;Rect clip=default;
                 foreach(var m in g.GetComponentsInParent<Mask>(false))if(m.isActiveAndEnabled&&m.transform!=g.transform)IntersectClip(m.rectTransform,canvas.transform,ref clipped,ref clip);
                 foreach(var m in g.GetComponentsInParent<RectMask2D>(false))if(m.isActiveAndEnabled&&m.transform!=g.transform)IntersectClip(m.rectTransform,canvas.transform,ref clipped,ref clip);
-                if(clipped)e.renderer.EnableRectClipping(clip);else e.renderer.DisableRectClipping();e.renderer.SetMesh(e.mesh);e.rect.gameObject.SetActive(true);
+                e.clipped=clipped;
+                if(clipped)
+                {
+                    e.renderer.EnableRectClipping(clip);
+                    e.localClipMin=snapshot.InverseTransformPoint(clipCanvas.TransformPoint(clip.min));
+                    e.localClipMax=snapshot.InverseTransformPoint(clipCanvas.TransformPoint(clip.max));
+                }
+                else e.renderer.DisableRectClipping();
+                e.renderer.SetMesh(e.mesh);e.rect.gameObject.SetActive(true);
             }
             CapturedGraphicCount=count;IsPrepared=count>0;snapshotGroup.alpha=0; // Still invisible until a successful committed receipt.
         }
@@ -78,10 +98,10 @@ namespace DiceCraft.Presentation
             if(IsPlaying)throw new InvalidOperationException("A playing transaction cannot become a static backdrop.");
             EnsureSnapshot();snapshot.localScale=Vector3.one;snapshotGroup.alpha=IsPrepared?1:0;
         }
-        public void Begin(string kind,float normalDuration,float oldFade,bool shrink,bool fast,bool reduce,Action onFinished,Action<float> visualTick=null)
+        public void Begin(string kind,float normalDuration,float oldFade,bool shrink,bool fast,bool reduce,Action onFinished,Action<float> visualTick=null,bool halfFast=false)
         {
             if(IsPlaying)Finish();EnsureSnapshot();Kind=kind;Elapsed=0;reduced=reduce;shrinkOld=shrink;
-            Duration=reduce?Math.Min(.12f,normalDuration):fast?Math.Min(.15f,normalDuration):normalDuration;
+            Duration=reduce?Math.Min(.12f,normalDuration):fast?(halfFast?normalDuration*.5f:Math.Min(.15f,normalDuration)):normalDuration;
             timeScale=normalDuration<=0?1:Duration/normalDuration;oldDuration=oldFade*timeScale;finished=onFinished;customTick=visualTick;
             IsPlaying=Duration>0;snapshotGroup.alpha=IsPrepared&&oldDuration>0?1:0;
             Evaluate();if(!IsPlaying)Finish();
@@ -91,6 +111,26 @@ namespace DiceCraft.Presentation
             if(rect==null||tracks.Any(t=>t.rect==rect))return;
             var group=rect.GetComponent<CanvasGroup>();if(group==null)group=rect.gameObject.AddComponent<CanvasGroup>();
             tracks.Add(new Track{rect=rect,group=group,alpha=group.alpha,scale=rect.localScale,position=rect.localPosition,rotation=rect.localRotation,delay=normalDelay*timeScale,duration=Math.Max(.001f,normalDuration*timeScale),flip=flip,rise=rise,expand=expand});Evaluate();
+        }
+        // All positions are in the non-interactive snapshot layer's local coordinates.
+        // The destination is the actual owned card/item control after the committed redraw.
+        public void DeliverTo(RectTransform target,float travel,float arrival)
+        {
+            if(target==null)return;
+            if(!reduced&&IsPrepared&&sourceSize.x>0&&sourceSize.y>0)
+            {
+                var corners=new Vector3[4];target.GetWorldCorners(corners);
+                Vector2 low=transform.InverseTransformPoint(corners[0]),high=low;
+                foreach(var corner in corners)
+                {
+                    Vector2 local=transform.InverseTransformPoint(corner);
+                    low=Vector2.Min(low,local);high=Vector2.Max(high,local);
+                }
+                flightStart=snapshot.anchoredPosition;flightEnd=(low+high)*.5f;
+                flightEndScale=Mathf.Min(1,(high.x-low.x)/sourceSize.x,(high.y-low.y)/sourceSize.y);
+                flightDuration=travel*timeScale;
+            }
+            TrackReveal(target,reduced?0:travel,reduced?travel+arrival:arrival);
         }
         public void HideUntilFinished(RectTransform rect)
         {
@@ -105,6 +145,22 @@ namespace DiceCraft.Presentation
         {
             if(snapshotGroup==null)return;float old=oldDuration<=0?1:Mathf.Clamp01(Elapsed/oldDuration);snapshotGroup.alpha=IsPrepared?1-old:0;
             snapshot.localScale=Vector3.one*(shrinkOld&&!reduced?1-.04f*old:1);
+            if(flightDuration>0)
+            {
+                float t=Mathf.Clamp01(Elapsed/flightDuration);
+                float ease=t*t*(3-2*t);
+                snapshot.anchoredPosition=Vector2.Lerp(flightStart,flightEnd,ease);
+                snapshot.localScale=Vector3.one*Mathf.Lerp(1,flightEndScale,ease);
+                snapshotGroup.alpha=1-Mathf.InverseLerp(flightDuration,Duration,Elapsed);
+                // A CanvasRenderer clips in canvas space. Carry each card's mask along with its mesh.
+                for(int i=0;i<CapturedGraphicCount;i++)
+                {
+                    var entry=meshes[i];if(!entry.clipped)continue;
+                    Vector2 min=clipCanvas.InverseTransformPoint(snapshot.TransformPoint(entry.localClipMin));
+                    Vector2 max=clipCanvas.InverseTransformPoint(snapshot.TransformPoint(entry.localClipMax));
+                    entry.renderer.EnableRectClipping(Rect.MinMaxRect(min.x,min.y,max.x,max.y));
+                }
+            }
             foreach(var t in tracks)
             {
                 if(t.rect==null||t.group==null)continue;if(t.hidden){t.group.alpha=0;continue;}
@@ -123,7 +179,7 @@ namespace DiceCraft.Presentation
         }
         public void DiscardPrepared()
         {
-            if(IsPlaying)return;IsPrepared=false;CapturedGraphicCount=0;
+            if(IsPlaying)return;IsPrepared=false;CapturedGraphicCount=0;flightDuration=0;
             foreach(var item in meshes){item.renderer.Clear();item.rect.gameObject.SetActive(false);}if(snapshotGroup!=null){snapshotGroup.alpha=0;snapshot.localScale=Vector3.one;}
         }
         private void EnsureSnapshot()

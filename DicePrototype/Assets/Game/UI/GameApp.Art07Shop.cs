@@ -133,13 +133,13 @@ namespace DiceCraft
         }
         // v1.1 (G3): the replacement dialog (Art07Replacement) was removed with the replacement rule; an owned card's
         // offer opens the ordinary offer details, which say how many copies you will hold.
-        private void Art07AttachTooltip(UnityEngine.UI.Button button,string owner,string title,string description,string state,Action detail,string more="点击卡片查看完整说明",bool inDialog=false)
+        private void Art07AttachTooltip(Component anchor,string owner,string title,string description,string state,Action detail,string more="点击卡片查看完整说明",bool inDialog=false)
         {
-            var hover=UiKit.Component<Art07HoverTip>(button.gameObject);
+            var hover=UiKit.Component<Art07HoverTip>(anchor.gameObject);
             hover.show=()=>
             {
-                if((modal && (!inDialog || !button.transform.IsChildOf(overlay))) || IsControllerDragging || IsBusy)return;
-                var corners=new Vector3[4];((RectTransform)button.transform).GetWorldCorners(corners);
+                if((modal && (!inDialog || !anchor.transform.IsChildOf(overlay))) || IsControllerDragging || IsBusy)return;
+                var corners=new Vector3[4];((RectTransform)anchor.transform).GetWorldCorners(corners);
                 Vector2 position=ScreenToDesign(RectTransformUtility.WorldToScreenPoint(null,corners[3]));
                 bool besidePool=!inDialog&&!Compact07&&UiKit.FontScale<=1&&ViewState.phase=="Selecting"&&ViewState.dice.Count<=5&&
                     ViewState.dice.Count-ViewState.hand.orderedLockedIds.Count<=3;
@@ -147,8 +147,8 @@ namespace DiceCraft
                 art07TooltipOwner=owner;art07Tooltip=UiKit.Frame(overlay,"ContentTooltip",x,y,420,besidePool?286:390,UiKit.Paper,UiKit.Ink);
                 UiKit.Text(art07Tooltip,"Name",title,16,12,388,52,25,UiKit.Ink);
                 var text=UiKit.Text(art07Tooltip,"Description",description,16,besidePool?64:76,388,besidePool?108:150,20,UiKit.Ink);text.overflowMode=TextOverflowModes.Ellipsis;
-                var stateText=UiKit.Text(art07Tooltip,"State",state,16,besidePool?178:234,388,besidePool?54:88,19,UiKit.Ink);stateText.overflowMode=TextOverflowModes.Ellipsis;
-                if(!string.IsNullOrEmpty(more))UiKit.Text(art07Tooltip,"More",more,16,besidePool?238:334,388,44,18,UiKit.Ink,TextAlignmentOptions.Center);
+                var stateText=UiKit.Text(art07Tooltip,"State",state,16,besidePool?178:234,388,besidePool?54:88,19.5f,UiKit.Ink);stateText.overflowMode=TextOverflowModes.Ellipsis;
+                if(!string.IsNullOrEmpty(more))UiKit.Text(art07Tooltip,"More",more,16,besidePool?238:334,388,44,19.5f,UiKit.Ink,TextAlignmentOptions.Center);
                 UiKit.Component<Art07PanelMotion>(art07Tooltip.gameObject).Enter(.08f,.06f,true,reduced);
             };
             hover.hide=()=>{if(art07TooltipOwner==owner&&art07Tooltip!=null){art07Tooltip.gameObject.SetActive(false);art07TooltipOwner=null;}};

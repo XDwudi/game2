@@ -74,13 +74,43 @@ namespace DiceCraft
             // v1.1 (W09): the display by its number, not the system device name (e.g. \\.\DISPLAY1).
             UiKit.Button(p,"Monitor","显示器 "+(index+1)+" · "+selected.width+" × "+selected.height+"  >",40,196,1500,60,()=>{var d=displays[(index+1)%displays.Count];displayDraft=DisplayPreferences.Choice(d,displayDraft.mode,d.width,d.height);ShowDisplaySettings();},displays.Count>1);
             var modes=new[]{DisplaySettings.PlatformFullscreen,FullScreenMode.FullScreenWindow,FullScreenMode.Windowed};
-            for(int i=0;i<3;i++){var mode=modes[i];UiKit.Button(p,"Mode"+i,DisplaySettings.ModeName(mode),40+i*510,280,480,60,()=>{var sizes=DisplayPreferences.Resolutions(selected,mode);var size=mode==FullScreenMode.Windowed?DisplaySettings.AutomaticWindow(selected.workArea):new Vector2Int(selected.width,selected.height);if(sizes.Length>0&&!sizes.Contains(size))size=sizes.Last();displayDraft=DisplayPreferences.Choice(selected,mode,size.x,size.y);ShowDisplaySettings();},true,displayDraft.mode==mode);}
+            for (int i = 0; i < modes.Length; i++)
+            {
+                var mode = modes[i];
+                var button = UiKit.Button(p, "Mode" + i, DisplaySettings.ModeName(mode), 40 + i * 510, 280, 480, 60, () =>
+                {
+                    var sizes = DisplayPreferences.Resolutions(selected, mode);
+                    var size = mode == FullScreenMode.Windowed ? DisplaySettings.AutomaticWindow(selected.workArea)
+                        : new Vector2Int(selected.width, selected.height);
+                    if (sizes.Length > 0 && !sizes.Contains(size)) size = sizes.Last();
+                    displayDraft = DisplayPreferences.Choice(selected, mode, size.x, size.y);
+                    ShowDisplaySettings();
+                });
+                if (displayDraft.mode == mode) MarkDisplayChoice16(button);
+            }
             var resolutions=DisplayPreferences.Resolutions(selected,displayDraft.mode);
             var list=UiKit.Scroll(p,"ResolutionList",40,365,1500,216,Math.Max(216,((resolutions.Length+3)/4)*72));
-            for(int i=0;i<resolutions.Length;i++){var size=resolutions[i];UiKit.Button(list,"Resolution"+i,size.x+" × "+size.y,(i%4)*370,(i/4)*72,350,60,()=>{displayDraft=DisplayPreferences.Choice(selected,displayDraft.mode,size.x,size.y);ShowDisplaySettings();},true,displayDraft.width==size.x&&displayDraft.height==size.y);}
+            for (int i = 0; i < resolutions.Length; i++)
+            {
+                var size = resolutions[i];
+                var button = UiKit.Button(list, "Resolution" + i, size.x + " × " + size.y,
+                    (i % 4) * 370, (i / 4) * 72, 350, 60, () =>
+                {
+                    displayDraft = DisplayPreferences.Choice(selected, displayDraft.mode, size.x, size.y);
+                    ShowDisplaySettings();
+                });
+                if (displayDraft.width == size.x && displayDraft.height == size.y) MarkDisplayChoice16(button);
+            }
             UiKit.Button(p,"AutomaticResolution","自动适配当前屏幕",40,596,725,64,()=>{var d=Screen.mainWindowDisplayInfo;var size=displayDraft.mode==FullScreenMode.Windowed?DisplaySettings.AutomaticWindow(d.workArea):new Vector2Int(d.width,d.height);displayDraft=DisplayPreferences.Choice(d,displayDraft.mode,size.x,size.y);ShowDisplaySettings();});
             Primary16(p,"ApplyDisplay","应用 · 15秒确认",815,596,725,64,()=>{DisplayPreferences.Apply(displayDraft);ShowDisplaySettings();},!DisplayPreferences.IsTransitioning);
             UiKit.Text(p,"DisplayHelp","窗口模式可以拖动边框调整大小。应用后要在 15 秒内确认，否则恢复原设置。",40,680,1500,64,23,LabelOn11(p,UiKit.Muted));
+        }
+
+        private static void MarkDisplayChoice16(UnityEngine.UI.Button button)
+        {
+            var face = (UnityEngine.UI.Image)button.targetGraphic;
+            UiKit.Box(face.transform, "SelectedDisplayChoice16", 14, 10, 6, face.rectTransform.rect.height - 20,
+                CueOn11(face, UiKit.Gold));
         }
     }
 }

@@ -117,8 +117,23 @@ namespace DiceCraft.Tests
             while(app.PresentationPlaying07&&app.RevealedOwnerIds07.Length<2&&Time.realtimeSinceStartupAsDouble<limit)yield return null;
             CollectionAssert.AreEquivalent(scene.controllers.Skip(1).Select(c=>c.instanceId),app.RevealedOwnerIds07);
             Assert.That(LiveFx07("fx_random_reveal"),Is.Empty,"Multiple owners use a static list, not one misleading wheel.");
-            Assert.That(app.CommittedPresentationDetails07.Count(x=>x.StartsWith("错乱乘积 ×",StringComparison.Ordinal)),Is.EqualTo(2));
-            Assert.That(string.Join("\n",app.CommittedPresentationDetails07),Does.Contain("×0.5").And.Contain("×5"));
+            // C53 multiplication steps and randomness share the same player-facing name.
+            // The committed reveals alone identify an owner, its linked copy and the drawn value.
+            var player=(PresentationPlayer)typeof(GameApp).GetField("presentationPlayer07",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic).GetValue(app);
+            var reveals=player.Sequence.Receipt.Events.Where(e=>e.EffectFamily=="random_reveal").ToArray();
+            CollectionAssert.AreEquivalent(scene.controllers.Skip(1).Select(c=>c.instanceId),reveals.Select(e=>e.StateOwnerId));
+            foreach(var reveal in reveals)
+            {
+                bool shared=reveal.StateOwnerId==scene.controllers[1].instanceId;
+                var sources=shared?scene.controllers.Take(2):scene.controllers.Skip(2);
+                CollectionAssert.AreEquivalent(sources.Select(c=>c.instanceId),reveal.SourceEmitterIds);
+                string names=string.Join("、",reveal.SourceEmitterIds.Select(id=>{
+                    int i=scene.controllers.FindIndex(c=>c.instanceId==id);
+                    return "#"+(i+1)+" "+app.Config.Controller(scene.controllers[i].definitionId).displayName;
+                }));
+                Assert.That(app.CommittedPresentationDetails07[reveal.EventOrdinal],Is.EqualTo(
+                    "错乱乘积 "+(shared?"×0.5":"×5")+" · 来源："+names));
+            }
             string hash=GameSession.StateHash(app.Session.State);byte[] save=File.ReadAllBytes(app.SaveLocation);
             app.ShowCommittedPresentationDetails07();yield return null;
             var rows=app.canvas.GetComponentsInChildren<TextMeshProUGUI>(true).Where(t=>t.gameObject.activeInHierarchy&&t.name.StartsWith("Event",StringComparison.Ordinal)).ToArray();

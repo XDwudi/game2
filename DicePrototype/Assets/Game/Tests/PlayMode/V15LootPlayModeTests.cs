@@ -2,6 +2,7 @@ using System.Collections;
 using System.IO;
 using System.Linq;
 using DiceCraft.Core;
+using DiceCraft.Presentation;
 using TMPro;
 using NUnit.Framework;
 using UnityEngine;
@@ -178,6 +179,157 @@ namespace DiceCraft.Tests
                 }
                 app.Refresh();Assert.That(app.LootRevealPlaying15,Is.False);
                 Assert.That(app.Session.ActionSequence,Is.EqualTo(seq));CollectionAssert.AreEqual(disk,File.ReadAllBytes(app.SaveLocation));
+            }
+        }
+
+        private static Vector2 LootCenter15(RectTransform rect) =>
+            RectTransformUtility.WorldToScreenPoint(null,rect.TransformPoint(rect.rect.center));
+
+        [UnityTest, Timeout(120000)] public IEnumerator PLAY_V15_SE11_CashOutCoinsStartOnButtonAndReachWallet()
+        {
+            foreach(string mode in new[]{"Normal","Fast","Reduced","Instant"})
+            {
+                yield return LoadBoundaryFixture(BeforeBossLoot15("L6"));ResumeBoundaryFixture();
+                FinalOptions07("Instant",false);
+                yield return new WaitForSecondsRealtime(.31f);yield return ShopEntranceFrame07();
+                ShopEntrancePointer07("SettlementContinue");FinalOptions07(mode=="Reduced"?"Normal":mode,mode=="Reduced");
+                yield return new WaitForSecondsRealtime(.31f);yield return ShopEntranceFrame07();
+                var from=LootCenter15(TransactionRect07("LootCashOut15"));long gold=app.Session.State.gold,seq=app.Session.ActionSequence;
+                ShopEntrancePointer07("LootCashOut15");
+                Assert.That(app.Session.State.gold-gold,Is.EqualTo(app.Config.lootGoldValue));
+                Assert.That(app.Session.ActionSequence,Is.EqualTo(seq+1));
+                var bytes=File.ReadAllBytes(app.SaveLocation);
+                app.enabled=false;
+                try
+                {
+                    var motion=app.canvas.transform.Find("Art07TransactionMotion").GetComponent<Art07TransactionMotion>();
+                    var coins=motion.transform.Find("CommittedTransactionView").GetComponentsInChildren<RectTransform>(true)
+                        .Where(r=>r.name.StartsWith("LootCoin15_")).OrderBy(r=>r.name).ToArray();
+                    bool flies=mode=="Normal"||mode=="Fast";
+                    Assert.That(coins.Length,Is.EqualTo(flies?5:0),mode);
+                    Assert.That(motion.IsPlaying,Is.EqualTo(mode!="Instant"));
+                    if(flies)
+                    {
+                        float scale=mode=="Fast"?.5f:1;
+                        Assert.That(motion.Duration,Is.EqualTo(.34f*scale).Within(.001f));
+                        Assert.That(Vector2.Distance(LootCenter15(coins[0]),from),Is.LessThan(2));
+                        var to=LootCenter15(TransactionRect07("MoneyHover14"));
+                        motion.Tick(.12f*scale,false);
+                        Assert.That(coins.Count(c=>c.gameObject.activeInHierarchy),Is.EqualTo(5));
+                        Assert.That(Vector2.Distance(LootCenter15(coins[0]),from),Is.GreaterThan(10));
+                        Assert.That(Vector2.Distance(LootCenter15(coins[0]),to),Is.GreaterThan(10));
+                        if(mode=="Normal")yield return LootDeliveryPhoto15("cash-five-coins");
+                        motion.Tick(.121f*scale,false);
+                        Assert.That(coins[0].gameObject.activeSelf,Is.False);
+                        Assert.That(Vector2.Distance(LootCenter15(coins[0]),to),Is.LessThan(2));
+                    }
+                    else if(mode=="Reduced")Assert.That(motion.Duration,Is.EqualTo(.12f).Within(.001f));
+                    if(motion.IsPlaying)motion.Tick(1,false);
+                    Assert.That(app.Session.ActionSequence,Is.EqualTo(seq+1));
+                    CollectionAssert.AreEqual(bytes,File.ReadAllBytes(app.SaveLocation));
+                }
+                finally {app.enabled=true;}
+            }
+        }
+
+        private IEnumerator LootDeliveryPhoto15(string name)
+        {
+            yield return new WaitForEndOfFrame();
+            var dir=Path.GetFullPath(Path.Combine(Application.dataPath,"..","..","artifacts","cache","v11","w15","delivery",Screen.width+"x"+Screen.height));
+            Directory.CreateDirectory(dir);
+            var image=ScreenCapture.CaptureScreenshotAsTexture();
+            try {File.WriteAllBytes(Path.Combine(dir,name+".png"),image.EncodeToPNG());}
+            finally {Object.Destroy(image);}
+        }
+
+        [UnityTest, Timeout(240000)] public IEnumerator PLAY_V15_SE11_LootDeliveryUsesCommittedInstanceAndRealDestination()
+        {
+            foreach(string kind in new[]{"L1","L6","L5"})
+            foreach(string mode in new[]{"Normal","Fast","Reduced","Instant","Skip"})
+            {
+                yield return LoadBoundaryFixture(BeforeBossLoot15(kind));ResumeBoundaryFixture();
+                FinalOptions07("Instant",false);
+                yield return new WaitForSecondsRealtime(.31f);yield return ShopEntranceFrame07();
+                ShopEntrancePointer07("SettlementContinue");
+                FinalOptions07(mode=="Reduced"||mode=="Skip"?"Normal":mode,mode=="Reduced");
+                yield return new WaitForSecondsRealtime(.31f);yield return ShopEntranceFrame07();
+                var before=app.Session.State;long seq=app.Session.ActionSequence;
+                var offer=before.shop.offers.First(o=>o.groupId=="LOOT"&&o.category!="gold"&&Button("Buy_"+o.offerId).IsInteractable());
+                string prefix=kind=="L1"?"Offer_":"Product_";
+                var origin=LootCenter15(TransactionRect07(prefix+offer.offerId));
+                ShopEntrancePointer07("Buy_"+offer.offerId);
+                Assert.That(app.Session.ActionSequence,Is.EqualTo(seq+1),kind+" "+mode);
+                var committed=app.Session.State;string hash=GameSession.StateHash(committed);var disk=File.ReadAllBytes(app.SaveLocation);
+                string dieId=kind=="L5"?committed.dice.Single(d=>before.dice.All(p=>p.dieId!=d.dieId)).dieId:null;
+                string destination=kind=="L1"?"Controller_"+committed.controllers.Single(c=>before.controllers.All(p=>p.instanceId!=c.instanceId)).instanceId:
+                    kind=="L6"?"ShopItem_"+committed.inventory.Single(c=>before.inventory.All(p=>p.instanceId!=c.instanceId)).instanceId:"OwnedDie_"+dieId;
+                var owned=TransactionRect07(destination);
+                Assert.That(owned.IsChildOf(TransactionRect07(kind=="L5"?"OwnedStrip":"Build14")),Is.True,destination);
+                var end=LootCenter15(owned);
+                Assert.That(new Rect(0,0,Screen.width,Screen.height).Contains(end),Is.True,destination);
+                Assert.That(app.TransactionVisualPlaying07,Is.EqualTo(mode!="Instant"),mode);
+                var motion=app.canvas.transform.Find("Art07TransactionMotion").GetComponent<Art07TransactionMotion>();
+                // Freeze the host's Update only; the renderer and real pointer route keep running.
+                // Sampling the production clock avoids slow screenshot readbacks changing phase.
+                app.enabled=false;
+                try
+                {
+                    if(mode!="Instant")
+                    {
+                        float duration=mode=="Reduced"?.12f:mode=="Fast"?.25f:.50f;
+                        Assert.That(motion.Duration,Is.EqualTo(duration).Within(.001f),mode);
+                        Assert.That(motion.AnimatedTargets,Does.Contain(destination));Assert.That(motion.CapturedGraphicCount,Is.GreaterThan(0));
+                        var shot=(RectTransform)motion.transform.Find("CommittedOldMeshes");var alpha=shot.GetComponent<CanvasGroup>();
+                        Assert.That(alpha.blocksRaycasts||alpha.interactable,Is.False);
+                        Assert.That(Vector2.Distance(LootCenter15(shot),origin),Is.LessThan(2),kind+" origin");
+                        Assert.That(owned.GetComponent<CanvasGroup>().alpha,Is.Zero);
+                        if(mode=="Reduced")
+                        {
+                            motion.Tick(.06f,false);
+                            Assert.That(Vector2.Distance(LootCenter15(shot),origin),Is.LessThan(2));
+                            Assert.That(shot.localScale,Is.EqualTo(Vector3.one));
+                            Assert.That(owned.GetComponent<CanvasGroup>().alpha,Is.EqualTo(.5f).Within(.03f));
+                        }
+                        else if(kind!="L5")
+                        {
+                            float halfTravel=mode=="Fast"?.085f:.17f;
+                            motion.Tick(halfTravel,false);
+                            Assert.That(Vector2.Distance(LootCenter15(shot),Vector2.Lerp(origin,end,.5f)),Is.LessThan(2),kind+" in flight");
+                            Assert.That(alpha.alpha,Is.EqualTo(1));Assert.That(shot.localScale.x,Is.LessThan(1));
+                            Assert.That(owned.GetComponent<CanvasGroup>().alpha,Is.Zero);
+                            if(mode=="Normal")yield return LootDeliveryPhoto15(kind+"-in-flight");
+                            if(mode!="Skip")
+                            {
+                                motion.Tick(halfTravel,false);
+                                Assert.That(Vector2.Distance(LootCenter15(shot),end),Is.LessThan(2),kind+" arrival");
+                                Assert.That(alpha.alpha,Is.EqualTo(1).Within(.001f));
+                                if(mode=="Normal")yield return LootDeliveryPhoto15(kind+"-arrival");
+                            }
+                        }
+                        else
+                        {
+                            motion.Tick(duration*.5f,false);
+                            Assert.That(owned.GetComponent<CanvasGroup>().alpha,Is.Zero);
+                            Assert.That(HasActive("AcquiredInstance07"),Is.False,"The die belongs in the real OwnedStrip.");
+                        }
+                        if(mode=="Skip")app.SkipVisual();else motion.Tick(duration+1,false);
+                    }
+                    Assert.That(motion.IsPlaying,Is.False);Assert.That(app.Session.Busy,Is.False);
+                    yield return ShopEntranceFrame07();
+                    owned=TransactionRect07(destination);Assert.That(Vector2.Distance(LootCenter15(owned),end),Is.LessThan(2));
+                    Assert.That(owned.GetComponentsInParent<CanvasGroup>().All(g=>g.alpha>=.999f),Is.True);
+                    if(kind=="L5")
+                    {
+                        var view=owned.GetComponent<Art073DieView>();
+                        Assert.That(view.IsShown,Is.True);
+                        Assert.That(app.UiDice073.GetFaceOrientation("$static-preview:owned-"+dieId)?.gameObject.activeInHierarchy,Is.True);
+                    }
+                    if(mode=="Normal")yield return LootDeliveryPhoto15(kind+"-settled");
+                    Assert.That(app.Session.ActionSequence,Is.EqualTo(seq+1));
+                    Assert.That(GameSession.StateHash(app.Session.State),Is.EqualTo(hash));
+                    CollectionAssert.AreEqual(disk,File.ReadAllBytes(app.SaveLocation));
+                }
+                finally {app.enabled=true;}
             }
         }
     }

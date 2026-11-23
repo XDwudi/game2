@@ -74,7 +74,7 @@ namespace DiceCraft.Tests
             Assert.That(StateJson(),Is.EqualTo(state));Assert.That(app.Session.ActionSequence,Is.EqualTo(sequence));CollectionAssert.AreEqual(disk,File.ReadAllBytes(app.SaveLocation));
             // UI-only diagnostic text exercises the ordinary-error transport. It
             // must remain a toast until the player explicitly requests the full copy.
-            const string longText="输入不合法：完整诊断说明包含本次操作的对象、目标、范围和失败原因，所有内容必须保留供玩家阅读，不能省略或缩小字号。";
+            const string longText="这个操作暂不可用：完整诊断说明包含本次操作的对象、目标、范围和失败原因，所有内容必须保留供玩家阅读，不能省略或缩小字号。";
             foreach(bool reduce in new[]{false,true})
             {
                 if(PlayerPrefs.GetInt("reduced",0)!=(reduce?1:0))
@@ -102,7 +102,7 @@ namespace DiceCraft.Tests
             queue.Invoke(app,new object[]{"",false});queue.Invoke(app,new object[]{complete,true});app.Refresh();yield return null;
             Assert.That(HasActive("Dialog"),Is.False,"An ordinary long reason must never open a modal automatically.");
             Assert.That(HasActive("NoticeDetailBody"),Is.False);
-            var summary=ToastLabels07().Single();Assert.That(summary.text,Does.StartWith("输入不合法："));Assert.That(summary.text,Does.EndWith("…"),"Shortening is explicit beside a full-text affordance.");
+            var summary=ToastLabels07().Single();Assert.That(summary.text,Does.StartWith("这个操作暂不可用："));Assert.That(summary.text,Does.EndWith("…"),"Shortening is explicit beside a full-text affordance.");
             Assert.That(summary.fontSize,Is.EqualTo(20*UiKit.FontScale));ToastBounds07(summary,diagnostic);
             var details=Button("ToastDetails07");Rect hit=V06ScreenRect((RectTransform)details.transform);
             Assert.That(hit.width,Is.GreaterThanOrEqualTo(39.99f));Assert.That(hit.height,Is.GreaterThanOrEqualTo(39.99f));

@@ -139,6 +139,29 @@ namespace DiceCraft.Tests
             finally {UnityEngine.Object.Destroy(texture);}
         }
 
+        [UnityTest] public IEnumerator PLAY_V15_SE11_ReloadDuringBossEntranceKeepsCommittedStage()
+        {
+            var shop = ShopAfterStage10(1);
+            shop.cycles[0].modifierId = "B25";
+            yield return W14Load(shop);
+            Click("LeaveShop");
+            yield return WaitForIdle();
+            Click("StartStage");
+            var motion = app.GetComponent<BossEntryMotion15>();
+            Assert.That(motion.Playing, Is.True);
+            motion.AutomaticTick = false;
+            var state = ExtraStateHash07();
+            string savePath = app.SaveLocation, save = ExtraFileHash07(savePath);
+
+            yield return LoadBootstrap();
+            Assert.That(motion == null, Is.True);
+            ResumeBoundaryFixture();
+            Assert.That(app.BossEntryPlaying15, Is.False);
+            Assert.That(app.Session.State.phase, Is.EqualTo("HandReady"));
+            Assert.That(ExtraStateHash07(), Is.EqualTo(state));
+            Assert.That(ExtraFileHash07(savePath), Is.EqualTo(save));
+        }
+
         [UnityTest] public IEnumerator PLAY_V15_SE11_BossEntranceRealStartAndSpeeds()
         {
             foreach(string mode in new[]{"standard","fast","reduced","instant"})

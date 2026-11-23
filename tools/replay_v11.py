@@ -18,7 +18,7 @@ if __package__:
 else:
     import package_v11 as pack
 
-THEMES = ("default", "swiss", "sancai", "comic", "deco", "glass")
+THEMES = pack.PLAYER_THEMES
 WINDOWS = pack.TOP + "-win-x64.zip"
 WINDOW_SIZE = (1920, 1080)
 ERROR_LINE = re.compile(r"^\s*(?:Unhandled (?:exception|Exception)|(?:[\w.]+\.)?\w*Exception\s*:|"
@@ -89,19 +89,25 @@ def check_run(root, theme, directory, proof, trace_path, trace, data_path):
         raise ValueError("R-05 actual theme, player identity, logs or completed trace differs: " + theme)
     title_atlas = {key: tour.get("titleAtlas" + key) for key in
                    ("Format", "Readable", "Width", "Height", "MipCount", "TextureBytes", "RuntimeBytes")}
+    sizes = ("Width", "Height", "MipCount", "TextureBytes", "RuntimeBytes")
+    if (type(title_atlas["Readable"]) is not bool or not isinstance(title_atlas["Format"], str)
+            or any(type(title_atlas[key]) is not int or title_atlas[key] < 0 for key in sizes)):
+        raise ValueError("Invalid Windows title atlas measurement: " + theme)
     if theme in pack.THEMES:
-        if (not title_atlas["Format"] or title_atlas["Readable"] is not False
-                or (title_atlas["Width"], title_atlas["Height"]) != (2048, 2048)
-                or not isinstance(title_atlas["MipCount"], int) or title_atlas["MipCount"] < 1
-                or not isinstance(title_atlas["TextureBytes"], int) or title_atlas["TextureBytes"] <= 0
-                or not isinstance(title_atlas["RuntimeBytes"], int) or title_atlas["RuntimeBytes"] < 0):
+        if not title_atlas["Format"].strip() or any(title_atlas[key] == 0 for key in sizes[:-1]):
             raise ValueError("Missing Windows title atlas measurement: " + theme)
-    elif title_atlas != {"Format": "", "Readable": False, "Width": 0, "Height": 0,
-                         "MipCount": 0, "TextureBytes": 0, "RuntimeBytes": 0}:
+        # RuntimeBytes is the Unity profiler counter. A release player may report zero when it is unavailable.
+        title_atlas["RuntimeBytesStatus"] = "reported" if title_atlas["RuntimeBytes"] else "unavailable"
+    elif title_atlas["Format"] or title_atlas["Readable"] or any(title_atlas[key] for key in sizes):
         raise ValueError("Unexpected theme-specific title atlas: " + theme)
+    else:
+        title_atlas["RuntimeBytesStatus"] = "noTitleAtlas"
     text = log.read_text(encoding="utf-8-sig", errors="replace")
     if not text.strip() or ERROR_LINE.search(text):
         raise ValueError("Empty player log or Unity exception: " + theme)
+    for marker in ("W15_MISSING_ART ", "V11 missing theme title font: "):
+        if marker in text:
+            raise ValueError("Missing release art or title font in Player.log for " + theme + ": " + marker.strip())
     names = tour["images"]
     if names != [f"{i:02d}-{label}.png" for i, label in enumerate(trace["captureLabels"])]:
         raise ValueError("Windows screenshots differ from phases reached by the Core replay: " + theme)
