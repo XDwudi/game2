@@ -298,6 +298,99 @@ namespace DiceCraft.Tests
             }
         }
 
+        private DebugScene BossReceiptScene15(bool final,bool exhausted)
+        {
+            var scene=W11Scene(new[]{"C95","C133"},new[]{4,4,4,4,2},"bbbbb",5,true,
+                stageIndex:final?app.Config.stages.Length-1:2,modifier:final?"B31":"B02",target:"1");
+            scene.remainingSubmissions=1;
+            if(exhausted)foreach(var die in scene.dice)die.lifetime="stage_temporary";
+            return scene;
+        }
+
+        [UnityTest,Timeout(120000)]
+        public IEnumerator PLAY_V15_SE17_BossReceiptScreens([ValueSource(nameof(LootStyles24))] string theme)
+        {
+            Assert.That(Screen.width==1920&&Screen.height==1080||Screen.width==1280&&Screen.height==720,Is.True);
+            StartRun("11517");
+            bool enabled=app.enabled,clean=GameApp.CleanCapture11;
+            string oldTheme=app.ThemeId11;int oldScale=Mathf.RoundToInt(UiKit.FontScale*100);
+            var report=new List<string>{IdentityHead20X()+" | Unity "+Application.unityVersion+" | "+Screen.width+"x"+Screen.height};
+            try
+            {
+                // Drive the actual receipt clock so PNG readback cannot advance past its stamp or card flip.
+                app.enabled=false;GameApp.CleanCapture11=true;
+                SettlementField07("fast",false);SettlementField07("reduced",false);SettlementField07("instant07",false);
+                app.ApplyTheme11(theme);
+                foreach(int scale in new[]{100,150})
+                foreach(string kind in new[]{"boss-mid","final","exhausted"})
+                {
+                    bool final=kind=="final",exhausted=kind=="exhausted";
+                    W11TextScale(scale);W11Apply(BossReceiptScene15(final,exhausted));
+                    yield return ShopEntranceFrame07();
+                    Assert.That(app.ThemeId11,Is.EqualTo(theme));Assert.That(UiKit.FontScale,Is.EqualTo(scale/100f).Within(.001f));
+                    long sequence=app.Session.ActionSequence;
+                    ShopEntrancePointer07("Submit");
+                    var committed=app.Session.State;
+                    Assert.That(committed.actionSequence,Is.EqualTo(sequence+1));
+                    Assert.That(committed.phase,Is.EqualTo("StageSettlement"));
+                    Assert.That(committed.lastStageSettlement.stageKind,Is.EqualTo("boss"));
+                    string branch=final?"RunWon":exhausted?"RunFailed":"Shop";
+                    Assert.That(committed.stage.settlementContinuation,Is.EqualTo(branch));
+                    Assert.That(committed.stage.stageIndex,Is.EqualTo(final?app.Config.stages.Length-1:2));
+                    if(exhausted)
+                    {
+                        Assert.That(committed.dice,Is.Empty);
+                        Assert.That(committed.failureReason,Is.EqualTo("NoPermanentDice"));
+                        Assert.That(committed.lastEffects.Any(e=>e.kind=="TemporaryDieExpired"),Is.True);
+                    }
+                    var bytes=File.ReadAllBytes(app.SaveLocation);
+                    app.SkipVisual();
+                    var clock=app.GetComponent<Art07SettlementReveal>();
+                    Assert.That(clock.IsPlaying,Is.True,kind);
+                    string tag=theme+"-font"+scale;
+                    if(kind=="boss-mid")
+                    {
+                        SettlementTick07(.35f);
+                        var stamp=FindActive<RectTransform>("BossDefeated15");
+                        Assert.That(clock.Elapsed,Is.EqualTo(.35f).Within(.001f));
+                        Assert.That(stamp.GetComponent<CanvasGroup>().alpha,Is.EqualTo(1));
+                        Assert.That(stamp.localScale.x,Is.GreaterThan(1.001f));
+                        Assert.That(HasActive("LootBack15")&&HasActive("SkipSettlementReveal07"),Is.True);
+                        Assert.That(HasActive("SettlementContinue"),Is.False);
+                        yield return WriteReceiptShot15(tag+"-boss-mid");
+                        SettlementTick07(.90f);
+                        var front=FindActive<RectTransform>("LootFront15");
+                        Assert.That(clock.IsPlaying&&HasActive("SkipSettlementReveal07"),Is.True);
+                        Assert.That(HasActive("LootBack15"),Is.False);
+                        Assert.That(front.localScale.x,Is.InRange(.1f,.9f));
+                        yield return WriteReceiptShot15(tag+"-boss-flip");
+                        report.Add(tag+" boss-mid at 0.35s (stamp and card back); boss-flip at 1.25s (turning card front)");
+                        SettlementTick07(2);
+                    }
+                    else
+                    {
+                        SettlementTick07(2);Assert.That(clock.IsPlaying,Is.False);
+                        Assert.That(HasActive("LootFront15")||HasActive("LootBack15"),Is.False);
+                        Assert.That(InformationButton07("SettlementContinue"),Is.EqualTo(final?"查看整局结果":"查看结果"));
+                        if(final)Assert.That(InformationText07("FinalBossNote15"),Is.EqualTo("终局首领 · 通关即胜利"));
+                        else Assert.That(InformationText07("SettleNote15"),Does.Contain("没有骰子"));
+                        yield return WriteReceiptShot15(tag+"-"+kind);
+                        report.Add(tag+" "+kind+" stage="+(committed.stage.stageIndex+1)+" remaining dice="+committed.dice.Count+" continuation="+branch);
+                    }
+                    Assert.That(app.Session.ActionSequence,Is.EqualTo(sequence+1));
+                    CollectionAssert.AreEqual(bytes,File.ReadAllBytes(app.SaveLocation));
+                    yield return ShopEntranceFrame07();ShopEntrancePointer07("SettlementContinue");
+                    Assert.That(app.Session.State.phase,Is.EqualTo(branch));
+                }
+            }
+            finally
+            {
+                Directory.CreateDirectory(ReceiptOutput15);
+                File.WriteAllLines(Path.Combine(ReceiptOutput15,theme+"-se17-captures.txt"),report);
+                app.enabled=enabled;GameApp.CleanCapture11=clean;app.ApplyTheme11(oldTheme);W11TextScale(oldScale);
+            }
+        }
+
         [UnityTest] public IEnumerator PLAY_V15_SE_BossStampFlipFinalOrExhaustedAndSavedWallet()
         {
             StartRun("11502");bool enabled=app.enabled;app.enabled=false;
@@ -307,9 +400,7 @@ namespace DiceCraft.Tests
                 {
                     bool final=mode=="final",exhausted=mode=="exhausted";
                     SettlementField07("reduced",mode=="reduced");SettlementField07("fast",mode=="fast");SettlementField07("instant07",mode=="instant");
-                    var scene=W11Scene(new[]{"C95","C133"},new[]{4,4,4,4,2},"bbbbb",5,true,stageIndex:final?app.Config.stages.Length-1:2,modifier:final?"B31":"B02",target:"1");
-                    scene.remainingSubmissions=1;if(exhausted)foreach(var die in scene.dice)die.lifetime="stage_temporary";
-                    W11Apply(scene);Assert.That(app.Send(new SessionCommand{kind=CommandKind.Submit}).accepted,Is.True);
+                    W11Apply(BossReceiptScene15(final,exhausted));Assert.That(app.Send(new SessionCommand{kind=CommandKind.Submit}).accepted,Is.True);
                     app.SkipVisual();
                     Assert.That(app.Session.State.phase,Is.EqualTo("StageSettlement"));
                     var motion=app.GetComponent<Art07SettlementReveal>();
