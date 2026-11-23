@@ -238,6 +238,10 @@ namespace DiceCraft.Verification
         private IEnumerator Capture(string label, Action<string> onCaptured=null)
         {
             yield return new WaitForEndOfFrame();
+            CaptureRenderedFrame(label,onCaptured);
+        }
+        private void CaptureRenderedFrame(string label,Action<string> onCaptured)
+        {
             string name=report.images.Count.ToString("00",CultureInfo.InvariantCulture)+"-"+label+".png";
             var shot=ScreenCapture.CaptureScreenshotAsTexture();
             try{File.WriteAllBytes(Path.Combine(directory,name),shot.EncodeToPNG());}

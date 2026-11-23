@@ -247,13 +247,7 @@ namespace DiceCraft.Verification
                 measured.stepsSent=i;
                 if(kind==CommandKind.Submit&&seen.Add("play-scoring"))
                 {
-                    // Capture before Settle consumes the real committed scoring presentation. The
-                    // same live receipt and its Skip control must still be on screen after end-of-frame.
-                    double until=Time.realtimeSinceStartupAsDouble+3;
-                    while(!app.PresentationPlaying07&&Time.realtimeSinceStartupAsDouble<until)yield return null;
-                    if(!app.PresentationPlaying07)throw new InvalidOperationException("No live scoring presentation after Submit.");
-                    yield return CaptureReleaseControl(app,"play-scoring","Skip");
-                    if(!app.PresentationPlaying07)throw new InvalidOperationException("Scoring ended before the capture was verified.");
+                    yield return CaptureReleaseScoring(app,app.Session.State.lastSubmission?.snapshot?.handId,measured.isEditor);
                 }
                 yield return Settle(app);
                 if(app.IsBusy||app.table.IsRolling)throw new TimeoutException("Presentation still busy at step "+i);
@@ -421,18 +415,85 @@ namespace DiceCraft.Verification
 
         private static UnityEngine.EventSystems.PointerEventData ReleasePointer(GameApp app,string name,out UnityEngine.UI.Button button)
         {
+            if(!TryReleasePointer(app,name,out button,out var pointer,out string hit))
+                throw new InvalidOperationException("Release control is not the foreground pointer target: "+hit);
+            return pointer;
+        }
+
+        private static bool TryReleasePointer(GameApp app,string name,out UnityEngine.UI.Button button,
+            out UnityEngine.EventSystems.PointerEventData pointer,out string hit)
+        {
             Canvas.ForceUpdateCanvases();
             button=ReleaseButton(app,name);
             var rect=(RectTransform)button.transform;
             var events=UnityEngine.EventSystems.EventSystem.current;
             if(events==null)throw new InvalidOperationException("No player EventSystem: "+name);
-            var pointer=new UnityEngine.EventSystems.PointerEventData(events)
+            pointer=new UnityEngine.EventSystems.PointerEventData(events)
             {position=RectTransformUtility.WorldToScreenPoint(null,rect.TransformPoint(rect.rect.center))};
             var hits=new List<UnityEngine.EventSystems.RaycastResult>();
             events.RaycastAll(pointer,hits);
-            if(hits.Count==0||hits[0].gameObject.GetComponentInParent<UnityEngine.UI.Button>()!=button)
-                throw new InvalidOperationException("Release control is not the foreground pointer target: "+name);
-            return pointer;
+            string PathOf(Transform node)
+            {
+                var parts=new Stack<string>();
+                for(;node!=null;node=node.parent)parts.Push(node.name);
+                return string.Join("/",parts);
+            }
+            var graphic=button.GetComponent<UnityEngine.UI.Graphic>();
+            string graphicState=graphic==null?"none":$"depth={graphic.depth}, culled={graphic.canvasRenderer.cull}, raycast={graphic.raycastTarget}";
+            hit=$"frame={Time.frameCount} window={Screen.width}x{Screen.height} center={pointer.position:F1} target={PathOf(rect)} "
+                +$"rootGraphic({graphicState}) "
+                +"hits(front first)="+string.Join(" | ",hits.ConvertAll(h=>PathOf(h.gameObject.transform)));
+            if(hits.Count==0)hit+="<none>";
+            return hits.Count>0&&hits[0].gameObject.GetComponentInParent<UnityEngine.UI.Button>()==button;
+        }
+
+        private IEnumerator CaptureReleaseScoring(GameApp app,string handId,bool exerciseSkip)
+        {
+            bool Live()=>!string.IsNullOrEmpty(handId)&&app.PresentationPlaying07&&app.HasCommittedPresentationDetails07(handId);
+            if(!Live())throw new InvalidOperationException("Submit did not start its committed scoring receipt: "+handId);
+            var readings=new List<string>();
+            string readingsPath=Path.Combine(directory,"play-scoring-pointer.txt");
+            TryReleasePointer(app,"Skip",out _,out _,out string initial);
+            readings.Add("submit "+handId+" "+initial);
+            // Probe the actual composited frames. Only a live, foreground centre hit may enter the replay.
+            double end=Time.realtimeSinceStartupAsDouble+Math.Max(3,2+app.PresentationDurationMilliseconds07/1000.0);
+            Texture2D firstBlocked=null;
+            try
+            {
+                while(Live()&&Time.realtimeSinceStartupAsDouble<end)
+                {
+                    yield return new WaitForEndOfFrame();
+                    if(!Live())break;
+                    bool reachable=TryReleasePointer(app,"Skip",out _,out _,out string hit);
+                    readings.Add(app.CurrentPresentationPhase07+" "+hit);
+                    if(!reachable)
+                    {
+                        if(firstBlocked==null)firstBlocked=ScreenCapture.CaptureScreenshotAsTexture();
+                        continue;
+                    }
+                    if(app.ThemeId11!=releaseTheme)throw new InvalidOperationException("Theme changed during play-scoring.");
+                    CaptureRenderedFrame("play-scoring",image=>RecordReleaseText(app.canvas,image));
+                    if(exerciseSkip)
+                    {
+                        var before=ReleaseSnapshot(app);
+                        ClickRelease(app,"Skip");
+                        if(app.PresentationPlaying07)throw new InvalidOperationException("Foreground Skip did not finish live receipt "+handId);
+                        RequireReleaseSnapshot(app,before,"skip "+handId);
+                        readings.Add("foreground click finished "+handId+" at unchanged sequence "+before.sequence);
+                    }
+                    yield break;
+                }
+                throw new InvalidOperationException("Skip never reached the foreground during "+handId+": "+readings[readings.Count-1]);
+            }
+            finally
+            {
+                File.WriteAllLines(readingsPath,readings);
+                if(firstBlocked!=null)
+                {
+                    try{File.WriteAllBytes(Path.Combine(directory,"diagnostic-blocked-skip.png"),firstBlocked.EncodeToPNG());}
+                    finally{Destroy(firstBlocked);}
+                }
+            }
         }
 
         private static void ClickRelease(GameApp app,string name)
