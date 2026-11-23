@@ -235,15 +235,15 @@ namespace DiceCraft
                 if(rolled&&current.remoteOverride)valueSources.Add("遥控骰子指定了点数（骰面本身不变）");
                 if(scoring)
                 {
-                    if(score.effectivePips[at]!=current.currentPip&&ViewSources.Any(source=>source.abilityId=="C12"))valueSources.Add(NameOf("C12")+"："+Description("C12"));
+                    if(score.effectivePips[at]!=current.currentPip&&ViewSources.Any(source=>source.abilityId=="C12"))valueSources.Add(NameOf("C12")+"："+ShortText11("C12"));
                     string intermediate=current.currentColor;
                     if(at==Config.Controller("C03").parameters.index && intermediate!="red" && ViewSources.Any(source=>source.abilityId=="C03"))
                     {
-                        valueSources.Add(NameOf("C03")+"："+Description("C03"));
+                        valueSources.Add(NameOf("C03")+"："+ShortText11("C03"));
                         intermediate="red";
                     }
-                    if(snapshot.redWave && intermediate!="red")valueSources.Add(NameOf("I01")+"："+Description("I01"));
-                    if(snapshot.blueWave && intermediate!="blue")valueSources.Add(NameOf("I10")+"："+Description("I10"));
+                    if(snapshot.redWave && intermediate!="red")valueSources.Add(NameOf("I01")+"："+ShortText11("I01"));
+                    if(snapshot.blueWave && intermediate!="blue")valueSources.Add(NameOf("I10")+"："+ShortText11("I10"));
                     var trace=ScoreExplanation.Build(snapshot,score,Config);
                     Art07DetailSection(layers,"EffectiveSources","计分来源",string.Join("\n",trace.dice[at].steps.Select(step=>ScoreStepText(step,snapshot))),ref ly,424);
                 }

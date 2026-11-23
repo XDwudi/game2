@@ -215,11 +215,21 @@ namespace DiceCraft.Tests
             return label.name != "StageCardTitle11";
         }
 
+        // TMP can cache a fallback character on the root lookup table. characterTable contains only
+        // the font's own serialized glyph mappings, even after ForceMeshUpdate has warmed that cache.
+        private const string PhysicalBoldSymbols21 = "²·‹›←↑→↓≈≤≥◆◇●✓×−…[]";
+
+        private static void GatherFontChain21(TMP_FontAsset font, HashSet<TMP_FontAsset> chain)
+        {
+            if (font == null || !chain.Add(font) || font.fallbackFontAssetTable == null) return;
+            foreach (var fallback in font.fallbackFontAssetTable) GatherFontChain21(fallback, chain);
+        }
+
         private void CheckForegroundFont21(TextMeshProUGUI label, List<TMP_CharacterInfo> printed,
-            string scope, List<string> failures)
+            string scope, List<string> failures, TextRole? sampleRole = null)
         {
             if (printed.Count == 0) return;
-            var role = ForegroundRole21(label);
+            var role = sampleRole ?? ForegroundRole21(label);
             bool title = (ExpectedRoles21(app.ThemeId11) & role) != 0;
             bool score = label.name == "FinalScore" || label.name == "StableResultScore07" || label.name == "RecoveredScore07";
             var expected = title ? UiKit.TitleFont : UiKit.Font;
@@ -229,9 +239,10 @@ namespace DiceCraft.Tests
                 (title && (label.fontStyle != FontStyles.Normal || label.fontWeight != FontWeight.Regular)) ||
                 (!title && role != TextRole.None && label.fontStyle != (BaseRoleBold21(label,role) ? FontStyles.Bold : FontStyles.Normal)))
             {
-                failures.Add(path + " FW-04 role " + ForegroundRole21(label) + " font=" + label.font?.name);
+                failures.Add(path + " FW-04 role " + role + " font=" + label.font?.name);
                 return;
             }
+            HashSet<TMP_FontAsset> chain = null;
             foreach (var c in printed)
             {
                 if (c.elementType == TMP_TextElementType.Sprite)
@@ -259,13 +270,34 @@ namespace DiceCraft.Tests
                     character = TMP_FontAssetUtilities.GetCharacterFromFontAsset(scalar, expected, true, FontStyles.Normal, FontWeight.Regular, out _);
                 if (c.textElement == null || c.textElement.unicode != scalar || character == null ||
                     c.fontAsset != character.textAsset || c.textElement.textAsset != c.fontAsset ||
-                    (title && c.fontAsset != UiKit.TitleFont && !UiKit.TitleFont.fallbackFontAssetTable.Contains(c.fontAsset)))
+                    c.textElement.glyphIndex != character.glyphIndex)
+                {
                     failures.Add(path + " FW-03 original U+" + scalar.ToString("X4") + " drawn U+" +
                         (c.textElement?.unicode.ToString("X4") ?? "none") + " via " + c.fontAsset?.name);
+                    continue;
+                }
+                if (!title) continue;
+                if (c.fontAsset != expected)
+                {
+                    if (chain == null)
+                    {
+                        chain = new HashSet<TMP_FontAsset>();
+                        GatherFontChain21(expected, chain);
+                    }
+                    if (!chain.Contains(c.fontAsset))
+                        failures.Add(path + " FW-03 U+" + scalar.ToString("X4") + " outside the title font chain: " + c.fontAsset.name);
+                }
+                if (scalar <= char.MaxValue && PhysicalBoldSymbols21.IndexOf((char)scalar) >= 0)
+                {
+                    var owner = expected.characterTable.Any(ch => ch.unicode == scalar)
+                        ? expected : UiKit.Font.fontWeightTable[(int)FontWeight.Bold / 100].regularTypeface;
+                    if (c.fontAsset != owner)
+                        failures.Add(path + " FW-03 U+" + scalar.ToString("X4") + " expected " + owner?.name + " but drew " + c.fontAsset.name);
+                }
             }
         }
 
-        private void CheckVisibleLabel21(TextMeshProUGUI label,string scope,List<string> failures)
+        private void CheckVisibleLabel21(TextMeshProUGUI label,string scope,List<string> failures,TextRole? sampleRole=null)
         {
             if (!label.isActiveAndEnabled || label.color.a * label.canvasRenderer.GetInheritedAlpha() <= .05f) return;
             label.ForceMeshUpdate();
@@ -281,13 +313,58 @@ namespace DiceCraft.Tests
             foreach(var c in label.textInfo.characterInfo.Take(label.textInfo.characterCount))
                 if (c.isVisible && c.color.a>0 && PrintedCharacter24(c.character) && clip.Overlaps(GlyphArea24(label.transform,c)))
                     printed.Add(c);
-            CheckForegroundFont21(label, printed, scope, failures);
+            CheckForegroundFont21(label, printed, scope, failures, sampleRole);
         }
 
         private void CheckForegroundFonts21(Transform root, string scope, List<string> failures)
         {
             foreach (var label in root.GetComponentsInChildren<TextMeshProUGUI>(false))
                 CheckVisibleLabel21(label,scope,failures);
+        }
+
+        [UnityTest] public IEnumerator PLAY_V21_FW03_BossAndPrimaryTitlesAcceptNestedChineseFallback()
+        {
+            W11Apply(W11Scene(new[]{"C39","C139","C34","C56","C08"},new[]{1,2,3,4,5},"bbrbb",
+                0,false,stageIndex:8,modifier:"B02",target:"13500",score:"0",items:2));
+            yield return GoldenStyle21("sancai",100);
+            var physicalBold = UiKit.Font.fontWeightTable[(int)FontWeight.Bold / 100].regularTypeface;
+            var dynamicRegular = UiKit.Font.fallbackFontAssetTable.Single();
+            CollectionAssert.AreEqual(new[]{physicalBold, UiKit.Font}, UiKit.TitleFont.fallbackFontAssetTable);
+            Assert.That(dynamicRegular.name, Is.EqualTo("DiceChineseFallback"));
+            Assert.That(dynamicRegular.atlasPopulationMode, Is.EqualTo(AtlasPopulationMode.Dynamic));
+            var failures = new List<string>();
+            var targets = new[]{
+                (label:Label21("BossModifierName"), role:TextRole.BossName),
+                (label:Button("Roll").GetComponentInChildren<TextMeshProUGUI>(), role:TextRole.PrimaryButton)
+            };
+            foreach (var target in targets)
+            {
+                var label = target.label;
+                string saved = label.text;
+                try
+                {
+                    Assert.That(ForegroundRole21(label), Is.EqualTo(target.role));
+                    Assert.That(label.font, Is.SameAs(UiKit.TitleFont));
+                    // Exercise actual player controls, including a warm title-font lookup cache. No
+                    // released title needs this probe text. The two punctuation marks belong to §3.3.
+                    label.text = "瑞·→";
+                    label.ForceMeshUpdate();
+                    var ink = label.textInfo.characterInfo.Take(label.textInfo.characterCount).Where(c => c.isVisible).ToArray();
+                    CollectionAssert.AreEqual("瑞·→".ToCharArray(), ink.Select(c => c.character));
+                    foreach (var c in ink)
+                    {
+                        var owner = c.character == '瑞' ? dynamicRegular : physicalBold;
+                        Assert.That(c.fontAsset, Is.SameAs(owner), label.name + " " + c.character);
+                        Assert.That(c.textElement.unicode, Is.EqualTo((uint)label.text[c.index]));
+                        Assert.That(c.textElement.textAsset, Is.SameAs(owner));
+                        var texture = owner.atlasTextures[c.textElement.glyph.atlasIndex];
+                        Assert.That(label.fontSharedMaterials[c.materialReferenceIndex].mainTexture, Is.SameAs(texture));
+                    }
+                    CheckVisibleLabel21(label, "T6/T7 title fallback", failures);
+                }
+                finally { label.text = saved; label.ForceMeshUpdate(); }
+            }
+            Assert.That(failures, Is.Empty, string.Join("\n", failures));
         }
 
         [UnityTest] public IEnumerator PLAY_V21_FW03_ForegroundRejectsAVisibleReplacementAtItsRichTextSourceIndex()
@@ -338,19 +415,7 @@ namespace DiceCraft.Tests
                     report.Add(scope + " " + W11bPath(label.transform) + " " + role + " " + label.font.name +
                         " | " + designSize + " design, " + (designSize * app.canvas.scaleFactor).ToString("F2") + " px");
                 }
-                if (!themed) continue;
-                for (int i = 0; i < label.textInfo.characterCount; i++)
-                {
-                    var c = label.textInfo.characterInfo[i];
-                    if (char.IsWhiteSpace(c.character)) continue;
-                    uint source = label.text[c.index];
-                    var chain = UiKit.TitleFont.fallbackFontAssetTable;
-                    if (c.textElement == null || c.textElement.unicode != source ||
-                        (c.fontAsset != UiKit.TitleFont && !chain.Contains(c.fontAsset)))
-                        failures.Add(scope + " FW-03 " + label.name + " missing or wrong glyph U+" + source.ToString("X4"));
-                    if (!UiKit.TitleFont.characterLookupTable.ContainsKey(source) && c.fontAsset != chain.FirstOrDefault())
-                        failures.Add(scope + " FW-03 expected the physical bold fallback for U+" + source.ToString("X4"));
-                }
+                if (themed) CheckVisibleLabel21(label, scope, failures, role);
             }
 
             yield return new WaitForEndOfFrame();

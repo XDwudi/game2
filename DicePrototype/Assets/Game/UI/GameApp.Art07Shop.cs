@@ -87,20 +87,23 @@ namespace DiceCraft
             var value=UiKit.Text(parent,"State",shortState,stateX,footerY,width-padding-stateX,footerHeight,16,UiKit.Ink,TextAlignmentOptions.Center);
             value.textWrappingMode=TextWrappingModes.NoWrap;value.overflowMode=TextOverflowModes.Ellipsis;
         }
-        private string Art07OfferState(ControllerInstance item)
+        private string Art07OfferState(ControllerInstance item,bool forDetails=false)
         {
             if(item==null)return "持有即装备";
             switch(item.definitionId)
             {
-                case "C45":return string.IsNullOrEmpty(item.state?.activeColor)?"购入定色":item.state.activeColor=="red"?"当前 红 ●":"当前 蓝 ◆";
+                case "C45":
+                    if(string.IsNullOrEmpty(item.state?.activeColor))return forDetails?"买入时随机定色":"购入定色";
+                    if(forDetails)return item.state.activeColor=="red"?"加成色：红 ●":"加成色：蓝 ◆";
+                    return item.state.activeColor=="red"?"当前 红 ●":"当前 蓝 ◆";
                 case "C51":return "当前 ×"+PlayerNumberFormat.Ratio(item.state?.turnoverUnits2??3,2);
                 case "C52":return "卖价 "+ControllerRules.SalePrice(item,Config);
-                case "C41":return "模拟右邻";
+                case "C41":return forDetails?"复制右边的卡":"模拟右邻";
                 case "C53":return "随机倍率";
                 default:
                     if(ControllerRules.IsGrowthMultiplier(item.definitionId))return "从 ×1 成长";
                     if(ControllerRules.IsGrowthBase(item.definitionId))return "从 +0 成长";
-                    return "技能详情";
+                    return forDetails?"":"技能详情";
             }
         }
         /// <summary>
@@ -140,16 +143,44 @@ namespace DiceCraft
             {
                 if((modal && (!inDialog || !anchor.transform.IsChildOf(overlay))) || IsControllerDragging || IsBusy)return;
                 var corners=new Vector3[4];((RectTransform)anchor.transform).GetWorldCorners(corners);
-                Vector2 position=ScreenToDesign(RectTransformUtility.WorldToScreenPoint(null,corners[3]));
+                Vector2 right=ScreenToDesign(RectTransformUtility.WorldToScreenPoint(null,corners[3]));
+                Vector2 left=ScreenToDesign(RectTransformUtility.WorldToScreenPoint(null,corners[1]));
                 bool besidePool=!inDialog&&!Compact07&&UiKit.FontScale<=1&&ViewState.phase=="Selecting"&&ViewState.dice.Count<=5&&
                     ViewState.dice.Count-ViewState.hand.orderedLockedIds.Count<=3;
-                float x=besidePool?1476:Mathf.Clamp(position.x+12,24,1476),y=besidePool?456:Mathf.Clamp(position.y+10,24,666);
-                art07TooltipOwner=owner;art07Tooltip=UiKit.Frame(overlay,"ContentTooltip",x,y,420,besidePool?286:390,UiKit.Paper,UiKit.Ink);
-                UiKit.Text(art07Tooltip,"Name",title,16,12,388,52,25,UiKit.Ink);
-                var text=UiKit.Text(art07Tooltip,"Description",description,16,besidePool?64:76,388,besidePool?108:150,20,UiKit.Ink);text.overflowMode=TextOverflowModes.Ellipsis;
-                var stateText=UiKit.Text(art07Tooltip,"State",state,16,besidePool?178:234,388,besidePool?54:88,19.5f,UiKit.Ink);stateText.overflowMode=TextOverflowModes.Ellipsis;
-                if(!string.IsNullOrEmpty(more))UiKit.Text(art07Tooltip,"More",more,16,besidePool?238:334,388,44,19.5f,UiKit.Ink,TextAlignmentOptions.Center);
+                float width=420;
+                art07TooltipOwner=owner;art07Tooltip=UiKit.Frame(overlay,"ContentTooltip",0,0,width,1,UiKit.Paper,UiKit.Ink);
+                var name=UiKit.Text(art07Tooltip,"Name",title,16,0,width-32,52,25,UiKit.Ink);
+                var body=UiKit.Text(art07Tooltip,"Description",description,16,0,width-32,1,20,UiKit.Ink);
+                var status=UiKit.Text(art07Tooltip,"State",state,16,0,width-32,1,19.5f,UiKit.Ink);
+                var hint=string.IsNullOrEmpty(more)?null:UiKit.Text(art07Tooltip,"More",more,16,0,width-32,44,19.5f,UiKit.Ink,TextAlignmentOptions.Center);
+                float Layout()
+                {
+                    float top=12;
+                    void Row(TextMeshProUGUI label,float minimum,float gap)
+                    {
+                        label.rectTransform.anchoredPosition=new Vector2(16,-top);
+                        label.rectTransform.sizeDelta=new Vector2(width-32,minimum);
+                        top+=FitHeight(label,minimum)+gap;
+                    }
+                    Row(name,52,besidePool?0:12);
+                    Row(body,besidePool?108:150,besidePool?6:8);
+                    Row(status,besidePool?54:88,besidePool?6:12);
+                    if(hint!=null)Row(hint,44,0);
+                    return Mathf.Ceil(top)+(besidePool?4:12);
+                }
+                float height=Layout();
+                // Keep the existing narrow paper whenever it fits; only reflow wider for a
+                // description and state that together would run past the screen at this scale.
+                while(height>1032 && width<1872){width=Mathf.Min(width*1.5f,1872);height=Layout();}
+                float x=right.x+12;
+                if(x+width>1896)x=left.x-width-12;
+                x=besidePool?1896-width:Mathf.Clamp(x,24,1896-width);
+                float y=Mathf.Clamp(besidePool?456:right.y+10,24,Mathf.Max(24,1056-height));
+                art07Tooltip.anchoredPosition=new Vector2(x,-y);
+                art07Tooltip.sizeDelta=new Vector2(width,height);
                 UiKit.Component<Art07PanelMotion>(art07Tooltip.gameObject).Enter(.08f,.06f,true,reduced);
+                var group=art07Tooltip.GetComponent<CanvasGroup>();
+                group.blocksRaycasts=false;group.interactable=false;
             };
             hover.hide=()=>{if(art07TooltipOwner==owner&&art07Tooltip!=null){art07Tooltip.gameObject.SetActive(false);art07TooltipOwner=null;}};
         }

@@ -282,7 +282,7 @@ namespace DiceCraft
             var face=new CardFace13{contentId=offer.contentId,enchantment=c?.enchantmentId??"none",value=value,valueWarning=warning,disabled=offer.sold,sold=offer.sold,
                 price=Session.GetOfferNetPrice(offer),availability=offer.sold?null:ShopAvailability14(offer),buy=()=>Art07BuyOffer(offer),buttonName="Buy_"+offer.offerId};
             var card=DrawCard13(main,"Offer_"+offer.offerId,x,y,w,h,face,CardSize13.Shop,()=>{if(!IsBusy)InspectOffer(offer);},!IsBusy);
-            Art07AttachTooltip(card,offer.offerId,NameOf(offer.contentId),PlayerRules11(offer.contentId),EnchantLabel(c?.enchantmentId??"none")+"\n"+Art07OfferState(c),()=>InspectOffer(offer));
+            Art07AttachTooltip(card,offer.offerId,NameOf(offer.contentId),PlayerRules11(offer.contentId),(EnchantLabel(c?.enchantmentId??"none")+"\n"+Art07OfferState(c,forDetails:true)).TrimEnd(),()=>InspectOffer(offer));
         }
 
         // ---------------------------------------------------------------- availability (SHOP_LAYOUT 6)

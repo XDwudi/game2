@@ -112,7 +112,8 @@ namespace DiceCraft
             if(offer.category=="controller")
             {
                 Art07DetailSection(list,"Enchant","附魔",EnchantLabel(offer.controller.enchantmentId),ref y,672,true);
-                Art07DetailSection(list,"Capacity","购入后",ControllerPurchaseText(offer)+"\n"+Art07OfferState(offer.controller),ref y,672,true);
+                string offerState=Art07OfferState(offer.controller,forDetails:true);
+                Art07DetailSection(list,"Capacity","买下后",ControllerPurchaseText(offer)+(offerState.Length==0?"":"\n"+offerState),ref y,672,true);
             }
             // V1.1 W14 (UI_REWRITES Shop.cs:134): what the purchase does, in the player's words.
             else Art07DetailSection(list,"Category","作用范围",offer.category=="consumable"?$"买下放进道具栏（{ViewState.inventory.Count}/{ViewState.consumableSlots}），用一次就消失。":"买下立即生效，持续到本局结束。",ref y,672,true);

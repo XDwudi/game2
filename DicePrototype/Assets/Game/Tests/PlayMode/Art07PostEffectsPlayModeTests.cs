@@ -16,6 +16,34 @@ namespace DiceCraft.Tests
 {
     public sealed partial class GameplayPlayModeTests
     {
+        [UnityTest] public IEnumerator PLAY_TX07_StageEndReceiptsNameExpiredCardAndGrantedCardInTheCountingRecord()
+        {
+            FxScene07(scene=>
+            {
+                FxControllers07(scene,"C141","C112","C115");
+                scene.controllers[0].state.growth=app.Config.Controller("C141").parameters.expireGrowth-1;
+                scene.remainingSubmissions=1;scene.target="1";
+            });
+            var result=app.Send(new SessionCommand{kind=CommandKind.Submit});
+            Assert.That(result.accepted,Is.True,result.error);
+            Assert.That(result.receipt.effects.Any(x=>x.kind=="ControllerExpired"&&x.sourceId=="C141"),Is.True);
+            var granted=result.receipt.effects.Single(x=>x.kind=="ControllerGranted"&&x.sourceId=="C112");
+            string grantedName=app.Config.Controller(granted.detail.Split(':').Last()).displayName;
+            Assert.That(result.receipt.effects.Any(x=>x.kind=="RandomUpgrade"||x.kind=="RandomUpgradeMissed"),Is.True);
+
+            app.ShowCommittedPresentationDetails07();yield return null;
+            var rows=app.canvas.GetComponentsInChildren<TextMeshProUGUI>(true).Where(row=>row.gameObject.activeInHierarchy&&row.name.StartsWith("Event",StringComparison.Ordinal)).ToArray();
+            Assert.That(rows.Any(row=>row.text.Contains("昙花一现：倍率耗尽，已消失")),Is.True);
+            Assert.That(rows.Any(row=>row.text.Contains("滥竽充数：获得 "+grantedName)),Is.True);
+            Assert.That(rows.Any(row=>row.text.Contains("无心插柳：")&&!row.text.Contains("状态已更新")),Is.True);
+            foreach(var upgrade in result.receipt.effects.Where(x=>x.kind=="DieUpgraded"))
+                Assert.That(rows.Any(row=>row.text.Contains(app.Config.Upgrade(upgrade.sourceId).displayName+" · 完成")),Is.True);
+            foreach(var change in result.receipt.effects.Where(x=>x.kind=="FaceTransformed"))
+                Assert.That(rows.Any(row=>row.text.Contains("骰面点数 "+change.oldValue+" → "+change.newValue)),Is.True);
+            Assert.That(rows.Any(row=>row.text.Contains("状态已更新")),Is.False);
+            Click("CloseDialog");app.SkipVisual();
+        }
+
         private IEnumerator PostDone07()
         {
             double limit=Time.realtimeSinceStartupAsDouble+3;

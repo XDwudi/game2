@@ -211,7 +211,7 @@ namespace DiceCraft.Presentation
                     // Keep a source group where p0.6 recorded only an ability ID. Do not invent a last writer.
                     var single = owners.Length == 1 ? owners[0] : null;
                     Add(PresentationPhase.PostScore, family, single, dice, faces, old, null, value,
-                        detail: effect.detail, audio: audio, sourceEmitters: owners.Select(s => s.emitterId), ownerOverride: ownerId);
+                        detail: effect.detail, audio: audio, sourceEmitters: owners.Select(s => s.emitterId), ownerOverride: ownerId, committedEffect: effect);
                 }
                 if (receipt.settlement != null)
                     Add(PresentationPhase.PostScore, "stage_income", beforeValue: receipt.settlement.goldBefore.ToString(CultureInfo.InvariantCulture),
@@ -221,11 +221,11 @@ namespace DiceCraft.Presentation
             private string FaceSummary(string die) => die != null && permanent.TryGetValue(die, out var list) ? string.Join(";", list.Select(f => f.faceId + ":" + f.permanentPip + ":" + f.baseColor)) : null;
             private void Add(PresentationPhase phase, string family, AbilitySource source = null, IEnumerable<string> dice = null, IEnumerable<string> faces = null,
                 string beforeValue = null, string operand = null, string afterValue = null, string operation = null, string detail = null, bool chain = false, bool scoring = false,
-                string audio = null, IEnumerable<string> sourceEmitters = null, string ownerOverride = null)
+                string audio = null, IEnumerable<string> sourceEmitters = null, string ownerOverride = null, EffectRecord committedEffect = null)
             {
                 int ordinal = events.Count;
                 events.Add(new PresentationEvent(receipt.commandId + "/" + ordinal.ToString("D4", CultureInfo.InvariantCulture), ordinal, phase, family,
-                    source?.emitterId, ownerOverride ?? source?.stateOwnerId, source?.abilityId, sourceEmitters, dice, faces, beforeValue, operand, afterValue, operation, detail, chain, scoring, audio));
+                    source?.emitterId, ownerOverride ?? source?.stateOwnerId, source?.abilityId, sourceEmitters, dice, faces, beforeValue, operand, afterValue, operation, detail, chain, scoring, audio, committedEffect));
             }
         }
     }

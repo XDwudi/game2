@@ -242,7 +242,9 @@ namespace DiceCraft
                 case "hand_roll_bonus":return "附魔：掷骰 +"+e.Operand+" · 本手可掷 "+e.AfterValue;
                 case "qualified":return "本关目标已达成";
                 case "run_result":return e.AfterValue=="RunWon"?"24 关全部通过":"这一局结束了";
-                default:return "状态已更新";
+                default:
+                    var committed=e.CopyCommittedEffect();
+                    return committed==null?"状态已更新":EffectText(committed,lastPresentationAfter07?.lastSubmission?.snapshot);
             }
             string value=e.Operand??e.AfterValue??"";
             if(value=="red")return name+" "+(e.Operation??"")+"红";

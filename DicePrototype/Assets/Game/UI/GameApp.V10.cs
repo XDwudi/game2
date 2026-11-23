@@ -323,7 +323,9 @@ namespace DiceCraft
         {
             // Stage details are hover-only. A plain raycast surface keeps the text out of button navigation.
             var hit = UiKit.Box(p, role + "Details16", 24, y, StageContent16, h, Color.clear, true);
-            Art07AttachTooltip(hit, "stage-" + id, NameOf(id), Details11(id), ShortText11(id), null, "", inDialog);
+            // The loot text includes the current duplicate policy; boss cues keep their existing rule fallback.
+            string extra = role == "Loot" ? Config.Loot(id).details : Details11(id);
+            Art07AttachTooltip(hit, "stage-" + id, NameOf(id), extra, ShortText11(id), null, "", inDialog);
         }
 
         private void ShowCycle10()
@@ -390,6 +392,8 @@ namespace DiceCraft
                         string change=what=="pipDelta"||what=="pipSet"?"点数 "+e.oldValue+" → "+e.newValue:what=="color"?(e.newValue==1?"染红":"染蓝")+(e.oldValue==e.newValue?"（已是该色）":""):what=="gold"?(e.newValue==1?"镀金":"去掉黄金")+(e.oldValue==e.newValue?"（无变化）":""):what=="texture"?"纹理变为"+((e.detail??"").EndsWith("smooth")?"光滑":(e.detail??"").EndsWith("rough")?"粗糙":"无")+(e.oldValue==e.newValue?"（无变化）":""):"权重 "+e.oldValue+" → "+e.newValue;
                         return NameOf(e.sourceId)+"："+where+" "+change;
                     }
+                case "DieUpgraded":return NameOf(e.sourceId)+" · 完成";
+                case "FaceTransformed":return DieFaceName11(e.dieId,e.faceId)+"：骰面点数 "+e.oldValue+" → "+e.newValue;
                 case "FaceMirrored":return "镜像："+DieFaceName11(e.dieId,e.faceId)+" 变为 "+e.newValue+" 点"+(e.detail=="red"?"红":"蓝");
                 case "DieGlassed":return "吹玻璃："+DieName11(e.dieId)+" 变为玻璃骰";
                 case "DieAdded":return (string.IsNullOrEmpty(e.sourceId)?"":NameOf(e.sourceId)+"：")+"获得"+DieName11(e.dieId);

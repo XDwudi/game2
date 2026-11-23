@@ -526,7 +526,7 @@ namespace DiceCraft
                 else transactionMotion07.TrackReveal(target,.16f,.18f,false,true);
                 LastTransactionSummary07="已加入"+DieName11(die.dieId)+" · 永久骰 "+before.dice.Count(d=>d.lifetime=="permanent")+"→"+after.dice.Count(d=>d.lifetime=="permanent")+" · 提交栏格数不变";
             }
-            else if(string.IsNullOrEmpty(LastTransactionSummary07))LastTransactionSummary07="已购买 "+NameOf(bought.contentId)+" · 实际净支出 "+(before.gold-after.gold);
+            else if(string.IsNullOrEmpty(LastTransactionSummary07))LastTransactionSummary07=PurchaseBalanceText07(bought,after.gold-before.gold);
             return true;
         }
         private string CommittedTransactionSummary07(SessionCommand cmd,RunState before,RunState after)
@@ -546,7 +546,12 @@ namespace DiceCraft
             if(controller!=null)return "已装备 "+NameOf(controller.definitionId)+" · "+AcquiredCardState11(controller,after)+" · "+EnchantShort(controller.enchantmentId);
             var item=after.inventory.FirstOrDefault(c=>!before.inventory.Any(b=>b.instanceId==c.instanceId));if(item!=null)return "已获得 "+NameOf(item.contentId);
             var die=after.dice.FirstOrDefault(c=>!before.dice.Any(b=>b.dieId==c.dieId));if(die!=null)return "已加入"+DieName11(die.dieId)+" · 提交栏格数不变";
-            return "已购买 "+NameOf(offer.contentId)+" · "+(after.gold>before.gold?"净收入 "+(after.gold-before.gold):"净支出 "+(before.gold-after.gold));
+            return PurchaseBalanceText07(offer,after.gold-before.gold);
+        }
+        private string PurchaseBalanceText07(ShopOffer offer,long change)
+        {
+            string sign=change<0?"−":change>0?"+":"";
+            return "已购买 "+NameOf(offer.contentId)+"（"+sign+PlayerNumberFormat.Gold(Math.Abs(change))+" 金币）";
         }
         private RectTransform TransactionAcquisitionCard07(ShopOffer offer,string identity,DieInstance die)
         {

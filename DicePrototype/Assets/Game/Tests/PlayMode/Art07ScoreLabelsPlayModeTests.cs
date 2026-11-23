@@ -141,7 +141,7 @@ namespace DiceCraft.Tests
                     Assert.That(cards.Length,Is.EqualTo(kind==Art07FixtureKind.Debug32?9:10));
                     if(kind==Art07FixtureKind.MaximumTable){Assert.That(HasActive("AllControllerStates"),Is.False);continue;}
                     var all=Button("AllControllerStates");var text=all.GetComponentInChildren<TextMeshProUGUI>();
-                    Assert.That(text.text,Is.EqualTo("全部 32 件 >"));Assert.That(text.textWrappingMode,Is.EqualTo(TextWrappingModes.NoWrap));
+                    Assert.That(text.text,Is.EqualTo("全部 32 张卡牌 >"));Assert.That(text.textWrappingMode,Is.EqualTo(TextWrappingModes.NoWrap));
                     Rect rect=V06ScreenRect((RectTransform)all.transform);
                     Assert.That(rect.width,Is.GreaterThanOrEqualTo(39.9));Assert.That(rect.height,Is.GreaterThanOrEqualTo(39.9));
                     foreach(var card in cards)Assert.That(rect.Overlaps(V06ScreenRect((RectTransform)card.transform)),Is.False,"All controllers button covers "+card.name);

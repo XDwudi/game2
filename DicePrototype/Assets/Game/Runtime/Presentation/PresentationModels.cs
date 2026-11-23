@@ -41,18 +41,20 @@ namespace DiceCraft.Presentation
         public bool CountsForChain { get; }
         public bool IsScoring { get; }
         public string AudioCue { get; }
+        private readonly EffectRecord committedEffect;
+        internal EffectRecord CopyCommittedEffect() => committedEffect?.Clone();
         internal PresentationEvent(string id, int ordinal, PresentationPhase phase, string family,
             string emitter = null, string owner = null, string ability = null, IEnumerable<string> sourceEmitters = null,
             IEnumerable<string> dice = null, IEnumerable<string> faces = null, string before = null,
             string operand = null, string after = null, string operation = null, string detail = null,
-            bool countsForChain = false, bool isScoring = false, string audioCue = null)
+            bool countsForChain = false, bool isScoring = false, string audioCue = null, EffectRecord committedEffect = null)
         {
             EventId = id; EventOrdinal = ordinal; Phase = phase; EffectFamily = family;
             EmitterId = emitter; StateOwnerId = owner; AbilityId = ability;
             SourceEmitterIds = Copy(sourceEmitters ?? (emitter == null ? Array.Empty<string>() : new[] { emitter }));
             TargetDieIds = Copy(dice); TargetFaceIds = Copy(faces); BeforeValue = before; Operand = operand;
             AfterValue = after; Operation = operation; Detail = detail; CountsForChain = countsForChain;
-            IsScoring = isScoring; AudioCue = audioCue;
+            IsScoring = isScoring; AudioCue = audioCue; this.committedEffect = committedEffect?.Clone();
         }
         private static IReadOnlyList<string> Copy(IEnumerable<string> values) => new ReadOnlyCollection<string>((values ?? Array.Empty<string>()).Where(x => x != null).ToArray());
     }

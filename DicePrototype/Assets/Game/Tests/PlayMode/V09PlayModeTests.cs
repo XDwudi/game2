@@ -96,7 +96,7 @@ namespace DiceCraft.Tests
             Assert.That(CardState09("C55"), Is.EqualTo("+24")); Assert.That(CardState09("C58"), Is.EqualTo("×1.4"));
             var left = state.hand.currentResults.Where(r => r.hasRolled && !r.isLocked).ToArray();
             string summary = FindActive<TextMeshProUGUI>("PoolSummary09").text;
-            Assert.That(summary, Does.StartWith("留池 5 颗 · 点数和 " + left.Sum(r => r.currentPip) + " · 红 " + left.Count(r => r.currentColor == "red") + " · 6点 " + left.Count(r => r.currentPip == 6)));
+            Assert.That(summary, Is.EqualTo("留在骰池：5 颗 · 点数和 " + left.Sum(r => r.currentPip) + " · 红 " + left.Count(r => r.currentColor == "red") + " 颗 · 6 点 " + left.Count(r => r.currentPip == 6) + " 颗"));
             // The live preview already includes the pool card: +6 for each of the five dice left behind.
             var preview = app.Session.PreviewScoreRange().minimum;
             Assert.That(preview.controllerBaseAdds.Single(a => a.abilityId == "C70").amount, Is.EqualTo("30"));

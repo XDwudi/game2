@@ -89,6 +89,10 @@ namespace DiceCraft.Tests
             Click("CloseDialog");
             Assert.That(StateJson(), Is.EqualTo(state));
             CollectionAssert.AreEqual(save, File.ReadAllBytes(app.SaveLocation));
+            yield return PageToOffer14("O01");
+            yield return BuyBoundaryOffer("O01");
+            Assert.That(app.Session.State.gold, Is.EqualTo(198));
+            Assert.That(app.LastTransactionSummary07, Is.EqualTo("已购买 道具增加（−2 金币）"));
         }
 
         [UnityTest] public IEnumerator PLAY_V24_TX06_HandUpgradePreservesPriceLevelsAndActualMultiplier()
@@ -157,8 +161,58 @@ namespace DiceCraft.Tests
             if (giftRules != null) Assert.That(giftRules.text, Does.Not.Contain("每家商店提供2颗候选"));
         }
 
+        [UnityTest] public IEnumerator PLAY_V24_TX07_LongShelfTooltipsShowEveryGlyphAndLeaveTheCardClickable()
+        {
+            var shop = ShopBoundaryFixture();
+            shop.shop.offers.Clear();
+            shop.gold = 0;
+            AddBoundaryOffer(shop, "long-card", "controller", "C07");
+            AddBoundaryOffer(shop, "long-service", "service", "O08");
+            yield return W14Load(shop);
+            var card = app.Config.Controller("C07");
+            var service = app.Config.Service("O08");
+            foreach (int scale in new[]{100,150})
+            {
+                W11TextScale(scale);
+                yield return W11Settle();
+                foreach (var sample in new[]{
+                    (row:"Offer_long-card", child:"", name:card.displayName, brief:card.shortText, rules:card.details, state:"无附魔"),
+                    (row:"Product_long-service", child:"Inspect", name:service.displayName, brief:service.shortText, rules:service.details, state:"还差 " + service.baseBuyPrice)
+                })
+                {
+                    var row = FindActive<RectTransform>(sample.row);
+                    var anchor = sample.child.Length == 0 ? row : row.Find(sample.child);
+                    yield return CheckOfferTip24(anchor, sample.name, sample.brief, sample.rules, existingState:sample.state,
+                        whileOpen:(tip, pointer) =>
+                        {
+                            var area=V06ScreenRect(tip);
+                            float pad=24*app.canvas.scaleFactor-.6f;
+                            Assert.That(area.xMin,Is.GreaterThanOrEqualTo(pad));
+                            Assert.That(area.yMin,Is.GreaterThanOrEqualTo(pad));
+                            Assert.That(area.xMax,Is.LessThanOrEqualTo(Screen.width-pad));
+                            Assert.That(area.yMax,Is.LessThanOrEqualTo(Screen.height-pad));
+                            foreach(var label in tip.GetComponentsInChildren<TextMeshProUGUI>(false))
+                            {
+                                Assert.That(label.isTextTruncated,Is.False,label.name);
+                                foreach(var glyph in W11bGlyphRects(label))
+                                    Assert.That(Art073Inside(glyph,area,1),Is.True,label.name+" "+glyph+" outside "+area);
+                            }
+                            var hits = new List<RaycastResult>();
+                            EventSystem.current.RaycastAll(pointer,hits);
+                            Assert.That(hits,Is.Not.Empty);
+                            Assert.That(hits.Any(hit=>hit.gameObject.transform.IsChildOf(tip)),Is.False);
+                            var button=hits[0].gameObject.GetComponentInParent<Button>();
+                            Assert.That(button,Is.EqualTo(anchor.GetComponent<Button>()));
+                            ExecuteEvents.Execute(button.gameObject,pointer,ExecuteEvents.pointerClickHandler);
+                        });
+                    Assert.That(DialogLabel("DialogTitle"),Is.EqualTo(sample.name));
+                    Click("CloseDialog");
+                }
+            }
+        }
+
         private IEnumerator CheckOfferTip24(Transform anchor, string title, string brief, string rules,
-            string retired = null, string existingState = null)
+            string retired = null, string existingState = null, Action<RectTransform,PointerEventData> whileOpen = null)
         {
             Assert.That(anchor, Is.Not.Null, title);
             Assert.That(anchor.GetComponent<Art07HoverTip>(), Is.Not.Null, title);
@@ -185,6 +239,7 @@ namespace DiceCraft.Tests
                 Is.EqualTo(copy.LastIndexOf(PrintedContent24(brief), StringComparison.Ordinal)), title);
             if (!string.IsNullOrEmpty(retired)) Assert.That(copy, Does.Not.Contain(PrintedContent24(retired)), title);
             if (existingState != null) Assert.That(state, Does.Contain(PrintedContent24(existingState)), title);
+            whileOpen?.Invoke(tip, pointer);
             ExecuteEvents.Execute(anchor.gameObject, pointer, ExecuteEvents.pointerExitHandler);
             yield return new WaitForSecondsRealtime(.10f);
             Assert.That(HasActive("ContentTooltip"), Is.False, title);

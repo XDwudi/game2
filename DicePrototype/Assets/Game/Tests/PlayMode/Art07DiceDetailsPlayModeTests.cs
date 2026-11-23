@@ -25,7 +25,8 @@ namespace DiceCraft.Tests
             Click("Item_"+item.instanceId);Click("Use");yield return WaitForIdle();
             var disk=File.ReadAllBytes(app.SaveLocation);string state=StateJson();
             ClickDie("D001");
-            Assert.That(InformationText07("ValueSourcesBody"),Does.Contain(app.Config.Consumable("I10").displayName));
+            var wave=app.Config.Consumable("I10");
+            Assert.That(InformationText07("ValueSourcesBody"),Does.Contain(wave.displayName+"："+wave.shortText));
             Assert.That(InformationText07("ProbabilitySourcesBody"),Is.EqualTo("骰面权重（下表已计入）"));
             Assert.That(InformationText07("LayersBody"),Does.Contain("红色").And.Contain("蓝色"));
             Click("CloseDialog");Assert.That(StateJson(),Is.EqualTo(state));CollectionAssert.AreEqual(disk,File.ReadAllBytes(app.SaveLocation));

@@ -250,7 +250,7 @@ namespace DiceCraft
                 for(int i=0;i<shown;i++)DrawTableCard11(s.controllers[i],l.cards.x+i%5*(cw+12),l.cards.y+i/5*(ch+10),cw,ch,CardMode11.Mini);
                 if(count>10)
                 {
-                    var all=UiKit.Button(main,"AllControllerStates","全部 "+count+" 件 >",l.cards.x+4*(cw+12),l.cards.y+ch+10,cw,ch,ShowControllerOrder);
+                    var all=UiKit.Button(main,"AllControllerStates","全部 "+count+" 张卡牌 >",l.cards.x+4*(cw+12),l.cards.y+ch+10,cw,ch,ShowControllerOrder);
                     var label=all.GetComponentInChildren<TextMeshProUGUI>();label.fontSize=22*UiKit.FontScale;label.textWrappingMode=TextWrappingModes.NoWrap;
                 }
                 return;
@@ -285,7 +285,7 @@ namespace DiceCraft
             CardValue13(state,out face.value,out face.valueWarning);
             var b=DrawCard13(main,"Controller_"+item.instanceId,x,y,w,h,face,mode==CardMode11.Full?CardSize13.Table:CardSize13.Compact,()=>ShowController(item,false),!IsBusy);
             AttachControllerDrag(b,item);
-            string info=Art07Rarity(item.definitionId)+" · "+EnchantShort(item.enchantmentId)+(string.IsNullOrEmpty(face.value)?"":" · "+state.Replace("→ ","→"));
+            string info=Art07Rarity(item.definitionId)+(string.IsNullOrEmpty(item.enchantmentId)||item.enchantmentId=="none"?"":" · "+EnchantShort(item.enchantmentId))+(string.IsNullOrEmpty(face.value)?"":" · "+state.Replace("→ ","→"));
             Art07AttachTooltip(b,item.instanceId,NameOf(item.definitionId),PlayerRules11(item.definitionId),info,()=>ShowController(item,false));
         }
         /// <summary>Height of one line of TMP text at this size and the current text scale (Noto Sans SC line height ~1.45 em).</summary>
@@ -456,10 +456,17 @@ namespace DiceCraft
             if(h.hasRolled&&ViewSources.Any(x=>x.abilityId=="C70"||x.abilityId=="C71"||x.abilityId=="C72"||x.abilityId=="C73"||x.abilityId=="C74"))
             {
                 var rest=h.currentResults.Where(r=>r.hasRolled&&!r.isLocked).ToArray();
-                string summaryText="留池 "+rest.Length+" 颗 · 点数和 "+rest.Sum(r=>r.currentPip)+" · 红 "+rest.Count(r=>r.currentColor=="red")+" · 6点 "+rest.Count(r=>r.currentPip==6);
+                string summaryText="留在骰池："+rest.Length+" 颗 · 点数和 "+rest.Sum(r=>r.currentPip)+" · 红 "+rest.Count(r=>r.currentColor=="red")+" 颗 · 6 点 "+rest.Count(r=>r.currentPip==6)+" 颗";
                 // The pool summary is a tab on the rim like the title tab (W20Xb: caption, Panel when the theme sets none).
                 float sw=c?620:500;var chip=Surface11(main,"PoolSummaryTab11",l.tray.xMax-24-sw,l.tray.y-14,sw,34,"ui_chip_formula",UiKit.Caption(UiKit.Panel));
-                TabLabel11(chip,"PoolSummary09",summaryText,Body11(c?16:19),LabelOn11(chip,UiKit.Teal),6);
+                var label=TabLabel11(chip,"PoolSummary09",summaryText,Body11(c?16:19),LabelOn11(chip,UiKit.Teal),6);
+                float extra=Mathf.Max(0,Mathf.Ceil(label.GetPreferredValues(summaryText).x)+2-label.rectTransform.rect.width);
+                if(extra>0)
+                {
+                    chip.anchoredPosition+=Vector2.left*extra;
+                    chip.sizeDelta+=Vector2.right*extra;
+                    label.rectTransform.sizeDelta+=Vector2.right*extra;
+                }
             }
             // One row of up to ten dice (a page). Five or fewer stand at about 1.5x the v1.0 size; more share the row's width
             // and still come out larger than the former second row (PLAY_LAYOUT 8: one row instead of two).
