@@ -59,15 +59,15 @@ namespace DiceCraft
         {
             var p=Art07Modal(NameOf(item.contentId),480,180,960,720);Icon(p,item.contentId,24,112,176);
             var list=PaperDetailScroll071(p,"ItemDetail",232,104,704,492);float y=0;
-            Art07DetailSection(list,"Skill","道具效果",Description(item.contentId),ref y,672,true);
+            Art07DetailSection(list,"Skill","道具效果",PlayerRules11(item.contentId),ref y,672,true);
             string window=Config.Consumable(item.contentId).window;
             Art07DetailSection(list,"Window","何时能用",window=="Selecting"?"掷骰后且锁定了至少 1 颗骰子":window=="HandReady"?"本手第一次掷骰前":"本手任何时候",ref y,672,true);
             string reason=selling?null:Art07ItemUnavailable(item);
-            Art07DetailSection(list,"UseState",selling?"出售结果":"当前状态",selling?"未使用道具固定卖价 1 金币；出售后失去这件库存。":reason??"当前可以使用；成功后消耗一件库存。",ref y,672,true);
+            Art07DetailSection(list,"UseState",selling?"出售结果":"当前状态",selling?"卖出得 1 金币。":reason??"现在可以使用（用后消失）。",ref y,672,true);
             list.sizeDelta=new Vector2(list.sizeDelta.x,y+16);
             if(selling)
             {
-                UiKit.Button(p,"Sell","确认出售 · +1",24,628,912,64,()=>{CloseModal();Send(new SessionCommand{kind=CommandKind.Sell,itemInstanceId=item.instanceId});},!IsBusy);
+                UiKit.Button(p,"Sell","卖出 +1 金币",24,628,912,64,()=>{CloseModal();Send(new SessionCommand{kind=CommandKind.Sell,itemInstanceId=item.instanceId});},!IsBusy);
                 UiKit.Outline(p,"SellOutline",24,628,912,64,UiKit.Red,2);
             }
             else UiKit.ActionButton(p,"Use",reason==null?"使用道具":"当前不能使用",24,628,912,64,()=>
@@ -108,7 +108,7 @@ namespace DiceCraft
             Icon(p,offer.contentId,24,112,176);
             if(offer.category=="controller")EnchantBadge(p,offer.controller.enchantmentId,160,102,40);
             var list=PaperDetailScroll071(p,"OfferDetail",232,104,704,492);float y=0;
-            Art07DetailSection(list,"Skill","效果",Description(offer.contentId),ref y,672,true);
+            Art07DetailSection(list,"Skill","效果",PlayerRules11(offer.contentId),ref y,672,true);
             if(offer.category=="controller")
             {
                 Art07DetailSection(list,"Enchant","附魔",EnchantLabel(offer.controller.enchantmentId),ref y,672,true);
@@ -133,7 +133,7 @@ namespace DiceCraft
                 UiKit.Text(list,"StudyName"+id,$"{NameOf(id)}   Lv.{level} → {level+1}    倍率 {Factor(baseMult+increment*level)} → {Factor(baseMult+increment*(level+1))}",12,i*85+15,1040,50,27);
                 UiKit.Button(list,"StudyBuy"+id,price+" 金币",1110,i*85,340,65,()=>{CloseModal();Send(new SessionCommand{kind=CommandKind.Study,handId=id});},ViewState.gold>=price,true);
             }
-            if(legal.Length==0)UiKit.Text(list,"NoLegal","当前没有满足容量、永久骰数且未满级的牌型。",15,30,1400,90,28,UiKit.Muted);
+            if(legal.Length==0)UiKit.Text(list,"NoLegal","现在没有能升级的牌型（都满级了，或骰子/提交栏不够）。",15,30,1400,90,28,UiKit.Muted);
         }
         private void TargetDie(ShopOffer offer,string selectedDie,float scrollPosition=1)
         {

@@ -193,8 +193,8 @@ namespace DiceCraft.Tests
                 TestContext.WriteLine("UPGRADE_LABEL "+upgrade+" font="+fontScale+" path="+paths[label]+" alpha="+alpha.ToString("R")+" glyphs="+visible+" text="+text.text.Replace("\n"," | "));
             }
             var before=panel.Find("Before").GetComponent<TMP_Text>();var after=panel.Find("Result/After").GetComponent<TMP_Text>();
-            Assert.That(before.text,Does.StartWith("购买前"));Assert.That(after.text,Does.StartWith("购买后"));
-            foreach(var text in new[]{before,after})Assert.That(text.text,Does.Contain("物理权重 "),"Physical weight must not disappear to fit the panel.");
+            Assert.That(before.text,Does.StartWith("改造前"));Assert.That(after.text,Does.StartWith("改造后"));
+            foreach(var text in new[]{before,after})Assert.That(text.text,Does.Contain("权重 "),"Physical weight must not disappear to fit the panel.");
             if(upgrade=="U05"){Assert.That(before.text,Does.Contain("骰体：陶瓷"));Assert.That(after.text,Does.Contain("骰体：玻璃"));}
             var roll=app.Session.State.hand?.currentResults.FirstOrDefault(r=>r.dieId==dieId);
             string current=roll?.hasRolled==true

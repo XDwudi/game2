@@ -233,13 +233,13 @@ namespace DiceCraft
             if(edge.HasValue&&edge.Value!=Ink)Outline(r,"SemanticEdge",5,5,w-10,h-10,edge.Value,2);
             return r;
         }
-        public static UnityEngine.UI.Button ActionButton(Transform p,string name,string value,float x,float y,float w,float h,Action click,Color color,bool enabled=true)
+        public static UnityEngine.UI.Button ActionButton(Transform p,string name,string value,float x,float y,float w,float h,Action click,Color color,bool enabled=true,TextRole role=TextRole.None)
         {
             var b=Button(p,name,value,x,y,w,h,click,enabled,true);
             b.targetGraphic.color=enabled?color:Panel;
             var label=b.GetComponentInChildren<TextMeshProUGUI>();
             label.color=enabled?(color==Danger?TextColor:Ink):TextColor;
-            if(color==Primary)Role(label,TextRole.PrimaryButton);
+            Role(label,role);
             return b;
         }
         public static RectTransform Frame(Transform p,string name,float x,float y,float w,float h,Color fill,Color? edge=null,bool raycast=false)

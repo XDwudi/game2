@@ -279,7 +279,18 @@ namespace DiceCraft
             table.ShowPreview(die,sheetCenter073,sheetRotation073,2.15f);
             var hit=UiKit.Component<DiePointer>(UiKit.Box(p,"RotatePreview",368,112,456,400,Color.clear,true).gameObject);
             hit.clicked=null;hit.dragStart=null;hit.dragEnd=null;hit.dragged=DragSheetDie073;
-            UiKit.Text(p,"CandidateNotice","拖动旋转查看六个面",368,528,456,208,23,UiKit.Muted);
+            var notice=UiKit.Text(p,"CandidateNotice","拖动旋转查看六个面",368,528,456,208,23,UiKit.Muted);
+            if(!gift)
+            {
+                // Keep the gesture hint at its original coordinates. Normal shop candidates additionally
+                // explain O03; reward dice have a different source and keep their own acquisition flow.
+                float hintHeight=FitHeight(notice,0);
+                float viewHeight=208-hintHeight-8;
+                var content=UiKit.Scroll(p,"CandidateRulesScroll",368,528+hintHeight+8,456,viewHeight,viewHeight);
+                var rules=UiKit.Text(content,"CandidateRules",PlayerRules11("O03"),0,0,428,viewHeight,20,UiKit.Muted);
+                float rulesHeight=FitHeight(rules,0);
+                content.sizeDelta=new Vector2(content.sizeDelta.x,Mathf.Max(viewHeight,rulesHeight));
+            }
             string error=Session.PurchaseError(offer.offerId);int price=Session.GetOfferPrice(offer);
             var reason=UiKit.Scroll(p,"CandidatePurchaseReason",368,760,456,104,104);
             var reasonText=UiKit.Text(reason,"PurchaseUnavailable",error??(gift?"免费领取":"金币 "+PlayerNumberFormat.Gold(ViewState.gold)+" → "+PlayerNumberFormat.Integer((System.Numerics.BigInteger)ViewState.gold-price)),0,0,424,100,21,error==null?UiKit.Gold:UiKit.Muted);reason.sizeDelta=new Vector2(reason.sizeDelta.x,FitHeight(reasonText,100));

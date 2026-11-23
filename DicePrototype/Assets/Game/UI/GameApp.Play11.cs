@@ -73,6 +73,24 @@ namespace DiceCraft
             if(!string.IsNullOrWhiteSpace(text))return text;
             string d=Description(id);int stop=d.IndexOf('。');return stop>0?d.Substring(0,stop+1):d;
         }
+        // Shop and inventory rules use the authored short text once, followed by any extra rule.
+        // Upgrade levels, gold offers and other synthetic descriptions keep their original live values.
+        private string PlayerRules11(string id)
+        {
+            if(string.IsNullOrEmpty(id))return "";
+            string details;
+            switch(id[0])
+            {
+                case 'C': details=Config.Controller(id).details;break;
+                case 'I': details=Config.Consumable(id).details;break;
+                case 'O': details=Config.Service(id).details;break;
+                case 'U': details=Config.Upgrade(id).details;break;
+                case 'L': details=Config.Loot(id).details;break;
+                default: return Description(id);
+            }
+            string brief=ShortText11(id);
+            return string.IsNullOrWhiteSpace(details)||details==brief?brief:brief+"\n"+details;
+        }
         private string Details11(string id)
         {
             string text=null;
@@ -268,7 +286,7 @@ namespace DiceCraft
             var b=DrawCard13(main,"Controller_"+item.instanceId,x,y,w,h,face,mode==CardMode11.Full?CardSize13.Table:CardSize13.Compact,()=>ShowController(item,false),!IsBusy);
             AttachControllerDrag(b,item);
             string info=Art07Rarity(item.definitionId)+" · "+EnchantShort(item.enchantmentId)+(string.IsNullOrEmpty(face.value)?"":" · "+state.Replace("→ ","→"));
-            Art07AttachTooltip(b,item.instanceId,NameOf(item.definitionId),ShortText11(item.definitionId)+"\n"+Details11(item.definitionId),info,()=>ShowController(item,false));
+            Art07AttachTooltip(b,item.instanceId,NameOf(item.definitionId),PlayerRules11(item.definitionId),info,()=>ShowController(item,false));
         }
         /// <summary>Height of one line of TMP text at this size and the current text scale (Noto Sans SC line height ~1.45 em).</summary>
         private static float Line11(float size)=>Mathf.Ceil(size*UiKit.FontScale*1.46f)+2;
@@ -571,7 +589,7 @@ namespace DiceCraft
                 var item=s.inventory[i];var b=UiKit.Button(main,"Item_"+item.instanceId,"",px,py,size,size,()=>ShowOwned(item,false),!IsBusy);
                 UiKit.CardSurface(b,true);((Image)b.targetGraphic).sprite=UiKit.Template("ui_card_item");
                 Icon(b.transform,item.contentId,6,5,size-12);
-                Art07AttachTooltip(b,item.instanceId,NameOf(item.contentId),ShortText11(item.contentId)+"\n"+Details11(item.contentId),Art07ItemUnavailable(item)??"可使用 · 点击查看完整说明",()=>ShowOwned(item,false));
+                Art07AttachTooltip(b,item.instanceId,NameOf(item.contentId),PlayerRules11(item.contentId),Art07ItemUnavailable(item)??"可使用 · 点击查看完整说明",()=>ShowOwned(item,false));
                 if(Art07ItemUnavailable(item)!=null)
                 {
                     var mark=UiKit.Frame(b.transform,"UnavailableLock",size-26,0,26,28,UiKit.Background,UiKit.PanelLight);
@@ -831,7 +849,7 @@ namespace DiceCraft
 
         private UnityEngine.UI.Button PrimaryButton11(string name,string label,Action click,bool enabled,Layout11 l)
         {
-            var b=UiKit.ActionButton(main,name,label,l.primary.x,l.primary.y,l.primary.width,l.primary.height,click,UiKit.Primary,enabled);
+            var b=UiKit.ActionButton(main,name,label,l.primary.x,l.primary.y,l.primary.width,l.primary.height,click,UiKit.Primary,enabled,TextRole.PrimaryButton);
             var text=b.GetComponentInChildren<TextMeshProUGUI>();text.fontSize=(Large11?22:28)*UiKit.FontScale;text.textWrappingMode=TextWrappingModes.NoWrap;
             // W11b: the label colour that reads on the primary face as drawn (Swiss draws its red face darker than the tint).
             text.color=LabelOn11(b.targetGraphic as Image,enabled?(Color?)null:text.color);

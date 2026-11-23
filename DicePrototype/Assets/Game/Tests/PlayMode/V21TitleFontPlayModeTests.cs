@@ -194,7 +194,8 @@ namespace DiceCraft.Tests
                     {
                         case "StartNew": case "ContinueRun": case "StartStage": case "Resume": case "RetrySave":
                         case "ConfirmDisplay": case "ApplyDisplay": case "Again": case "LeaveShop":
-                        case "LootEnterShop15": case "SettlementContinue": return TextRole.PrimaryButton;
+                        case "SettlementContinue": return TextRole.PrimaryButton;
+                        case "LootEnterShop15" when label.text == "进入商店": return TextRole.PrimaryButton;
                         case "NewRun" when app.ViewState == null: return TextRole.PrimaryButton;
                         case "Roll": case "Submit": case "Confirm":
                             if (parent.Find("Step")?.gameObject.activeSelf == true) return TextRole.PrimaryButton;
@@ -252,6 +253,10 @@ namespace DiceCraft.Tests
                     c.index == printed[printed.Count-1].index && c.textElement?.unicode == 0x2026) scalar = 0x2026;
                 var weight = (c.style & FontStyles.Bold) != 0 ? FontWeight.Bold : label.fontWeight;
                 var character = TMP_FontAssetUtilities.GetCharacterFromFontAsset(scalar, expected, true, c.style, weight, out _);
+                // TMP_Text.GetTextElement retries the regular face for synthetic bold when the
+                // physical bold face and its styled fallbacks do not contain this character.
+                if (character == null && (c.style != FontStyles.Normal || weight != FontWeight.Regular))
+                    character = TMP_FontAssetUtilities.GetCharacterFromFontAsset(scalar, expected, true, FontStyles.Normal, FontWeight.Regular, out _);
                 if (c.textElement == null || c.textElement.unicode != scalar || character == null ||
                     c.fontAsset != character.textAsset || c.textElement.textAsset != c.fontAsset ||
                     (title && c.fontAsset != UiKit.TitleFont && !UiKit.TitleFont.fallbackFontAssetTable.Contains(c.fontAsset)))
@@ -294,7 +299,7 @@ namespace DiceCraft.Tests
                 var failures = new List<string>();
                 CheckForegroundFonts21(probe.transform, "valid", failures);
                 Assert.That(failures, Is.Empty, string.Join("\n",failures));
-                probe.text = "<b>金币</b> <mspace=0.6em>12</mspace> \\u0378";
+                probe.text = "<b>金币</b> <mspace=0.6em>12</mspace> " + char.ConvertFromUtf32(0x0378);
                 probe.ForceMeshUpdate();
                 var missing = probe.textInfo.characterInfo.Take(probe.textInfo.characterCount)
                     .Single(c => c.index == probe.text.Length - 1);

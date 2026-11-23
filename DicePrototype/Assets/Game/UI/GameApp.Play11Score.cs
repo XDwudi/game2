@@ -62,7 +62,7 @@ namespace DiceCraft
             if(!stable&&!IsPresenting07)ClearScore11();
             if(IsPresenting07&&receipt07!=null)
             {
-                mode=Formula11Mode.Presenting;b=lastPresentationAfter07?.lastSubmission?.breakdown;caption=(presentationPlayer07.IsReplay?"回放 · ":"")+"计分中…";
+                mode=Formula11Mode.Presenting;b=lastPresentationAfter07?.lastSubmission?.breakdown;caption=(presentationPlayer07.IsReplay?"重播 · ":"")+"计分中…";
             }
             else if(stable)
             {
@@ -142,7 +142,7 @@ namespace DiceCraft
             if(receiptNumber07!=null){number.rectTransform.pivot=new Vector2(1,.5f);number.rectTransform.anchoredPosition=new Vector2(chipW-14-tierW,-l.chips.height*.5f);receiptNumberOrigin07=number.rectTransform.anchoredPosition;}
             if(detailName!=null)
             {
-                string label=detailName=="RecoveredDetails07"?"只读收据":detailName=="RandomPreview"?(b.multiplierFactors.Where(f=>f.abilityId=="C53").Select(f=>f.stateOwnerId).Distinct().Count()>1?"随机来源":preview.isRandom?"9 种结果":"覆盖来源"):"完整记录";
+                string label=detailName=="RecoveredDetails07"?"得分明细":detailName=="RandomPreview"?(b.multiplierFactors.Where(f=>f.abilityId=="C53").Select(f=>f.stateOwnerId).Distinct().Count()>1?"随机来源":preview.isRandom?"9 种结果":"覆盖来源"):"完整记录";
                 Action click=detailName=="RecoveredDetails07"?(Action)(()=>ShowBreakdown(s.lastSubmission.snapshot,s.lastSubmission.breakdown)):detailName=="RandomPreview"?ShowRandomPreview07:ShowCommittedPresentationDetails07;
                 var detail=SolidButton11(row,detailName,label,l.chips.width-detailW,0,detailW,l.chips.height,click,detailName!="RandomPreview"||!LockVisualPlaying07,Body11(c?15:18));
                 var t=detail.GetComponentInChildren<TextMeshProUGUI>();t.textWrappingMode=TextWrappingModes.Normal;t.lineSpacing=-12;

@@ -25,7 +25,7 @@ namespace DiceCraft
 
         private static Button Primary16(Transform parent,string name,string label,float x,float y,float width,float height,Action click,bool enabled=true)
         {
-            var button=UiKit.ActionButton(parent,name,label,x,y,width,height,click,UiKit.Primary,enabled);
+            var button=UiKit.ActionButton(parent,name,label,x,y,width,height,click,UiKit.Primary,enabled,TextRole.PrimaryButton);
             var text=button.GetComponentInChildren<TextMeshProUGUI>();
             text.color=LabelOn11(button.targetGraphic as Image,enabled?(Color?)null:UiKit.Muted);
             return button;

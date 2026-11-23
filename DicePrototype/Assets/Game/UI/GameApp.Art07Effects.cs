@@ -551,7 +551,7 @@ namespace DiceCraft
         private RectTransform TransactionAcquisitionCard07(ShopOffer offer,string identity,DieInstance die)
         {
             var p=UiKit.Frame(transactionReadout07,"AcquiredInstance07",1440,536,420,360,UiKit.Paper,UiKit.Ink);
-            UiKit.Text(p,"Title",die==null?NameOf(offer.contentId):"新增永久骰",16,12,388,58,26,UiKit.Ink,TextAlignmentOptions.Center);
+            UiKit.Text(p,"Title",die==null?NameOf(offer.contentId):"新骰子",16,12,388,58,26,UiKit.Ink,TextAlignmentOptions.Center);
             if(die==null)Icon(p,offer.contentId,154,94,112);
             else
             {
@@ -589,7 +589,7 @@ namespace DiceCraft
                         var p=UiKit.Frame(transactionReadout07,"AddedOffer_"+offer.offerId,392+Math.Min(4,index)*296,512,280,416,UiKit.Paper,UiKit.Ink);
                         UiKit.Text(p,"Title","新增道具位 "+(index+1),12,12,256,64,24,UiKit.Ink,TextAlignmentOptions.Center);Icon(p,offer.contentId,84,104,112);
                         UiKit.Text(p,"Item",NameOf(offer.contentId),12,236,256,66,24,UiKit.Ink,TextAlignmentOptions.Center);
-                        UiKit.Text(p,"Price",Session.GetOfferPrice(offer)+" 金币 · 道具页",12,326,256,66,21,UiKit.Ink,TextAlignmentOptions.Center);roots=new[]{p};
+                        UiKit.Text(p,"Price",Session.GetOfferPrice(offer)+" 金币",12,326,256,66,21,UiKit.Ink,TextAlignmentOptions.Center);roots=new[]{p};
                     }
                     // v0.73: a product added to a scrolling section is brought into view before it is framed.
                     RevealInScroll073(roots[0]);
@@ -625,11 +625,11 @@ namespace DiceCraft
             var p=UiKit.Rect(transactionReadout07,"PhysicalUpgrade07",392,512,1496,416);
             UiKit.Outline(p,"Frame",0,0,1496,416,UiKit.Gold,3);
             UiKit.Box(p,"LeftPaper",4,4,450,408,UiKit.Panel);UiKit.Box(p,"RightPaper",1014,4,478,408,UiKit.Panel);
-            UiKit.Text(p,"Title",NameOf(bought.contentId)+" · 已保存",20,16,418,60,29,UiKit.Paper);
+            UiKit.Text(p,"Title",NameOf(bought.contentId)+" · 完成",20,16,418,60,29,UiKit.Paper);
             UiKit.Text(p,"Identity",DieName11(cmd.targetDieId)+"\n"+(whole?"整骰属性":FaceName11(faceId)),20,90,418,92,25,UiKit.Gold);
-            UiKit.Text(p,"Before",(whole?"购买前 · ":"购买前\n")+UpgradeFaceDescription07(oldDie,oldFace,whole),20,194,418,206,23,UiKit.Muted);
+            UiKit.Text(p,"Before",(whole?"改造前 · ":"改造前\n")+UpgradeFaceDescription07(oldDie,oldFace,whole),20,194,418,206,23,UiKit.Muted);
             var result=UiKit.Rect(p,"Result",1030,18,446,378);
-            UiKit.Text(result,"After",(whole?"购买后 · ":"购买后\n")+UpgradeFaceDescription07(newDie,newFace,whole),0,0,442,218,25,UiKit.Paper);
+            UiKit.Text(result,"After",(whole?"改造后 · ":"改造后\n")+UpgradeFaceDescription07(newDie,newFace,whole),0,0,442,218,25,UiKit.Paper);
             var current=after.hand?.currentResults.FirstOrDefault(d=>d.dieId==cmd.targetDieId);
             UiKit.Text(result,"Current",current?.hasRolled==true?"本手朝上："+current.currentPip+" 点"+ColorText07(current.currentColor)+"（这次不受影响）":"还没掷",0,242,442,118,22,UiKit.Muted);
             UiKit.Text(p,"TargetFace",whole?"整骰玻璃材质":FaceName11(faceId)+" · 永久面",504,354,450,48,23,UiKit.Gold,TextAlignmentOptions.Center);
@@ -662,7 +662,7 @@ namespace DiceCraft
             transactionMotion07.HideUntilFinished(FindTransactionRect07("ShopProducts"));transactionMotion07.TrackReveal(result,.18f,.18f);
         }
         private static string UpgradeFaceDescription07(DieInstance die,FaceState face,bool whole)
-        {return (whole?"骰体："+(die.isGlass?"玻璃":"陶瓷")+"\n":"")+FaceName11(face.faceId)+"  "+face.permanentPip+"点 · "+ColorText07(face.baseColor)+"\n"+TextureText07(face.texture)+" · "+(face.isGold?"黄金边":"普通边")+"\n物理权重 "+face.baseWeight;}
+        {return (whole?"骰体："+(die.isGlass?"玻璃":"陶瓷")+"\n":"")+FaceName11(face.faceId)+"  "+face.permanentPip+" 点"+ColorText07(face.baseColor)+"\n"+TextureText07(face.texture)+" · "+(face.isGold?"黄金面":"普通面")+"\n权重 "+face.baseWeight;}
         private void CompleteTransactionVisual07()
         {
             cleanupTransactionView07?.Invoke();cleanupTransactionView07=null;if(transactionReadout07!=null)UiKit.Clear(transactionReadout07);

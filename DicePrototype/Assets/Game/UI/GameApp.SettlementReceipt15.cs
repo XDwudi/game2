@@ -141,7 +141,7 @@ namespace DiceCraft
             UiKit.Text(front,"LootCaption15","首领战利品",16,12,w-32,large?48:36,20,LabelOn11(front,PaperMuted071),TextAlignmentOptions.Center);
             DrawLootPicture15(front,r.lootKind,(w-160)*.5f,large?64:48,160);
             var item=NoWrap11(UiKit.Text(front,"LootName15",def.displayName,16,large?236:220,w-32,large?60:42,26,LabelOn11(front,UiKit.Ink),TextAlignmentOptions.Center));
-            item.fontStyle=FontStyles.Bold;
+            item.fontStyle=FontStyles.Bold;UiKit.Role(item,TextRole.BossName);
             var shortText=UiKit.Text(front,"LootShort15",def.shortText,16,large?300:262,w-32,large?140:62,20,LabelOn11(front,UiKit.Ink),TextAlignmentOptions.Center);
             shortText.text=BalancedLines11(shortText,def.shortText,w-32);
             var hit=HitArea073(plaque,"LootHover15",0,0,w,cardH,CompleteSettlementReveal07);

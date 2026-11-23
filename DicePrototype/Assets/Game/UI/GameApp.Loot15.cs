@@ -243,7 +243,7 @@ namespace DiceCraft
             }
             var b=DrawCard13(panel,(o.category=="controller"?"Offer_":"Product_")+o.offerId,x,y,w,h,card,
                 CardSize13.Shop,()=>{if(!IsBusy)InspectOffer(o);},!IsBusy&&!unselected);
-            if(!unselected)Art07AttachTooltip(b,o.offerId,card.label??NameOf(o.contentId),card.text??Description(o.contentId),
+            if(!unselected)Art07AttachTooltip(b,o.offerId,card.label??NameOf(o.contentId),card.text??PlayerRules11(o.contentId),
                 o.sold?"已领取":string.IsNullOrEmpty(card.availability)?"免费":card.availability,()=>InspectOffer(o));
             var groupAlpha=UiKit.Component<CanvasGroup>(b.gameObject);
             groupAlpha.alpha=unselected?.35f:1f;groupAlpha.interactable=!unselected;groupAlpha.blocksRaycasts=!unselected;
@@ -294,7 +294,7 @@ namespace DiceCraft
             var p=Art07Modal(NameOf(o.contentId),480,180,960,720);
             Icon(p,o.contentId,24,112,176);
             var list=PaperDetailScroll071(p,"OfferDetail",232,104,704,492);float y=0;
-            Art07DetailSection(list,"Skill","效果",Description(o.contentId),ref y,672,true);
+            Art07DetailSection(list,"Skill","效果",PlayerRules11(o.contentId),ref y,672,true);
             string reason=ShopAvailability14(o);
             Art07DetailSection(list,"Price","价格",string.IsNullOrEmpty(reason)?"免费领取":reason,ref y,672,true);
             list.sizeDelta=new Vector2(list.sizeDelta.x,y+16);

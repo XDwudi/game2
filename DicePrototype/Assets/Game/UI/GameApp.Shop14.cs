@@ -282,7 +282,7 @@ namespace DiceCraft
             var face=new CardFace13{contentId=offer.contentId,enchantment=c?.enchantmentId??"none",value=value,valueWarning=warning,disabled=offer.sold,sold=offer.sold,
                 price=Session.GetOfferNetPrice(offer),availability=offer.sold?null:ShopAvailability14(offer),buy=()=>Art07BuyOffer(offer),buttonName="Buy_"+offer.offerId};
             var card=DrawCard13(main,"Offer_"+offer.offerId,x,y,w,h,face,CardSize13.Shop,()=>{if(!IsBusy)InspectOffer(offer);},!IsBusy);
-            Art07AttachTooltip(card,offer.offerId,NameOf(offer.contentId),Description(offer.contentId),EnchantLabel(c?.enchantmentId??"none")+"\n"+Art07OfferState(c),()=>InspectOffer(offer));
+            Art07AttachTooltip(card,offer.offerId,NameOf(offer.contentId),PlayerRules11(offer.contentId),EnchantLabel(c?.enchantmentId??"none")+"\n"+Art07OfferState(c),()=>InspectOffer(offer));
         }
 
         // ---------------------------------------------------------------- availability (SHOP_LAYOUT 6)
@@ -373,7 +373,7 @@ namespace DiceCraft
             bool hand=offer.category=="hand_upgrade"||offer.category=="color_upgrade";
             var face=new CardFace13{contentId=offer.contentId,category=offer.category,price=Session.GetOfferNetPrice(offer),sold=offer.sold,disabled=offer.sold,
                 availability=offer.sold?null:ShopAvailability14(offer),buy=()=>Art07BuyOffer(offer),buttonName="Buy_"+offer.offerId,priceWidth=priceW};
-            string tip=Description(offer.contentId);
+            string tip=PlayerRules11(offer.contentId);
             if(hand)
             {
                 bool color=Config.colorDefinitions.Any(d=>d.id==offer.contentId);
@@ -582,7 +582,7 @@ namespace DiceCraft
                 var button=UiKit.Button(panel,"ShopItem_"+item.instanceId,"",ix,itemY,BuildItemSize14,BuildItemSize14,()=>ShowOwned(item,true),!IsBusy);
                 UiKit.CardSurface(button,true);((Image)button.targetGraphic).sprite=UiKit.Template("ui_card_item");
                 Icon(button.transform,item.contentId,8,6,BuildItemSize14-16);
-                Art07AttachTooltip(button,item.instanceId,NameOf(item.contentId),Description(item.contentId),"出售获得 1 金币",()=>ShowOwned(item,true));
+                Art07AttachTooltip(button,item.instanceId,NameOf(item.contentId),PlayerRules11(item.contentId),"出售获得 1 金币",()=>ShowOwned(item,true));
             }
         }
         /// <summary>

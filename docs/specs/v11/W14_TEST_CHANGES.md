@@ -50,3 +50,7 @@
 | `PLAY_V14_SH08_LongestChangeTextsFitWithEnlargedText` | 同上 | SH-08 的最长文字：带纹理、黄金与权重的面，U01 的改动与对面补充行、U11 的不合法原因；两套风格 × 100%/150%：文字完整、不被按钮盖住，按钮都在面板内（`W14ButtonsInside`，`PLAY_V14_SH08_FacePickOnTheTableStepByStep` 的 S1–S3 也加了这项） |
 | `PLAY_V14_SH10_SameShopSaleCapIsShownOnTheTileAndInTheDetails` | 同上 | SH-10（C98）：三张砍价高手把 4 金币的卡压到 1；本店买入后卖价 1，图块悬停与详情都写明原因；卖出 +1 |
 | `PLAY_V14_SH12_TopBarTargetIncludesTheBossModifier` | 同上 | SH-12（R5）：顶栏标题“商店 · 第 3 关前”，下一关的目标含首领减益，与“查看本章”同一个数 |
+
+## 2026-11-23 货架、详情与骰面改造
+
+三项 `PLAY_V24_TX06_` 从货架悬停、在售详情、持有道具、新骰旋转预览和免费领取入口读取实绘文字，覆盖卡牌、道具、服务、骰面改造、购买骰与赠礼骰。对照批准的短文、非空细则及空细则条目，保留当前价格、牌型等级和倍率。商店新骰的 O03 购入条件只在付费候选详情显示。骰面改造的原回归改为核对“改造前”“改造后”“权重”，继续检查变化的面值、材质、权重以及屏幕上的位置。实机运行结果记入逐项任务表。[内容附录逐项核对](../../../artifacts/cache/v11/w25/tx06-review/逐行核对.md) · [验收记录](../../tasks/P0-V11.md)
