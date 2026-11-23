@@ -20,6 +20,8 @@ def build_jobs(table: dict, theme="default") -> dict:
     jobs = {}
     for content_id, entry in table["subjects"].items():
         clauses = [entry["subject"].rstrip(".") + ".", *entry["cues"], *table["defaults"]["cues"]]
+        if theme != "default":
+            clauses.extend(entry.get("redrawCues", []))
         clauses.append("Item-specific restrictions: " + "; ".join(entry["avoid"]) + ".")
         job = {
             "jobId": f"V11-{theme.upper()}-{content_id}",

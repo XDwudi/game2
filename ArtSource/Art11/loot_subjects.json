@@ -1,7 +1,7 @@
 {
   "schema": "loot-subjects-1",
   "source": "docs/specs/v11/SETTLEMENT_LAYOUT.md §8.1–8.2; DicePrototype/Assets/Game/Data/P0Config.json lootKinds; CP3-1",
-  "status": "Subject specification; default golden samples pending",
+  "status": "Six default golden samples approved 2026-11-23 for redraws in the five other styles.",
   "defaults": {
     "canvas": {"width": 1254, "height": 1254, "channels": "RGBA", "transparent": true},
     "subjectWidthPercent": [70, 95],
@@ -39,6 +39,7 @@
       "mainObject": "open handbook, three dice and two rising chevrons",
       "subject": "an open handbook with three small dice arranged in one row across a page, two stacked upward chevrons alongside the row",
       "cues": ["The open pages and precisely two upward chevrons convey study and two levels.", "The three dice have dark pips, with no recognizable hand or run."],
+      "redrawCues": ["Copy the approved reference's three top faces exactly: from left to right show 3, 5, then 2 dark pips. For 3 use three dots on one diagonal; for 5 use the four corners and the centre; for 2 use two opposite corners. Keep all three upper faces visible."],
       "avoid": ["no three matching faces", "no sequence of pips", "no text or page numbers", "no red or blue dice"],
       "function": "选择一个牌型或颜色，直接升两级。不同点数或颜色都不应暗示特定选项。"
     },
