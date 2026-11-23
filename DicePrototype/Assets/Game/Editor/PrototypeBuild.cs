@@ -26,7 +26,7 @@ namespace DiceCraft.Editor
             if(EditorUserBuildSettings.activeBuildTarget!=target)throw new InvalidOperationException("Launch a separate Editor with the correct active profile/platform.");
             var cfg=JsonUtility.FromJson<GameConfig>(GameConfig.PrepareJsonForUnity(File.ReadAllText("Assets/Game/Data/P0Config.json")));cfg.Validate();
             if(cfg.controllers.Length!=150||cfg.stages.Length!=24||cfg.handDefinitions.Length!=13||cfg.bossModifiers.Length!=39)throw new InvalidOperationException("Incomplete p1.1.0 content.");
-            ValidateGate();
+            string verifiedGateSha256=ValidateGate();
             var identity=AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/Resources/BuildIdentity.json");
             if(identity==null)throw new InvalidOperationException("Freeze sourceCommit and write BuildIdentity before building.");
             string output=mac?"../Builds/v11/macOS/DicePrototype.app":"../Builds/v11/Windows/DicePrototype.exe";
@@ -38,27 +38,36 @@ namespace DiceCraft.Editor
                 result=report.summary.result.ToString(),errors=report.summary.totalErrors,warnings=report.summary.totalWarnings,
                 bytes=report.summary.totalSize,seconds=report.summary.totalTime.TotalSeconds,buildGuid=report.summary.guid.ToString(),
                 buildUtc=report.summary.buildEndedAt.ToUniversalTime().ToString("O"),output=Path.GetFullPath(output),identity=identity.text,
-                gateSha256=Hash("../evidence/v11/unity/build-gate.json")};
+                gateSha256=verifiedGateSha256};
             if(report.summary.result==BuildResult.Succeeded)
             {
                 string native=Path.ChangeExtension(evidence,"buildreport");
                 File.Copy("Library/LastBuild.buildreport",native,false);
                 proof.nativeBuildReport=new Entry{path=Path.GetRelativePath("..",native).Replace('\\','/'),sha256=Hash(native)};
+                // Build preprocessors may rewrite source assets. Bind the same gate before and after BuildPlayer.
+                if(ValidateGate()!=verifiedGateSha256)
+                    throw new InvalidOperationException("The verified build gate changed while building. Native report retained at "+native);
                 var directory=Path.GetDirectoryName(proof.output);
                 proof.playerFiles=report.GetFiles().Select(f=>Path.GetRelativePath(directory,Path.GetFullPath(f.path)).Replace('\\','/'))
                     .Where(p=>!p.Split('/').Any(segment=>segment.EndsWith("_BackUpThisFolder_ButDontShipItWithYourGame",StringComparison.Ordinal)
                         ||segment.EndsWith("_BurstDebugInformation_DoNotShip",StringComparison.Ordinal)))
                     .OrderBy(p=>p,StringComparer.Ordinal).Select(p=>new Entry{path=p,sha256=Hash(Path.Combine(directory,p))}).ToArray();
             }
-            File.WriteAllText(evidence,JsonUtility.ToJson(proof,true));
+            using(var stream=new FileStream(evidence,FileMode.CreateNew,FileAccess.Write,FileShare.None))
+            using(var writer=new StreamWriter(stream,new System.Text.UTF8Encoding(false)))
+                writer.Write(JsonUtility.ToJson(proof,true));
             if(report.summary.result!=BuildResult.Succeeded)throw new InvalidOperationException("Player build failed: "+report.summary.result);
             Debug.Log("V11_BUILD_SUCCEEDED "+Path.GetFullPath(output));
         }
-        private static void ValidateGate()
+        private static string ValidateGate()
         {
             const string path="../evidence/v11/unity/build-gate.json";
             if(!File.Exists(path))throw new InvalidOperationException("Run tests and bind their successful evidence before building.");
-            var gate=JsonUtility.FromJson<Gate>(File.ReadAllText(path));
+            byte[] rawGate=File.ReadAllBytes(path);
+            string gateText;
+            using(var stream=new MemoryStream(rawGate))
+            using(var reader=new StreamReader(stream))gateText=reader.ReadToEnd();
+            var gate=JsonUtility.FromJson<Gate>(gateText);
             if(gate==null||gate.schema!="v11-build-gate-1"||gate.editModePassed<797||gate.playModePassed<30||gate.files==null||gate.files.Length==0)throw new InvalidOperationException("Incomplete p1.1.0 test gate.");
             Action<Entry> requireEvidence=e=>{if(e==null||string.IsNullOrEmpty(e.path)||string.IsNullOrEmpty(e.sha256)||!gate.files.Any(f=>f.path==e.path&&f.sha256==e.sha256))throw new InvalidOperationException("Required verification evidence is absent from the bound files.");};
             requireEvidence(gate.pdbAudit);
@@ -96,6 +105,7 @@ namespace DiceCraft.Editor
                 throw new InvalidOperationException("Release identity must be p1.1.0 rules on save schema 7 with the "+GameApp.ArtVersion+" presentation.");
             if(identity.sourceCommit!=gate.sourceCommit||identity.contentConfigSha256!=Hash("Assets/Game/Data/P0Config.json")||identity.goldenCaseSetSha256!=Hash("Assets/Game/Data/GoldenScores.json"))
                 throw new InvalidOperationException("Build identity does not match frozen source/config/cases.");
+            using(var sha=SHA256.Create())return BitConverter.ToString(sha.ComputeHash(rawGate)).Replace("-","").ToLowerInvariant();
         }
         private static string Hash(string path){using(var sha=SHA256.Create())using(var stream=File.OpenRead(path))return BitConverter.ToString(sha.ComputeHash(stream)).Replace("-","").ToLowerInvariant();}
         [Serializable]private sealed class Gate{public string schema=null,sourceCommit=null;public TestProof[] tests=null;public Entry pdbAudit=null;public int editModePassed=0,playModePassed=0;public Entry[] files=null;}
