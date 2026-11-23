@@ -367,6 +367,17 @@ namespace DiceCraft.Tests
             Assert.That(app.Session.State.phase,Is.EqualTo("Shop"));
             Assert.That(UiKit.ReducedMotion,Is.False);
             string state=StateJson();byte[] disk=File.ReadAllBytes(app.SaveLocation);long sequence=app.Session.ActionSequence;
+            string proof=null;
+            string head=null;
+            const string testName=nameof(PLAY_V11_ShopIconButtonsKeepTheirLabelsThroughHoverPressAndExit);
+            if(Environment.GetEnvironmentVariable("DICECRAFT_V11_HOVER_PROOF")=="1")
+            {
+                head=IdentityHead20X();
+                proof=Path.GetFullPath(Path.Combine(Application.dataPath,"..","..","artifacts","cache","v11","w25","hover-proof",
+                    "captures",Screen.width+"x"+Screen.height,head+"-"+DateTime.UtcNow.ToString("yyyyMMddTHHmmssfffffffZ")));
+                Directory.CreateDirectory(proof);
+                File.WriteAllText(Path.Combine(proof,"frames.tsv"),"utc\thead\ttest\tmvid\twidth\theight\tcontrol\tphase\tframe\tsequence\tpx\tpy\thit\tfaceX\tfaceY\tlabelX\tlabelY\timage\tsha256\n");
+            }
             // V1.1 (W14, SH-11): the new top bar's icon buttons and 查看本章 (chapter dots before its label) join the case.
             foreach(string name in new[]{"RefreshControllers","Pause","Handbook","ViewCycle"})
             {
@@ -386,14 +397,60 @@ namespace DiceCraft.Tests
                     }
                 }
                 var pointer=new PointerEventData(EventSystem.current){button=PointerEventData.InputButton.Left};
+                string PointAt(bool inside)
+                {
+                    pointer.position=inside?RectTransformUtility.WorldToScreenPoint(null,root.TransformPoint(root.rect.center)):Vector2.one;
+                    var hits=new List<RaycastResult>();
+                    EventSystem.current.RaycastAll(pointer,hits);
+                    pointer.pointerCurrentRaycast=hits.FirstOrDefault();
+                    var hit=pointer.pointerCurrentRaycast.gameObject;
+                    Assert.That(hit!=null&&hit.GetComponentInParent<UnityEngine.UI.Button>()==button,Is.EqualTo(inside),
+                        name+" pointer "+pointer.position+" first hit "+(hit==null?"<none>":hit.name));
+                    var parts=new Stack<string>();
+                    for(var node=hit==null?null:hit.transform;node!=null;node=node.parent)parts.Push(node.name);
+                    return hit==null?"<none>":string.Join("/",parts);
+                }
+                IEnumerator Record(string phase,float lift,bool image)
+                {
+                    yield return new WaitForEndOfFrame();
+                    Expect(phase,lift);
+                    string hit=PointAt(phase!="before"&&phase!="exit");
+                    var face=((RectTransform)root.Find("Face")).anchoredPosition;
+                    string file="",hash="";
+                    if(image)
+                    {
+                        file=name+"-"+phase+".png";
+                        var shot=ScreenCapture.CaptureScreenshotAsTexture();
+                        try
+                        {
+                            byte[] bytes=shot.EncodeToPNG();
+                            File.WriteAllBytes(Path.Combine(proof,file),bytes);
+                            using(var sha=System.Security.Cryptography.SHA256.Create())
+                                hash=BitConverter.ToString(sha.ComputeHash(bytes)).Replace("-","").ToLowerInvariant();
+                        }
+                        finally{UnityEngine.Object.Destroy(shot);}
+                    }
+                    var line=FormattableString.Invariant($"{DateTime.UtcNow:O}\t{head}\t{testName}\t{typeof(GameplayPlayModeTests).Module.ModuleVersionId}\t{Screen.width}\t{Screen.height}\t{name}\t{phase}\t{Time.frameCount}\t{app.Session.ActionSequence}\t{pointer.position.x:R}\t{pointer.position.y:R}\t{hit}\t{face.x:R}\t{face.y:R}\t{label.anchoredPosition.x:R}\t{label.anchoredPosition.y:R}\t{file}\t{hash}\n");
+                    File.AppendAllText(Path.Combine(proof,"frames.tsv"),line);
+                }
+                if(proof!=null)
+                {
+                    Assert.That(live,Is.True,name+" must exercise the enabled hover and pressed face.");
+                    yield return Record("before",0,true);
+                    PointAt(true);
+                }
                 ExecuteEvents.Execute(button.gameObject,pointer,ExecuteEvents.pointerEnterHandler);yield return null;
                 Expect("hover",live?1:0);
+                if(proof!=null)yield return Record("hover",1,true);
                 ExecuteEvents.Execute(button.gameObject,pointer,ExecuteEvents.pointerDownHandler);yield return null;
                 Expect("press",live?-3:0);
+                if(proof!=null)yield return Record("press",-3,false);
                 ExecuteEvents.Execute(button.gameObject,pointer,ExecuteEvents.pointerUpHandler);yield return null;
                 Expect("release",live?1:0);
+                if(proof!=null){yield return Record("release",1,false);PointAt(false);}
                 ExecuteEvents.Execute(button.gameObject,pointer,ExecuteEvents.pointerExitHandler);yield return null;
                 Expect("exit",0);
+                if(proof!=null){yield return Record("exit",0,true);PointAt(true);}
                 // Hover again and redraw the page while lifted: the pooled redraw restores the authored layout.
                 ExecuteEvents.Execute(button.gameObject,pointer,ExecuteEvents.pointerEnterHandler);yield return null;
                 app.Refresh();yield return null;
