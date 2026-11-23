@@ -4,7 +4,13 @@
 
 ### GPT 接力开发（2026-11-23，整合验证中）
 
-五套风格各一张菜单托盘、六张奖励插画已全部接入。35 件独立审图通过，瑞士精研手册采用修正骰点的 r02。81 个安装文件经重建比对一致，正式重装检查覆盖全部 36 张奖励，差异为零。已将美术版本更新为 art1.1.0。协调者接手唯一 Unity 写入锁，下一步在 720p 验证六套托盘和全部奖励、普通存档从首领战返回菜单的照明，再运行双窗口全量与构建。当前尚无这批专属资源的实机回归结论或候选包。[美术清单与审图](specs/v11/W23_REPORT.md) · [六套奖励对照](../artifacts/cache/v11/w17-staging/六套奖励-纸面.jpg)
+首轮冻结版 `387897b3` 已通过全部 478 项 Python 回归，耗时 2,174 秒，运行前后源码一致。已将项目现有的全局输入动作表显式加入预加载。隔离构建在 Windows x64 和 macOS Universal 上各成功一次，构建前和返回后的设置文件四份逐字节一致。新冻结版由协调者串行复验编辑器、1080p 与 720p，再交付两端候选包。[Python 回归收据](../artifacts/cache/v11/w26-staging/python-full-20261123T205308Z/result.json) · [Windows 构建原日志](../artifacts/cache/v11/w26-staging/preload-smoke/unity.log) · [macOS 构建原日志](../artifacts/cache/v11/w26-staging/preload-smoke/unity-macos.log)
+
+首轮冻结提交 `387897b3` 的编辑器全量 **2,482/2,482**，1080p、720p 实机全量各 **366/366**，均零跳过。五个程序集对应 310 份源码，零差异。两档窗口共 912 张结算、领取及菜单原图已交用户过目，文字附录每窗 270 行、447 项核对一致。[双窗实机](../artifacts/cache/v11/w25/full-recheck-387897b3/REVIEW-720.md) · [最终结算图册](../artifacts/cache/v11/review-20261123/rollout-final/pages/final/387897b3d2854f43588b91a5303efa44a16f72c0/index.html) · [两窗逐骰复算](../artifacts/cache/v11/w25/ax01-frozen-387897b3/REVIEW.md)
+
+在 Windows 与 macOS 原生构建回调里，Unity Input System 1.20.1 为游戏既有的全局输入动作表临时添加预加载引用。用户设置在编辑器退出时逐字节恢复；冻结门禁在退出前检测到真实差异，两个目标均中止交付。原生报告、两套散包和旧门禁已按 SHA 封存，没有生成试玩 ZIP。修复采用显式预加载同一个动作表。构建流程保留严格前后校验，由协调者独占 Unity，修复后重新冻结与双窗验证。[根因与时序](../artifacts/cache/v11/w26-staging/build-settings-investigation/REVIEW.md) · [原件封存收据](../artifacts/cache/v11/w26-staging/platform-transition-review/failed-builds-387897b3/archived.json)
+
+五套风格各一张菜单托盘、六张奖励插画已全部接入。35 件独立审图通过，瑞士精研手册采用修正骰点的 r02。81 个安装文件经重建比对一致，正式重装检查覆盖全部 36 张奖励，差异为零。独立审图在冻结版 720p 上检查了 24 组开关托盘的实图，盘外稳定变化均为零。36 个骰面样本缩到 64×64 px 后红蓝点均可辨，120 条菜单正文的最低实测对比度为 5.10∶1。[美术清单与审图](specs/v11/W23_REPORT.md) · [六套奖励对照](../artifacts/cache/v11/w17-staging/六套奖励-纸面.jpg) · [骰点与正文实测](../artifacts/cache/v11/w25/ax08-frozen-387897b3/REVIEW.md)
 
 用户于 2026-11-23 分别选定“六套字体与断行定稿”“六套界面布局定稿”“默认托盘定稿，推广五套”“六件奖励定稿，制作其余三十张”。`979b5e68` 已把五套主题开放到普通玩家设置，720p 四项正式入口、重新启动与对局存档检查全部通过，7,388 份输入三次核对一致。此前 `3fc040bb` 的 1080p 开发全量在收到定稿后正常关闭，保留日志，无完整报告。五张托盘原图均已通过独立审查；唐三彩六件奖励已通过，瑞士六件有五件通过，精研的骰点已开返工。推广工作和当前工程核验见 [W23 记录](specs/v11/W23_REPORT.md)。[定稿资料](../artifacts/cache/v11/review-20261123/w17/默认托盘与六件奖励.html) · [正式入口实测](../evidence/v11/unity/nunit-20261123-171050.xml) · [旧窗口中断记录](../artifacts/cache/v11/review-20261123/independent-3fc040bb/README.md)
 
