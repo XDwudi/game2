@@ -293,10 +293,14 @@ namespace DiceCraft
         private void TickPresentation07()
         {
             bool ticking=IsPresenting07||TransactionVisualPlaying07||LockVisualPlaying07;
-            float visualDelta=ticking?DiceCraft.Verification.Art07VisualRecorder.PresentationDeltaTime(this,Time.unscaledDeltaTime):(QualifiedStampPlaying07||SettlementRevealPlaying07)?DiceCraft.Verification.Art07VisualRecorder.NonblockingDeltaTime(this,Time.unscaledDeltaTime):Time.unscaledDeltaTime;
+            float visualDelta=Time.unscaledDeltaTime;
+            if(ticking)
+                visualDelta=DiceCraft.Verification.Art07VisualRecorder.PresentationDeltaTime(this,visualDelta);
+            else if(QualifiedStampPlaying07||SettlementRevealPlaying07||HighScoreTierShown073>0)
+                visualDelta=DiceCraft.Verification.Art07VisualRecorder.NonblockingDeltaTime(this,visualDelta);
             if(IsPresenting07){presentationPlayer07.Clock.Paused=modal;presentationPlayer07.Tick(visualDelta);}
             TickScore11();
-            TickHighScore073(Time.unscaledDeltaTime);
+            TickHighScore073(visualDelta);
             TickLibraryEffects07(visualDelta);TickQualifiedStamp07(visualDelta);TickSettlementReveal07(visualDelta);TickDiceInteraction07(visualDelta);
             if(!IsPresenting07||modal)return;
             float elapsed=(float)(presentationPlayer07.Clock.ElapsedMilliseconds-(beat07?.StartMs??0))/1000f;

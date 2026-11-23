@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using DiceCraft.Core;
 using DiceCraft.Presentation;
+using DiceCraft.Verification;
 using NUnit.Framework;
 using TMPro;
 using UnityEngine;
@@ -109,6 +110,317 @@ namespace DiceCraft.Tests
                 app.SkipVisual();yield return W11Settle();
             }
             File.WriteAllLines(Path.Combine(W11Output,"ax01-report.txt"),report);
+            string head=IdentityHead20X();
+            Assert.That(head,Does.Match("^[0-9a-f]{40}$"),"Record the actual source revision.");
+            string resolution=Screen.width+"x"+Screen.height;
+            string run=Path.GetFullPath(Path.Combine(Application.dataPath,"..","..","artifacts","cache","v11","w25",
+                "ax01-frames","results",resolution,head+"-"+DateTime.UtcNow.ToString("yyyyMMddTHHmmssfffffffZ")));
+            Directory.CreateDirectory(run);
+            string input="source="+head+"\nresolution="+resolution+"\nunity="+Application.unityVersion
+                +"\ntestAssemblyMvid="+GetType().Module.ModuleVersionId+"\ntestSourceSha256="
+                +ExtraFileHash07(Path.Combine(Application.dataPath,"Game/Tests/PlayMode/V11PlayScreenAxPlayModeTests.cs"));
+            File.WriteAllText(Path.Combine(run,"input.txt"),input);
+            TestContext.Out.WriteLine("AX01_RUN "+run+" "+input);
+            foreach(var mode in new[]{Art07RecordingMode.NormalHighest,Art07RecordingMode.FastHighest,Art07RecordingMode.NormalQualified})
+                yield return W11Ax01AllFrames(mode,Path.Combine(run,mode.ToString()));
+
+        }
+
+        [Serializable] private sealed class Ax01Die
+        {
+            public string id;
+            public Vector2[] hull;
+            public int inside, changed;
+        }
+
+        [Serializable] private sealed class Ax01Frame
+        {
+            public int unityFrame;
+            public string phase, background, backgroundSha256, image, imageSha256;
+            public bool playing, stampPlaying, stampVisible;
+            public string recordingStage;
+            public RectInt bounds;
+            public Ax01Die[] dice;
+        }
+
+        // Subset of the existing production recorder's JSONL. Its row numbers index complete,
+        // lossless composed screenshots, including the first non-playing presentation frame.
+        [Serializable] private sealed class Ax01RecordedFrame
+        {
+            public int unityFrame, presentationTicks;
+            public string stage, file, pngSha256, saveSha256, stateHash, receiptId;
+            public double presentationSeconds;
+            public bool presentationPlaying;
+        }
+
+        // In this project's SDR URP renderer the camera's capture action is called before the
+        // ScreenSpaceOverlay pass. Copy the same camera render; do not disable the Canvas or
+        // render a second pose. Resolve the package facade without changing the tests' asmdef.
+        private sealed class Ax01CameraPixels : IDisposable
+        {
+            private readonly Camera camera;
+            private readonly Type bridge;
+            private readonly Action<UnityEngine.Rendering.RenderTargetIdentifier,UnityEngine.Rendering.CommandBuffer> action;
+            private readonly RenderTexture reference;
+            public int frame = -1;
+            public bool flipY;
+
+            public Ax01CameraPixels(Camera camera)
+            {
+                this.camera=camera;
+                bridge=Type.GetType("UnityEngine.Rendering.CameraCaptureBridge, Unity.RenderPipelines.Core.Runtime",true);
+                reference=new RenderTexture(Screen.width,Screen.height,0,RenderTextureFormat.ARGB32,RenderTextureReadWrite.sRGB);
+                reference.name="AX01 same-frame camera colour"; reference.filterMode=FilterMode.Point;
+                Assert.That(reference.Create(),Is.True);
+                action=(source,cmd)=>{frame=Time.frameCount;cmd.Blit(source,reference);};
+                bridge.GetMethod("AddCaptureAction").Invoke(null,new object[]{camera,action});
+            }
+
+            public Texture2D Read(RectInt r,bool invert)
+            {
+                Assert.That(frame,Is.EqualTo(Time.frameCount),"Camera reference does not belong to this displayed frame.");
+                var previous=RenderTexture.active;
+                var texture=new Texture2D(r.width,r.height,TextureFormat.RGB24,false);
+                try
+                {
+                    RenderTexture.active=reference;
+                    int y=invert?reference.height-r.yMax:r.yMin;
+                    texture.ReadPixels(new Rect(r.x,y,r.width,r.height),0,0,false);texture.Apply(false,false);
+                    if(invert)
+                    {
+                        var pixels=texture.GetPixels32();var row=new Color32[r.width];
+                        for(int i=0;i<r.height/2;i++)
+                        {
+                            int a=i*r.width,b=(r.height-i-1)*r.width;
+                            Array.Copy(pixels,a,row,0,r.width);Array.Copy(pixels,b,pixels,a,r.width);Array.Copy(row,0,pixels,b,r.width);
+                        }
+                        texture.SetPixels32(pixels);texture.Apply(false,false);
+                    }
+                    return texture;
+                }
+                catch {UObj.Destroy(texture);throw;}
+                finally {RenderTexture.active=previous;}
+            }
+
+            public void Dispose()
+            {
+                try {bridge.GetMethod("RemoveCaptureAction").Invoke(null,new object[]{camera,action});}
+                finally {reference.Release();UObj.Destroy(reference);}
+            }
+        }
+
+        private Ax01Frame Ax01Geometry(string[] ids)
+        {
+            var dice=new List<Ax01Die>();
+            foreach(string id in ids)
+            {
+                var p=app.table.GetFaceOrientation(id);
+                var body=p==null?null:p.Find("Body")?.GetComponent<Renderer>();
+                bool draw=body!=null&&body.enabled&&body.gameObject.activeInHierarchy&&!body.forceRenderingOff;
+                dice.Add(new Ax01Die{id=id,hull=draw?W11DieHull(id,.16f).ToArray():Array.Empty<Vector2>()});
+            }
+            var all=dice.SelectMany(d=>d.hull).ToArray();
+            var stamp=app.canvas.transform.Find("Art07QualifiedLayer/FullStamp")?.GetComponent<CanvasGroup>();
+            var frame=new Ax01Frame{stampPlaying=app.QualifiedStampPlaying07,stampVisible=stamp!=null&&stamp.isActiveAndEnabled&&stamp.alpha>.01f,unityFrame=Time.frameCount,phase=app.CurrentPresentationPhase07?.ToString(),playing=app.PresentationPlaying07,dice=dice.ToArray()};
+            if(all.Length>0)
+            {
+                int x0=Mathf.Clamp(Mathf.FloorToInt(all.Min(v=>v.x)),0,Screen.width-1);
+                int x1=Mathf.Clamp(Mathf.CeilToInt(all.Max(v=>v.x))+1,x0+1,Screen.width);
+                int y0=Mathf.Clamp(Mathf.FloorToInt(all.Min(v=>v.y)),0,Screen.height-1);
+                int y1=Mathf.Clamp(Mathf.CeilToInt(all.Max(v=>v.y))+1,y0+1,Screen.height);
+                frame.bounds=new RectInt(x0,y0,x1-x0,y1-y0);
+            }
+            return frame;
+        }
+
+        private static int Ax01Compare(Ax01Frame frame,Texture2D visible,Texture2D bare)
+        {
+            var full=visible.GetPixels32();var refPixels=bare.GetPixels32();int total=0;
+            foreach(var die in frame.dice)
+            {
+                die.inside=die.changed=0;if(die.hull.Length==0)continue;
+                var hull=die.hull.ToList();
+                int x0=Math.Max(frame.bounds.xMin,Mathf.FloorToInt(hull.Min(v=>v.x))),x1=Math.Min(frame.bounds.xMax,Mathf.CeilToInt(hull.Max(v=>v.x))+1);
+                int y0=Math.Max(frame.bounds.yMin,Mathf.FloorToInt(hull.Min(v=>v.y))),y1=Math.Min(frame.bounds.yMax,Mathf.CeilToInt(hull.Max(v=>v.y))+1);
+                for(int y=y0;y<y1;y++)for(int x=x0;x<x1;x++)
+                {
+                    if(!W11Inside(hull,new Vector2(x+.5f,y+.5f)))continue;
+                    die.inside++;
+                    var a=full[y*visible.width+x];var b=refPixels[(y-frame.bounds.y)*bare.width+x-frame.bounds.x];
+                    if(Math.Abs(a.r-b.r)+Math.Abs(a.g-b.g)+Math.Abs(a.b-b.b)>12)die.changed++;
+                }
+                total+=die.changed;
+            }
+            return total;
+        }
+
+        private IEnumerator Ax01Calibrate(Ax01CameraPixels probe,string dir)
+        {
+            var ids=app.Session.State.hand.orderedLockedIds.ToArray();
+            Assert.That(ids,Has.Length.GreaterThan(0));
+            var canvas=app.canvas;bool enabled=canvas.enabled;GameObject marker=null;
+            try
+            {
+                canvas.enabled=false;
+                yield return new WaitForEndOfFrame();
+                var geometry=Ax01Geometry(ids);
+                var full=ScreenCapture.CaptureScreenshotAsTexture();
+                try
+                {
+                    var errors=new int[2];
+                    for(int i=0;i<2;i++)
+                    {
+                        var bare=probe.Read(geometry.bounds,i!=0);
+                        try {errors[i]=Ax01Compare(geometry,full,bare);}
+                        finally {UObj.Destroy(bare);}
+                    }
+                    probe.flipY=errors[1]<errors[0];
+                    var match=probe.Read(geometry.bounds,probe.flipY);
+                    try {Ax01Compare(geometry,full,match);}
+                    finally {UObj.Destroy(match);}
+                    File.WriteAllText(Path.Combine(dir,"calibration-off.json"),JsonUtility.ToJson(geometry,true));
+                    foreach(var die in geometry.dice)
+                    {
+                        Assert.That(die.inside,Is.GreaterThan(200),"Calibration body "+die.id);
+                        Assert.That(die.changed,Is.LessThanOrEqualTo(2),"Native camera colours and displayed colours differ on "+die.id+"; normal="+errors[0]+", flipped="+errors[1]);
+                    }
+                }
+                finally {UObj.Destroy(full);}
+                canvas.enabled=true;
+                var hull=geometry.dice[0].hull;
+                var screen=hull.Aggregate(Vector2.zero,(a,b)=>a+b)/hull.Length;
+                var canvasRect=(RectTransform)canvas.transform;
+                marker=new GameObject("AX01 deliberate foreground occluder",typeof(RectTransform),typeof(UnityEngine.UI.Image));
+                var rect=(RectTransform)marker.transform;rect.SetParent(canvasRect,false);rect.SetAsLastSibling();
+                Assert.That(RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect,screen,null,out var local),Is.True);
+                rect.anchorMin=rect.anchorMax=canvasRect.pivot;rect.anchoredPosition=local;
+                rect.sizeDelta=Vector2.one*24/canvas.scaleFactor;
+                var image=marker.GetComponent<UnityEngine.UI.Image>();image.color=Color.magenta;image.raycastTarget=false;
+                Canvas.ForceUpdateCanvases();yield return null;yield return new WaitForEndOfFrame();
+                geometry=Ax01Geometry(ids);full=ScreenCapture.CaptureScreenshotAsTexture();
+                var reference=probe.Read(geometry.bounds,probe.flipY);
+                try
+                {
+                    Ax01Compare(geometry,full,reference);
+                    var rectPixels=full.GetPixels(Mathf.RoundToInt(screen.x)-6,Mathf.RoundToInt(screen.y)-6,12,12);
+                    Assert.That(rectPixels.Count(c=>c.r>.85f&&c.g<.15f&&c.b>.85f),Is.GreaterThan(100),
+                        "The deliberate foreground patch must actually be painted over this die.");
+                    File.WriteAllText(Path.Combine(dir,"calibration-cover.json"),JsonUtility.ToJson(geometry,true));
+                    File.WriteAllBytes(Path.Combine(dir,"calibration-cover.png"),full.EncodeToPNG());
+                    Assert.That(geometry.dice[0].changed,Is.GreaterThan(200),"A painted UI square over the first die must fail the real comparison.");
+                }
+                finally {UObj.Destroy(full);UObj.Destroy(reference);}
+            }
+            finally {if(marker!=null){marker.SetActive(false);UObj.Destroy(marker);}canvas.enabled=enabled;Canvas.ForceUpdateCanvases();}
+        }
+
+        private IEnumerator W11Ax01AllFrames(Art07RecordingMode mode,string directory)
+        {
+            Directory.CreateDirectory(directory);
+            Assert.That(app.canvas.renderMode,Is.EqualTo(RenderMode.ScreenSpaceOverlay));
+            var fixture=mode==Art07RecordingMode.NormalQualified?Art07FixtureKind.Qualified:Art07FixtureKind.G147;
+            Art07Fixtures.Apply(app,fixture);
+            yield return W11Settle();
+            var refs=new Dictionary<int,Ax01Frame>();
+            using(var probe=new Ax01CameraPixels(app.table.viewCamera))
+            {
+                yield return Ax01Calibrate(probe,directory);
+                yield return null;
+                string recording=Path.Combine(directory,"recording");
+                var recorder=Art07VisualRecorder.Begin(app,recording,mode);
+                try
+                {
+                    var ids=app.Session.State.hand.orderedLockedIds.ToArray();
+                    Assert.That(ids,Is.Not.Empty);Assert.That(ids.Distinct().Count(),Is.EqualTo(ids.Length));
+                    bool submitted=false;
+                    string observed=Path.Combine(directory,"camera-geometry.jsonl");
+                    while(recorder.IsRecording)
+                    {
+                        yield return new WaitForEndOfFrame();
+                        if(!recorder.IsRecording)break;
+                        submitted|=app.PresentationPlaying07;
+                        if(submitted)
+                        {
+                            var frame=Ax01Geometry(ids);
+                            if(frame.bounds.width>0)
+                            {
+                                var pixels=probe.Read(frame.bounds,probe.flipY);
+                                try
+                                {
+                                    frame.background="camera-"+frame.unityFrame+".png";
+                                    var bytes=pixels.EncodeToPNG();File.WriteAllBytes(Path.Combine(directory,frame.background),bytes);
+                                    frame.backgroundSha256=ExtraHash07(bytes);
+                                }
+                                finally {UObj.Destroy(pixels);}
+                            }
+                            refs.Add(frame.unityFrame,frame);
+                            File.AppendAllText(observed,JsonUtility.ToJson(frame)+Environment.NewLine);
+                        }
+                        yield return null;
+                    }
+                    Assert.That(recorder.Status,Is.EqualTo("captured_pending_visual_review"),recorder.Error);
+                    var rows=File.ReadLines(Path.Combine(recording,"frames.jsonl")).Select(JsonUtility.FromJson<Ax01RecordedFrame>)
+                        .Where(f=>f.stage=="presentation"||f.stage=="hold").ToArray();
+                    var run=rows.Where(f=>f.stage=="presentation").ToArray();
+                    Assert.That(rows.Count(f=>f.stage=="hold"),Is.EqualTo(30));
+                    Assert.That(rows.Length,Is.GreaterThan(2));
+                    Assert.That(rows[0].presentationSeconds,Is.EqualTo(0).Within(.00001),"The initial committed frame is missing.");
+                    Assert.That(run[0].presentationPlaying,Is.True);Assert.That(run[run.Length-1].presentationPlaying,Is.False);
+                    Assert.That(rows[0].receiptId,Is.Not.Empty);Assert.That(rows[0].saveSha256,Does.Match("^[0-9a-f]{64}$"));
+                    Assert.That(refs.Keys.OrderBy(k=>k),Is.EqualTo(rows.Select(f=>f.unityFrame)));
+                    var issues=new List<string>(); string ledger=Path.Combine(directory,"dice-per-frame.jsonl");
+                    using(var writer=new StreamWriter(ledger,false,new System.Text.UTF8Encoding(false)))
+                    {
+                        foreach(var row in rows)
+                        {
+                            int i=row.unityFrame-rows[0].unityFrame;
+                            Assert.That(i,Is.InRange(0,rows.Length-1));Assert.That(rows[i].unityFrame,Is.EqualTo(row.unityFrame));
+                            Assert.That(row.presentationTicks,Is.EqualTo(i>0&&i<run.Length?1:0));
+                            Assert.That(row.presentationSeconds,Is.EqualTo(Math.Min(i,run.Length-1)/60d).Within(.00001));
+                            Assert.That(row.presentationPlaying,Is.EqualTo(i<run.Length-1));
+                            Assert.That(row.saveSha256,Is.EqualTo(rows[0].saveSha256));Assert.That(row.stateHash,Is.EqualTo(rows[0].stateHash));
+                            Assert.That(row.receiptId,Is.EqualTo(rows[0].receiptId));
+                            var frame=refs[row.unityFrame];frame.recordingStage=row.stage;frame.image="recording/"+row.file;frame.imageSha256=row.pngSha256;
+                            Assert.That(frame.playing,Is.EqualTo(row.presentationPlaying));
+                            var shown=new Texture2D(2,2);Texture2D bare=null;
+                            try
+                            {
+                                var png=File.ReadAllBytes(Path.Combine(directory,frame.image));
+                                Assert.That(ExtraHash07(png),Is.EqualTo(frame.imageSha256));
+                                Assert.That(shown.LoadImage(png),Is.True);
+                                Assert.That((shown.width,shown.height),Is.EqualTo((Screen.width,Screen.height)));
+                                if(frame.background!=null)
+                                {
+                                    png=File.ReadAllBytes(Path.Combine(directory,frame.background));
+                                    Assert.That(ExtraHash07(png),Is.EqualTo(frame.backgroundSha256));
+                                    bare=new Texture2D(2,2);
+                                    Assert.That(bare.LoadImage(png),Is.True);
+                                    Assert.That((bare.width,bare.height),Is.EqualTo((frame.bounds.width,frame.bounds.height)));
+                                    Ax01Compare(frame,shown,bare);
+                                }
+                            }
+                            finally {UObj.DestroyImmediate(shown);if(bare!=null)UObj.DestroyImmediate(bare);}
+                            foreach(var die in frame.dice)
+                                if((frame.playing||die.hull.Length>0)&&(die.inside<=200||die.changed>2||die.hull.Any(p=>p.x<0||p.y<0||p.x>=Screen.width||p.y>=Screen.height)))
+                                    issues.Add("frame "+row.unityFrame+" "+die.id+" "+die.changed+"/"+die.inside);
+                            writer.WriteLine(JsonUtility.ToJson(frame));
+                            // PNG decoding runs after the capture clock and outside gameplay performance checks.
+                            if(i%8==7){writer.Flush();yield return null;}
+                        }
+                    }
+                    TestContext.Out.WriteLine("AX01_FRAMES "+mode+" presentation="+run.Length+" hold="+(rows.Length-run.Length)
+                        +" report="+ExtraFileHash07(Path.Combine(recording,"recording.json"))+" frames="+ExtraFileHash07(Path.Combine(recording,"frames.jsonl"))
+                        +" ledger="+ExtraFileHash07(ledger)+" path="+ledger);
+                    if(fixture==Art07FixtureKind.Qualified)
+                    {
+                        Assert.That(refs.Values.Any(f=>f.playing&&f.stampPlaying&&f.stampVisible),Is.True,"The real qualifying stamp never appeared over the live hand.");
+                        Assert.That(refs.Values.Any(f=>!f.playing&&f.stampPlaying&&f.stampVisible),Is.True,"The nonblocking stamp tail was not captured.");
+                        Assert.That(refs[rows[rows.Length-1].unityFrame].stampPlaying,Is.False);
+                    }
+                    Assert.That(issues,Is.Empty,string.Join("\n",issues.Take(15)));
+                }
+                finally {if(recorder.IsRecording)recorder.Cancel();UObj.Destroy(recorder.gameObject);}
+            }
         }
 
         // ------------------------------------------------------------------ AX-02: one primary action in every state
