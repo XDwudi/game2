@@ -59,7 +59,7 @@ namespace DiceCraft
             {
                 var confirm=Art07Modal("保留此显示设置？",600,360,720,360);
                 var title=confirm.Find("DialogTitle")?.GetComponent<TextMeshProUGUI>();if(title!=null){title.fontSize=26*UiKit.FontScale;title.rectTransform.sizeDelta=new Vector2(590,64);}
-                displayCountdown=UiKit.Text(confirm,"DisplayCountdown",Screen.width+" × "+Screen.height+" · "+DisplaySettings.ModeName(Screen.fullScreenMode)+"\n"+DisplayPreferences.SecondsLeft+" 秒内确认，否则恢复原设置。",24,100,672,128,24,UiKit.Gold);
+                displayCountdown=UiKit.Text(confirm,"DisplayCountdown",Screen.width+" × "+Screen.height+" · "+DisplaySettings.ModeName(Screen.fullScreenMode)+"\n"+DisplayPreferences.SecondsLeft+" 秒内确认，否则恢复原设置。",24,100,672,128,24,CueOn11(confirm,UiKit.Gold));
                 Primary16(confirm,"ConfirmDisplay","保留",24,264,324,64,()=>{if(DisplayPreferences.Confirm()){displayDraft=null;ShowDisplaySettings();}},DisplayPreferences.CanConfirm);
                 CenterButtonLabel16(UiKit.Button(confirm,"RevertDisplay","恢复 [Esc]",372,264,324,64,DisplayPreferences.Revert));
                 return;

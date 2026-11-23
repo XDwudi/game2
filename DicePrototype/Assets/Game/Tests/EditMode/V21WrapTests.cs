@@ -6,7 +6,9 @@ using System.Linq;
 using System.Reflection;
 using DiceCraft.Core;
 using NUnit.Framework;
+using TMPro;
 using UnityEditor;
+using UnityEngine.UI;
 using UnityEngine;
 
 namespace DiceCraft.Tests
@@ -54,6 +56,102 @@ namespace DiceCraft.Tests
             Assert.That(breaker.Wrap("甲乙红骰", 2, 2, ch => 1, true), Is.Null);
         }
 
+        // Import geometry from the installed sprites. EditMode can run without a GPU, so read the
+        // source PNG rather than blitting the non-readable player texture. Ring positions, heading
+        // creation, TMP ink measurement and the final reward bounds all call the production methods.
+        private static Dictionary<(string theme, float scale, bool lifted), float[]> BossRewardWidths21()
+        {
+            var widths = new Dictionary<(string,float,bool),float[]>();
+            const BindingFlags statics = BindingFlags.Static | BindingFlags.NonPublic;
+            var type = typeof(GameApp);
+            object Call(string name, params object[] args) => type.GetMethod(name,statics).Invoke(null,args);
+            var area = (Rect)type.GetField("StageCardArea11",statics).GetValue(null);
+            var titleFont = typeof(UiKit).GetProperty("TitleFont");
+            var titleRoles = typeof(UiKit).GetProperty("TitleRoles");
+            var oldFont = UiKit.Font; var oldTitle = UiKit.TitleFont; var oldRoles = UiKit.TitleRoles;
+            var oldLookup = UiKit.ThemeTemplate; float oldScale = UiKit.FontScale;
+            var host = new GameObject("FW11_LayoutCanvas",typeof(RectTransform),typeof(Canvas));
+            try
+            {
+                host.GetComponent<Canvas>().renderMode=RenderMode.ScreenSpaceOverlay;
+                UiKit.Font=AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Game/Fonts/DiceChinese.asset");
+                foreach (var frame in V21WrapMatrix.Themes)
+                {
+                    string root="Assets/Resources/Themes/"+frame.theme+"/";
+                    var installed=frame.theme=="default"?null:AssetDatabase.LoadAssetAtPath<TextAsset>(root+"theme.json");
+                    if(frame.theme!="default")Assert.That(installed,Is.Not.Null,root);
+                    var metadata=installed==null?null:JsonUtility.FromJson<FontFile21>(installed.text).fonts;
+                    bool styled=metadata?.roles?.Contains("sectionTitle")==true;
+                    var face=styled?AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(root+metadata.title+".asset"):null;
+                    if(styled)Assert.That(face,Is.Not.Null,root+metadata.title);
+                    titleFont.SetValue(null,face);titleRoles.SetValue(null,styled?TextRole.SectionTitle:TextRole.None);
+                    string framePath=frame.theme=="default"?"Assets/Art/Art11/Surfaces/ui_stage_card.png":root+"UI/ui_stage_card.png";
+                    string ringPath=frame.theme=="default"?"Assets/Art/Art073/Surfaces/ui_ring.png":root+"UI/ui_ring.png";
+                    var paper=AssetDatabase.LoadAssetAtPath<Sprite>(framePath);
+                    var ring=AssetDatabase.LoadAssetAtPath<Sprite>(ringPath);
+                    Assert.That(paper,Is.Not.Null,framePath);Assert.That(ring,Is.Not.Null,ringPath);
+                    var paperPixels=ImportedInsets21(framePath,paper,false);var ringPixels=ImportedInsets21(ringPath,ring,true);
+                    UiKit.ThemeTemplate=name=>name=="ui_ring"?ring:null;
+                    var card=UiKit.Box(host.transform,"StageCard11",0,0,area.width,area.height,Color.white);
+                    var surface=card.GetComponent<Image>();surface.sprite=paper;surface.type=Image.Type.Sliced;
+                    Call("DrawBossRings11",card,area.width,area.height);
+                    float inner=(float)Call("StageInnerWidth11",area.width);
+                    foreach(float scale in new[]{1f,1.5f})foreach(bool lifted in new[]{false,true})
+                    {
+                        UiKit.FontScale=scale;bool large=scale>1;
+                        float h=(float)Call("StageCardHeaderHeight11",large);
+                        var header=UiKit.Rect(card,"StageCardHeader11",14,14,inner,h);
+                        Func<Image,Vector4> edge=i=>paperPixels/(i.pixelsPerUnit*i.pixelsPerUnitMultiplier);
+                        Func<Image,Vector4> band=i=>ringPixels/(i.pixelsPerUnit*i.pixelsPerUnitMultiplier);
+                        var inside=(Rect)Call("StageCardInside11",card,!lifted,area.width,area.height,edge,band);
+                        var group=new HashSet<float>();
+                        foreach(string tier in new[]{"一档","二档","三档","终局"})
+                        {
+                            var section=(TextMeshProUGUI)Call("StageCardHeading11",header,(lifted?"减益已解除 · ":"首领减益 · ")+tier,inner,h,large,Color.black);
+                            var row=(Vector2)Call("BossRewardRow11",section,inside,inner);
+                            Assert.That(row.y,Is.GreaterThan(0));group.Add(row.y);
+                        }
+                        widths.Add((frame.theme,scale,lifted),group.OrderBy(v=>v).ToArray());
+                    }
+                }
+                return widths;
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(host);
+                UiKit.Font=oldFont;UiKit.ThemeTemplate=oldLookup;UiKit.FontScale=oldScale;
+                titleFont.SetValue(null,oldTitle);titleRoles.SetValue(null,oldRoles);
+            }
+        }
+
+        [Serializable] private sealed class FontFile21 { public FontRoles21 fonts; }
+        [Serializable] private sealed class FontRoles21 { public string title; public string[] roles; }
+
+        private static Vector4 ImportedInsets21(string path,Sprite sprite,bool ring)
+        {
+            var raster=new Texture2D(2,2,TextureFormat.RGBA32,false);
+            try
+            {
+                Assert.That(raster.LoadImage(File.ReadAllBytes(path)),Is.True,path);
+                int w=raster.width,h=raster.height;var px=raster.GetPixels32();var center=px[(h/2)*w+w/2];
+                int Scan(int n,float border,Func<int,Color32> sample)
+                {
+                    int edge=0;
+                    for(int i=0;i<Math.Min(n/2,Mathf.RoundToInt(border));i++)
+                    {
+                        var c=sample(i);
+                        if(ring?c.a>=128:c.a<128||Math.Abs(c.r-center.r)+Math.Abs(c.g-center.g)+Math.Abs(c.b-center.b)>48)edge=i+1;
+                    }
+                    return edge;
+                }
+                var b=sprite.border;
+                return new Vector4(Scan(w,b.x,i=>px[(h/2)*w+i]),Scan(h,b.y,i=>px[i*w+w/2]),
+                    Scan(w,b.z,i=>px[(h/2)*w+w-1-i]),Scan(h,b.w,i=>px[(h-1-i)*w+w/2]));
+            }
+            finally { UnityEngine.Object.DestroyImmediate(raster); }
+        }
+
+
         [Test] public void FW11_AllShortTextsFitAcrossThemesAndReportEveryBreak()
         {
             var config = JsonUtility.FromJson<GameConfig>(GameConfig.PrepareJsonForUnity(
@@ -90,6 +188,7 @@ namespace DiceCraft.Tests
             Directory.CreateDirectory(output);
             var exceptions = new HashSet<string>();
             var measured = new HashSet<string>();
+            var widths = BossRewardWidths21();
             var problems = new List<string>();
             int layouts = 0, notShown = 0;
             using (var report = new StreamWriter(Path.Combine(output, "layouts.tsv")))
@@ -98,7 +197,7 @@ namespace DiceCraft.Tests
                 foreach (var frame in V21WrapMatrix.Themes)
                 foreach (var entry in entries)
                 foreach (var row in V21WrapMatrix.Cases(breaker, Measure, frame, entry.Key, entry.Value,
-                    entry.Key.StartsWith("L",StringComparison.Ordinal) ? config.Loot(entry.Key).displayName : null))
+                    (scale,lifted)=>widths[(frame.theme,scale,lifted)], entry.Key.StartsWith("L",StringComparison.Ordinal) ? config.Loot(entry.Key).displayName : null))
                 {
                     string context = row.theme + "/" + row.scenario + "/" + row.id;
                     layouts++;
@@ -152,7 +251,7 @@ namespace DiceCraft.Tests
                 foreach(var loot in config.lootKinds)
                 {
                     foreach(string variant in new[]{"stage","stage-select","claim","settlement"})Require(variant,loot.id);
-                    if(frame.bossLootWidth!=344)Require("stage-lifted",loot.id);
+                    Require("stage-lifted",loot.id);
                 }
                 foreach(var upgrade in config.diceUpgrades)Require("face",upgrade.id);
                 Require("face","O04");

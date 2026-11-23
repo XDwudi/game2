@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using DiceCraft.Core;
@@ -12,6 +13,23 @@ namespace DiceCraft.Tests
 {
     public sealed partial class GameplayPlayModeTests
     {
+        private void MeasureFirstHint16(string theme, int scale, string page, List<string> report, List<string> errors)
+        {
+            var label = FindActive<TextMeshProUGUI>("ActionReason");
+            var frame = FindActive<Image>("ActionReasonUnderlay");
+            var measured = HintLines20Xb(label, frame);
+            // SC-12 uses distances to the theme sprite's inner frame in design units.
+            float minimum = 0;
+            if (scale == 150 && theme == "comic") minimum = 1.6f;
+            if (scale == 150 && theme == "sancai") minimum = 5.1f;
+
+            string sample = System.FormattableString.Invariant(
+                $"SC-12 {theme} {scale}% {page} lines={measured.lines} left={measured.left:F3} right={measured.right:F3} top={measured.top:F3} bottom={measured.lastLineBottom:F3} minimum={minimum:F1}");
+            report.Add(sample);
+            if (measured.lastLineBottom == float.MaxValue || !measured.inside || measured.lastLineBottom < minimum)
+                errors.Add(sample + " " + label.text.Replace('\n', ' '));
+        }
+
         // Run this same test at actual 1920x1080 and 1280x720 Game View sizes.
         // All 100%, 125%, and 150% settings are exercised; Screen.safeArea decides the
         // production compact branch. No fake viewport or rule change is used.

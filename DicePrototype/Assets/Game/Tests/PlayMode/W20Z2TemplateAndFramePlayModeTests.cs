@@ -171,6 +171,14 @@ namespace DiceCraft.Tests
                                 var line=FindActive<TextMeshProUGUI>("BossLoot11");var title=FindActive<TextMeshProUGUI>("StageCardTitle11");
                                 string wanted=loot==""?"终局首领 · 通关即胜利":"通关奖励："+app.Config.lootKinds.First(k=>k.id==loot).shortText;
                                 if(line.text.Replace("\n","")!=wanted)failures.Add(scope+": the reward line reads '"+line.text.Replace("\n"," / ")+"', not '"+wanted+"'");
+                                // Check the lines at the size and width actually selected by the live HUD.
+                                var wrap=typeof(GameApp).GetMethod("WrapParagraph21",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Static);
+                                float width=line.rectTransform.rect.width;
+                                var expected=(string)wrap.Invoke(null,new object[]{line,wanted,width});
+                                line.ForceMeshUpdate();
+                                if(line.text!=expected || line.textInfo.lineCount!=expected.Count(c=>c=='\n')+1)
+                                    failures.Add(scope+" FW-11 runtime wrap differs at width="+width+" font="+line.fontSize);
+                                report.Add(scope+" FW-11 reward width="+width.ToString("R",CultureInfo.InvariantCulture)+" font="+line.fontSize+" text="+line.text.Replace("\n"," / "));
                                 Inside20Z2(scope,line,null,Clearance,report,failures);
                                 line.ForceMeshUpdate();title.ForceMeshUpdate();
                                 float lineLeft=W11bGlyphRects(line).Min(g=>g.xMin),titleLeft=W11bGlyphRects(title).Min(g=>g.xMin);

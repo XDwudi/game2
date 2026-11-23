@@ -8,6 +8,8 @@
 
 ## 当前原型
 
+V1.1 的 36 项验收条件、各自的测试结果与尚待签署的事项见[验收记录](docs/tasks/P0-V11.md)。
+
 > 接力开发先读：[已开发内容总览](docs/GAME_OVERVIEW.md)（玩法、系统、工程、流程、现状一文看完）与 [内容与数值手册](docs/GAME_CONTENT_REFERENCE.md)（150 张控制器、39 个减益、道具、服务、关卡的全量表，由 `tools/handoff_doc.py` 从配置生成）。p1.0.0 的实测与可玩性分析见 [PLAYTEST_REPORT](docs/specs/v10/PLAYTEST_REPORT.md)（机器人 900 局通关 27%；没有真人试玩）。
 
 - **v1.0 三关周期、首领减益与 50 张新控制器（p1.0.0，REVIEW）**：24 关改为 8 个“普通 → 高压 → 首领”周期；39 个首领减益，通关首领后商店里有免费战利品；关卡选择页与商店都能看本周期三关的目标、减益与战利品；控制器从 100 张增加到 150 张（提交顺序、随机生成、骰面长期养成、首领与高压、道具、金币、流派、构筑），另加 5 个道具、4 项骰面改造、3 项服务；目标分重新校准，终点 2000 万；62 张新卡面插画。规则见 [RULES_SPEC](docs/specs/v10/RULES_SPEC.md)，方案见 [DEV_PLAN](docs/specs/v10/DEV_PLAN.md)，强度、定价与体验分析见 [BALANCE_REPORT](docs/specs/v10/BALANCE_REPORT.md)，验收与独立复核见 [任务](docs/tasks/P0-V10.md)。EditMode 1920/1920，PlayMode 在 1080p 与 720p 下均 201/201；新卡计分与独立参考实现的 446 条样例逐字段一致；机器人 300 局通关率 29%；独立复核（规则、卡面）的发现与处理见任务文档。Windows 与 macOS 试玩包见 [GitHub p1.0.0-rc.1](https://github.com/XDwudi/game2/releases/tag/p1.0.0-rc.1)，源码分支 [codex/v1.0](https://github.com/XDwudi/game2/tree/codex/v1.0)。未做真人试玩与 macOS 实机验证。

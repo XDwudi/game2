@@ -228,15 +228,19 @@ class RangeTests(ArtGenTestBase):
 
 class GenerateTests(ArtGenTestBase):
     def run_fake(self, mode, timeout=120, cmd=None):
-        env_backup = dict(os.environ)
-        os.environ["CODEX_HOME"] = str(self.tmp / "codex_home")
-        os.environ["FAKE_CODEX_MODE"] = mode
+        changes = {"CODEX_HOME": str(self.tmp / "codex_home"), "FAKE_CODEX_MODE": mode}
+        previous = {key: os.environ.get(key) for key in changes}
+        os.environ.update(changes)
         try:
             return artgen.generate(self.root, self.kit_rel, self.job_path, cmd or [sys.executable, str(FAKE)],
                                    timeout=timeout)
         finally:
-            os.environ.clear()
-            os.environ.update(env_backup)
+            # Clearing the whole native Windows environment drops inherited empty Git config values.
+            for key, value in previous.items():
+                if value is None:
+                    os.environ.pop(key, None)
+                else:
+                    os.environ[key] = value
 
     def test_prompt_file_hash_matches_its_bytes(self):
         record = self.run_fake("ok")

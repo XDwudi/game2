@@ -50,6 +50,8 @@ namespace DiceCraft.Tests
                     var foreground=ForegroundRoots24(name,roots);
                     var action=PrimaryAction24(name,foreground,report,errors);
                     yield return Frame24(theme+" "+scale+" "+name,Path.Combine(dir,name+".png"),foreground,report,errors,action);
+                    if (name.StartsWith("hint-", StringComparison.Ordinal))
+                        MeasureFirstHint16(theme, scale, name, report, errors);
                     IEnumerator PageStep(ScrollRect scroll,int step)
                     {
                         string detail=name+"-"+scroll.name+"-"+step;
@@ -589,12 +591,15 @@ namespace DiceCraft.Tests
                 if(scrolls.Length==0&&visible.Count!=ink.Count)failures.Add(id+" visible foreground outside the screen");
                 if(visible.Count==0)continue;
                 bounds[label]=Bounds24(label,visible,order);
+                var printed=new List<TMP_CharacterInfo>();
                 for(int i=0;i<chars.Length;i++)
                 {
                     var c=chars[i];var b=ink[i];
                     if(b.xMin<clip.xMin||b.xMax>clip.xMax||b.yMin<clip.yMin||b.yMax>clip.yMax)continue;
                     samples.Add((b,c.color,c.character,c.pointSize));
+                    if(c.color.a>0)printed.Add(c);
                 }
+                CheckForegroundFont21(label,printed,scope,failures);
                 if(samples.Count>0)measured[label]=samples;
             }
             MeasureScreenAccess16(path,roots,measured,report,failures);

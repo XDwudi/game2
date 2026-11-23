@@ -36,7 +36,7 @@
 | `PLAY_V16_EachThemeKeepsOneMenuPrimaryWithAndWithoutACheckpoint` | 新增六主题、有档／无档、100%／150% 组合 | 使用 W11 相同的主色判定，复查按钮位置、提示归属、真实骰子和存档 |
 | `PLAY_V16_SixPreviewsUseNativeSpritesAndOneCurrentMarker` | 新增预览格交互与坐标 | 六张均须是 480×270 Sprite，各格位置与当前风格描边/勾号一一对应 |
 
-默认风格预览取自 W22i 核验的 1920×1080 对局原图 `artifacts/cache/v11/w22i/1920x1080/review/after/default-text100-02-play-selecting.png`，整帧 Lanczos 缩至 480×270。其余预览继续使用各风格提供的资源。六套风格的玩家可用性由 `ThemeRegistry.Selectable` 决定。
+默认与瑞士的预览取自 W22i 的同一局面。两张 1920×1080 原帧各自用 Lanczos 整帧缩至 480×270，展示同一批骰子、已选骰与手牌。默认原帧为 `artifacts/cache/v11/w22i/1920x1080/review/after/default-text100-02-play-selecting.png`。瑞士原帧已随生成器保存，SHA-256 为 `32112ee8c1c56e04fc882fe41aad5646eaeb4faf46779e79f71d1352598985a0`。其余四张由各主题提供。六套风格的玩家可用性由 `ThemeRegistry.Selectable` 决定。[瑞士原帧](../../../ArtSource/Art11/swiss/preview-gameplay.png) · [实机截图清单](../../../artifacts/cache/v11/w22i/1920x1080/review/after/manifest.json)
 
 三屏验收还需要对正式整合版本执行两档分辨率的 PlayMode、完整对比度与字形检查、截图及独立复核。W17 的托盘对照属于菜单底图验收。
 
@@ -61,3 +61,7 @@
 
 - `PLAY_V24_SC16_SE04_` 在六套风格、两档字号读取了 17,711 个标签样本。种子占位、手册当前页签、骰子图例名、风格格名、规则手册下沿和引导标题的生产修复均对应已记录的实际画面。像素采样按像素中心进入字框计算，完整覆盖 720p 单像素横画，沿用原对比度和墨迹边界要求。[原图和逐项测量](../../../artifacts/cache/v11/w24-screens/breadth-720/diagnosis.md)
 - `Art07StageMotionPlayModeTests` 先检查批准版面中的卡片停稳锚点（标准 448、大字号 468），再按同一卡片的稳定坐标与即时偏移核对各时刻的动画、减弱动态和操作状态，替代旧版固定的 432。
+
+六套真实首次提示沿用 W20Xb 的字形内框测量，逐条记录四边和最后一行的底距。SC-12 的 150% 下限为漫画 1.6、唐三彩 5.1 个设计单位。SC-14 增加三项 EditMode 检查，核对 W16 的 31 份生产源码、默认色板字段及五套主题的颜色键；反例覆盖新增颜色、重复旧常量和未知键。[SC-14 核对记录](../../../artifacts/cache/v11/w25/sc14-source/README.md)
+
+瑞士显示设置倒计时按弹窗实绘底色调整提示字色，选关按钮依据箭头实心像素选择面色。原有 4.95∶1 选色目标、4.5∶1 最低对比及原生像素断言继续适用。调试对局的“组合试验”按现有按钮内框量字，三档字号下逐个核验真实字形。上述轮次均保留原点击入口。[瑞士实机原帧](../../../artifacts/cache/v11/w25/swiss-contrast/README.md) · [组合试验原帧](../../../artifacts/cache/v11/w25/debug-button/REVIEW.md)

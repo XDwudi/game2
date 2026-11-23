@@ -78,3 +78,5 @@ W24 的六主题 `PLAY_V24_SC16_SE04_*` 增加 W16 SC-03 检查。当前弹窗�
 上述改动已在工作树以 Unity 6000.6.7f1 所用的 Roslyn 编译运行时及完整 PlayMode 测试程序集。新场景与迁移用例的通过状态以随后绑定新输入的窗口 NUnit 为准。[编译记录](../../../artifacts/cache/v11/w24-screens/primary-actions/integrated-compile/DiceCraft.PlayModeTests.log)
 
 SE-17 的双窗口原图索引显示，首领盖章中途、终局首领结算纸、骰子耗尽结算纸各缺六主题与两档字号，共缺 72 格。新增 `PLAY_V15_SE17_BossReceiptScreens` 从真实提交按钮进入三条路径，核对存档与结算去向。首领演出分别记录盖章和战利品翻面，耗尽场景用临时骰到期触发，并点击继续确认失败结果。每档窗口应产生 36 个缺项的原帧与 12 张翻面补图。[逐格原图索引](../../../artifacts/cache/v11/review-20261123/index.html)
+
+687b7dd8 的完整 720p 运行中，六套风格均已提交并领取首个首领结算，下一场终局测试的指针提交被 0.3 秒跨页保护拦下。动作日志记录了成功继续与终局夹具成功载入。现等待同一保护自然结束后再对新一局发出指针点击，并保留原有动作序号、存档、去向和热区断言。[实机报告](../../../evidence/v11/unity/nunit-20261123-112620.xml) · [六条动作日志指纹](../../../artifacts/cache/v11/w25/se17-guard/evidence.json)

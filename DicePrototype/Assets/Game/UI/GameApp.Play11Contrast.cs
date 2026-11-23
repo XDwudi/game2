@@ -137,20 +137,32 @@ namespace DiceCraft
             return c;
         }
         private static Color[] Candidates11=>new[]{UiKit.Ink,UiKit.Paper,UiKit.TextColor};
-        private static Color BestLabel11(Color fill,out float ratio)
+        private static float LabelContrast11(Color ink, Color fill, bool withIcon)
+        {
+            if (!withIcon) return Contrast11(ink, fill);
+            // A white sprite on a black matte can still round to a core of 254/255.
+            // The underlying coverage starts half a code value below that. Composite the
+            // same tinted icon over its face in the project's actual blending space.
+            const float coreWhite = 253.5f / 255f;
+            Color drawn = QualitySettings.activeColorSpace == ColorSpace.Linear
+                ? Color.Lerp(fill.linear, ink.linear, Mathf.GammaToLinearSpace(coreWhite)).gamma
+                : Color.Lerp(fill, ink, coreWhite);
+            return Contrast11(drawn, fill);
+        }
+        private static Color BestLabel11(Color fill,out float ratio,bool withIcon=false)
         {
             Color best=UiKit.Ink;ratio=0;
-            foreach(var candidate in Candidates11){float r=Contrast11(candidate,fill);if(r>ratio){ratio=r;best=candidate;}}
+            foreach(var candidate in Candidates11){float r=LabelContrast11(candidate,fill,withIcon);if(r>ratio){ratio=r;best=candidate;}}
             return best;
         }
         /// <summary>5 % steps of the tint toward <paramref name="toward"/> until <paramref name="label"/> reaches the pick
         /// contrast on the drawn fill; -1 when 24 steps are not enough.</summary>
-        private static int StepsTo11(Image surface,Color toward,Color label)
+        private static int StepsTo11(Image surface,Color toward,Color label,bool withIcon)
         {
             Color tint=surface.color;float alpha=tint.a;
             for(int i=0;i<=24;i++)
             {
-                if(Contrast11(label,RenderedFill11(surface,tint))>=PickContrast11)return i;
+                if(LabelContrast11(label,RenderedFill11(surface,tint),withIcon)>=PickContrast11)return i;
                 tint=Color.Lerp(tint,toward,.05f);tint.a=alpha;
             }
             return -1;
@@ -162,12 +174,12 @@ namespace DiceCraft
         /// deepened under the lightest of them or lightened under the darkest, whichever takes fewer steps (a tie deepens,
         /// which keeps an accent's saturation).
         /// </summary>
-        private static Color LabelOn11(Image surface,Color? preferred=null)
+        private static Color LabelOn11(Image surface,Color? preferred=null,bool withIcon=false)
         {
             if(surface==null)return preferred??UiKit.TextColor;
             Color fill=RenderedFill11(surface);
             if(preferred.HasValue&&Contrast11(preferred.Value,fill)>=MinContrast11)return preferred.Value;
-            Color best=BestLabel11(fill,out float ratio);
+            Color best=BestLabel11(fill,out float ratio,withIcon);
             if(ratio>=PickContrast11)return best;
             Color light=best,dark=best;
             foreach(var candidate in Candidates11)
@@ -175,7 +187,7 @@ namespace DiceCraft
                 if(Luminance11(candidate)>Luminance11(light))light=candidate;
                 if(Luminance11(candidate)<Luminance11(dark))dark=candidate;
             }
-            int deepen=StepsTo11(surface,Color.black,light),lighten=StepsTo11(surface,Color.white,dark);
+            int deepen=StepsTo11(surface,Color.black,light,withIcon),lighten=StepsTo11(surface,Color.white,dark,withIcon);
             if(deepen<0&&lighten<0)return best;
             bool down=lighten<0||deepen>=0&&deepen<=lighten;
             Color tint=surface.color;float alpha=tint.a;

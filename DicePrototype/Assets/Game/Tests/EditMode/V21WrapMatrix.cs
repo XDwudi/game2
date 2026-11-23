@@ -9,20 +9,20 @@ namespace DiceCraft.Tests
         public sealed class Frame
         {
             public string theme;
-            public float shopSides, shopTop, shopBottom, tableSides, tableTop, tableBottom, ring, bossLootWidth;
-            public Frame(string theme, float shopSides, float shopTop, float shopBottom, float tableSides, float tableTop, float tableBottom, float ring, float bossLootWidth)
+            public float shopSides, shopTop, shopBottom, tableSides, tableTop, tableBottom, ring;
+            public Frame(string theme, float shopSides, float shopTop, float shopBottom, float tableSides, float tableTop, float tableBottom, float ring)
             {
                 this.theme = theme; this.shopSides = shopSides; this.shopTop = shopTop; this.shopBottom = shopBottom;
-                this.tableSides = tableSides; this.tableTop = tableTop; this.tableBottom = tableBottom; this.ring = ring; this.bossLootWidth = bossLootWidth;
+                this.tableSides = tableSides; this.tableTop = tableTop; this.tableBottom = tableBottom; this.ring = ring;
             }
         }
         public static readonly Frame[] Themes = {
-            new Frame("default", 29.5f, 13.5f, 17f, 24.5f, 11f, 14.5f, 6f, 344),
-            new Frame("swiss", 10f, 5f, 5f, 10f, 5f, 5f, 9f, 342),
-            new Frame("sancai", 21f, 10.5f, 12.5f, 25f, 12.5f, 14.5f, 5.5f, 342),
-            new Frame("comic", 16f, 5.5f, 10.5f, 16f, 5.5f, 10.5f, 5f, 339.5f),
-            new Frame("deco", 18f, 9f, 9f, 18f, 9f, 9f, 4.5f, 341.5f),
-            new Frame("glass", 18f, 9f, 9f, 18f, 9f, 9f, 5f, 339)
+            new Frame("default", 29.5f, 13.5f, 17f, 24.5f, 11f, 14.5f, 6f),
+            new Frame("swiss", 10f, 5f, 5f, 10f, 5f, 5f, 9f),
+            new Frame("sancai", 21f, 10.5f, 12.5f, 25f, 12.5f, 14.5f, 5.5f),
+            new Frame("comic", 16f, 5.5f, 10.5f, 16f, 5.5f, 10.5f, 5f),
+            new Frame("deco", 18f, 9f, 9f, 18f, 9f, 9f, 4.5f),
+            new Frame("glass", 18f, 9f, 9f, 18f, 9f, 9f, 5f)
         };
 
         // Templates with actual runtime substitutions from GameApp.ShopFacePick14. Includes each S1 prompt,
@@ -51,7 +51,7 @@ namespace DiceCraft.Tests
             public float width, font, art;
             public int cap;
         }
-        public static IEnumerable<Row> Cases(LineBreak21 breaker, Func<char, float> advanceEm, Frame frame, string id, string text, string lootName = null)
+        public static IEnumerable<Row> Cases(LineBreak21 breaker, Func<char, float> advanceEm, Frame frame, string id, string text, Func<float,bool,float[]> rewardWidths, string lootName = null)
         {
             bool controller = id.StartsWith("C", StringComparison.Ordinal);
             bool info = id.StartsWith("B", StringComparison.Ordinal) || id.StartsWith("L", StringComparison.Ordinal);
@@ -80,13 +80,17 @@ namespace DiceCraft.Tests
                     // Stage card's effect/reward columns at both text sizes (GameApp.Play11).
                     bool reward = id.StartsWith("L", StringComparison.Ordinal);
                     // StageCardInside11 reads the style's double ring. A lifted boss has no rings.
-                    float width = reward ? frame.bossLootWidth : 392 - 36 - (scale == 1 ? 72 : 60) - 12;
+                    float effectWidth = 392 - 36 - (scale == 1 ? 72 : 60) - 12;
                     string stage = reward ? "通关奖励：" + text : text;
                     float initial = reward ? Math.Max(19.5f, 18 * scale) : 20 * scale;
                     for (float font = initial; ; font = Math.Max(19.5f, font - 1))
                     {
-                        yield return Paragraph("stage" + Percent(scale),width,font,stage);
-                        if(reward && width != 344) yield return Paragraph("stage-lifted" + Percent(scale),344,font,stage);
+                        if (reward)
+                        {
+                            foreach (float width in rewardWidths(scale,false)) yield return Paragraph("stage"+Percent(scale),width,font,stage);
+                            foreach (float width in rewardWidths(scale,true)) yield return Paragraph("stage-lifted"+Percent(scale),width,font,stage);
+                        }
+                        else yield return Paragraph("stage"+Percent(scale),effectWidth,font,stage);
                         if (font <= 19.5f) break;
                     }
                     string selected = reward ? "战利品 · " + lootName + "：" + text : text;

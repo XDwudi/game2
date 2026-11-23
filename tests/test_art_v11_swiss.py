@@ -227,9 +227,13 @@ class SwissArtTests(unittest.TestCase):
             np.testing.assert_array_equal(pixels[0], pixels[-1])
             np.testing.assert_array_equal(pixels[:, 0], pixels[:, -1])
 
-    def test_picker_preview_size(self):
-        with Image.open(ROOT / THEME / "preview.png") as image:
+    def test_picker_preview_shows_the_full_gameplay_frame(self):
+        frame_path = ROOT / "ArtSource/Art11/swiss/preview-gameplay.png"
+        with Image.open(frame_path) as frame, Image.open(ROOT / THEME / "preview.png") as image:
+            self.assertEqual(frame.size, (1920, 1080))
             self.assertEqual(image.size, (480, 270))
+            expected = frame.convert("RGB").resize(image.size, Image.Resampling.LANCZOS)
+            np.testing.assert_array_equal(np.asarray(image), np.asarray(expected))
 
     def test_nine_slice_centres_are_flat(self):
         checked = 0

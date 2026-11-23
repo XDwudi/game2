@@ -148,7 +148,7 @@ namespace DiceCraft
             label.fontSize = (Large11 ? 20 : 34) * UiKit.FontScale;
             label.fontStyle = FontStyles.Bold;
             UiKit.Role(label, TextRole.PrimaryButton);
-            label.color = LabelOn11((Image)button.targetGraphic, enabled ? (Color?)null : label.color);
+            label.color = LabelOn11((Image)button.targetGraphic, enabled ? (Color?)null : label.color, withIcon: enabled);
             float w = Mathf.Ceil(label.GetPreferredValues(label.text).x), arrow = Large11 ? 30 : 42;
             float x = (392 - w - 10 - arrow) / 2;
             label.rectTransform.anchoredPosition = new Vector2(x, 0);

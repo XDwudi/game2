@@ -326,6 +326,8 @@ namespace DiceCraft.Tests
                 {
                     bool final=kind=="final",exhausted=kind=="exhausted";
                     W11TextScale(scale);W11Apply(BossReceiptScene15(final,exhausted));
+                    // The preceding receipt's real Continue still guards the next page against a double-click.
+                    if(GameApp.PagePointerGuard15)yield return new WaitUntil(()=>!GameApp.PagePointerGuard15);
                     yield return ShopEntranceFrame07();
                     Assert.That(app.ThemeId11,Is.EqualTo(theme));Assert.That(UiKit.FontScale,Is.EqualTo(scale/100f).Within(.001f));
                     long sequence=app.Session.ActionSequence;

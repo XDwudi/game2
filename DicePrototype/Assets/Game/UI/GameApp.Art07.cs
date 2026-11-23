@@ -42,7 +42,16 @@ namespace DiceCraft
                 var l=L11;float right=l.top.xMax-8,pauseX=right-108,handX=pauseX-12-108,y=l.top.y+6;
                 UiKit.Button(main,"Handbook","手册",handX,y,108,60,ShowHandbook,!IsBusy&&!Session.HasPendingSave);
                 UiKit.Button(main,"Pause","暂停",pauseX,y,108,60,Pause);
-                if(DebugUnlocked&&IsDebugWorkspace&&!CleanCapture11)UiKit.Button(main,"DebugWorkspace","组合试验",handX-12-148,y,148,60,ShowDebugPanel,!IsBusy);
+                if(DebugUnlocked&&IsDebugWorkspace&&!CleanCapture11)
+                {
+                    var button=UiKit.Button(main,"DebugWorkspace","组合试验",handX-12-148,y,148,60,ShowDebugPanel,!IsBusy);
+                    var face=(UnityEngine.UI.Image)button.targetGraphic;
+                    var frame=FrameInsets11(face);
+                    float left=Mathf.Max(8,frame.x+2),rightPad=Mathf.Max(8,frame.z+2);
+                    var label=button.transform.Find("Label").GetComponent<TextMeshProUGUI>();
+                    FitLine13(button.transform,"Label",label.text,left,0,face.rectTransform.rect.width-left-rightPad,23,label.color,TextAlignmentOptions.Center,false);
+                    CenterButtonLabel16(button);
+                }
                 return;
             }
             // V1.1 W14 (SHOP_LAYOUT 3): the shop draws settings and handbook in its own top bar (Shop14), before the

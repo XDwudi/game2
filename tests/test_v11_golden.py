@@ -54,7 +54,13 @@ class V11GoldenContractTests(unittest.TestCase):
 
     def test_config_normalization_keeps_scoring_parameters(self):
         baseline = golden.read(golden.BASELINE)
-        self.assertEqual(golden.normalized_config(baseline), golden.normalized_config(self.cfg))
+        historical = golden.normalized_config(baseline)
+        self.assertEqual(historical, golden.normalized_config(self.cfg))
+        for key, value in (("priceRule", "6（整局限买2次）"), ("priceRule", "未知"), ("baseBuyPrice", 7)):
+            with self.subTest(service="O07", key=key, value=value):
+                modified = copy.deepcopy(self.cfg)
+                next(s for s in modified["services"] if s["id"] == "O07")[key] = value
+                self.assertNotEqual(historical, golden.normalized_config(modified))
         mutated = copy.deepcopy(self.cfg)
         next(c for c in mutated["controllers"] if c["id"] == "C46")["parameters"]["scoreMultiplier"] += 1
         self.assertNotEqual(golden.normalized_config(baseline), golden.normalized_config(mutated))

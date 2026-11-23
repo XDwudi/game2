@@ -159,12 +159,161 @@ namespace DiceCraft.Tests
             return hit;
         }
 
+        // FW-04 expectations are keyed by the player-facing widget. Reading its current font to infer
+        // its role would let a forgotten Role() call pass. A saved menu and an optional reroll are secondary.
+        private TextRole ForegroundRole21(TextMeshProUGUI label)
+        {
+            var parent = label.transform.parent;
+            string p = parent.name;
+            switch (label.name)
+            {
+                case "DialogTitle": case "ShopTitle": case "EndTitle": return TextRole.ScreenTitle;
+                case "Cleared" when p == "Rewards": return TextRole.ScreenTitle;
+                case "StageCardTitle11": case "ControllerShelfTitle": case "ProductsTitle14":
+                case "DiceCounterTitle": case "OwnedDiceTitle14": case "FacePickTitle14":
+                case "LastDiceTitle": return TextRole.SectionTitle;
+                case "Heading" when p == "EndBuild": return TextRole.SectionTitle;
+                case "StageLabel11": return TextRole.StageNumber;
+                case "Title" when p.StartsWith("CycleCard", StringComparison.Ordinal): return TextRole.StageNumber;
+                case "StageGoal11": case "SettlementNetCash": return TextRole.BigNumber;
+                case "Goal" when p.StartsWith("CycleCard", StringComparison.Ordinal): return TextRole.BigNumber;
+                case "Value" when p == "EndTotalScore" || p == "EndMaximumScore" || p == "EndMaximumMultiplier"
+                    || (p == "EndDuration" && label.text.Any(char.IsDigit)): return TextRole.BigNumber;
+                case "BossModifierName" when p == "BossModifier10": return TextRole.BossName;
+                case "ModifierName" when p.StartsWith("CycleCard", StringComparison.Ordinal): return TextRole.BossName;
+                case "BossName15": case "LootName15": return TextRole.BossName;
+                case "Name":
+                    // Tall cards print the name centred above their independent body. Tiles have no body; compact names sit beside their picture.
+                    var body = parent.Find("ShortText11");
+                    if (parent.GetComponent<Button>() != null && body != null && body.gameObject.activeInHierarchy &&
+                        label.alignment == TextAlignmentOptions.Center)
+                        return TextRole.CardName;
+                    break;
+                case "Label":
+                    switch (p)
+                    {
+                        case "StartNew": case "ContinueRun": case "StartStage": case "Resume": case "RetrySave":
+                        case "ConfirmDisplay": case "ApplyDisplay": case "Again": case "LeaveShop":
+                        case "LootEnterShop15": case "SettlementContinue": return TextRole.PrimaryButton;
+                        case "NewRun" when app.ViewState == null: return TextRole.PrimaryButton;
+                        case "Roll": case "Submit": case "Confirm":
+                            if (parent.Find("Step")?.gameObject.activeSelf == true) return TextRole.PrimaryButton;
+                            break;
+                    }
+                    break;
+            }
+            return label.name.StartsWith("GiftTitle_", StringComparison.Ordinal) && p == "LootChoices15"
+                ? TextRole.SectionTitle : TextRole.None;
+        }
+
+        private static bool BaseRoleBold21(TextMeshProUGUI label, TextRole role)
+        {
+            if (role == TextRole.PrimaryButton)
+                return new[]{"StartStage","LeaveShop","LootEnterShop15","SettlementContinue"}.Contains(label.transform.parent.name);
+            if (label.name == "DialogTitle") return label.text == "新的一局";
+            return label.name != "StageCardTitle11";
+        }
+
+        private void CheckForegroundFont21(TextMeshProUGUI label, List<TMP_CharacterInfo> printed,
+            string scope, List<string> failures)
+        {
+            if (printed.Count == 0) return;
+            var role = ForegroundRole21(label);
+            bool title = (ExpectedRoles21(app.ThemeId11) & role) != 0;
+            bool score = label.name == "FinalScore" || label.name == "StableResultScore07" || label.name == "RecoveredScore07";
+            var expected = title ? UiKit.TitleFont : UiKit.Font;
+            if (score && app.art07NumberFont != null && label.font == app.art07NumberFont) expected = app.art07NumberFont;
+            string path = scope + " " + W11bPath(label.transform);
+            if (expected == null || label.font != expected ||
+                (title && (label.fontStyle != FontStyles.Normal || label.fontWeight != FontWeight.Regular)) ||
+                (!title && role != TextRole.None && label.fontStyle != (BaseRoleBold21(label,role) ? FontStyles.Bold : FontStyles.Normal)))
+            {
+                failures.Add(path + " FW-04 role " + ForegroundRole21(label) + " font=" + label.font?.name);
+                return;
+            }
+            foreach (var c in printed)
+            {
+                if (c.elementType == TMP_TextElementType.Sprite)
+                {
+                    // TMP maps an explicit <sprite> tag to a sprite character, not to the source '<'.
+                    if (label.richText && c.index >= 0 && c.index + 7 < label.text.Length &&
+                        string.Compare(label.text, c.index, "<sprite", 0, 7, StringComparison.OrdinalIgnoreCase) == 0 &&
+                        c.textElement is TMP_SpriteCharacter sprite && sprite.textAsset is TMP_SpriteAsset atlas &&
+                        atlas.spriteCharacterTable.Contains(sprite)) continue;
+                    failures.Add(path + " FW-03 unexpected sprite at source index " + c.index);
+                    continue;
+                }
+                // TMP overwrites c.character with its missing-glyph replacement, but c.index still refers
+                // to the original UTF-16 string, including any <size>, <b> or <mspace> tags before the glyph.
+                if (c.index < 0 || c.index >= label.text.Length) { failures.Add(path + " FW-03 missing source index"); continue; }
+                uint scalar = (uint)char.ConvertToUtf32(label.text, c.index);
+                // This score-summary role intentionally allows its last rendered glyph to be an ellipsis.
+                if (label.overflowMode == TextOverflowModes.Ellipsis && label.isTextTruncated &&
+                    c.index == printed[printed.Count-1].index && c.textElement?.unicode == 0x2026) scalar = 0x2026;
+                var weight = (c.style & FontStyles.Bold) != 0 ? FontWeight.Bold : label.fontWeight;
+                var character = TMP_FontAssetUtilities.GetCharacterFromFontAsset(scalar, expected, true, c.style, weight, out _);
+                if (c.textElement == null || c.textElement.unicode != scalar || character == null ||
+                    c.fontAsset != character.textAsset || c.textElement.textAsset != c.fontAsset ||
+                    (title && c.fontAsset != UiKit.TitleFont && !UiKit.TitleFont.fallbackFontAssetTable.Contains(c.fontAsset)))
+                    failures.Add(path + " FW-03 original U+" + scalar.ToString("X4") + " drawn U+" +
+                        (c.textElement?.unicode.ToString("X4") ?? "none") + " via " + c.fontAsset?.name);
+            }
+        }
+
+        private void CheckVisibleLabel21(TextMeshProUGUI label,string scope,List<string> failures)
+        {
+            if (!label.isActiveAndEnabled || label.color.a * label.canvasRenderer.GetInheritedAlpha() <= .05f) return;
+            label.ForceMeshUpdate();
+            var clip=new Rect(0,0,Screen.width,Screen.height);
+            foreach(var scroll in label.GetComponentsInParent<ScrollRect>(false))
+            {
+                if (scroll.viewport == null || !label.transform.IsChildOf(scroll.content)) continue;
+                var vp=V06ScreenRect(scroll.viewport);
+                clip=Rect.MinMaxRect(Mathf.Max(clip.xMin,vp.xMin),Mathf.Max(clip.yMin,vp.yMin),
+                    Mathf.Min(clip.xMax,vp.xMax),Mathf.Min(clip.yMax,vp.yMax));
+            }
+            var printed = new List<TMP_CharacterInfo>();
+            foreach(var c in label.textInfo.characterInfo.Take(label.textInfo.characterCount))
+                if (c.isVisible && c.color.a>0 && PrintedCharacter24(c.character) && clip.Overlaps(GlyphArea24(label.transform,c)))
+                    printed.Add(c);
+            CheckForegroundFont21(label, printed, scope, failures);
+        }
+
+        private void CheckForegroundFonts21(Transform root, string scope, List<string> failures)
+        {
+            foreach (var label in root.GetComponentsInChildren<TextMeshProUGUI>(false))
+                CheckVisibleLabel21(label,scope,failures);
+        }
+
+        [UnityTest] public IEnumerator PLAY_V21_FW03_ForegroundRejectsAVisibleReplacementAtItsRichTextSourceIndex()
+        {
+            var probe = UiKit.Text(app.canvas.transform, "FwGlyphProbe21", "<b>金币</b> <mspace=0.6em>12</mspace> →", 0, 0, 480, 80);
+            try
+            {
+                yield return null;
+                var failures = new List<string>();
+                CheckForegroundFonts21(probe.transform, "valid", failures);
+                Assert.That(failures, Is.Empty, string.Join("\n",failures));
+                probe.text = "<b>金币</b> <mspace=0.6em>12</mspace> \\u0378";
+                probe.ForceMeshUpdate();
+                var missing = probe.textInfo.characterInfo.Take(probe.textInfo.characterCount)
+                    .Single(c => c.index == probe.text.Length - 1);
+                Assert.That(missing.isVisible, Is.True, "The fallback square must actually draw in this project.");
+                Assert.That(missing.textElement.unicode, Is.Not.EqualTo(0x378u));
+                CheckForegroundFonts21(probe.transform, "missing", failures);
+                Assert.That(failures.Count, Is.EqualTo(1));
+                Assert.That(failures[0], Does.Contain("FW-03 original U+0378"));
+            }
+            finally { UnityEngine.Object.Destroy(probe.gameObject); }
+        }
+
         private IEnumerator GoldenScreen21(string screen, int percent, string output, List<string> report,
             List<string> failures, bool saveShot, params (TextMeshProUGUI label, TextRole role)[] samples)
         {
             string scope = screen + "-" + percent;
             Canvas.ForceUpdateCanvases();
             var order = app.canvas.GetComponentsInChildren<Graphic>(false);
+            if (screen == "normal-goal" || screen == "play") CheckForegroundFonts21(W14Main, scope, failures);
             var inkRects = new Dictionary<TextMeshProUGUI, List<Rect>>();
             foreach (var (label, role) in samples)
             {

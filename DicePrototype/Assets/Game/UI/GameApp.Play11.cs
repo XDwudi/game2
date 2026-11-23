@@ -21,6 +21,7 @@ namespace DiceCraft
         {
             public Rect top,cards,stage,tray,dice,chips,resources,submit,info,rail,settle,hint,secondary,primary,end;
         }
+        private static readonly Rect StageCardArea11=new Rect(1496,96,392,244);
         private Layout11 L11
         {
             get
@@ -28,7 +29,7 @@ namespace DiceCraft
                 bool c=Large11;float info=c?360:300;
                 return new Layout11
                 {
-                    top=new Rect(16,12,1888,72),cards=new Rect(32,96,1448,244),stage=new Rect(1496,96,392,244),
+                    top=new Rect(16,12,1888,72),cards=new Rect(32,96,1448,244),stage=StageCardArea11,
                     tray=new Rect(32,352,1448,376),dice=new Rect(52,374,1408,276),chips=new Rect(52,660,1408,60),
                     resources=new Rect(1496,352,392,376),submit=new Rect(32,740,1448,202),
                     info=new Rect(32,740,info,202),rail=new Rect(32+info+12,740,1448-info-12,202),settle=new Rect(1496,740,392,202),
@@ -280,17 +281,12 @@ namespace DiceCraft
             var s=ViewState;var l=L11;bool c=Large11;string kind=StageKind11;
             float x=l.stage.x,y=l.stage.y,w=l.stage.width,h=l.stage.height;
             var card=Surface11(main,"StageCard11",x,y,w,h,"ui_stage_card",UiKit.Paper);
-            float inner=w-36;
+            float inner=StageInnerWidth11(w);
             bool boss=kind=="boss"&&!string.IsNullOrEmpty(s.stage.modifierId),lifted=boss&&s.stage.modifierNullified;
             Color tint=boss&&!lifted?UiKit.Boss:PressureActive11?UiKit.Pressure:UiKit.PanelLight;
-            if(boss&&!lifted)
-            {
-                // The boss frame: two tinted rings just inside the ink edge.
-                UiKit.Ring(card,"StageCardEdge11",4,4,w-16,h-18,UiKit.Boss);
-                UiKit.Ring(card,"StageCardEdgeInner11",9,9,w-26,h-28,new Color(UiKit.Boss.r,UiKit.Boss.g,UiKit.Boss.b,.55f));
-            }
+            if(boss&&!lifted)DrawBossRings11(card,w,h);
             else if(PressureActive11)UiKit.Ring(card,"StageCardEdge11",5,5,w-18,h-20,UiKit.Pressure);
-            float headerH=Mathf.Max(40,Line11(Body11(c?18:22)));
+            float headerH=StageCardHeaderHeight11(c);
             // Everything stays inside the innermost frame line: in the default style the boss rings' inner edge is about 13
             // units in from the top and left, 21 from the right and 23 from the bottom (W11b: the reward line used to sit on
             // the bottom frame). V1.1 (W20Z2): the reward line reads that line from the drawn frame and rings (StageCardInside11).
@@ -303,8 +299,7 @@ namespace DiceCraft
                 title=(lifted?"减益已解除 · ":"首领减益 · ")+tier;
             }
             else title=StageKindLabel10(s.stage.stageIndex,StageRisk11);
-            var section=NoWrap11(UiKit.Text(header,"StageCardTitle11",title,12,0,inner-24,headerH,Body11(c?18:22),LabelOn11(header),TextAlignmentOptions.MidlineLeft));
-            UiKit.Role(section,TextRole.SectionTitle);
+            var section=StageCardHeading11(header,title,inner,headerH,c,LabelOn11(header));
             if(boss)
             {
                 float top=14+headerH+6,boxH=h-26-top;
@@ -321,9 +316,9 @@ namespace DiceCraft
                 // title's indent (12 units into the content) instead of under the emblem's edge, and it keeps 2 units inside
                 // the innermost line the card draws, read from the drawn frame and the boss rings (StageCardInside11), on the
                 // left, the right and below; until W20Z2 it began at the content's edge, on the inner ring of wider rings.
-                var inside=StageCardInside11(card,boss&&!lifted,w,h);
-                float titleInset=12+(GlyphBox11(section,out var sectionInk)?Mathf.Max(0,sectionInk.xMin):0);
-                float lootX=Mathf.Max(titleInset+2,inside.xMin+2-14),lootW=Mathf.Max(40,Mathf.Min(inner,inside.xMax-2-14)-lootX);
+                var inside=StageCardInside11(card,boss&&!lifted,w,h,FrameInsets11,RingInsets13);
+                var row=BossRewardRow11(section,inside,inner);
+                float lootX=row.x,lootW=row.y;
                 float lootRoom=Mathf.Min(boxH,inside.yMax-2-top);
                 var lootText=UiKit.Text(box,"BossLoot11",string.IsNullOrEmpty(loot)?"终局首领 · 通关即胜利":"通关奖励："+ShortText11(loot),lootX,0,lootW,40,18,LabelOn11(card,lifted?PaperMuted071:Color.Lerp(UiKit.Ink,UiKit.Boss,.55f)));
                 lootText.lineSpacing=-14;lootText.enableAutoSizing=false;
@@ -376,19 +371,44 @@ namespace DiceCraft
             NoWrap11(UiKit.Text(card,"StageNote11",note,14,ty,inner,Line11(Body11(c?14:17)),Body11(c?14:17),LabelOn11(card,PaperMuted071)));
             HitArea073(card,"StageCardOpen11",0,0,w-8,h-10,()=>{if(!IsBusy)ShowCycle10();});
         }
+        private static float StageInnerWidth11(float width)=>width-36;
+
+        private static float StageCardHeaderHeight11(bool compact)=>Mathf.Max(40,Line11(Body11(compact?18:22)));
+
+        private static TextMeshProUGUI StageCardHeading11(RectTransform header,string title,float inner,float headerH,bool c,Color ink)
+        {
+            var section=NoWrap11(UiKit.Text(header,"StageCardTitle11",title,12,0,inner-24,headerH,Body11(c?18:22),ink,TextAlignmentOptions.MidlineLeft));
+            UiKit.Role(section,TextRole.SectionTitle);
+            return section;
+        }
+
+        private static void DrawBossRings11(RectTransform card,float w,float h)
+        {
+            UiKit.Ring(card,"StageCardEdge11",4,4,w-16,h-18,UiKit.Boss);
+            UiKit.Ring(card,"StageCardEdgeInner11",9,9,w-26,h-28,new Color(UiKit.Boss.r,UiKit.Boss.g,UiKit.Boss.b,.55f));
+        }
+
+        private static Vector2 BossRewardRow11(TextMeshProUGUI section,Rect inside,float inner)
+        {
+            float titleInset=section.rectTransform.anchoredPosition.x+(GlyphBox11(section,out var ink)?Mathf.Max(0,ink.xMin):0);
+            float x=Mathf.Max(titleInset+2,inside.xMin+2-14);
+            return new Vector2(x,Mathf.Max(40,Mathf.Min(inner,inside.xMax-2-14)-x));
+        }
+
         /// <summary>
         /// V1.1 (W20Z2): the inside of the innermost line the stage card draws, in the card's units (x right, y down from its
         /// top left): its own frame (FrameInsets11) and, when the boss frame is drawn, the bands of its two rings as drawn
         /// (RingInsets13, the measure of an open ring's band), so text keeps off a style's thicker frame or rings.
         /// </summary>
-        private static Rect StageCardInside11(RectTransform card,bool rings,float w,float h)
+        private static Rect StageCardInside11(RectTransform card,bool rings,float w,float h,
+            Func<Image,Vector4> frameInsets,Func<Image,Vector4> ringInsets)
         {
-            var frame=FrameInsets11(card.GetComponent<Image>());
+            var frame=frameInsets(card.GetComponent<Image>());
             float left=frame.x,top=frame.w,right=w-frame.z,bottom=h-frame.y;
             if(rings)foreach(string name in new[]{"StageCardEdge11","StageCardEdgeInner11"})
             {
                 var ring=card.Find(name)?.GetComponent<Image>();if(ring==null||!ring.gameObject.activeSelf)continue;
-                var r=ring.rectTransform;var band=RingInsets13(ring);
+                var r=ring.rectTransform;var band=ringInsets(ring);
                 float x=r.anchoredPosition.x,y=-r.anchoredPosition.y;
                 left=Mathf.Max(left,x+band.x);top=Mathf.Max(top,y+band.w);
                 right=Mathf.Min(right,x+r.sizeDelta.x-band.z);bottom=Mathf.Min(bottom,y+r.sizeDelta.y-band.y);

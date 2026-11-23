@@ -29,6 +29,8 @@ namespace DiceCraft.Tests
         {
             public string id,scope,runtimeMvid,coreMvid,testMvid,sourceSnapshotSha,stateHash,saveSha;
             public int width,height,fontPercent;public float canvasScale;public List<CardRead07> cards=new List<CardRead07>();
+            public CardGlyph07 workspaceButton;
+            public Rect workspaceFaceInterior;
         }
         private static Rect CardLocalRect07(RectTransform parent,RectTransform child)
         {
@@ -220,6 +222,20 @@ namespace DiceCraft.Tests
             }
             else
             {
+                if(!shop)
+                {
+                    var button=Button("DebugWorkspace");
+                    var face=(UnityEngine.UI.Image)button.targetGraphic;
+                    var label=button.transform.Find("Label").GetComponent<TextMeshProUGUI>();
+                    var rim=(Vector4)FrameInsets20Xb.Invoke(null,new object[]{face});
+                    var rect=face.rectTransform.rect;
+                    row.workspaceFaceInterior=Rect.MinMaxRect(rim.x,rim.w,rect.width-rim.z,rect.height-rim.y);
+                    row.workspaceButton=CardGlyphCheck07(face.rectTransform,label,"组合试验",rect.height);
+                    var inner=row.workspaceFaceInterior;var ink=row.workspaceButton.ink;
+                    if(label.textInfo.lineCount!=1 || ink.xMin<inner.xMin-.25f || ink.xMax>inner.xMax+.25f ||
+                        ink.yMin<inner.yMin-.25f || ink.yMax>inner.yMax+.25f)
+                        row.workspaceButton.errors.Add("Debug workspace label must fit on one line inside its painted face.");
+                }
                 foreach(var item in state.controllers.Take(shop?4:10))
                 {
                     var card=(RectTransform)Button("Controller_"+item.instanceId).transform;
@@ -228,6 +244,7 @@ namespace DiceCraft.Tests
                 if(shop)foreach(var offer in state.shop.offers.Where(o=>o.category=="controller"))row.cards.Add(CardCheck07((RectTransform)Button("Offer_"+offer.offerId).transform,offer.controller,"shop-full",ShopCardFooter14(offer.controller)));
             }
             File.WriteAllText(Path.Combine(extra07.output,id+"-glyphs.json"),JsonUtility.ToJson(row,true));
+            if(row.workspaceButton!=null)Assert.That(row.workspaceButton.errors,Is.Empty,id+" DebugWorkspace: "+string.Join(", ",row.workspaceButton.errors));
             Assert.That(row.cards,Is.Not.Empty);Assert.That(row.cards.SelectMany(c=>c.errors.Select(e=>c.kind+"/"+c.definition+": "+e)).ToArray(),Is.Empty,"See screenshot and -glyphs.json for actual missing/overlapping ink.");
         }
         private IEnumerator CardSetFont07(int font)

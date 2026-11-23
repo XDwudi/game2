@@ -102,6 +102,8 @@ def normalized_config(cfg):
                 entry.pop("maxOwnedNormal", None)
             if key == "lootKinds":
                 entry["displayName"] = entry["displayName"].replace("控制器", "卡牌")
+            if key == "services" and entry["id"] == "O07" and entry["priceRule"] == "6，整个Run仅可购买1次":
+                entry["priceRule"] = "6（整局限买1次）"
     for key in ("controllersUniqueOwned", "allowDifferentEnchantReplacement", "replacementCredit",
                 "replacementCountsAsOneControllerSale", "firstControllerGuaranteeUnownedOnly"):
         cfg["shop"].pop(key, None)

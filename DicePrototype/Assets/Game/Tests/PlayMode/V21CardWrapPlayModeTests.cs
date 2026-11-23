@@ -178,6 +178,7 @@ namespace DiceCraft.Tests
                                 try { File.WriteAllBytes(Path.Combine(output, $"page-{page}-{percent}.png"), shot.EncodeToPNG()); }
                                 finally { UnityEngine.Object.Destroy(shot); }
                             }
+                            CheckForegroundFonts21(gallery.transform, theme.Id + "/" + percent + "/gallery" + page, failures);
                             var order = app.canvas.GetComponentsInChildren<UnityEngine.UI.Graphic>(false);
                             foreach (var label in gallery.GetComponentsInChildren<TextMeshProUGUI>(false)
                                          .Where(t => t.name == "ShortText11" && t.gameObject.activeInHierarchy))

@@ -454,6 +454,13 @@ def felt_tile() -> Image.Image:
 
 
 def preview() -> Image.Image:
+    with Image.open(ROOT / REVIEW / "preview-gameplay.png") as frame:
+        if frame.size != (1920, 1080):
+            raise ValueError("Expected a full 1920x1080 gameplay capture for the theme picker")
+        return frame.convert("RGB").resize((480, 270), Image.Resampling.LANCZOS)
+
+
+def concept_preview() -> Image.Image:
     p = Canvas(480, 270, PAPER)
     p.poly([(474, 30), (480, 22), (480, 270), (474, 262)], RED)
     p.poly([(130, 268), (480, 258), (480, 270), (130, 270)], RED)
@@ -536,7 +543,7 @@ def review_sheet(sprites: dict[str, Image.Image], specs: list[dict], table: Imag
     d.text((24, y + 12), "TABLE / 1920 x 1080   -   clear central play area", fill=INK[:3], font=font)
     sheet.paste(table.resize((960, 540), Image.Resampling.LANCZOS), (24, y + 52))
     d.rectangle((24, y + 52, 984, y + 592), outline=INK[:3], width=2)
-    sheet.paste(preview(), (1050, y + 52))
+    sheet.paste(concept_preview(), (1050, y + 52))
     d.text((1050, y + 337), "PICKER / 480 x 270", fill=INK[:3], font=font)
     for i, (label, color) in enumerate((('PAPER', PAPER), ('INK', INK), ('RED', RED), ('GREY', GREY), ('TAN', TAN))):
         xx = 1050 + i * 135

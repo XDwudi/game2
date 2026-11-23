@@ -11,7 +11,7 @@
 | `DicePrototype/Assets/Resources/Themes/swiss/UI/<name>.png` | 49 张，RGBA | 契约中全部 `referenced: true` 的同名覆盖件；像素尺寸逐项沿用默认件 |
 | `DicePrototype/Assets/Resources/Themes/swiss/Table/table_scene.png` | 1 张，1920×1080 RGB | 暖白桌面、下沿朝右上升的红色斜面、右上红色域与黑规则线；中央 x=360–1500、y=330–950 保持纯净纸色 |
 | `DicePrototype/Assets/Resources/Themes/swiss/Table/felt_tile.png` | 1 张，1024×1024 RGB | 固定种子的极浅纸纹，周期采样并对齐两侧边缘，可无缝平铺 |
-| `DicePrototype/Assets/Resources/Themes/swiss/preview.png` | 1 张，480×270 RGB | 设置选项缩略构图：深色面板、红色按钮、斜向色域与骰子图形 |
+| `DicePrototype/Assets/Resources/Themes/swiss/preview.png` | 1 张，480×270 RGB | W16 设置页使用瑞士对局实机全帧，与默认风格取自同场景。R2 的构图稿保存在原审查板。 |
 | `ArtSource/Art11/swiss/contact_sheet.png` | 1 张，RGB | 全部 49 件默认 / 瑞士并排，附尺寸、边距、PPU、桌面、预览、纸底上的 PPU 200 拉伸、1:1 源像素 tint 示例及五张概念图 |
 
 未改 `.meta`、C#、场景、`theme.json`、3D 骰子资产或默认素材；未提交或推送。其余 37 张未被代码引用的契约项不在本次交付范围。接触表是离线检查图，不能代替 Unity 截图。

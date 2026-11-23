@@ -157,6 +157,8 @@ namespace DiceCraft.Tests
             var order=app.canvas.GetComponentsInChildren<Graphic>(false);
             var labels=new List<KeyValuePair<TextMeshProUGUI,List<Rect>>>();var surfaces=new Dictionary<TextMeshProUGUI,string>();
             var felt=new List<KeyValuePair<TextMeshProUGUI,List<Rect>>>();
+            bool playForeground=(app.ViewState?.phase=="HandReady"||app.ViewState?.phase=="Selecting") &&
+                (overlay==null || !overlay.Cast<Transform>().Any(c=>c.name=="Dialog"&&c.gameObject.activeInHierarchy));
             foreach(var t in app.canvas.GetComponentsInChildren<TextMeshProUGUI>(false))
             {
                 if(!t.enabled||!t.gameObject.activeInHierarchy||string.IsNullOrWhiteSpace(t.text)||t.color.a<.9f||t.canvasRenderer.GetInheritedAlpha()<.9f)continue;
@@ -164,6 +166,7 @@ namespace DiceCraft.Tests
                 // V1.1 (W13): a pass over one view only (the card gallery drawn above the play screen).
                 if(root!=null&&!t.transform.IsChildOf(root))continue;
                 if(foreground!=null&&!foreground(t.transform))continue;
+                if(playForeground)CheckVisibleLabel21(t,scope,failures);
                 // A disabled control is exempt; a formula chip is a readout that only stops taking clicks while the hand scores.
                 var control=t.GetComponentInParent<Selectable>();
                 if(control!=null&&!control.interactable&&(control.transform.parent==null||control.transform.parent.name!="ScorePanel"))continue;
