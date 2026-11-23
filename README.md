@@ -8,7 +8,7 @@
 
 ## 当前原型
 
-V1.1 的 36 项验收条件、各自的测试结果与尚待签署的事项见[验收记录](docs/tasks/P0-V11.md)。
+六套风格已在普通设置中开放，用户已定稿字体、断行和界面布局。默认菜单托盘与六件奖励也已定稿，五套专属插画正在接入。逐项实测和两平台候选进度见[36 项验收记录](docs/tasks/P0-V11.md)与[美术推广记录](docs/specs/v11/W23_REPORT.md)。
 
 > 接力开发先读：[已开发内容总览](docs/GAME_OVERVIEW.md)（玩法、系统、工程、流程、现状一文看完）与 [内容与数值手册](docs/GAME_CONTENT_REFERENCE.md)（150 张控制器、39 个减益、道具、服务、关卡的全量表，由 `tools/handoff_doc.py` 从配置生成）。p1.0.0 的实测与可玩性分析见 [PLAYTEST_REPORT](docs/specs/v10/PLAYTEST_REPORT.md)（机器人 900 局通关 27%；没有真人试玩）。
 
