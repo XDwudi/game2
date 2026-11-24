@@ -8,7 +8,9 @@
 
 Windows 成品六套各执行 243 步，包含新建对局及 242 条后续命令，到达指定的第 18 关。实际留存 174 张原图和 8,786 项同帧文字。独立对照 78 张选关、对局和结算原图，上版「白干」的 12 处错误均已修正。完整 Python 回归 **478/478**。真实 Mac 启动、初见玩家读卡和关卡辨识仍待实测。六套最终结算画面待用户过目。Unity 工程写锁已释放。[六套成品回放索引](../evidence/v11/replays/final/index.json) · [全量 Python](../artifacts/cache/v11/w26-staging/python-full-20261124T035302Z/result.json) · [真人材料](../artifacts/cache/v11/w25/human-review/开始.md)
 
-W25 逐项复核 36 个验收条件，33 项工程与实测条件通过，AX-10 已由用户批准，TX-05 读卡和 AX-04 关卡辨识待真人。成品第 23 帧主动悬停奖励卡时，详情框接触红色说明末端约 1–2 像素，金额和按钮完整可见。交付对象为版本分支 `codex/v1.1` 与预发布标签 `p1.1.0-rc.1`。下一检查点由用户试玩候选包。[独立总审](../evidence/v11/review/final.md) · [发行页](https://github.com/XDwudi/game2/releases/tag/p1.1.0-rc.1)
+W25 逐项复核 36 个验收条件，33 项工程与实测条件通过，AX-10 已由用户批准，TX-05 读卡和 AX-04 关卡辨识待真人。成品第 23 帧主动悬停奖励卡时，详情框接触红色说明末端约 1–2 像素，金额和按钮完整可见。[独立总审](../evidence/v11/review/final.md)
+
+W26 已于 2026-11-24 完成交付。GitHub 预发布 `p1.1.0-rc.1` 的标签指向版本分支 `codex/v1.1` 上的 `463d7229`，游戏构建源为 `e7917cd0`。Windows x64 与 macOS Universal 的两个发行附件均已完整下载，字节数与 SHA-256 逐包和本地原件相符。06:48 UTC 已生成发布收据。当前进入检查点 ④，由用户试玩候选包。[发行页](https://github.com/XDwudi/game2/releases/tag/p1.1.0-rc.1) · [发布收据](../evidence/v11/delivery/github-release-p1.1.0-rc.1.json)
 
 ### 11 月 23 日的修复与历史冻结记录
 

@@ -1,4 +1,6 @@
-# V1.1 接力开发进度 · 2026-11-23
+# V1.1 接力开发进度 · 更新至 2026-11-24
+
+**试玩候选版 `p1.1.0-rc.1` 已发布。** Windows x64（886.5 MiB）和 macOS Universal（925.0 MiB）均已从发行页完整下载，SHA-256 与本地包一致。当前进入检查点 ④，可用这两个包试玩。[GitHub 下载](https://github.com/XDwudi/game2/releases/tag/p1.1.0-rc.1) · [发布收据](../../../evidence/v11/delivery/github-release-p1.1.0-rc.1.json)
 
 **当前冻结版本为 `e7917cd0`。** 同名卡可分别购买、成长和出售，首领掉落可以先腾位再领。六套风格已从主菜单和暂停菜单开放，每套各有一张托盘和六张奖励图。首领「白干」的未达标提示与实际派发一致，利息、铁饭碗和赏金猎人的收入分别列明。[修复后实机原图](../../../artifacts/cache/v11/w26-staging/boss-reward-copy-fix/targeted-20261124T010010Z/reward-copy-B04-qualified-hover-150.png)
 
@@ -15,7 +17,7 @@
 
 结算收据有一处已知显示细节。指针停在奖励卡上时，详情框上缘会碰到红色说明后半句底部 1–2 像素。六套实图中原句均可辨读，金额和按钮完整可见。[原尺寸实包核对](../../../artifacts/cache/v11/w25/release-watermark/replays/77db86f0d637a3b34f85/REVIEW.md)
 
-36 项验收中，33 项工程与实测通过，AX-10 已获用户批准，TX-05 和 AX-04 待真人。试玩候选标签为 `p1.1.0-rc.1`。[独立总审](../../../evidence/v11/review/final.md) · [试玩候选发行页](https://github.com/XDwudi/game2/releases/tag/p1.1.0-rc.1)
+36 项验收中，33 项工程与实测通过，AX-10 已获用户批准，TX-05 和 AX-04 待真人。[独立总审](../../../evidence/v11/review/final.md)
 
 ## 开发期间的两次返工
 
