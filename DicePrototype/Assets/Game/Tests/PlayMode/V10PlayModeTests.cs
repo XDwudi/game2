@@ -182,6 +182,117 @@ namespace DiceCraft.Tests
         }
 
         [UnityTest]
+        public IEnumerator PLAY_V11_RewardHintsMatchTheActiveStageAndItsCardIncome()
+        {
+            // Normal-slot checkpoints. The modifier is drawn by the real seed. Start, roll, lock, submit,
+            // hover and settlement all run through the player's regular Bootstrap controls.
+            yield return CheckRewardHint11(5000, 2, "B04", false, new[] { "C133" }, false, 100);
+            yield return CheckRewardHint11(5000, 2, "B04", false, new[] { "C95", "C133", "C01" }, false, 150);
+            yield return CheckRewardHint11(5000, 0, "", false, new[] { "C95", "C133" }, false, 150);
+            yield return CheckRewardHint11(5000, 1, "", true, new[] { "C133" }, false, 150);
+            yield return CheckRewardHint11(5007, 2, "B03", false, new[] { "C133" }, false, 100);
+            yield return CheckRewardHint11(5006, 5, "B12", false, new[] { "C133" }, false, 100);
+            yield return CheckRewardHint11(5000, 2, "B04", false, new[] { "C95" }, true, 150);
+            yield return CheckRewardHint11(5000, 2, "B04", false, new[] { "C131" }, false, 150);
+        }
+
+        private IEnumerator CheckRewardHint11(uint seed, int index, string modifier, bool risk, string[] cards, bool dispel, int font)
+        {
+            string context="stage "+index+" "+modifier+" "+string.Join("+",cards)+" font "+font+(dispel?" I08":"");
+            var source=new GameSession(app.Config,new MemorySaveStore());
+            var created=source.Execute(new SessionCommand{kind=CommandKind.NewRun,commandId="reward-forecast",seed=seed});
+            Assert.That(created.accepted,Is.True,created.error);
+            var s=source.State;var def=app.Config.stages[index];
+            s.stage.stageIndex=index;s.stage.stageId=def.stageId;s.stage.stageKind=def.stageKind;
+            s.stage.target=def.normalTarget;s.stage.reward=def.normalReward;
+            s.stage.modifierId=def.stageKind=="boss"?s.cycles[index/3].modifierId:"";
+            Assert.That(s.stage.modifierId,Is.EqualTo(modifier),context);
+            AllRedFours10(s);Equip09(s,cards);s.gold=40;
+            string item=dispel?BoundaryItem(s,"I08"):null;
+            new AtomicSaveStore(app.SaveLocation,app.Config,SaveSlotPolicy.Normal).Save(s);
+            PlayerPrefs.SetInt("art07.textScale",font);PlayerPrefs.SetInt("art07.instant",1);
+            yield return LoadBootstrap();Click("ContinueRun");
+            Assert.That(app.Session.State.isDebug,Is.False,context);
+            if(risk)Click("Risk");
+            Click("StartStage");yield return WaitForIdle();
+            string normal="达标后结束：过关奖励 +"+(risk?def.riskReward:def.normalReward)+" 金币，剩下的每次提交 +"+app.Config.goldPerUnusedSubmission;
+            const string voided="本关不发过关奖励和剩余提交奖励。";
+            bool suppressed=modifier=="B04"&&!cards.Contains("C131");
+            Assert.That(Text10("GoalReward11"),Is.EqualTo(suppressed?voided:normal),context);
+            W11GlyphCheck(FindActive<TextMeshProUGUI>("GoalReward11"),context);
+            if(suppressed)
+                Assert.That(Text10("BossModifierText").Replace("\n",""),Is.EqualTo(app.Config.Modifier("B04").shortText),context);
+            if(modifier=="B12")
+            {
+                Assert.That(app.Session.State.gold,Is.EqualTo(20),context);
+                yield break; // The entry tax changes the wallet; the unqualified forecast still quotes normal rewards.
+            }
+            if(dispel)
+            {
+                Click("Item_"+item);Click("Use");yield return WaitForIdle();
+                Assert.That(app.Session.State.stage.modifierNullified,Is.True,context);
+                Assert.That(Text10("GoalReward11"),Is.EqualTo(normal),context);
+                suppressed=false;
+            }
+            if(cards.Contains("C131"))Assert.That(app.Session.State.stage.modifierNullified,Is.True,context);
+
+            Click("Roll");app.SkipVisual();yield return WaitForIdle();
+            foreach(var die in app.Session.State.dice)ClickDie(die.dieId);
+            Click("Confirm");app.SkipVisual();yield return WaitForIdle();
+            Assert.That(Text10("GoalReward11"),Is.EqualTo(suppressed?voided:normal),context+" selecting");
+            if(suppressed&&font==150)yield return W11Capture("reward-copy-B04-selecting-150");
+            Click("Submit");app.SkipVisual();yield return WaitForIdle();
+            Assert.That(app.Session.State.stage.qualified,Is.True,context);
+            if(modifier=="B03")Assert.That(app.Session.State.gold,Is.EqualTo(40-s.dice.Count),context);
+            var receipt=app.Session.PreviewStageSettlement();
+            long salary=cards.Contains("C95")?app.Config.Controller("C95").parameters.goldPerStage:0;
+            var hunter=app.Config.Controller("C133").parameters;
+            long bounty=cards.Contains("C133")?(def.stageKind=="boss"?hunter.goldPerBoss:risk?hunter.goldPerPressure:0):0;
+            Assert.That(receipt.rewardVoided,Is.EqualTo(suppressed),context);
+            Assert.That(receipt.baseReward,Is.EqualTo(suppressed?0:risk?def.riskReward:def.normalReward),context);
+            Assert.That(receipt.unusedSubmissionReward,Is.EqualTo(suppressed?0:receipt.remainingSubmissions*app.Config.goldPerUnusedSubmission),context);
+            Assert.That(receipt.interest,Is.Positive,context);
+            Assert.That(receipt.controllerIncome,Is.EqualTo(salary+bounty),context);
+            Assert.That(receipt.bountyIncome,Is.EqualTo(bounty),context);
+            string salaryText="铁饭碗 +"+salary,bountyText="赏金猎人 +"+bounty;
+            Assert.That(Text10("QualifiedReward0"),Is.EqualTo("过关奖励  +"+receipt.baseReward+(bounty>0?"  ·  "+bountyText:"")),context);
+            Assert.That(Text10("QualifiedReward1"),Is.EqualTo("剩余提交奖励  +"+receipt.unusedSubmissionReward),context);
+            Assert.That(Text10("QualifiedReward2"),Is.EqualTo("利息  +"+receipt.interest+(salary>0?"  ·  "+salaryText:"")),context);
+            for(int line=0;line<3;line++)W11GlyphCheck(FindActive<TextMeshProUGUI>("QualifiedReward"+line),context);
+            var hover=Button("EndStage").GetComponent<Art07HoverTip>();
+            var pointer=new UnityEngine.EventSystems.PointerEventData(UnityEngine.EventSystems.EventSystem.current);
+            hover.OnPointerEnter(pointer);
+            double deadline=Time.realtimeSinceStartupAsDouble+3;
+            while(!HasActive("EndStagePreview07")&&Time.realtimeSinceStartupAsDouble<deadline)yield return null;
+            var panel=FindActive<RectTransform>("EndStagePreview07");
+            var body=panel.Find("Body").GetComponent<TextMeshProUGUI>();
+            var title=panel.Find("Title").GetComponent<TextMeshProUGUI>();
+            var bounds=V06ScreenRect(panel);
+            Assert.That(bounds.xMin>=0&&bounds.xMax<=Screen.width+1&&bounds.yMax<=Screen.height+1,Is.True,context+" tooltip fits screen");
+            Assert.That(bounds.yMin,Is.GreaterThan(V06ScreenRect((RectTransform)Button("EndStage").transform).yMax),context+" tooltip clears its button");
+            W11GlyphCheck(title,context);
+            var lines=body.text.Split('\n');
+            int pigs=cards.Count(id=>id=="C01");
+            Assert.That(receipt.pigSourceCount,Is.EqualTo(pigs),context);
+            long rate=1L+pigs*app.Config.Controller("C01").parameters.extraInterestPerTen;
+            CollectionAssert.Contains(lines,"利息 +"+receipt.interest+"（每 "+app.Config.interestDivisor+" 金币 +"+rate+"）",context);
+            CollectionAssert.AreEquivalent(new[]{salary>0?salaryText:null,bounty>0?bountyText:null}.Where(x=>x!=null),
+                lines.Where(x=>x.StartsWith("铁饭碗")||x.StartsWith("赏金猎人")),context);
+            W11GlyphCheck(body,context);
+            Assert.That(V06ScreenRect(title.rectTransform).yMin,Is.GreaterThan(V06ScreenRect(body.rectTransform).yMax),context+" title clears body");
+            Assert.That(V06ScreenRect(body.rectTransform).yMin,Is.GreaterThan(bounds.yMin),context+" body stays inside paper");
+            if(suppressed&&font==150)yield return W11Capture("reward-copy-B04-qualified-hover-150");
+            hover.OnPointerExit(pointer);Click("EndStage");yield return WaitForIdle();
+            if(app.SettlementRevealPlaying07)Click("SkipSettlementReveal07");
+            Assert.That(app.Session.State.phase,Is.EqualTo("StageSettlement"),context);
+            Assert.That(app.Session.State.lastStageSettlement.goldAfter,Is.EqualTo(receipt.goldAfter),context);
+            Assert.That(HasActive("SettlementControllerIncome"),Is.EqualTo(salary>0),context);
+            Assert.That(HasActive("SettlementBounty10"),Is.EqualTo(bounty>0),context);
+            if(salary>0)Assert.That(Text10("SettlementControllerIncome"),Is.EqualTo(salaryText),context);
+            if(bounty>0)Assert.That(Text10("SettlementBounty10"),Is.EqualTo(bountyText),context);
+        }
+
+        [UnityTest]
         public IEnumerator PLAY_V10_GiftControllerAddsAFreePickToTheNextShop()
         {
             var fixture = NewBoundaryFixture("v10-gift-fixture"); AllRedFours10(fixture);

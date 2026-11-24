@@ -4,6 +4,12 @@
 
 ### GPT 接力开发（2026-11-23，整合验证中）
 
+「白干」的未达标预告已按当时生效的减益显示。解除减益后恢复正常报价；达标右栏、结束按钮悬停与真实收据均分列铁饭碗和赏金猎人的收入。首轮 720p 专项发现 150% 字号的悬停末行截断，按实际字高重新布局后，含八组关卡和持卡状态的专项 **1/1 通过**。协调者持有 Unity 写锁，按补修源重新运行整套验证。[专项通过](../evidence/v11/unity/nunit-20261124-010112.xml) · [截字原件](../evidence/v11/unity/nunit-20261124-005703.xml) · [上一候选 W25 返工报告](../evidence/v11/review/W25-a6c05f04-REWORK.md)
+
+**候选版 `a6c05f04` 进入返工。** Windows 成品第 3 关首领「白干」在右上说明两项奖励取消，右下却仍显示过关 +5、每次剩余提交 +1。真实结算正确发放过关 +0、剩余提交 +0 和利息 +1。两平台 ZIP 均已构建，当前候选保留作反例。修复范围为玩家可见的收入预告及对应实机回归。[唐三彩同帧证据](../artifacts/cache/v11/w25/full-recheck-a6c05f04/B04-preview-conflict/sancai/same-frame.png)
+
+当前冻结提交为 `a6c05f04`。EditMode 全量 **2,482/2,482**，1080p、720p 实机各 **366/366**，均零失败、零跳过。两窗 7,458 项输入及五个程序集与编辑器基线一致。正式门禁绑定 8,066 个输入和三份报告，PDB 核对 310 份源码。Windows 候选 ZIP 已生成，协调者接续 macOS 构建与 Windows 六主题回放。[编辑器报告](../evidence/v11/unity/nunit-20261123-213334.xml) · [1080p 独立核对](../artifacts/cache/v11/w25/dual-window-a6c05f04/1920x1080-20261123-225032.md) · [720p 独立核对](../artifacts/cache/v11/w25/dual-window-a6c05f04/1280x720-20261124-000347.md) · [两窗 912 张实机图](../artifacts/cache/v11/review-20261123/rollout-final/pages/final/a6c05f0429f1d645a12fd12ef85f3f841b696ff3/index.html)
+
 首轮冻结版 `387897b3` 已通过全部 478 项 Python 回归，耗时 2,174 秒，运行前后源码一致。已将项目现有的全局输入动作表显式加入预加载。隔离构建在 Windows x64 和 macOS Universal 上各成功一次，构建前和返回后的设置文件四份逐字节一致。新冻结版由协调者串行复验编辑器、1080p 与 720p，再交付两端候选包。[Python 回归收据](../artifacts/cache/v11/w26-staging/python-full-20261123T205308Z/result.json) · [Windows 构建原日志](../artifacts/cache/v11/w26-staging/preload-smoke/unity.log) · [macOS 构建原日志](../artifacts/cache/v11/w26-staging/preload-smoke/unity-macos.log)
 
 首轮冻结提交 `387897b3` 的编辑器全量 **2,482/2,482**，1080p、720p 实机全量各 **366/366**，均零跳过。五个程序集对应 310 份源码，零差异。两档窗口共 912 张结算、领取及菜单原图已交用户过目，文字附录每窗 270 行、447 项核对一致。[双窗实机](../artifacts/cache/v11/w25/full-recheck-387897b3/REVIEW-720.md) · [最终结算图册](../artifacts/cache/v11/review-20261123/rollout-final/pages/final/387897b3d2854f43588b91a5303efa44a16f72c0/index.html) · [两窗逐骰复算](../artifacts/cache/v11/w25/ax01-frozen-387897b3/REVIEW.md)

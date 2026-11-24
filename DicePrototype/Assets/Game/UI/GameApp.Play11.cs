@@ -766,7 +766,10 @@ namespace DiceCraft
                 if(r!=null)
                 {
                     // v1.1 glossary (text proposal 2.2): 过关奖励, 剩余提交奖励, 利息.
-                    string[] lines={"过关奖励  +"+PlayerNumberFormat.Gold(r.baseReward),"剩余提交奖励  +"+PlayerNumberFormat.Gold(r.unusedSubmissionReward),"利息  +"+PlayerNumberFormat.Gold(r.interest)+(r.controllerIncome>0?"  ·  铁饭碗 +"+PlayerNumberFormat.Gold(r.controllerIncome):"")};
+                    string[] lines={"过关奖励  +"+PlayerNumberFormat.Gold(r.baseReward),"剩余提交奖励  +"+PlayerNumberFormat.Gold(r.unusedSubmissionReward),"利息  +"+PlayerNumberFormat.Gold(r.interest)};
+                    // Keep the three W11 rows at large text sizes. Each receipt source has room on its own row.
+                    foreach(var chip in SettlementRewardTerms15.ControllerChips(r))
+                        lines[chip.id=="SettlementBounty10"?0:2]+="  ·  "+chip.Text;
                     for(int i=0;i<lines.Length;i++)NoWrap11(UiKit.Text(main,"QualifiedReward"+i,lines[i],x,y+i*Line11(line),w,Line11(line),line,LabelOn11(panel,UiKit.TextColor)));
                     y+=lines.Length*Line11(line)+2;
                 }
@@ -780,8 +783,11 @@ namespace DiceCraft
             var value=NoWrap11(UiKit.Text(main,"GoalGap11",CompactScore(gap.ToString()),x,y+labelH,w,gapH,gapSize,PressureActive11?CueOn11(panel,UiKit.Pressure):LabelOn11(panel,UiKit.TextColor)));
             value.fontStyle=FontStyles.Bold;
             int reward=s.stage.reward>0?s.stage.reward:s.stage.risk?Config.stages[s.stage.stageIndex].riskReward:Config.stages[s.stage.stageIndex].normalReward;
+            // During scoring this panel can still show the pre-submit stage after the session has settled it.
+            bool noReward=!s.stage.modifierNullified&&ControllerRules.ModifierHas(Config,s.stage.modifierId,"NoReward");
+            string terms=noReward?"本关不发过关奖励和剩余提交奖励。":"达标后结束：过关奖励 +"+reward+" 金币，剩下的每次提交 +"+Config.goldPerUnusedSubmission;
             float noteY=y+labelH+gapH+2;
-            var note=UiKit.Text(main,"GoalReward11","达标后结束：过关奖励 +"+reward+" 金币，剩下的每次提交 +"+Config.goldPerUnusedSubmission,x,noteY,w,l.settle.yMax-8-noteY,Body11(c?15:18),LabelOn11(panel,UiKit.Muted));
+            var note=UiKit.Text(main,"GoalReward11",terms,x,noteY,w,l.settle.yMax-8-noteY,Body11(c?15:18),LabelOn11(panel,UiKit.Muted));
             note.lineSpacing=-10;
         }
 
