@@ -1,0 +1,81 @@
+name: Verify the V1.1 macOS release download
+on:
+  push:
+    branches: [codex/v1.1]
+    paths: [.github/workflows/v11-macos-package.yml]
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  verify:
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [macos-15, macos-15-intel]
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 15
+    env:
+      ASSET_ID: '785925527'
+      ZIP_SHA256: 35d672f9e18578aa17c98d978aed3090e13c79a22f740cc55cc1870a9fc4db5d
+      EXPECT_UNSEALED_LICENSES: 'yes'
+    steps:
+      - name: Download and extract the exact release asset
+        run: |
+          set -eu
+          sw_vers
+          uname -m
+          curl --fail --location --retry 2 --proto '=https' --proto-redir '=https' \
+            -H 'Accept: application/octet-stream' \
+            "https://api.github.com/repos/XDwudi/game2/releases/assets/${ASSET_ID}?sha=${ZIP_SHA256}" -o player.zip
+          echo "$ZIP_SHA256  player.zip" | shasum -a 256 -c -
+          ditto -x -k player.zip unpacked
+      - name: Verify the bundle and both architectures with Apple tools
+        run: |
+          set -eu
+          mkdir proof
+          app=unpacked/DicePrototype-p1.1.0/DicePrototype.app
+          main="$app/Contents/MacOS/$(/usr/libexec/PlistBuddy -c 'Print :CFBundleExecutable' "$app/Contents/Info.plist")"
+          test -x "$main"
+          lipo -verify_arch x86_64 arm64 "$main"
+          codesign -dv --verbose=4 "$app" 2>&1 | tee proof/signature.txt
+          result=0
+          codesign --verify --deep --strict --all-architectures --verbose=4 "$app" >proof/verify.txt 2>&1 || result=$?
+          cat proof/verify.txt
+          if [[ "$EXPECT_UNSEALED_LICENSES" == yes ]]; then
+            test "$result" -ne 0
+            grep -F 'Resources/Licenses' proof/verify.txt
+          else
+            test "$result" -eq 0
+            status=0
+            spctl --assess --type execute --verbose=4 "$app" >proof/gatekeeper.txt 2>&1 || status=$?
+            cat proof/gatekeeper.txt
+            echo "Gatekeeper assessment exit code: $status" | tee -a proof/gatekeeper.txt
+          fi
+      - name: Start the player and capture its main menu
+        if: env.EXPECT_UNSEALED_LICENSES == 'no'
+        timeout-minutes: 4
+        run: |
+          set -eu
+          app=unpacked/DicePrototype-p1.1.0/DicePrototype.app
+          open -n -W "$app" --args --art073-capture "$PWD/proof/player" -screen-fullscreen 0 -screen-width 1280 -screen-height 720 -logFile "$PWD/proof/player.log"
+          python3 - <<'PY'
+          import json, pathlib, struct
+          directory = pathlib.Path("proof/player")
+          report = json.loads((directory / "tour.json").read_bytes())
+          assert report["status"] == "completed" and report["images"] == ["00-menu.png"], report
+          with (directory / "00-menu.png").open("rb") as stream:
+              header = stream.read(24)
+          assert header[:8] == b"\x89PNG\r\n\x1a\n"
+          width, height = struct.unpack(">II", header[16:24])
+          assert width >= 640 and height >= 360, (width, height)
+          print("Main menu captured", width, height, report["status"])
+          PY
+      - name: Retain native verification and launch evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: macos-verification-${{ matrix.runner }}
+          path: proof/
+          if-no-files-found: warn
+          retention-days: 7
