@@ -1,6 +1,7 @@
 import hashlib
 import json
 import os
+import plistlib
 import shutil
 import struct
 import subprocess
@@ -148,22 +149,49 @@ def fixture_gate(root, commit="a" * 40):
     return gate
 
 
-def universal():
-    result = bytearray(112)
+def signed_fixture_main(info, envelope, payload=b"fixture player"):
+    """Small Universal Mach-O, with authentic page, Info.plist, requirements and resource hashes."""
+    result = bytearray(48)
     struct.pack_into(">II", result, 0, 0xcafebabe, 2)
     for i, cpu in enumerate([0x01000007, 0x0100000c]):
-        offset = 48 + 32 * i
-        struct.pack_into(">IIIII", result, 8 + 20 * i, cpu, 3, offset, 32, 4)
-        struct.pack_into("<IIII", result, offset, 0xfeedfacf, cpu, 3, 2)
+        requirements = struct.pack(">III", 0xFADE0C01, 12, 0)
+        special = b"".join(hashlib.sha256(b).digest() for b in (envelope, requirements, info))
+        directory_size = 44 + len(special) + 32
+        signature_length = 28 + directory_size + len(requirements)
+        code = struct.pack("<8I", 0xFEEDFACF, cpu, 3, 2, 1, 16, 0, 0)
+        code += struct.pack("<4I", 0x1D, 16, 48 + len(payload), signature_length) + payload
+        directory = struct.pack(">9I4B", 0xFADE0C02, directory_size, 0x20001, 2, 140, 44, 3, 1, len(code), 32, 2, 0, 12)
+        directory += bytes(4) + special + hashlib.sha256(code).digest()
+        signature = struct.pack(">7I", 0xFADE0CC0, signature_length, 2, 0, 28, 2, 28 + len(directory))
+        image = code + signature + directory + requirements
+        result.extend(bytes(-len(result) % 16))
+        struct.pack_into(">IIIII", result, 8 + 20 * i, cpu, 3, len(result), len(image), 4)
+        result.extend(image)
     return bytes(result)
+
+
+def fixture_sign(app, unused_binary2text, executable_source=None, *, omit_licenses=False, keep_main=False, payload=b"fixture player"):
+    contents = app / "Contents"
+    resources = {p.relative_to(contents).as_posix(): p.read_bytes() for p in (contents / "Resources").rglob("*")
+                 if p.is_file() and not (omit_licenses and p.parent.name == "Licenses")}
+    manifest = {"files": {n: hashlib.sha1(b).digest() for n, b in resources.items()},
+                "files2": {n: {"hash2": hashlib.sha256(b).digest()} for n, b in resources.items()},
+                "rules": {"^Resources/": True}, "rules2": {"^.*": True}}
+    envelope = plistlib.dumps(manifest)
+    write(contents, "_CodeSignature/CodeResources", envelope)
+    if not keep_main:
+        write(contents, "MacOS/DiceCraft P0", signed_fixture_main((contents / "Info.plist").read_bytes(), envelope, payload))
+    return {"name": "synthetic test signer"}
 
 
 def build(root, platform, packed, identity):
     rel, target, native_target, profile, _ = pack.TARGET[platform]
     output = root / "Builds/v11" / rel
     if platform == "macos":
-        files = [write(output, "Contents/MacOS/DiceCraft P0", universal()),
-                 write(output, "Contents/Resources/Data/data.unity3d", b"test data")]
+        write(output, "Contents/Info.plist", plistlib.dumps({"CFBundleExecutable": "DiceCraft P0", "CFBundleIdentifier": "test.app"}))
+        write(output, "Contents/Resources/Data/data.unity3d", b"test data")
+        fixture_sign(output, None)
+        files = sorted(p for p in output.rglob("*") if p.is_file())
     else:
         exe = bytearray(70)
         exe[:2] = b"MZ"
@@ -226,7 +254,8 @@ class Package11Tests(unittest.TestCase):
         for platform in pack.TARGET:
             with self.subTest(platform=platform):
                 report, data, files = build(self.root, platform, self.assets, gate["identity"])
-                with patch.object(pack, "read_native", return_value=data), patch.object(pack.subprocess, "run"):
+                with (patch.object(pack, "read_native", return_value=data), patch.object(pack.subprocess, "run"),
+                      patch.object(pack.mac_seal, "sign_bundle", side_effect=fixture_sign)):
                     verified = pack.package(self.root, platform, report, "mock")
                     self.assertEqual(len(verified["requiredArtPathGuids"]), 42)
                     self.assertEqual(verified["requiredArtPathGuids"], dict(self.art))
@@ -251,6 +280,9 @@ class Package11Tests(unittest.TestCase):
                         if platform == "macos":
                             info = archive.getinfo(f"{pack.TOP}/DicePrototype.app/Contents/MacOS/DiceCraft P0")
                             self.assertEqual(0o100755, info.external_attr >> 16)
+                            self.assertTrue(path.name.endswith("-macos-universal-r2.zip"))
+                            self.assertEqual(8, verified["macOSResourceSeal"]["sealedFiles2"])
+                            self.assertEqual({"arm64", "x86_64"}, set(verified["macOSResourceSeal"]["mainCodeDirectoryHashes"]))
                     receipt = self.root / "evidence/v11/packages" / (path.name + ".json")
                     self.assertEqual(verified, pack.package(self.root, platform, report, "mock"))
                     # Crash after archive publication: reproduce bytes, recover only the missing receipt.
@@ -263,6 +295,52 @@ class Package11Tests(unittest.TestCase):
                     with self.assertRaisesRegex(FileExistsError, "Existing player archive differs"):
                         pack.package(self.root, platform, report, "mock")
                     self.assertEqual(b"unrelated archive", path.read_bytes())
+
+    def test_mac_package_rejects_unsealed_licenses_stale_signature_and_changed_code(self):
+        gate = fixture_gate(self.root)
+        write(self.root, pack.README, b"player guide")
+        report, native_report, originals = build(self.root, "macos", self.assets, gate["identity"])
+        original_hashes = {p: pack.delivery.sha(p) for p in originals}
+        old = write(self.root, f"Releases/{pack.VERSION}/{pack.TOP}-macos-universal.zip", b"previous candidate")
+        for opts, message in [({"omit_licenses": True}, "Unsealed or missing"), ({"keep_main": True}, "special slot 3"),
+                              ({"payload": b"changed player"}, "executable code")]:
+            def faulty_sign(app, tool, executable_source):
+                return fixture_sign(app, tool, executable_source, **opts)
+            with (self.subTest(opts=opts), patch.object(pack, "read_native", return_value=native_report),
+                  patch.object(pack.subprocess, "run"), patch.object(pack.mac_seal, "sign_bundle", side_effect=faulty_sign),
+                  self.assertRaisesRegex(ValueError, message)):
+                pack.package(self.root, "macos", report, "mock")
+            self.assertEqual({p: pack.delivery.sha(p) for p in originals}, original_hashes)
+            self.assertEqual(list(old.parent.glob("*.zip")), [old])
+            self.assertEqual(old.read_bytes(), b"previous candidate")
+            self.assertFalse(list((self.root / "evidence/v11/packages").glob("*.json")))
+
+    def test_mac_seal_rechecks_actual_bytes_and_rejects_an_omit_rule(self):
+        gate = fixture_gate(self.root)
+        build(self.root, "macos", self.assets, gate["identity"])
+        app = self.root / "Builds/v11/macOS/DicePrototype.app"
+        main = "MacOS/DiceCraft P0"
+        resource = "Resources/Data/data.unity3d"
+        (app / "Contents" / resource).write_bytes(b"modified")
+        with self.assertRaisesRegex(ValueError, "sealed resource digest"):
+            pack.mac_seal.verify_bundle(app, {main})
+        fixture_sign(app, None)
+        seal = app / "Contents/_CodeSignature/CodeResources"
+        manifest = plistlib.loads(seal.read_bytes())
+        manifest["rules2"]["^Resources/Data/"] = {"omit": True, "weight": 10000}
+        seal.write_bytes(plistlib.dumps(manifest))
+        with self.assertRaisesRegex(ValueError, "rules omit"):
+            pack.mac_seal.verify_bundle(app, {main})
+        fixture_sign(app, None)
+        binary = app / "Contents" / main
+        data = bytearray(binary.read_bytes())
+        for index in (0, 1):
+            start = struct.unpack_from(">I", data, 8 + index * 20 + 8)[0]
+            data[start + 48] ^= 1
+            binary.write_bytes(data)
+            with self.subTest(cpu=index), self.assertRaisesRegex(ValueError, "page hash"):
+                pack.mac_seal.verify_bundle(app, {main})
+            data[start + 48] ^= 1
 
     def test_native_release_art_requires_the_frozen_tray_and_loot_path_guid_pairs(self):
         gate = fixture_gate(self.root)
@@ -489,7 +567,8 @@ class Publication11Tests(unittest.TestCase):
             report, data, _ = build(self.root, platform, assets, gate["identity"])
             native_path = self.root / pack.delivery.read_json(report)["nativeBuildReport"]["path"]
             self.native_reports[native_path] = data
-            with patch.object(pack, "read_native", return_value=data):
+            with (patch.object(pack, "read_native", return_value=data),
+                  patch.object(pack.mac_seal, "sign_bundle", side_effect=fixture_sign)):
                 pack.package(self.root, platform, report, "mock")
         # Keep the synthetic binary2text boundary for the release dry-run's independent reread as well.
         self.enterContext(patch.object(pack, "read_native", side_effect=lambda path, _: self.native_reports[path]))

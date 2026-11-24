@@ -8,6 +8,7 @@ import hashlib
 import io
 import json
 import os
+import plistlib
 import re
 import shutil
 import struct
@@ -18,11 +19,13 @@ from pathlib import Path
 
 if __package__:
     from . import v11_delivery as delivery
+    from . import v11_macos_seal as mac_seal
     from .macos.v071.package_checks import macho_info
     from .package_v10 import SKIP
     from .v11_build_report import read_native
 else:
     import v11_delivery as delivery
+    import v11_macos_seal as mac_seal
     from macos.v071.package_checks import macho_info
     from package_v10 import SKIP
     from v11_build_report import read_native
@@ -39,7 +42,7 @@ BINARY2TEXT = shutil.which("binary2text") or "E:/unity/6000.6.7f1/Editor/Data/To
 REQUIRED_LICENSES = {"NotoSansCJKsc-OFL.txt", "NotoSansSC-Bold-OFL.txt", "MaShanZheng-OFL.txt",
                      "ZCOOLKuaiLe-OFL.txt", "ZCOOLXiaoWei-OFL.txt", "NotoSerifSC-OFL.txt"}
 TARGET = {"windows": ("Windows/DicePrototype.exe", "StandaloneWindows64", "Win64", "Windows_x64", "win-x64"),
-          "macos": ("macOS/DicePrototype.app", "StandaloneOSX", "OSXUniversal", "macOS_Universal", "macos-universal")}
+          "macos": ("macOS/DicePrototype.app", "StandaloneOSX", "OSXUniversal", "macOS_Universal", "macos-universal-r2")}
 
 
 # Frozen FW-09 comparison, verified against both native Unity reports, archives and release readbacks.
@@ -331,6 +334,59 @@ def write_archive(path, files, checksums, additions, executables):
     return members
 
 
+def prepare_macos(staging, files, checksums, executables, licenses, binary2text):
+    app = staging / "DicePrototype.app"
+    contents = app / "Contents"
+    prefix = "DicePrototype.app/Contents/"
+    staged = {}
+    for name, source in files.items():
+        if not name.startswith(prefix):
+            raise ValueError("Unexpected output outside the macOS app: " + name)
+        path = staging / name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(source, path)
+        if delivery.sha(path) != checksums[name]:
+            raise ValueError("Player bytes differ from the build-time hash: " + name)
+        staged[name] = path
+
+    info = (contents / "Info.plist").read_bytes()
+    main = "MacOS/" + plistlib.loads(info)["CFBundleExecutable"]
+    seal_bytes = (contents / mac_seal.SEAL).read_bytes()
+    original = plistlib.loads(seal_bytes)
+    if prefix + main not in executables:
+        raise ValueError("Bundle metadata does not name the built Universal main executable")
+    code_before = mac_seal.code_signatures(contents / main, {1: info, 3: seal_bytes})
+    # Unity copies its launcher input onto the signing target. Keep the frozen build out of its write scope.
+    native_launcher = staging / "original-launcher"
+    shutil.copyfile(contents / main, native_launcher)
+    hashes = dict(checksums)
+    license_dir = contents / "Resources/Licenses"
+    license_dir.mkdir()  # Reserved: a build-time license directory cannot be silently overwritten.
+    for name, data in licenses.items():
+        path = license_dir / name
+        path.write_bytes(data)
+        rel = path.relative_to(staging).as_posix()
+        staged[rel] = path
+        hashes[rel] = digest(data)
+
+    signer = mac_seal.sign_bundle(app, binary2text, native_launcher)
+    if set(staged) != {p.relative_to(staging).as_posix() for p in app.rglob("*") if p.is_file()}:
+        raise ValueError("Signer changed the staged player inventory")
+    main_after, code_after, sealed = mac_seal.verify_bundle(app, {name.removeprefix(prefix) for name in executables})
+    if (main != main_after or any(code_before[cpu][1] != code_after[cpu][1] for cpu in code_before)
+            or any(original[key] != sealed[key] for key in ("rules", "rules2"))):
+        raise ValueError("Signer changed the player's executable code or original resource rules")
+    for name in (main, mac_seal.SEAL):
+        hashes[prefix + name] = delivery.sha(staged[prefix + name])
+    proof = {"signer": signer, "type": "ad-hoc", "mainExecutable": prefix + main,
+             "nativeExecutableSha256": checksums[prefix + main], "signedExecutableSha256": hashes[prefix + main],
+             "nativeCodeResourcesSha256": digest(seal_bytes), "signedCodeResourcesSha256": hashes[prefix + mac_seal.SEAL],
+             "sealedFiles": len(sealed["files"]), "sealedFiles2": len(sealed["files2"]),
+             "mainCodeDirectoryHashes": {"x86_64": code_after[0x01000007][0].hex(),
+                                         "arm64": code_after[0x0100000C][0].hex()}}
+    return staged, hashes, proof
+
+
 def package(root, platform, proof_path, binary2text):
     report = delivery.read_json(proof_path)
     identity = verify_gate(root, delivery.read_json(root / GATE), report)
@@ -346,11 +402,7 @@ def package(root, platform, proof_path, binary2text):
         raise ValueError("Player contains a loose title font source")
     licenses = license_bundle(root, fonts)
     additions = {"开始游玩.txt": (root / README).read_bytes()}
-    directories = ["Licenses/"]
-    if platform == "macos":
-        directories.append("DicePrototype.app/Contents/Resources/Licenses/")
-    for prefix in directories:
-        additions.update({prefix + name: content for name, content in licenses.items()})
+    additions.update({"Licenses/" + name: content for name, content in licenses.items()})
     name = f"{TOP}-{TARGET[platform][-1]}.zip"
     archive = root / "Releases" / VERSION / name
     receipt = root / "evidence/v11/packages" / (name + ".json")
@@ -358,6 +410,9 @@ def package(root, platform, proof_path, binary2text):
     receipt.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(dir=archive.parent) as zip_temp, tempfile.TemporaryDirectory(dir=receipt.parent) as proof_temp:
         pending = Path(zip_temp) / name
+        seal_proof = None
+        if platform == "macos":
+            files, checksums, seal_proof = prepare_macos(Path(zip_temp), files, checksums, executables, licenses, binary2text)
         members = write_archive(pending, files, checksums, additions, executables)
         proof = {"schema": "v11-player-package-1", "package": name, "platform": platform, "identity": identity,
                  "bytes": pending.stat().st_size, "sha256": delivery.sha(pending), "members": len(members),
@@ -371,6 +426,8 @@ def package(root, platform, proof_path, binary2text):
                  "liberationSansIncluded": any(f["packageFile"] == "LiberationSans-OFL.txt" for f in fonts),
                  "fontLicenses": sorted(licenses), "universalBinaries": executables,
                  "macOSLaunch": "未验证" if platform == "macos" else "不适用"}
+        if seal_proof is not None:
+            proof["macOSResourceSeal"] = seal_proof
         draft = Path(proof_temp) / receipt.name
         draft.write_text(json.dumps(proof, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         # If interrupted between the two file publications, a retry rebuilds/reads back the ZIP

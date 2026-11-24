@@ -16,9 +16,8 @@ jobs:
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 15
     env:
-      ASSET_ID: '785925527'
-      ZIP_SHA256: 35d672f9e18578aa17c98d978aed3090e13c79a22f740cc55cc1870a9fc4db5d
-      EXPECT_UNSEALED_LICENSES: 'yes'
+      ASSET_ID: '786228099'
+      ZIP_SHA256: 6563468883172950f5863f74478199a08f1dfa4cfbb7fee456c3543ae14ed0be
     steps:
       - name: Download and extract the exact release asset
         run: |
@@ -39,21 +38,13 @@ jobs:
           test -x "$main"
           lipo -verify_arch x86_64 arm64 "$main"
           codesign -dv --verbose=4 "$app" 2>&1 | tee proof/signature.txt
-          result=0
-          codesign --verify --deep --strict --all-architectures --verbose=4 "$app" >proof/verify.txt 2>&1 || result=$?
-          cat proof/verify.txt
-          if [[ "$EXPECT_UNSEALED_LICENSES" == yes ]]; then
-            test "$result" -ne 0
-            grep -F 'Resources/Licenses' proof/verify.txt
-          else
-            test "$result" -eq 0
-            status=0
-            spctl --assess --type execute --verbose=4 "$app" >proof/gatekeeper.txt 2>&1 || status=$?
-            cat proof/gatekeeper.txt
-            echo "Gatekeeper assessment exit code: $status" | tee -a proof/gatekeeper.txt
-          fi
+          set -o pipefail
+          codesign --verify --deep --strict --all-architectures --verbose=4 "$app" 2>&1 | tee proof/verify.txt
+          status=0
+          spctl --assess --type execute --verbose=4 "$app" >proof/gatekeeper.txt 2>&1 || status=$?
+          cat proof/gatekeeper.txt
+          echo "Gatekeeper assessment exit code: $status" | tee -a proof/gatekeeper.txt
       - name: Start the player and capture its main menu
-        if: env.EXPECT_UNSEALED_LICENSES == 'no'
         timeout-minutes: 4
         run: |
           set -eu
