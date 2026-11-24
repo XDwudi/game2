@@ -2,6 +2,12 @@
 
 ## V1.1 试玩候选版（REVIEW）
 
+### 11 月 24 日 macOS「已损坏」修复
+
+用户反馈首发 macOS 包无法打开。与 p1.0.0 和原生构建逐件对照后确认，打包器在 Unity 签名之后追加了六份字体许可证及其索引。r2 先装入这七个文件，再用同一 Unity 版本重新签名。独立复核覆盖最终 ZIP 内全部资源及两架构的 61,692 个代码页，未封印资源为零，可执行代码与冻结构建逐字节相同。打包专项 23/23，全量 Python 480/480，均零跳过。[签名对照](../artifacts/cache/v11/mac-repair/independent/REVIEW.md) · [全量回归](../artifacts/cache/v11/mac-repair/python-full-20261124T074823Z/result.json)
+
+原发布标签和 macOS 下载地址现提供 r2，附件 ID 为 `786228099`，共 969,967,631 字节。GitHub 完整回读的 SHA-256 为 `6563468883172950f5863f74478199a08f1dfa4cfbb7fee456c3543ae14ed0be`。旧附件已从发行页撤下，本地留存原件供对照。GitHub 的账户计费限制使 Intel 和 Apple 芯片的 macOS 检查作业均未启动。Finder 首次打开仍待真机验证。此试玩包使用 ad hoc 签名，尚未经 Apple 公证。[下载 macOS 修复包](https://github.com/XDwudi/game2/releases/download/p1.1.0-rc.1/DicePrototype-p1.1.0-macos-universal.zip?revision=2) · [替换附件收据](../evidence/v11/delivery/github-release-p1.1.0-rc.1-macos-r2.json) · [原生作业记录](https://github.com/XDwudi/game2/actions/runs/45353085931)
+
 ### 最终冻结与交付
 
 冻结提交 `e7917cd0` 已通过完整 EditMode **2,482/2,482**，1080p、720p 实机各 **367/367**，均零失败、零跳过。五个程序集与 310 份源码核对一致，正式构建门禁绑定 8,074 个输入。Windows x64 和 macOS Universal 两包均已生成，Windows 成品六套各完成种子 5000 的一轮回放。两次历史候选及返工反例保持独立归档。[本次门禁](../evidence/v11/unity/build-gate.json) · [编辑器](../evidence/v11/unity/nunit-20261124-010740.xml) · [1080p](../evidence/v11/unity/nunit-20261124-022459.xml) · [720p](../evidence/v11/unity/nunit-20261124-033728.xml) · [912 张实机图](../artifacts/cache/v11/review-20261123/rollout-final/pages/final/e7917cd05e2232f34ecc995664f601914eb3c10f/index.html)

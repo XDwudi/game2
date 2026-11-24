@@ -8,7 +8,7 @@
 
 ## 当前原型
 
-V1.1 试玩候选版提供 Windows x64（886.5 MiB）和 macOS Universal（925.0 MiB）。Windows 包已在全新解压目录逐套运行六种风格，共 174 张实机图；macOS 已核对双架构，真实 Mac 启动待验证。[p1.1.0-rc.1 发行页](https://github.com/XDwudi/game2/releases/tag/p1.1.0-rc.1)
+V1.1 试玩候选版提供 Windows x64（886.5 MiB）和 macOS Universal（925.0 MiB）。macOS 修复包 r2 已补齐签名中的七份字体许可与说明文件。如果先前下载的版本提示「已损坏」，请重新下载。两种 Mac 架构的代码和应用签名已逐项核对，Finder 首次启动待验证。Windows 包已在全新解压目录逐套运行六种风格，共 174 张实机图。[下载 macOS 修复包](https://github.com/XDwudi/game2/releases/download/p1.1.0-rc.1/DicePrototype-p1.1.0-macos-universal.zip?revision=2) · [p1.1.0-rc.1 发行页](https://github.com/XDwudi/game2/releases/tag/p1.1.0-rc.1)
 
 V1.1 候选冻结提交为 `e7917cd0`。六套风格各有一张菜单托盘和六张首领奖励图。编辑器全量通过 2,482/2,482 项，1080p 和 720p 实机各通过 367/367 项，均零跳过。「白干」首领的关内提示与实际结算均取消过关奖励和剩余提交奖励，利息和卡牌收入各自列明。[36 项验收记录](docs/tasks/P0-V11.md) · [美术推广记录](docs/specs/v11/W23_REPORT.md) · [试玩说明](docs/RELEASE_NOTES_V11_RC1.md)
 

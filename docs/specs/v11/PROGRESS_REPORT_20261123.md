@@ -1,6 +1,6 @@
 # V1.1 接力开发进度 · 更新至 2026-11-24
 
-**试玩候选版 `p1.1.0-rc.1` 已发布。** Windows x64（886.5 MiB）和 macOS Universal（925.0 MiB）均已从发行页完整下载，SHA-256 与本地包一致。当前进入检查点 ④，可用这两个包试玩。[GitHub 下载](https://github.com/XDwudi/game2/releases/tag/p1.1.0-rc.1) · [发布收据](../../../evidence/v11/delivery/github-release-p1.1.0-rc.1.json)
+**试玩候选版 `p1.1.0-rc.1` 已发布，macOS 下载已更新至 r2。** Windows x64（886.5 MiB）和修复后的 macOS Universal（925.0 MiB）都已从 GitHub 完整下载，SHA-256 与本地包一致。旧 macOS 包在签名后加入七份许可文件，r2 已修复这个会触发「已损坏」的差异。当前处于检查点 ④。[发行页](https://github.com/XDwudi/game2/releases/tag/p1.1.0-rc.1) · [首发收据](../../../evidence/v11/delivery/github-release-p1.1.0-rc.1.json) · [macOS 修复版收据](../../../evidence/v11/delivery/github-release-p1.1.0-rc.1-macos-r2.json)
 
 **当前冻结版本为 `e7917cd0`。** 同名卡可分别购买、成长和出售，首领掉落可以先腾位再领。六套风格已从主菜单和暂停菜单开放，每套各有一张托盘和六张奖励图。首领「白干」的未达标提示与实际派发一致，利息、铁饭碗和赏金猎人的收入分别列明。[修复后实机原图](../../../artifacts/cache/v11/w26-staging/boss-reward-copy-fix/targeted-20261124T010010Z/reward-copy-B04-qualified-hover-150.png)
 
@@ -9,7 +9,7 @@
 | 编辑器、1080p、720p | **2,482/2,482、367/367、367/367**，均零跳过。两个窗口的 7,458 份运行输入和五个程序集都与编辑器基线相符。[编辑器](../../../evidence/v11/unity/nunit-20261124-010740.xml) · [1080p](../../../evidence/v11/unity/nunit-20261124-022459.xml) · [720p](../../../evidence/v11/unity/nunit-20261124-033728.xml) |
 | 中文、文字与画面 | 2,420 条玩家字符串零违规；每窗内容附录 270 行、447 项可见内容或状态逐项对应。六主题、两档字号的 912 张菜单、结算和奖励原图可以按画面筛选。[独立用语核对](../../../artifacts/cache/v11/w25/source-recheck-e7917cd0/REVIEW.md) · [最后一轮实机图册](../../../artifacts/cache/v11/review-20261123/rollout-final/pages/final/e7917cd05e2232f34ecc995664f601914eb3c10f/index.html) |
 | 规则和平衡 | 原 30 万次快速与实际计分对拍零差异。300 个相同种子中，V1.1 通关 99 局，V1.0 通关 88 局。冻结源与原实跑的 24 份规则输入逐字节一致。[冻结源复核](../../../artifacts/cache/v11/w25/source-recheck-e7917cd0/REVIEW.md) |
-| 两个平台 | Windows x64 为 929,615,862 字节，macOS Universal 为 969,967,048 字节。两包均含六份字体许可证。macOS 包含 x86_64 和 arm64，实机启动待验证。[Windows 收据](../../../evidence/v11/packages/DicePrototype-p1.1.0-win-x64.zip.json) · [macOS 收据](../../../evidence/v11/packages/DicePrototype-p1.1.0-macos-universal.zip.json) |
+| 两个平台 | Windows x64 为 929,615,862 字节，macOS Universal 修复包 r2 为 969,967,631 字节。两包均含六份字体许可证。macOS 的许可证和索引已纳入应用签名，Intel 与 Apple 芯片的可执行代码与原构建逐字节一致，Finder 首次启动待验证。[Windows 收据](../../../evidence/v11/packages/DicePrototype-p1.1.0-win-x64.zip.json) · [macOS r2 收据](../../../evidence/v11/packages/DicePrototype-p1.1.0-macos-universal-r2.zip.json) · [签名复核](../../../artifacts/cache/v11/mac-repair/independent/REVIEW.md) |
 | Windows 成品回放 | 六套各执行 243 步（含新建对局），各 29 张截图，共 174 张、8,786 处同帧文字。独立对照 78 张选关、普通关、高压关、首领关和结算画面，先前的 12 处奖励预告错误全部修正。[正式回放索引](../../../evidence/v11/replays/final/index.json) · [成品读图](../../../artifacts/cache/v11/w25/full-recheck-e7917cd0/PRODUCT-spot.md) |
 | 全量 Python 回归 | **478/478**，零跳过，2,385 秒。运行前后源码一致。[正式收据](../../../artifacts/cache/v11/w26-staging/python-full-20261124T035302Z/result.json) |
 
