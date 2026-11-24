@@ -1,14 +1,22 @@
 # 当前项目状态
 
-## V1.1 开发（READY → IMPLEMENTING，2026-11-16）
+## V1.1 试玩候选版（REVIEW）
 
-### GPT 接力开发（2026-11-23，整合验证中）
+### 最终冻结与交付
 
-「白干」的未达标预告已按当时生效的减益显示。解除减益后恢复正常报价；达标右栏、结束按钮悬停与真实收据均分列铁饭碗和赏金猎人的收入。首轮 720p 专项发现 150% 字号的悬停末行截断，按实际字高重新布局后，含八组关卡和持卡状态的专项 **1/1 通过**。协调者持有 Unity 写锁，按补修源重新运行整套验证。[专项通过](../evidence/v11/unity/nunit-20261124-010112.xml) · [截字原件](../evidence/v11/unity/nunit-20261124-005703.xml) · [上一候选 W25 返工报告](../evidence/v11/review/W25-a6c05f04-REWORK.md)
+冻结提交 `e7917cd0` 已通过完整 EditMode **2,482/2,482**，1080p、720p 实机各 **367/367**，均零失败、零跳过。五个程序集与 310 份源码核对一致，正式构建门禁绑定 8,074 个输入。Windows x64 和 macOS Universal 两包均已生成，Windows 成品六套各完成种子 5000 的一轮回放。两次历史候选及返工反例保持独立归档。[本次门禁](../evidence/v11/unity/build-gate.json) · [编辑器](../evidence/v11/unity/nunit-20261124-010740.xml) · [1080p](../evidence/v11/unity/nunit-20261124-022459.xml) · [720p](../evidence/v11/unity/nunit-20261124-033728.xml) · [912 张实机图](../artifacts/cache/v11/review-20261123/rollout-final/pages/final/e7917cd05e2232f34ecc995664f601914eb3c10f/index.html)
+
+Windows 成品六套各执行 243 步，包含新建对局及 242 条后续命令，到达指定的第 18 关。实际留存 174 张原图和 8,786 项同帧文字。独立对照 78 张选关、对局和结算原图，上版「白干」的 12 处错误均已修正。完整 Python 回归 **478/478**。真实 Mac 启动、初见玩家读卡和关卡辨识仍待实测。六套最终结算画面待用户过目。Unity 工程写锁已释放。[六套成品回放索引](../evidence/v11/replays/final/index.json) · [全量 Python](../artifacts/cache/v11/w26-staging/python-full-20261124T035302Z/result.json) · [真人材料](../artifacts/cache/v11/w25/human-review/开始.md)
+
+W25 逐项复核 36 个验收条件，33 项工程与实测条件通过，AX-10 已由用户批准，TX-05 读卡和 AX-04 关卡辨识待真人。成品第 23 帧主动悬停奖励卡时，详情框接触红色说明末端约 1–2 像素，金额和按钮完整可见。交付对象为版本分支 `codex/v1.1` 与预发布标签 `p1.1.0-rc.1`。下一检查点由用户试玩候选包。[独立总审](../evidence/v11/review/final.md) · [发行页](https://github.com/XDwudi/game2/releases/tag/p1.1.0-rc.1)
+
+### 11 月 23 日的修复与历史冻结记录
+
+「白干」的未达标预告已按当时生效的减益显示。解除减益后恢复正常报价；达标右栏、结束按钮悬停与真实收据均分列铁饭碗和赏金猎人的收入。首轮 720p 专项发现 150% 字号的悬停末行截断，按实际字高重新布局后，含八组关卡和持卡状态的专项 **1/1 通过**。补修源随后进入整套验证。[专项通过](../evidence/v11/unity/nunit-20261124-010112.xml) · [截字原件](../evidence/v11/unity/nunit-20261124-005703.xml) · [上一候选 W25 返工报告](../evidence/v11/review/W25-a6c05f04-REWORK.md)
 
 **候选版 `a6c05f04` 进入返工。** Windows 成品第 3 关首领「白干」在右上说明两项奖励取消，右下却仍显示过关 +5、每次剩余提交 +1。真实结算正确发放过关 +0、剩余提交 +0 和利息 +1。两平台 ZIP 均已构建，当前候选保留作反例。修复范围为玩家可见的收入预告及对应实机回归。[唐三彩同帧证据](../artifacts/cache/v11/w25/full-recheck-a6c05f04/B04-preview-conflict/sancai/same-frame.png)
 
-当前冻结提交为 `a6c05f04`。EditMode 全量 **2,482/2,482**，1080p、720p 实机各 **366/366**，均零失败、零跳过。两窗 7,458 项输入及五个程序集与编辑器基线一致。正式门禁绑定 8,066 个输入和三份报告，PDB 核对 310 份源码。Windows 候选 ZIP 已生成，协调者接续 macOS 构建与 Windows 六主题回放。[编辑器报告](../evidence/v11/unity/nunit-20261123-213334.xml) · [1080p 独立核对](../artifacts/cache/v11/w25/dual-window-a6c05f04/1920x1080-20261123-225032.md) · [720p 独立核对](../artifacts/cache/v11/w25/dual-window-a6c05f04/1280x720-20261124-000347.md) · [两窗 912 张实机图](../artifacts/cache/v11/review-20261123/rollout-final/pages/final/a6c05f0429f1d645a12fd12ef85f3f841b696ff3/index.html)
+第二轮冻结提交为 `a6c05f04`。EditMode 全量 **2,482/2,482**，1080p、720p 实机各 **366/366**，均零失败、零跳过。两窗 7,458 项输入及五个程序集与编辑器基线一致。正式门禁绑定 8,066 个输入和三份报告，PDB 核对 310 份源码。Windows 候选 ZIP 已生成，协调者接续 macOS 构建与 Windows 六主题回放。[编辑器报告](../evidence/v11/unity/nunit-20261123-213334.xml) · [1080p 独立核对](../artifacts/cache/v11/w25/dual-window-a6c05f04/1920x1080-20261123-225032.md) · [720p 独立核对](../artifacts/cache/v11/w25/dual-window-a6c05f04/1280x720-20261124-000347.md) · [两窗 912 张实机图](../artifacts/cache/v11/review-20261123/rollout-final/pages/final/a6c05f0429f1d645a12fd12ef85f3f841b696ff3/index.html)
 
 首轮冻结版 `387897b3` 已通过全部 478 项 Python 回归，耗时 2,174 秒，运行前后源码一致。已将项目现有的全局输入动作表显式加入预加载。隔离构建在 Windows x64 和 macOS Universal 上各成功一次，构建前和返回后的设置文件四份逐字节一致。新冻结版由协调者串行复验编辑器、1080p 与 720p，再交付两端候选包。[Python 回归收据](../artifacts/cache/v11/w26-staging/python-full-20261123T205308Z/result.json) · [Windows 构建原日志](../artifacts/cache/v11/w26-staging/preload-smoke/unity.log) · [macOS 构建原日志](../artifacts/cache/v11/w26-staging/preload-smoke/unity-macos.log)
 

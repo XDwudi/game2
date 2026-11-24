@@ -1,8 +1,27 @@
 # V1.1 接力开发进度 · 2026-11-23
 
+**当前冻结版本为 `e7917cd0`。** 同名卡可分别购买、成长和出售，首领掉落可以先腾位再领。六套风格已从主菜单和暂停菜单开放，每套各有一张托盘和六张奖励图。首领「白干」的未达标提示与实际派发一致，利息、铁饭碗和赏金猎人的收入分别列明。[修复后实机原图](../../../artifacts/cache/v11/w26-staging/boss-reward-copy-fix/targeted-20261124T010010Z/reward-copy-B04-qualified-hover-150.png)
+
+| 完整游戏验证 | 结果 |
+| --- | --- |
+| 编辑器、1080p、720p | **2,482/2,482、367/367、367/367**，均零跳过。两个窗口的 7,458 份运行输入和五个程序集都与编辑器基线相符。[编辑器](../../../evidence/v11/unity/nunit-20261124-010740.xml) · [1080p](../../../evidence/v11/unity/nunit-20261124-022459.xml) · [720p](../../../evidence/v11/unity/nunit-20261124-033728.xml) |
+| 中文、文字与画面 | 2,420 条玩家字符串零违规；每窗内容附录 270 行、447 项可见内容或状态逐项对应。六主题、两档字号的 912 张菜单、结算和奖励原图可以按画面筛选。[独立用语核对](../../../artifacts/cache/v11/w25/source-recheck-e7917cd0/REVIEW.md) · [最后一轮实机图册](../../../artifacts/cache/v11/review-20261123/rollout-final/pages/final/e7917cd05e2232f34ecc995664f601914eb3c10f/index.html) |
+| 规则和平衡 | 原 30 万次快速与实际计分对拍零差异。300 个相同种子中，V1.1 通关 99 局，V1.0 通关 88 局。冻结源与原实跑的 24 份规则输入逐字节一致。[冻结源复核](../../../artifacts/cache/v11/w25/source-recheck-e7917cd0/REVIEW.md) |
+| 两个平台 | Windows x64 为 929,615,862 字节，macOS Universal 为 969,967,048 字节。两包均含六份字体许可证。macOS 包含 x86_64 和 arm64，实机启动待验证。[Windows 收据](../../../evidence/v11/packages/DicePrototype-p1.1.0-win-x64.zip.json) · [macOS 收据](../../../evidence/v11/packages/DicePrototype-p1.1.0-macos-universal.zip.json) |
+| Windows 成品回放 | 六套各执行 243 步（含新建对局），各 29 张截图，共 174 张、8,786 处同帧文字。独立对照 78 张选关、普通关、高压关、首领关和结算画面，先前的 12 处奖励预告错误全部修正。[正式回放索引](../../../evidence/v11/replays/final/index.json) · [成品读图](../../../artifacts/cache/v11/w25/full-recheck-e7917cd0/PRODUCT-spot.md) |
+| 全量 Python 回归 | **478/478**，零跳过，2,385 秒。运行前后源码一致。[正式收据](../../../artifacts/cache/v11/w26-staging/python-full-20261124T035302Z/result.json) |
+
+真人部分仍待三名初见玩家的读卡结果、缩至 25% 的关卡辨识，以及用户对最终结算和试玩候选的体验判断。[参与者材料](../../../artifacts/cache/v11/w25/human-review/开始.md)
+
+结算收据有一处已知显示细节。指针停在奖励卡上时，详情框上缘会碰到红色说明后半句底部 1–2 像素。六套实图中原句均可辨读，金额和按钮完整可见。[原尺寸实包核对](../../../artifacts/cache/v11/w25/release-watermark/replays/77db86f0d637a3b34f85/REVIEW.md)
+
+36 项验收中，33 项工程与实测通过，AX-10 已获用户批准，TX-05 和 AX-04 待真人。试玩候选标签为 `p1.1.0-rc.1`。[独立总审](../../../evidence/v11/review/final.md) · [试玩候选发行页](https://github.com/XDwudi/game2/releases/tag/p1.1.0-rc.1)
+
+## 开发期间的两次返工
+
 六套玩家可选风格、同名卡独立成长、首领战利品先领后进店均已接入。定稿后的五张专属菜单托盘、三十张奖励插画已在两个分辨率的真实游戏画面中验证。首轮冻结版 `387897b3` 的编辑器全量通过 **2,482/2,482**，1080p 与 720p 各通过 **366/366**，六套最终结算实图已送用户过目。[六套结算与奖励](../../../artifacts/cache/v11/review-20261123/rollout-final/pages/final/387897b3d2854f43588b91a5303efa44a16f72c0/index.html) · [36 项验收记录](../../tasks/P0-V11.md)
 
-当前冻结提交 `a6c05f04` 修复了 Windows 和 macOS 构建回调期间设置文件的临时变化。重新运行完整游戏，编辑器 **2,482/2,482**，1080p 与 720p 各 **366/366**，均零跳过。正式门禁绑定本次三份原报告，双窗口各有 456 张结算、奖励与菜单原图。[修复版编辑器报告](../../../evidence/v11/unity/nunit-20261123-213334.xml) · [1080p](../../../evidence/v11/unity/nunit-20261123-225032.xml) · [720p](../../../evidence/v11/unity/nunit-20261124-000347.xml) · [本次实机图册](../../../artifacts/cache/v11/review-20261123/rollout-final/pages/final/a6c05f0429f1d645a12fd12ef85f3f841b696ff3/index.html)
+此前的 `a6c05f04` 修复了 Windows 和 macOS 构建回调期间设置文件的临时变化。编辑器 **2,482/2,482**，1080p 与 720p 各 **366/366**。双平台候选包均已成功构建，Windows 六套回放的 174 张图中发现了奖励预告问题，该版随即返工。[独立返工报告](../../../evidence/v11/review/W25-a6c05f04-REWORK.md) · [原候选包与回放归档](../../../artifacts/cache/v11/w26-staging/rc-rework-a6c05f04/candidate/archived.json)
 
 ## 本轮可以看到的变化
 
