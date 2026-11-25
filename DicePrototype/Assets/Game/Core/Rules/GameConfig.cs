@@ -3,6 +3,8 @@
 // v0.9 added by hand: maxOrdinaryControllerSlots, controllerSlotPriceStep and the C54-C103 parameters; see docs/specs/v09/RULES_SPEC.md.
 // v1.0 added by hand: boss modifiers, loot kinds, stageKind, face weights and the C104-C153 parameters; see docs/specs/v10/RULES_SPEC.md.
 // v1.1 added by hand: player-facing shortText/details on the six content categories; see docs/specs/v11/DEV_PLAN.md W10.
+// v1.1.1 added by hand: additive zone, growth start/event, cultivation, item uses and shop fields; see docs/specs/v111/RULES_DELTA.md 12.3
+// and tools/v111_config.py, which writes the config and fixes the field names and units.
 using System;
 
 namespace DiceCraft.Core
@@ -67,8 +69,15 @@ namespace DiceCraft.Core
         public int temporaryPipBiasWeight100;
         public int glassBreakPercent;
         public int glassContributionMultiplier;
-        public int goldContributionMultiplier;
+        // v1.1.1: a submitted gold face adds goldAdd100 to the additive zone; a face that turns gold gains weight.
+        public int goldAdd100;
+        public int gildedFaceWeightDelta;
         public int maxFaceWeight;
+        // v1.1.1: head start of a growth card offered in a later shop cycle, per cycle after the first
+        // (additive and multiplier in hundredths, base in whole points), and the resale bonus of cultivation cards.
+        public GrowthCatchupConfig growthCatchupPerCycle;
+        public int cultivationFacesPerSaleBonus;
+        public int cultivationMaxSaleBonus;
         public RedReward[] redRewards;
         public EnchantmentDefinition[] enchantments;
         public EnchantmentRules enchantRules;
@@ -94,6 +103,16 @@ namespace DiceCraft.Core
         public DebugConfig debug;
         public int maxControllerSlots => maxControllerInstances;
         public int controllerSellPrice => baseControllerSellPrice;
+        // TRANSITIONAL-V111: removed config key, kept as a constant until its last reader is rewritten.
+        public int goldContributionMultiplier => 1;
+    }
+
+    [Serializable]
+    public sealed class GrowthCatchupConfig
+    {
+        public int additive;
+        public int @base;
+        public int multiplier;
     }
 
     [Serializable]
@@ -152,7 +171,8 @@ namespace DiceCraft.Core
         public NonSubmitDrawWeights nonSubmitDrawWeights;
         public int triggerCountPerSourcePerSubmitMax;
         public int baseAdd;
-        public int scoreMultiplier;
+        // v1.1.1: the score enchantment (stable id mult2) adds scoreAdd100 hundredths to the additive zone.
+        public int scoreAdd100;
         public int submissionBonus;
         public int rollBonus;
         public string[] nonSubmitControllerIds;
@@ -160,6 +180,10 @@ namespace DiceCraft.Core
         public string submissionGrantTiming;
         public string rollGrantTiming;
         public bool copyTargetEnchantment;
+        // v1.1.1: chance (percent) that a random shop offer carries an enchantment, by shop cycle 1-8.
+        public int[] shopChanceByCyclePercent;
+        // TRANSITIONAL-V111: removed config key, kept as a constant until its last reader is rewritten.
+        public int scoreMultiplier => 1;
     }
 
     [Serializable]
@@ -190,13 +214,16 @@ namespace DiceCraft.Core
     {
         public string id;
         public string displayName;
-        public int baseMult100;
-        public int incrementPerLevel100;
+        // v1.1.1: a colour is an additive bonus (hundredths), no longer a multiplier zone of its own.
+        public int baseAdd100;
+        public int addPerLevel100;
         public int baseUpgradePrice;
         public int maxLevel;
         public int minSubmittedDice;
-        public string multiplierZone;
         public bool countsAsHand;
+        // TRANSITIONAL-V111: removed config keys, kept as derived values until their last readers are rewritten.
+        public int baseMult100 => 100 + baseAdd100;
+        public int incrementPerLevel100 => addPerLevel100;
     }
 
     [Serializable]
@@ -212,6 +239,8 @@ namespace DiceCraft.Core
         public string trigger;
         // v1.1: maxOwnedNormal removed (same-name cards may be held more than once; RULES_DELTA section 9).
         public bool scoreEnchantEligible;
+        // v1.1.1: cultivation cards rewrite permanent die faces; the leftmost one without a slotless enchantment takes no slot.
+        public bool isCultivation;
         public ControllerParameters parameters;
         public string description;
         public string shortText;
@@ -357,6 +386,37 @@ namespace DiceCraft.Core
         public int glassBreakPercent;
         public int perRollUnits2;
         public int perSlotUnits2;
+        // v1.1.1 (docs/specs/v111/RULES_DELTA.md 12.3), added by hand. Every key ending in 100 is the real value x 100.
+        public int scoreMultiplier100;
+        public int strictScoreMultiplier100;
+        public int enhancedScoreMultiplier100;
+        public int additiveBonus100;
+        public int minOneAdd100;
+        public int minTwoAdd100;
+        public int additivePerController100;
+        public int additivePerFive100;
+        public int noFiveMultiplier100;
+        public int additivePerPermanentDie100;
+        public int additivePerMatch100;
+        public int additivePerGoldStep100;
+        public int initialAdditive100;
+        public int decayPerClear100;
+        public int additivePerPoolDie100;
+        public int additivePerUnusedRoll100;
+        public int additivePerPreviousSubmit100;
+        public int additivePerEmptyOrdinarySlot100;
+        public int additivePerCommon100;
+        // Growth cards: growthKind is additive / base / multiplier; start and event are hundredths, or whole points for base.
+        public string growthKind;
+        public int growthStart;
+        public int growthEvent;
+        public int facesPerDie;
+        public int lowPipDelta;
+        public int highPipDelta;
+        public int highPipFloor;
+        public int freeUnlocksPerHand;
+        public int minFours;
+        public int minOnes;
     }
 
     [Serializable]
@@ -375,6 +435,8 @@ namespace DiceCraft.Core
         public int sellPrice;
         public string window;
         public string lifetime;
+        // v1.1.1: how many uses a new copy holds (I13 holds 3, every other item 1).
+        public int initialUses;
         public string description;
         public string shortText;
         public string details;
@@ -399,6 +461,8 @@ namespace DiceCraft.Core
         public string displayName;
         public int buyPrice;
         public string target;
+        // v1.1.1: faces of one die a single purchase may change (0 = the whole die, no face is chosen).
+        public int maxSelectableFaces;
         public string description;
         public string shortText;
         public string details;
@@ -502,6 +566,10 @@ namespace DiceCraft.Core
         public string refreshCounterReset;
         public bool offerExpansionAffectsCurrentShop;
         public int maxOfferExpansionPurchases;
+        // v1.1.1: self-chosen die upgrades per shop, their surcharge, and the multiplier cards that are never offered while owned.
+        public int selfDieUpgradeLimit;
+        public int selfDieUpgradePremium;
+        public string[] uniqueControllerIds;
         public int firstControllerGuaranteeMaxPrice => firstControllerGuaranteeMaxBasePrice;
         public int controllerOffers => initialControllerOffers;
         public int consumableOffers => initialConsumableOffers;

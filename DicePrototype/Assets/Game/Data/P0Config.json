@@ -1,14 +1,17 @@
 {
-  "configVersion": "p1.1.0",
-  "saveSchemaVersion": 7,
+  "configVersion": "p1.1.1",
+  "saveSchemaVersion": 8,
   "unityMajorMinor": "6000.6",
   "blenderMajorMinor": "5.2",
   "removedControllerIds": [
     "C04",
     "C16",
-    "C23"
+    "C23",
+    "C90",
+    "C128",
+    "C145"
   ],
-  "activeContentCount": 184,
+  "activeContentCount": 185,
   "initialDiceCount": 5,
   "maxPermanentDice": 8,
   "maxTemporaryDice": 3,
@@ -43,8 +46,8 @@
   "minStraightLength": 5,
   "minPipValue": 1,
   "maxPipValue": 6,
-  "maxHandLevel": 8,
-  "maxColorLevel": 8,
+  "maxHandLevel": 12,
+  "maxColorLevel": 12,
   "scoreStorage": "nonnegative_big_integer_decimal_string",
   "walletStorage": "checked_nonnegative_int64",
   "rounding": "single_final_floor",
@@ -118,10 +121,18 @@
   "roughOppositeWeight100": 120,
   "roughOtherWeight100": 96,
   "temporaryPipBiasWeight100": 150,
-  "glassBreakPercent": 8,
+  "glassBreakPercent": 15,
   "glassContributionMultiplier": 3,
-  "goldContributionMultiplier": 2,
+  "goldAdd100": 50,
+  "gildedFaceWeightDelta": 1,
   "maxFaceWeight": 5,
+  "growthCatchupPerCycle": {
+    "additive": 50,
+    "base": 6,
+    "multiplier": 10
+  },
+  "cultivationFacesPerSaleBonus": 4,
+  "cultivationMaxSaleBonus": 6,
   "redRewards": [
     {
       "count": 0,
@@ -135,37 +146,37 @@
     },
     {
       "count": 2,
-      "factor100": 175,
+      "factor100": 100,
       "title": "二举"
     },
     {
       "count": 3,
-      "factor100": 250,
+      "factor100": 200,
       "title": "榜眼"
     },
     {
       "count": 4,
-      "factor100": 350,
+      "factor100": 300,
       "title": "探花"
     },
     {
       "count": 5,
-      "factor100": 500,
+      "factor100": 450,
       "title": "状元"
     },
     {
       "count": 6,
-      "factor100": 700,
+      "factor100": 600,
       "title": "六子登科"
     },
     {
       "count": 7,
-      "factor100": 1000,
+      "factor100": 800,
       "title": "七同红"
     },
     {
       "count": 8,
-      "factor100": 1400,
+      "factor100": 1100,
       "title": "八同红"
     }
   ],
@@ -193,9 +204,9 @@
     },
     {
       "id": "mult2",
-      "displayName": "倍率增加",
+      "displayName": "加成增加",
       "weight": 4,
-      "buyPremium": 6,
+      "buyPremium": 5,
       "maxPerController": 1
     },
     {
@@ -230,8 +241,8 @@
       "roll1": 25
     },
     "triggerCountPerSourcePerSubmitMax": 1,
-    "baseAdd": 10,
-    "scoreMultiplier": 2,
+    "baseAdd": 15,
+    "scoreAdd100": 150,
     "submissionBonus": 1,
     "rollBonus": 1,
     "nonSubmitControllerIds": [
@@ -257,17 +268,26 @@
       "C116",
       "C120",
       "C121",
-      "C128",
       "C131",
       "C133",
       "C136",
       "C140",
-      "C145"
+      "C154"
     ],
     "postScorePredicatesUseFrozenSnapshot": true,
     "submissionGrantTiming": "stage_start_once",
     "rollGrantTiming": "each_hand_start_from_alive_instances",
-    "copyTargetEnchantment": false
+    "copyTargetEnchantment": false,
+    "shopChanceByCyclePercent": [
+      10,
+      20,
+      35,
+      45,
+      55,
+      60,
+      65,
+      65
+    ]
   },
   "handDefinitions": [
     {
@@ -276,7 +296,7 @@
       "baseMult100": 200,
       "incrementPerLevel100": 75,
       "baseUpgradePrice": 2,
-      "maxLevel": 8,
+      "maxLevel": 12,
       "structuralPriority": 10,
       "minSubmittedDice": 2,
       "requirePermanentDice": 0
@@ -287,7 +307,7 @@
       "baseMult100": 300,
       "incrementPerLevel100": 100,
       "baseUpgradePrice": 2,
-      "maxLevel": 8,
+      "maxLevel": 12,
       "structuralPriority": 20,
       "minSubmittedDice": 4,
       "requirePermanentDice": 0
@@ -298,7 +318,7 @@
       "baseMult100": 400,
       "incrementPerLevel100": 125,
       "baseUpgradePrice": 2,
-      "maxLevel": 8,
+      "maxLevel": 12,
       "structuralPriority": 30,
       "minSubmittedDice": 3,
       "requirePermanentDice": 0
@@ -309,7 +329,7 @@
       "baseMult100": 600,
       "incrementPerLevel100": 200,
       "baseUpgradePrice": 2,
-      "maxLevel": 8,
+      "maxLevel": 12,
       "structuralPriority": 50,
       "minSubmittedDice": 5,
       "requirePermanentDice": 0
@@ -320,7 +340,7 @@
       "baseMult100": 700,
       "incrementPerLevel100": 225,
       "baseUpgradePrice": 3,
-      "maxLevel": 8,
+      "maxLevel": 12,
       "structuralPriority": 60,
       "minSubmittedDice": 6,
       "requirePermanentDice": 6
@@ -331,7 +351,7 @@
       "baseMult100": 800,
       "incrementPerLevel100": 250,
       "baseUpgradePrice": 2,
-      "maxLevel": 8,
+      "maxLevel": 12,
       "structuralPriority": 70,
       "minSubmittedDice": 4,
       "requirePermanentDice": 0
@@ -342,7 +362,7 @@
       "baseMult100": 1000,
       "incrementPerLevel100": 300,
       "baseUpgradePrice": 3,
-      "maxLevel": 8,
+      "maxLevel": 12,
       "structuralPriority": 80,
       "minSubmittedDice": 6,
       "requirePermanentDice": 6
@@ -353,7 +373,7 @@
       "baseMult100": 1200,
       "incrementPerLevel100": 400,
       "baseUpgradePrice": 2,
-      "maxLevel": 8,
+      "maxLevel": 12,
       "structuralPriority": 90,
       "minSubmittedDice": 5,
       "requirePermanentDice": 0
@@ -364,7 +384,7 @@
       "baseMult100": 1200,
       "incrementPerLevel100": 400,
       "baseUpgradePrice": 4,
-      "maxLevel": 8,
+      "maxLevel": 12,
       "structuralPriority": 100,
       "minSubmittedDice": 8,
       "requirePermanentDice": 8
@@ -375,7 +395,7 @@
       "baseMult100": 1800,
       "incrementPerLevel100": 600,
       "baseUpgradePrice": 3,
-      "maxLevel": 8,
+      "maxLevel": 12,
       "structuralPriority": 110,
       "minSubmittedDice": 6,
       "requirePermanentDice": 6
@@ -386,7 +406,7 @@
       "baseMult100": 2700,
       "incrementPerLevel100": 900,
       "baseUpgradePrice": 4,
-      "maxLevel": 8,
+      "maxLevel": 12,
       "structuralPriority": 120,
       "minSubmittedDice": 7,
       "requirePermanentDice": 7
@@ -397,7 +417,7 @@
       "baseMult100": 4000,
       "incrementPerLevel100": 1200,
       "baseUpgradePrice": 5,
-      "maxLevel": 8,
+      "maxLevel": 12,
       "structuralPriority": 130,
       "minSubmittedDice": 8,
       "requirePermanentDice": 8
@@ -408,7 +428,7 @@
       "baseMult100": 1000,
       "incrementPerLevel100": 300,
       "baseUpgradePrice": 2,
-      "maxLevel": 8,
+      "maxLevel": 12,
       "structuralPriority": 40,
       "minSubmittedDice": 5,
       "requirePermanentDice": 0
@@ -418,23 +438,21 @@
     {
       "id": "all_blue",
       "displayName": "全蓝",
-      "baseMult100": 300,
-      "incrementPerLevel100": 50,
+      "baseAdd100": 25,
+      "addPerLevel100": 50,
       "baseUpgradePrice": 2,
-      "maxLevel": 8,
+      "maxLevel": 12,
       "minSubmittedDice": 1,
-      "multiplierZone": "independent_color",
       "countsAsHand": false
     },
     {
       "id": "all_red",
       "displayName": "全红",
-      "baseMult100": 200,
-      "incrementPerLevel100": 50,
+      "baseAdd100": 50,
+      "addPerLevel100": 50,
       "baseUpgradePrice": 2,
-      "maxLevel": 8,
+      "maxLevel": 12,
       "minSubmittedDice": 1,
-      "multiplierZone": "independent_color",
       "countsAsHand": false
     }
   ],
@@ -449,6 +467,7 @@
       "offerWeight": 6,
       "trigger": "SubmitAndStageSettlement",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "goldPerValidSubmission": 1,
         "extraInterestPerTen": 0
@@ -467,8 +486,9 @@
       "offerWeight": 2,
       "trigger": "ScoreMultiply",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "scoreMultiplier": 3
+        "scoreMultiplier100": 300
       },
       "description": "非空提交没有有效红面时，整手得分×3。",
       "shortText": "提交的骰子里没有红骰时，得分×3。",
@@ -484,6 +504,7 @@
       "offerWeight": 6,
       "trigger": "EffectiveColor",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "index": 0
       },
@@ -501,6 +522,7 @@
       "offerWeight": 2,
       "trigger": "AfterRoll",
       "scoreEnchantEligible": false,
+      "isCultivation": false,
       "parameters": {
         "rollGrant": 3,
         "minUnlocked": 1,
@@ -520,14 +542,15 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "ScoreMultiply",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "minDistinct": 3,
-        "scoreMultiplier": 3
+        "additiveBonus100": 300
       },
-      "description": "提交的有效点数至少有3种时，整手得分×3。",
-      "shortText": "提交的骰子至少有3种不同点数时，得分×3。",
+      "description": "提交的有效点数至少有3种时，加成+3。",
+      "shortText": "提交的骰子至少有3种不同点数时，加成+3。",
       "details": ""
     },
     {
@@ -540,6 +563,7 @@
       "offerWeight": 4,
       "trigger": "AfterScore",
       "scoreEnchantEligible": true,
+      "isCultivation": true,
       "parameters": {
         "submissionOrdinal": 0,
         "requiredDice": 2,
@@ -558,13 +582,14 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "ScoreMultiply",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "scoreMultiplier": 2
+        "additiveBonus100": 200
       },
-      "description": "提交数量小于有效提交容量K时，整手得分×2。",
-      "shortText": "提交的骰子没放满提交栏时，得分×2。",
+      "description": "提交数量小于有效提交容量K时，加成+2。",
+      "shortText": "提交的骰子没放满提交栏时，加成+2。",
       "details": ""
     },
     {
@@ -577,12 +602,13 @@
       "offerWeight": 2,
       "trigger": "CapacityAndScore",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "capacityDelta": -1,
-        "scoreMultiplier": 3
+        "scoreMultiplier100": 250
       },
-      "description": "提交容量−1；每次有效提交整手得分×3。",
-      "shortText": "提交栏−1格；得分×3。",
+      "description": "提交容量−1；每次有效提交整手得分×2.5。",
+      "shortText": "提交栏−1格；得分×2.5。",
       "details": "提交栏最少保留1格。"
     },
     {
@@ -595,12 +621,13 @@
       "offerWeight": 6,
       "trigger": "PipContribution",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "pip": 1,
-        "perDieAdd": 10
+        "perDieAdd": 15
       },
-      "description": "每颗有效1点的提交骰，点数贡献+10，不改牌型。",
-      "shortText": "提交的1点骰子，每颗计分+10。",
+      "description": "每颗有效1点的提交骰，点数贡献+15，不改牌型。",
+      "shortText": "提交的1点骰子，每颗计分+15。",
       "details": "只加分，不改变点数和牌型。"
     },
     {
@@ -611,17 +638,18 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "ScoreMultiply",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "requiredCounts": {
           "2": 2,
           "3": 2
         },
-        "scoreMultiplier": 6
+        "additiveBonus100": 800
       },
-      "description": "提交中至少2颗有效2点及2颗有效3点时，整手得分×6；允许额外骰。",
-      "shortText": "提交里至少有两颗2点和两颗3点时，得分×6。",
+      "description": "提交中至少2颗有效2点及2颗有效3点时，加成+8；允许额外骰。",
+      "shortText": "提交里至少有两颗2点和两颗3点时，加成+8。",
       "details": "可以同时提交其他骰子。"
     },
     {
@@ -634,6 +662,7 @@
       "offerWeight": 2,
       "trigger": "EffectivePip",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "oddToEvenAdd": 1,
         "idempotent": true
@@ -652,11 +681,12 @@
       "offerWeight": 6,
       "trigger": "PipContribution",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "oddPerDieAdd": 4
+        "oddPerDieAdd": 8
       },
-      "description": "每颗有效奇数的提交骰，点数贡献+4，不改牌型。",
-      "shortText": "提交的奇数点骰子，每颗计分+4。",
+      "description": "每颗有效奇数的提交骰，点数贡献+8，不改牌型。",
+      "shortText": "提交的奇数点骰子，每颗计分+8。",
       "details": "只加分，不改变点数和牌型。"
     },
     {
@@ -667,13 +697,14 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "ScoreMultiply",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "scoreMultiplier": 3
+        "additiveBonus100": 400
       },
-      "description": "非空提交的有效点数全为奇数时，整手得分×3。",
-      "shortText": "提交的点数全是奇数时，得分×3。",
+      "description": "非空提交的有效点数全为奇数时，加成+4。",
+      "shortText": "提交的点数全是奇数时，加成+4。",
       "details": ""
     },
     {
@@ -686,6 +717,7 @@
       "offerWeight": 4,
       "trigger": "AfterScore",
       "scoreEnchantEligible": true,
+      "isCultivation": true,
       "parameters": {
         "scanAllInteriorIndices": true,
         "pattern": [
@@ -709,16 +741,17 @@
       "offerWeight": 4,
       "trigger": "PipContribution",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "pips": [
           1,
           2,
           3
         ],
-        "perDieAdd": 6
+        "perDieAdd": 9
       },
-      "description": "每颗有效1、2、3点的提交骰，点数贡献+6。",
-      "shortText": "提交的1~3点骰子，每颗计分+6。",
+      "description": "每颗有效1、2、3点的提交骰，点数贡献+9。",
+      "shortText": "提交的1~3点骰子，每颗计分+9。",
       "details": ""
     },
     {
@@ -729,32 +762,34 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "ScoreMultiply",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "scoreMultiplier": 4
+        "additiveBonus100": 500
       },
-      "description": "非空提交中有效红面数等于有效蓝面数时，整手得分×4。",
-      "shortText": "提交的红骰和蓝骰数量相等时，得分×4。",
+      "description": "非空提交中有效红面数等于有效蓝面数时，加成+5。",
+      "shortText": "提交的红骰和蓝骰数量相等时，加成+5。",
       "details": ""
     },
     {
       "id": "C19",
       "displayName": "小头大用",
-      "buyPrice": 2,
+      "buyPrice": 3,
       "baseSellPrice": 1,
       "salePriceMode": "fixed",
       "rarity": "common",
       "offerWeight": 6,
-      "trigger": "PipContribution",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "maxPermanentSixFaceSum": 13,
-        "perDieAdd": 8
+        "minOneAdd100": 250,
+        "minTwoAdd100": 150
       },
-      "description": "某提交骰永久六面原值之和≤13时，该骰点数贡献+8。",
-      "shortText": "六个面点数和≤13的提交骰子，每颗计分+8。",
-      "details": "按骰面上印的点数算，不受临时改点影响（标准骰六面和为21）。"
+      "description": "提交的骰子里最小的有效点数是1时，加成+2.5；是2时，加成+1.5。",
+      "shortText": "提交里最小的点数是1：加成+2.5；是2：+1.5。",
+      "details": "只看提交的骰子；两档不叠加。"
     },
     {
       "id": "C20",
@@ -766,14 +801,15 @@
       "offerWeight": 6,
       "trigger": "PipContribution",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "lastActualCapacitySlotPip": 6,
-        "perDieAdd": 15,
+        "perDieAdd": 24,
         "requireFullCapacity": true
       },
-      "description": "占满K栏且第K栏有效点数为6时，该骰点数贡献+15，参与逐骰强化及后续全部倍率。",
-      "shortText": "放满提交栏且最后一颗是6点时，这颗计分+15。",
-      "details": "必须放满；这+15和点数一样会被玻璃、黄金等倍数放大。"
+      "description": "占满提交栏且最后一格有效点数为6时，该骰点数贡献+24，参与逐骰强化及后续全部倍率。",
+      "shortText": "放满提交栏且最后一颗是6点时，这颗计分+24。",
+      "details": "必须放满；这+24和点数一样会被玻璃等倍数放大。"
     },
     {
       "id": "C21",
@@ -785,6 +821,7 @@
       "offerWeight": 4,
       "trigger": "Capacity",
       "scoreEnchantEligible": false,
+      "isCultivation": false,
       "parameters": {
         "capacityDelta": 1
       },
@@ -802,6 +839,7 @@
       "offerWeight": 2,
       "trigger": "Capacity",
       "scoreEnchantEligible": false,
+      "isCultivation": false,
       "parameters": {
         "capacityDelta": 2
       },
@@ -819,6 +857,7 @@
       "offerWeight": 4,
       "trigger": "RedGrouping",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "redGroupKeyFrom": 1,
         "redGroupKeyTo": 4,
@@ -838,6 +877,7 @@
       "offerWeight": 2,
       "trigger": "RedGrouping",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "mergeAllEffectiveRed": true,
         "idempotent": true
@@ -856,6 +896,7 @@
       "offerWeight": 4,
       "trigger": "AfterScore",
       "scoreEnchantEligible": true,
+      "isCultivation": true,
       "parameters": {
         "requiredDice": 1,
         "allPhysicalFacesColor": "red"
@@ -874,12 +915,13 @@
       "offerWeight": 6,
       "trigger": "BaseAdd",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "baseAddPerDistinctPairedPip": 10,
+        "baseAddPerDistinctPairedPip": 20,
         "minCountPerGroup": 2
       },
-      "description": "每个出现至少2颗的不同有效点数组，使整手基础分+10；四条只算一组，双三条算两组。",
-      "shortText": "每有一种点数出现2颗以上，基础分+10。",
+      "description": "每个出现至少2颗的不同有效点数组，使整手基础分+20；四条只算一组，双三条算两组。",
+      "shortText": "每有一种点数出现2颗以上，基础分+20。",
       "details": "按点数种类算：四条算1种，三条带一对、双三条算2种，三对子算3种。"
     },
     {
@@ -890,26 +932,28 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "ScoreMultiply",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "minDistinctPairs": 2,
-        "scoreMultiplier": 3
+        "additiveBonus100": 400
       },
-      "description": "至少两个不同有效点数各出现2次时，整手得分×3；四个相同不能拆两对。",
-      "shortText": "有两种点数各出现2颗以上时，得分×3。",
+      "description": "至少两个不同有效点数各出现2次时，加成+4；四个相同不能拆两对。",
+      "shortText": "有两种点数各出现2颗以上时，加成+4。",
       "details": "四颗相同不能拆成两对。"
     },
     {
       "id": "C29",
       "displayName": "简单顺子",
-      "buyPrice": 4,
+      "buyPrice": 3,
       "baseSellPrice": 1,
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "HandRule",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "minimumStraightLength": 4,
         "idempotent": true
@@ -926,14 +970,15 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "ScoreMultiply",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "minSamePip": 3,
-        "scoreMultiplier": 2
+        "additiveBonus100": 250
       },
-      "description": "提交中任一有效点数至少3颗时，整手得分×2。",
-      "shortText": "有一种点数至少3颗时，得分×2。",
+      "description": "提交中任一有效点数至少3颗时，加成+2.5。",
+      "shortText": "有一种点数至少3颗时，加成+2.5。",
       "details": ""
     },
     {
@@ -946,13 +991,14 @@
       "offerWeight": 2,
       "trigger": "ScoreMultiply",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "minSamePip": 4,
-        "scoreMultiplier": 3
+        "scoreMultiplier100": 300
       },
-      "description": "提交中任一有效点数至少4颗时，整手得分×3；与三条开泰可叠乘。",
+      "description": "提交中任一有效点数至少4颗时，整手得分×3。",
       "shortText": "有一种点数至少4颗时，得分×3。",
-      "details": "可与“三条开泰”同时生效，倍率相乘。"
+      "details": ""
     },
     {
       "id": "C32",
@@ -962,14 +1008,15 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "ScoreMultiply",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "distinctPips": 1,
-        "scoreMultiplier": 2
+        "additiveBonus100": 300
       },
-      "description": "非空提交只有一种有效点数时，整手得分×2；单骰也满足。",
-      "shortText": "提交的点数全部相同时，得分×2。",
+      "description": "非空提交只有一种有效点数时，加成+3；单骰也满足。",
+      "shortText": "提交的点数全部相同时，加成+3。",
       "details": "只提交1颗也算。"
     },
     {
@@ -982,13 +1029,14 @@
       "offerWeight": 2,
       "trigger": "ScoreMultiply",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "minDice": 2,
         "firstMinusSecondAtLeast": 3,
-        "scoreMultiplier": 4
+        "scoreMultiplier100": 300
       },
-      "description": "至少提交2颗，第一颗有效点数≥第二颗有效点数+3时，整手得分×4。",
-      "shortText": "第一颗比第二颗至少大3点时，得分×4。",
+      "description": "至少提交2颗，第一颗有效点数≥第二颗有效点数+3时，整手得分×3。",
+      "shortText": "第一颗比第二颗至少大3点时，得分×3。",
       "details": "至少提交2颗；按提交顺序。"
     },
     {
@@ -1001,6 +1049,7 @@
       "offerWeight": 4,
       "trigger": "RollProbability",
       "scoreEnchantEligible": false,
+      "isCultivation": false,
       "parameters": {
         "targetPips": [
           4,
@@ -1023,6 +1072,7 @@
       "offerWeight": 4,
       "trigger": "RollProbability",
       "scoreEnchantEligible": false,
+      "isCultivation": false,
       "parameters": {
         "targetPips": [
           1,
@@ -1045,17 +1095,19 @@
       "offerWeight": 4,
       "trigger": "AfterScore",
       "scoreEnchantEligible": true,
+      "isCultivation": true,
       "parameters": {
         "minDice": 2,
         "requireEmptySlot": true,
         "indices": [
           0,
-          1
+          1,
+          2
         ],
         "delta": 1
       },
-      "description": "至少提交2颗且S.Count<K，提交后前两颗本次物理面原值+1，上限6。",
-      "shortText": "提交2颗以上且没放满提交栏时，前两颗朝上的面永久+1点。",
+      "description": "至少提交2颗且没放满提交栏，提交后前三颗本次物理面原值+1，上限6。",
+      "shortText": "提交2颗以上且没放满时，前三颗朝上的面永久+1点。",
       "details": "最高6点。"
     },
     {
@@ -1068,17 +1120,19 @@
       "offerWeight": 4,
       "trigger": "AfterScore",
       "scoreEnchantEligible": true,
+      "isCultivation": true,
       "parameters": {
         "minDice": 2,
         "requireEmptySlot": true,
         "indices": [
           0,
-          1
+          1,
+          2
         ],
         "delta": -1
       },
-      "description": "至少提交2颗且S.Count<K，提交后前两颗本次物理面原值−1，下限1。",
-      "shortText": "提交2颗以上且没放满提交栏时，前两颗朝上的面永久−1点。",
+      "description": "至少提交2颗且没放满提交栏，提交后前三颗本次物理面原值−1，下限1。",
+      "shortText": "提交2颗以上且没放满时，前三颗朝上的面永久−1点。",
       "details": "最低1点。"
     },
     {
@@ -1091,6 +1145,7 @@
       "offerWeight": 6,
       "trigger": "AfterScore",
       "scoreEnchantEligible": true,
+      "isCultivation": true,
       "parameters": {
         "targetIndices": "first_and_last_distinct",
         "color": "blue"
@@ -1109,12 +1164,13 @@
       "offerWeight": 6,
       "trigger": "PipContribution",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "effectiveColor": "blue",
-        "perDieAdd": 6
+        "perDieAdd": 9
       },
-      "description": "每颗有效蓝色提交骰，点数贡献+6。",
-      "shortText": "提交的蓝骰，每颗计分+6。",
+      "description": "每颗有效蓝色提交骰，点数贡献+9。",
+      "shortText": "提交的蓝骰，每颗计分+9。",
       "details": ""
     },
     {
@@ -1125,8 +1181,9 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "ScoreMultiply",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "indices": [
           0,
@@ -1134,10 +1191,10 @@
           2
         ],
         "strictIncreasingArithmetic": true,
-        "scoreMultiplier": 4
+        "additiveBonus100": 450
       },
-      "description": "至少提交3颗，前三颗有效点数形成公差大于0的等差数列时，整手得分×4。",
-      "shortText": "前三颗点数等差递增（如1-2-3）时，得分×4。",
+      "description": "至少提交3颗，前三颗有效点数形成公差大于0的等差数列时，加成+4.5。",
+      "shortText": "前三颗点数等差递增（如1-2-3）时，加成+4.5。",
       "details": "至少提交3颗，只看前三颗；间隔相同即可（2-4-6、1-3-5也算）；必须递增，1-1-1、3-2-1不算。"
     },
     {
@@ -1150,6 +1207,7 @@
       "offerWeight": 2,
       "trigger": "Proxy",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "target": "immediate_right_at_stage_start",
         "copyBaseAbility": true,
@@ -1172,13 +1230,14 @@
       "offerWeight": 2,
       "trigger": "ScoreAndAfterSubmit",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "scoreMultiplier": 5,
         "destroyChancePercentAfterValidSubmission": 15,
-        "riskBearer": "emitter_instance"
+        "riskBearer": "emitter_instance",
+        "scoreMultiplier100": 400
       },
-      "description": "每次有效提交整手×5；计分与后置效果后，该效果来源实体独立15%概率永久损坏并消失。",
-      "shortText": "得分×5；每次提交后有15%概率碎掉消失。",
+      "description": "每次有效提交整手得分×4；计分与后置效果后，该效果来源实体独立15%概率永久损坏并消失。",
+      "shortText": "得分×4；每次提交后有15%概率碎掉消失。",
       "details": "本次计分和提交后效果都完成后才判定；被百变模仿复制时，模仿卡自己也有15%概率碎掉。"
     },
     {
@@ -1191,15 +1250,16 @@
       "offerWeight": 2,
       "trigger": "AfterScore",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "samePrimaryHandAsPreviousValidSubmit": true,
         "levelAddPerSource": 1,
         "crossStageHistory": true,
         "scatterCanUpgrade": false
       },
-      "description": "本次与上一有效提交的结构主牌型相同且非散点时，该牌型在本次计分后+1级；每个来源各+1，正常上限8，散点不升级。",
+      "description": "本次与上一有效提交的结构主牌型相同且非散点时，该牌型在本次计分后+1级；每个来源各+1，正常上限12，散点不升级。",
       "shortText": "主牌型与上一次提交相同时，提交后该牌型升1级。",
-      "details": "散点不算；本次得分仍按旧等级；可以跨关连续（包括买这张卡之前的最后一次提交）；最高8级；被模仿时每份各升1级。"
+      "details": "散点不算；本次得分仍按旧等级；可以跨关连续（包括买这张卡之前的最后一次提交）；最高12级；被模仿时每份各升1级。"
     },
     {
       "id": "C44",
@@ -1211,11 +1271,12 @@
       "offerWeight": 2,
       "trigger": "BaseAdd",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "baseAddPerFrozenGold": 1
+        "baseAddPerFrozenGold": 2
       },
-      "description": "每1金币令整手基础分+1，读取本次提交冻结时的钱包；本次提交新增金币不回算本手。",
-      "shortText": "你每有1金币，基础分+1。",
+      "description": "每1金币令整手基础分+2，读取本次提交冻结时的钱包；本次提交新增金币不回算本手。",
+      "shortText": "你每有1金币，基础分+2。",
       "details": "按提交那一刻的金币算；这次提交得到或扣掉的金币不影响本次得分。"
     },
     {
@@ -1228,6 +1289,7 @@
       "offerWeight": 4,
       "trigger": "PipMultiplyAndAfterSubmit",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "matchingDieContributionMultiplier": 3,
         "colors": [
@@ -1250,32 +1312,33 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "ScoreMultiply",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "scoreMultiplier": 2
+        "additiveBonus100": 200
       },
-      "description": "每次有效提交整手得分×2。",
-      "shortText": "每次提交得分×2。",
+      "description": "每次有效提交加成+2。",
+      "shortText": "每次提交加成+2。",
       "details": ""
     },
     {
       "id": "C47",
       "displayName": "控制欲",
-      "buyPrice": 8,
+      "buyPrice": 7,
       "baseSellPrice": 1,
       "salePriceMode": "fixed",
       "rarity": "rare",
       "offerWeight": 2,
-      "trigger": "ScoreMultiply",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "factor": "actual_alive_controller_instances_in_snapshot",
-        "perControllerUnits2": 1
+        "additivePerController100": 60
       },
-      "description": "整手得分乘以提交快照中实际持有控制器实例数量的一半（4件×2，8件×4），最低×1；包括自身及免槽卡，不把模仿技能另算一件。",
-      "shortText": "得分×（卡牌件数÷2）：4件×2，8件×4。",
-      "details": "最低×1；包括这张卡自己和不占栏位的卡；百变模仿只算1件；本关失效的卡也计入。"
+      "description": "每持有1件卡牌，加成+0.6；包括自身、不占栏位的卡和本关失效的卡，百变模仿只算1件。",
+      "shortText": "每持有1件卡牌，加成+0.6。",
+      "details": "包括这张卡自己和不占栏位的卡；百变模仿只算1件；本关失效的卡也计入。"
     },
     {
       "id": "C48",
@@ -1287,30 +1350,32 @@
       "offerWeight": 6,
       "trigger": "BaseAdd",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "baseAddPerEmptySubmitSlot": 10
+        "baseAddPerEmptySubmitSlot": 15
       },
-      "description": "每空一个提交栏位，整手基础分+10；空栏数为K减去实际提交数。",
-      "shortText": "提交栏每空1格，基础分+10。",
+      "description": "每空一个提交栏位，整手基础分+15；空栏数为提交栏格数减去实际提交数。",
+      "shortText": "提交栏每空1格，基础分+15。",
       "details": "空格数 = 提交栏格数 − 本次提交的颗数。"
     },
     {
       "id": "C49",
       "displayName": "千年老二",
-      "buyPrice": 3,
+      "buyPrice": 4,
       "baseSellPrice": 1,
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "ScoreMultiply",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "factor": "effective_pip_5_count",
-        "allowZero": true
+        "additivePerFive100": 150,
+        "noFiveMultiplier100": 50
       },
-      "description": "整手得分乘以有效5点提交骰的数量；没有5时为×0，仍是一次有效提交。",
-      "shortText": "得分×提交的5点骰子颗数。",
-      "details": "没有5点时得分为0，这次提交照样用掉。"
+      "description": "每颗有效5点的提交骰，加成+1.5；提交里没有5点时改为整手得分×0.5。",
+      "shortText": "每颗5点提交骰加成+1.5；没有5点时得分×0.5。",
+      "details": "有5点时只给加成，没有惩罚。"
     },
     {
       "id": "C50",
@@ -1322,11 +1387,12 @@
       "offerWeight": 6,
       "trigger": "BaseAdd",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "baseAdd": 20
+        "baseAdd": 30
       },
-      "description": "每次有效提交整手基础分+20。",
-      "shortText": "每次提交基础分+20。",
+      "description": "每次有效提交整手基础分+30。",
+      "shortText": "每次提交基础分+30。",
       "details": ""
     },
     {
@@ -1337,18 +1403,20 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "ScoreAndAfterSale",
+      "trigger": "GrowthAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "initialMultiplierUnits2": 3,
-        "addUnits2PerRealControllerSale": 1,
         "maxGrowthPerShop": 1,
         "mimicsDoNotDuplicateStateGrowth": true,
-        "saleRecipients": "same_real_instances_present_before_and_after_transaction"
+        "saleRecipients": "same_real_instances_present_before_and_after_transaction",
+        "growthKind": "additive",
+        "growthStart": 100,
+        "growthEvent": 80
       },
-      "description": "整手得分×n；真实实例n初始1.5，每家商店第一次真实卖出一件控制器后，仍持有的真实C51各增加0.5，同一家商店之后的卖出不再成长；自毁不是卖出。",
-      "shortText": "得分倍率从×1.5起，每家店首次卖出卡牌后+0.5。",
-      "details": "同一家店再卖不再增加；卡牌自毁、被祭坛摧毁不算；被百变模仿复制时共用同一个倍率。"
+      "description": "加成从+1起。每家商店第一次真实卖出一件卡牌后，仍持有的真实人员流动各+0.8，同一家商店之后的卖出不再成长；自毁不是卖出。",
+      "shortText": "加成从+1起，每家店首次卖出卡牌后+0.8。",
+      "details": "同一家店再卖不再增加；卡牌自毁、被祭坛摧毁不算；被百变模仿复制时共用同一个数值。"
     },
     {
       "id": "C52",
@@ -1360,6 +1428,7 @@
       "offerWeight": 4,
       "trigger": "StageFinalize",
       "scoreEnchantEligible": false,
+      "isCultivation": false,
       "parameters": {
         "baseBuyPrice": 4,
         "baseSellPrice": 1,
@@ -1379,25 +1448,26 @@
       "offerWeight": 4,
       "trigger": "RandomScoreMultiply",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "factorUnits2": [
+          1,
           2,
           2,
           3,
           4,
           4,
           6,
-          8,
-          10,
-          1
+          6,
+          8
         ],
         "uniform": true,
         "drawOncePerRealOwnerPerSubmit": true,
         "mimicReusesOwnerOutcome": true
       },
-      "description": "提交事务中从0.5、1、1、1.5、2、2、3、4、5等概率抽取整手倍率；每个真实C53抽一次，其模仿者复用同一结果。",
-      "shortText": "每次提交得分随机×0.5~×5。",
-      "details": "从×0.5、×1、×1、×1.5、×2、×2、×3、×4、×5里等概率抽一个；被百变模仿复制时两份用同一个结果。"
+      "description": "提交事务中从0.5、1、1、1.5、2、2、3、3、4等概率抽取整手倍率；每个真实错乱乘积抽一次，其模仿者复用同一结果。",
+      "shortText": "每次提交得分随机×0.5~×4。",
+      "details": "从×0.5、×1、×1、×1.5、×2、×2、×3、×3、×4里等概率抽一个；被百变模仿复制时两份用同一个结果。"
     },
     {
       "id": "C54",
@@ -1409,12 +1479,15 @@
       "offerWeight": 2,
       "trigger": "GrowthMultiply",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "growthPerEvent": 3
+        "growthKind": "multiplier",
+        "growthStart": 125,
+        "growthEvent": 10
       },
-      "description": "整手得分×n，n从1起。每次有效提交后，主牌型与上一次有效提交相同（散点也算）则n+0.15，不同则回到1。",
-      "shortText": "主牌型与上次提交相同则倍率+0.15，不同则回到×1。",
-      "details": "得分倍率从×1起；散点也算一种牌型；可以跨关连续；本次得分用提交前的倍率。"
+      "description": "整手得分×n，n从1.25起。每次有效提交后，主牌型与上一次有效提交相同（散点也算）则n+0.1，不同则已长出的部分减半。",
+      "shortText": "主牌型与上次相同则倍率+0.1，不同则长出的部分减半。",
+      "details": "得分倍率从×1.25起；散点也算一种牌型；可以跨关连续；本次得分用提交前的倍率。"
     },
     {
       "id": "C55",
@@ -1426,11 +1499,14 @@
       "offerWeight": 6,
       "trigger": "GrowthBase",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "growthPerEvent": 2
+        "growthKind": "base",
+        "growthStart": 12,
+        "growthEvent": 3
       },
-      "description": "整手基础分加上本卡的成长值。每次有效提交后成长值+2。",
-      "shortText": "基础分加成从+0起，每次提交后+2。",
+      "description": "整手基础分加上本卡的成长值，从+12起。每次有效提交后成长值+3。",
+      "shortText": "基础分+12，每次提交后再+3。",
       "details": ""
     },
     {
@@ -1441,13 +1517,16 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "GrowthMultiply",
+      "trigger": "GrowthAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "growthPerEvent": 2
+        "growthKind": "additive",
+        "growthStart": 100,
+        "growthEvent": 40
       },
-      "description": "整手得分×n，n从1起。每次没有有效红面的有效提交后n+0.1。",
-      "shortText": "得分倍率从×1起，每次提交里没有红骰就+0.1。",
+      "description": "加成从+1起。每次没有有效红面的有效提交后+0.4。",
+      "shortText": "加成从+1起，每次提交里没有红骰就+0.4。",
       "details": ""
     },
     {
@@ -1458,31 +1537,37 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "GrowthMultiply",
+      "trigger": "GrowthAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "growthPerEvent": 3,
-        "minRedGroup": 3
+        "minRedGroup": 3,
+        "growthKind": "additive",
+        "growthStart": 100,
+        "growthEvent": 80
       },
-      "description": "整手得分×n，n从1起。每次红组达到3颗及以上的有效提交后n+0.15。",
-      "shortText": "得分倍率从×1起，每次提交红组达3颗以上就+0.15。",
+      "description": "加成从+1起。每次红组达到3颗及以上的有效提交后+0.8。",
+      "shortText": "加成从+1起，每次提交红组达3颗以上就+0.8。",
       "details": "红组数量包括场外红人、锦上添红加上的。"
     },
     {
       "id": "C58",
       "displayName": "老当益壮",
-      "buyPrice": 8,
+      "buyPrice": 7,
       "baseSellPrice": 1,
       "salePriceMode": "fixed",
       "rarity": "rare",
       "offerWeight": 2,
       "trigger": "GrowthMultiply",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "growthPerEvent": 4
+        "growthKind": "multiplier",
+        "growthStart": 125,
+        "growthEvent": 15
       },
-      "description": "整手得分×n，n从1起。每通过一关n+0.2。",
-      "shortText": "得分倍率从×1起，每通过一关+0.2。",
+      "description": "整手得分×n，n从1.25起。每通过一关n+0.15。",
+      "shortText": "得分倍率从×1.25起，每通过一关+0.15。",
       "details": ""
     },
     {
@@ -1495,11 +1580,14 @@
       "offerWeight": 6,
       "trigger": "GrowthBase",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "growthPerEvent": 4
+        "growthKind": "base",
+        "growthStart": 12,
+        "growthEvent": 6
       },
-      "description": "整手基础分加上本卡的成长值。每关结算时，每剩1次提交机会成长值+4。",
-      "shortText": "基础分加成从+0起；每关结算时每剩1次提交+4。",
+      "description": "整手基础分加上本卡的成长值，从+12起。每关结算时，每剩1次提交机会成长值+6。",
+      "shortText": "基础分+12；每关结算时每剩1次提交再+6。",
       "details": ""
     },
     {
@@ -1510,14 +1598,17 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "GrowthMultiply",
+      "trigger": "GrowthAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "growthPerEvent": 2
+        "growthKind": "additive",
+        "growthStart": 100,
+        "growthEvent": 50
       },
-      "description": "整手得分×n，n从1起。每在商店购买1次骰面改造n+0.1。",
-      "shortText": "得分倍率从×1起，每买1次骰面改造+0.1。",
-      "details": "战利品、赠礼里拿的骰面改造也算；骰子脆化也算；吹玻璃不算。"
+      "description": "加成从+1起。每做1次骰面改造+0.5（购买、自选、赠礼、战利品都算）。",
+      "shortText": "加成从+1起，每做1次骰面改造+0.5。",
+      "details": "货架、自选、战利品、赠礼里的骰面改造都算；一次改两个面只算1次；骰子脆化也算。"
     },
     {
       "id": "C61",
@@ -1527,30 +1618,36 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "GrowthMultiply",
+      "trigger": "GrowthAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "growthPerEvent": 2
+        "growthKind": "additive",
+        "growthStart": 100,
+        "growthEvent": 50
       },
-      "description": "整手得分×n，n从1起。牌型或颜色每升1级n+0.1（购买、自选研习、牌型提升都算）。",
-      "shortText": "得分倍率从×1起，牌型或颜色每升1级+0.1。",
+      "description": "加成从+1起。牌型或颜色每升1级+0.5（购买、自选研习、战利品、牌型提升都算）。",
+      "shortText": "加成从+1起，牌型或颜色每升1级+0.5。",
       "details": "商店购买、自选升级、战利品、牌型提升带来的升级都算；已满级没升就不算。"
     },
     {
       "id": "C62",
       "displayName": "熟能生巧",
-      "buyPrice": 3,
+      "buyPrice": 4,
       "baseSellPrice": 1,
       "salePriceMode": "fixed",
       "rarity": "common",
       "offerWeight": 6,
       "trigger": "GrowthBase",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "growthPerEvent": 1
+        "growthKind": "base",
+        "growthStart": 12,
+        "growthEvent": 1
       },
-      "description": "整手基础分加上本卡的成长值。每投掷1次成长值+1。",
-      "shortText": "基础分加成从+0起，每投掷1次+1。",
+      "description": "整手基础分加上本卡的成长值，从+12起。每投掷1次成长值+1。",
+      "shortText": "基础分+12，每投掷1次再+1。",
       "details": "遥控骰子的投掷也算。"
     },
     {
@@ -1561,14 +1658,15 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "ScoreMultiply",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "perDieUnits10": 3
+        "additivePerPermanentDie100": 50
       },
-      "description": "整手得分乘以永久骰数量的0.3倍（5颗×1.5，8颗×2.4），最低×1。",
-      "shortText": "得分×（永久骰颗数×0.3），如5颗×1.5。",
-      "details": "8颗×2.4；最低×1（3颗及以下按×1）；临时骰和本手碎掉的骰子不算。"
+      "description": "每颗永久骰，加成+0.5。",
+      "shortText": "每有1颗永久骰，加成+0.5。",
+      "details": "5颗+2.5，8颗+4；临时骰和本手碎掉的骰子不算。"
     },
     {
       "id": "C64",
@@ -1580,6 +1678,7 @@
       "offerWeight": 6,
       "trigger": "Retrigger",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "retriggers": 1,
         "index": 0
@@ -1598,6 +1697,7 @@
       "offerWeight": 4,
       "trigger": "Retrigger",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "retriggers": 2,
         "requireFullCapacity": true
@@ -1616,6 +1716,7 @@
       "offerWeight": 4,
       "trigger": "Retrigger",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "retriggers": 1,
         "pips": [
@@ -1637,6 +1738,7 @@
       "offerWeight": 4,
       "trigger": "Retrigger",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "retriggers": 1,
         "pips": [
@@ -1657,6 +1759,7 @@
       "offerWeight": 4,
       "trigger": "Retrigger",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "retriggers": 1
       },
@@ -1674,6 +1777,7 @@
       "offerWeight": 2,
       "trigger": "Retrigger",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "retriggers": 1
       },
@@ -1691,11 +1795,12 @@
       "offerWeight": 6,
       "trigger": "PoolBaseAdd",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "baseAddPerPoolDie": 6
+        "baseAddPerPoolDie": 9
       },
-      "description": "每颗留在骰池里没有提交的骰子，整手基础分+6。",
-      "shortText": "每颗留池骰，基础分+6。",
+      "description": "每颗留在骰池里没有提交的骰子，整手基础分+9。",
+      "shortText": "每颗留池骰，基础分+9。",
       "details": "留池骰：本手没有提交、留在骰池里的骰子。"
     },
     {
@@ -1708,6 +1813,7 @@
       "offerWeight": 2,
       "trigger": "PoolMultiply",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "pip": 6,
         "stepNumerator": 3,
@@ -1727,11 +1833,12 @@
       "offerWeight": 4,
       "trigger": "PoolBaseAdd",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "poolPipSumMultiplier": 2
+        "poolPipSumMultiplier": 3
       },
-      "description": "留在骰池里的骰子点数之和×2，加入整手基础分。",
-      "shortText": "留池骰点数之和×2，加到基础分。",
+      "description": "留在骰池里的骰子点数之和×3，加入整手基础分。",
+      "shortText": "留池骰点数之和×3，加到基础分。",
       "details": ""
     },
     {
@@ -1744,6 +1851,7 @@
       "offerWeight": 2,
       "trigger": "RedGrouping",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "idempotent": true
       },
@@ -1759,13 +1867,14 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "ScoreMultiply",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "scoreMultiplier": 3
+        "additiveBonus100": 400
       },
-      "description": "留在骰池里的骰子数量不少于提交骰数量时，整手得分×3。",
-      "shortText": "留池骰不少于提交的骰子时，得分×3。",
+      "description": "留在骰池里的骰子数量不少于提交骰数量时，加成+4。",
+      "shortText": "留池骰不少于提交的骰子时，加成+4。",
       "details": ""
     },
     {
@@ -1776,14 +1885,15 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "ScoreMultiply",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "scoreMultiplier": 3,
-        "maxRollsUsed": 1
+        "maxRollsUsed": 1,
+        "additiveBonus100": 450
       },
-      "description": "本手只投掷1次就提交时，整手得分×3。",
-      "shortText": "本手只掷1次就提交时，得分×3。",
+      "description": "本手只投掷1次就提交时，加成+4.5。",
+      "shortText": "本手只掷1次就提交时，加成+4.5。",
       "details": ""
     },
     {
@@ -1796,12 +1906,13 @@
       "offerWeight": 6,
       "trigger": "BaseAdd",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "baseAddPerExtraRoll": 10
+        "baseAddPerExtraRoll": 15
       },
-      "description": "本手从第2次投掷起，每多投1次整手基础分+10。",
-      "shortText": "本手从第2次投掷起，每掷1次基础分+10。",
-      "details": "掷2次+10，掷3次+20；再来三次、遥控骰子等额外投掷也算。"
+      "description": "本手从第2次投掷起，每多投1次整手基础分+15。",
+      "shortText": "本手从第2次投掷起，每掷1次基础分+15。",
+      "details": "掷2次+15，掷3次+30；再来三次、遥控骰子等额外投掷也算。"
     },
     {
       "id": "C77",
@@ -1811,13 +1922,14 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "ScoreMultiply",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "scoreMultiplier": 2
+        "additiveBonus100": 250
       },
-      "description": "提交时剩余投掷次数为0，整手得分×2。",
-      "shortText": "投掷次数用完后提交时，得分×2。",
+      "description": "提交时剩余投掷次数为0，加成+2.5。",
+      "shortText": "投掷次数用完后提交时，加成+2.5。",
       "details": ""
     },
     {
@@ -1830,6 +1942,7 @@
       "offerWeight": 4,
       "trigger": "RollBudget",
       "scoreEnchantEligible": false,
+      "isCultivation": false,
       "parameters": {
         "rollsPerHandDelta": 1
       },
@@ -1847,6 +1960,7 @@
       "offerWeight": 2,
       "trigger": "SubmissionBudget",
       "scoreEnchantEligible": false,
+      "isCultivation": false,
       "parameters": {
         "submissionsDelta": 1
       },
@@ -1864,12 +1978,13 @@
       "offerWeight": 4,
       "trigger": "BaseAdd",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "pairSum": 7,
-        "baseAddPerPair": 14
+        "baseAddPerPair": 30
       },
-      "description": "提交骰中每有一对有效点数相加为7的骰子（每颗只配一次），整手基础分+14。",
-      "shortText": "每有一对点数相加为7的提交骰子，基础分+14。",
+      "description": "提交骰中每有一对有效点数相加为7的骰子（每颗只配一次），整手基础分+30。",
+      "shortText": "每有一对点数相加为7的提交骰子，基础分+30。",
       "details": "1+6、2+5、3+4；每颗骰子只能配一次对。"
     },
     {
@@ -1880,13 +1995,14 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "ScoreMultiply",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "scoreMultiplier": 3
+        "additiveBonus100": 800
       },
-      "description": "主牌型为散点时，整手得分×3。",
-      "shortText": "没有任何牌型（散点）时，得分×3。",
+      "description": "主牌型为散点时，加成+8。",
+      "shortText": "没有任何牌型（散点）时，加成+8。",
       "details": ""
     },
     {
@@ -1897,16 +2013,17 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "ScoreMultiply",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "scoreMultiplier": 3,
         "handIds": [
           "full_house"
-        ]
+        ],
+        "additiveBonus100": 450
       },
-      "description": "提交含三条带一对时，整手得分×3。",
-      "shortText": "提交含三条带一对时，得分×3。",
+      "description": "提交含三条带一对时，加成+4.5。",
+      "shortText": "提交含三条带一对时，加成+4.5。",
       "details": ""
     },
     {
@@ -1917,13 +2034,14 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "ScoreMultiply",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "scoreMultiplier": 3
+        "additiveBonus100": 600
       },
-      "description": "顺子成立时，整手得分×3。",
-      "shortText": "有顺子时，得分×3。",
+      "description": "顺子成立时，加成+6。",
+      "shortText": "有顺子时，加成+6。",
       "details": "简单顺子放宽后的顺子也算。"
     },
     {
@@ -1936,12 +2054,13 @@
       "offerWeight": 6,
       "trigger": "HandMultiplierAdd",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "handMultAdd100": 150,
+        "handMultAdd100": 200,
         "minSamePip": 2
       },
-      "description": "提交含对子时，牌型倍率+1.5。",
-      "shortText": "有一种点数至少2颗时，牌型倍率+1.5。",
+      "description": "提交含对子时，牌型倍率+2。",
+      "shortText": "有一种点数至少2颗时，牌型倍率+2。",
       "details": "两对、三条等也算。"
     },
     {
@@ -1954,12 +2073,13 @@
       "offerWeight": 6,
       "trigger": "HandMultiplierAdd",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "handMultAdd100": 300,
+        "handMultAdd100": 400,
         "minSamePip": 3
       },
-      "description": "提交含三条时，牌型倍率+3。",
-      "shortText": "有一种点数至少3颗时，牌型倍率+3。",
+      "description": "提交含三条时，牌型倍率+4。",
+      "shortText": "有一种点数至少3颗时，牌型倍率+4。",
       "details": "四条、豹子等也算。"
     },
     {
@@ -1970,18 +2090,19 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "ScoreMultiply",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "scoreMultiplier": 4,
         "handIds": [
           "three_pair",
           "two_trips",
           "four_pair"
-        ]
+        ],
+        "additiveBonus100": 800
       },
-      "description": "提交含三对子、双三条或四对子时，整手得分×4。",
-      "shortText": "提交含三对子、双三条或四对子时，得分×4。",
+      "description": "提交含三对子、双三条或四对子时，加成+8。",
+      "shortText": "提交含三对子、双三条或四对子时，加成+8。",
       "details": ""
     },
     {
@@ -1994,6 +2115,7 @@
       "offerWeight": 2,
       "trigger": "ScoreMultiply",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "minSamePip": 4,
         "stepNumerator": 3,
@@ -2011,14 +2133,15 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "ScoreMultiply",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "scoreMultiplier": 3,
-        "minDice": 4
+        "minDice": 4,
+        "additiveBonus100": 600
       },
-      "description": "至少提交4颗且有效点数互不相同时，整手得分×3。",
-      "shortText": "提交4颗以上且点数各不相同时，得分×3。",
+      "description": "至少提交4颗且有效点数互不相同时，加成+6。",
+      "shortText": "提交4颗以上且点数各不相同时，加成+6。",
       "details": ""
     },
     {
@@ -2031,30 +2154,14 @@
       "offerWeight": 2,
       "trigger": "ScoreMultiply",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "stepNumerator": 3,
-        "stepDenominator": 2
+        "stepNumerator": 13,
+        "stepDenominator": 10
       },
-      "description": "每颗黄金面朝上的提交骰，整手得分×1.5。",
-      "shortText": "每颗黄金面朝上的提交骰子，得分×1.5。",
-      "details": "多颗相乘（2颗×2.25）。"
-    },
-    {
-      "id": "C90",
-      "displayName": "玻璃心",
-      "buyPrice": 4,
-      "baseSellPrice": 1,
-      "salePriceMode": "fixed",
-      "rarity": "uncommon",
-      "offerWeight": 4,
-      "trigger": "GrowthMultiply",
-      "scoreEnchantEligible": true,
-      "parameters": {
-        "growthPerEvent": 15
-      },
-      "description": "整手得分×n，n从1起。每有1颗玻璃骰碎裂n+0.75。",
-      "shortText": "得分倍率从×1起，每碎1颗玻璃骰+0.75。",
-      "details": ""
+      "description": "每颗黄金面朝上的提交骰，整手得分×1.3。",
+      "shortText": "每颗黄金面朝上的提交骰子，得分×1.3。",
+      "details": "多颗相乘（2颗×1.69）；黄金面自带的加成+0.5照常另算。"
     },
     {
       "id": "C91",
@@ -2064,18 +2171,16 @@
       "salePriceMode": "fixed",
       "rarity": "common",
       "offerWeight": 6,
-      "trigger": "PipContribution",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "perDieAdd": 8,
-        "textures": [
-          "smooth",
-          "rough"
-        ]
+        "minDice": 3,
+        "additiveBonus100": 250
       },
-      "description": "每颗光滑或粗糙面朝上的提交骰，点数贡献+8。",
-      "shortText": "朝上的面光滑或粗糙的提交骰子，每颗计分+8。",
-      "details": ""
+      "description": "至少提交3颗，且相邻有效点数一高一低交替排列时，加成+2.5。",
+      "shortText": "提交3颗以上且点数一高一低交替时，加成+2.5。",
+      "details": "如6-2-5-1-4或2-6-1；相邻两颗不能相同；从高开始或从低开始都可以。"
     },
     {
       "id": "C92",
@@ -2087,11 +2192,12 @@
       "offerWeight": 4,
       "trigger": "PipContribution",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "perDieAdd": 10
+        "perDieAdd": 15
       },
-      "description": "提交骰所属的骰子六个面同色时，该骰点数贡献+10。",
-      "shortText": "六个面同色的提交骰子，每颗计分+10。",
+      "description": "提交骰所属的骰子六个面同色时，该骰点数贡献+15。",
+      "shortText": "六个面同色的提交骰子，每颗计分+15。",
       "details": ""
     },
     {
@@ -2104,11 +2210,12 @@
       "offerWeight": 4,
       "trigger": "PipMultiply",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "dieContributionMultiplier": 2
+        "dieContributionMultiplier": 3
       },
-      "description": "提交骰所属的骰子六个面点数全部相同时，该骰点数贡献×2。",
-      "shortText": "六个面点数相同的提交骰子，每颗计分×2。",
+      "description": "提交骰所属的骰子六个面点数全部相同时，该骰点数贡献×3。",
+      "shortText": "六个面点数相同的提交骰子，每颗计分×3。",
       "details": ""
     },
     {
@@ -2121,6 +2228,7 @@
       "offerWeight": 6,
       "trigger": "PipContribution",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {},
       "description": "每颗提交骰对面的永久点数也加入它的点数贡献。",
       "shortText": "提交的骰子，每颗计分加上它对面那一面的点数。",
@@ -2136,6 +2244,7 @@
       "offerWeight": 6,
       "trigger": "StageFinalize",
       "scoreEnchantEligible": false,
+      "isCultivation": false,
       "parameters": {
         "goldPerStage": 3
       },
@@ -2153,6 +2262,7 @@
       "offerWeight": 4,
       "trigger": "StageFinalize",
       "scoreEnchantEligible": false,
+      "isCultivation": false,
       "parameters": {
         "interestPrincipalAdd": 25
       },
@@ -2170,6 +2280,7 @@
       "offerWeight": 4,
       "trigger": "AfterScore",
       "scoreEnchantEligible": false,
+      "isCultivation": false,
       "parameters": {
         "goldPerTrigger": 3,
         "maxTriggersPerStage": 2,
@@ -2189,6 +2300,7 @@
       "offerWeight": 4,
       "trigger": "ShopPrice",
       "scoreEnchantEligible": false,
+      "isCultivation": false,
       "parameters": {
         "priceDelta": -1
       },
@@ -2206,6 +2318,7 @@
       "offerWeight": 4,
       "trigger": "StageFinalize",
       "scoreEnchantEligible": false,
+      "isCultivation": false,
       "parameters": {
         "saleBonusPerStage": 1
       },
@@ -2223,12 +2336,15 @@
       "offerWeight": 2,
       "trigger": "GrowthMultiply",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "growthPerBuyPrice": 2
+        "growthKind": "multiplier",
+        "growthStart": 125,
+        "growthEvent": 15
       },
-      "description": "整手得分×n，n从1起。每关开始时摧毁右侧相邻的控制器，n增加该卡基础买入价（不含附魔加价）的十分之一。放在最右侧则不摧毁。",
-      "shortText": "每关开始时摧毁右邻卡牌，倍率+被摧毁卡的基础价×0.1。",
-      "details": "得分倍率从×1起；按被摧毁卡的基础价，不含附魔加价；放在最右边时不摧毁、不成长；摧毁不算卖出；新买的卡排在最右，可在商店或关卡预览里拖动调序。"
+      "description": "整手得分×n，n从1.25起。每关开始时摧毁右侧相邻的卡牌，n增加该卡基础买入价（不含附魔加价）×0.15。放在最右侧则不摧毁。",
+      "shortText": "每关开始时摧毁右邻卡牌，倍率+其基础价×0.15。",
+      "details": "得分倍率从×1.25起；按被摧毁卡的基础价，不含附魔加价；放在最右边时不摧毁、不成长；摧毁不算卖出；新买的卡排在最右，可在商店或关卡预览里拖动调序。"
     },
     {
       "id": "C101",
@@ -2240,12 +2356,13 @@
       "offerWeight": 2,
       "trigger": "ScoreMultiply",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "scoreMultiplier": 4,
-        "submissionsDelta": -1
+        "submissionsDelta": -1,
+        "scoreMultiplier100": 300
       },
-      "description": "整手得分×4；每关提交次数−1，最少1次。",
-      "shortText": "得分×4；每关提交次数−1（最少1次）。",
+      "description": "整手得分×3；每关提交次数−1，最少1次。",
+      "shortText": "得分×3；每关提交次数−1（最少1次）。",
       "details": ""
     },
     {
@@ -2256,13 +2373,14 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "ScoreMultiply",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "scoreMultiplier": 3
+        "additiveBonus100": 450
       },
-      "description": "本关最后一次提交机会时，整手得分×3。",
-      "shortText": "本关最后1次提交时，得分×3。",
+      "description": "本关最后一次提交机会时，加成+4.5。",
+      "shortText": "本关最后1次提交时，加成+4.5。",
       "details": "指提交前本关只剩这1次提交机会。"
     },
     {
@@ -2275,14 +2393,15 @@
       "offerWeight": 4,
       "trigger": "ScoreMultiply",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "scoreMultiplier": 2,
         "maxOwnedPermanentDice": 4,
-        "strictScoreMultiplier": 4,
-        "strictMaxOwnedPermanentDice": 3
+        "strictMaxOwnedPermanentDice": 3,
+        "scoreMultiplier100": 200,
+        "strictScoreMultiplier100": 300
       },
-      "description": "永久骰不超过4颗时整手得分×2，不超过3颗时×4。",
-      "shortText": "永久骰≤4颗时得分×2，≤3颗时×4。",
+      "description": "永久骰不超过4颗时整手得分×2，不超过3颗时×3。",
+      "shortText": "永久骰≤4颗时得分×2，≤3颗时×3。",
       "details": "两档不叠加；临时骰不算。"
     },
     {
@@ -2293,14 +2412,15 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "ScoreMultiply",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "scoreMultiplier": 3,
-        "minDice": 3
+        "minDice": 3,
+        "additiveBonus100": 450
       },
-      "description": "至少提交3颗，且每两颗相邻提交骰的有效颜色都不同时，整手得分×3。",
-      "shortText": "提交3颗以上且红蓝交替排列时，得分×3。",
+      "description": "至少提交3颗，且每两颗相邻提交骰的有效颜色都不同时，加成+4.5。",
+      "shortText": "提交3颗以上且红蓝交替排列时，加成+4.5。",
       "details": "每两颗相邻骰子的颜色都不同。"
     },
     {
@@ -2311,13 +2431,14 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "ScoreMultiply",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "scoreMultiplier": 2
+        "additiveBonus100": 300
       },
-      "description": "提交骰里红蓝都有，且所有红骰都排在所有蓝骰左侧时，整手得分×2。",
-      "shortText": "红骰全部排在蓝骰左边时，得分×2。",
+      "description": "提交骰里红蓝都有，且所有红骰都排在所有蓝骰左侧时，加成+3。",
+      "shortText": "红骰全部排在蓝骰左边时，加成+3。",
       "details": "红、蓝两种颜色都要有。"
     },
     {
@@ -2328,15 +2449,16 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "ScoreMultiply",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "scoreMultiplier": 2,
-        "minDice": 3
+        "minDice": 3,
+        "additiveBonus100": 250
       },
-      "description": "至少提交3颗，且有效点数左右对称时，整手得分×2。",
-      "shortText": "提交3颗以上且点数左右对称（如2-5-2）时，得分×2。",
-      "details": "第1颗与最后一颗相同、第2颗与倒数第2颗相同，依此类推。"
+      "description": "至少提交3颗，且有效点数左右对称时，加成+2.5。",
+      "shortText": "提交3颗以上且点数左右对称时，加成+2.5。",
+      "details": "如2-5-2：第1颗与最后一颗相同、第2颗与倒数第2颗相同，依此类推。"
     },
     {
       "id": "C107",
@@ -2348,11 +2470,12 @@
       "offerWeight": 6,
       "trigger": "PipContribution",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "perDieAdd": 10
+        "perDieAdd": 20
       },
-      "description": "每颗有效点数恰好比左边相邻骰大1的提交骰，点数贡献+10。",
-      "shortText": "比左边那颗正好大1点的提交骰子，每颗计分+10。",
+      "description": "每颗有效点数恰好比左边相邻骰大1的提交骰，点数贡献+20。",
+      "shortText": "比左边那颗正好大1点的提交骰子，每颗计分+20。",
       "details": ""
     },
     {
@@ -2365,12 +2488,13 @@
       "offerWeight": 6,
       "trigger": "BaseAdd",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "baseAddPerPip": 4,
+        "baseAddPerPip": 6,
         "index": 0
       },
-      "description": "第一颗提交骰的有效点数×4，加入整手基础分。",
-      "shortText": "第一颗提交的骰子点数×4，加到基础分。",
+      "description": "第一颗提交骰的有效点数×6，加入整手基础分。",
+      "shortText": "第一颗提交的骰子点数×6，加到基础分。",
       "details": "第一颗被封印时仍按它的点数加。"
     },
     {
@@ -2383,6 +2507,7 @@
       "offerWeight": 4,
       "trigger": "Retrigger",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "retriggers": 2,
         "minDice": 3
@@ -2401,6 +2526,7 @@
       "offerWeight": 4,
       "trigger": "StageStart",
       "scoreEnchantEligible": false,
+      "isCultivation": false,
       "parameters": {
         "itemsPerStage": 1
       },
@@ -2418,6 +2544,7 @@
       "offerWeight": 4,
       "trigger": "ShopGift",
       "scoreEnchantEligible": false,
+      "isCultivation": false,
       "parameters": {
         "giftChoices": 3,
         "giftPicks": 1
@@ -2436,6 +2563,7 @@
       "offerWeight": 4,
       "trigger": "StageFinalize",
       "scoreEnchantEligible": false,
+      "isCultivation": false,
       "parameters": {
         "rarity": "common"
       },
@@ -2453,6 +2581,7 @@
       "offerWeight": 4,
       "trigger": "ShopGift",
       "scoreEnchantEligible": false,
+      "isCultivation": false,
       "parameters": {
         "giftChoices": 3,
         "giftPicks": 1
@@ -2471,6 +2600,7 @@
       "offerWeight": 2,
       "trigger": "BossClear",
       "scoreEnchantEligible": false,
+      "isCultivation": false,
       "parameters": {
         "enchantsPerBoss": 1
       },
@@ -2488,20 +2618,19 @@
       "offerWeight": 6,
       "trigger": "StageFinalize",
       "scoreEnchantEligible": false,
+      "isCultivation": true,
       "parameters": {
-        "facesPerStage": 2,
+        "facesPerStage": 3,
         "upgradeIds": [
-          "U01",
-          "U02",
           "U03",
           "U04",
           "U06",
-          "U07"
+          "U08"
         ]
       },
-      "description": "每关结算时做2次：随机1个永久骰面尝试一种随机的骰面改造（光滑、粗糙、染红、染蓝、黄金、随机变形）；该面已有这种属性时落空。",
-      "shortText": "每关结算时2次：随机一个骰面获得随机改造。",
-      "details": "只选永久骰；改造从光滑、粗糙、染红、染蓝、黄金、随机变形里随机；该面已有这种效果时这次落空。"
+      "description": "每关结算时，随机3个永久骰面各获得一项随机改造（染红、染蓝、黄金、精雕里它还能做的一种）。",
+      "shortText": "每关结算时，随机3个骰面各得一项随机改造。",
+      "details": "只选永久骰；改造从染红、染蓝、黄金、精雕里随机，只抽这一面还能做的；不会落空，除非所有面都改不动了。"
     },
     {
       "id": "C116",
@@ -2513,6 +2642,7 @@
       "offerWeight": 4,
       "trigger": "BossClear",
       "scoreEnchantEligible": false,
+      "isCultivation": false,
       "parameters": {
         "dicePerBoss": 1
       },
@@ -2530,12 +2660,13 @@
       "offerWeight": 2,
       "trigger": "AfterScore",
       "scoreEnchantEligible": true,
+      "isCultivation": true,
       "parameters": {
-        "targetIndices": "last"
+        "targetIndices": "first_and_last_distinct"
       },
-      "description": "每次有效提交后，最后一颗提交骰的朝上面永久镀金。",
-      "shortText": "每次提交后，最后一颗骰子朝上的面永久镀金。",
-      "details": ""
+      "description": "每次有效提交后，第一颗和最后一颗提交骰的朝上面永久镀金。",
+      "shortText": "每次提交后，首尾两颗骰子朝上的面永久镀金。",
+      "details": "只提交1颗时只镀这一颗；新镀金的面权重+1。"
     },
     {
       "id": "C118",
@@ -2547,6 +2678,7 @@
       "offerWeight": 4,
       "trigger": "AfterScore",
       "scoreEnchantEligible": true,
+      "isCultivation": true,
       "parameters": {
         "targetIndices": "all_opposite"
       },
@@ -2557,19 +2689,21 @@
     {
       "id": "C119",
       "displayName": "潜移默化",
-      "buyPrice": 7,
+      "buyPrice": 6,
       "baseSellPrice": 1,
       "salePriceMode": "fixed",
       "rarity": "rare",
       "offerWeight": 2,
       "trigger": "AfterScore",
       "scoreEnchantEligible": true,
+      "isCultivation": true,
       "parameters": {
-        "index": 0
+        "targetIndices": "first_and_last_distinct",
+        "facesPerDie": 2
       },
-      "description": "每次有效提交后，第一颗提交骰上一个点数不同的面，永久变成朝上面的点数。",
-      "shortText": "每次提交后，第一颗骰子的另一面永久变成朝上的点数。",
-      "details": "改的是按固定顺序第一个与朝上点数不同的面（不是随机）；六面相同时不变；按骰面本来的点数。"
+      "description": "每次有效提交后，第一颗和最后一颗提交骰各有两个点数不同的面，永久变成各自朝上面的点数。",
+      "shortText": "每次提交后，首尾两颗各有两面变成朝上的点数。",
+      "details": "改的是按固定顺序最前面两个与朝上点数不同的面（不是随机）；不足两个就改到没有为止；按骰面本来的点数。"
     },
     {
       "id": "C120",
@@ -2581,12 +2715,14 @@
       "offerWeight": 2,
       "trigger": "StageFinalize",
       "scoreEnchantEligible": false,
+      "isCultivation": true,
       "parameters": {
-        "delta": 1
+        "delta": 1,
+        "facesPerDie": 3
       },
-      "description": "每关结算时，每颗永久骰点数最小的面+1，上限6。",
-      "shortText": "每关结算时，每颗永久骰点数最小的面+1，上限6。",
-      "details": "有几个最小面时只改其中固定的一个。"
+      "description": "每关结算时，每颗永久骰点数最小的三个面各+1，上限6。",
+      "shortText": "每关结算时，每颗永久骰最小的三个面各+1。",
+      "details": "上限6点；点数相同时按固定顺序选。"
     },
     {
       "id": "C121",
@@ -2598,12 +2734,14 @@
       "offerWeight": 4,
       "trigger": "StageFinalize",
       "scoreEnchantEligible": false,
+      "isCultivation": true,
       "parameters": {
-        "delta": -1
+        "delta": -1,
+        "facesPerDie": 3
       },
-      "description": "每关结算时，每颗永久骰点数最大的面−1，下限1。",
-      "shortText": "每关结算时，每颗永久骰点数最大的面−1，下限1。",
-      "details": "有几个最大面时只改其中固定的一个。"
+      "description": "每关结算时，每颗永久骰点数最大的三个面各−1，下限1。",
+      "shortText": "每关结算时，每颗永久骰最大的三个面各−1。",
+      "details": "下限1点；点数相同时按固定顺序选。"
     },
     {
       "id": "C122",
@@ -2615,12 +2753,13 @@
       "offerWeight": 4,
       "trigger": "AfterScore",
       "scoreEnchantEligible": true,
+      "isCultivation": true,
       "parameters": {
         "pip": 5
       },
-      "description": "每次有效提交后，每颗提交骰的朝上面点数永久向5靠近1点。",
-      "shortText": "每次提交后，提交骰子朝上的面永久向5靠近1点。",
-      "details": "1~4点+1，6点−1，5点不变。"
+      "description": "每次有效提交后，每颗提交骰的朝上面点数永久变成5点。",
+      "shortText": "每次提交后，提交骰子朝上的面永久变成5点。",
+      "details": ""
     },
     {
       "id": "C123",
@@ -2632,52 +2771,57 @@
       "offerWeight": 4,
       "trigger": "AfterScore",
       "scoreEnchantEligible": true,
+      "isCultivation": true,
       "parameters": {
         "pips": [
           2,
           3
-        ]
+        ],
+        "lowPipDelta": 1,
+        "highPipDelta": -2,
+        "highPipFloor": 3
       },
-      "description": "每次有效提交后，每颗提交骰的朝上面：1点变2点；4、5、6点−1。",
-      "shortText": "每次提交后，提交骰子朝上的面：1点→2点，4~6点−1。",
-      "details": "永久生效；2、3点不变。"
+      "description": "每次有效提交后，每颗提交骰的朝上面：1点变2点；4、5、6点−2，最低到3点。",
+      "shortText": "每次提交后，朝上的面：1点→2点，4~6点−2。",
+      "details": "永久生效；2、3点不变；减点最低到3点（4→3、5→3、6→4）。"
     },
     {
       "id": "C124",
       "displayName": "灌铅",
-      "buyPrice": 6,
+      "buyPrice": 5,
       "baseSellPrice": 1,
       "salePriceMode": "fixed",
       "rarity": "rare",
       "offerWeight": 2,
       "trigger": "AfterScore",
       "scoreEnchantEligible": true,
+      "isCultivation": true,
       "parameters": {
-        "delta": 1
+        "delta": 2
       },
-      "description": "每次有效提交后，每颗提交骰朝上面的权重+1（上限5），以后更容易掷出这一面。",
-      "shortText": "每次提交后，提交骰子朝上的面权重+1（更容易掷出）。",
+      "description": "每次有效提交后，每颗提交骰朝上面的权重+2（上限5），以后更容易掷出这一面。",
+      "shortText": "每次提交后，提交骰子朝上的面权重+2。",
       "details": "权重最高5，与“配重”共用上限。"
     },
     {
       "id": "C125",
       "displayName": "抛光匠",
-      "buyPrice": 3,
+      "buyPrice": 6,
       "baseSellPrice": 1,
       "salePriceMode": "fixed",
-      "rarity": "common",
-      "offerWeight": 6,
-      "trigger": "AfterScore",
+      "rarity": "rare",
+      "offerWeight": 2,
+      "trigger": "GrowthMultiply",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "targetIndices": "first_and_last_distinct",
-        "textures": [
-          "smooth"
-        ]
+        "growthKind": "multiplier",
+        "growthStart": 125,
+        "growthEvent": 20
       },
-      "description": "每次有效提交后，第一颗和最后一颗提交骰的朝上面若没有纹理，变为光滑。",
-      "shortText": "每次提交后，首尾两颗骰子朝上的面若无纹理就变光滑。",
-      "details": "永久生效；只提交1颗时只改这一颗。"
+      "description": "整手得分×n，n从1.25起。本关有任何一手刷新本局最高单手得分，过关时n+0.2，每关最多一次。",
+      "shortText": "本关刷新本局最高单手得分，过关时倍率+0.2。",
+      "details": "得分倍率从×1.25起；每关最多加一次；打平不算刷新。"
     },
     {
       "id": "C126",
@@ -2689,11 +2833,12 @@
       "offerWeight": 4,
       "trigger": "AfterScore",
       "scoreEnchantEligible": true,
+      "isCultivation": true,
       "parameters": {
-        "delta": 1
+        "delta": 2
       },
-      "description": "每次有效提交后，每颗留在骰池里的骰子，朝上面点数永久+1，上限6。",
-      "shortText": "每次提交后，每颗留池骰朝上的面永久+1点。",
+      "description": "每次有效提交后，每颗留在骰池里的骰子，朝上面点数永久+2，上限6。",
+      "shortText": "每次提交后，每颗留池骰朝上的面永久+2点。",
       "details": "最高6点。"
     },
     {
@@ -2706,31 +2851,14 @@
       "offerWeight": 4,
       "trigger": "AfterScore",
       "scoreEnchantEligible": true,
+      "isCultivation": true,
       "parameters": {
-        "submissionOrdinal": 0,
         "minDice": 2,
         "sourceIndex": 0
       },
-      "description": "本关第一次有效提交且至少2颗时，把第一颗提交骰朝上面的点数、颜色、纹理、黄金复制到最后一颗提交骰的朝上面。",
-      "shortText": "本关首次提交2颗以上时，第一颗朝上的面复制给最后一颗。",
+      "description": "每次有效提交至少2颗时，把第一颗提交骰朝上面的点数、颜色、纹理、黄金复制到最后一颗提交骰的朝上面。",
+      "shortText": "每次提交2颗以上时，第一颗朝上的面复制给最后一颗。",
       "details": "复制点数、颜色、纹理和黄金，永久生效；改的是最后一颗朝上的那一面。"
-    },
-    {
-      "id": "C128",
-      "displayName": "吹玻璃",
-      "buyPrice": 4,
-      "baseSellPrice": 1,
-      "salePriceMode": "fixed",
-      "rarity": "uncommon",
-      "offerWeight": 4,
-      "trigger": "StageStart",
-      "scoreEnchantEligible": false,
-      "parameters": {
-        "dicePerStage": 1
-      },
-      "description": "每关开始时，编号最小的非玻璃永久骰变为玻璃骰。",
-      "shortText": "每关开始时，一颗非玻璃的永久骰变成玻璃骰。",
-      "details": "选最早获得的那颗；全部已是玻璃时不生效；不算购买骰面改造；被百变模仿复制时不生效。"
     },
     {
       "id": "C129",
@@ -2740,13 +2868,16 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "GrowthMultiply",
+      "trigger": "GrowthAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "growthPerEvent": 8
+        "growthKind": "additive",
+        "growthStart": 100,
+        "growthEvent": 250
       },
-      "description": "整手得分×n，n从1起。每通过一个首领关n+0.4。",
-      "shortText": "得分倍率从×1起，每通过一个首领关+0.4。",
+      "description": "加成从+1起。每通过一个首领关+2.5。",
+      "shortText": "加成从+1起，每通过一个首领关+2.5。",
       "details": ""
     },
     {
@@ -2759,8 +2890,9 @@
       "offerWeight": 2,
       "trigger": "ScoreMultiply",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "scoreMultiplier": 3
+        "scoreMultiplier100": 300
       },
       "description": "首领关里整手得分×3。",
       "shortText": "首领关里得分×3。",
@@ -2776,6 +2908,7 @@
       "offerWeight": 4,
       "trigger": "StageStart",
       "scoreEnchantEligible": false,
+      "isCultivation": false,
       "parameters": {},
       "description": "首领关开始时自毁，本关的首领减益解除。",
       "shortText": "首领关开始时自毁，本关的首领减益解除。",
@@ -2789,13 +2922,16 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "GrowthMultiply",
+      "trigger": "GrowthAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "growthPerEvent": 8
+        "growthKind": "additive",
+        "growthStart": 100,
+        "growthEvent": 250
       },
-      "description": "整手得分×n，n从1起。每完成一次高压挑战n+0.4。",
-      "shortText": "得分倍率从×1起，每通过一次高压挑战+0.4。",
+      "description": "加成从+1起。每完成一次高压挑战+2.5。",
+      "shortText": "加成从+1起，每通过一次高压挑战+2.5。",
       "details": ""
     },
     {
@@ -2808,6 +2944,7 @@
       "offerWeight": 6,
       "trigger": "StageFinalize",
       "scoreEnchantEligible": false,
+      "isCultivation": false,
       "parameters": {
         "goldPerBoss": 4,
         "goldPerPressure": 2
@@ -2824,14 +2961,17 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "GrowthMultiply",
+      "trigger": "GrowthAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "growthPerEvent": 2
+        "growthKind": "additive",
+        "growthStart": 100,
+        "growthEvent": 40
       },
-      "description": "整手得分×n，n从1起。每使用1个道具n+0.1。",
-      "shortText": "得分倍率从×1起，每使用1个道具+0.1。",
-      "details": ""
+      "description": "加成从+1起。每使用1次道具+0.4。",
+      "shortText": "加成从+1起，每使用1次道具+0.4。",
+      "details": "钥匙串每用1次都算。"
     },
     {
       "id": "C135",
@@ -2843,12 +2983,13 @@
       "offerWeight": 6,
       "trigger": "BaseAdd",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "baseAddPerItem": 10
+        "baseAddPerItem": 15
       },
-      "description": "背包里每有1个道具，整手基础分+10。",
-      "shortText": "道具栏里每有1个道具，基础分+10。",
-      "details": ""
+      "description": "背包里每有1个道具，整手基础分+15。",
+      "shortText": "道具栏里每有1个道具，基础分+15。",
+      "details": "钥匙串不管剩几次都算1个。"
     },
     {
       "id": "C136",
@@ -2860,6 +3001,7 @@
       "offerWeight": 4,
       "trigger": "StageStart",
       "scoreEnchantEligible": false,
+      "isCultivation": false,
       "parameters": {
         "dicePerStage": 1
       },
@@ -2870,19 +3012,20 @@
     {
       "id": "C137",
       "displayName": "客串明星",
-      "buyPrice": 3,
+      "buyPrice": 4,
       "baseSellPrice": 1,
       "salePriceMode": "fixed",
       "rarity": "common",
       "offerWeight": 6,
-      "trigger": "PipContribution",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "perDieAdd": 15
+        "additivePerMatch100": 100
       },
-      "description": "每颗提交的临时骰，点数贡献+15。",
-      "shortText": "提交的临时骰，每颗计分+15。",
-      "details": ""
+      "description": "每关开始时随机指定一个明星点数；每颗有效点数等于明星点数的提交骰，加成+1。",
+      "shortText": "每颗点数等于本关明星点数的提交骰，加成+1。",
+      "details": "明星点数每关开始时随机抽一个，显示在卡面上；被百变模仿复制时用同一个点数。"
     },
     {
       "id": "C138",
@@ -2894,12 +3037,13 @@
       "offerWeight": 2,
       "trigger": "ScoreMultiply",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "scoreMultiplier": 3,
-        "goldCost": 3
+        "goldCost": 2,
+        "scoreMultiplier100": 250
       },
-      "description": "提交时钱包至少3金币：整手得分×3，计分后失去3金币。",
-      "shortText": "提交时有3金币以上：得分×3，之后扣3金币。",
+      "description": "提交时钱包至少2金币：整手得分×2.5，计分后失去2金币。",
+      "shortText": "提交时有2金币以上：得分×2.5，之后扣2金币。",
       "details": "扣的金币不影响本次得分（如有钱真好）。"
     },
     {
@@ -2910,16 +3054,16 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "ScoreMultiply",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "goldPerStep": 10,
-        "stepUnits4": 1,
-        "maxSteps": 8
+        "additivePerGoldStep100": 50
       },
-      "description": "钱包每满10金币，整手得分的倍率+0.25（40金币×2），最高×3。",
-      "shortText": "每有10金币，得分倍率+0.25（从×1起，最高×3）。",
-      "details": "40金币×2，80金币及以上×3；按提交那一刻的金币算。"
+      "description": "钱包每满10金币，加成+0.5，不设上限。",
+      "shortText": "每有10金币，加成+0.5。",
+      "details": "40金币+2；按提交那一刻的金币算。"
     },
     {
       "id": "C140",
@@ -2931,6 +3075,7 @@
       "offerWeight": 4,
       "trigger": "ShopPrice",
       "scoreEnchantEligible": false,
+      "isCultivation": false,
       "parameters": {},
       "description": "控制器按标价（买入价加附魔加价）全额回收；在本家商店刚取得的仍按半价。",
       "shortText": "卖出卡牌时按全价回收（含附魔加价）。",
@@ -2944,15 +3089,17 @@
       "salePriceMode": "fixed",
       "rarity": "common",
       "offerWeight": 6,
-      "trigger": "ScoreMultiply",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "initialMultiplierUnits2": 5,
-        "expireGrowth": 3
+        "expireGrowth": 4,
+        "initialAdditive100": 400,
+        "decayPerClear100": 100
       },
-      "description": "整手得分×2.5；每通过一关倍率−0.5；降到×1时自毁。",
-      "shortText": "得分×2.5；每通过一关−0.5，降到×1时这张卡消失。",
-      "details": "也就是通过3关后消失；自毁不算卖出。"
+      "description": "加成+4；每通过一关加成−1；降到0时自毁。",
+      "shortText": "加成+4；每通过一关−1，降到0时这张卡消失。",
+      "details": "也就是通过4关后消失；自毁不算卖出。"
     },
     {
       "id": "C142",
@@ -2964,6 +3111,7 @@
       "offerWeight": 4,
       "trigger": "HandMultiplierAdd",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "handMultAdd100": 1000
       },
@@ -2981,12 +3129,13 @@
       "offerWeight": 4,
       "trigger": "Retrigger",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "retriggers": 1,
+        "retriggers": 2,
         "requiredDice": 2
       },
-      "description": "有效点数恰好出现2颗的那些提交骰，点数贡献各再计1次。",
-      "shortText": "某个点数恰好有2颗时，这2颗各再计1次。",
+      "description": "有效点数恰好出现2颗的那些提交骰，点数贡献各再计2次。",
+      "shortText": "某个点数恰好有2颗时，这2颗各再计2次。",
       "details": "可以有多组；3颗以上相同的不算。"
     },
     {
@@ -2997,30 +3146,14 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "ScoreMultiply",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "scoreMultiplier": 3
+        "additiveBonus100": 400
       },
-      "description": "提交的有效点数全为偶数时，整手得分×3。",
-      "shortText": "提交的点数全是偶数时，得分×3。",
-      "details": ""
-    },
-    {
-      "id": "C145",
-      "displayName": "防碎膜",
-      "buyPrice": 4,
-      "baseSellPrice": 1,
-      "salePriceMode": "fixed",
-      "rarity": "uncommon",
-      "offerWeight": 4,
-      "trigger": "RollRisk",
-      "scoreEnchantEligible": false,
-      "parameters": {
-        "glassBreakPercent": 2
-      },
-      "description": "玻璃骰每次投掷的碎裂概率由8%降为2%。",
-      "shortText": "玻璃骰每次投掷的碎裂概率由8%降为2%。",
+      "description": "提交的有效点数全为偶数时，加成+4。",
+      "shortText": "提交的点数全是偶数时，加成+4。",
       "details": ""
     },
     {
@@ -3033,6 +3166,7 @@
       "offerWeight": 4,
       "trigger": "RedGrouping",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "idempotent": true
       },
@@ -3048,13 +3182,14 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "ScoreMultiply",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "stepUnits4": 1
+        "additivePerPoolDie100": 60
       },
-      "description": "每颗留在骰池里没有提交的骰子，整手得分的倍率+0.25。",
-      "shortText": "每颗留池骰，得分倍率+0.25（从×1起）。",
+      "description": "每颗留在骰池里没有提交的骰子，加成+0.6。",
+      "shortText": "每颗留池骰，加成+0.6。",
       "details": ""
     },
     {
@@ -3065,13 +3200,14 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "ScoreMultiply",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "perRollUnits2": 1
+        "additivePerUnusedRoll100": 100
       },
-      "description": "提交时每剩1次未用投掷，整手得分的倍率+0.5。",
-      "shortText": "提交时每剩1次投掷，得分倍率+0.5（从×1起）。",
+      "description": "提交时每剩1次未用投掷，加成+1。",
+      "shortText": "提交时每剩1次投掷，加成+1。",
       "details": ""
     },
     {
@@ -3082,14 +3218,15 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "ScoreMultiply",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "scoreMultiplier": 4,
-        "requiredDice": 1
+        "requiredDice": 1,
+        "additiveBonus100": 800
       },
-      "description": "恰好提交1颗骰时，整手得分×4。",
-      "shortText": "只提交1颗时，得分×4。",
+      "description": "恰好提交1颗骰时，加成+8。",
+      "shortText": "只提交1颗时，加成+8。",
       "details": ""
     },
     {
@@ -3100,11 +3237,14 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "ScoreMultiply",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
-      "parameters": {},
-      "description": "本关第n次提交，整手得分×n。",
-      "shortText": "本关第2次提交得分×2，第3次×3，依此类推。",
+      "isCultivation": false,
+      "parameters": {
+        "additivePerPreviousSubmit100": 200
+      },
+      "description": "本关第n次提交，加成+2×(n−1)。",
+      "shortText": "本关第2次提交加成+2，第3次+4，依此类推。",
       "details": "第1次提交不生效。"
     },
     {
@@ -3115,13 +3255,14 @@
       "salePriceMode": "fixed",
       "rarity": "rare",
       "offerWeight": 2,
-      "trigger": "ScoreMultiply",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "perSlotUnits2": 1
+        "additivePerEmptyOrdinarySlot100": 125
       },
-      "description": "每个空着的普通控制器栏位，整手得分的倍率+0.5。",
-      "shortText": "每个空着的卡牌栏位，得分倍率+0.5（从×1起）。",
+      "description": "每个空着的普通卡牌栏位，加成+1.25。",
+      "shortText": "每个空着的卡牌栏位，加成+1.25。",
       "details": "不占栏位的卡不影响空位数。"
     },
     {
@@ -3132,14 +3273,15 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
-      "trigger": "ScoreMultiply",
+      "trigger": "ScoreAdditive",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
         "rarity": "common",
-        "stepUnits4": 1
+        "additivePerCommon100": 60
       },
-      "description": "每持有1张普通稀有度的控制器，整手得分的倍率+0.25。",
-      "shortText": "每有1张常见卡牌，得分倍率+0.25（从×1起）。",
+      "description": "每持有1张普通稀有度的卡牌，加成+0.6。",
+      "shortText": "每有1张常见卡牌，加成+0.6。",
       "details": "本关失效的卡也计入。"
     },
     {
@@ -3150,25 +3292,85 @@
       "salePriceMode": "fixed",
       "rarity": "uncommon",
       "offerWeight": 4,
+      "trigger": "ScoreAdditive",
+      "scoreEnchantEligible": true,
+      "isCultivation": false,
+      "parameters": {
+        "submissionOrdinal": 0,
+        "additiveBonus100": 450
+      },
+      "description": "本关第一次提交，加成+4.5。",
+      "shortText": "本关第一次提交时，加成+4.5。",
+      "details": ""
+    },
+    {
+      "id": "C154",
+      "displayName": "回心转意",
+      "buyPrice": 5,
+      "baseSellPrice": 1,
+      "salePriceMode": "fixed",
+      "rarity": "uncommon",
+      "offerWeight": 4,
+      "trigger": "UnlockDie",
+      "scoreEnchantEligible": false,
+      "isCultivation": false,
+      "parameters": {
+        "freeUnlocksPerHand": 1
+      },
+      "description": "每手一次，可以把一颗已锁定的骰子放回骰池。",
+      "shortText": "每手一次，可以把一颗已锁定的骰子放回骰池。",
+      "details": "放回的骰子保持朝上的面；还有投掷次数时可以重掷；多张也只有每手一次。"
+    },
+    {
+      "id": "C155",
+      "displayName": "状元插金花",
+      "buyPrice": 7,
+      "baseSellPrice": 1,
+      "salePriceMode": "fixed",
+      "rarity": "rare",
+      "offerWeight": 2,
       "trigger": "ScoreMultiply",
       "scoreEnchantEligible": true,
+      "isCultivation": false,
       "parameters": {
-        "scoreMultiplier": 3,
-        "submissionOrdinal": 0
+        "minFours": 4,
+        "minOnes": 2,
+        "scoreMultiplier100": 200,
+        "enhancedScoreMultiplier100": 400
       },
-      "description": "本关第一次提交，整手得分×3。",
-      "shortText": "本关第一次提交时，得分×3。",
-      "details": ""
+      "description": "提交含至少4颗有效4点时，整手得分×2；同时含至少2颗有效1点时改为×4。",
+      "shortText": "含四颗4点得分×2；再含两颗1点改为×4。",
+      "details": "完整牌型要6格提交栏；不看颜色；可以同时提交其他骰子。"
+    },
+    {
+      "id": "C156",
+      "displayName": "绝地反击",
+      "buyPrice": 4,
+      "baseSellPrice": 1,
+      "salePriceMode": "fixed",
+      "rarity": "uncommon",
+      "offerWeight": 4,
+      "trigger": "ScoreAdditive",
+      "scoreEnchantEligible": true,
+      "isCultivation": false,
+      "parameters": {
+        "targetDivisor": 2,
+        "additiveBonus100": 500
+      },
+      "description": "提交时本关累计得分不到目标的一半时，加成+5。",
+      "shortText": "本关累计得分不到目标一半时，加成+5。",
+      "details": "按提交前的累计得分算，这一手的得分不计入；目标包括高压挑战和首领减益的调整。"
     }
   ],
   "consumables": [
     {
       "id": "I01",
       "displayName": "红色浪潮",
-      "baseBuyPrice": 2,
+      "baseBuyPrice": 1,
       "sellPrice": 1,
       "window": "Selecting",
       "lifetime": "ThisHand",
+      "initialUses": 1,
       "description": "下一次有效提交全部骰子临时视为红色；本手继续投掷不失效。",
       "shortText": "本手提交时，提交的骰子全部按红色计算。",
       "details": "锁定骰子后才能使用；之后继续投掷也不失效；只影响本次计分，骰面不变；每手只能用1次，且不能再用蓝色浪潮。"
@@ -3180,6 +3382,7 @@
       "sellPrice": 1,
       "window": "HandReady",
       "lifetime": "ThisStage",
+      "initialUses": 1,
       "description": "本关增加1颗标准临时骰；不增加提交栏，临时同时最多3、活动总数最多10。",
       "shortText": "本关多1颗临时骰（本关结束消失）。",
       "details": "只能在每手第一次投掷前使用；是标准骰；不增加提交栏格数；临时骰同时最多3颗，本关骰子总数最多10颗。"
@@ -3191,6 +3394,7 @@
       "sellPrice": 1,
       "window": "HandReadyOrSelecting",
       "lifetime": "ThisRoll",
+      "initialUses": 1,
       "description": "恰好2颗不同未锁骰指定任意1至6点；同时消耗道具和1次普通投掷，全部未锁骰照常掷。",
       "shortText": "选2颗没锁定的骰子各指定点数，然后投掷一次。",
       "details": "用掉1次投掷，所有没锁定的骰子照常掷；被选的2颗显示你指定的点数（1~6任选），颜色等按实际掷出的那面；玻璃骰照常判定碎裂，碎了不退。"
@@ -3202,6 +3406,7 @@
       "sellPrice": 1,
       "window": "HandReadyOrSelecting",
       "lifetime": "ThisHand",
+      "initialUses": 1,
       "description": "本手后续投掷中，永久6点面相对权重×1.5，再归一化；同手同名不叠加。",
       "shortText": "本手之后的投掷，6点面更容易掷出。",
       "details": "6点面的机会×1.5（标准骰约23.1%）；每手只能用1次，可与小数多来同用；需要有带6点面的未锁定骰子，且本手还有剩余投掷。"
@@ -3213,6 +3418,7 @@
       "sellPrice": 1,
       "window": "HandReadyOrSelecting",
       "lifetime": "ThisHand",
+      "initialUses": 1,
       "description": "本手后续投掷中，永久1点面相对权重×1.5，再归一化；同手同名不叠加。",
       "shortText": "本手之后的投掷，1点面更容易掷出。",
       "details": "1点面的机会×1.5（标准骰约23.1%）；每手只能用1次，可与大数多来同用；需要有带1点面的未锁定骰子。"
@@ -3224,6 +3430,7 @@
       "sellPrice": 1,
       "window": "HandReadyOrSelecting",
       "lifetime": "ThisStage",
+      "initialUses": 1,
       "description": "本关剩余提交次数+1；结束本关时尚未使用的次数正常计入奖励。",
       "shortText": "本关提交次数+1。",
       "details": "没用完的提交次数照常在结算时换金币。"
@@ -3235,6 +3442,7 @@
       "sellPrice": 1,
       "window": "HandReadyOrSelecting",
       "lifetime": "ThisStage",
+      "initialUses": 1,
       "description": "本关每手初始投掷次数+1，当前手剩掷立即+1；不重置C05。",
       "shortText": "本关每手投掷次数+1，本手立即生效。",
       "details": "可多次使用；不会让本手已用过的“再来三次”再次生效。"
@@ -3246,6 +3454,7 @@
       "sellPrice": 1,
       "window": "HandReady",
       "lifetime": "ThisStage",
+      "initialUses": 1,
       "description": "首领关第一手首掷之前使用：本关首领减益解除；入关时已失去的金币不返还。",
       "shortText": "解除本关的首领减益。",
       "details": "只能在首领关第一手、第一次投掷前使用；入关时已扣的金币不返还；“徒手”减益下也能用。"
@@ -3257,6 +3466,7 @@
       "sellPrice": 1,
       "window": "HandReadyOrSelecting",
       "lifetime": "ThisHand",
+      "initialUses": 1,
       "description": "本手的下一次有效提交得分×2；同一手不叠加。",
       "shortText": "本手提交时得分×2。",
       "details": "每手只能用1次；本手没提交就结束本关则作废。"
@@ -3264,10 +3474,11 @@
     {
       "id": "I10",
       "displayName": "蓝色浪潮",
-      "baseBuyPrice": 2,
+      "baseBuyPrice": 1,
       "sellPrice": 1,
       "window": "Selecting",
       "lifetime": "ThisHand",
+      "initialUses": 1,
       "description": "下一次有效提交全部骰子临时视为蓝色；与红色浪潮同一手只能生效一个。",
       "shortText": "本手提交时，提交的骰子全部按蓝色计算。",
       "details": "锁定骰子后才能使用；之后继续投掷也不失效；只影响本次计分，骰面颜色不变；每手只能用1次，且不能再用红色浪潮；会覆盖首当其冲。"
@@ -3279,6 +3490,7 @@
       "sellPrice": 1,
       "window": "Selecting",
       "lifetime": "Permanent",
+      "initialUses": 1,
       "description": "第一颗已锁定骰子的朝上面永久镀金。",
       "shortText": "第一颗已锁定骰子的朝上面永久镀金。",
       "details": "已是黄金面时不能使用。"
@@ -3290,9 +3502,22 @@
       "sellPrice": 1,
       "window": "HandReadyOrSelecting",
       "lifetime": "ThisStage",
+      "initialUses": 1,
       "description": "本关提交栏容量+1，最多到8。",
       "shortText": "本关提交栏+1格（最多8格）。",
       "details": "可以多次使用。"
+    },
+    {
+      "id": "I13",
+      "displayName": "钥匙串",
+      "baseBuyPrice": 3,
+      "sellPrice": 1,
+      "window": "Selecting",
+      "lifetime": "Permanent",
+      "initialUses": 3,
+      "description": "选一颗已锁定的骰子放回骰池；共可使用3次。",
+      "shortText": "把一颗已锁定的骰子放回骰池，可用3次。",
+      "details": "放回的骰子保持朝上的面，还有投掷次数时可以重掷；不消耗投掷次数；没用完的次数留到下一手、下一关；用完才腾出道具栏。"
     }
   ],
   "services": [
@@ -3402,6 +3627,7 @@
       "displayName": "光滑骰面",
       "buyPrice": 1,
       "target": "Face",
+      "maxSelectableFaces": 2,
       "description": "目标面纹理设为光滑：对面相对权重×0.80，其余5面各×1.04，最后归一化。",
       "shortText": "这一面变光滑：它的对面更难掷出。",
       "details": "对面的机会×0.8，其余5面×1.04；标准骰对面约13.3%，其余约17.3%。"
@@ -3411,6 +3637,7 @@
       "displayName": "粗糙骰面",
       "buyPrice": 1,
       "target": "Face",
+      "maxSelectableFaces": 2,
       "description": "目标面纹理设为粗糙：对面相对权重×1.20，其余5面各×0.96，最后归一化。",
       "shortText": "这一面变粗糙：它的对面更容易掷出。",
       "details": "对面的机会×1.2，其余5面×0.96；标准骰对面20%，其余16%。"
@@ -3420,6 +3647,7 @@
       "displayName": "骰子染红",
       "buyPrice": 2,
       "target": "Face",
+      "maxSelectableFaces": 2,
       "description": "目标物理面永久红色，保持其他属性。",
       "shortText": "这一面永久变成红色。",
       "details": "点数等其他属性不变。"
@@ -3429,6 +3657,7 @@
       "displayName": "骰子染蓝",
       "buyPrice": 1,
       "target": "Face",
+      "maxSelectableFaces": 2,
       "description": "目标物理面永久蓝色，保持其他属性。",
       "shortText": "这一面永久变成蓝色。",
       "details": "点数等其他属性不变。"
@@ -3438,24 +3667,27 @@
       "displayName": "骰子脆化",
       "buyPrice": 2,
       "target": "Die",
-      "description": "整骰玻璃，提交时该骰贡献×3；每次实际投掷先独立判定8%永久损坏。",
-      "shortText": "整颗变成玻璃骰：计分×3，每次投掷有8%概率碎掉。",
-      "details": "碎掉的骰子永久消失；在投掷前判定；已锁定的骰子不会碎。"
+      "maxSelectableFaces": 0,
+      "description": "整骰玻璃，提交时该骰贡献×3；每次被提交计分之后独立判定15%永久损坏，留在骰池里不会碎。",
+      "shortText": "整颗变成玻璃骰：计分×3，每次提交后15%概率碎掉。",
+      "details": "碎掉的骰子永久消失；只有被提交的玻璃骰才判定，留在骰池里不会碎。"
     },
     {
       "id": "U06",
       "displayName": "黄金电镀",
       "buyPrice": 3,
       "target": "Face",
-      "description": "目标面增加金层；该面朝上且提交时，该骰贡献×2，红蓝底色不变。",
-      "shortText": "这一面镀金：朝上提交时，这颗计分×2。",
-      "details": "颜色不变。"
+      "maxSelectableFaces": 2,
+      "description": "目标面增加金层并且权重+1；该面朝上且提交时，加成+0.5，红蓝底色不变。",
+      "shortText": "这一面镀金：朝上提交时加成+0.5，更容易掷出。",
+      "details": "颜色不变；新镀金的面权重+1（上限5）。"
     },
     {
       "id": "U07",
       "displayName": "随机变形",
       "buyPrice": 1,
       "target": "Face",
+      "maxSelectableFaces": 2,
       "description": "物理面原值等概率随机变为1至6中另外5种之一，颜色及其他属性不变。",
       "shortText": "这一面的点数随机变成另外5个数之一。",
       "details": "等概率；颜色等其他属性不变。"
@@ -3465,6 +3697,7 @@
       "displayName": "精雕",
       "buyPrice": 2,
       "target": "Face",
+      "maxSelectableFaces": 2,
       "description": "目标面点数+1，上限6。",
       "shortText": "这一面点数+1，上限6。",
       "details": ""
@@ -3474,6 +3707,7 @@
       "displayName": "削点",
       "buyPrice": 1,
       "target": "Face",
+      "maxSelectableFaces": 2,
       "description": "目标面点数−1，下限1。",
       "shortText": "这一面点数−1，下限1。",
       "details": ""
@@ -3483,6 +3717,7 @@
       "displayName": "配重",
       "buyPrice": 2,
       "target": "Face",
+      "maxSelectableFaces": 2,
       "description": "目标面权重+1（上限5），更容易掷出这一面。",
       "shortText": "这一面权重+1（上限5），更容易掷出这一面。",
       "details": "与“灌铅”共用上限5。"
@@ -3492,6 +3727,7 @@
       "displayName": "镜像",
       "buyPrice": 2,
       "target": "Face",
+      "maxSelectableFaces": 1,
       "description": "把目标面的点数与颜色复制到它的对面。",
       "shortText": "把这一面的点数与颜色复制到它的对面。",
       "details": "不复制纹理、黄金和权重。"
@@ -3503,7 +3739,7 @@
       "chapter": 1,
       "indexInChapter": 1,
       "stageKind": "normal",
-      "normalTarget": "300",
+      "normalTarget": "160",
       "normalReward": 5,
       "riskEnabled": false,
       "riskTarget": null,
@@ -3515,10 +3751,10 @@
       "chapter": 1,
       "indexInChapter": 2,
       "stageKind": "pressure",
-      "normalTarget": "600",
+      "normalTarget": "320",
       "normalReward": 5,
       "riskEnabled": true,
-      "riskTarget": "900",
+      "riskTarget": "480",
       "riskReward": 10,
       "shopAfterClear": true
     },
@@ -3527,7 +3763,7 @@
       "chapter": 1,
       "indexInChapter": 3,
       "stageKind": "boss",
-      "normalTarget": "1000",
+      "normalTarget": "500",
       "normalReward": 5,
       "riskEnabled": false,
       "riskTarget": null,
@@ -3539,7 +3775,7 @@
       "chapter": 2,
       "indexInChapter": 1,
       "stageKind": "normal",
-      "normalTarget": "1700",
+      "normalTarget": "740",
       "normalReward": 5,
       "riskEnabled": false,
       "riskTarget": null,
@@ -3551,10 +3787,10 @@
       "chapter": 2,
       "indexInChapter": 2,
       "stageKind": "pressure",
-      "normalTarget": "2600",
+      "normalTarget": "1096",
       "normalReward": 5,
       "riskEnabled": true,
-      "riskTarget": "3900",
+      "riskTarget": "1644",
       "riskReward": 10,
       "shopAfterClear": true
     },
@@ -3563,7 +3799,7 @@
       "chapter": 2,
       "indexInChapter": 3,
       "stageKind": "boss",
-      "normalTarget": "4000",
+      "normalTarget": "1620",
       "normalReward": 5,
       "riskEnabled": false,
       "riskTarget": null,
@@ -3575,7 +3811,7 @@
       "chapter": 3,
       "indexInChapter": 1,
       "stageKind": "normal",
-      "normalTarget": "6200",
+      "normalTarget": "2398",
       "normalReward": 5,
       "riskEnabled": false,
       "riskTarget": null,
@@ -3587,10 +3823,10 @@
       "chapter": 3,
       "indexInChapter": 2,
       "stageKind": "pressure",
-      "normalTarget": "9000",
+      "normalTarget": "3550",
       "normalReward": 5,
       "riskEnabled": true,
-      "riskTarget": "13500",
+      "riskTarget": "5325",
       "riskReward": 10,
       "shopAfterClear": true
     },
@@ -3599,7 +3835,7 @@
       "chapter": 3,
       "indexInChapter": 3,
       "stageKind": "boss",
-      "normalTarget": "13500",
+      "normalTarget": "5254",
       "normalReward": 5,
       "riskEnabled": false,
       "riskTarget": null,
@@ -3611,7 +3847,7 @@
       "chapter": 4,
       "indexInChapter": 1,
       "stageKind": "normal",
-      "normalTarget": "20000",
+      "normalTarget": "7776",
       "normalReward": 5,
       "riskEnabled": false,
       "riskTarget": null,
@@ -3623,10 +3859,10 @@
       "chapter": 4,
       "indexInChapter": 2,
       "stageKind": "pressure",
-      "normalTarget": "30000",
+      "normalTarget": "11510",
       "normalReward": 5,
       "riskEnabled": true,
-      "riskTarget": "45000",
+      "riskTarget": "17265",
       "riskReward": 10,
       "shopAfterClear": true
     },
@@ -3635,7 +3871,7 @@
       "chapter": 4,
       "indexInChapter": 3,
       "stageKind": "boss",
-      "normalTarget": "52000",
+      "normalTarget": "17034",
       "normalReward": 5,
       "riskEnabled": false,
       "riskTarget": null,
@@ -3647,7 +3883,7 @@
       "chapter": 5,
       "indexInChapter": 1,
       "stageKind": "normal",
-      "normalTarget": "96000",
+      "normalTarget": "25210",
       "normalReward": 5,
       "riskEnabled": false,
       "riskTarget": null,
@@ -3659,10 +3895,10 @@
       "chapter": 5,
       "indexInChapter": 2,
       "stageKind": "pressure",
-      "normalTarget": "170000",
+      "normalTarget": "37312",
       "normalReward": 5,
       "riskEnabled": true,
-      "riskTarget": "255000",
+      "riskTarget": "55968",
       "riskReward": 10,
       "shopAfterClear": true
     },
@@ -3671,7 +3907,7 @@
       "chapter": 5,
       "indexInChapter": 3,
       "stageKind": "boss",
-      "normalTarget": "300000",
+      "normalTarget": "55222",
       "normalReward": 5,
       "riskEnabled": false,
       "riskTarget": null,
@@ -3683,7 +3919,7 @@
       "chapter": 6,
       "indexInChapter": 1,
       "stageKind": "normal",
-      "normalTarget": "540000",
+      "normalTarget": "81728",
       "normalReward": 5,
       "riskEnabled": false,
       "riskTarget": null,
@@ -3695,10 +3931,10 @@
       "chapter": 6,
       "indexInChapter": 2,
       "stageKind": "pressure",
-      "normalTarget": "940000",
+      "normalTarget": "120958",
       "normalReward": 5,
       "riskEnabled": true,
-      "riskTarget": "1410000",
+      "riskTarget": "181437",
       "riskReward": 10,
       "shopAfterClear": true
     },
@@ -3707,7 +3943,7 @@
       "chapter": 6,
       "indexInChapter": 3,
       "stageKind": "boss",
-      "normalTarget": "1500000",
+      "normalTarget": "179018",
       "normalReward": 5,
       "riskEnabled": false,
       "riskTarget": null,
@@ -3719,7 +3955,7 @@
       "chapter": 7,
       "indexInChapter": 1,
       "stageKind": "normal",
-      "normalTarget": "2600000",
+      "normalTarget": "264946",
       "normalReward": 5,
       "riskEnabled": false,
       "riskTarget": null,
@@ -3731,10 +3967,10 @@
       "chapter": 7,
       "indexInChapter": 2,
       "stageKind": "pressure",
-      "normalTarget": "4200000",
+      "normalTarget": "392120",
       "normalReward": 5,
       "riskEnabled": true,
-      "riskTarget": "6300000",
+      "riskTarget": "588180",
       "riskReward": 10,
       "shopAfterClear": true
     },
@@ -3743,7 +3979,7 @@
       "chapter": 7,
       "indexInChapter": 3,
       "stageKind": "boss",
-      "normalTarget": "6400000",
+      "normalTarget": "580338",
       "normalReward": 5,
       "riskEnabled": false,
       "riskTarget": null,
@@ -3755,7 +3991,7 @@
       "chapter": 8,
       "indexInChapter": 1,
       "stageKind": "normal",
-      "normalTarget": "10000000",
+      "normalTarget": "858900",
       "normalReward": 5,
       "riskEnabled": false,
       "riskTarget": null,
@@ -3767,10 +4003,10 @@
       "chapter": 8,
       "indexInChapter": 2,
       "stageKind": "pressure",
-      "normalTarget": "15000000",
+      "normalTarget": "1271172",
       "normalReward": 5,
       "riskEnabled": true,
-      "riskTarget": "22500000",
+      "riskTarget": "1906758",
       "riskReward": 10,
       "shopAfterClear": true
     },
@@ -3779,7 +4015,7 @@
       "chapter": 8,
       "indexInChapter": 3,
       "stageKind": "boss",
-      "normalTarget": "20000000",
+      "normalTarget": "1881334",
       "normalReward": 5,
       "riskEnabled": false,
       "riskTarget": null,
@@ -3861,8 +4097,8 @@
     {
       "id": "B06",
       "displayName": "沉默",
-      "tier": 1,
-      "minCycle": 1,
+      "tier": 2,
+      "minCycle": 2,
       "effects": [
         "EnchantSilence"
       ],
@@ -4136,7 +4372,7 @@
       "filter": "",
       "description": "最左侧的2件控制器本关失效。",
       "shortText": "最左侧的2件卡牌本关失效。",
-      "details": "失效：没有技能、附魔，也不成长，但仍占栏位；不占栏位的卡也按位置算。"
+      "details": "失效：没有技能、附魔，也不成长，但仍占栏位；不占栏位的卡也按位置算。进关前可以拖动卡牌换位置。"
     },
     {
       "id": "B26",
@@ -4188,11 +4424,11 @@
       "effects": [
         "DisableRarity"
       ],
-      "amount": 0,
+      "amount": 1,
       "filter": "rare",
-      "description": "稀有控制器本关失效。",
-      "shortText": "稀有卡牌本关失效。",
-      "details": "失效规则同“缴械”。"
+      "description": "最左侧的1件稀有卡牌本关失效。",
+      "shortText": "最左侧的1件稀有卡牌本关失效。",
+      "details": "失效规则同“缴械”；进关前可以拖动卡牌换位置。"
     },
     {
       "id": "B30",
@@ -4271,13 +4507,13 @@
       "minCycle": 8,
       "effects": [
         "ZeroLevels",
-        "GrowthZero"
+        "GrowthHalf"
       ],
       "amount": 0,
       "filter": "",
-      "description": "牌型、颜色按0级计算，成长值按0计算。",
-      "shortText": "牌型、颜色按0级计算，成长值按0计算。",
-      "details": "成长型卡按×1、+0计分；成长本身照常累积。"
+      "description": "牌型、颜色按0级计算，成长卡长出的部分按一半计算。",
+      "shortText": "牌型、颜色按0级计算，成长值减半。",
+      "details": "成长卡的起步值不受影响；成长本身照常累积。"
     },
     {
       "id": "B36",
@@ -4303,10 +4539,10 @@
         "DisableLeftmost",
         "EnchantSilence"
       ],
-      "amount": 3,
+      "amount": 2,
       "filter": "",
-      "description": "最左侧3件控制器失效，附魔全部失效。",
-      "shortText": "最左侧3件卡牌失效，附魔全部失效。",
+      "description": "最左侧2件卡牌失效，附魔全部失效。",
+      "shortText": "最左侧2件卡牌失效，附魔全部失效。",
       "details": "失效规则同“缴械”；“不占栏位”附魔不受影响。"
     },
     {
@@ -4365,7 +4601,7 @@
       "picks": 1,
       "description": "3个牌型或颜色，选1个直接+2级。",
       "shortText": "3个牌型或颜色，选1个直接+2级。",
-      "details": "不超过8级。"
+      "details": "不超过12级。"
     },
     {
       "id": "L4",
@@ -4434,7 +4670,7 @@
     "restockPurchasedOffers": false,
     "selfStudyLimit": 2,
     "selfStudyPremium": 1,
-    "upgradePricePerExistingLevel": 2,
+    "upgradePricePerExistingLevel": 1,
     "firstControllerGuaranteeMaxBasePrice": 4,
     "controllerWeights": {
       "common": 6,
@@ -4454,7 +4690,30 @@
     "freeRefreshConsumesFirstIndex": true,
     "refreshCounterReset": "each_new_shop",
     "offerExpansionAffectsCurrentShop": true,
-    "maxOfferExpansionPurchases": 3
+    "maxOfferExpansionPurchases": 3,
+    "selfDieUpgradeLimit": 2,
+    "selfDieUpgradePremium": 1,
+    "uniqueControllerIds": [
+      "C02",
+      "C09",
+      "C31",
+      "C33",
+      "C41",
+      "C42",
+      "C53",
+      "C54",
+      "C58",
+      "C71",
+      "C87",
+      "C89",
+      "C100",
+      "C101",
+      "C103",
+      "C125",
+      "C130",
+      "C138",
+      "C155"
+    ]
   },
   "generation": {
     "newDieTemplateWeights": {
@@ -4506,7 +4765,7 @@
     "referenceHeight": 1080,
     "handbookHandRows": 14,
     "handbookColorRows": 2,
-    "contentIconCount": 184,
+    "contentIconCount": 185,
     "enchantmentBadgeCount": 5
   },
   "display": {
