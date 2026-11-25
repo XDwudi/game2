@@ -8,6 +8,8 @@ namespace DiceCraft.Core
     {
         public string handId, category, displayName, condition, example, stackingRule, formReason, upgradeReason;
         public int level, maxLevel, baseMult100, incrementPerLevel100, currentMult100, minimumDice;
+        // v1.1.1: a colour row is an additive bonus in hundredths; its three multiplier fields stay 0.
+        public int baseAdd100, addPerLevel100, currentAdd100;
         public bool canForm, upgradeEligible;
     }
     public static class HandbookRules
@@ -22,7 +24,7 @@ namespace DiceCraft.Core
         public static HandbookRow[] Build(GameConfig cfg, IEnumerable<HandLevel> levels, IEnumerable<HandLevel> colorLevels, IEnumerable<ControllerInstance> controllers, int capacity, int permanentDiceCount, int activeDiceCount, MimicBinding[] bindings = null, bool debug = false)
         {
             var owned = controllers.ToArray(); var sources = ControllerRules.ResolveSources(owned, bindings); var upgrades = levels.ToDictionary(h => h.handId, h => h.level, StringComparer.Ordinal); var colors = colorLevels.ToDictionary(h => h.handId, h => h.level, StringComparer.Ordinal);
-            var rows = new List<HandbookRow> { new HandbookRow { handId = "scatter", category = "hand", displayName = "散点", condition = "没有凑成任何牌型时，牌型倍率 ×1。", example = "蓝2、红5", stackingRule = "不与其他牌型相加；独立颜色、红组和卡牌仍可生效", baseMult100 = 100, currentMult100 = 100, minimumDice = 1, canForm = activeDiceCount > 0 && capacity > 0, formReason = "", upgradeEligible = false, upgradeReason = "不能升级" } };
+            var rows = new List<HandbookRow> { new HandbookRow { handId = "scatter", category = "hand", displayName = "散点", condition = "没有凑成任何牌型时，牌型倍率 ×1。", example = "蓝2、红5", stackingRule = "不与其他牌型相加；颜色加成、红组和卡牌仍可生效", baseMult100 = 100, currentMult100 = 100, minimumDice = 1, canForm = activeDiceCount > 0 && capacity > 0, formReason = "", upgradeEligible = false, upgradeReason = "不能升级" } };
             foreach (var h in cfg.handDefinitions.OrderBy(h => h.structuralPriority))
             {
                 int level = upgrades.TryGetValue(h.id, out int saved) ? saved : 0, min = MinimumDice(h.id, owned, cfg, bindings), max = debug ? cfg.debug.maxHandLevel : h.maxLevel;
@@ -30,13 +32,13 @@ namespace DiceCraft.Core
                 if (h.id == "straight" && sources.Any(s => s.abilityId == "C12")) { form = false; reason = "有“不要奇数”时只会出现 2、4、6，凑不成顺子"; }
                 if (h.id == "four_pair" && sources.Any(s => s.abilityId == "C12")) { form = false; reason = "有“不要奇数”时只会出现 2、4、6，凑不成四对"; }
                 bool eligible = level < max && capacity >= min && permanentDiceCount >= h.requirePermanentDice;
-                rows.Add(new HandbookRow { handId = h.id, category = "hand", displayName = h.displayName, level = level, maxLevel = max, baseMult100 = h.baseMult100, incrementPerLevel100 = h.incrementPerLevel100, currentMult100 = HandEvaluator.Multiplier100(h, level, max), minimumDice = min, canForm = form, formReason = reason, upgradeEligible = eligible, upgradeReason = level >= max ? "已达最高等级" : capacity < min ? "提交栏不足" : permanentDiceCount < h.requirePermanentDice ? "永久骰不足；临时骰不计" : "可以升级", condition = Condition(h.id, min), example = Example(h.id, min), stackingRule = h.id == "straight" ? "与同点家族最高倍率相加；颜色为独立乘区" : "同点家族只取当前强化后最高倍率；结构主牌型按结构优先级" });
+                rows.Add(new HandbookRow { handId = h.id, category = "hand", displayName = h.displayName, level = level, maxLevel = max, baseMult100 = h.baseMult100, incrementPerLevel100 = h.incrementPerLevel100, currentMult100 = HandEvaluator.Multiplier100(h, level, max), minimumDice = min, canForm = form, formReason = reason, upgradeEligible = eligible, upgradeReason = level >= max ? "已达最高等级" : capacity < min ? "提交栏不足" : permanentDiceCount < h.requirePermanentDice ? "永久骰不足；临时骰不计" : "可以升级", condition = Condition(h.id, min), example = Example(h.id, min), stackingRule = h.id == "straight" ? "与同点家族最高倍率相加；颜色计入加成" : "同点家族只取当前强化后最高倍率；结构主牌型按结构优先级" });
             }
             foreach (var c in cfg.colorDefinitions)
             {
                 int level = colors.TryGetValue(c.id, out int saved) ? saved : 0, max = debug ? cfg.debug.maxColorLevel : c.maxLevel; bool form = activeDiceCount > 0 && capacity > 0;
                 string reason = capacity < 1 ? "提交栏至少要 1 格" : activeDiceCount < 1 ? "至少要有 1 颗骰子" : ""; if (c.id == "all_blue" && sources.Any(s => s.abilityId == "C03")) { form = false; reason = "有“首当其冲”时第 1 颗总算红色，凑不成全蓝"; }
-                rows.Add(new HandbookRow { handId = c.id, category = "color", displayName = c.displayName, level = level, maxLevel = max, baseMult100 = c.baseMult100, incrementPerLevel100 = c.incrementPerLevel100, currentMult100 = HandEvaluator.ColorMultiplier100(c, level, max), minimumDice = 1, canForm = form, formReason = reason, upgradeEligible = level < max, upgradeReason = level < max ? "可以升级" : "已达最高等级", condition = "非空提交的全部骰子均为有效" + (c.id == "all_blue" ? "蓝色" : "红色"), example = c.id == "all_blue" ? "蓝6" : "红1", stackingRule = "独立颜色乘区；不计入牌型或C43结构主牌型" });
+                rows.Add(new HandbookRow { handId = c.id, category = "color", displayName = c.displayName, level = level, maxLevel = max, baseAdd100 = c.baseAdd100, addPerLevel100 = c.addPerLevel100, currentAdd100 = HandEvaluator.ColorAdd100(c, level, max), minimumDice = 1, canForm = form, formReason = reason, upgradeEligible = level < max, upgradeReason = level < max ? "可以升级" : "已达最高等级", condition = "非空提交的全部骰子均为有效" + (c.id == "all_blue" ? "蓝色" : "红色"), example = c.id == "all_blue" ? "蓝6" : "红1", stackingRule = "计入加成，与其他加成相加；不计入牌型或C43结构主牌型" });
             }
             return rows.ToArray();
         }
