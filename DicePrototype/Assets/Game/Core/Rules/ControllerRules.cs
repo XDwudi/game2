@@ -46,13 +46,34 @@ namespace DiceCraft.Core
         }
         public static int SourceCount(IEnumerable<AbilitySource> sources, string abilityId) => sources.Count(s => s.abilityId == abilityId);
         private static bool IsActiveDefinition(string id)
-            => id != null && id.Length >= 3 && id.Length <= 4 && id[0] == 'C' && int.TryParse(id.Substring(1), System.Globalization.NumberStyles.None, System.Globalization.CultureInfo.InvariantCulture, out int number) && number >= 1 && number <= 153 && id == "C" + number.ToString("D2") && number != 4 && number != 16 && number != 23;
-        private static readonly HashSet<string> GrowthMultipliers = new HashSet<string>(new[] { "C54", "C56", "C57", "C58", "C60", "C61", "C90", "C100", "C129", "C132", "C134" }, StringComparer.Ordinal);
+            => id != null && id.Length >= 3 && id.Length <= 4 && id[0] == 'C' && int.TryParse(id.Substring(1), System.Globalization.NumberStyles.None, System.Globalization.CultureInfo.InvariantCulture, out int number) && number >= 1 && number <= LastControllerNumber && id == "C" + number.ToString("D2") && Array.IndexOf(RetiredControllerNumbers, number) < 0;
+        /// <summary>v1.1.1: controller ids run C01-C156; these numbers are retired for good and never accepted.</summary>
+        public const int LastControllerNumber = 156;
+        private static readonly int[] RetiredControllerNumbers = { 4, 16, 23, 90, 128, 145 };
+        /// <summary>v1.1.1: stable enchantment ids. base10 adds enchantRules.baseAdd to the base score, mult2 adds
+        /// enchantRules.scoreAdd100 to the additive zone, slotless frees the ordinary slot.</summary>
+        public const string BaseEnchantmentId = "base10", ScoreEnchantmentId = "mult2", SlotlessEnchantmentId = "slotless";
+        private static readonly HashSet<string> GrowthAdditives = new HashSet<string>(new[] { "C51", "C56", "C57", "C60", "C61", "C129", "C132", "C134" }, StringComparer.Ordinal);
+        private static readonly HashSet<string> GrowthMultipliers = new HashSet<string>(new[] { "C54", "C58", "C100", "C125" }, StringComparer.Ordinal);
         private static readonly HashSet<string> GrowthBases = new HashSet<string>(new[] { "C55", "C59", "C62" }, StringComparer.Ordinal);
-        /// <summary>v0.9: growth is a multiplier of (20 + growth) / 20 on these, a base add of `growth` on the base cards.</summary>
+        /// <summary>v1.1.1 growth cards (section 5). Additive: adds GrowthValue hundredths to the additive zone.
+        /// Multiplier: multiplies the score by GrowthValue / 100. Base: adds GrowthValue points to the base score.</summary>
+        public static bool IsGrowthAdditive(string id) => GrowthAdditives.Contains(id);
         public static bool IsGrowthMultiplier(string id) => GrowthMultipliers.Contains(id);
         public static bool IsGrowthBase(string id) => GrowthBases.Contains(id);
-        public static bool HasGrowth(string id) => GrowthMultipliers.Contains(id) || GrowthBases.Contains(id);
+        public static bool HasGrowth(string id) => GrowthAdditives.Contains(id) || GrowthMultipliers.Contains(id) || GrowthBases.Contains(id);
+        /// <summary>v1.1.1: what a growth card is worth now = configured start + catch-up + grown part, in the unit of the
+        /// card. `halved` reads the grown part at half, rounded down (boss effect GrowthHalf); nothing is stored.</summary>
+        public static long GrowthValue(GameConfig cfg, string abilityId, ControllerDynamicState state, bool halved = false)
+        {
+            if (!HasGrowth(abilityId) || state == null) throw new ArgumentException("Not a growth card.");
+            return checked(cfg.Controller(abilityId).parameters.growthStart + state.growthCatchup + (halved ? state.growth / 2 : state.growth));
+        }
+        /// <summary>v1.1.1 section 9.3: a multiplier card that is never offered again while one is owned.</summary>
+        public static bool IsUniqueController(string id, GameConfig cfg) => cfg.shop.uniqueControllerIds.Contains(id);
+        /// <summary>True when an offer of `id` must be filtered out because a live copy of that unique card is owned.</summary>
+        public static bool OwnsUniqueController(IEnumerable<ControllerInstance> instances, string id, GameConfig cfg)
+            => IsUniqueController(id, cfg) && instances.Any(c => c != null && c.alive && c.definitionId == id);
         /// <summary>v1.0: C141 counts cleared stages in the same field without being a growth card.</summary>
         public static bool HasGrowthCounter(string id) => HasGrowth(id) || id == "C141";
         public static bool ModifierHas(GameConfig cfg, string modifierId, string effect) => !string.IsNullOrEmpty(modifierId) && cfg.Modifier(modifierId).effects.Contains(effect);
@@ -108,11 +129,23 @@ namespace DiceCraft.Core
             if (string.IsNullOrEmpty(modifierId)) return Array.Empty<string>();
             var m = cfg.Modifier(modifierId); var alive = instances.Where(c => c != null && c.alive).ToArray(); var ids = new List<string>();
             if (m.effects.Contains("DisableLeftmost")) ids.AddRange(alive.Take(m.amount).Select(c => c.instanceId));
-            if (m.effects.Contains("DisableRarity")) ids.AddRange(alive.Where(c => cfg.Controller(c.definitionId).rarity == m.filter).Select(c => c.instanceId));
+            // v1.1.1: only the leftmost `amount` cards of that rarity, by the card's own rarity (a mimic counts as itself).
+            if (m.effects.Contains("DisableRarity")) ids.AddRange(alive.Where(c => cfg.Controller(c.definitionId).rarity == m.filter).Take(m.amount).Select(c => c.instanceId));
             return ids.Distinct(StringComparer.Ordinal).ToArray();
         }
         public static int RollsPerHand(IEnumerable<ControllerInstance> instances, GameConfig cfg) => RollBudget(instances, cfg);
         public static int SubmissionsPerStage(IEnumerable<ControllerInstance> instances, GameConfig cfg) => SubmissionBudget(instances, cfg);
+        /// <summary>v1.1.1 section 6: the leftmost live cultivation card without a slotless enchantment takes no ordinary
+        /// slot, disabled or not. Decided from the current order every time; null when there is no such card.</summary>
+        public static string FreeCultivationInstanceId(IEnumerable<ControllerInstance> instances, GameConfig cfg)
+            => instances.FirstOrDefault(c => c != null && c.alive && c.enchantmentId != SlotlessEnchantmentId && cfg.Controller(c.definitionId).isCultivation)?.instanceId;
+        /// <summary>Ordinary slots in use = live cards - slotless cards - 1 when a cultivation card rides for free.</summary>
+        public static int OrdinaryUsed(IEnumerable<ControllerInstance> instances, GameConfig cfg)
+        {
+            var all = instances.ToArray();
+            return all.Count(c => c.alive && c.enchantmentId != SlotlessEnchantmentId) - (FreeCultivationInstanceId(all, cfg) != null ? 1 : 0);
+        }
+        // TRANSITIONAL-V111: the p1.1.0 count without the free cultivation slot; removed with its last caller.
         public static int OrdinaryUsed(IEnumerable<ControllerInstance> instances) => instances.Count(c => c.alive && c.enchantmentId != "slotless");
         public static long SalePrice(ControllerInstance instance, GameConfig cfg, bool fullPrice = false)
         {
@@ -126,7 +159,11 @@ namespace DiceCraft.Core
             long resale = Math.Max(cfg.baseControllerSellPrice, fullPrice ? listPrice : listPrice / cfg.controllerSellDivisor); // v1.0 C140: full list price
             long saleBonus = instance.state?.saleBonus ?? 0;
             if (saleBonus < 0) throw new ArgumentException("Invalid sale bonus.");
-            return checked(resale + saleBonus + ((instance.definitionId == "C41" || instance.definitionId == "C52") ? fund : 0));
+            // v1.1.1 section 6: a cultivation card gains 1 per cultivationFacesPerSaleBonus rewritten faces, up to the cap.
+            long cultivated = instance.state?.cultivationFacesChanged ?? 0;
+            if (cultivated < 0) throw new ArgumentException("Invalid cultivation count.");
+            long cultivation = definition.isCultivation ? Math.Min(cfg.cultivationMaxSaleBonus, cultivated / cfg.cultivationFacesPerSaleBonus) : 0;
+            return checked(resale + saleBonus + cultivation + ((instance.definitionId == "C41" || instance.definitionId == "C52") ? fund : 0));
         }
         public static int EnchantPrice(string enchantmentId, GameConfig cfg) => cfg.Enchantment(enchantmentId).buyPremium;
         public static bool IsEnchantmentLegal(string controllerId, string enchantmentId, GameConfig cfg)
@@ -137,12 +174,15 @@ namespace DiceCraft.Core
             if (instances == null) throw new ArgumentNullException(nameof(instances)); var all = instances.ToArray();
             if (all.Any(c => c == null) || all.Count(c => c.alive) > (debug ? cfg.debug.maxControllerInstances : cfg.maxControllerInstances) || all.Any(c => string.IsNullOrEmpty(c.instanceId)) || all.Select(c => c.instanceId).Distinct(StringComparer.Ordinal).Count() != all.Length) throw new ArgumentException("Invalid controller identities or limits.");
             // v1.1: same-name copies are legal in a normal run; only the slot and instance limits apply.
-            if (enforceSlots && !debug && OrdinaryUsed(all) > (ordinarySlots < 0 ? cfg.initialControllerSlots : ordinarySlots)) throw new ArgumentException("Normal equipment limits.");
+            foreach (var c in all) cfg.Controller(c.definitionId);
+            if (enforceSlots && !debug && OrdinaryUsed(all, cfg) > (ordinarySlots < 0 ? cfg.initialControllerSlots : ordinarySlots)) throw new ArgumentException("Normal equipment limits.");
             foreach (var c in all)
             {
-                cfg.Controller(c.definitionId);
                 if (!cfg.enchantments.Any(e => e.id == c.enchantmentId) || (!debug && !IsEnchantmentLegal(c.definitionId, c.enchantmentId, cfg))) throw new ArgumentException("Illegal controller enchantment.");
                 if (c.state == null || c.state.fundAccrual < 0 || c.state.fundAccrual % 3 != 0 || c.state.turnoverUnits2 < 3 || c.state.growth < 0 || c.state.saleBonus < 0 || (c.definitionId == "C141" && c.state.growth >= cfg.Controller("C141").parameters.expireGrowth)) throw new ArgumentException("Invalid controller state.");
+                // v1.1.1: catch-up belongs to growth cards, the star pip to C137, the rewrite count to cultivation cards.
+                if (c.state.growthCatchup < 0 || (c.state.growthCatchup != 0 && !HasGrowth(c.definitionId)) || c.state.starPip < 0 || c.state.starPip > cfg.maxPipValue || (c.state.starPip != 0 && c.definitionId != "C137")
+                    || c.state.cultivationFacesChanged < 0 || c.state.cultivationFacesChanged > cfg.cultivationFacesPerSaleBonus * cfg.cultivationMaxSaleBonus || (c.state.cultivationFacesChanged != 0 && !cfg.Controller(c.definitionId).isCultivation)) throw new ArgumentException("Invalid v1.1.1 controller state.");
                 if (!string.IsNullOrEmpty(c.state.activeColor) && c.state.activeColor != "red" && c.state.activeColor != "blue") throw new ArgumentException("Invalid dynamic color.");
                 if (c.definitionId == "C45" && c.state.activeColor != "red" && c.state.activeColor != "blue") throw new ArgumentException("C45 requires persisted active color.");
             }
