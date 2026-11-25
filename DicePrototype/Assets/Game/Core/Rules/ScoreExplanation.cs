@@ -14,6 +14,8 @@ namespace DiceCraft.Core
         // v0.9: who changed this step without owning it, as "C84:150,C85:300" (hand multiplier adds, units of 0.01)
         // or "C73:2" (pool dice merged into the red group). Display only.
         public string note;
+        // v1.1.1: only on the "additive" step: the bonuses that add up to A, in order, so the line can be expanded.
+        public AdditiveEntry[] entries;
     }
     [Serializable] public sealed class DieScoreTrace { public string dieId; public long contribution; public ScoreStep[] steps; /* v0.9: contribution x (1 + retriggers) */ public int retriggers; public string total; }
     [Serializable] public sealed class ScoreTrace { public DieScoreTrace[] dice; public ScoreStep[] global; }
@@ -36,21 +38,18 @@ namespace DiceCraft.Core
                     case "C10": if (pip == p.pip) add = p.perDieAdd; break;
                     case "C13": if (pip % 2 == 1) add = p.oddPerDieAdd; break;
                     case "C17": if (p.pips.Contains(pip)) add = p.perDieAdd; break;
-                    case "C19": if (die.permanentSixFaceSum <= p.maxPermanentSixFaceSum) add = p.perDieAdd; break;
                     case "C20": if (snapshot.dice.Length == snapshot.capacity && index == snapshot.capacity - 1 && pip == p.lastActualCapacitySlotPip) add = p.perDieAdd; break;
                     case "C39": if (color == p.effectiveColor) add = p.perDieAdd; break;
-                    case "C91": if (p.textures.Contains(DieFacts.Texture(die))) add = p.perDieAdd; break;
                     case "C92": if (DieFacts.MonoColor(die)) add = p.perDieAdd; break;
                     case "C94": add = DieFacts.OppositePip(die, cfg); break;
                     case "C107": if (index > 0 && pip == pips[index - 1] + 1) add = p.perDieAdd; break;
-                    case "C137": if (die.lifetime == "stage_temporary") add = p.perDieAdd; break;
                 }
                 if (add != 0) Step(steps, "contribution", source, "+", ref value, new ExactFraction(add, 1));
             }
             foreach (var source in sources.Where(s => s.abilityId == "C45" && s.state.activeColor == color)) Step(steps, "controller_die", source, "×", ref value, new ExactFraction(cfg.Controller("C45").parameters.matchingDieContributionMultiplier, 1));
             if (DieFacts.MonoPip(die)) foreach (var source in sources.Where(s => s.abilityId == "C93")) Step(steps, "controller_die", source, "×", ref value, new ExactFraction(cfg.Controller("C93").parameters.dieContributionMultiplier, 1));
             if (die.isGlass) Step(steps, "glass", null, "×", ref value, new ExactFraction(cfg.glassContributionMultiplier, 1));
-            if (die.isGold) Step(steps, "gold", null, "×", ref value, new ExactFraction(cfg.goldContributionMultiplier, 1));
+            // v1.1.1: a gold face no longer doubles the die; it adds to the additive zone (see Build).
             return new DieScoreTrace { dieId = die.dieId, contribution = checked((long)value.Numerator), steps = steps.ToArray() };
         }
         public static ScoreTrace Build(SubmissionSnapshot snapshot, ScoreBreakdown breakdown, GameConfig cfg)
@@ -89,17 +88,45 @@ namespace DiceCraft.Core
             Step(steps, "hand", null, "×", ref value, new ExactFraction(handBefore, 100));
             steps[steps.Count - 1].note = string.Join(",", sources.Where(s => (s.abilityId == "C84" || s.abilityId == "C85" || s.abilityId == "C142") && breakdown.triggeredSourceIds.Contains(s.emitterId)).Select(s => s.abilityId + ":" + cfg.Controller(s.abilityId).parameters.handMultAdd100));
             if (handBefore != breakdown.totalHandMult100) Step(steps, "boss_hand", new AbilitySource { abilityId = snapshot.modifierId }, "×", ref value, new ExactFraction(breakdown.totalHandMult100, handBefore));
-            Step(steps, "color", null, "×", ref value, new ExactFraction(breakdown.colorMult100, 100));
             Step(steps, "red_group", null, "×", ref value, new ExactFraction(breakdown.redMult100, 100));
             steps[steps.Count - 1].note = string.Join(",", new[] { breakdown.redPoolCount > 0 ? "C73:" + breakdown.redPoolCount : null, breakdown.redBonusCount > 0 ? "C146:" + breakdown.redBonusCount : null }.Where(x => x != null));
             if (steps[steps.Count - 1].note == "") steps[steps.Count - 1].note = null;
+            // v1.1.1: one "additive" line x(1 + A), shown even when A is 0, expandable into its entries.
+            var additiveEntries = CheckedAdditiveEntries(snapshot, breakdown, cfg, sources, silence);
+            Step(steps, "additive", null, "×", ref value, new ExactFraction(100 + (BigInteger)breakdown.additiveTotal100, 100));
+            steps[steps.Count - 1].entries = additiveEntries;
             foreach (var factor in breakdown.multiplierFactors) Step(steps, "controller", sources.Single(s => s.emitterId == factor.emitterId), "×", ref value, new ExactFraction(ExactScoreMath.Parse(factor.numerator), ExactScoreMath.Parse(factor.denominator)));
-            if (!silence) foreach (var source in sources.Where(s => s.enchantmentId == "mult2" && breakdown.triggeredSourceIds.Contains(s.emitterId))) Step(steps, "enchantment_multiplier", source, "×", ref value, new ExactFraction(cfg.enchantRules.scoreMultiplier, 1));
             foreach (var factor in breakdown.globalFactors ?? Array.Empty<MultiplierFactor>()) Step(steps, factor.emitterId == "ITEM" ? "item" : "boss", new AbilitySource { abilityId = factor.abilityId }, "×", ref value, new ExactFraction(ExactScoreMath.Parse(factor.numerator), ExactScoreMath.Parse(factor.denominator)));
             string floor = ExactScoreMath.SaveDecimal(value.Numerator / value.Denominator);
             steps.Add(new ScoreStep { kind = "floor", operation = "floor", before = value.ToString(), operand = "1", after = floor });
             if (floor != breakdown.score) throw new ArgumentException("Frozen score mismatch.");
             return new ScoreTrace { dice = dice, global = steps.ToArray() };
+        }
+        /// <summary>The additive entries of a frozen breakdown after checking them against the snapshot: the order of
+        /// the four kinds, the colour bonus, one entry per submitted gold face, card entries only from triggered
+        /// sources in card order, one score-enchantment entry per triggered enchanted source, and the total.</summary>
+        private static AdditiveEntry[] CheckedAdditiveEntries(SubmissionSnapshot snapshot, ScoreBreakdown breakdown, GameConfig cfg, AbilitySource[] sources, bool silence)
+        {
+            var entries = (breakdown.additiveEntries ?? Array.Empty<AdditiveEntry>()).Select(e => e?.Clone()).ToArray();
+            string[] kinds = { "color", "gold", "controller", "enchantment" };
+            bool ok = entries.All(e => e != null && e.amount100 > 0 && Array.IndexOf(kinds, e.kind) >= 0)
+                && entries.Select(e => Array.IndexOf(kinds, e.kind)).SequenceEqual(entries.Select(e => Array.IndexOf(kinds, e.kind)).OrderBy(k => k))
+                && entries.Aggregate(BigInteger.Zero, (sum, e) => sum + e.amount100) == breakdown.additiveTotal100;
+            if (ok)
+            {
+                var color = entries.Where(e => e.kind == "color").ToArray(); var gold = entries.Where(e => e.kind == "gold").ToArray();
+                var cards = entries.Where(e => e.kind == "controller").ToArray(); var enchants = entries.Where(e => e.kind == "enchantment").ToArray();
+                var order = sources.Select((s, i) => new { s.emitterId, i }).ToDictionary(x => x.emitterId, x => x.i, StringComparer.Ordinal);
+                var triggered = new HashSet<string>(breakdown.triggeredSourceIds ?? Array.Empty<string>(), StringComparer.Ordinal);
+                ok = (breakdown.colorAdd100 > 0 ? color.Length == 1 && color[0].amount100 == breakdown.colorAdd100 && color[0].abilityId == breakdown.colorId && color[0].emitterId == null : color.Length == 0)
+                    && gold.Select(e => e.dieIndex).SequenceEqual(Enumerable.Range(0, snapshot.dice.Length).Where(i => snapshot.dice[i].isGold)) && gold.All(e => e.amount100 == cfg.goldAdd100 && e.emitterId == null)
+                    && cards.All(e => e.emitterId != null && triggered.Contains(e.emitterId) && order.ContainsKey(e.emitterId) && sources[order[e.emitterId]].abilityId == e.abilityId)
+                    && cards.Select(e => order[e.emitterId]).SequenceEqual(cards.Select(e => order[e.emitterId]).OrderBy(i => i)) && cards.Select(e => e.emitterId).Distinct(StringComparer.Ordinal).Count() == cards.Length
+                    && enchants.Select(e => e.emitterId).SequenceEqual(silence ? Enumerable.Empty<string>() : sources.Where(s => s.enchantmentId == ControllerRules.ScoreEnchantmentId && triggered.Contains(s.emitterId)).Select(s => s.emitterId))
+                    && enchants.All(e => e.amount100 == cfg.enchantRules.scoreAdd100 && e.abilityId == ControllerRules.ScoreEnchantmentId) && enchants.Length == breakdown.enchantAdditiveCount;
+            }
+            if (!ok) throw new ArgumentException("Frozen additive mismatch.");
+            return entries;
         }
         private static void Add(List<ScoreStep> steps, string id, BigInteger amount, ref ExactFraction value)
         {
