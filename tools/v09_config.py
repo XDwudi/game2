@@ -2,10 +2,10 @@
 
 Input:  tools/balance_sim/baseline/P0Config.p0.8.0.json (frozen copy of the shipped p0.8.0 config)
 Spec:   docs/specs/v09/RULES_SPEC.md (50 new controllers, slots, shelf, service O08, stage targets)
-Output: DicePrototype/Assets/Game/Data/P0Config.json
+Output: tools/balance_sim/baseline/P0Config.p0.9.0.json (frozen copy; it was the live game config while p0.9.0 was current)
 
     python tools/v09_config.py            # write the game config
-    python tools/v09_config.py --check    # fail if the game config differs from what this script produces
+    python tools/v09_config.py --check    # fail if the frozen p0.9.0 config differs from what this script produces
 """
 import argparse
 import json
@@ -13,7 +13,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "tools" / "balance_sim" / "baseline" / "P0Config.p0.8.0.json"
-TARGET = ROOT / "DicePrototype" / "Assets" / "Game" / "Data" / "P0Config.json"
+# p1.1.1 (W4b): this generator is frozen. Its output is the frozen p0.9.0 copy, not the live game config
+# (DicePrototype/Assets/Game/Data/P0Config.json, which tools/v111_config.py produces).
+TARGET = ROOT / "tools" / "balance_sim" / "baseline" / "P0Config.p0.9.0.json"
 
 RARITY = {"普通": "common", "罕见": "uncommon", "稀有": "rare"}
 

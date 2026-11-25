@@ -7,7 +7,9 @@ from v11_text import extract
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "tools/balance_sim/baseline/P0Config.p1.0.0.json"
-TARGET = ROOT / "DicePrototype/Assets/Game/Data/P0Config.json"
+# p1.1.1 (W4b): this generator is frozen. Its output is the frozen p1.1.0 copy, not the live game config
+# (DicePrototype/Assets/Game/Data/P0Config.json, which tools/v111_config.py produces).
+TARGET = ROOT / "tools/balance_sim/baseline/P0Config.p1.1.0.json"
 # p1.1.0 removes fields that only described the p1.0.0 "one copy per card, buying replaces" rule; no rule code read them
 # (docs/specs/v11/RULES_DELTA.md section 9). Their removal is the only non-text change besides configVersion.
 REMOVED_CONTROLLER_FIELDS = ("maxOwnedNormal",)

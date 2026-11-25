@@ -2,13 +2,13 @@
 
 Input:  tools/balance_sim/baseline/P0Config.p0.6.0.json (frozen copy of the shipped p0.6.0 config)
 Tables: tools/balance_sim/make_candidate.py (the approved v0.8 proposal, docs/specs/v08/BALANCE_PLAN.md)
-Output: DicePrototype/Assets/Game/Data/P0Config.json
+Output: tools/balance_sim/baseline/P0Config.p0.8.0.json (frozen copy; it was the live game config while p0.8.0 was current)
 
 User decision 2026-11-14: every proposed change is adopted except the slotless enchant frequency, so all
 enchant appearance weights (including the dedicated pool of the six non-scoring controllers) stay at p0.6.0.
 
     python tools/v08_config.py            # write the game config
-    python tools/v08_config.py --check    # fail if the game config differs from what this script produces
+    python tools/v08_config.py --check    # fail if the frozen p0.8.0 config differs from what this script produces
 """
 import argparse
 import json
@@ -19,7 +19,9 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools" / "balance_sim"))
 import make_candidate as proposal  # noqa: E402
 
-TARGET = ROOT / "DicePrototype" / "Assets" / "Game" / "Data" / "P0Config.json"
+# p1.1.1 (W4b): this generator is frozen. Its output is the frozen p0.8.0 copy, not the live game config
+# (DicePrototype/Assets/Game/Data/P0Config.json, which tools/v111_config.py produces).
+TARGET = ROOT / "tools" / "balance_sim" / "baseline" / "P0Config.p0.8.0.json"
 
 # Coefficients that needed code support (docs/specs/v08/RULES_DELTA.md).
 C53_UNITS2 = [2, 2, 3, 4, 4, 6, 8, 10, 1]  # x1, x1, x1.5, x2, x2, x3, x4, x5, x0.5 ; index = raw ticket, x0.5 stays last
