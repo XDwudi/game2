@@ -103,8 +103,6 @@ namespace DiceCraft.Core
         public DebugConfig debug;
         public int maxControllerSlots => maxControllerInstances;
         public int controllerSellPrice => baseControllerSellPrice;
-        // TRANSITIONAL-V111: removed config key, kept as a constant until its last reader is rewritten.
-        public int goldContributionMultiplier => 1;
     }
 
     [Serializable]
@@ -182,8 +180,6 @@ namespace DiceCraft.Core
         public bool copyTargetEnchantment;
         // v1.1.1: chance (percent) that a random shop offer carries an enchantment, by shop cycle 1-8.
         public int[] shopChanceByCyclePercent;
-        // TRANSITIONAL-V111: removed config key, kept as a constant until its last reader is rewritten.
-        public int scoreMultiplier => 1;
     }
 
     [Serializable]
@@ -221,9 +217,6 @@ namespace DiceCraft.Core
         public int maxLevel;
         public int minSubmittedDice;
         public bool countsAsHand;
-        // TRANSITIONAL-V111: removed config keys, kept as derived values until their last readers are rewritten.
-        public int baseMult100 => 100 + baseAdd100;
-        public int incrementPerLevel100 => addPerLevel100;
     }
 
     [Serializable]
@@ -252,7 +245,6 @@ namespace DiceCraft.Core
     {
         public int goldPerValidSubmission;
         public int extraInterestPerTen;
-        public int scoreMultiplier;
         public int index;
         public int rollGrant;
         public int minUnlocked;
@@ -275,7 +267,6 @@ namespace DiceCraft.Core
         public string[] pattern;
         public bool freezeAllTargets;
         public int[] pips;
-        public int maxPermanentSixFaceSum;
         public int lastActualCapacitySlotPip;
         public bool requireFullCapacity;
         public int redGroupKeyFrom;
@@ -317,28 +308,21 @@ namespace DiceCraft.Core
         public bool initialDrawOnAcquisition;
         public bool nextDrawEveryValidSubmit;
         public bool sharedStateAdvancesOnce;
-        public string factor;
         public int baseAddPerEmptySubmitSlot;
-        public bool allowZero;
         public int baseAdd;
-        public int initialMultiplierUnits2;
-        public int addUnits2PerRealControllerSale;
         public bool mimicsDoNotDuplicateStateGrowth;
         public string saleRecipients;
         public int baseBuyPrice;
         public int baseSellPrice;
         public int sellPriceAddPerSuccessfulStageFinalize;
         public int[] factorUnits2;
-        public int perControllerUnits2;
         public int maxGrowthPerShop;
         public bool uniform;
         public bool drawOncePerRealOwnerPerSubmit;
         public bool mimicReusesOwnerOutcome;
-        // v0.9 (docs/specs/v09/RULES_SPEC.md), added by hand.
-        public int growthPerEvent;
-        public int growthPerBuyPrice;
+        // v0.9 (docs/specs/v09/RULES_SPEC.md), added by hand. v1.1.1 removed the parameters no card uses any more
+        // (scoreMultiplier, the unit-2/4/10/20 steps, growthPerEvent, growthPerBuyPrice, textures and others).
         public int minRedGroup;
-        public int perDieUnits10;
         public int retriggers;
         public int baseAddPerPoolDie;
         public int poolPipSumMultiplier;
@@ -352,7 +336,6 @@ namespace DiceCraft.Core
         public int baseAddPerPair;
         public string[] handIds;
         public int handMultAdd100;
-        public string[] textures;
         public int dieContributionMultiplier;
         public int goldPerStage;
         public int interestPrincipalAdd;
@@ -362,7 +345,6 @@ namespace DiceCraft.Core
         public int priceDelta;
         public int saleBonusPerStage;
         public int maxOwnedPermanentDice;
-        public int strictScoreMultiplier;
         public int strictMaxOwnedPermanentDice;
         // v1.0 (docs/specs/v10/RULES_SPEC.md), added by hand.
         public int baseAddPerPip;
@@ -380,12 +362,7 @@ namespace DiceCraft.Core
         public int baseAddPerItem;
         public int goldCost;
         public int goldPerStep;
-        public int stepUnits4;
-        public int maxSteps;
         public int expireGrowth;
-        public int glassBreakPercent;
-        public int perRollUnits2;
-        public int perSlotUnits2;
         // v1.1.1 (docs/specs/v111/RULES_DELTA.md 12.3), added by hand. Every key ending in 100 is the real value x 100.
         public int scoreMultiplier100;
         public int strictScoreMultiplier100;

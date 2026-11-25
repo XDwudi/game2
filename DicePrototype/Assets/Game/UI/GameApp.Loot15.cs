@@ -236,8 +236,8 @@ namespace DiceCraft
                 int level=(color?ViewState.colorLevels:ViewState.handLevels).First(v=>v.handId==o.contentId).level;
                 int max=color?Config.maxColorLevel:Config.Hand(o.contentId).maxLevel;
                 int next=Math.Min(max,level+Math.Max(1,o.levels));
-                int basis=color?Config.Color(o.contentId).baseMult100:Config.Hand(o.contentId).baseMult100;
-                int step=color?Config.Color(o.contentId).incrementPerLevel100:Config.Hand(o.contentId).incrementPerLevel100;
+                int basis=color?100+Config.Color(o.contentId).baseAdd100:Config.Hand(o.contentId).baseMult100; // W3A-ADAPT: a colour is an additive bonus; shown as 1 + bonus until W3b/UI rewords it
+                int step=color?Config.Color(o.contentId).addPerLevel100:Config.Hand(o.contentId).incrementPerLevel100;
                 card.text="直接升级：Lv."+level+" → Lv."+next+"\n倍率 ×"+Factor(basis+step*level)+" → ×"+Factor(basis+step*next);
                 card.picture=(t,r)=>HandPattern14(t,o.contentId,color,r);
             }

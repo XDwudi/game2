@@ -63,7 +63,7 @@ namespace DiceCraft.Presentation
                     // p1.0.0: the item multiplier and the boss half-score factor are part of the total multiplier.
                     BigInteger globalNumerator = 1, globalDenominator = 1;
                     foreach (var factor in score.globalFactors ?? Array.Empty<MultiplierFactor>()) { globalNumerator *= ExactScoreMath.Parse(factor.numerator); globalDenominator *= ExactScoreMath.Parse(factor.denominator); }
-                    multiplier = new ExactFraction((BigInteger)score.totalHandMult100 * score.colorMult100 * score.redMult100 * ExactScoreMath.Parse(score.controllerMultiplierNumerator) * BigInteger.Pow(cfg.enchantRules.scoreMultiplier, score.enchantMultiplierCount) * globalNumerator,
+                    multiplier = new ExactFraction((BigInteger)score.totalHandMult100 * (100 + score.additiveTotal100) * score.redMult100 * ExactScoreMath.Parse(score.controllerMultiplierNumerator) * globalNumerator, // W3A-ADAPT: the colour and enchantment zones became the additive zone x(1+A)
                         1000000 * ExactScoreMath.Parse(score.controllerMultiplierDenominator) * globalDenominator);
                     BuildScoring();
                     Add(PresentationPhase.FinalScore, "final_score", beforeValue: "0", afterValue: score.score,

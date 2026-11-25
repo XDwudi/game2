@@ -55,11 +55,11 @@ namespace DiceCraft.Tests
         [Test]
         public void HighScore_FormulaListsOnlyFactorsThatChangedTheScore()
         {
-            var plain = new ScoreBreakdown { baseTotal = "23", totalHandMult100 = 100, colorMult100 = 100, redMult100 = 100,
-                controllerMultiplierNumerator = "1", controllerMultiplierDenominator = "1", enchantMultiplierCount = 0 };
+            var plain = new ScoreBreakdown { baseTotal = "23", totalHandMult100 = 100, colorAdd100 = 0, redMult100 = 100, // W3A-ADAPT: colorMult100 is now 100 + colorAdd100
+                controllerMultiplierNumerator = "1", controllerMultiplierDenominator = "1", enchantAdditiveCount = 0 };
             Assert.That(HighScore073.Formula(plain, n => (n / 100m).ToString("0.##"), (n, d) => n + "/" + d, n => n), Is.EqualTo("23"));
-            var full = new ScoreBreakdown { baseTotal = "36", totalHandMult100 = 2800, colorMult100 = 500, redMult100 = 100,
-                controllerMultiplierNumerator = "192", controllerMultiplierDenominator = "1", enchantMultiplierCount = 2 };
+            var full = new ScoreBreakdown { baseTotal = "36", totalHandMult100 = 2800, colorAdd100 = 400, redMult100 = 100, // W3A-ADAPT: colorMult100 is now 100 + colorAdd100
+                controllerMultiplierNumerator = "192", controllerMultiplierDenominator = "1", enchantAdditiveCount = 2 };
             Assert.That(HighScore073.Formula(full, n => (n / 100m).ToString("0.##"), (n, d) => d == "1" ? n : n + "/" + d, n => n),
                 Is.EqualTo("36  ×  28  ×  5  ×  192  ×  2^2"));
             Assert.That(HighScore073.Formula(null, n => "", (n, d) => "", n => n), Is.Empty);

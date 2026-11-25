@@ -502,11 +502,6 @@ namespace DiceCraft.Core
         {
             if (color == null) throw new ArgumentNullException(nameof(color)); if (level < 0 || level > (maxLevel < 0 ? color.maxLevel : maxLevel)) throw new ArgumentOutOfRangeException(nameof(level)); return checked(color.baseAdd100 + color.addPerLevel100 * level);
         }
-        // TRANSITIONAL-V111: the p1.1.0 colour multiplier; removed with its last caller.
-        public static int ColorMultiplier100(ColorDefinition color, int level, int maxLevel = -1)
-        {
-            if (color == null) throw new ArgumentNullException(nameof(color)); if (level < 0 || level > (maxLevel < 0 ? color.maxLevel : maxLevel)) throw new ArgumentOutOfRangeException(nameof(level)); return checked(color.baseMult100 + color.incrementPerLevel100 * level);
-        }
         public static string[] SameValueCandidates(IReadOnlyDictionary<int, int> counts)
         {
             if (counts == null) throw new ArgumentNullException(nameof(counts)); var ids = new List<string>(); int max = counts.Count == 0 ? 0 : counts.Values.Max(), pairs = counts.Values.Count(n => n >= 2), trips = counts.Values.Count(n => n >= 3);

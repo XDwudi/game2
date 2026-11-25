@@ -145,8 +145,6 @@ namespace DiceCraft.Core
             var all = instances.ToArray();
             return all.Count(c => c.alive && c.enchantmentId != SlotlessEnchantmentId) - (FreeCultivationInstanceId(all, cfg) != null ? 1 : 0);
         }
-        // TRANSITIONAL-V111: the p1.1.0 count without the free cultivation slot; removed with its last caller.
-        public static int OrdinaryUsed(IEnumerable<ControllerInstance> instances) => instances.Count(c => c.alive && c.enchantmentId != "slotless");
         public static long SalePrice(ControllerInstance instance, GameConfig cfg, bool fullPrice = false)
         {
             if (instance == null || !instance.alive) throw new ArgumentException("Cannot sell absent controller.");

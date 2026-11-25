@@ -124,7 +124,7 @@ namespace DiceCraft.Tests
                 }
                 else
                 {
-                    while(ControllerRules.OrdinaryUsed(fixture.controllers)<fixture.controllerSlots)
+                    while(ControllerRules.OrdinaryUsed(fixture.controllers,app.Config)<fixture.controllerSlots)
                         fixture.controllers.Add(BoundaryController(fixture,"C02"));
                     if(kind=="L2")
                         while(fixture.controllers.Count<app.Config.maxControllerInstances)

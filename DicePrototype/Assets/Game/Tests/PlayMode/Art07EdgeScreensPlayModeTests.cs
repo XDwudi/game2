@@ -46,7 +46,7 @@ namespace DiceCraft.Tests
                 var preview=app.Session.PreviewScore();
                 Assert.That(preview.totalHandMult100,Is.EqualTo(100));Assert.That(preview.redMult100,Is.EqualTo(100));
                 Assert.That(preview.controllerMultiplierNumerator,Is.EqualTo("1"));Assert.That(preview.controllerMultiplierDenominator,Is.EqualTo("1"));
-                Assert.That(preview.enchantMultiplierCount,Is.Zero);Assert.That(preview.colorMult100%100,Is.Zero);
+                Assert.That(preview.enchantAdditiveCount,Is.Zero);Assert.That(preview.colorMult100%100,Is.Zero);
                 Click("Submit");app.SkipVisual();
                 var committed=app.Session.State.processedReceipts.Last();Assert.That(committed.command.kind,Is.EqualTo(CommandKind.Submit));
                 long value=long.Parse(committed.score,System.Globalization.CultureInfo.InvariantCulture);

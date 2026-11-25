@@ -345,7 +345,7 @@ namespace DiceCraft.Verification
                 while (CanPage(previous)) yield return PressTargetReady(previous);
             }
             string counts = ActiveControl<TextMeshProUGUI>("ControllerCapacity07").text;
-            Require(counts == "卡牌栏位 " + ControllerRules.OrdinaryUsed(state.controllers) + "/" + state.controllerSlots
+            Require(counts == "卡牌栏位 " + ControllerRules.OrdinaryUsed(state.controllers, app.Config) + "/" + state.controllerSlots
                 + " · 共 " + state.controllers.Count + "/" + app.Config.maxControllerInstances + " 张", "Normal card capacity differs: " + counts);
             Require(GameSession.StateHash(app.Session.State) == before && FileHash(app.SaveLocation) == disk, "Paging mutated shop state or save.");
             V06Check("v11-shop-fixed-shelves", "Visible quotes across all pages; fixed card shelf; capacity caption; state/disk purity",

@@ -255,7 +255,7 @@ namespace DiceCraft
                 }
                 return;
             }
-            int empty=Math.Max(0,s.controllerSlots-ControllerRules.OrdinaryUsed(s.controllers));
+            int empty=Math.Max(0,s.controllerSlots-ControllerRules.OrdinaryUsed(s.controllers,Config));
             const float strip=56,gap=12;
             float cap=c?280:216;
             float cardW=count==0?0:Mathf.Min(cap,(l.cards.width-empty*(strip+gap)-gap*(count-1))/count);

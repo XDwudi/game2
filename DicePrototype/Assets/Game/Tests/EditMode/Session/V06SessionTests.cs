@@ -315,7 +315,7 @@ namespace DiceCraft.Tests
             var store=new FaultStore();var s=GameSession.CreateDebugWorkspace(cfg,store);Assert.That(s.State.isDebug,Is.False);Assert.That(s.ActionSequence,Is.Zero);Assert.That(store.calls,Is.Zero);
             var draft=s.ExportDebugScene();draft.controllers.Add(new ControllerInstance{definitionId="C05",enchantmentId="mult2",instanceId="ITEM_00001",acquiredSerial=1});
             Do(s,CommandKind.ApplyDebugScene,c=>c.debugScene=draft);Do(s,CommandKind.Roll);Lock(s,"D001");Do(s,CommandKind.Submit);
-            Assert.That(s.State.lastSubmission.breakdown.enchantMultiplierCount,Is.Zero);
+            Assert.That(s.State.lastSubmission.breakdown.enchantAdditiveCount,Is.Zero);
         }
 
         [TestCase("C05","base10")] [TestCase("C05","mult2")]

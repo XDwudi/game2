@@ -43,7 +43,7 @@ namespace DiceCraft
             foreach(var record in ViewState.processedReceipts.Where(r=>r.command.kind==CommandKind.Submit))
             {
                 var b=record.submission.breakdown;var score=ExactScoreMath.Parse(b.score);total+=score;if(score>max)max=score;
-                var n=(BigInteger)b.totalHandMult100*b.colorMult100*b.redMult100*ExactScoreMath.Parse(b.controllerMultiplierNumerator)*BigInteger.Pow(Config.enchantRules.scoreMultiplier,b.enchantMultiplierCount);
+                var n=(BigInteger)b.totalHandMult100*(100+b.additiveTotal100)*b.redMult100*ExactScoreMath.Parse(b.controllerMultiplierNumerator); // W3A-ADAPT: the colour and enchantment zones became the additive zone x(1+A)
                 var d=1000000*ExactScoreMath.Parse(b.controllerMultiplierDenominator);
                 if(n*multD>multN*d){multN=n;multD=d;}
             }

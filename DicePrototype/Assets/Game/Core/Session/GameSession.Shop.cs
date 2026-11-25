@@ -424,7 +424,7 @@ namespace DiceCraft.Core
                     // checked on the current equipment plus the new card.
                     Check(offer.controller != null && offer.controller.definitionId == offer.contentId, "卡牌报价实例无效。");
                     var equipment = s.controllers.Concat(new[] { offer.controller }).ToArray();
-                    Check(equipment.Length <= cfg.maxControllerInstances && ControllerRules.OrdinaryUsed(equipment) <= s.controllerSlots, "普通卡牌栏位或总张数已满，可先出售卡牌。");
+                    Check(equipment.Length <= cfg.maxControllerInstances && ControllerRules.OrdinaryUsed(equipment, cfg) <= s.controllerSlots, "普通卡牌栏位或总张数已满，可先出售卡牌。");
                     Check(ControllerRules.IsEnchantmentLegal(offer.contentId, offer.controller.enchantmentId, cfg), "卡牌附魔不合法。");
                     break;
                 case "consumable": Check(s.inventory.Count < s.consumableSlots, "道具栏位已满，可先出售道具。"); break;
@@ -471,7 +471,7 @@ namespace DiceCraft.Core
                         // v1.0: a free loot upgrade can grant several levels at once, never past the cap.
                         var entry = s.handLevels.Concat(s.colorLevels).First(x => x.handId == offer.contentId); bool isColor = cfg.colorDefinitions.Any(c => c.id == offer.contentId);
                         int applied = Math.Min(Math.Max(1, offer.levels), (isColor ? cfg.maxColorLevel : cfg.Hand(offer.contentId).maxLevel) - entry.level);
-                        entry.level = checked(entry.level + applied); Grow(s, "C61", checked((long)cfg.Controller("C61").parameters.growthPerEvent * applied)); break;
+                        entry.level = checked(entry.level + applied); Grow(s, "C61", checked((long)cfg.Controller("C61").parameters.growthEvent * applied)); break;
                     }
                 case "gold":
                     s.gold = checked(s.gold + offer.basePrice);
@@ -516,7 +516,7 @@ namespace DiceCraft.Core
                     }
                     else throw new RuleViolation("服务不能以此方式购买。");
                     break;
-                case "die_upgrade": ApplyUpgrade(s, offer.contentId, command.targetDieId, command.targetFaceId); Grow(s, "C60", cfg.Controller("C60").parameters.growthPerEvent); break;
+                case "die_upgrade": ApplyUpgrade(s, offer.contentId, command.targetDieId, command.targetFaceId); Grow(s, "C60", cfg.Controller("C60").parameters.growthEvent); break;
             }
             offer.sold = true;
             var taken = GroupOf(s, offer);
@@ -571,7 +571,7 @@ namespace DiceCraft.Core
             Check(s.shop.selfStudyUsed < cfg.shop.selfStudyLimit, SelfStudyLimitReached);
             Check(IsHandLegal(s, handId), "牌型已满级，或当前容量/永久骰数量不足。");
             int price = HandPrice(s, handId, true); Check(s.gold >= price, "金币不足。");
-            s.gold = checked(s.gold - price); s.handLevels.Concat(s.colorLevels).First(x => x.handId == handId).level++; s.shop.selfStudyUsed++; Grow(s, "C61", cfg.Controller("C61").parameters.growthPerEvent);
+            s.gold = checked(s.gold - price); s.handLevels.Concat(s.colorLevels).First(x => x.handId == handId).level++; s.shop.selfStudyUsed++; Grow(s, "C61", cfg.Controller("C61").parameters.growthEvent);
             s.lastEffects.Add(new EffectRecord { kind = "HandStudied", sourceId = handId, oldValue = price, newValue = Level(s, handId) });
         }
 
@@ -583,8 +583,10 @@ namespace DiceCraft.Core
             bool grown = false;
             foreach (var c in s.controllers.Where(c => c.definitionId == "C51" && beforeIds.Contains(c.instanceId)))
             {
-                c.state.turnoverUnits2 = checked(c.state.turnoverUnits2 + cfg.Controller("C51").parameters.addUnits2PerRealControllerSale);
-                s.lastEffects.Add(new EffectRecord { kind = "TurnoverGrown", sourceId = "C51", detail = c.instanceId, newValue = c.state.turnoverUnits2 });
+                // W3A-ADAPT: addUnits2PerRealControllerSale is gone; C51 now keeps what it has grown in `growth` (hundredths,
+                // growthEvent per first sale of a shop) and turnoverUnits2 is no longer read. W3b reviews this event.
+                c.state.growth = checked(c.state.growth + cfg.Controller("C51").parameters.growthEvent);
+                s.lastEffects.Add(new EffectRecord { kind = "TurnoverGrown", sourceId = "C51", detail = c.instanceId, newValue = c.state.growth });
                 grown = true;
             }
             if (grown && s.shop != null) s.shop.turnoverGrowthCount = checked(s.shop.turnoverGrowthCount + 1);

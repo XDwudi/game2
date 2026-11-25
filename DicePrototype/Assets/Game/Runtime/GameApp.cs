@@ -158,7 +158,7 @@ namespace DiceCraft
             {
                 var committedScore=Session.State.lastSubmission.breakdown;
                 if(committedScore.enchantBaseCount>0){notice+=" 附魔触发：基础 +"+committedScore.enchantBaseAdd;PlaySound("enchant_base10");}
-                if(committedScore.enchantMultiplierCount>0){notice+=" 附魔触发：×2 共 "+committedScore.enchantMultiplierCount+" 次";PlaySound("enchant_mult2");}
+                if(committedScore.enchantAdditiveCount>0){ /* W3A-ADAPT: renamed field; the notice text still says x2 */ notice+=" 附魔触发：×2 共 "+committedScore.enchantAdditiveCount+" 次";PlaySound("enchant_mult2");}
             }
             if(roll || submit)
             {
@@ -238,6 +238,6 @@ namespace DiceCraft
         // Compact views: up to 15 digits in full, longer as "约 1.23×10^19".
         private static string CompactScore(string value)=>PlayerNumberFormat.Exact(value??"0");
         private string NameOf(string id){if(string.IsNullOrEmpty(id)||id=="none"||id=="scatter")return "散点";if(id=="all_blue"||id=="all_red")return Config.Color(id).displayName;if(id.StartsWith("B"))return Config.Modifier(id).displayName;if(id.StartsWith("L"))return Config.Loot(id).displayName;if(id=="GOLD")return "折现";if(id.StartsWith("C"))return Config.Controller(id).displayName;if(id.StartsWith("I"))return Config.Consumable(id).displayName;if(id.StartsWith("O"))return Config.Service(id).displayName;if(id.StartsWith("U"))return Config.Upgrade(id).displayName;return Config.Hand(id).displayName;}
-        private string Description(string id){if(id=="all_blue"||id=="all_red"){var c=Config.Color(id);return "提交的骰子全是"+(id=="all_red"?"红":"蓝")+"色即成立（1 颗也算）。每升 1 级倍率 +"+Factor(c.incrementPerLevel100)+"。";}if(id.StartsWith("B"))return Config.Modifier(id).description;if(id.StartsWith("L"))return Config.Loot(id).description;if(id=="GOLD")return "放弃这一组战利品，换成 "+Config.lootGoldValue+" 金币。";if(id.StartsWith("C"))return Config.Controller(id).description;if(id.StartsWith("I"))return Config.Consumable(id).description;if(id.StartsWith("O"))return Config.Service(id).description;if(id.StartsWith("U"))return Config.Upgrade(id).description;var h=Config.Hand(id);return "本局一直有效；每升 1 级倍率 +"+Factor(h.incrementPerLevel100)+"，最高 "+h.maxLevel+" 级。";}
+        private string Description(string id){if(id=="all_blue"||id=="all_red"){var c=Config.Color(id);return "提交的骰子全是"+(id=="all_red"?"红":"蓝")+"色即成立（1 颗也算）。每升 1 级倍率 +"+Factor(c.addPerLevel100)+"。";}if(id.StartsWith("B"))return Config.Modifier(id).description;if(id.StartsWith("L"))return Config.Loot(id).description;if(id=="GOLD")return "放弃这一组战利品，换成 "+Config.lootGoldValue+" 金币。";if(id.StartsWith("C"))return Config.Controller(id).description;if(id.StartsWith("I"))return Config.Consumable(id).description;if(id.StartsWith("O"))return Config.Service(id).description;if(id.StartsWith("U"))return Config.Upgrade(id).description;var h=Config.Hand(id);return "本局一直有效；每升 1 级倍率 +"+Factor(h.incrementPerLevel100)+"，最高 "+h.maxLevel+" 级。";}
     }
 }

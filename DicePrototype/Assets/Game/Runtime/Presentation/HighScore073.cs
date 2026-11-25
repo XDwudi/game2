@@ -63,7 +63,7 @@ namespace DiceCraft.Presentation
             if (b.colorMult100 != 100) parts.Add(term("color", factor(b.colorMult100)));
             if (b.redMult100 != 100) parts.Add(term("red", factor(b.redMult100)));
             if (b.controllerMultiplierNumerator != b.controllerMultiplierDenominator) parts.Add(term("controller", ratio(b.controllerMultiplierNumerator, b.controllerMultiplierDenominator)));
-            if (b.enchantMultiplierCount > 0) parts.Add(term("enchant", enchant(b.enchantMultiplierCount)));
+            if (b.enchantAdditiveCount > 0) parts.Add(term("enchant", enchant(b.enchantAdditiveCount))); // W3A-ADAPT: renamed field; W3b/UI merges colour and enchantment into one additive term
             if (global != null) foreach (var f in b.globalFactors ?? Array.Empty<MultiplierFactor>()) parts.Add(global(f));
             return string.Join("  ×  ", parts);
         }

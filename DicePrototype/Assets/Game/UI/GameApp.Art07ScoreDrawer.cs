@@ -93,8 +93,8 @@ namespace DiceCraft
             Factor100("颜色",b.colorMult100);
             Factor100("红组",b.redMult100);
             Ratio("卡牌",b.controllerMultiplierNumerator,b.controllerMultiplierDenominator);
-            if (b.enchantMultiplierCount > 0)
-                formula.Append(" × 附魔 ").Append(PlayerNumberFormat.Integer(EnchantFactor07(b.enchantMultiplierCount),PlayerNumberFormat.Unlimited));
+            if (b.enchantAdditiveCount > 0) // W3A-ADAPT: renamed field; the factor is 1 until W3b/UI shows the additive line
+                formula.Append(" × 附魔 ").Append(PlayerNumberFormat.Integer(EnchantFactor07(b.enchantAdditiveCount),PlayerNumberFormat.Unlimited));
             if (b.globalFactors != null)
                 foreach (var factor in b.globalFactors) Ratio(NameOf(factor.abilityId),factor.numerator,factor.denominator);
             return formula.Append("\n= ").Append(Big(b.score)).Append("（最后去掉小数）").ToString();

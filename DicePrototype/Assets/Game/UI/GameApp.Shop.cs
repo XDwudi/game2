@@ -192,7 +192,7 @@ namespace DiceCraft
             var list=UiKit.Scroll(p,"StudyList",40,100,1500,620,Math.Max(600,legal.Length*85));
             for(int i=0;i<legal.Length;i++)
             {
-                string id=legal[i];bool color=id=="all_blue"||id=="all_red";int level=(color?ViewState.colorLevels:ViewState.handLevels).First(x=>x.handId==id).level,price=Session.GetStudyPrice(id);int baseMult=color?Config.Color(id).baseMult100:Config.Hand(id).baseMult100,increment=color?Config.Color(id).incrementPerLevel100:Config.Hand(id).incrementPerLevel100;
+                string id=legal[i];bool color=id=="all_blue"||id=="all_red";int level=(color?ViewState.colorLevels:ViewState.handLevels).First(x=>x.handId==id).level,price=Session.GetStudyPrice(id);int baseMult=color?100+Config.Color(id).baseAdd100:Config.Hand(id).baseMult100,increment=color?Config.Color(id).addPerLevel100:Config.Hand(id).incrementPerLevel100; /* W3A-ADAPT: a colour is an additive bonus; shown as 1 + bonus until W3b/UI rewords it */
                 UiKit.Text(list,"StudyName"+id,$"{NameOf(id)}   Lv.{level} → {level+1}    倍率 {Factor(baseMult+increment*level)} → {Factor(baseMult+increment*(level+1))}",12,i*85+15,1040,50,27);
                 UiKit.Button(list,"StudyBuy"+id,price+" 金币",1110,i*85,340,65,()=>{CloseModal();Send(new SessionCommand{kind=CommandKind.Study,handId=id});},ViewState.gold>=price,true);
             }

@@ -107,7 +107,7 @@ namespace DiceCraft.Core
                 var level = s.handLevels.First(h => h.handId == plan.upgradeHandId);
                 int old = level.level; level.level = checked(level.level + plan.upgradeApplied);
                 s.lastEffects.Add(new EffectRecord { kind = "HandGrown", sourceId = "C43", detail = plan.upgradeHandId, oldValue = old, newValue = level.level });
-                Grow(s, "C61", checked((long)cfg.Controller("C61").parameters.growthPerEvent * plan.upgradeApplied));
+                Grow(s, "C61", checked((long)cfg.Controller("C61").parameters.growthEvent * plan.upgradeApplied));
             }
             if (Fx(s, "HandDowngrade") && score.primaryHandId != "scatter")
             {
@@ -225,12 +225,12 @@ namespace DiceCraft.Core
                 s.lastEffects.Add(new EffectRecord { kind = "FundAccrued", sourceId = "C52", detail = emitterId, newValue = emitter.state.fundAccrual });
             }
             // v0.9 stage-clear growth: C58 per stage, C59 per unused submission, C99 raises every owned controller's resale.
-            Grow(s, "C58", cfg.Controller("C58").parameters.growthPerEvent);
-            Grow(s, "C59", checked((long)cfg.Controller("C59").parameters.growthPerEvent * s.stage.remainingSubmissions));
+            Grow(s, "C58", cfg.Controller("C58").parameters.growthEvent);
+            Grow(s, "C59", checked((long)cfg.Controller("C59").parameters.growthEvent * s.stage.remainingSubmissions));
             // v1.0 stage-clear growth: C129 per boss stage, C132 per completed pressure challenge, C141 counts down and expires.
             bool bossStage = StageKind(s) == "boss", lastStage = s.stage.stageIndex == cfg.stages.Length - 1;
-            if (bossStage) Grow(s, "C129", cfg.Controller("C129").parameters.growthPerEvent);
-            if (s.stage.risk) Grow(s, "C132", cfg.Controller("C132").parameters.growthPerEvent);
+            if (bossStage) Grow(s, "C129", cfg.Controller("C129").parameters.growthEvent);
+            if (s.stage.risk) Grow(s, "C132", cfg.Controller("C132").parameters.growthEvent);
             Grow(s, "C141", 1);
             foreach (var expired in s.controllers.Where(c => c.definitionId == "C141" && c.state.growth >= cfg.Controller("C141").parameters.expireGrowth).ToArray())
             {
@@ -294,7 +294,7 @@ namespace DiceCraft.Core
                 else if (source.abilityId == "C112" && !lastStage)
                 {
                     var candidates = cfg.controllers.Where(c => c.rarity == p.rarity && !Has(s, c.id)).OrderBy(c => c.id, StringComparer.Ordinal).ToArray();
-                    if (candidates.Length == 0 || ControllerRules.OrdinaryUsed(s.controllers) >= s.controllerSlots || s.controllers.Count >= cfg.maxControllerInstances) continue;
+                    if (candidates.Length == 0 || ControllerRules.OrdinaryUsed(s.controllers, cfg) >= s.controllerSlots || s.controllers.Count >= cfg.maxControllerInstances) continue;
                     var trace = DrawRaw(s, rng, "effect", "C112Controller", source.emitterId, candidates.Length); var picked = candidates[trace.rawTicket]; trace.rawValue = trace.appliedValue = picked.id;
                     int serial = s.nextItemSerial++;
                     var granted = new ControllerInstance { instanceId = "ITEM_" + serial.ToString("D5"), acquiredSerial = serial, definitionId = picked.id, enchantmentId = "none" };
@@ -456,7 +456,7 @@ namespace DiceCraft.Core
             }
             s.inventory.Remove(item); s.consumedItemIds.Add(item.instanceId);
             s.lastEffects.Add(new EffectRecord { kind = "ItemUsed", sourceId = item.contentId, detail = item.instanceId });
-            Grow(s, "C134", cfg.Controller("C134").parameters.growthPerEvent);
+            Grow(s, "C134", cfg.Controller("C134").parameters.growthEvent);
         }
     }
 }

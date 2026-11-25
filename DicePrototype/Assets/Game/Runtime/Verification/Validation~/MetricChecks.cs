@@ -116,7 +116,7 @@ internal static class MetricChecks
         var stress = (RunState)stressFactory.Invoke(null, new object[] { cfg });
         var stressSession = new GameSession(cfg, new MemorySaveStore(), stress);
         Check(stress.isDebug && stress.debugWorkspace && stress.dice.Count == 10 && stress.stage.capacity == 8 && stress.hand.orderedLockedIds.Count == 8
-            && stress.controllers.Count == 10 && ControllerRules.OrdinaryUsed(stress.controllers) == 4 && stress.inventory.Count == 5, "actual_stress_factory_v06_production_invariants_10_8_10_5");
+            && stress.controllers.Count == 10 && ControllerRules.OrdinaryUsed(stress.controllers, cfg) == 4 && stress.inventory.Count == 5, "actual_stress_factory_v06_production_invariants_10_8_10_5");
         Check(stress.controllers.Select(c => c.instanceId).Concat(stress.inventory.Select(i => i.instanceId)).Distinct().Count() == 15
             && stress.inventory.All(i => i.instanceId.StartsWith("ITEM_")), "stress_shared_item_namespace_has_no_collision");
         var roll = stressSession.Execute(new SessionCommand { commandId = "managed-roll", expectedActionSequence = stressSession.ActionSequence, kind = CommandKind.Roll });

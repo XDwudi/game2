@@ -216,7 +216,7 @@ namespace DiceCraft.Core
         /// <summary>The interest principal cap: base + C96 sources + the O10 purchases of this run.</summary>
         private long InterestPrincipalCap(RunState s) => checked(cfg.maxInterestPrincipal + (long)Sources(s).Count(x => x.abilityId == "C96") * cfg.Controller("C96").parameters.interestPrincipalAdd + (long)cfg.interestPrincipalStep * s.interestCapPurchases);
         /// <summary>v1.0 C145: the break chance of a glass die per roll (a disabled C145 is not a source).</summary>
-        private int GlassBreakPercent(RunState s) => Sources(s).Any(x => x.abilityId == "C145") ? cfg.Controller("C145").parameters.glassBreakPercent : cfg.glassBreakPercent;
+        private int GlassBreakPercent(RunState s) => cfg.glassBreakPercent; // W3A-ADAPT: C145 was removed in p1.1.1; W3b moves the break draw to after the submission.
         private long InterestOnPrincipal(long principal, int pigSources) =>
             checked(principal / cfg.interestDivisor * (1L + (long)pigSources * cfg.Controller("C01").parameters.extraInterestPerTen));
 
@@ -362,7 +362,7 @@ namespace DiceCraft.Core
             {
                 var altar = s.controllers.First(c => c.instanceId == pair.Key); var victim = s.controllers.First(c => c.instanceId == pair.Value);
                 s.controllers.Remove(victim); s.randomOverrides.RemoveAll(o => o.sourceId == victim.instanceId); long before = altar.state.growth;
-                altar.state.growth = checked(before + (long)cfg.Controller(victim.definitionId).buyPrice * cfg.Controller("C100").parameters.growthPerBuyPrice);
+                altar.state.growth = checked(before + (long)cfg.Controller(victim.definitionId).buyPrice * cfg.Controller("C100").parameters.growthEvent); // W3A-ADAPT: growthPerBuyPrice was renamed growthEvent (hundredths per gold)
                 s.lastEffects.Add(new EffectRecord { kind = "ControllerSacrificed", sourceId = "C100", detail = altar.instanceId + ":" + victim.instanceId + ":" + victim.definitionId, oldValue = before, newValue = altar.state.growth });
             }
             // v1.0 C131: the leftmost scapegoat destroys itself and lifts the boss modifier before anything else of it applies.
@@ -474,7 +474,7 @@ namespace DiceCraft.Core
             Check(unlocked.Length > 0, "骰子都锁定了，没有可掷的骰子。");
             var diceRng = new GameRng(s.diceRngState); var effectRng = new GameRng(s.effectRngState);
             s.hand.rollsRemaining--; s.hand.rollsUsed++; s.hand.hasRolled = true;
-            Grow(s, "C62", cfg.Controller("C62").parameters.growthPerEvent);
+            Grow(s, "C62", cfg.Controller("C62").parameters.growthEvent);
             int breakPercent = GlassBreakPercent(s);
             foreach (var die in unlocked)
             {
@@ -482,7 +482,7 @@ namespace DiceCraft.Core
                 {
                     s.dice.Remove(die); s.hand.currentResults.RemoveAll(x => x.dieId == die.dieId);
                     s.lastEffects.Add(new EffectRecord { kind = "DieBroken", sourceId = "U05", dieId = die.dieId });
-                    Grow(s, "C90", cfg.Controller("C90").parameters.growthPerEvent);
+                    // W3A-ADAPT: C90 was removed in p1.1.1, so a broken glass die no longer grows anything.
                     continue;
                 }
                 var faces = die.faces.OrderBy(x => x.faceId, StringComparer.Ordinal).ToArray();

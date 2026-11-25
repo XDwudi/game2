@@ -33,7 +33,7 @@ namespace DiceCraft.Tests
             {
                 var report = Art07Fixtures.Apply(app, kind); Assert.That(report.debugWorkspace && report.expectedValuesMatched, Is.True, kind.ToString());
                 if (kind == Art07FixtureKind.MaximumTable || kind == Art07FixtureKind.MaximumPool)
-                { Assert.That(app.Session.State.dice.Count(d => d.lifetime == "permanent"), Is.EqualTo(8)); Assert.That(ControllerRules.OrdinaryUsed(app.Session.State.controllers), Is.EqualTo(4)); }
+                { Assert.That(app.Session.State.dice.Count(d => d.lifetime == "permanent"), Is.EqualTo(8)); Assert.That(ControllerRules.OrdinaryUsed(app.Session.State.controllers, app.Config), Is.EqualTo(4)); }
                 if (kind == Art07FixtureKind.ZeroMultiplier)
                 { var receipt = Art07Fixtures.Submit(app, kind); Assert.That(receipt.Events.Any(e => e.EffectFamily == "SubmissionIncome"), Is.True); app.SkipVisual(); }
                 yield return null;

@@ -721,7 +721,7 @@ namespace DiceCraft.Tests
             // B25 disables the two leftmost cards. C62 grows per roll, C58 per stage cleared; the live C55 grows per submission.
             var s = Boss("B25", "C62", "C58", "C55"); Do(s, CommandKind.Roll);
             Assert.That(Growth(s, "C62"), Is.Zero, "a disabled C62 does not grow on a roll");
-            s = Force(s, Fours, "red"); Submit(s); Assert.That(Growth(s, "C55"), Is.EqualTo(cfg.Controller("C55").parameters.growthPerEvent), "the live card still grows");
+            s = Force(s, Fours, "red"); Submit(s); Assert.That(Growth(s, "C55"), Is.EqualTo(cfg.Controller("C55").parameters.growthEvent), "the live card still grows");
             Do(s, CommandKind.EndStage); Assert.That(Growth(s, "C58"), Is.Zero, "a disabled C58 does not grow at settlement"); Assert.That(Growth(s, "C62"), Is.Zero);
             // Item use (C134) and the boss clear (C129).
             var t = Boss("B25", "C134", "C129", "C13"); string item = null; t = Edit(t, x => item = AddItem(x, "I07"));
@@ -733,7 +733,7 @@ namespace DiceCraft.Tests
             Assert.That(u.State.controllers.Any(c => c.definitionId == "C141"), Is.True);
             // The same boss card grows when it stands third and stays live.
             var live = Force(Boss("B25", "C13", "C12", "C129"), Fours, "red"); Submit(live); Do(live, CommandKind.EndStage);
-            Assert.That(Growth(live, "C129"), Is.EqualTo(cfg.Controller("C129").parameters.growthPerEvent));
+            Assert.That(Growth(live, "C129"), Is.EqualTo(cfg.Controller("C129").parameters.growthEvent));
         }
 
         [Test] public void V10R_DisabledEconomyCardsPayNothingAndADisabledFilmLeavesGlassAtItsBaseRisk()
@@ -741,7 +741,7 @@ namespace DiceCraft.Tests
             var s = Force(Boss("B25", "C95", "C133", "C13"), Fours, "red"); Submit(s); var end = Do(s, CommandKind.EndStage).receipt.settlement;
             Assert.That(end.controllerIncome, Is.Zero, "disabled C95 and C133 pay nothing at settlement"); Assert.That(end.bountyIncome, Is.Zero);
             var off = Boss("B25", "C145", "C13", "C12"); Assert.That(off.GlassBreakPercentIn(off.State), Is.EqualTo(cfg.glassBreakPercent));
-            var on = Boss("B25", "C13", "C12", "C145"); Assert.That(on.GlassBreakPercentIn(on.State), Is.EqualTo(cfg.Controller("C145").parameters.glassBreakPercent));
+            var on = Boss("B25", "C13", "C12", "C145"); Assert.That(on.GlassBreakPercentIn(on.State), Is.EqualTo(cfg.glassBreakPercent /* W3A-ADAPT: C145 and its parameter were removed in p1.1.1; W3b rewrites or retires this case */));
         }
 
         [Test] public void V10R_TheAltarActsBeforeTheScapegoatAndAMimicOfTheScapegoatDoesNothing()
@@ -947,7 +947,7 @@ namespace DiceCraft.Tests
             // While-held switches apply once: the recycler and the protective film.
             var recycle = Edit(ShopAfterStage(0), x => Equip(x, "C02", "C140", "C140"));
             Assert.That(recycle.GetControllerSalePrice(recycle.State.controllers[0].instanceId), Is.EqualTo(cfg.Controller("C02").buyPrice));
-            var film = Ready("C145", "C145"); Assert.That(film.GlassBreakPercentIn(film.State), Is.EqualTo(cfg.Controller("C145").parameters.glassBreakPercent));
+            var film = Ready("C145", "C145"); Assert.That(film.GlassBreakPercentIn(film.State), Is.EqualTo(cfg.glassBreakPercent /* W3A-ADAPT: C145 and its parameter were removed in p1.1.1; W3b rewrites or retires this case */));
             // Self-destroying cards act one instance at a time: only the leftmost scapegoat is spent on a boss.
             var goats = Boss("B05", "C131", "C131");
             Assert.That(goats.State.controllers.Select(c => c.definitionId), Is.EqualTo(new[] { "C131" })); Assert.That(goats.State.stage.modifierNullified, Is.True);

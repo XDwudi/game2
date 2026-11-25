@@ -167,7 +167,7 @@ namespace DiceCraft
             // V1.1 W14 (UI_REWRITES Shop.cs:132, D2): "买下后：卡牌栏位 0 → 1 / 5 · 共 1/10 张" and the price as a sum.
             int basis=Config.Controller(offer.contentId).buyPrice,price=Session.GetOfferPrice(offer);
             long enchant=offer.controller==null||offer.controller.enchantmentId=="none"?0:ControllerRules.EnchantPrice(offer.controller.enchantmentId,Config),cut=basis+enchant-price;
-            return $"卡牌栏位 {ControllerRules.OrdinaryUsed(ViewState.controllers)} → {ControllerRules.OrdinaryUsed(final)} / {ViewState.controllerSlots} · 共 {final.Count}/{Config.maxControllerInstances} 张\n"+
+            return $"卡牌栏位 {ControllerRules.OrdinaryUsed(ViewState.controllers,Config)} → {ControllerRules.OrdinaryUsed(final,Config)} / {ViewState.controllerSlots} · 共 {final.Count}/{Config.maxControllerInstances} 张\n"+
                 (enchant>0||cut>0?$"价格 {price} = {basis}"+(enchant>0?$" + 附魔 {enchant}":"")+(cut>0?$" − 砍价 {cut}":""):$"价格 {price}")+
                 (owned>0?$"\n已有 {owned} 张同名卡牌；买下后共 {owned+1} 张，每张各自生效。":"");
         }

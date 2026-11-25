@@ -301,7 +301,7 @@ namespace DiceCraft
                 // v1.1 (G3): the copy is added to what you hold; nothing is replaced (RULES_DELTA 1.1 item 5).
                 var final=ViewState.controllers.Concat(new[]{offer.controller}).ToArray();
                 if(final.Length>Config.maxControllerInstances)return "卡牌已满 "+Config.maxControllerInstances+" 张";
-                if(ControllerRules.OrdinaryUsed(final)>ViewState.controllerSlots)return "卡牌栏位已满";
+                if(ControllerRules.OrdinaryUsed(final,Config)>ViewState.controllerSlots)return "卡牌栏位已满";
             }
             if(offer.category=="consumable"&&ViewState.inventory.Count>=ViewState.consumableSlots)return "道具栏已满";
             if(offer.category=="die_upgrade")
@@ -380,8 +380,8 @@ namespace DiceCraft
             {
                 bool color=Config.colorDefinitions.Any(d=>d.id==offer.contentId);
                 int level=(color?ViewState.colorLevels:ViewState.handLevels).First(v=>v.handId==offer.contentId).level;
-                int basis=color?Config.Color(offer.contentId).baseMult100:Config.Hand(offer.contentId).baseMult100;
-                int step=color?Config.Color(offer.contentId).incrementPerLevel100:Config.Hand(offer.contentId).incrementPerLevel100;
+                int basis=color?100+Config.Color(offer.contentId).baseAdd100:Config.Hand(offer.contentId).baseMult100; // W3A-ADAPT: a colour is an additive bonus; shown as 1 + bonus until W3b/UI rewords it
+                int step=color?Config.Color(offer.contentId).addPerLevel100:Config.Hand(offer.contentId).incrementPerLevel100;
                 // UI_REWRITES Art073Shop.cs:277: "Lv.0 → Lv.1" and the multiplier change on one line (the short text).
                 face.text="Lv."+level+" → Lv."+(level+1)+" · ×"+Factor(basis+step*level)+" → ×"+Factor(basis+step*(level+1));
                 face.picture=(t,r)=>HandPattern14(t,offer.contentId,color,r);tip=face.text+"\n"+tip;
@@ -537,9 +537,9 @@ namespace DiceCraft
             var panel=Surface11(main,"Build14",l.build.x,l.build.y,l.build.width,l.build.height,"ui_section_panel",UiKit.Section(UiKit.Panel));
             var doomed=AltarVictims09();var cards=ViewState.controllers;
             // v1.1 (text proposal 5 #5): practice and the debug workspace keep their own prefix.
-            string capacity=IsPracticeRun11?"练习模式 · 持有 "+cards.Count+" 张 · 占用栏位 "+ControllerRules.OrdinaryUsed(cards):
-                ViewState.debugWorkspace&&!CleanCapture11?"调试配置 · 持有 "+cards.Count+" · 占用栏位 "+ControllerRules.OrdinaryUsed(cards):
-                "卡牌栏位 "+ControllerRules.OrdinaryUsed(cards)+"/"+ViewState.controllerSlots+" · 共 "+cards.Count+"/"+Config.maxControllerInstances+" 张";
+            string capacity=IsPracticeRun11?"练习模式 · 持有 "+cards.Count+" 张 · 占用栏位 "+ControllerRules.OrdinaryUsed(cards,Config):
+                ViewState.debugWorkspace&&!CleanCapture11?"调试配置 · 持有 "+cards.Count+" · 占用栏位 "+ControllerRules.OrdinaryUsed(cards,Config):
+                "卡牌栏位 "+ControllerRules.OrdinaryUsed(cards,Config)+"/"+ViewState.controllerSlots+" · 共 "+cards.Count+"/"+Config.maxControllerInstances+" 张";
             float captionSize=Body11(18),captionY=4+(l.captionH-Line11(captionSize))*.5f,itemsX=l.build.width-ShopPad14-(5*BuildItemSize14+4*6);
             var head=FitLine13(panel,"BuildTitle14","我的构筑",ShopPad14,captionY,140,captionSize,LabelOn11(panel,UiKit.TextColor),TextAlignmentOptions.MidlineLeft,true);
             head.ForceMeshUpdate();float x=ShopPad14+head.textBounds.size.x+16;

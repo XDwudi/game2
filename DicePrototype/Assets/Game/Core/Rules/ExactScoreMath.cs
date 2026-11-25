@@ -15,10 +15,11 @@ namespace DiceCraft.Core
         public static string SaveDecimal(BigInteger value) { if (value < 0) throw new ArgumentOutOfRangeException(nameof(value)); return value.ToString(CultureInfo.InvariantCulture); }
         public static string Add(string a, string b) => SaveDecimal(Parse(a) + Parse(b));
         public static int Compare(string a, string b) => Parse(a).CompareTo(Parse(b));
-        public static BigInteger FinalScore(BigInteger baseTotal, int handMult100, int colorMult100, int redMult100, BigInteger controllerNumerator, BigInteger controllerDenominator, int multiplierEnchantCount)
+        /// <summary>p1.1.1: floor(B x H x R x (1 + A) x M) with the hand and red multipliers and the additive total A in hundredths.</summary>
+        public static BigInteger FinalScore(BigInteger baseTotal, int handMult100, int redMult100, long additiveTotal100, BigInteger controllerNumerator, BigInteger controllerDenominator)
         {
-            if (baseTotal < 0 || handMult100 < 100 || colorMult100 < 100 || redMult100 < 100 || controllerNumerator < 0 || controllerDenominator <= 0 || multiplierEnchantCount < 0) throw new ArgumentOutOfRangeException();
-            return baseTotal * handMult100 * colorMult100 * redMult100 * controllerNumerator * BigInteger.Pow(2, multiplierEnchantCount) / (1000000 * controllerDenominator);
+            if (baseTotal < 0 || handMult100 < 100 || redMult100 < 100 || additiveTotal100 < 0 || controllerNumerator < 0 || controllerDenominator <= 0) throw new ArgumentOutOfRangeException();
+            return baseTotal * handMult100 * redMult100 * (100 + (BigInteger)additiveTotal100) * controllerNumerator / (1000000 * controllerDenominator);
         }
     }
 }

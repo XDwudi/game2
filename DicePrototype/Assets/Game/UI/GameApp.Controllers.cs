@@ -27,8 +27,8 @@ namespace DiceCraft
             // v1.1 (W09): one number format for every multiplier (PlayerNumberFormat).
             if(ControllerRules.IsGrowthMultiplier(abilityId))return PlayerNumberFormat.Times(20+state.growth,20);
             if(ControllerRules.IsGrowthBase(abilityId))return "+"+state.growth;
-            if(abilityId=="C141")return PlayerNumberFormat.Times(Config.Controller("C141").parameters.initialMultiplierUnits2-state.growth,2);
-            if(abilityId=="C63")return PlayerNumberFormat.Times(Math.Max(10,ViewState.dice.Count(d=>d.lifetime=="permanent")*Config.Controller("C63").parameters.perDieUnits10),10);
+            if(abilityId=="C141")return "+"+Factor(checked((int)(Config.Controller("C141").parameters.initialAdditive100-state.growth*Config.Controller("C141").parameters.decayPerClear100))); // W3A-ADAPT: C141 is an additive bonus now
+            if(abilityId=="C63")return "+"+Factor(ViewState.dice.Count(d=>d.lifetime=="permanent")*Config.Controller("C63").parameters.additivePerPermanentDie100); // W3A-ADAPT: C63 is an additive bonus now
             return null;
         }
         /// <summary>v0.9 C100: before a stage starts, the controllers the altars will destroy when it does.</summary>
@@ -126,7 +126,7 @@ namespace DiceCraft
                 var mimics=sources.Where(s=>s.emitterDefinitionId=="C41").Take(4).Select(s=>CardPosition11(candidate,s.emitterId)+" "+NameOf("C41")+" → "+(s.abilityId==null?"无能力":NameOf(s.abilityId)+"（"+(CardPosition11(candidate,s.stateOwnerId)??"—")+"）"));
                 // p1.0.0: outside the debug workspace the core quotes the capacity for the new order (boss modifier, disabled cards and altars included).
                 int k=ViewState.debugCapacityOverride>0?ViewState.debugCapacityOverride:ViewState.debugWorkspace?ControllerRules.Capacity(candidate,Config,ViewState.isDebug):Session.CapacityForOrder(candidate.Select(c=>c.instanceId).ToList());
-                preview="放在这里 · 栏位 "+ControllerRules.OrdinaryUsed(candidate)+(IsDebugWorkspace?"（调试）":IsPracticeRun11?"":" / "+ViewState.controllerSlots)+" · 提交栏 "+Session.EffectiveCapacity+" → "+k+" 格\n"+string.Join("\n",mimics);
+                preview="放在这里 · 栏位 "+ControllerRules.OrdinaryUsed(candidate,Config)+(IsDebugWorkspace?"（调试）":IsPracticeRun11?"":" / "+ViewState.controllerSlots)+" · 提交栏 "+Session.EffectiveCapacity+" → "+k+" 格\n"+string.Join("\n",mimics);
             }
             UiKit.Text(dragGhost,"Candidate",preview,12,52,596,150,20,UiKit.Teal);
         }

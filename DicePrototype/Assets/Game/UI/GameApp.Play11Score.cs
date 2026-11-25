@@ -40,7 +40,7 @@ namespace DiceCraft
             if(zeroFive)list.Add(new Factor11{role=4,name="卡牌",value="×0 没有有效 5 点",tint=UiKit.Gold});
             else if(b.controllerMultiplierNumerator!=b.controllerMultiplierDenominator)
                 list.Add(new Factor11{role=4,name="卡牌",value=PlayerNumberFormat.Times(ExactScoreMath.Parse(b.controllerMultiplierNumerator),ExactScoreMath.Parse(b.controllerMultiplierDenominator),ChipDigits07),tint=UiKit.Gold});
-            if(b.enchantMultiplierCount>0)list.Add(new Factor11{role=5,name="附魔",value=PlayerNumberFormat.Times(EnchantFactor07(b.enchantMultiplierCount),1,ChipDigits07),tint=UiKit.Violet});
+            if(b.enchantAdditiveCount>0)list.Add(new Factor11{role=5,name="附魔",value=PlayerNumberFormat.Times(EnchantFactor07(b.enchantAdditiveCount),1,ChipDigits07),tint=UiKit.Violet});
             int g=6;foreach(var f in b.globalFactors??Array.Empty<MultiplierFactor>())
                 list.Add(new Factor11{role=g++,name=NameOf(f.abilityId),value=PlayerNumberFormat.Times(ExactScoreMath.Parse(f.numerator),ExactScoreMath.Parse(f.denominator),ChipDigits07),tint=f.abilityId!=null&&f.abilityId.StartsWith("B")?UiKit.Boss:UiKit.Teal});
             return list;

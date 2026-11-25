@@ -853,7 +853,7 @@ namespace DiceCraft.Verification
         {
             RunState s = app.Session.State;
             Require(s.isDebug && s.dice.Count == 10 && s.stage.capacity == 8 && s.hand.orderedLockedIds.Count == 8
-                && s.controllers.Count == 10 && ControllerRules.OrdinaryUsed(s.controllers) == 4 && s.controllers.Count(c => c.enchantmentId == "slotless") == 6 && s.inventory.Count == 5, "Stress fixture no longer has 10 dice / 8 slots / 4 ordinary + 6 slotless controllers / 5 items.");
+                && s.controllers.Count == 10 && ControllerRules.OrdinaryUsed(s.controllers, app.Config) == 4 && s.controllers.Count(c => c.enchantmentId == "slotless") == 6 && s.inventory.Count == 5, "Stress fixture no longer has 10 dice / 8 slots / 4 ordinary + 6 slotless controllers / 5 items.");
         }
         private static void Accept(CommandResult result)
         {
