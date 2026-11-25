@@ -124,3 +124,95 @@ C19 是换机制的卡，三行夹具原样保留，名字改成它们现在表�
 - `V11GoldenTests.GoldenV11_EveryExpectedFieldMatchesTheIndependentReference`（`GOLD11-…`）与四个 `GoldenV11_…` 覆盖测试
 
 失败条数见 [W3a 备注](W3A_NOTES.md)。
+
+---
+
+# W3b-1：会话层旧测试改写登记
+
+工作包 W3b-1（[交接包](briefs/W3B1_SESSION_STAGE.md)）。范围是 `DicePrototype/Assets/Game/Tests/EditMode/Session/` 里与 [规则增量](RULES_DELTA.md) 的**关内**规则冲突的旧测试。没有删除任何测试，没有使用 `[Ignore]`：测已移除卡牌（C90、C128、C145）的断言都改成测取代它的新规则。新期望按规格手算，算式写在测试注释里。商店、道具、战利品、存档版本的旧测试没有动，见文末。
+
+公共数值：参照手“五颗红 4、无剩余投掷”= 20 × 五同 12 × 红组五颗 4.5 ×（1 + 全红 0.5）= **1620**（p1.1.0 为 2400）。全蓝 0 级 +0.25。关卡目标（§11）：第 1 关 160、第 2 关 320／高压 480、第 3 关（首领）500，150% 厚墙 750。
+
+## V08BalanceTests
+
+| 测试名 | 旧期望 | 新期望 | 依据 |
+| --- | --- | --- | --- |
+| V08_SalePriceIsHalfTheListPriceRoundedDownAndNeverBelowOne | 合法（卡，附魔）对数 122×6+28×4=844 | 123×6+27×4=846 | §12.3 附魔资格（去 C128、C145，加 C154） |
+| V08_C47CountsHalfPerControllerWithAFloorOfOne → **V08_C47AddsSixTenthsPerHeldController**（7 条） | 控制器乘积 n/2；得分 18、18、27、36、45、72、90 | 乘积恒 1/1，加成条目 60×n；一颗蓝 6：6×(1.25+0.6n) = 11、14、18、21、25、36、43。参数由 4 个减为 2 个 | §4.2 C47 |
+| V08_C47CopiedByMimicAppliesTwiceButCountsEachInstanceOnce | 乘积 4/1，72 | 两条加成各 240，乘积 1/1，6×6.05=36 | §4.2 C47 |
+| V08_C51GrowsOncePerShopHoweverManyControllersAreSoldAndAgainInTheNextShop | `turnoverUnits2` 3→4→4→4→5 | `growth` 0→80→80→80→160，牌面 +2.6 | §5 C51、§12.1 |
+| V08_C53OutcomeTableComesFromConfigurationAndFollowsTheRawTicket | 票表 [2,2,3,4,4,6,8,10,1]，和 40；得分 18×u/2 | [1,2,2,3,4,4,6,6,8]，和 36；得分 floor(15u/4) | §4.1 C53、§3.1 |
+| V08_GlassBreaksOnlyBelowTheEightPercentTicket… → **…BelowTheFifteenPercentTicketAfterASubmission…** | 8%，投掷时票 0、7 碎；玻璃 4 得 36 | 15%；投掷四种票都不碎；提交后票 0、14 碎，15、99 不碎；玻璃 4 得 12×1.25=15 | §7.3、§3.1 |
+| V08_StageCurveStartsAt300EndsAt1500000… → **V08_StageCurveStartsAt160EndsAt1881334…** | 第 1／11／24 关 300／30000／20000000 | 160／320／500、第 11 关 11510、第 24 关 1881334；每关增长 1.3–2 倍、高压 ×1.5 的断言未变 | §11（临时值，W6 校准后还要再改） |
+
+## V09SessionTests
+
+| 测试名 | 旧期望 | 新期望 | 依据 |
+| --- | --- | --- | --- |
+| V09_PoolCardsScoreFromTheDiceLeftBehind | 基础 12+18+24，乘积 9/2，1458 | 基础 12+27+36=75，乘积 3/2，75×2×5.25×1.5=1181 | §4.1 C71、§4.2 C74、§4.3 C70／C72 |
+| V09_SubmitGrowthUsesTheOldValueThenGrowsAndC54ResetsOnADifferentHand → **…C54HalvesOnADifferentHand** | 2400／3036／390；成长 C55 2、4、6，C54 0、3、0（重置），C56 2，C57 3、6 | 7560／10158／844；C55 3、6、9，C54 0、10、5（减半，回执 `ControllerGrowthHalved` 10→5），C56 40，C57 80、160 | §5 表、§5 C54 |
+| V09_MimicUsesTheOwnersGrowthButOnlyTheRealCardGrows | 2400、2880；成长 2、4 | 44×81=3564、50×81=4050；成长 3、6 | §5 C55 |
+| V09_C62GrowsOnEveryRollAndC90OnEveryGlassBreak → **V09_C62GrowsOnEveryRollAndTheSubmissionOfThatHandReadsIt** | C62 每掷 +1；C90 每碎一颗玻璃 +15 | C62 部分不变，另加“一手掷三次本手读 +15”；C90 已移除，原 C90 断言改为：带玻璃骰投掷不碎、不消耗效果流、C62 照长 | §5 C62、§4.5、§7.3 |
+| V09_StageClearGrowsC58C59PaysC95WidensInterestWithC96AndRaisesResaleWithC99 | C58 4、C59 8；C58 卖价 8/2+1，金币 63 | C58 15、C59 12；卖价 7/2+1=4，金币 62 | §5 C58／C59；C58 改价 7 |
+| V09_C60GrowsOnDieUpgradesAndC61OnEveryLevelGained | C60 2；C61 2、4；C43 后 C61 2 | C60 50；C61 50、100；C43 后 50 | §5 C60／C61（只改单位，事件条件未动） |
+| V09_C97ComparesAgainstExactlyHalfTheTarget | 目标 300：75 不发，150 发 | 目标 160：一颗蓝 5 带 C50 得 43 不发；红 5 蓝 5（一对、混色）带 C50 得 (10+30)×2=80 恰好一半，发 3 金。夹具由“C46 翻倍”改为“一对” | §11、§4.3 C50 |
+| V09_AltarDestroysItsRightNeighbourAtStageStartAndGainsATenthOfItsPrice → **…GainsFifteenHundredthsPerGoldOfItsPrice** | 吃 4 金卡成长 8 | 60 | §5 C100 |
+| V09_AnAltarDestroyedByAnotherAltarDoesNotAct | 12 | 90 | 同上 |
+| V09_MimicOfTheAltarSharesItsMultiplierButNeverSacrifices | 成长 4，3456 | 成长 30，1620×1.55×1.55=3892 | 同上 |
+| V09_RealRollsDecideC75C76C77 | C76 加 20 | 30（说明文字随 C75／C77 改为加成） | §4.3 C76 |
+| V09_C68AndC102OnlyActOnTheLastSubmissionOfTheStage | 2400、2400、14400 | 1620、1620、40×12×4.5×6=12960 | §4.2 C102 |
+
+## V10SessionTests
+
+| 测试名 | 旧期望 | 新期望 | 依据 |
+| --- | --- | --- | --- |
+| V10_StageKindsFollowTheCycle…、V10_CycleViewShows…、V10_ThePreviewQuotes…、V10_TheScapegoat…、V10_TheTalismanRestores… | 高压 900；首领 1000、厚墙 1500 | 480；500、750 | §11 |
+| V10_MustFillRejectsAShortSubmissionAndAcceptsAFullRow | 2400 | 1620 | §2、§3 |
+| V10_GrowthFreezeStopsEveryGrowthValue… | 对照组 C55 2、C58 4 | 3、15 | §5 |
+| V10_DisabledControllersHaveNoAbilityBudgetOrEnchantButStayInPlace | 2400；模仿 C46 得 9600；2400 | 1620；20×12×4.5×5.5=5940；1620 | §4.2 C46 |
+| V10_EnchantSilenceStopsBudgetEnchantsAndScoreEnchants | 4800；万籁俱寂失效 3 张、得 4800 | (20+30)×81=4050；失效 2 张，第三张 C50 照发、其倍率附魔静默：50×12×4.5×3.5=9450 | §10 B37、§4.3 C50 |
+| V10_ScoringModifiersReachTheScoreThroughTheSession | 1200、1920、240、1200／2400、2400／1200、2400／200 | 810、1296、240、810／1620、1620／810、1620／135 | §2 步骤 8、9 |
+| V10_TheTalismanRestores…（末段） | 9600 | 9450 | §4.2、§4.3 |
+| V10_StageStartControllersActLeftToRightAndDisabledOnesDoNot | `C128, C136, C110`：最小号骰变玻璃；`C41, C128` 只变一颗 | C128 已移除。改为 `C137, C136, C110`：明星点数 1–6，随机回执依次 `C137Star`、`C110Item`，没有骰变玻璃；`C41, C137` 只抽一次。其余断言未变 | §4.5、§5.3 |
+| V10_StageEndFaceGrowthRaisesTheLowestAndLowersTheHighestFace… → **…RaisesTheThreeLowestAndLowersTheThreeHighestFaces…** | 2,2,3,4,5,6／1,2,3,4,5,5／2,2,3,4,5,5 | 2,3,4,4,5,6／1,2,3,3,4,5／2,3,3,4,4,5 | §6.1 C120／C121 |
+| V10_TheFadingCardCountsStagesMultipliesLessEachTimeAndExpires → **…AddsLessEachTime…** | ×2.5／×2／×1.5：6000、4800、3600，第三次过关后移除 | +4／+3／+2／+1：5940、4860、3780、2700；第三次衰减后还在（计数 3），第四次才移除 | §4.2 C141、§5.1 |
+| V10_BossAndPressureClearsGrowTheirCardsAndPayTheBounty | C129、C132 各 8 | 各 250 | §5 |
+| V10_StageEndGeneratorsGrantACommonCardRandomFaceUpgrades… | C115 两次，含落空 | 三次 `RandomUpgrade`、三个不同的面、没有落空，养成计数 3 | §6.1 C115 |
+| V10_GlassFilmLowersTheBreakChanceToTwoPercent → **V10_NoCardLowersTheGlassBreakChanceAnyMore** | 有 C145 时投掷碎裂 2% | C145 已移除。提交后固定 15%：票 1、2、7、14 碎，15 不碎，查询返回 15 | §4.5、§7.3 |
+| V10_FaceChangeCardsRewriteThePermanentFacesAfterTheScore | C117 只镀末颗、权重都 2；C119 改一面；C122 一步到 2；C125 改纹理；C126 +1 | C117 镀首末两颗，权重 4,3,3,3,4；C119 改最前两面（首末两颗）；C122 设为 5；C125 不再改面（纹理与养成标记都无变化）；C126 +2 | §6.1、§7.2、§4.4 C125 |
+| V10_ThrowingGoldPaysAfterTheScoreAndOnlyWhenTheWalletCoversIt | 每次 3 金 ×3：钱包 5 → 7200、余 2 | 每次 2 金 ×2.5：钱包改 3 → 4050、余 1；第二手 1 金不够得 1620；两个来源只左侧触发 | §4.1 C138 |
+| V10_DebugScenesCarryTheModifierAndTheItemEffectsOfTheHand | 2400 | 810×2=1620 | §2 |
+| V10R_TheTalismanTakesTheTargetFromTheConfigurationAndRechecksTheQualifiedFlag | 夹具累计分 1200（介于 1000 与 1500） | 600（介于 500 与 750） | §11 |
+| V10R_DisabledEconomyCardsPayNothingAndADisabledFilmLeavesGlassAtItsBaseRisk → **…AndTheGlassRiskDoesNotDependOnTheCards** | 失效的 C145 不降风险 | C145 已移除：有卡无卡查询都返回 15 | §4.5、§7.3 |
+| V11_TwoCopiesTakeTwoSlotsGrowApartAndSellApartWithoutReplacementOrTradeIn | 3600；基础分条目只列有成长的一张；成长 12、2 | (20+22+12)×81=4374；两张各列一条（22、12）；成长 13、3 | §5 C55 |
+| V11_SameNameCopiesInANormalRunSurviveRestoresWithTheirScoreHistory | 两条 C46 乘法因子；C55 成长 2、2 | 两条 C46 加成条目；3、3 | §4.2 C46、§5 |
+| V11_SessionEffectsStackPerCopyOrApplyOnceAsTheDeltaTableSays | 两张 C145 只生效一次；昙花一现 9000，成长 2 的那张过关后移除 | C145 已移除，该句改为查询恒 15；昙花一现夹具成长改 3：20×12×4.5×6.5=7020，过关后第四次衰减移除 | §4.5、§5.1 |
+
+## V05SessionTests、V06SessionTests、FlowTests、ItemAndSaveTests
+
+| 测试名 | 旧期望 | 新期望 | 依据 |
+| --- | --- | --- | --- |
+| V05_AllGlassLostAfterQualificationUsesSingleSettlementAndFinalPriority（2 条） | 投掷时最后一颗玻璃碎，直接结算，剩余提交 2 | 投掷不碎；锁定并提交后才碎，结算一次，剩余提交 1；后继判定未变 | §7.3 |
+| V05_C26ThenC38LeavesFiveRedOneBlueAndScoreFrozen | 预览效果 2 条 | 非养成效果 2 条，另有 6 条 `FaceCultivated`（C26 五面、C38 一面） | §6 改写与计数 |
+| V05_CopyThenGrowthUsesCopiedTargetFaceValueAndSourceIsIndependent | 效果来源序列 C07、C36、C36、C38、C38 | 去掉 `FaceCultivated` 与 `HandRecordBroken` 后同序；另断言养成记录来自 C07、C36、C38 | §6、§5.2 |
+| V06_C53SharesOwnerDrawAndPreviewDoesNotConsumeOverride | 覆盖值 1，得 1 | 覆盖值 4（×2），所有者与模仿各乘一次：2×1.25×4=10 | §4.1 C53 |
+| V06_ZeroScoreStillConsumesDrawsIncomeAndConsecutiveGrowth | 两颗 2 带 C49（无 5 归零），C53 覆盖 10 | C49 不再归零、票表无 10。夹具改为红 1 蓝 1 一对，`C41,C49,C01,C43,C53`、覆盖 1：4×½×½×½=0.5→0；其余断言未变 | §4.2 C49、§4.1 C53 |
+| V06_MatureFundIsNotTradedInAndASecondFundKeepsItsOwnState | C51 `turnoverUnits2` 3、4 | `growth` 0、80（只改这两处，商店断言未动） | §5 C51 |
+| V06_C51CopyPurchaseGrowsNothingAndItemSaleDoesNotGrow | `turnoverUnits2` 20,3,3 → 21,4 | `growth` 170,0,0 → 250,80 | §5 C51 |
+| V06_DebugLimits32Dice32Cards32ItemsAndScoreBeyondInt64RoundTrip | 32 张 C46（当时 ×2）使得分超 64 位 | C46 现为加成，改用 32 张 C09（×2.5），得分仍超 64 位；断言未变 | §4.1、§4.2 |
+| V06_NormalConsecutiveSourcesCapAtEightAndKeepBothTriggers → **…CapAtTwelve…**（2 条） | (7→8)、(8→8) | (11→12)、(12→12) | §3.1 |
+| FLOW_C09_C11_BrokenRemoteTargetsConsumeItemAndNoDiceFails → **FLOW_C09_C11_GlassRemoteTargetsSurviveTheRollAndBreakOnlyAfterTheyAreSubmitted** | 遥控重掷时两颗玻璃碎，道具照耗，无骰失败 | 遥控重掷不碎、不抽玻璃票、道具照耗；锁定提交后两颗各抽一票都碎，未达标且无骰，失败原因 `NoDice`。夹具去掉了不再相关的 C05 | §7.3 |
+| TwentyFourStageFlowSupportsEightRiskBranchesAndNoFinalShop | 每关锁全部骰、一手过关 | 这是流程测试。p1.1.1 数值下原构筑不能一手打过每个随种子变化的首领（首领还会缩提交栏、减提交次数），所以每关入关后把累计分预设为目标，只锁提交栏容得下的骰，照常掷、计分、提交；自动结算时不再补发 `EndStage`。流程断言（阶段、战利品门禁、通关、无末关商店）未变 | §10、§11。**请协调者确认这种改法**，见 [W3b-1 备注](W3B1_NOTES.md) |
+
+## 没有改的：属于 W3b-2 的旧会话测试（19 条仍失败）
+
+| 测试 | 失败原因 |
+| --- | --- |
+| ShopTests.SelfStudyAndRandomHandUseCurrentLevelAndEligibility；V08_UpgradePriceRisesByTwoPerExistingLevel（4 条） | 牌型升级价每级 +1（§3.1） |
+| V05_EightKindRequiresEightPermanentDiceAndCapacityAndLv8StopsSales | 等级上限 12 与升级价 |
+| V05_SameNameCopyInsufficientMoneyAndWriteFailureAreAtomic；V05_SellingOldCardBeforeReplacementPaysFullNewPrice；V09_C98LowersControllerAndDieUpgradePricesPerSourceWithAFloorOfOne；V10_TheRecyclerSellsAtTheFullListPrice；V11_ThreeOrMoreBargainersCanNoLongerBuyAndResellAtAProfitInTheSameShop | 倍率附魔加价 6→5 等商店价格 |
+| V05_ShopInterleavesIdAndEnchantmentWithFrozenReferenceVectors（4 条） | 货架生成向量（附魔曲线、内容池变化） |
+| V06_InitialZeroWalletAndSchema4SeparateColorLevels | 存档结构号 7→8 |
+| V10_EnchantedLootHandLootDiceLootUpgradeLootAndItemLootFollowTheirRules | 战利品测试；现在停在 C61 成长单位（4→100），后面还有 L5 镀金骰 |
+| V10_GiftControllersAddAFreeGroupToEveryShopAndAMimicAddsAPick | 赠礼测试；现在停在 C60 成长单位（2→50） |
+| V10_NewItemsDoubleTheScoreTurnDiceBlueGildAFaceAndWidenTheRow | 道具测试；得分数值与点金笔加权重 |
