@@ -8,7 +8,7 @@ namespace DiceCraft.Core.Tests
 {
     // p1.1.1 (W4b): the inputs of GoldenScoresV10.json live on as the L10- slice of GoldenScoresV111.json, recomputed
     // under p1.1.1 by tools/v111_golden.py (an independent reference scorer; evidence/v111/rules/golden-provenance.json).
-    // The p1.0.0 file itself is frozen at tools/balance_sim/baseline/GoldenScoresV10.p1.0.0.json and no longer read here.
+    // The p1.0.0 file itself is frozen at tools/balance_sim/baseline/GoldenScoresV10.p1.0.0.json and is no longer read here.
     public class V10GoldenTests
     {
         private const string Prefix = "L10-";
@@ -63,7 +63,7 @@ namespace DiceCraft.Core.Tests
             var slice = V111Golden.Slice(Prefix);
             Assert.That(V111Golden.Str(V111Golden.Header, "schema"), Is.EqualTo(V111Golden.Schema)); Assert.That(V111Golden.Str(V111Golden.Header, "configVersion"), Is.EqualTo(config.configVersion));
             Assert.That(slice.Length, Is.GreaterThanOrEqualTo(445), "the p1.0.0 inputs that are still legal in p1.1.1"); Assert.That(slice.Select(c => c.derivedId).Distinct().Count(), Is.EqualTo(slice.Length));
-            Assert.That(slice.All(c => c.source == "GoldenScoresV10.json"), Is.True);
+            Assert.That(slice.All(c => c.id == Prefix + c.derivedId && c.derivedFile.Contains("GoldenScoresV10")), Is.True);
             var present = new Dictionary<string, int>(); var triggered = new Dictionary<string, int>(); var missed = new Dictionary<string, int>(); var modifiers = new HashSet<string>();
             V09GoldenTests.Tally(slice, config, present, triggered, missed, modifiers);
             // C155 and C156 are new in p1.1.1, so no p1.0.0 input can hold them: they are counted over the whole file.

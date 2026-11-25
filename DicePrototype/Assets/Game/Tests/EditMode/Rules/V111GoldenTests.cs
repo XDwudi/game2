@@ -384,10 +384,10 @@ namespace DiceCraft.Core.Tests
         private static readonly HashSet<string> AlwaysTriggered = new HashSet<string>(
             "C01,C03,C09,C38,C42,C45,C46,C47,C49,C50,C53,C63,C64,C94,C101,C108,C117,C118,C119,C122,C123,C124,C141,C51,C54,C55,C56,C57,C58,C59,C60,C61,C62,C100,C125,C129,C132,C134".Split(','));
         private const int MatrixCards = 122;
-        private static readonly Dictionary<string, int> SourceFloors = new Dictionary<string, int>
-        {
-            ["new"] = 263, ["matrix"] = 572, ["GoldenScores.json"] = 160, ["GoldenScoresV09.json"] = 257, ["GoldenScoresV10.json"] = 445, ["GoldenScoresV11.json"] = 455
-        };
+        // Floors per kind of case. The recomputed older inputs are recognised by their id prefix; their `source`
+        // label is the name of the file they came from and may follow that file when it is renamed.
+        private static readonly Dictionary<string, int> PrefixFloors = new Dictionary<string, int> { ["L08-"] = 160, ["L09-"] = 257, ["L10-"] = 445, ["L11-"] = 455 };
+        private static readonly Dictionary<string, int> SourceFloors = new Dictionary<string, int> { ["new"] = 263, ["matrix"] = 572 };
         private GameConfig config;
         [SetUp] public void Setup() { config = V111Golden.ReadConfig(); }
 
@@ -413,13 +413,17 @@ namespace DiceCraft.Core.Tests
             Assert.That(V111Golden.Int(header, "caseCount"), Is.EqualTo(cases.Length));
             Assert.That(cases.Select(c => c.id).Distinct(StringComparer.Ordinal).Count(), Is.EqualTo(cases.Length), "Golden case ids must be unique.");
             var declared = V111Golden.Obj(header["casesBySource"]);
-            foreach (var floor in SourceFloors)
+            foreach (var floor in SourceFloors) Assert.That(cases.Count(c => c.source == floor.Key), Is.GreaterThanOrEqualTo(floor.Value), floor.Key + " cases");
+            foreach (var floor in PrefixFloors)
             {
-                int count = cases.Count(c => c.source == floor.Key);
-                Assert.That(count, Is.GreaterThanOrEqualTo(floor.Value), floor.Key + " cases");
-                Assert.That(V111Golden.Int(declared, floor.Key), Is.EqualTo(count), floor.Key + " declared count");
+                var slice = V111Golden.Slice(floor.Key);
+                Assert.That(slice.Length, Is.GreaterThanOrEqualTo(floor.Value), floor.Key + " cases");
+                Assert.That(slice.All(c => c.derivedId != null && c.id == floor.Key + c.derivedId && !SourceFloors.ContainsKey(c.source)), Is.True, floor.Key + " cases name the older input they recompute");
+                Assert.That(slice.Select(c => c.source).Distinct().Count(), Is.EqualTo(1), floor.Key + " cases come from one file");
             }
-            Assert.That(cases.All(c => SourceFloors.ContainsKey(c.source)), Is.True, "Unknown case source.");
+            Assert.That(cases.Count(c => SourceFloors.ContainsKey(c.source)) + PrefixFloors.Keys.Sum(p => V111Golden.Slice(p).Length), Is.EqualTo(cases.Length), "A case that is neither new, matrix nor a recomputed older input.");
+            foreach (var group in cases.GroupBy(c => c.source)) Assert.That(V111Golden.Int(declared, group.Key), Is.EqualTo(group.Count()), group.Key + " declared count");
+            Assert.That(declared.Count, Is.EqualTo(cases.Select(c => c.source).Distinct().Count()), "casesBySource names a source without cases.");
             foreach (var example in cases)
             {
                 var ids = V111Golden.List(example.input["controllers"]).Select(V111Golden.Obj).Select(c => V111Golden.Str(c, "instanceId")).ToArray();

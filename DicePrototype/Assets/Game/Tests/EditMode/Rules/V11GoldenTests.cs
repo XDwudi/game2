@@ -8,7 +8,7 @@ namespace DiceCraft.Core.Tests
 {
     // p1.1.1 (W4b): the inputs of GoldenScoresV11.json live on as the L11- slice of GoldenScoresV111.json, recomputed
     // under p1.1.1 by tools/v111_golden.py (an independent reference scorer; evidence/v111/rules/golden-provenance.json).
-    // The p1.1.0 file itself is frozen at tools/balance_sim/baseline/GoldenScoresV11.p1.1.0.json and no longer read here.
+    // The p1.1.0 file itself is frozen at tools/balance_sim/baseline/GoldenScoresV11.p1.1.0.json and is no longer read here.
     // The old file declared its own card lists; the new one classifies cases by family instead: an L11- id is
     // "L11-<card>-<family>" (two_hit, two_miss, three_hit, mimic_hit, ...) and a matrix case carries cardId and family.
     public class V11GoldenTests

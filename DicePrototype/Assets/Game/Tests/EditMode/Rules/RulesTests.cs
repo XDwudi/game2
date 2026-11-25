@@ -43,7 +43,7 @@ namespace DiceCraft.Core.Tests
         {
             var cases = V111Golden.Slice("L08-");
             CollectionAssert.AreEquivalent(Enumerable.Range(1, 160).Select(i => "G" + i.ToString("D3")), cases.Select(c => c.derivedId));
-            Assert.That(cases.All(c => c.source == "GoldenScores.json" && c.id == "L08-" + c.derivedId), Is.True);
+            Assert.That(cases.All(c => c.id == "L08-" + c.derivedId && c.derivedFile.Contains("GoldenScores")), Is.True);
         }
         [Test]
         public void GoldenJson_PreservesNullEmptyAndNonemptyGroupIdsExactly()
