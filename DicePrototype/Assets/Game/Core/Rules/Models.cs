@@ -26,8 +26,15 @@ namespace DiceCraft.Core
         public long fundAccrual;
         // v0.9: permanent growth counter (0.05 steps for multiplier cards, raw points for base-add cards) and the
         // resale bonus granted by C99. Both stay with the real instance and are lost when it is sold or destroyed.
+        // v1.1.1: `growth` is what the card has grown through its events, in hundredths for additive and multiplier
+        // growth cards and in whole points for base growth cards (C141 counts cleared stages in it, 0-3).
         public long growth;
         public long saleBonus;
+        // v1.1.1: head start fixed when the card was offered in a later shop cycle (same unit as growth); the star pip
+        // drawn for a real C137 when a stage starts (0 = none yet); permanent faces a cultivation card has rewritten (0-24).
+        public long growthCatchup;
+        public int starPip;
+        public int cultivationFacesChanged;
         public ControllerDynamicState Clone() => (ControllerDynamicState)MemberwiseClone();
     }
     [Serializable]
@@ -60,6 +67,8 @@ namespace DiceCraft.Core
         public int baseWeight = 1;
         public string texture = "none";
         public bool isGold;
+        // v1.1.1: a card has rewritten this permanent face at least once; never cleared afterwards.
+        public bool cultivated;
         public FaceState Clone() => (FaceState)MemberwiseClone();
     }
 
@@ -141,6 +150,9 @@ namespace DiceCraft.Core
         public string[] disabledControllerIds = Array.Empty<string>(), stageHandsUsed = Array.Empty<string>();
         public int inventoryCount, ordinaryControllerSlots, scoreItemMultiplier;
         public bool blueWave;
+        // v1.1.1 frozen context: the stage score before this submission and the effective stage target, as decimal
+        // strings. Null or empty means 0 and 1; a snapshot with an effective C156 source must state both.
+        public string stageScoreBefore, stageTarget;
         public SubmissionSnapshot Clone()
         {
             var result = (SubmissionSnapshot)MemberwiseClone();
@@ -189,6 +201,12 @@ namespace DiceCraft.Core
         public bool[] sealedDice = Array.Empty<bool>();
         public MultiplierFactor[] globalFactors = Array.Empty<MultiplierFactor>();
         public int handMultBeforeModifier100, redBonusCount;
+        // v1.1.1: the additive zone. colorAdd100 is the colour bonus actually applied; additiveEntries lists every
+        // bonus in order (colour, gold faces, card abilities, score enchantments); the score is multiplied by
+        // (100 + additiveTotal100) / 100; enchantAdditiveCount is the number of score-enchantment entries.
+        public int colorAdd100, enchantAdditiveCount;
+        public long additiveTotal100;
+        public AdditiveEntry[] additiveEntries = Array.Empty<AdditiveEntry>();
         public ScoreBreakdown Clone()
         {
             var result = (ScoreBreakdown)MemberwiseClone();
@@ -206,6 +224,7 @@ namespace DiceCraft.Core
             result.controllerBaseAdds = (controllerBaseAdds ?? Array.Empty<ControllerBaseAdd>()).Select(a => a.Clone()).ToArray();
             result.sealedDice = (bool[])(sealedDice ?? Array.Empty<bool>()).Clone();
             result.globalFactors = (globalFactors ?? Array.Empty<MultiplierFactor>()).Select(f => f.Clone()).ToArray();
+            result.additiveEntries = (additiveEntries ?? Array.Empty<AdditiveEntry>()).Select(e => e.Clone()).ToArray();
             return result;
         }
     }
@@ -215,6 +234,26 @@ namespace DiceCraft.Core
     {
         public string emitterId, abilityId, stateOwnerId, numerator, denominator;
         public MultiplierFactor Clone() => (MultiplierFactor)MemberwiseClone();
+    }
+    /// <summary>v1.1.1: one bonus of the additive zone. kind is color, gold, controller or enchantment; abilityId is the
+    /// colour id, U06, the card ability id or mult2. emitterId and stateOwnerId are null without a card source.
+    /// dieIndex is the zero-based submitted index of a gold face and -1 otherwise (JsonUtility has no nullable int).
+    /// amount100 is the bonus in hundredths and always positive.</summary>
+    [Serializable]
+    public sealed class AdditiveEntry
+    {
+        public string kind, abilityId, emitterId, stateOwnerId;
+        public int dieIndex = -1;
+        public long amount100;
+        public AdditiveEntry Clone() => (AdditiveEntry)MemberwiseClone();
+    }
+    /// <summary>v1.1.1: a triggered source of one of the older face rewrites (C07, C26, C36, C37, C15, C38), so the
+    /// session can credit the real owner's cultivation count.</summary>
+    [Serializable]
+    public sealed class CultivationSourceBinding
+    {
+        public string abilityId, emitterId, stateOwnerId;
+        public CultivationSourceBinding Clone() => (CultivationSourceBinding)MemberwiseClone();
     }
     [Serializable]
     public sealed class AfterScorePlan
@@ -233,13 +272,19 @@ namespace DiceCraft.Core
         // v1.0: permanent face changes applied in order after the older effects, and gold spent by C138.
         public FaceChange[] faceChanges = Array.Empty<FaceChange>();
         public int goldSpent;
+        // v1.1.1: submitted dice that were glass when frozen, in submission order (the session draws their break
+        // tickets), and the sources behind the older face rewrites in the order those rewrites are applied.
+        public string[] glassRiskDieIds = Array.Empty<string>();
+        public CultivationSourceBinding[] cultivationSourceBindings = Array.Empty<CultivationSourceBinding>();
         public AfterScorePlan Clone()
         {
             var c = (AfterScorePlan)MemberwiseClone();
             c.redSpreadIndices = (int[])redSpreadIndices.Clone(); c.growthIndices = (int[])growthIndices.Clone(); c.blueSpreadIndices = (int[])blueSpreadIndices.Clone();
             c.nextColorOwnerIds = (string[])nextColorOwnerIds.Clone(); c.randomFactorOwnerIds = (string[])randomFactorOwnerIds.Clone(); c.cannonRiskEmitterIds = (string[])cannonRiskEmitterIds.Clone();
             c.growthChanges = (growthChanges ?? Array.Empty<GrowthChange>()).Select(g => g.Clone()).ToArray();
-            c.faceChanges = (faceChanges ?? Array.Empty<FaceChange>()).Select(f => f.Clone()).ToArray(); return c;
+            c.faceChanges = (faceChanges ?? Array.Empty<FaceChange>()).Select(f => f.Clone()).ToArray();
+            c.glassRiskDieIds = (string[])(glassRiskDieIds ?? Array.Empty<string>()).Clone();
+            c.cultivationSourceBindings = (cultivationSourceBindings ?? Array.Empty<CultivationSourceBinding>()).Select(b => b.Clone()).ToArray(); return c;
         }
     }
     [Serializable]
@@ -255,13 +300,16 @@ namespace DiceCraft.Core
         public int dieIndex, count;
         public RetriggerEntry Clone() => (RetriggerEntry)MemberwiseClone();
     }
-    /// <summary>v0.9: growth applied to a real controller instance after this submission is scored.</summary>
+    /// <summary>v0.9: growth applied to a real controller instance after this submission is scored.
+    /// v1.1.1: delta is in the unit of the card (hundredths, or whole points for base growth cards).</summary>
     [Serializable]
     public sealed class GrowthChange
     {
         public string ownerInstanceId, abilityId;
         public long delta;
         public bool reset;
+        // v1.1.1: halve the grown part (growth = growth / 2, rounded down) instead of adding; `reset` is no longer produced.
+        public bool halve;
         public GrowthChange Clone() => (GrowthChange)MemberwiseClone();
     }
     /// <summary>v1.0: one permanent change to a die face, produced from the frozen snapshot and applied by the session.
@@ -271,6 +319,8 @@ namespace DiceCraft.Core
     {
         public string sourceId, emitterId, dieId, faceId, kind, text;
         public int amount;
+        // v1.1.1: the real instance whose ability this is (the copied card for a mimic); it earns the cultivation count.
+        public string stateOwnerId;
         public FaceChange Clone() => (FaceChange)MemberwiseClone();
     }
     [Serializable]
