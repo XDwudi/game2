@@ -81,6 +81,9 @@ namespace DiceCraft.Core
         public string[] disabledControllerIds = Array.Empty<string>();
         public List<string> primaryHandsUsed = new List<string>();
         public int itemCapacityBonus; // capacity added by I12 this stage; rules read stage.capacity, this is kept for the debug scene round trip
+        // v1.1.1 section 5.2: a submission of this stage beat the run's highest single hand. Cleared when a stage is
+        // prepared, kept until the next one; a real C125 grows once at a successful settlement while it is set.
+        public bool handRecordBroken;
         public StageState Clone() { var c = (StageState)MemberwiseClone(); c.controllerOrderSnapshot = (string[])controllerOrderSnapshot.Clone(); c.disabledControllerIds = (string[])disabledControllerIds.Clone(); c.primaryHandsUsed = new List<string>(primaryHandsUsed); c.submissionBonusSourceIds = (string[])submissionBonusSourceIds.Clone(); c.mimicBindings = mimicBindings.Select(x => new MimicBinding { sourceInstanceId = x.sourceInstanceId, targetInstanceId = x.targetInstanceId }).ToArray(); c.destroyedControllerIds = new List<string>(destroyedControllerIds); return c; }
     }
 
@@ -211,6 +214,10 @@ namespace DiceCraft.Core
         public long actionSequence, gold, submissionOrdinalGlobal;
         public uint seed, diceRngState, shopRngState, effectRngState;
         public bool isDebug;
+        // v1.1.1 sections 5.2 and 13: the highest score of a single submission of this run, and the highest
+        // "final stage score / effective target" of a cleared stage as a reduced fraction. Canonical decimal strings;
+        // a new run starts at 0 and 0/1. A debug workspace keeps its own values; the formal all-time record is not here.
+        public string highestHandScore = "0", highestClearRatioNumerator = "0", highestClearRatioDenominator = "1";
         public List<DieInstance> dice = new List<DieInstance>();
         public List<ControllerInstance> controllers = new List<ControllerInstance>();
         public List<OwnedItem> inventory = new List<OwnedItem>();

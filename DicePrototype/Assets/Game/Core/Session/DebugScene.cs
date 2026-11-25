@@ -45,6 +45,12 @@ namespace DiceCraft.Core
         public List<string> primaryHandsUsed = new List<string>();
         public bool blueWave, doubleScore;
         public int itemCapacityBonus, interestCapPurchases;
+        // v1.1.1: the records of the debug run itself (never the formal all-time record) and whether a submission of
+        // the scene's stage already beat the highest hand. Empty strings mean the defaults 0 and 0/1. The star pip of
+        // a C137 (0 = no value this stage, or 1-6), the growth and catch-up of growth cards, the rewrite count of
+        // cultivation cards and the cultivated mark of a face travel inside `controllers` and `dice`.
+        public string highestHandScore = "0", highestClearRatioNumerator = "0", highestClearRatioDenominator = "1";
+        public bool handRecordBroken;
         public List<DieInstance> dice = new List<DieInstance>();
         public List<ControllerInstance> controllers = new List<ControllerInstance>();
         public List<OwnedItem> inventory = new List<OwnedItem>();
@@ -74,6 +80,8 @@ namespace DiceCraft.Core
                 rollsUsed = s.hand == null ? 0 : s.hand.rollsUsed, warIncomeCount = s.stage.warIncomeCount, controllerSlotPurchases = s.controllerSlotPurchases,
                 modifierId = s.stage.started && !s.stage.settled && !s.stage.modifierNullified ? s.stage.modifierId ?? "" : "", primaryHandsUsed = new List<string>(s.stage.primaryHandsUsed),
                 blueWave = s.hand != null && s.hand.blueWave, doubleScore = s.hand != null && s.hand.doubleScore, itemCapacityBonus = s.stage.itemCapacityBonus, interestCapPurchases = s.interestCapPurchases,
+                highestHandScore = s.highestHandScore, highestClearRatioNumerator = s.highestClearRatioNumerator, highestClearRatioDenominator = s.highestClearRatioDenominator,
+                handRecordBroken = s.stage.started && !s.stage.settled && s.stage.handRecordBroken,
                 redWave = s.hand != null && s.hand.redWave, largeBuff = s.hand != null && s.hand.largeBuff, smallBuff = s.hand != null && s.hand.smallBuff,
                 currentResults = s.hand == null ? null : s.hand.currentResults.Select(x => x.Clone()).ToList(),
                 orderedLockedIds = s.hand == null ? new List<string>() : new List<string>(s.hand.orderedLockedIds),

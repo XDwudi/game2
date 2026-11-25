@@ -74,6 +74,11 @@ namespace DiceCraft.Core
             s.controllerOfferPurchases = draft.controllerOfferPurchases; s.consumableOfferPurchases = draft.consumableOfferPurchases; s.freeFirstRefreshOwned = draft.freeFirstRefreshOwned;
             s.previousPrimaryHandId = draft.previousPrimaryHandId; s.submissionOrdinalGlobal = draft.submissionOrdinalGlobal; s.randomOverrides = draft.randomOverrides;
             s.interestCapPurchases = draft.interestCapPurchases;
+            // v1.1.1: the scene carries the records of the debug run itself; empty means the new-run values. Their
+            // format and relations are checked by ValidateState like every other candidate.
+            s.highestHandScore = string.IsNullOrEmpty(draft.highestHandScore) ? "0" : draft.highestHandScore;
+            s.highestClearRatioNumerator = string.IsNullOrEmpty(draft.highestClearRatioNumerator) ? "0" : draft.highestClearRatioNumerator;
+            s.highestClearRatioDenominator = string.IsNullOrEmpty(draft.highestClearRatioDenominator) ? "1" : draft.highestClearRatioDenominator;
             s.controllerSlotPurchases = draft.controllerSlotPurchases; s.controllerSlots = cfg.initialControllerSlots + draft.controllerSlotPurchases; s.failureReason = null; s.lastSubmission = null; s.lastStageSettlement = null; s.shop = null;
             s.nextDieSerial = Math.Max(s.nextDieSerial, checked(s.dice.Max(d => d.createdSerial) + 1));
             int maxController = s.controllers.Select(c => c.acquiredSerial).DefaultIfEmpty(0).Max();
@@ -93,7 +98,10 @@ namespace DiceCraft.Core
                 mimicBindings = draft.mimicBindings ?? ControllerRules.FreezeBindings(s.controllers.ToArray()),
                 destroyedControllerIds = historicalMissing.ToList(),
                 submissionBonusSourceIds = s.controllers.Where(c => c.enchantmentId == "submit1").Select(c => c.instanceId).ToArray(),
-                qualified = ExactScoreMath.Compare(draft.score, draft.target) >= 0
+                qualified = ExactScoreMath.Compare(draft.score, draft.target) >= 0,
+                // v1.1.1: a scene builds a stage in progress, so it may say that the record was already beaten in it.
+                // Star pips come with the scene's controllers as given (1-6, or 0 = no value); applying a scene never draws.
+                handRecordBroken = draft.handRecordBroken
             };
             ValidateBindings(s);
             foreach (var die in s.dice.Where(d => d.lifetime == "stage_temporary")) die.createdStageId = stage.stageId;
@@ -189,7 +197,8 @@ namespace DiceCraft.Core
         {
             return c != null && string.IsNullOrEmpty(c.instanceId) && string.IsNullOrEmpty(c.definitionId)
                 && c.enchantmentId == "none" && c.acquiredSerial == 0 && c.alive && c.state != null
-                && string.IsNullOrEmpty(c.state.activeColor) && c.state.turnoverUnits2 == 3 && c.state.fundAccrual == 0 && c.state.growth == 0 && c.state.saleBonus == 0;
+                && string.IsNullOrEmpty(c.state.activeColor) && c.state.turnoverUnits2 == 3 && c.state.fundAccrual == 0 && c.state.growth == 0 && c.state.saleBonus == 0
+                && c.state.growthCatchup == 0 && c.state.starPip == 0 && c.state.cultivationFacesChanged == 0;
         }
         private static bool EmptyOfferDie(DieInstance d)
         {

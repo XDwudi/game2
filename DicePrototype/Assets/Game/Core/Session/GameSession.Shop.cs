@@ -583,10 +583,12 @@ namespace DiceCraft.Core
             bool grown = false;
             foreach (var c in s.controllers.Where(c => c.definitionId == "C51" && beforeIds.Contains(c.instanceId)))
             {
-                // W3A-ADAPT: addUnits2PerRealControllerSale is gone; C51 now keeps what it has grown in `growth` (hundredths,
-                // growthEvent per first sale of a shop) and turnoverUnits2 is no longer read. W3b reviews this event.
-                c.state.growth = checked(c.state.growth + cfg.Controller("C51").parameters.growthEvent);
-                s.lastEffects.Add(new EffectRecord { kind = "TurnoverGrown", sourceId = "C51", detail = c.instanceId, newValue = c.state.growth });
+                // v1.1.1 section 5 (reviewed by W3b-1 against the C51 row): the first card sale of a shop that has a real
+                // C51 to receive it grows every real C51 held both before and after the sale by growthEvent hundredths,
+                // kept in `growth` (turnoverUnits2 is no longer read). The sold instance itself never grows; selling an
+                // item, a self-destruction or a sale without a receiver does not use up the shop's allowance.
+                long before = c.state.growth; c.state.growth = checked(before + cfg.Controller("C51").parameters.growthEvent);
+                s.lastEffects.Add(new EffectRecord { kind = "TurnoverGrown", sourceId = "C51", detail = c.instanceId, oldValue = before, newValue = c.state.growth });
                 grown = true;
             }
             if (grown && s.shop != null) s.shop.turnoverGrowthCount = checked(s.shop.turnoverGrowthCount + 1);

@@ -72,6 +72,7 @@ namespace DiceCraft.Core
             Check(s.stage.primaryHandsUsed.Distinct(StringComparer.Ordinal).Count() == s.stage.primaryHandsUsed.Count && s.stage.primaryHandsUsed.All(h => cfg.handDefinitions.Any(d => d.id == h)), "本关主牌型记录无效。");
             Check(s.dice.Where(x => x.lifetime == "stage_temporary").All(x => x.createdStageId == s.stage.stageId), "临时骰来自其他关卡。");
             ValidateBindings(s);
+            ValidateStageRecords(s);
             if (s.phase == "HandReady" || s.phase == "Selecting") ValidateActiveHand(s);
             if (s.phase == "StageSettlement" || s.phase == "Shop" || s.phase == "RunWon")
                 Check(s.stage.settled && s.lastStageSettlement != null && s.lastStageSettlement.stageId == s.stage.stageId && s.stage.qualified, "结算阶段无效。");
@@ -121,6 +122,50 @@ namespace DiceCraft.Core
             Check(s.bossRerolls >= 0 && s.enchantTablePurchases >= 0 && s.interestCapPurchases >= 0 && s.interestCapPurchases <= cfg.maxInterestPrincipalPurchases, "服务购买次数无效。");
         }
 
+        /// <summary>
+        /// v1.1.1 state owned by a stage in progress (sections 5.2, 5.3, 6, 12.1, 13): the run records, the record flag
+        /// of the stage, the star pips, the cultivation marks and counts and the catch-up of growth cards. Ranges that
+        /// depend only on the card (catch-up on growth cards only, star pip on C137 only, count 0-24 on cultivation cards
+        /// only) are checked by ControllerRules.ValidateEquipment; this adds how the fields relate to each other.
+        /// </summary>
+        private void ValidateStageRecords(RunState s)
+        {
+            Func<string, bool> canonical = v => !string.IsNullOrEmpty(v) && v.All(ch => ch >= '0' && ch <= '9') && (v.Length == 1 || v[0] != '0');
+            Check(canonical(s.highestHandScore) && canonical(s.highestClearRatioNumerator) && canonical(s.highestClearRatioDenominator), "本局纪录格式无效。");
+            var high = ExactScoreMath.Parse(s.highestHandScore); var ratioN = ExactScoreMath.Parse(s.highestClearRatioNumerator); var ratioD = ExactScoreMath.Parse(s.highestClearRatioDenominator);
+            Check(ratioD > 0 && System.Numerics.BigInteger.GreatestCommonDivisor(ratioN, ratioD) == 1, "最高过关倍数必须是约分后的分数，零为 0/1。");
+            // A record flag needs a stage that has started and a record above zero; in a normal run it also needs a submission of this stage.
+            Check(!s.stage.handRecordBroken || (s.stage.started && high > 0 && (s.isDebug || s.stage.submissionOrdinal > 0)), "本关刷新纪录的标记无效。");
+            if (!s.isDebug)
+            {
+                // A normal run only ever raises its records: no committed submission is above the highest hand, a run
+                // without a valid submission has no record, and a settled stage is not above the best clear ratio.
+                Check(s.submissionOrdinalGlobal > 0 || (high == 0 && ratioN == 0), "尚未提交的挑战不能有纪录。");
+                Check(s.processedReceipts.Where(r => r != null && r.command != null && r.command.kind == CommandKind.Submit).All(r => ExactScoreMath.Parse(r.score) <= high), "本局最高单手低于已提交的得分。");
+                Check(s.lastSubmission == null || s.lastSubmission.breakdown == null || ExactScoreMath.Parse(s.lastSubmission.breakdown.score) <= high, "本局最高单手低于最近一次提交。");
+                Check(!s.stage.settled || ExactScoreMath.Parse(s.stage.score) * ratioD <= ratioN * ExactScoreMath.Parse(s.stage.target), "最高过关倍数低于已结算的关卡。");
+                Check(s.stage.stageIndex > 0 || s.stage.settled || ratioN == 0, "第一关结算前不能有过关倍数。");
+            }
+            // Star pips: 0 outside a stage for every card; in a stage in progress every real C137 of a normal run has
+            // drawn one (a debug scene may leave it at 0 = no value this stage).
+            bool inStage = InStage(s);
+            foreach (var c in s.controllers)
+                Check(c.definitionId != "C137" ? c.state.starPip == 0 : inStage ? (s.isDebug ? c.state.starPip >= 0 : c.state.starPip >= cfg.minPipValue) && c.state.starPip <= cfg.maxPipValue : c.state.starPip == 0, "客串明星的本关点数无效。");
+            // Cultivation marks: cards only mark faces of permanent dice. (A count cannot be tied to the marks that exist
+            // now: marked faces leave with a removed or broken die, and one face can be rewritten many times.)
+            Check(s.isDebug || s.dice.Where(d => d.lifetime == "stage_temporary").All(d => d.faces.All(f => !f.cultivated)), "临时骰不能带养成标记。");
+            // Catch-up: (cycle - 1) whole steps of the card's growth kind, cycle 1..8 (section 5 and 9.1).
+            if (!s.isDebug) foreach (var c in s.controllers) ValidateCatchup(c);
+        }
+
+        private void ValidateCatchup(ControllerInstance c)
+        {
+            if (c.state.growthCatchup == 0) return;
+            int step = ControllerRules.IsGrowthAdditive(c.definitionId) ? cfg.growthCatchupPerCycle.additive : ControllerRules.IsGrowthMultiplier(c.definitionId) ? cfg.growthCatchupPerCycle.multiplier : ControllerRules.IsGrowthBase(c.definitionId) ? cfg.growthCatchupPerCycle.@base : 0;
+            int cycles = cfg.stages.Length / 3;
+            Check(step > 0 && c.state.growthCatchup % step == 0 && c.state.growthCatchup / step <= cycles - 1, "成长卡的起步补偿无效。");
+        }
+
         private void ValidateDynamicState(ControllerInstance c, bool offer)
         {
             Check(c.state != null && c.state.fundAccrual >= 0 && c.state.fundAccrual % 3 == 0 && c.state.turnoverUnits2 >= 3, "卡牌动态状态无效。");
@@ -129,6 +174,9 @@ namespace DiceCraft.Core
             Check(c.state.growth >= 0 && c.state.saleBonus >= 0 && (c.state.growth == 0 || ControllerRules.HasGrowthCounter(c.definitionId)), "卡牌成长值无效。");
             Check(c.definitionId == "C45" ? (offer ? string.IsNullOrEmpty(c.state.activeColor) : c.state.activeColor == "red" || c.state.activeColor == "blue") : string.IsNullOrEmpty(c.state.activeColor), "卡牌颜色状态无效。");
             if (offer) Check(c.state.fundAccrual == 0 && c.state.turnoverUnits2 == 3 && c.state.growth == 0 && c.state.saleBonus == 0, "商品不能继承旧实例状态。");
+            // v1.1.1 section 5: an offer of a growth card may carry the catch-up of its shop cycle (written by W3b-2) and
+            // nothing else of the new state: no star pip and no cultivation count before the card is owned.
+            if (offer) Check(c.state.starPip == 0 && c.state.cultivationFacesChanged == 0 && c.state.growthCatchup >= 0 && (c.state.growthCatchup == 0 || ControllerRules.HasGrowth(c.definitionId)), "商品的成长补偿、明星点数或养成计数无效。");
         }
 
         private void ValidateBindings(RunState s)

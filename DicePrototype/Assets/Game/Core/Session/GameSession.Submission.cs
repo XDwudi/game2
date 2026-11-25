@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Globalization;
 
@@ -19,6 +20,10 @@ namespace DiceCraft.Core
                 stageKind = StageKind(s), modifierId = ActiveModifierId(s) ?? "", disabledControllerIds = (string[])ActiveDisabled(s).Clone(),
                 stageHandsUsed = s.stage.primaryHandsUsed.ToArray(), inventoryCount = s.inventory.Count, ordinaryControllerSlots = s.controllerSlots,
                 blueWave = s.hand.blueWave, scoreItemMultiplier = s.hand.doubleScore ? 2 : 0,
+                // v1.1.1 sections 4.5, 11, 12.1: the stage score before this submission and the target in force right now
+                // (pressure choice and the boss TargetPercent included, the plain target again once the modifier is lifted).
+                // Preview and Submit both freeze here, so C156 reads the same two numbers in both.
+                stageScoreBefore = s.stage.score, stageTarget = s.stage.target,
                 poolDice = s.dice.OrderBy(d => d.createdSerial).Where(d => !s.hand.orderedLockedIds.Contains(d.dieId)).Select(d => s.hand.currentResults.First(x => x.dieId == d.dieId)).Where(r => r.hasRolled)
                     .Select(r => new PoolDie { dieId = r.dieId, faceId = r.currentFaceId, currentPip = r.currentPip, currentColor = r.currentColor }).ToArray(),
                 dice = s.hand.orderedLockedIds.Select(id => {
@@ -41,7 +46,9 @@ namespace DiceCraft.Core
             Check(!Fx(s, "MustFill") || s.hand.orderedLockedIds.Count == Math.Min(s.stage.capacity, s.dice.Count), "首领减益“满员”：必须占满提交栏才能提交。");
             var snapshot = FreezeSubmission(s);
             var effectRng = new GameRng(s.effectRngState);
-            snapshot.resolvedRandomChoices = snapshot.equippedControllers.Where(c => c.definitionId == "C53").Select(c => {
+            // v1.1.1 section 4.1 and A06: every real, effective C53 draws once in card order; a C53 disabled for the
+            // stage has no ability and consumes no ticket.
+            snapshot.resolvedRandomChoices = snapshot.equippedControllers.Where(c => c.definitionId == "C53" && !snapshot.disabledControllerIds.Contains(c.instanceId)).Select(c => {
                 int[] map = cfg.Controller("C53").parameters.factorUnits2;
                 var trace = DrawRaw(s, effectRng, "effect", "C53", c.instanceId, map.Length);
                 int selected = int.Parse(ApplyOverride(s, trace, map[trace.rawTicket].ToString(CultureInfo.InvariantCulture)), CultureInfo.InvariantCulture);
@@ -53,6 +60,13 @@ namespace DiceCraft.Core
             s.stage.remainingSubmissions--; s.stage.submissionOrdinal++;
             s.submissionOrdinalGlobal = checked(s.submissionOrdinalGlobal + 1);
             s.stage.score = ExactScoreMath.Add(s.stage.score, score.score);
+            // v1.1.1 section 5.2: the final integer score of this hand against the run's highest single hand. Only a
+            // strictly higher score is a record; the flag stays for the rest of the stage and feeds C125 at settlement.
+            if (ExactScoreMath.Compare(score.score, s.highestHandScore) > 0)
+            {
+                s.lastEffects.Add(new EffectRecord { kind = "HandRecordBroken", detail = s.highestHandScore + ":" + score.score });
+                s.highestHandScore = score.score; s.stage.handRecordBroken = true;
+            }
 
             ApplySubmissionEffects(s, snapshot, score);
             // v0.9 C97: a single submission worth at least target / targetDivisor pays gold, a limited number of times per stage.
@@ -70,26 +84,50 @@ namespace DiceCraft.Core
                 long tax = Math.Min(s.gold, checked((long)snapshot.dice.Length * cfg.Modifier(s.stage.modifierId).amount));
                 if (tax > 0) { s.gold -= tax; s.lastEffects.Add(new EffectRecord { kind = "GoldTaxed", sourceId = s.stage.modifierId, oldValue = s.gold + tax, newValue = s.gold }); }
             }
+            // v1.1.1 section 7.3: the glass dice of this submission are judged last, after every other after-score effect.
+            BreakSubmittedGlass(s, score.afterScorePlan);
             if (score.primaryHandId != "scatter" && !s.stage.primaryHandsUsed.Contains(score.primaryHandId)) s.stage.primaryHandsUsed.Add(score.primaryHandId);
             s.stage.qualified = s.stage.qualified || ExactScoreMath.Compare(s.stage.score, s.stage.target) >= 0;
             if (s.stage.remainingSubmissions == 0 || s.dice.Count == 0)
             {
+                // A qualified stage settles even when the last die just broke; the settlement then decides what follows.
                 if (s.stage.qualified) FinalizeStage(s);
-                else { s.phase = "RunFailed"; s.failureReason = "SubmissionsExhausted"; }
+                else { s.phase = "RunFailed"; s.failureReason = s.stage.remainingSubmissions == 0 ? "SubmissionsExhausted" : "NoDice"; }
             }
             else StartHand(s);
             return score.score;
+        }
+
+        /// <summary>
+        /// v1.1.1 section 7.3: only the dice that were glass when this valid submission was frozen are at risk, sealed
+        /// or scoring 0 included; pool dice and rolls never are. In frozen submission order each draws one ticket of
+        /// the effect stream (0-14 breaks at 15%). A broken die leaves at once; nothing already paid is taken back.
+        /// </summary>
+        private void BreakSubmittedGlass(RunState s, AfterScorePlan plan)
+        {
+            if (plan.glassRiskDieIds == null || plan.glassRiskDieIds.Length == 0) return;
+            var rng = new GameRng(s.effectRngState); int percent = GlassBreakPercent(s);
+            foreach (string dieId in plan.glassRiskDieIds)
+            {
+                if (!DrawRisk(s, rng, "Glass", dieId, percent)) continue;
+                s.dice.RemoveAll(d => d.dieId == dieId); s.hand.currentResults.RemoveAll(r => r.dieId == dieId); s.hand.orderedLockedIds.Remove(dieId);
+                s.lastEffects.Add(new EffectRecord { kind = "DieBroken", sourceId = "U05", dieId = dieId });
+            }
+            s.effectRngState = rng.State;
         }
 
         private void ApplySubmissionEffects(RunState s, SubmissionSnapshot snapshot, ScoreBreakdown score)
         {
             var plan = score.afterScorePlan;
             ApplyPermanentEffects(s, snapshot, plan);
+            // v1.1.1 sections 5 and 5.1: the plan lists real, effective instances only; under GrowthFreeze nothing moves,
+            // the halving of C54 included. `halve` keeps half of what the card has grown, rounded down to its unit; the
+            // start value and the catch-up are never touched. GrowthHalf only changes what the scorer reads.
             if (!Fx(s, "GrowthFreeze")) foreach (var change in plan.growthChanges)
             {
                 var owner = s.controllers.First(c => c.instanceId == change.ownerInstanceId); long before = owner.state.growth;
-                owner.state.growth = change.reset ? 0 : checked(before + change.delta);
-                if (owner.state.growth != before) s.lastEffects.Add(new EffectRecord { kind = change.reset ? "ControllerGrowthReset" : "ControllerGrown", sourceId = change.abilityId, detail = owner.instanceId, oldValue = before, newValue = owner.state.growth });
+                owner.state.growth = change.halve ? before / 2 : change.reset ? 0 : checked(before + change.delta);
+                if (owner.state.growth != before) s.lastEffects.Add(new EffectRecord { kind = change.halve ? "ControllerGrowthHalved" : change.reset ? "ControllerGrowthReset" : "ControllerGrown", sourceId = change.abilityId, detail = owner.instanceId, oldValue = before, newValue = owner.state.growth });
             }
             if (plan.earnedGold != 0)
             {
@@ -139,49 +177,165 @@ namespace DiceCraft.Core
 
         private void ApplyPermanentEffects(RunState s, SubmissionSnapshot snapshot, AfterScorePlan plan)
         {
+            // v1.1.1 section 6.1: C07 -> C26 -> C36/C37 -> C15 -> C38, then the per-source plans in card order. Every
+            // step is one execution of its ability and is credited by Rewrite (section 6 "改写与计数").
+            var bindings = plan.cultivationSourceBindings ?? Array.Empty<CultivationSourceBinding>();
+            Func<string, string, CultivationSourceBinding[]> sourcesOf = (a, b) => bindings.Where(x => x.abilityId == a || x.abilityId == b).ToArray();
+            Func<int, FaceRef> submittedFace = index => { var die = FindDie(s, snapshot.dice[index].dieId); return new FaceRef(die, die.faces.First(f => f.faceId == snapshot.dice[index].faceId)); };
             if (plan.copyFirstToSecond)
             {
+                // The frozen first die is copied field by field: the weights come with it (no extra gilding weight) and
+                // the target keeps its own history marks, so only the faces really rewritten here get the mark.
                 var source = snapshot.dice[0]; var target = FindDie(s, snapshot.dice[1].dieId);
-                var copy = source.permanentFacesCopy.Select(f => f.Clone()).ToArray();
-                bool changed = target.isGlass != source.isGlass || target.faces.Where((f, i) => !SameFace(f, copy[i])).Any();
-                target.faces = copy; target.isGlass = source.isGlass;
-                if (changed) target.dataRevision++;
-                s.lastEffects.Add(new EffectRecord { kind = "DieCopied", sourceId = "C07", dieId = target.dieId, otherDieId = source.dieId });
+                Rewrite(s, sourcesOf("C07", null), target.faces.Select(f => new FaceRef(target, f)), () =>
+                {
+                    bool changed = target.isGlass != source.isGlass;
+                    foreach (var face in target.faces)
+                    {
+                        var from = source.permanentFacesCopy.FirstOrDefault(f => f.faceId == face.faceId);
+                        if (from == null || SameFaceProperties(face, from)) continue;
+                        face.permanentPip = from.permanentPip; face.baseColor = from.baseColor; face.texture = from.texture; face.isGold = from.isGold; face.baseWeight = from.baseWeight; changed = true;
+                    }
+                    target.isGlass = source.isGlass;
+                    if (changed) target.dataRevision++;
+                    s.lastEffects.Add(new EffectRecord { kind = "DieCopied", sourceId = "C07", dieId = target.dieId, otherDieId = source.dieId });
+                });
             }
             if (plan.dyeAllFacesRed)
             {
-                var target = FindDie(s, snapshot.dice[0].dieId); bool changed = target.faces.Any(f => f.baseColor != "red");
-                foreach (var face in target.faces) face.baseColor = "red";
-                if (changed) target.dataRevision++;
-                s.lastEffects.Add(new EffectRecord { kind = "DieDyed", sourceId = "C26", dieId = target.dieId, detail = "red" });
+                var target = FindDie(s, snapshot.dice[0].dieId);
+                Rewrite(s, sourcesOf("C26", null), target.faces.Select(f => new FaceRef(target, f)), () =>
+                {
+                    bool changed = target.faces.Any(f => f.baseColor != "red");
+                    foreach (var face in target.faces) face.baseColor = "red";
+                    if (changed) target.dataRevision++;
+                    s.lastEffects.Add(new EffectRecord { kind = "DieDyed", sourceId = "C26", dieId = target.dieId, detail = "red" });
+                });
             }
-            foreach (int index in plan.growthIndices)
+            if (plan.growthIndices.Length > 0)
             {
-                var frozen = snapshot.dice[index]; var target = FindDie(s, frozen.dieId);
-                var face = target.faces.First(f => f.faceId == frozen.faceId); int old = face.permanentPip;
-                face.permanentPip = Math.Max(cfg.minPipValue, Math.Min(cfg.maxPipValue, checked(old + plan.growthNetDelta)));
-                if (face.permanentPip != old) target.dataRevision++;
-                s.lastEffects.Add(new EffectRecord { kind = "FaceValueChanged", sourceId = plan.growthNetDelta == 0 ? "C36+C37" : plan.growthNetDelta > 0 ? "C36" : "C37",
-                    dieId = target.dieId, faceId = face.faceId, oldValue = old, newValue = face.permanentPip });
+                // C36/C37: the net delta is applied once to each planned face and clamped on the value it has now. A face
+                // that really changed counts for every triggered C36 and C37 source (ruling A13); net 0 or a clamp does not.
+                var targets = plan.growthIndices.Select(submittedFace).ToArray();
+                Rewrite(s, sourcesOf("C36", "C37"), targets, () =>
+                {
+                    foreach (var target in targets)
+                    {
+                        int old = target.face.permanentPip;
+                        target.face.permanentPip = Math.Max(cfg.minPipValue, Math.Min(cfg.maxPipValue, checked(old + plan.growthNetDelta)));
+                        if (target.face.permanentPip != old) target.die.dataRevision++;
+                        s.lastEffects.Add(new EffectRecord { kind = "FaceValueChanged", sourceId = plan.growthNetDelta == 0 ? "C36+C37" : plan.growthNetDelta > 0 ? "C36" : "C37",
+                            dieId = target.die.dieId, faceId = target.face.faceId, oldValue = old, newValue = target.face.permanentPip });
+                    }
+                });
             }
-            foreach (int index in plan.redSpreadIndices) DyeSubmittedFace(s, snapshot.dice[index], "red", "C15");
-            foreach (int index in plan.blueSpreadIndices) DyeSubmittedFace(s, snapshot.dice[index], "blue", "C38");
-            // v1.0 face changes, in list order, after every older effect.
-            foreach (var change in plan.faceChanges ?? Array.Empty<FaceChange>())
+            if (plan.redSpreadIndices.Length > 0)
+                Rewrite(s, sourcesOf("C15", null), plan.redSpreadIndices.Select(submittedFace).ToArray(), () => { foreach (int index in plan.redSpreadIndices) DyeSubmittedFace(s, snapshot.dice[index], "red", "C15"); });
+            if (plan.blueSpreadIndices.Length > 0)
+                Rewrite(s, sourcesOf("C38", null), plan.blueSpreadIndices.Select(submittedFace).ToArray(), () => { foreach (int index in plan.blueSpreadIndices) DyeSubmittedFace(s, snapshot.dice[index], "blue", "C38"); });
+            // v1.0 face changes, in list order, after every older effect. The list is built source by source, so the
+            // consecutive entries of one emitter are one execution of its ability.
+            var changes = plan.faceChanges ?? Array.Empty<FaceChange>();
+            for (int start = 0; start < changes.Length;)
             {
-                var target = s.dice.FirstOrDefault(d => d.dieId == change.dieId); var face = target == null ? null : target.faces.FirstOrDefault(f => f.faceId == change.faceId);
-                if (face == null) continue;
-                ApplyFaceChange(s, target, face, change.sourceId, change.kind, change.amount, change.text);
+                int end = start; while (end < changes.Length && changes[end].emitterId == changes[start].emitterId && changes[end].sourceId == changes[start].sourceId) end++;
+                var first = changes[start];
+                var run = changes.Skip(start).Take(end - start).Select(change =>
+                {
+                    var die = s.dice.FirstOrDefault(d => d.dieId == change.dieId);
+                    return new { change, target = new FaceRef(die, die == null ? null : die.faces.FirstOrDefault(f => f.faceId == change.faceId)) };
+                }).Where(x => x.target.face != null).ToArray();
+                start = end;
+                Rewrite(s, new[] { new CultivationSourceBinding { abilityId = first.sourceId, emitterId = first.emitterId, stateOwnerId = first.stateOwnerId } }, run.Select(x => x.target).ToArray(), () =>
+                {
+                    foreach (var x in run)
+                    {
+                        // Section 7.2: a card that gilds a face goes through the shared gilding entry. Section 6.1 C123:
+                        // its minus only lowers a face that is above the floor now, and never below the floor.
+                        if (x.change.kind == "gold" && x.change.amount != 0) GildFace(s, x.target.die, x.target.face, x.change.sourceId);
+                        else ApplyFaceChange(s, x.target.die, x.target.face, x.change.sourceId, x.change.kind, x.change.amount, x.change.text,
+                            x.change.sourceId == "C123" && x.change.kind == "pipDelta" && x.change.amount < 0 ? cfg.Controller("C123").parameters.highPipFloor : 0);
+                    }
+                });
             }
         }
 
-        /// <summary>v1.0: one permanent change to a face. Returns whether anything changed; always records the effect.</summary>
-        private bool ApplyFaceChange(RunState s, DieInstance die, FaceState face, string sourceId, string kind, int amount, string text)
+        /// <summary>A physical face together with the die that owns it.</summary>
+        private struct FaceRef
+        {
+            public readonly DieInstance die; public readonly FaceState face;
+            public FaceRef(DieInstance die, FaceState face) { this.die = die; this.face = face; }
+        }
+
+        /// <summary>The five permanent properties section 6 compares: pip, base colour, texture, gold and base weight.</summary>
+        private static bool SameFaceProperties(FaceState a, FaceState b) => a.permanentPip == b.permanentPip && a.baseColor == b.baseColor
+            && a.texture == b.texture && a.isGold == b.isGold && a.baseWeight == b.baseWeight;
+
+        /// <summary>
+        /// v1.1.1 section 6 "改写与计数": runs one execution of a face-rewriting ability and compares the five permanent
+        /// properties of every face it planned to rewrite before and after. A face of a permanent die that differs is a
+        /// successful rewrite: it gets the `cultivated` mark and every effective source that took part credits its real
+        /// owner once (the copied card for a mimic), up to the cap. A temporary die, a repaint in the same colour and a
+        /// value stopped by a limit count nothing. One "FaceCultivated" effect is recorded per source and face.
+        /// </summary>
+        private void Rewrite(RunState s, CultivationSourceBinding[] sources, IEnumerable<FaceRef> planned, Action execute)
+        {
+            var watched = planned.Where(p => p.die != null && p.face != null).GroupBy(p => p.face).Select(g => g.First())
+                .Select(p => new { p.die, p.face, before = p.face.Clone() }).ToArray();
+            execute();
+            int cap = checked(cfg.cultivationFacesPerSaleBonus * cfg.cultivationMaxSaleBonus);
+            foreach (var w in watched)
+            {
+                if (w.die.lifetime != "permanent" || SameFaceProperties(w.before, w.face)) continue;
+                w.face.cultivated = true;
+                foreach (var source in sources)
+                {
+                    var owner = s.controllers.FirstOrDefault(c => c.instanceId == source.stateOwnerId);
+                    int before = owner == null ? 0 : owner.state.cultivationFacesChanged, after = before;
+                    if (owner != null && cfg.Controller(owner.definitionId).isCultivation) owner.state.cultivationFacesChanged = after = Math.Min(cap, before + 1);
+                    s.lastEffects.Add(new EffectRecord { kind = "FaceCultivated", sourceId = source.abilityId, dieId = w.die.dieId, faceId = w.face.faceId,
+                        detail = source.emitterId + ":" + source.stateOwnerId, oldValue = before, newValue = after });
+                }
+            }
+        }
+
+        /// <summary>
+        /// v1.1.1 section 7.2: the one entry for turning a face gold. A face that was not gold becomes gold and gains
+        /// gildedFaceWeightDelta base weight up to maxFaceWeight; a face that is already gold changes nothing. The base
+        /// colour stays. Returns whether the face was gilded now. Callers in this package: C117, C127 and the U06 result
+        /// of C115. The shop upgrade U06, the item I11 and the L5 loot die are wired to it by W3b-2.
+        /// </summary>
+        private bool GildFace(RunState s, DieInstance die, FaceState face, string sourceId)
+        {
+            bool wasGold = face.isGold; int weight = face.baseWeight; bool gilded = Gild(face);
+            if (gilded) die.dataRevision++;
+            s.lastEffects.Add(new EffectRecord { kind = "FaceChanged", sourceId = sourceId, dieId = die.dieId, faceId = face.faceId, detail = "gold", oldValue = wasGold ? 1 : 0, newValue = 1 });
+            if (face.baseWeight != weight) s.lastEffects.Add(new EffectRecord { kind = "FaceChanged", sourceId = sourceId, dieId = die.dieId, faceId = face.faceId, detail = "weightDelta", oldValue = weight, newValue = face.baseWeight });
+            return gilded;
+        }
+        /// <summary>The state change of <see cref="GildFace"/> alone, for a face that belongs to no die of the run yet (a generated offer).</summary>
+        private bool Gild(FaceState face)
+        {
+            if (face.isGold) return false;
+            face.isGold = true;
+            if (face.baseWeight < cfg.maxFaceWeight) face.baseWeight = Math.Min(cfg.maxFaceWeight, checked(face.baseWeight + cfg.gildedFaceWeightDelta));
+            return true;
+        }
+
+        /// <summary>v1.0: one permanent change to a face. Returns whether anything changed; always records the effect.
+        /// v1.1.1: a negative pipDelta with <paramref name="pipFloor"/> above 0 only lowers a face that is above that
+        /// floor and stops at it (C123).</summary>
+        private bool ApplyFaceChange(RunState s, DieInstance die, FaceState face, string sourceId, string kind, int amount, string text, int pipFloor = 0)
         {
             long before, after;
             switch (kind)
             {
-                case "pipDelta": before = face.permanentPip; face.permanentPip = Math.Max(cfg.minPipValue, Math.Min(cfg.maxPipValue, checked(face.permanentPip + amount))); after = face.permanentPip; break;
+                case "pipDelta":
+                    {
+                        before = face.permanentPip; int floor = amount < 0 && pipFloor > 0 ? pipFloor : cfg.minPipValue;
+                        if (amount >= 0 || face.permanentPip > floor) face.permanentPip = Math.Max(floor, Math.Min(cfg.maxPipValue, checked(face.permanentPip + amount)));
+                        after = face.permanentPip; break;
+                    }
                 case "pipSet": Check(amount >= cfg.minPipValue && amount <= cfg.maxPipValue, "骰面点数无效。"); before = face.permanentPip; face.permanentPip = amount; after = face.permanentPip; break;
                 case "color": Check(text == "red" || text == "blue", "骰面颜色无效。"); before = face.baseColor == "red" ? 1 : 0; face.baseColor = text; after = text == "red" ? 1 : 0; break;
                 case "gold": before = face.isGold ? 1 : 0; face.isGold = amount != 0; after = face.isGold ? 1 : 0; break;
@@ -193,9 +347,6 @@ namespace DiceCraft.Core
             s.lastEffects.Add(new EffectRecord { kind = "FaceChanged", sourceId = sourceId, dieId = die.dieId, faceId = face.faceId, detail = kind + (string.IsNullOrEmpty(text) ? "" : ":" + text), oldValue = before, newValue = after });
             return changed;
         }
-
-        private static bool SameFace(FaceState a, FaceState b) => a.faceId == b.faceId && a.permanentPip == b.permanentPip && a.baseColor == b.baseColor
-            && a.texture == b.texture && a.isGold == b.isGold && a.baseWeight == b.baseWeight;
 
         private void DyeSubmittedFace(RunState s, SubmissionDie frozen, string color, string sourceId)
         {
@@ -218,6 +369,17 @@ namespace DiceCraft.Core
             Check(s.stage.qualified, "达到目标后才能结束本关。");
             var fundSources = Sources(s).Where(x => x.abilityId == "C52").Select(x => x.emitterId).Distinct(StringComparer.Ordinal).ToArray();
             s.lastStageSettlement = CalculateStageSettlement(s);
+            // v1.1.1 section 13: the clear ratio of this stage = final stage score / the target the settlement used, as a
+            // reduced fraction, compared with the record by cross-multiplication. An equal value keeps the record.
+            {
+                var score = ExactScoreMath.Parse(s.stage.score); var target = ExactScoreMath.Parse(s.stage.target); var gcd = System.Numerics.BigInteger.GreatestCommonDivisor(score, target);
+                var numerator = score / gcd; var denominator = target / gcd;
+                if (numerator * ExactScoreMath.Parse(s.highestClearRatioDenominator) > ExactScoreMath.Parse(s.highestClearRatioNumerator) * denominator)
+                {
+                    s.lastEffects.Add(new EffectRecord { kind = "ClearRatioRecord", detail = s.highestClearRatioNumerator + "/" + s.highestClearRatioDenominator + ":" + ExactScoreMath.SaveDecimal(numerator) + "/" + ExactScoreMath.SaveDecimal(denominator) });
+                    s.highestClearRatioNumerator = ExactScoreMath.SaveDecimal(numerator); s.highestClearRatioDenominator = ExactScoreMath.SaveDecimal(denominator);
+                }
+            }
             foreach (string emitterId in fundSources)
             {
                 var emitter = s.controllers.First(c => c.instanceId == emitterId);
@@ -231,6 +393,10 @@ namespace DiceCraft.Core
             bool bossStage = StageKind(s) == "boss", lastStage = s.stage.stageIndex == cfg.stages.Length - 1;
             if (bossStage) Grow(s, "C129", cfg.Controller("C129").parameters.growthEvent);
             if (s.stage.risk) Grow(s, "C132", cfg.Controller("C132").parameters.growthEvent);
+            // v1.1.1 section 5.2: C125 grows once per cleared stage in which the run's highest single hand was beaten,
+            // however many times it was beaten. Like every Grow, only real, effective, unfrozen instances move.
+            if (s.stage.handRecordBroken) Grow(s, "C125", cfg.Controller("C125").parameters.growthEvent);
+            // C141 counts its decays in `growth`; at expireGrowth the card is removed on the spot (no sale event).
             Grow(s, "C141", 1);
             foreach (var expired in s.controllers.Where(c => c.definitionId == "C141" && c.state.growth >= cfg.Controller("C141").parameters.expireGrowth).ToArray())
             {
@@ -247,6 +413,9 @@ namespace DiceCraft.Core
             s.gold = s.lastStageSettlement.goldAfter;
             s.stage.settlementId = s.lastStageSettlement.settlementId;
             s.stage.settled = true;
+            // v1.1.1 section 5.3: the star pip belongs to the stage that just ended; between stages a C137 has none (0)
+            // and the next stage draws again.
+            foreach (var c in s.controllers) c.state.starPip = 0;
             foreach (var d in s.dice.Where(x => x.lifetime == "stage_temporary").ToArray())
             {
                 s.lastEffects.Add(new EffectRecord { kind = "TemporaryDieExpired", dieId = d.dieId }); s.dice.Remove(d);
@@ -266,29 +435,54 @@ namespace DiceCraft.Core
         private void ApplyStageEndControllers(RunState s, bool bossStage, bool lastStage)
         {
             var sources = Sources(s);
+            // v1.1.1 section 6.1: every C120 source first, then every C121 source, each in emitter order; per source and
+            // per permanent die (creation order) the up to facesPerDie lowest / highest faces that can still move, ties
+            // by face id, each moved by one step.
             foreach (string id in new[] { "C120", "C121" })
-                for (int n = sources.Count(x => x.abilityId == id); n > 0; n--)
-                    foreach (var die in s.dice.Where(d => d.lifetime == "permanent").OrderBy(d => d.createdSerial))
+                foreach (var source in sources.Where(x => x.abilityId == id))
+                {
+                    var p = cfg.Controller(id).parameters; var credit = new[] { new CultivationSourceBinding { abilityId = id, emitterId = source.emitterId, stateOwnerId = source.stateOwnerId } };
+                    foreach (var die in s.dice.Where(d => d.lifetime == "permanent").OrderBy(d => d.createdSerial).ToArray())
                     {
-                        var ordered = die.faces.OrderBy(f => f.faceId, StringComparer.Ordinal).ToArray();
-                        var face = id == "C120" ? ordered.OrderBy(f => f.permanentPip).First() : ordered.OrderByDescending(f => f.permanentPip).First();
-                        if (id == "C120" ? face.permanentPip < cfg.maxPipValue : face.permanentPip > cfg.minPipValue) ApplyFaceChange(s, die, face, id, "pipDelta", cfg.Controller(id).parameters.delta, null);
+                        var movable = die.faces.Where(f => id == "C120" ? f.permanentPip < cfg.maxPipValue : f.permanentPip > cfg.minPipValue);
+                        var picked = (id == "C120" ? movable.OrderBy(f => f.permanentPip) : movable.OrderByDescending(f => f.permanentPip)).ThenBy(f => f.faceId, StringComparer.Ordinal).Take(p.facesPerDie).ToArray();
+                        Rewrite(s, credit, picked.Select(f => new FaceRef(die, f)).ToArray(), () => { foreach (var face in picked) ApplyFaceChange(s, die, face, id, "pipDelta", p.delta, null); });
                     }
+                }
             var rng = new GameRng(s.effectRngState);
             foreach (var source in sources)
             {
                 var p = source.abilityId == null ? null : cfg.Controller(source.abilityId).parameters;
                 if (source.abilityId == "C115")
                 {
+                    // v1.1.1 section 6.1: up to facesPerStage different faces per source. Each step lists, by die creation
+                    // order and face id, the faces this source has not rewritten yet that still accept at least one of its
+                    // upgrades, draws one of them, then draws one of that face's legal upgrades in upgrade-id order: two
+                    // tickets of the effect stream. An empty list ends the source without a draw.
+                    var done = new HashSet<string>(StringComparer.Ordinal); var upgradeIds = p.upgradeIds.OrderBy(x => x, StringComparer.Ordinal).ToArray();
+                    var credit = new[] { new CultivationSourceBinding { abilityId = "C115", emitterId = source.emitterId, stateOwnerId = source.stateOwnerId } };
                     for (int i = 0; i < p.facesPerStage; i++)
                     {
-                        var dice = s.dice.Where(d => d.lifetime == "permanent").OrderBy(d => d.createdSerial).ToArray(); if (dice.Length == 0) break;
-                        var die = dice[DrawRaw(s, rng, "effect", "C115Die", source.emitterId, dice.Length).rawTicket];
-                        var faces = die.faces.OrderBy(f => f.faceId, StringComparer.Ordinal).ToArray(); var face = faces[DrawRaw(s, rng, "effect", "C115Face", die.dieId, faces.Length).rawTicket];
-                        var trace = DrawRaw(s, rng, "effect", "C115Upgrade", die.dieId + "/" + face.faceId, p.upgradeIds.Length); string upgrade = p.upgradeIds[trace.rawTicket]; trace.rawValue = trace.appliedValue = upgrade;
-                        bool legal = UpgradeTargetLegal(die, face, upgrade);
-                        s.lastEffects.Add(new EffectRecord { kind = legal ? "RandomUpgrade" : "RandomUpgradeMissed", sourceId = "C115", dieId = die.dieId, faceId = face.faceId, detail = upgrade });
-                        if (legal) { s.effectRngState = rng.State; ApplyUpgrade(s, upgrade, die.dieId, face.faceId); rng = new GameRng(s.effectRngState); }
+                        var candidates = s.dice.Where(d => d.lifetime == "permanent").OrderBy(d => d.createdSerial)
+                            .SelectMany(d => d.faces.OrderBy(f => f.faceId, StringComparer.Ordinal).Select(f => new FaceRef(d, f)))
+                            .Where(x => !done.Contains(x.die.dieId + "/" + x.face.faceId) && upgradeIds.Any(u => UpgradeTargetLegal(x.die, x.face, u))).ToArray();
+                        if (candidates.Length == 0) break;
+                        var faceTrace = DrawRaw(s, rng, "effect", "C115Face", source.emitterId, candidates.Length); var target = candidates[faceTrace.rawTicket];
+                        string key = target.die.dieId + "/" + target.face.faceId; faceTrace.rawValue = faceTrace.appliedValue = key; done.Add(key);
+                        var legal = upgradeIds.Where(u => UpgradeTargetLegal(target.die, target.face, u)).ToArray();
+                        var trace = DrawRaw(s, rng, "effect", "C115Upgrade", key, legal.Length); string upgrade = legal[trace.rawTicket]; trace.rawValue = trace.appliedValue = upgrade;
+                        s.lastEffects.Add(new EffectRecord { kind = "RandomUpgrade", sourceId = "C115", dieId = target.die.dieId, faceId = target.face.faceId, detail = upgrade });
+                        Rewrite(s, credit, new[] { target }, () =>
+                        {
+                            switch (upgrade)
+                            {
+                                case "U03": ApplyFaceChange(s, target.die, target.face, "C115", "color", 0, "red"); break;
+                                case "U04": ApplyFaceChange(s, target.die, target.face, "C115", "color", 0, "blue"); break;
+                                case "U06": GildFace(s, target.die, target.face, "C115"); break;
+                                case "U08": ApplyFaceChange(s, target.die, target.face, "C115", "pipDelta", 1, null); break;
+                                default: throw new RuleViolation(UnknownDieUpgrade);
+                            }
+                        });
                     }
                 }
                 else if (source.abilityId == "C112" && !lastStage)

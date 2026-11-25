@@ -215,8 +215,9 @@ namespace DiceCraft.Core
         // ---- v1.0 quotes for the interface: it asks for these numbers instead of re-deriving a rule ----
         /// <summary>The interest principal cap: base + C96 sources + the O10 purchases of this run.</summary>
         private long InterestPrincipalCap(RunState s) => checked(cfg.maxInterestPrincipal + (long)Sources(s).Count(x => x.abilityId == "C96") * cfg.Controller("C96").parameters.interestPrincipalAdd + (long)cfg.interestPrincipalStep * s.interestCapPurchases);
-        /// <summary>v1.0 C145: the break chance of a glass die per roll (a disabled C145 is not a source).</summary>
-        private int GlassBreakPercent(RunState s) => cfg.glassBreakPercent; // W3A-ADAPT: C145 was removed in p1.1.1; W3b moves the break draw to after the submission.
+        /// <summary>v1.1.1 section 7.3: the chance that a glass die breaks after a valid submission it was part of. Rolling
+        /// and staying in the pool never break it. No card changes the chance any more (C145 was removed).</summary>
+        private int GlassBreakPercent(RunState s) => cfg.glassBreakPercent;
         private long InterestOnPrincipal(long principal, int pigSources) =>
             checked(principal / cfg.interestDivisor * (1L + (long)pigSources * cfg.Controller("C01").parameters.extraInterestPerTen));
 
@@ -362,7 +363,10 @@ namespace DiceCraft.Core
             {
                 var altar = s.controllers.First(c => c.instanceId == pair.Key); var victim = s.controllers.First(c => c.instanceId == pair.Value);
                 s.controllers.Remove(victim); s.randomOverrides.RemoveAll(o => o.sourceId == victim.instanceId); long before = altar.state.growth;
-                altar.state.growth = checked(before + (long)cfg.Controller(victim.definitionId).buyPrice * cfg.Controller("C100").parameters.growthEvent); // W3A-ADAPT: growthPerBuyPrice was renamed growthEvent (hundredths per gold)
+                // v1.1.1 section 5: growthEvent hundredths per gold of the victim's configured base price (an enchantment
+                // premium does not count). The altars act before the disabled list is frozen, so a boss modifier that
+                // will disable or freeze the altar does not stop this growth (section 5.1).
+                altar.state.growth = checked(before + (long)cfg.Controller(victim.definitionId).buyPrice * cfg.Controller("C100").parameters.growthEvent);
                 s.lastEffects.Add(new EffectRecord { kind = "ControllerSacrificed", sourceId = "C100", detail = altar.instanceId + ":" + victim.instanceId + ":" + victim.definitionId, oldValue = before, newValue = altar.state.growth });
             }
             // v1.0 C131: the leftmost scapegoat destroys itself and lifts the boss modifier before anything else of it applies.
@@ -379,6 +383,8 @@ namespace DiceCraft.Core
             s.stage.controllerOrderSnapshot = s.controllers.Select(c => c.instanceId).ToArray();
             s.stage.mimicBindings = ControllerRules.FreezeBindings(s.controllers.ToArray());
             s.stage.started = true;
+            // v1.1.1 section 10: the disabled list (B25, B29, B37) is frozen here from the actual card row, after the
+            // altars and the scapegoat and before any other stage-start ability. The rules layer is its only author.
             s.stage.disabledControllerIds = ControllerRules.DisabledBy(s.controllers, cfg, ActiveModifierId(s));
             foreach (string id in s.stage.disabledControllerIds) s.lastEffects.Add(new EffectRecord { kind = "ControllerDisabled", sourceId = s.stage.modifierId, detail = id });
             if (Fx(s, "LoseHalfGold"))
@@ -394,20 +400,24 @@ namespace DiceCraft.Core
             StartHand(s);
         }
 
-        /// <summary>v1.0 stage-start abilities, left to right: C128 glass, C136 temporary die, C110 random item.</summary>
+        /// <summary>
+        /// Stage-start abilities, left to right: C137 star pip, C136 temporary die, C110 random item.
+        /// v1.1.1 section 5.3: every real C137 still in the row draws its own star pip for this stage from the effect
+        /// stream (NextIndex(6) + 1). A C137 disabled for the stage draws and stores it too, so lifting the modifier
+        /// needs no draw; a mimic never draws and reads the value of the card it copies. Loading, quotes, the interface
+        /// and previews never draw. C128 was removed in p1.1.1.
+        /// </summary>
         private void ApplyStageStartControllers(RunState s)
         {
             var rng = new GameRng(s.effectRngState);
             foreach (var source in Sources(s))
             {
-                if (source.abilityId == "C128" && source.emitterDefinitionId == "C128")
+                if (source.emitterDefinitionId == "C137")
                 {
-                    for (int i = 0; i < cfg.Controller("C128").parameters.dicePerStage; i++)
-                    {
-                        var die = s.dice.Where(d => d.lifetime == "permanent" && !d.isGlass).OrderBy(d => d.createdSerial).FirstOrDefault(); if (die == null) break;
-                        die.isGlass = true; die.dataRevision++;
-                        s.lastEffects.Add(new EffectRecord { kind = "DieGlassed", sourceId = "C128", dieId = die.dieId, detail = source.emitterId });
-                    }
+                    var card = s.controllers.First(c => c.instanceId == source.emitterId);
+                    var trace = DrawRaw(s, rng, "effect", "C137Star", card.instanceId, cfg.maxPipValue - cfg.minPipValue + 1);
+                    card.state.starPip = cfg.minPipValue + trace.rawTicket; trace.rawValue = trace.appliedValue = card.state.starPip.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    s.lastEffects.Add(new EffectRecord { kind = "StarPipDrawn", sourceId = "C137", detail = card.instanceId, newValue = card.state.starPip });
                 }
                 else if (source.abilityId == "C136")
                 {
@@ -472,19 +482,14 @@ namespace DiceCraft.Core
             Check(s.hand.rollsRemaining > 0, "本手不能再掷了。");
             var unlocked = s.dice.Where(x => !s.hand.orderedLockedIds.Contains(x.dieId)).OrderBy(x => x.createdSerial).ToArray();
             Check(unlocked.Length > 0, "骰子都锁定了，没有可掷的骰子。");
-            var diceRng = new GameRng(s.diceRngState); var effectRng = new GameRng(s.effectRngState);
+            var diceRng = new GameRng(s.diceRngState);
             s.hand.rollsRemaining--; s.hand.rollsUsed++; s.hand.hasRolled = true;
+            // v1.1.1 section 5: C62 grows right after every successful roll (remote and extra rolls included), so the
+            // submission of this hand already reads it.
             Grow(s, "C62", cfg.Controller("C62").parameters.growthEvent);
-            int breakPercent = GlassBreakPercent(s);
+            // v1.1.1 section 7.3: a roll never breaks glass; the dice of a valid submission are judged after it.
             foreach (var die in unlocked)
             {
-                if (die.isGlass && DrawRisk(s, effectRng, "Glass", die.dieId, breakPercent))
-                {
-                    s.dice.Remove(die); s.hand.currentResults.RemoveAll(x => x.dieId == die.dieId);
-                    s.lastEffects.Add(new EffectRecord { kind = "DieBroken", sourceId = "U05", dieId = die.dieId });
-                    // W3A-ADAPT: C90 was removed in p1.1.1, so a broken glass die no longer grows anything.
-                    continue;
-                }
                 var faces = die.faces.OrderBy(x => x.faceId, StringComparer.Ordinal).ToArray();
                 var units = ProbabilityCalculator.BuildUnits(faces, s.hand.largeBuff, s.hand.smallBuff, cfg, Sources(s).Count(x => x.abilityId == "C34"), Sources(s).Count(x => x.abilityId == "C35"));
                 int sample = DrawRaw(s, diceRng, "dice", "DieFace", die.dieId, cfg.probabilityUnits).rawTicket, faceIndex = 0, ceiling = units[0];
@@ -494,13 +499,7 @@ namespace DiceCraft.Core
                 int remoteIndex = remoteIds == null ? -1 : Array.IndexOf(remoteIds, die.dieId);
                 if (remoteIndex >= 0) { r.currentPip = remotePips[remoteIndex]; r.remoteOverride = true; }
             }
-            s.diceRngState = diceRng.State; s.effectRngState = effectRng.State;
-            if (s.dice.Count == 0)
-            {
-                if (s.stage.qualified) FinalizeStage(s);
-                else { s.phase = "RunFailed"; s.failureReason = "NoDice"; }
-                return;
-            }
+            s.diceRngState = diceRng.State;
             int remainingUnlocked = s.dice.Count - s.hand.orderedLockedIds.Count;
             if (s.hand.rollsRemaining == 0)
             {
