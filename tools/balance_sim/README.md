@@ -337,3 +337,17 @@ trace 还将导出的命令头部送回真实会话重放一次，报告接受�
    - `cards` 的 `@s6 / @s12` 行不模拟金币、成长值、玻璃碎裂与随机的关末效果；每关固定打满 3 手（真实对局里机器人平均只用 2 手左右，养成更慢）。
 6. `ConfigValidationRelaxed.cs` 取代了游戏里钉死数值的 `Validate()`，只在模拟器里生效；p1.0.0 起它也提供 `Modifier`、`Loot`、`ModifierEffects`，
    并检查周期结构、首领池、战利品种类与目标的整除性。
+
+## 裸起手精确动态规划（`opening_dp.py`，V1.1.1）
+
+独立的 Python 脚本，不依赖上面的 C# 模拟器。它只覆盖“没有任何卡的起手”：5 颗标准骰（1、4 点红面），每手最多 3 投、锁定不可逆、
+提交已锁定的骰子，0 级牌型，无控制器 / 道具 / 骰面改造。用精确分数求每手期望分最大的策略，再导出最终手牌分布。
+
+    python tools/balance_sim/opening_dp.py --rules p111 --targets 160,320,500
+    python tools/balance_sim/opening_dp.py --rules p110 --targets 300,600,1000 --json
+    python tools/balance_sim/opening_dp.py --rules p111 --blue 1.5 --red 2 --red-group 1,2,3,4.5   # 自定义倍率
+
+输出：最优打法每手期望分；最终手牌占比（全蓝 / 全红 / 仅红组收益 / 没有任何颜色收益 四项互斥、合计 100%，红组 3 颗以上、含顺子、没交满另计）；
+“不看颜色的玩家”（按关闭颜色的规则求最优，再用真实规则计分）的期望分、占最优的百分比及平局取法造成的范围；三手独立累计 ≥ 目标的概率。
+各指标的精确口径见脚本 docstring。三手达标假设每手都用同一个“期望分最大”策略，不是按目标调整的最优策略，所以“不看颜色”在低目标上可能略高于“最优”。
+测试：`python -m unittest tests.test_opening_dp -v`（含 BX-03 门槛断言）。
