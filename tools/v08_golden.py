@@ -22,8 +22,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 BASELINE_CONFIG = ROOT / "tools" / "balance_sim" / "baseline" / "P0Config.p0.6.0.json"
 BASELINE_GOLDEN = ROOT / "tools" / "balance_sim" / "baseline" / "GoldenScores.p0.6.0.json"
-CONFIG = ROOT / "DicePrototype" / "Assets" / "Game" / "Data" / "P0Config.json"
-GOLDEN = ROOT / "DicePrototype" / "Assets" / "Game" / "Data" / "GoldenScores.json"
+# p1.1.1 (W4b): this generator is frozen. It reads the frozen config of its own version and checks the frozen copy of
+# its vectors; the live game config and GoldenScoresV111.json belong to tools/v111_config.py and tools/v111_golden.py.
+CONFIG = ROOT / "tools" / "balance_sim" / "baseline" / "P0Config.p0.8.0.json"
+GOLDEN = ROOT / "tools" / "balance_sim" / "baseline" / "GoldenScores.p0.8.0.json"
 EVIDENCE = ROOT / "evidence" / "v08" / "rules" / "golden-provenance.json"
 
 GROUP_ORDER = ["pair", "two_pair", "trips", "full_house", "three_pair", "quads", "two_trips", "five_kind", "four_pair", "six_kind", "seven_kind", "eight_kind"]

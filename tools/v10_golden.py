@@ -31,8 +31,10 @@ CONFIG_P08 = BASELINE / "P0Config.p0.8.0.json"
 CONFIG_P09 = BASELINE / "P0Config.p0.9.0.json"
 LEGACY_VECTORS = BASELINE / "GoldenScores.p0.8.0.json"
 V09_VECTORS = BASELINE / "GoldenScoresV09.p0.9.0.json"
-CONFIG = ROOT / "DicePrototype" / "Assets" / "Game" / "Data" / "P0Config.json"
-GOLDEN = ROOT / "DicePrototype" / "Assets" / "Game" / "Data" / "GoldenScoresV10.json"
+# p1.1.1 (W4b): this generator is frozen. It reads the frozen config of its own version and checks the frozen copy of
+# its vectors; the live game config and GoldenScoresV111.json belong to tools/v111_config.py and tools/v111_golden.py.
+CONFIG = BASELINE / "P0Config.p1.0.0.json"
+GOLDEN = BASELINE / "GoldenScoresV10.p1.0.0.json"
 EVIDENCE = ROOT / "evidence" / "v10" / "rules" / "golden-provenance.json"
 RULES = ROOT / "docs" / "specs" / "v10" / "RULES_SPEC.md"
 RULES_V09 = ROOT / "docs" / "specs" / "v09" / "RULES_SPEC.md"

@@ -19,17 +19,19 @@ except ModuleNotFoundError:
     import v10_golden as ref
 
 ROOT = Path(__file__).resolve().parents[1]
-DATA = ROOT / "DicePrototype/Assets/Game/Data"
-CONFIG = DATA / "P0Config.json"
-BASELINE = ROOT / "tools/balance_sim/baseline/P0Config.p1.0.0.json"
-GOLDEN = DATA / "GoldenScoresV11.json"
+# p1.1.1 (W4b): this generator is frozen. It reads the frozen config of its own version and checks the frozen copy of
+# its vectors; the live game config and GoldenScoresV111.json belong to tools/v111_config.py and tools/v111_golden.py.
+FROZEN = ROOT / "tools/balance_sim/baseline"
+CONFIG = FROZEN / "P0Config.p1.1.0.json"
+BASELINE = FROZEN / "P0Config.p1.0.0.json"
+GOLDEN = FROZEN / "GoldenScoresV11.p1.1.0.json"
 EVIDENCE = ROOT / "evidence/v11/rules/golden-provenance.json"
 SCHEMA = "v11-golden-1"
 CONFIG_VERSION = "p1.1.0"
 RULES = [ROOT / p for p in (
     "docs/specs/v11/RULES_DELTA.md", "docs/specs/v10/RULES_SPEC.md",
     "docs/specs/v09/RULES_SPEC.md", "docs/specs/v08/RULES_DELTA.md", "docs/specs/P0_v0.6.md")]
-HISTORICAL = [DATA / p for p in ("GoldenScores.json", "GoldenScoresV09.json", "GoldenScoresV10.json")]
+HISTORICAL = [FROZEN / p for p in ("GoldenScores.p0.8.0.json", "GoldenScoresV09.p0.9.0.json", "GoldenScoresV10.p1.0.0.json")]
 
 
 def ids(text):

@@ -21,8 +21,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 BASELINE_CONFIG = ROOT / "tools" / "balance_sim" / "baseline" / "P0Config.p0.8.0.json"
 BASELINE_GOLDEN = ROOT / "tools" / "balance_sim" / "baseline" / "GoldenScores.p0.8.0.json"
-CONFIG = ROOT / "DicePrototype" / "Assets" / "Game" / "Data" / "P0Config.json"
-GOLDEN = ROOT / "DicePrototype" / "Assets" / "Game" / "Data" / "GoldenScoresV09.json"
+# p1.1.1 (W4b): this generator is frozen. It reads the frozen config of its own version and checks the frozen copy of
+# its vectors; the live game config and GoldenScoresV111.json belong to tools/v111_config.py and tools/v111_golden.py.
+CONFIG = ROOT / "tools" / "balance_sim" / "baseline" / "P0Config.p0.9.0.json"
+GOLDEN = ROOT / "tools" / "balance_sim" / "baseline" / "GoldenScoresV09.p0.9.0.json"
 EVIDENCE = ROOT / "evidence" / "v09" / "rules" / "golden-provenance.json"
 SCHEMA = "v09-golden-1"
 
