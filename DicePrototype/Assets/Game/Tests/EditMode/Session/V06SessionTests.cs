@@ -68,13 +68,14 @@ namespace DiceCraft.Tests
 
         [Test] public void V06_C53SharesOwnerDrawAndPreviewDoesNotConsumeOverride()
         {
-            var s = Scene(Selecting(new[]{2}, new[]{"blue"}, new[]{"C41","C53"}), d => d.randomOverrides.Add(new DebugRandomOverride {kind="C53",sourceId=d.controllers[1].instanceId,value="1"}));
+            var s = Scene(Selecting(new[]{2}, new[]{"blue"}, new[]{"C41","C53"}), d => d.randomOverrides.Add(new DebugRandomOverride {kind="C53",sourceId=d.controllers[1].instanceId,value="4"}));
+            // p1.1.1: the override 4 is x2 for the owner and for its mimic: one blue 2 scores 2 x 1.25 x 2 x 2 = 10.
             var before = s.State; var rng = new GameRng(before.effectRngState); int raw = rng.NextIndex(9);
-            for(int i=0;i<5;i++) { var preview=s.PreviewScoreRange(); Assert.That(preview.isRandom,Is.False); Assert.That(preview.minimum.score,Is.EqualTo("1")); }
+            for(int i=0;i<5;i++) { var preview=s.PreviewScoreRange(); Assert.That(preview.isRandom,Is.False); Assert.That(preview.minimum.score,Is.EqualTo("10")); }
             AssertUnchanged(before,s.State); Assert.That(s.State.randomOverrides.Count, Is.EqualTo(1));
             var result=Do(s,CommandKind.Submit); var trace=result.receipt.randomResults.Single(r=>r.kind=="C53");
-            Assert.That(trace.rawTicket,Is.EqualTo(raw)); Assert.That(trace.overridden,Is.True); Assert.That(trace.appliedValue,Is.EqualTo("1"));
-            Assert.That(s.State.effectRngState,Is.EqualTo(rng.State)); Assert.That(s.State.lastSubmission.breakdown.score,Is.EqualTo("1")); Assert.That(s.State.randomOverrides,Is.Empty);
+            Assert.That(trace.rawTicket,Is.EqualTo(raw)); Assert.That(trace.overridden,Is.True); Assert.That(trace.appliedValue,Is.EqualTo("4"));
+            Assert.That(s.State.effectRngState,Is.EqualTo(rng.State)); Assert.That(s.State.lastSubmission.breakdown.score,Is.EqualTo("10")); Assert.That(s.State.randomOverrides,Is.Empty);
         }
 
         [Test] public void V06_C45SharesFrozenColorAndAlwaysAdvancesOncePerOwner()
@@ -102,7 +103,9 @@ namespace DiceCraft.Tests
 
         [Test] public void V06_ZeroScoreStillConsumesDrawsIncomeAndConsecutiveGrowth()
         {
-            var s=Scene(Selecting(new[]{2,2},controllers:new[]{"C49","C01","C43","C53"}),d=>{d.previousPrimaryHandId="pair";d.randomOverrides.Add(new DebugRandomOverride{kind="C53",sourceId=d.controllers[3].instanceId,value="10"});});
+            // p1.1.1: C49 without a 5 halves the score per source instead of zeroing it, and C53 has no x5 any more. A red 1 and
+            // a blue 1 (pair, mixed): 2 x 2 = 4, x1/2 for C49 and x1/2 for its mimic, x1/2 for C53 (override 1): 0.5 -> 0.
+            var s=Scene(Selecting(new[]{1,1},new[]{"red","blue"},new[]{"C41","C49","C01","C43","C53"}),d=>{d.previousPrimaryHandId="pair";d.randomOverrides.Add(new DebugRandomOverride{kind="C53",sourceId=d.controllers[4].instanceId,value="1"});});
             var before=s.State;Do(s,CommandKind.Submit);
             Assert.That(s.State.lastSubmission.breakdown.score,Is.EqualTo("0"));Assert.That(s.State.stage.remainingSubmissions,Is.EqualTo(before.stage.remainingSubmissions-1));
             Assert.That(s.State.gold,Is.EqualTo(before.gold+1));Assert.That(s.State.handLevels.Single(h=>h.handId=="pair").level,Is.EqualTo(1));
@@ -138,20 +141,21 @@ namespace DiceCraft.Tests
             s=Edit(s,x=>x.gold=20);Do(s,CommandKind.Buy,c=>c.offerId=offer);
             Assert.That(s.State.gold,Is.EqualTo(11));Assert.That(s.State.controllers.Select(c=>c.definitionId),Is.EqualTo(new[]{"C51","C52","C41","C52"}));
             Assert.That(s.State.controllers[1].instanceId,Is.EqualTo(old));Assert.That(s.State.controllers[1].state.fundAccrual,Is.EqualTo(30));Assert.That(s.State.controllers[3].state.fundAccrual,Is.Zero);
-            Assert.That(s.State.controllers[2].state.fundAccrual,Is.EqualTo(6));Assert.That(s.State.controllers[0].state.turnoverUnits2,Is.EqualTo(3),"a purchase is not a sale");
+            Assert.That(s.State.controllers[2].state.fundAccrual,Is.EqualTo(6));Assert.That(s.State.controllers[0].state.growth,Is.Zero,"a purchase is not a sale");
             long gold=s.State.gold;Do(s,CommandKind.Sell,c=>c.itemInstanceId=old);
-            Assert.That(s.State.gold,Is.EqualTo(gold+32),"half of 4 plus the fund of 30");Assert.That(s.State.controllers[0].state.turnoverUnits2,Is.EqualTo(4));
+            Assert.That(s.State.gold,Is.EqualTo(gold+32),"half of 4 plus the fund of 30");Assert.That(s.State.controllers[0].state.growth,Is.EqualTo(80),"p1.1.1: C51 grows +0.8 in `growth`");
         }
 
-        // v1.1 rewrite: buying a second C51 is not a sale, so nothing grows; the new copy starts at 1.5 and the old one keeps
+        // v1.1 rewrite: buying a second C51 is not a sale, so nothing grows; the new copy starts fresh and the old one keeps
         // its value. The first real controller sale of the shop then grows both copies (each instance grows on its own).
+        // p1.1.1 rewrite: the value lives in `growth` (hundredths, +0.8 per event); the old copy starts this test at 1.7 grown.
         [Test] public void V06_C51CopyPurchaseGrowsNothingAndItemSaleDoesNotGrow()
         {
-            var s=Edit(Shop(),x=>{x.gold=100;Equip(x,"C51","C41");x.controllers[0].state.turnoverUnits2=20;AddItem(x,"I01");});
+            var s=Edit(Shop(),x=>{x.gold=100;Equip(x,"C51","C41");x.controllers[0].state.growth=170;AddItem(x,"I01");});
             string offer=Offer(s,"C51","mult2",out s);Do(s,CommandKind.Buy,c=>c.offerId=offer);
-            Assert.That(s.State.controllers.Select(c=>c.state.turnoverUnits2),Is.EqualTo(new[]{20,3,3}));Do(s,CommandKind.Sell,c=>c.itemInstanceId=s.State.inventory[0].instanceId);
-            Assert.That(s.State.controllers.Select(c=>c.state.turnoverUnits2),Is.EqualTo(new[]{20,3,3}));Do(s,CommandKind.Sell,c=>c.itemInstanceId=s.State.controllers[1].instanceId);
-            Assert.That(s.State.controllers.Select(c=>c.definitionId+":"+c.state.turnoverUnits2),Is.EqualTo(new[]{"C51:21","C51:4"}));
+            Assert.That(s.State.controllers.Select(c=>c.state.growth),Is.EqualTo(new long[]{170,0,0}));Do(s,CommandKind.Sell,c=>c.itemInstanceId=s.State.inventory[0].instanceId);
+            Assert.That(s.State.controllers.Select(c=>c.state.growth),Is.EqualTo(new long[]{170,0,0}));Do(s,CommandKind.Sell,c=>c.itemInstanceId=s.State.controllers[1].instanceId);
+            Assert.That(s.State.controllers.Select(c=>c.definitionId+":"+c.state.growth),Is.EqualTo(new[]{"C51:250","C51:80"}));
         }
 
         [Test] public void V06_C45AcquisitionDrawOccursOnlyAfterSuccessfulValidation()
@@ -229,7 +233,8 @@ namespace DiceCraft.Tests
                 d.dice.Clear();d.controllers.Clear();d.inventory.Clear();d.capacityOverride=32;d.consumableSlots=32;d.currentResults=new List<DieHandState>();d.orderedLockedIds.Clear();
                 for(int i=1;i<=32;i++){
                     var die=DiceFactory.CreateStandard(cfg,i);foreach(var f in die.faces){f.permanentPip=6;f.baseColor="red";f.isGold=true;}die.isGlass=true;d.dice.Add(die);
-                    d.controllers.Add(new ControllerInstance{instanceId="ITEM_"+i.ToString("D5"),acquiredSerial=i,definitionId="C46",enchantmentId="mult2"});
+                    // p1.1.1: C46 is a bonus now; 32 copies of the x2.5 multiplier C09 keep the score far beyond 64 bits (2.5^32 is about 5e12).
+                    d.controllers.Add(new ControllerInstance{instanceId="ITEM_"+i.ToString("D5"),acquiredSerial=i,definitionId="C09",enchantmentId="mult2"});
                     d.inventory.Add(new OwnedItem{instanceId="ITEM_"+(i+32).ToString("D5"),contentId="I01"});
                     d.currentResults.Add(new DieHandState{dieId=die.dieId,currentFaceId="F01",currentPip=6,currentColor="red",hasRolled=true});d.orderedLockedIds.Add(die.dieId);
                 }
@@ -335,8 +340,9 @@ namespace DiceCraft.Tests
             Assert.That(s.State.shop.offers.Where(o=>o.category=="controller").All(o=>ControllerRules.IsEnchantmentLegal(o.contentId,o.controller.enchantmentId,cfg)),Is.True);
         }
 
-        [TestCase(7,8)] [TestCase(8,8)]
-        public void V06_NormalConsecutiveSourcesCapAtEightAndKeepBothTriggers(int initial,int expected)
+        // p1.1.1 section 3.1: the normal level cap is 12.
+        [TestCase(11,12)] [TestCase(12,12)]
+        public void V06_NormalConsecutiveSourcesCapAtTwelveAndKeepBothTriggers(int initial,int expected)
         {
             var s=Edit(Selecting(new[]{3,3,3},controllers:new[]{"C41","C43"}),x=>{
                 x.isDebug=false;x.previousPrimaryHandId="trips";x.handLevels.Single(h=>h.handId=="trips").level=initial;

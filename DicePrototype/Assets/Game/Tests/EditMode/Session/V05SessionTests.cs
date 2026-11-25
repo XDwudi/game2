@@ -113,8 +113,13 @@ namespace DiceCraft.Tests
                 x.dice[0].isGlass = true; x.effectRngState = rng;
                 if (final) { x.stage.stageIndex = 23; x.stage.stageId = cfg.stages[23].stageId; }
             });
-            Do(s, CommandKind.Roll); Assert.That(s.State.phase, Is.EqualTo("StageSettlement")); Assert.That(s.State.dice, Is.Empty);
-            Assert.That(s.State.lastStageSettlement.remainingSubmissions, Is.EqualTo(2)); var after = s.State;
+            // p1.1.1 section 7.3: a roll no longer breaks glass. The last glass die breaks after it is submitted; the
+            // stage was already qualified, so it settles once (one more submission used) and the settlement decides what follows.
+            Do(s, CommandKind.Roll); Assert.That(s.State.phase, Is.EqualTo("Selecting")); Assert.That(s.State.dice.Count, Is.EqualTo(1), "rolling never breaks glass");
+            Lock(s, "D001"); var submitted = Do(s, CommandKind.Submit);
+            Assert.That(submitted.receipt.effects.Count(e => e.kind == "DieBroken"), Is.EqualTo(1)); Assert.That(submitted.receipt.settlement, Is.Not.Null);
+            Assert.That(s.State.phase, Is.EqualTo("StageSettlement")); Assert.That(s.State.dice, Is.Empty);
+            Assert.That(s.State.lastStageSettlement.remainingSubmissions, Is.EqualTo(1)); var after = s.State;
             Do(s, CommandKind.Continue); Assert.That(s.State.phase, Is.EqualTo(final ? "RunWon" : "RunFailed")); Assert.That(s.State.gold, Is.EqualTo(after.gold));
         }
 
@@ -131,7 +136,14 @@ namespace DiceCraft.Tests
             var s = Selecting(new[] { 2 }, new[] { "blue" }, new[] { "C26", "C38" });
             s = Edit(s, x => { x.hand.currentResults[0].currentFaceId = "F02"; foreach (var c in x.controllers) c.enchantmentId = "base10"; });
             var expected = s.PreviewScore(); var before = s.State;
-            for (int i = 0; i < 5; i++) Assert.That(s.PreviewSubmissionEffects().Length, Is.EqualTo(2));
+            // p1.1.1: besides the two dye effects the preview lists one FaceCultivated per rewritten face: C26 repaints the five
+            // faces that are not red (F01 was made blue by the fixture), C38 then repaints the up face F02 blue.
+            for (int i = 0; i < 5; i++)
+            {
+                var effects = s.PreviewSubmissionEffects();
+                Assert.That(effects.Count(e => e.kind != "FaceCultivated"), Is.EqualTo(2));
+                Assert.That(effects.Where(e => e.kind == "FaceCultivated").Select(e => e.sourceId), Is.EqualTo(new[] { "C26", "C26", "C26", "C26", "C26", "C38" }));
+            }
             AssertUnchanged(before, s.State); Do(s, CommandKind.Submit);
             var die = s.State.dice[0]; Assert.That(die.faces.Count(f => f.baseColor == "red"), Is.EqualTo(5)); Assert.That(die.faces[1].baseColor, Is.EqualTo("blue"));
             Assert.That(s.State.lastSubmission.breakdown.score, Is.EqualTo(expected.score)); Assert.That(expected.enchantBaseCount, Is.EqualTo(2));
@@ -153,7 +165,9 @@ namespace DiceCraft.Tests
             Do(s, CommandKind.Submit); var state = s.State;
             Assert.That(state.dice[1].faces[1].permanentPip, Is.EqualTo(5)); Assert.That(state.dice[0].faces[1].permanentPip, Is.EqualTo(4));
             Assert.That(state.dice[0].faces[0].baseColor, Is.EqualTo("blue")); Assert.That(state.dice[1].faces[0].baseColor, Is.EqualTo("red"));
-            Assert.That(state.lastEffects.Select(e => e.sourceId), Is.EqualTo(new[] { "C07", "C36", "C36", "C38", "C38" }));
+            // p1.1.1: the rewrites run in the same order; the FaceCultivated records of each step follow it and are left out here.
+            Assert.That(state.lastEffects.Where(e => e.kind != "FaceCultivated" && e.kind != "HandRecordBroken").Select(e => e.sourceId), Is.EqualTo(new[] { "C07", "C36", "C36", "C38", "C38" }));
+            Assert.That(state.lastEffects.Where(e => e.kind == "FaceCultivated").Select(e => e.sourceId).Distinct(), Is.EqualTo(new[] { "C07", "C36", "C38" }));
         }
 
         [Test] public void V05_RemoteGrowthChangesFrozenPhysicalFaceAndNeverOverridePip()

@@ -114,15 +114,23 @@ namespace DiceCraft.Tests
                 Assert.That(s.Execute(c).accepted, Is.False); AssertUnchanged(before, s.State);
             }
         }
-        [Test] public void FLOW_C09_C11_BrokenRemoteTargetsConsumeItemAndNoDiceFails()
+        // p1.1.1 section 7.3 rewrite: a roll, remote or not, never breaks glass; the glass dice of a valid submission are
+        // judged after it. Both tickets of this seed are below 15, so both dice break once they are submitted.
+        [Test] public void FLOW_C09_C11_GlassRemoteTargetsSurviveTheRollAndBreakOnlyAfterTheyAreSubmitted()
         {
             uint seed = 1;
             while (true) { var r = new GameRng(seed); if (r.NextIndex(100) < cfg.glassBreakPercent && r.NextIndex(100) < cfg.glassBreakPercent) break; seed++; }
-            string item = null; var s = Edit(Ready("C05"), x => { x.dice.RemoveRange(2,3); x.hand.currentResults.RemoveRange(2,3); foreach (var d in x.dice) d.isGlass = true; x.effectRngState = seed; x.hand.rollsRemaining = 1; item = AddItem(x, "I03"); });
+            string item = null; var s = Edit(Ready(), x => { x.dice.RemoveRange(2,3); x.hand.currentResults.RemoveRange(2,3); foreach (var d in x.dice) d.isGlass = true; x.effectRngState = seed; x.hand.rollsRemaining = 1; item = AddItem(x, "I03"); });
             var oldDiceRng = s.State.diceRngState;
-            Do(s, CommandKind.UseItem, c => { c.itemInstanceId = item; c.dieIds = new[] { "D001","D002" }; c.targetPips = new[] { 6,6 }; });
-            Assert.That(s.State.phase, Is.EqualTo("RunFailed")); Assert.That(s.State.dice, Is.Empty); Assert.That(s.State.inventory, Is.Empty);
-            Assert.That(s.State.hand.c05Used, Is.False); Assert.That(s.State.diceRngState, Is.EqualTo(oldDiceRng));
+            var used = Do(s, CommandKind.UseItem, c => { c.itemInstanceId = item; c.dieIds = new[] { "D001","D002" }; c.targetPips = new[] { 6,6 }; });
+            Assert.That(s.State.phase, Is.EqualTo("Selecting")); Assert.That(s.State.dice.Count, Is.EqualTo(2)); Assert.That(s.State.inventory, Is.Empty);
+            Assert.That(used.receipt.randomResults.Any(r => r.kind == "Glass"), Is.False); Assert.That(s.State.effectRngState, Is.EqualTo(seed));
+            Assert.That(s.State.diceRngState, Is.Not.EqualTo(oldDiceRng), "both targets were really rolled");
+            Assert.That(s.State.hand.currentResults.All(r => r.remoteOverride && r.currentPip == 6), Is.True);
+            Lock(s, "D001", "D002"); var submitted = Do(s, CommandKind.Submit);
+            Assert.That(submitted.receipt.randomResults.Where(r => r.kind == "Glass").Select(r => r.sourceId), Is.EqualTo(new[] { "D001", "D002" }));
+            // Two 6s score at most (18 + 18) x 2 x 1.5 = 108, below the 160 of stage 1: no dice left and not qualified.
+            Assert.That(s.State.dice, Is.Empty); Assert.That(s.State.phase, Is.EqualTo("RunFailed")); Assert.That(s.State.failureReason, Is.EqualTo("NoDice"));
         }
         [Test] public void FLOW_C10_LockedGlassNeverRollsOrBreaks()
         {

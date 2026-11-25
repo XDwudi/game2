@@ -150,8 +150,12 @@ namespace DiceCraft.Tests
             var s=Edit(New(),x=>{foreach(var d in x.dice)foreach(var f in d.faces){f.permanentPip=4;f.baseColor="red";f.isGold=true;}Equip(x,"C25","C30","C31","C32","C46");/* p0.9.0: the fifth card lifts this one-submission fixture from 11.7M to 46.6M, above the new 15M final target */foreach(var h in x.handLevels)h.level=8;foreach(var h in x.colorLevels)h.level=8;foreach(var c in x.controllers)c.enchantmentId="mult2";});
             for(int stage=0;stage<24;stage++){
                 if(cfg.stages[stage].riskEnabled)Do(s,CommandKind.ChooseChallenge,c=>c.risk=true);
-                Do(s,CommandKind.StartStage);Do(s,CommandKind.Roll);Lock(s,s.State.dice.Select(x=>x.dieId).ToArray());Do(s,CommandKind.Submit);
-                Do(s,CommandKind.EndStage);Assert.That(s.State.phase,Is.EqualTo("StageSettlement"),"stage "+stage);Do(s,CommandKind.Continue);
+                // p1.1.1 rewrite: this is a flow test. With the p1.1.1 numbers and a boss plan that depends on the seed the build above
+                // no longer clears every stage in one hand (a boss may also shrink the row or the submission budget), so the
+                // stage score is preset to the target; the hand locks what the row holds and is still rolled, scored and submitted.
+                Do(s,CommandKind.StartStage);s=Edit(s,x=>{x.stage.score=x.stage.target;x.stage.qualified=true;});
+                Do(s,CommandKind.Roll);Lock(s,s.State.dice.Select(x=>x.dieId).Take(s.State.stage.capacity).ToArray());Do(s,CommandKind.Submit);
+                if(s.State.phase!="StageSettlement")Do(s,CommandKind.EndStage);Assert.That(s.State.phase,Is.EqualTo("StageSettlement"),"stage "+stage);Do(s,CommandKind.Continue);
                 if(stage<23){
                     Assert.That(s.State.phase,Is.EqualTo("Shop"));
                     // v1.1 rewrite (RULES_DELTA): after each of the seven boss stages the loot must be claimed or cashed out first.

@@ -9,7 +9,8 @@ namespace DiceCraft.Tests
     /// Session rules added by p1.0.0 (docs/specs/v10/RULES_SPEC.md): the three-stage cycle, boss modifiers, the
     /// scapegoat and the talisman, boss loot and gift groups, the stage-start and stage-end controllers, the new
     /// items, die upgrades and services. Expected numbers are worked out here from the rule text.
-    /// The reference hand is five red 4s with no roll left: 20 base x 12 (five of a kind) x 2 (all red) x 5 (red group of 5) = 2400.
+    /// The reference hand is five red 4s with no roll left. p1.1.1: 20 base x 12 (five of a kind) x 4.5 (red group of 5) x (1 + 0.5 all red) = 1620.
+    /// Stage targets (section 11): stage 2 is 320 (pressure 480), the first boss stage 500 (750 under the 150% wall).
     /// </summary>
     public sealed class V10SessionTests : SessionTestSupport
     {
@@ -81,7 +82,7 @@ namespace DiceCraft.Tests
             var second = ShopAfterStage(0); Do(second, CommandKind.LeaveShop);
             Assert.That(second.State.stage.stageKind, Is.EqualTo("pressure")); Assert.That(second.State.stage.modifierId ?? "", Is.Empty);
             Do(second, CommandKind.ChooseChallenge, c => c.risk = true);
-            Assert.That(second.State.stage.target, Is.EqualTo("900"), "600 x 1.5"); Assert.That(second.State.stage.reward, Is.EqualTo(10));
+            Assert.That(second.State.stage.target, Is.EqualTo("480"), "320 x 1.5"); Assert.That(second.State.stage.reward, Is.EqualTo(10));
             var boss = BossPreview("B05", null); refuse = Command(boss, CommandKind.ChooseChallenge); refuse.risk = true;
             Assert.That(boss.Execute(refuse).accepted, Is.False, "a boss stage has no pressure option");
             Assert.That(boss.State.stage.stageKind, Is.EqualTo("boss")); Assert.That(boss.State.stage.modifierId, Is.EqualTo("B05"));
@@ -91,14 +92,14 @@ namespace DiceCraft.Tests
         {
             var s = New(3); var view = s.CycleView(); var plan = s.State.cycles[0];
             Assert.That(view.Select(v => v.stageKind), Is.EqualTo(new[] { "normal", "pressure", "boss" }));
-            Assert.That(view[0].current, Is.True); Assert.That(view[0].cleared, Is.False); Assert.That(view[1].riskTarget, Is.EqualTo("900")); Assert.That(view[1].riskReward, Is.EqualTo(10));
+            Assert.That(view[0].current, Is.True); Assert.That(view[0].cleared, Is.False); Assert.That(view[1].riskTarget, Is.EqualTo("480")); Assert.That(view[1].riskReward, Is.EqualTo(10));
             Assert.That(view[2].modifierId, Is.EqualTo(plan.modifierId)); Assert.That(view[2].lootKind, Is.EqualTo(plan.lootKind)); Assert.That(view[0].modifierId, Is.Empty);
             var shop = ShopAfterStage(0); view = shop.CycleView();
             Assert.That(view[0].cleared, Is.True); Assert.That(view[1].current, Is.True, "in the shop the panel looks at the next stage");
             var afterBoss = ShopAfterStage(2); view = afterBoss.CycleView();
             Assert.That(view[0].stageIndex, Is.EqualTo(3), "after a boss the panel shows the next cycle"); Assert.That(view[2].modifierId, Is.EqualTo(afterBoss.State.cycles[1].modifierId));
             var wall = ShopAfterStage(1, x => x.cycles[0].modifierId = "B11");
-            Assert.That(wall.CycleView()[2].bossTarget, Is.EqualTo("1500"), "1000 x 1.5");
+            Assert.That(wall.CycleView()[2].bossTarget, Is.EqualTo("750"), "500 x 1.5");
         }
 
         // ---- budget modifiers ----
@@ -144,7 +145,7 @@ namespace DiceCraft.Tests
             var s = BossPreview("B09", null, "C78");
             Assert.That(s.InitialRolls, Is.EqualTo(3), "3 + C78 - 1"); Assert.That(s.EntryView().modifierId, Is.EqualTo("B09"));
             s = BossPreview("B11", null);
-            Assert.That(s.State.stage.target, Is.EqualTo("1500")); Assert.That(s.EntryView().target, Is.EqualTo("1500"));
+            Assert.That(s.State.stage.target, Is.EqualTo("750")); Assert.That(s.EntryView().target, Is.EqualTo("750"));
             s = BossPreview("B25", null, "C50", "C46", "C13");
             Assert.That(s.EntryView().disabledControllerIds, Is.EqualTo(s.State.controllers.Take(2).Select(c => c.instanceId).ToArray()));
             s = BossPreview("B27", null, "C79");
@@ -157,7 +158,7 @@ namespace DiceCraft.Tests
         {
             var s = Force(Boss("B01"), new[] { 4, 4, 4 }, "red"); var before = s.State;
             Assert.That(s.Execute(Command(s, CommandKind.Submit)).accepted, Is.False); AssertUnchanged(before, s.State);
-            s = Force(s, Fours, "red"); Assert.That(Submit(s), Is.EqualTo("2400"));
+            s = Force(s, Fours, "red"); Assert.That(Submit(s), Is.EqualTo("1620"));
         }
 
         [Test] public void V10_NoItemsBlocksEveryItemExceptTheTalisman()
@@ -199,7 +200,7 @@ namespace DiceCraft.Tests
             s = Force(s, Fours, "red"); Submit(s); Assert.That(Growth(s, "C55"), Is.Zero, "submitting does not grow C55");
             Do(s, CommandKind.EndStage); Assert.That(Growth(s, "C58"), Is.Zero, "clearing the stage does not grow C58");
             var free = Force(Boss("B05", "C55", "C58"), Fours, "red"); Submit(free); Do(free, CommandKind.EndStage);
-            Assert.That(Growth(free, "C55"), Is.EqualTo(2)); Assert.That(Growth(free, "C58"), Is.EqualTo(4));
+            Assert.That(Growth(free, "C55"), Is.EqualTo(3), "p1.1.1: +3 per submission"); Assert.That(Growth(free, "C58"), Is.EqualTo(15), "p1.1.1: +0.15 per cleared stage");
         }
 
         [Test] public void V10_HandDowngradeLowersThePrimaryHandAfterAnyUpgrade()
@@ -217,7 +218,7 @@ namespace DiceCraft.Tests
             var s = Boss("B25", "C50", "C46", "C13");
             Assert.That(s.State.stage.disabledControllerIds, Is.EqualTo(s.State.controllers.Take(2).Select(c => c.instanceId).ToArray()));
             s = Force(s, Fours, "red"); var receipt = Do(s, CommandKind.Submit).receipt;
-            Assert.That(receipt.score, Is.EqualTo("2400"), "C50 (+20) and C46 (x2) are disabled");
+            Assert.That(receipt.score, Is.EqualTo("1620"), "C50 (+30 base) and C46 (+2 bonus) are disabled");
             Assert.That(receipt.submission.snapshot.disabledControllerIds.Length, Is.EqualTo(2)); Assert.That(receipt.submission.breakdown.triggeredSourceIds, Is.Empty);
             Assert.That(s.State.controllers.Count, Is.EqualTo(3), "a disabled card is not removed");
             Assert.That(Boss("B25", "C79", "C13", "C78").State.stage.remainingSubmissions, Is.EqualTo(3), "a disabled C79 adds no submission");
@@ -225,9 +226,9 @@ namespace DiceCraft.Tests
             var rare = Boss("B29", "C09", "C13");
             Assert.That(rare.State.stage.capacity, Is.EqualTo(5), "a disabled C09 does not shrink the row"); Assert.That(rare.State.stage.disabledControllerIds.Length, Is.EqualTo(1));
             var mimic = Force(Boss("B25", "C13", "C50", "C41", "C46"), Fours, "red");
-            Assert.That(Submit(mimic), Is.EqualTo("9600"), "C13 and C50 disabled; the mimic copies the live C46: 2400 x 2 x 2");
+            Assert.That(Submit(mimic), Is.EqualTo("5940"), "C13 and C50 disabled; the mimic copies the live C46, +2 each: 20 x 12 x 4.5 x (1 + 0.5 + 2 + 2)");
             mimic = Force(Boss("B25", "C41", "C46", "C13"), Fours, "red");
-            Assert.That(Submit(mimic), Is.EqualTo("2400"), "a disabled mimic and a disabled target give nothing");
+            Assert.That(Submit(mimic), Is.EqualTo("1620"), "a disabled mimic and a disabled target give nothing");
         }
 
         [Test] public void V10_EnchantSilenceStopsBudgetEnchantsAndScoreEnchants()
@@ -235,26 +236,28 @@ namespace DiceCraft.Tests
             Action<RunState> enchant = x => { x.controllers[0].enchantmentId = "roll1"; x.controllers[1].enchantmentId = "submit1"; x.controllers[2].enchantmentId = "mult2"; };
             var s = BossPreview("B06", enchant, "C13", "C10", "C50"); Do(s, CommandKind.StartStage);
             Assert.That(s.State.hand.rollsRemaining, Is.EqualTo(3)); Assert.That(s.State.stage.remainingSubmissions, Is.EqualTo(3));
-            s = Force(s, Fours, "red"); Assert.That(Submit(s), Is.EqualTo("4800"), "(20 + 20) x 12 x 2 x 5; the x2 enchant is silent");
+            s = Force(s, Fours, "red"); Assert.That(Submit(s), Is.EqualTo("4050"), "(20 + 30) x 12 x 4.5 x 1.5; the +1.5 enchant of C50 is silent");
             var loud = BossPreview("B05", enchant, "C13", "C10", "C50"); Do(loud, CommandKind.StartStage);
             Assert.That(loud.State.hand.rollsRemaining, Is.EqualTo(4)); Assert.That(loud.State.stage.remainingSubmissions, Is.EqualTo(4));
             var final = BossPreview("B37", enchant, "C13", "C10", "C50", "C46"); Do(final, CommandKind.StartStage);
-            Assert.That(final.State.stage.disabledControllerIds.Length, Is.EqualTo(3)); Assert.That(final.State.hand.rollsRemaining, Is.EqualTo(3));
-            final = Force(final, Fours, "red"); Assert.That(Submit(final), Is.EqualTo("4800"), "only C46 is left: 2400 x 2");
+            // p1.1.1 section 10: B37 disables the two leftmost cards and silences every enchantment. The third card (C50)
+            // still acts, its +1.5 enchantment does not: (20 + 30) x 12 x 4.5 x (1 + 0.5 + 2 from C46) = 9450.
+            Assert.That(final.State.stage.disabledControllerIds.Length, Is.EqualTo(2)); Assert.That(final.State.hand.rollsRemaining, Is.EqualTo(3));
+            final = Force(final, Fours, "red"); Assert.That(Submit(final), Is.EqualTo("9450"));
         }
 
         [Test] public void V10_ScoringModifiersReachTheScoreThroughTheSession()
         {
-            Assert.That(Submit(Force(Boss("B19"), Fours, "red")), Is.EqualTo("1200"), "hand multiplier 12 halves to 6");
-            Assert.That(Submit(Force(Boss("B05"), Fours, "red")), Is.EqualTo("1920"), "the first die is sealed: 16 x 12 x 2 x 5");
-            Assert.That(Submit(Force(Boss("B22"), Fours, "red")), Is.EqualTo("240"), "red group and all-red both x1");
-            var slow = Force(Boss("B26"), Fours, "red"); Assert.That(Submit(slow), Is.EqualTo("1200"), "first submission halved");
-            slow = Force(slow, Fours, "red"); Assert.That(Submit(slow), Is.EqualTo("2400"));
-            var tired = Force(Boss("B30"), Fours, "red"); Assert.That(Submit(tired), Is.EqualTo("2400"));
-            tired = Force(tired, Fours, "red"); Assert.That(Submit(tired), Is.EqualTo("1200"), "second submission halved");
-            var repeat = Force(Boss("B21"), Fours, "red"); Assert.That(Submit(repeat), Is.EqualTo("2400"));
+            Assert.That(Submit(Force(Boss("B19"), Fours, "red")), Is.EqualTo("810"), "hand multiplier 12 halves to 6: 20 x 6 x 4.5 x 1.5");
+            Assert.That(Submit(Force(Boss("B05"), Fours, "red")), Is.EqualTo("1296"), "the first die is sealed: 16 x 12 x 4.5 x 1.5");
+            Assert.That(Submit(Force(Boss("B22"), Fours, "red")), Is.EqualTo("240"), "red group x1 and no all-red bonus: 20 x 12");
+            var slow = Force(Boss("B26"), Fours, "red"); Assert.That(Submit(slow), Is.EqualTo("810"), "first submission halved");
+            slow = Force(slow, Fours, "red"); Assert.That(Submit(slow), Is.EqualTo("1620"));
+            var tired = Force(Boss("B30"), Fours, "red"); Assert.That(Submit(tired), Is.EqualTo("1620"));
+            tired = Force(tired, Fours, "red"); Assert.That(Submit(tired), Is.EqualTo("810"), "second submission halved");
+            var repeat = Force(Boss("B21"), Fours, "red"); Assert.That(Submit(repeat), Is.EqualTo("1620"));
             Assert.That(repeat.State.stage.primaryHandsUsed, Is.EqualTo(new[] { "five_kind" }));
-            repeat = Force(repeat, Fours, "red"); Assert.That(Submit(repeat), Is.EqualTo("200"), "the same primary hand scores x1 the second time");
+            repeat = Force(repeat, Fours, "red"); Assert.That(Submit(repeat), Is.EqualTo("135"), "the same primary hand scores x1 the second time: 20 x 1 x 4.5 x 1.5");
             Assert.That(Do(Force(Boss("B19"), Fours, "red"), CommandKind.Submit).receipt.submission.snapshot.modifierId, Is.EqualTo("B19"));
         }
 
@@ -268,7 +271,7 @@ namespace DiceCraft.Tests
             Assert.That(s.State.controllers.Select(c => c.definitionId), Is.EqualTo(new[] { "C13" })); Assert.That(s.State.stage.modifierNullified, Is.True);
             Assert.That(s.State.hand.rollsRemaining, Is.EqualTo(3)); Assert.That(start.receipt.effects.Any(e => e.kind == "ModifierNullified" && e.sourceId == "C131"), Is.True);
             var wall = BossPreview("B11", x => x.gold = 9, "C131"); Do(wall, CommandKind.StartStage);
-            Assert.That(wall.State.stage.target, Is.EqualTo("1000"));
+            Assert.That(wall.State.stage.target, Is.EqualTo("500"));
             var toll = BossPreview("B12", x => x.gold = 9, "C131"); Do(toll, CommandKind.StartStage);
             Assert.That(toll.State.gold, Is.EqualTo(9), "the toll never applies");
             var plain = Edit(ShopAfterStage(0, x => Equip(x, "C131")), x => { }); Do(plain, CommandKind.LeaveShop); Do(plain, CommandKind.StartStage);
@@ -283,11 +286,11 @@ namespace DiceCraft.Tests
             Do(s, CommandKind.UseItem, c => c.itemInstanceId = talisman); Assert.That(s.State.stage.remainingSubmissions, Is.EqualTo(4), "3 base + 1 from the item");
             s = Edit(Boss("B09"), x => talisman = AddItem(x, "I08")); Do(s, CommandKind.UseItem, c => c.itemInstanceId = talisman);
             Assert.That(s.State.hand.rollsRemaining, Is.EqualTo(3));
-            s = Edit(Boss("B11"), x => talisman = AddItem(x, "I08")); Assert.That(s.State.stage.target, Is.EqualTo("1500"));
-            Do(s, CommandKind.UseItem, c => c.itemInstanceId = talisman); Assert.That(s.State.stage.target, Is.EqualTo("1000"));
+            s = Edit(Boss("B11"), x => talisman = AddItem(x, "I08")); Assert.That(s.State.stage.target, Is.EqualTo("750"));
+            Do(s, CommandKind.UseItem, c => c.itemInstanceId = talisman); Assert.That(s.State.stage.target, Is.EqualTo("500"));
             s = Edit(Boss("B25", "C50", "C46"), x => talisman = AddItem(x, "I08")); Do(s, CommandKind.UseItem, c => c.itemInstanceId = talisman);
             Assert.That(s.State.stage.disabledControllerIds, Is.Empty);
-            Assert.That(Submit(Force(s, Fours, "red")), Is.EqualTo("9600"), "(20 + 20) x 12 x 2 x 5 x 2");
+            Assert.That(Submit(Force(s, Fours, "red")), Is.EqualTo("9450"), "(20 + 30) x 12 x 4.5 x (1 + 0.5 + 2)");
             s = Edit(Boss("B10"), x => talisman = AddItem(x, "I08")); Do(s, CommandKind.UseItem, c => c.itemInstanceId = talisman);
             Assert.That(s.State.stage.capacity, Is.EqualTo(5));
         }
@@ -308,9 +311,11 @@ namespace DiceCraft.Tests
 
         [Test] public void V10_StageStartControllersActLeftToRightAndDisabledOnesDoNot()
         {
-            var s = Ready("C128", "C136", "C110"); var state = s.State;
-            Assert.That(state.dice.Single(d => d.createdSerial == 1).isGlass, Is.True, "C128 turns the lowest-numbered die to glass");
-            Assert.That(state.dice.Count(d => d.isGlass), Is.EqualTo(1));
+            // p1.1.1: C128 was removed; the stage-start abilities are now C137 (star pip), C136 and C110, left to right.
+            var s = Ready("C137", "C136", "C110"); var state = s.State;
+            Assert.That(state.controllers[0].state.starPip, Is.InRange(1, 6), "C137 draws its star pip for the stage");
+            Assert.That(state.processedReceipts.Last().randomResults.Select(r => r.kind), Is.EqualTo(new[] { "C137Star", "C110Item" }), "left to right on the effect stream");
+            Assert.That(state.dice.Count(d => d.isGlass), Is.Zero, "no card turns a die to glass any more");
             Assert.That(state.dice.Count, Is.EqualTo(6)); Assert.That(state.dice.Count(d => d.lifetime == "stage_temporary"), Is.EqualTo(1));
             Assert.That(state.hand.currentResults.Count, Is.EqualTo(6), "the temporary die joins the first hand");
             Assert.That(state.inventory.Count, Is.EqualTo(1)); Assert.That(cfg.consumables.Any(c => c.id == state.inventory[0].contentId), Is.True);
@@ -320,26 +325,33 @@ namespace DiceCraft.Tests
             Assert.That(disabled.State.dice.Count, Is.EqualTo(5)); Assert.That(disabled.State.inventory, Is.Empty);
             var two = Ready("C41", "C136");
             Assert.That(two.State.dice.Count(d => d.lifetime == "stage_temporary"), Is.EqualTo(2), "the mimic is a second source");
-            var glass = Ready("C41", "C128");
-            Assert.That(glass.State.dice.Count(d => d.isGlass), Is.EqualTo(1), "only the real C128 changes a die");
+            var star = Ready("C41", "C137");
+            Assert.That(star.State.processedReceipts.Last().randomResults.Count(r => r.kind == "C137Star"), Is.EqualTo(1), "only the real C137 draws; its mimic shares the value");
+            Assert.That(star.State.controllers[0].state.starPip, Is.Zero);
         }
 
-        [Test] public void V10_StageEndFaceGrowthRaisesTheLowestAndLowersTheHighestFaceOfEveryPermanentDie()
+        [Test] public void V10_StageEndFaceGrowthRaisesTheThreeLowestAndLowersTheThreeHighestFacesOfEveryPermanentDie()
         {
+            // p1.1.1 section 6.1: three faces per die. C120: 1,2,3 -> 2,3,4. C121: 6,5,4 -> 5,4,3. Both: every C120 first
+            // (2,3,4,4,5,6), then C121 lowers the 6, the 5 and the first 4 by face id (F03).
             var s = Force(Ready("C120"), Fours, "red"); Submit(s); Do(s, CommandKind.EndStage);
-            foreach (var die in s.State.dice) Assert.That(die.faces.OrderBy(f => f.faceId).Select(f => f.permanentPip), Is.EqualTo(new[] { 2, 2, 3, 4, 5, 6 }), die.dieId);
+            foreach (var die in s.State.dice) Assert.That(die.faces.OrderBy(f => f.faceId).Select(f => f.permanentPip), Is.EqualTo(new[] { 2, 3, 4, 4, 5, 6 }), die.dieId);
             s = Force(Ready("C121"), Fours, "red"); Submit(s); Do(s, CommandKind.EndStage);
-            foreach (var die in s.State.dice) Assert.That(die.faces.OrderBy(f => f.faceId).Select(f => f.permanentPip), Is.EqualTo(new[] { 1, 2, 3, 4, 5, 5 }), die.dieId);
+            foreach (var die in s.State.dice) Assert.That(die.faces.OrderBy(f => f.faceId).Select(f => f.permanentPip), Is.EqualTo(new[] { 1, 2, 3, 3, 4, 5 }), die.dieId);
             s = Force(Ready("C120", "C121"), Fours, "red"); Submit(s); Do(s, CommandKind.EndStage);
-            foreach (var die in s.State.dice) Assert.That(die.faces.OrderBy(f => f.faceId).Select(f => f.permanentPip), Is.EqualTo(new[] { 2, 2, 3, 4, 5, 5 }), die.dieId);
+            foreach (var die in s.State.dice) Assert.That(die.faces.OrderBy(f => f.faceId).Select(f => f.permanentPip), Is.EqualTo(new[] { 2, 3, 3, 4, 4, 5 }), die.dieId);
         }
 
-        [Test] public void V10_TheFadingCardCountsStagesMultipliesLessEachTimeAndExpires()
+        [Test] public void V10_TheFadingCardCountsStagesAddsLessEachTimeAndExpires()
         {
-            var s = Force(Ready("C141"), Fours, "red"); Assert.That(Submit(s), Is.EqualTo("6000"), "x2.5 when new");
+            // p1.1.1 sections 4.2 and 5.1: bonus +4 minus one per cleared stage; removed at the fourth decay.
+            // Reference hand 20 x 12 x 4.5 x (1 + 0.5 + bonus): +4 -> 5940, +3 -> 4860, +2 -> 3780, +1 -> 2700.
+            var s = Force(Ready("C141"), Fours, "red"); Assert.That(Submit(s), Is.EqualTo("5940"), "+4 when new");
             Do(s, CommandKind.EndStage); Assert.That(Growth(s, "C141"), Is.EqualTo(1));
-            var worn = Force(Edit(Ready("C141"), x => x.controllers[0].state.growth = 1), Fours, "red"); Assert.That(Submit(worn), Is.EqualTo("4800"), "x2 after one stage");
-            var last = Force(Edit(Ready("C141"), x => x.controllers[0].state.growth = 2), Fours, "red"); Assert.That(Submit(last), Is.EqualTo("3600"), "x1.5 on its last stage");
+            var worn = Force(Edit(Ready("C141"), x => x.controllers[0].state.growth = 1), Fours, "red"); Assert.That(Submit(worn), Is.EqualTo("4860"), "+3 after one stage");
+            var later = Force(Edit(Ready("C141"), x => x.controllers[0].state.growth = 2), Fours, "red"); Assert.That(Submit(later), Is.EqualTo("3780"), "+2 after two stages");
+            Do(later, CommandKind.EndStage); Assert.That(Growth(later, "C141"), Is.EqualTo(3), "the third decay does not remove it yet");
+            var last = Force(Edit(Ready("C141"), x => x.controllers[0].state.growth = 3), Fours, "red"); Assert.That(Submit(last), Is.EqualTo("2700"), "+1 on its last stage");
             var end = Do(last, CommandKind.EndStage);
             Assert.That(last.State.controllers, Is.Empty); Assert.That(end.receipt.effects.Any(e => e.kind == "ControllerExpired" && e.sourceId == "C141"), Is.True);
         }
@@ -347,11 +359,11 @@ namespace DiceCraft.Tests
         [Test] public void V10_BossAndPressureClearsGrowTheirCardsAndPayTheBounty()
         {
             var boss = Force(Boss("B05", "C129", "C132", "C133"), Fours, "red"); Submit(boss); var end = Do(boss, CommandKind.EndStage).receipt.settlement;
-            Assert.That(Growth(boss, "C129"), Is.EqualTo(8)); Assert.That(Growth(boss, "C132"), Is.Zero);
+            Assert.That(Growth(boss, "C129"), Is.EqualTo(250), "p1.1.1: +2.5 per cleared boss stage"); Assert.That(Growth(boss, "C132"), Is.Zero);
             Assert.That(end.bountyIncome, Is.EqualTo(4)); Assert.That(end.controllerIncome, Is.EqualTo(4)); Assert.That(end.stageKind, Is.EqualTo("boss")); Assert.That(end.lootKind, Is.EqualTo(boss.State.cycles[0].lootKind));
             var pressure = ShopAfterStage(0, x => Equip(x, "C129", "C132", "C133")); Do(pressure, CommandKind.LeaveShop); Do(pressure, CommandKind.ChooseChallenge, c => c.risk = true); Do(pressure, CommandKind.StartStage);
             pressure = Force(pressure, Fours, "red"); Submit(pressure); end = Do(pressure, CommandKind.EndStage).receipt.settlement;
-            Assert.That(Growth(pressure, "C132"), Is.EqualTo(8)); Assert.That(Growth(pressure, "C129"), Is.Zero);
+            Assert.That(Growth(pressure, "C132"), Is.EqualTo(250), "p1.1.1: +2.5 per cleared pressure challenge"); Assert.That(Growth(pressure, "C129"), Is.Zero);
             Assert.That(end.bountyIncome, Is.EqualTo(2)); Assert.That(end.baseReward, Is.EqualTo(10)); Assert.That(end.lootKind ?? "", Is.Empty);
             var calm = Force(Ready("C129", "C132", "C133"), Fours, "red"); Submit(calm); end = Do(calm, CommandKind.EndStage).receipt.settlement;
             Assert.That(end.bountyIncome, Is.Zero); Assert.That(Growth(calm, "C129") + Growth(calm, "C132"), Is.Zero);
@@ -362,12 +374,14 @@ namespace DiceCraft.Tests
             var s = Force(Ready("C112", "C115"), Fours, "red"); Submit(s);
             Func<DieInstance, string> faces = d => string.Join(",", d.faces.Select(f => f.faceId + ":" + f.permanentPip + f.baseColor + f.texture + f.isGold));
             var facesBefore = s.State.dice.ToDictionary(d => d.dieId, faces); var end = Do(s, CommandKind.EndStage);
-            // Every applied (not missed) random upgrade really changed a face of the die it names.
+            // p1.1.1 section 6.1: C115 only draws faces it can improve, so every one of its three upgrades changes a face.
             foreach (var applied in end.receipt.effects.Where(e => e.sourceId == "C115" && e.kind == "RandomUpgrade"))
                 Assert.That(faces(s.State.dice.Single(d => d.dieId == applied.dieId)), Is.Not.EqualTo(facesBefore[applied.dieId]), "C115 changed " + applied.dieId);
             var granted = s.State.controllers.Last();
             Assert.That(s.State.controllers.Count, Is.EqualTo(3)); Assert.That(cfg.Controller(granted.definitionId).rarity, Is.EqualTo("common")); Assert.That(granted.enchantmentId, Is.EqualTo("none"));
-            Assert.That(end.receipt.effects.Count(e => e.sourceId == "C115" && (e.kind == "RandomUpgrade" || e.kind == "RandomUpgradeMissed")), Is.EqualTo(2));
+            Assert.That(end.receipt.effects.Count(e => e.sourceId == "C115" && e.kind == "RandomUpgrade"), Is.EqualTo(3)); Assert.That(end.receipt.effects.Any(e => e.kind == "RandomUpgradeMissed"), Is.False);
+            Assert.That(end.receipt.effects.Where(e => e.sourceId == "C115" && e.kind == "RandomUpgrade").Select(e => e.dieId + "/" + e.faceId).Distinct().Count(), Is.EqualTo(3), "three different faces");
+            Assert.That(s.State.controllers.Single(c => c.definitionId == "C115").state.cultivationFacesChanged, Is.EqualTo(3));
             var full = Edit(New(), x => { Equip(x, "C112", "C13", "C10", "C50", "C46"); x.controllerSlots = 5; });
             Do(full, CommandKind.StartStage); full = Force(full, Fours, "red"); Submit(full); Do(full, CommandKind.EndStage);
             Assert.That(full.State.controllers.Count, Is.EqualTo(5), "no free ordinary slot, no card");
@@ -380,14 +394,15 @@ namespace DiceCraft.Tests
             Assert.That(calm.State.controllers.All(c => c.enchantmentId == "none"), Is.True, "only after a boss stage"); Assert.That(calm.State.dice.Count, Is.EqualTo(5));
         }
 
-        [Test] public void V10_GlassFilmLowersTheBreakChanceToTwoPercent()
+        [Test] public void V10_NoCardLowersTheGlassBreakChanceAnyMore()
         {
-            foreach (int ticket in new[] { 1, 2, 7 })
+            // p1.1.1: C145 (the glass film) was removed. The chance is 15% for every run, judged after the submission
+            // (section 7.3): the tickets the film used to save (2, 7) break now, and so does 14; 15 does not.
+            foreach (int ticket in new[] { 1, 2, 7, 14, 15 })
             {
-                var bare = Edit(Ready(), x => { x.dice[0].isGlass = true; x.effectRngState = SeedWithFirstTicket(100, ticket); }); Do(bare, CommandKind.Roll);
-                Assert.That(bare.State.dice.Count, Is.EqualTo(4), "8 percent without the film, ticket " + ticket);
-                var film = Edit(Ready("C145"), x => { x.dice[0].isGlass = true; x.effectRngState = SeedWithFirstTicket(100, ticket); }); Do(film, CommandKind.Roll);
-                Assert.That(film.State.dice.Count, Is.EqualTo(ticket < 2 ? 4 : 5), "2 percent with the film, ticket " + ticket);
+                var s = Edit(Force(Ready("C13", "C12"), new[] { 4 }, "red"), x => { x.dice[0].isGlass = true; x.effectRngState = SeedWithFirstTicket(100, ticket); });
+                Assert.That(s.GlassBreakPercentIn(s.State), Is.EqualTo(15)); Submit(s);
+                Assert.That(s.State.dice.Count, Is.EqualTo(ticket < 15 ? 4 : 5), "15 percent, ticket " + ticket);
             }
         }
 
@@ -396,21 +411,24 @@ namespace DiceCraft.Tests
         [Test] public void V10_FaceChangeCardsRewriteThePermanentFacesAfterTheScore()
         {
             var s = Force(Ready("C117", "C124"), Fours, "red"); Submit(s);
-            Assert.That(s.State.dice.Count(d => d.faces.Single(f => f.faceId == "F01").isGold), Is.EqualTo(1), "C117 gilds the last submitted die");
-            Assert.That(s.State.dice.OrderBy(d => d.createdSerial).Last().faces.Single(f => f.faceId == "F01").isGold, Is.True);
-            Assert.That(s.State.dice.All(d => d.faces.Single(f => f.faceId == "F01").baseWeight == 2), Is.True, "C124 adds weight to every submitted face");
+            // p1.1.1: C117 gilds the first and the last submitted die (weight +1 for a newly gold face), then C124 adds
+            // 2 weight to every submitted face: 1 + 1 + 2 = 4 on the two gilded faces, 1 + 2 = 3 on the others.
+            Assert.That(s.State.dice.OrderBy(d => d.createdSerial).Select(d => d.faces.Single(f => f.faceId == "F01").isGold), Is.EqualTo(new[] { true, false, false, false, true }), "C117 gilds the first and last submitted dice");
+            Assert.That(s.State.dice.OrderBy(d => d.createdSerial).Select(d => d.faces.Single(f => f.faceId == "F01").baseWeight), Is.EqualTo(new[] { 4, 3, 3, 3, 4 }));
             s = Force(Ready("C118"), Fours, "red"); Submit(s);
             Assert.That(s.State.dice.All(d => d.faces.Single(f => f.faceId == "F06").baseColor == "red"), Is.True, "the opposite of F01 is F06");
             s = Force(Ready("C119"), Fours, "red"); Submit(s);
-            Assert.That(s.State.dice.OrderBy(d => d.createdSerial).First().faces.OrderBy(f => f.faceId).Select(f => f.permanentPip), Is.EqualTo(new[] { 1, 1, 3, 4, 5, 6 }), "F02 takes the permanent pip of F01");
+            Assert.That(s.State.dice.OrderBy(d => d.createdSerial).First().faces.OrderBy(f => f.faceId).Select(f => f.permanentPip), Is.EqualTo(new[] { 1, 1, 1, 4, 5, 6 }), "p1.1.1: F02 and F03 take the permanent pip of F01");
+            Assert.That(s.State.dice.OrderBy(d => d.createdSerial).Last().faces.OrderBy(f => f.faceId).Select(f => f.permanentPip), Is.EqualTo(new[] { 1, 1, 1, 4, 5, 6 }), "the last die too");
+            Assert.That(s.State.dice.OrderBy(d => d.createdSerial).ElementAt(2).faces.OrderBy(f => f.faceId).Select(f => f.permanentPip), Is.EqualTo(new[] { 1, 2, 3, 4, 5, 6 }), "the dice in between are untouched");
             s = Force(Ready("C122"), Fours, "red"); Submit(s);
-            Assert.That(s.State.dice.All(d => d.faces.Single(f => f.faceId == "F01").permanentPip == 2), Is.True, "permanent 1 moves one step toward 5");
+            Assert.That(s.State.dice.All(d => d.faces.Single(f => f.faceId == "F01").permanentPip == 5), Is.True, "p1.1.1: permanent 1 is set to 5");
             s = Force(Ready("C123"), Fours, "red"); Submit(s);
             Assert.That(s.State.dice.All(d => d.faces.Single(f => f.faceId == "F01").permanentPip == 2), Is.True);
             s = Force(Ready("C125"), Fours, "red"); Submit(s);
-            Assert.That(s.State.dice.OrderBy(d => d.createdSerial).Select(d => d.faces.Single(f => f.faceId == "F01").texture), Is.EqualTo(new[] { "smooth", "none", "none", "none", "smooth" }));
+            Assert.That(s.State.dice.All(d => d.faces.All(f => f.texture == "none" && !f.cultivated)), Is.True, "p1.1.1: C125 is a growth card now and rewrites no face");
             s = Force(Ready("C126"), new[] { 4, 4, 4 }, "red"); Submit(s);
-            Assert.That(s.State.dice.OrderBy(d => d.createdSerial).Select(d => d.faces.Single(f => f.faceId == "F01").permanentPip), Is.EqualTo(new[] { 1, 1, 1, 2, 2 }), "the two pool dice grow");
+            Assert.That(s.State.dice.OrderBy(d => d.createdSerial).Select(d => d.faces.Single(f => f.faceId == "F01").permanentPip), Is.EqualTo(new[] { 1, 1, 1, 3, 3 }), "p1.1.1: the two pool dice grow by 2");
             var preview = Force(Ready("C117"), Fours, "red");
             Assert.That(preview.PreviewSubmissionEffects().Any(e => e.kind == "FaceChanged" && e.sourceId == "C117"), Is.True, "the preview shows the change");
             Assert.That(preview.State.dice.Any(d => d.faces.Any(f => f.isGold)), Is.False, "and applies nothing");
@@ -427,10 +445,11 @@ namespace DiceCraft.Tests
 
         [Test] public void V10_ThrowingGoldPaysAfterTheScoreAndOnlyWhenTheWalletCoversIt()
         {
-            var s = Force(Edit(Ready("C138"), x => x.gold = 5), Fours, "red"); Assert.That(Submit(s), Is.EqualTo("7200")); Assert.That(s.State.gold, Is.EqualTo(2));
-            s = Force(s, Fours, "red"); Assert.That(Submit(s), Is.EqualTo("2400"), "2 gold is not enough"); Assert.That(s.State.gold, Is.EqualTo(2));
-            var two = Force(Edit(Ready("C41", "C138"), x => x.gold = 5), Fours, "red");
-            Assert.That(Submit(two), Is.EqualTo("7200"), "5 gold pays one source only"); Assert.That(two.State.gold, Is.EqualTo(2));
+            // p1.1.1 section 4.1: C138 costs 2 gold per trigger and multiplies by 2.5: 1620 x 2.5 = 4050.
+            var s = Force(Edit(Ready("C138"), x => x.gold = 3), Fours, "red"); Assert.That(Submit(s), Is.EqualTo("4050")); Assert.That(s.State.gold, Is.EqualTo(1));
+            s = Force(s, Fours, "red"); Assert.That(Submit(s), Is.EqualTo("1620"), "1 gold is not enough"); Assert.That(s.State.gold, Is.EqualTo(1));
+            var two = Force(Edit(Ready("C41", "C138"), x => x.gold = 3), Fours, "red");
+            Assert.That(Submit(two), Is.EqualTo("4050"), "3 gold pays the left source only"); Assert.That(two.State.gold, Is.EqualTo(1));
         }
 
         // ---- items ----
@@ -646,7 +665,7 @@ namespace DiceCraft.Tests
             var copy = GameSession.CreateDebugWorkspace(cfg, new MemorySaveStore(), s.State);
             Do(copy, CommandKind.ApplyDebugScene, c => c.debugScene = scene);
             Assert.That(copy.State.stage.modifierId, Is.EqualTo("B19")); Assert.That(copy.State.hand.doubleScore, Is.True);
-            Assert.That(Submit(copy), Is.EqualTo("2400"), "2400 halved by the boss, doubled by the item");
+            Assert.That(Submit(copy), Is.EqualTo("1620"), "20 x 6 (hand multiplier halved by the boss) x 4.5 x 1.5 = 810, doubled by the item");
         }
 
         // ---- independent review R1 (evidence/v10/review/RULES_REVIEW_R1.md): the fixed findings and rules it found untested ----
@@ -710,7 +729,7 @@ namespace DiceCraft.Tests
             Do(s, CommandKind.UseItem, c => c.itemInstanceId = talisman);
             Assert.That(s.State.stage.target, Is.EqualTo(cfg.stages[5].normalTarget)); Assert.That(s.State.stage.qualified, Is.False); Assert.That(s.CurrentModifierId ?? "", Is.Empty);
             // A debug scene can hold a score between the two targets: lifting the wall must mark the stage as qualified at once.
-            var scene = Boss("B11"); string second = null; scene = Edit(scene, x => { second = AddItem(x, "I08"); x.stage.score = "1200"; });
+            var scene = Boss("B11"); string second = null; scene = Edit(scene, x => { second = AddItem(x, "I08"); x.stage.score = "600"; }); // p1.1.1: between 500 and the 750 of the wall
             Assert.That(scene.State.stage.qualified, Is.False);
             Do(scene, CommandKind.UseItem, c => c.itemInstanceId = second);
             Assert.That(scene.State.stage.target, Is.EqualTo(cfg.stages[2].normalTarget)); Assert.That(scene.State.stage.qualified, Is.True);
@@ -736,12 +755,13 @@ namespace DiceCraft.Tests
             Assert.That(Growth(live, "C129"), Is.EqualTo(cfg.Controller("C129").parameters.growthEvent));
         }
 
-        [Test] public void V10R_DisabledEconomyCardsPayNothingAndADisabledFilmLeavesGlassAtItsBaseRisk()
+        [Test] public void V10R_DisabledEconomyCardsPayNothingAndTheGlassRiskDoesNotDependOnTheCards()
         {
             var s = Force(Boss("B25", "C95", "C133", "C13"), Fours, "red"); Submit(s); var end = Do(s, CommandKind.EndStage).receipt.settlement;
             Assert.That(end.controllerIncome, Is.Zero, "disabled C95 and C133 pay nothing at settlement"); Assert.That(end.bountyIncome, Is.Zero);
-            var off = Boss("B25", "C145", "C13", "C12"); Assert.That(off.GlassBreakPercentIn(off.State), Is.EqualTo(cfg.glassBreakPercent));
-            var on = Boss("B25", "C13", "C12", "C145"); Assert.That(on.GlassBreakPercentIn(on.State), Is.EqualTo(cfg.glassBreakPercent /* W3A-ADAPT: C145 and its parameter were removed in p1.1.1; W3b rewrites or retires this case */));
+            // p1.1.1: C145 was removed, so no card, disabled or not, changes the glass risk.
+            var off = Boss("B25", "C10", "C13", "C12"); Assert.That(off.GlassBreakPercentIn(off.State), Is.EqualTo(15));
+            var none = Boss("B25"); Assert.That(none.GlassBreakPercentIn(none.State), Is.EqualTo(15));
         }
 
         [Test] public void V10R_TheAltarActsBeforeTheScapegoatAndAMimicOfTheScapegoatDoesNothing()
@@ -909,15 +929,15 @@ namespace DiceCraft.Tests
             Assert.That(bought.effects.Select(e => e.kind), Has.None.EqualTo("ControllerReplaced")); Assert.That(s.State.gold, Is.EqualTo(100 - cfg.Controller("C55").buyPrice));
             Assert.That(s.State.controllers.Select(c => c.definitionId), Is.EqualTo(new[] { "C55", "C55" })); Assert.That(s.State.controllers[0].instanceId, Is.EqualTo(first));
             Assert.That(s.State.controllers.Select(c => c.state.growth), Is.EqualTo(new long[] { 10, 0 })); Assert.That(s.OrdinaryControllerSlotsUsed, Is.EqualTo(2));
-            // Stage 2: each copy adds its own growth to the base (20 + 10 + 0) x 12 x 2 x 5 = 3600, then each grows by 2.
+            // Stage 2, p1.1.1: each copy adds its own value, 12 + 10 and 12 + 0: (20 + 22 + 12) x 12 x 4.5 x 1.5 = 4374, then each grows by 3.
             Do(s, CommandKind.LeaveShop); Do(s, CommandKind.StartStage); s = Force(s, Fours, "red");
-            Assert.That(Submit(s), Is.EqualTo("3600"));
-            Assert.That(s.State.lastSubmission.breakdown.controllerBaseAdds.Select(a => a.emitterId + ":" + a.amount), Is.EqualTo(new[] { first + ":10" }), "a zero add is not listed");
-            Assert.That(s.State.controllers.Select(c => c.state.growth), Is.EqualTo(new long[] { 12, 2 }));
+            Assert.That(Submit(s), Is.EqualTo("4374"));
+            Assert.That(s.State.lastSubmission.breakdown.controllerBaseAdds.Select(a => a.emitterId + ":" + a.amount), Is.EqualTo(new[] { first + ":22", s.State.controllers[1].instanceId + ":12" }), "each copy lists its own add");
+            Assert.That(s.State.controllers.Select(c => c.state.growth), Is.EqualTo(new long[] { 13, 3 }));
             Do(s, CommandKind.EndStage); Do(s, CommandKind.Continue);
             long gold = s.State.gold; Do(s, CommandKind.Sell, c => c.itemInstanceId = first);
             Assert.That(s.State.gold, Is.EqualTo(gold + cfg.Controller("C55").buyPrice / cfg.controllerSellDivisor), "the sold copy is paid on its own");
-            Assert.That(s.State.controllers.Single().state.growth, Is.EqualTo(2), "the other copy keeps its own growth");
+            Assert.That(s.State.controllers.Single().state.growth, Is.EqualTo(3), "the other copy keeps its own growth");
         }
 
         [Test] public void V11_SameNameCopiesInANormalRunSurviveRestoresWithTheirScoreHistory()
@@ -928,8 +948,8 @@ namespace DiceCraft.Tests
             Lock(s, s.State.hand.currentResults.Select(r => r.dieId).Take(s.State.stage.capacity).ToArray()); Do(s, CommandKind.Submit);
             var live = s.State; s = Reload(s); // restoring re-evaluates the frozen submission with both copies of each card
             Assert.That(s.State.lastSubmission.breakdown.score, Is.EqualTo(live.lastSubmission.breakdown.score));
-            Assert.That(s.State.lastSubmission.breakdown.multiplierFactors.Count(f => f.abilityId == "C46"), Is.EqualTo(2), "each copy of C46 multiplies");
-            Assert.That(s.State.controllers.Where(c => c.definitionId == "C55").Select(c => c.state.growth), Is.EqualTo(new long[] { 2, 2 }));
+            Assert.That(s.State.lastSubmission.breakdown.additiveEntries.Count(e => e.abilityId == "C46"), Is.EqualTo(2), "p1.1.1: each copy of C46 adds its +2");
+            Assert.That(s.State.controllers.Where(c => c.definitionId == "C55").Select(c => c.state.growth), Is.EqualTo(new long[] { 3, 3 }));
             Assert.That(s.State.controllers.Select(c => c.instanceId).Distinct().Count(), Is.EqualTo(4));
         }
 
@@ -944,16 +964,18 @@ namespace DiceCraft.Tests
             // Gift picks per copy (three choices, two picks).
             var gifts = Force(Ready("C111", "C111"), Fours, "red"); Submit(gifts); Do(gifts, CommandKind.EndStage); Do(gifts, CommandKind.Continue);
             Assert.That(gifts.ShopGroups().Single().picks, Is.EqualTo(2));
-            // While-held switches apply once: the recycler and the protective film.
+            // While-held switches apply once: the recycler. (The protective film C145 was removed in p1.1.1; the glass
+            // risk no longer depends on any card.)
             var recycle = Edit(ShopAfterStage(0), x => Equip(x, "C02", "C140", "C140"));
             Assert.That(recycle.GetControllerSalePrice(recycle.State.controllers[0].instanceId), Is.EqualTo(cfg.Controller("C02").buyPrice));
-            var film = Ready("C145", "C145"); Assert.That(film.GlassBreakPercentIn(film.State), Is.EqualTo(cfg.glassBreakPercent /* W3A-ADAPT: C145 and its parameter were removed in p1.1.1; W3b rewrites or retires this case */));
+            var film = Ready("C140", "C140"); Assert.That(film.GlassBreakPercentIn(film.State), Is.EqualTo(15));
             // Self-destroying cards act one instance at a time: only the leftmost scapegoat is spent on a boss.
             var goats = Boss("B05", "C131", "C131");
             Assert.That(goats.State.controllers.Select(c => c.definitionId), Is.EqualTo(new[] { "C131" })); Assert.That(goats.State.stage.modifierNullified, Is.True);
-            // Fading cards count down apart: (5 - 2) / 2 and 5 / 2 on the reference hand, 2400 x 1.5 x 2.5 = 9000; the older one expires.
-            var fade = Edit(Ready("C141", "C141"), x => x.controllers[0].state.growth = 2); string young = fade.State.controllers[1].instanceId;
-            fade = Force(fade, Fours, "red"); Assert.That(Submit(fade), Is.EqualTo("9000")); Do(fade, CommandKind.EndStage);
+            // Fading cards count down apart, p1.1.1: +(4 - 3) and +4 on the reference hand, 20 x 12 x 4.5 x (1 + 0.5 + 1 + 4) = 7020;
+            // the older one reaches its fourth decay and expires.
+            var fade = Edit(Ready("C141", "C141"), x => x.controllers[0].state.growth = 3); string young = fade.State.controllers[1].instanceId;
+            fade = Force(fade, Fours, "red"); Assert.That(Submit(fade), Is.EqualTo("7020")); Do(fade, CommandKind.EndStage);
             Assert.That(fade.State.controllers.Select(c => c.instanceId + ":" + c.state.growth), Is.EqualTo(new[] { young + ":1" }));
         }
 
