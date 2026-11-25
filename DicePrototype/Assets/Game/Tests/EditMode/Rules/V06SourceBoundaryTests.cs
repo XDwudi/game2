@@ -37,23 +37,26 @@ namespace DiceCraft.Core.Tests
         public void CopiedC45SharesColorButAppliesEachSourceAndPlansOwnerOnce()
         {
             var mimic = Card("C41", 1, "mult2"); var owner = Card("C45", 2, "base10"); owner.state.activeColor = "blue"; var snap = Snap(new[] { 2 }, mimic, owner);
-            var r = ScoreCalculator.Evaluate(snap, cfg); Assert.That(r.pipContributions[0], Is.EqualTo(18)); Assert.That(r.enchantBaseAdd, Is.EqualTo(10)); Assert.That(r.score, Is.EqualTo("168"));
+            var r = ScoreCalculator.Evaluate(snap, cfg); Assert.That(r.pipContributions[0], Is.EqualTo(18)); Assert.That(r.enchantBaseAdd, Is.EqualTo(15)); Assert.That(r.score, Is.EqualTo("90")); // p1.1.1: (18 + 15) x (1 + 0.25 blue + 1.5 score enchantment) = 90.75
             CollectionAssert.AreEqual(new[] { "c2" }, r.afterScorePlan.nextColorOwnerIds); Assert.That(owner.state.activeColor, Is.EqualTo("blue"));
-            snap.dice[0].currentColor = "red"; r = ScoreCalculator.Evaluate(snap, cfg); Assert.That(r.enchantBaseAdd, Is.EqualTo(10)); Assert.That(r.triggeredSourceIds.Length, Is.EqualTo(2));
+            snap.dice[0].currentColor = "red"; r = ScoreCalculator.Evaluate(snap, cfg); Assert.That(r.enchantBaseAdd, Is.EqualTo(15)); Assert.That(r.triggeredSourceIds.Length, Is.EqualTo(2));
         }
         [Test]
         public void C53PreviewUsesSharedUnknownOwnerRangeAndPreservesExplicitBranch()
         {
             var snap = Snap(new[] { 5 }, Card("C41", 1), Card("C53", 2)); string before = JsonUtility.ToJson(snap); var p = ScoreCalculator.Preview(snap, cfg);
-            Assert.That(p.isRandom, Is.True); CollectionAssert.AreEqual(new[] { "c2" }, p.randomOwnerIds); Assert.That(p.minimum.score, Is.EqualTo("3")); Assert.That(p.maximum.score, Is.EqualTo("375")); Assert.That(JsonUtility.ToJson(snap), Is.EqualTo(before));
+            Assert.That(p.isRandom, Is.True); CollectionAssert.AreEqual(new[] { "c2" }, p.randomOwnerIds); Assert.That(p.minimum.score, Is.EqualTo("1")); Assert.That(p.maximum.score, Is.EqualTo("100")); // p1.1.1: 5 x 1.25 x 0.5 x 0.5 = 1.5625 and 5 x 1.25 x 4 x 4 Assert.That(JsonUtility.ToJson(snap), Is.EqualTo(before));
             Assert.Throws<ArgumentException>(() => ScoreCalculator.Evaluate(snap, cfg)); snap.resolvedRandomChoices = new[] { new RandomMultiplierChoice { ownerInstanceId = "c2", units2 = 6 } };
-            p = ScoreCalculator.Preview(snap, cfg); Assert.That(p.isRandom, Is.False); Assert.That(p.minimum.score, Is.EqualTo("135")); Assert.That(p.maximum.score, Is.EqualTo("135"));
+            p = ScoreCalculator.Preview(snap, cfg); Assert.That(p.isRandom, Is.False); Assert.That(p.minimum.score, Is.EqualTo("56")); Assert.That(p.maximum.score, Is.EqualTo("56")); // 5 x 1.25 x 3 x 3 = 56.25
         }
         [Test]
-        public void ZeroFactorStillTriggersEnchantIncomeAndFrozenPostPlan()
+        public void C49HalfFactorStillTriggersEnchantIncomeAndFrozenPostPlan()
         {
+            // p1.1.1 rewrite of ZeroFactorStillTriggersEnchantIncomeAndFrozenPostPlan (docs/specs/v111/TEST_CHANGES.md): C49
+            // without a 5 halves the score instead of zeroing it and still counts as triggered:
+            // (2 + 15 base enchantment) x 1.25 (all blue) x 1/2 = 10.625.
             var snap = Snap(new[] { 2 }, Card("C49", 1, "base10"), Card("C01", 2), Card("C38", 3)); var r = ScoreCalculator.Evaluate(snap, cfg);
-            Assert.That(r.score, Is.EqualTo("0")); Assert.That(r.controllerMultiplierNumerator, Is.EqualTo("0")); Assert.That(r.enchantBaseAdd, Is.EqualTo(10)); Assert.That(r.afterScorePlan.earnedGold, Is.EqualTo(1)); CollectionAssert.AreEqual(new[] { 0 }, r.afterScorePlan.blueSpreadIndices);
+            Assert.That(r.score, Is.EqualTo("10")); Assert.That(r.controllerMultiplierNumerator + "/" + r.controllerMultiplierDenominator, Is.EqualTo("1/2")); Assert.That(r.enchantBaseAdd, Is.EqualTo(15)); Assert.That(r.afterScorePlan.earnedGold, Is.EqualTo(1)); CollectionAssert.AreEqual(new[] { 0 }, r.afterScorePlan.blueSpreadIndices);
         }
         [Test]
         public void C43StructuralPrimaryDiffersFromUpgradedWinnerAndClampsAfterScore()
@@ -65,8 +68,8 @@ namespace DiceCraft.Core.Tests
         [Test]
         public void ColorSingleDieIndependentAndExcludedFromPrimary()
         {
-            var snap = Snap(new[] { 6 }); var r = ScoreCalculator.Evaluate(snap, cfg); Assert.That(r.score, Is.EqualTo("18")); Assert.That(r.colorId, Is.EqualTo("all_blue")); Assert.That(r.primaryHandId, Is.EqualTo("scatter")); Assert.That(r.totalHandMult100, Is.EqualTo(100));
-            snap.dice[0].currentColor = "red"; snap.colorLevels = new[] { new HandLevel { handId = "all_red", level = 8 } }; r = ScoreCalculator.Evaluate(snap, cfg); Assert.That(r.score, Is.EqualTo("36")); Assert.That(r.primaryHandId, Is.EqualTo("scatter"));
+            var snap = Snap(new[] { 6 }); var r = ScoreCalculator.Evaluate(snap, cfg); Assert.That(r.score, Is.EqualTo("7")); Assert.That(r.colorId, Is.EqualTo("all_blue")); // p1.1.1: 6 x 1.25 = 7.5 Assert.That(r.primaryHandId, Is.EqualTo("scatter")); Assert.That(r.totalHandMult100, Is.EqualTo(100));
+            snap.dice[0].currentColor = "red"; snap.colorLevels = new[] { new HandLevel { handId = "all_red", level = 8 } }; r = ScoreCalculator.Evaluate(snap, cfg); Assert.That(r.score, Is.EqualTo("33")); Assert.That(r.primaryHandId, Is.EqualTo("scatter")); // level 8 all red adds 0.5 + 4: 6 x 5.5
         }
         [Test]
         public void MultiPairShapesNeverSplitSamePointAndDebugCapsDefinedRedReward()
@@ -74,13 +77,13 @@ namespace DiceCraft.Core.Tests
             CollectionAssert.DoesNotContain(HandEvaluator.SameValueCandidates(new System.Collections.Generic.Dictionary<int, int> { { 6, 6 } }), "two_trips");
             CollectionAssert.DoesNotContain(HandEvaluator.SameValueCandidates(new System.Collections.Generic.Dictionary<int, int> { { 6, 8 } }), "four_pair");
             var snap = Snap(Enumerable.Repeat(6, 32).ToArray()); snap.debug = true; foreach (var d in snap.dice) d.currentColor = "red";
-            var r = ScoreCalculator.Evaluate(snap, cfg); Assert.That(r.primaryHandId, Is.EqualTo("eight_kind")); Assert.That(r.redCount, Is.EqualTo(32)); Assert.That(r.redMult100, Is.EqualTo(1400)); Assert.That(r.redRewardCapped, Is.True);
+            var r = ScoreCalculator.Evaluate(snap, cfg); Assert.That(r.primaryHandId, Is.EqualTo("eight_kind")); Assert.That(r.redCount, Is.EqualTo(32)); Assert.That(r.redMult100, Is.EqualTo(1100)); Assert.That(r.redRewardCapped, Is.True); // p1.1.1: 8 and more is x11
         }
         [Test]
         public void C44ConvertsWalletBeforeMultiplicationAndExactScoreExceedsInt64()
         {
             var snap = Snap(new[] { 6 }, Card("C44", 1)); snap.wallet = long.MaxValue; var r = ScoreCalculator.Evaluate(snap, cfg);
-            Assert.That(r.walletBaseAdd, Is.EqualTo("9223372036854775807")); Assert.That(ExactScoreMath.Parse(r.score), Is.GreaterThan(new BigInteger(long.MaxValue)));
+            Assert.That(r.walletBaseAdd, Is.EqualTo("18446744073709551614")); // p1.1.1: 2 points per gold Assert.That(ExactScoreMath.Parse(r.score), Is.GreaterThan(new BigInteger(long.MaxValue)));
             Assert.That(ScoreExplanation.Build(snap, r, cfg).global.Last().after, Is.EqualTo(r.score));
         }
         [Test]
@@ -109,7 +112,7 @@ namespace DiceCraft.Core.Tests
         [Test]
         public void AllNewAndReplacementEnchantTicketsMatchIndependentPoolTables()
         {
-            string[] order = { "none", "slotless", "base10", "mult2", "submit1", "roll1" }; int[] ordinary = { 50, 18, 10, 4, 9, 9 }, special = { 100, 50, 0, 0, 25, 25 }; string[] passive = { "C05", "C21", "C22", "C34", "C35", "C52", "C78", "C79", "C95", "C96", "C97", "C98", "C99", "C110", "C111", "C112", "C113", "C114", "C115", "C116", "C120", "C121", "C128", "C131", "C133", "C136", "C140", "C145" }; int fresh = 0, replacements = 0, pools = 0;
+            string[] order = { "none", "slotless", "base10", "mult2", "submit1", "roll1" }; int[] ordinary = { 50, 18, 10, 4, 9, 9 }, special = { 100, 50, 0, 0, 25, 25 }; string[] passive = { "C05", "C21", "C22", "C34", "C35", "C52", "C78", "C79", "C95", "C96", "C97", "C98", "C99", "C110", "C111", "C112", "C113", "C114", "C115", "C116", "C120", "C121", "C131", "C133", "C136", "C140", "C154" }; int fresh = 0, replacements = 0, pools = 0;
             foreach (var def in cfg.controllers)
             {
                 var weights = passive.Contains(def.id) ? special : ordinary;
@@ -126,7 +129,7 @@ namespace DiceCraft.Core.Tests
                     }
                 }
             }
-            /* p1.0.0: 122 scoring x 100 + 28 non-scoring x 200; 122 x 6 + 28 x 4 pools; 122 x 250 + 28 x 300 replacement tickets */ Assert.That(fresh, Is.EqualTo(17800)); Assert.That(pools, Is.EqualTo(844)); Assert.That(replacements, Is.EqualTo(38900));
+            /* p1.1.1: 123 scoring x 100 + 27 non-scoring x 200; 123 x 6 + 27 x 4 pools; 123 x 250 + 27 x 300 replacement tickets */ Assert.That(fresh, Is.EqualTo(17700)); Assert.That(pools, Is.EqualTo(846)); Assert.That(replacements, Is.EqualTo(38850));
         }
         [Test]
         public void NumericConfigKeysPreserveValuesAndRejectMissingUnknownOrWrongTypes()
@@ -145,7 +148,7 @@ namespace DiceCraft.Core.Tests
             Assert.That(rows.Count(r => r.category == "hand"), Is.EqualTo(14)); Assert.That(rows.Count(r => r.category == "color"), Is.EqualTo(2));
             CollectionAssert.AreEqual(new[] { "scatter" }.Concat(cfg.handDefinitions.OrderBy(h => h.structuralPriority).Select(h => h.id)), rows.Where(r => r.category == "hand").Select(r => r.handId));
             Assert.That(rows.Single(r => r.handId == "four_pair").canForm, Is.False); Assert.That(rows.Single(r => r.handId == "straight").canForm, Is.False);
-            Assert.That(rows.Single(r => r.handId == "all_blue").canForm, Is.False); Assert.That(rows.Single(r => r.handId == "all_blue").currentMult100, Is.EqualTo(400));
+            Assert.That(rows.Single(r => r.handId == "all_blue").canForm, Is.False); Assert.That(rows.Single(r => r.handId == "all_blue").currentAdd100, Is.EqualTo(125)); Assert.That(rows.Single(r => r.handId == "all_blue").currentMult100, Is.Zero); // p1.1.1: +0.25 + 2 x 0.5
         }
         [Test]
         public void BigIntegerParserRejectsFloatingSignedWhitespaceAndEmptyData()

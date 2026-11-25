@@ -43,11 +43,12 @@ namespace DiceCraft.Core.Tests
         [TestCaseSource(nameof(Triggers))]
         public void AllSubmissionPredicatesHavePositiveAndNegativeEvidence(string id, string pips, string colors, bool expected)
         {
+            // p1.1.1 rewrite (docs/specs/v111/TEST_CHANGES.md): the base enchantment adds 15; C19 triggers on a smallest
+            // pip of 1 or 2 and no longer reads the six permanent faces.
             var snapshot = Snapshot(pips, colors, id, "base10");
-            if (id == "C19") snapshot.dice[0].permanentSixFaceSum = 13;
             var score = ScoreCalculator.Evaluate(snapshot, cfg);
             Assert.That(score.triggeredControllerIds.Contains(id), Is.EqualTo(expected));
-            Assert.That(score.enchantBaseAdd, Is.EqualTo(expected ? 10 : 0));
+            Assert.That(score.enchantBaseAdd, Is.EqualTo(expected ? 15 : 0));
             Assert.That(score.enchantBaseCount, Is.EqualTo(expected ? 1 : 0));
         }
 
@@ -77,14 +78,14 @@ namespace DiceCraft.Core.Tests
             odd.equippedControllers = new[] { Card("C12", "base10"), Card("C06", "base10", 2), Card("C40", "mult2", 3), Card("C13", "base10", 4) };
             var result = ScoreCalculator.Evaluate(odd, cfg);
             CollectionAssert.AreEqual(new[] { "C06", "C12", "C40" }, result.triggeredControllerIds);
-            Assert.That(result.enchantBaseAdd, Is.EqualTo(20));
-            Assert.That(result.enchantMultiplierCount, Is.EqualTo(1));
+            Assert.That(result.enchantBaseAdd, Is.EqualTo(30)); // p1.1.1: two base enchantments x 15
+            Assert.That(result.enchantAdditiveCount, Is.EqualTo(1));
             var dye = Snapshot("1,2,3", "RBR", "C15", "base10"); dye.redWave = true;
             Assert.That(ScoreCalculator.Evaluate(dye, cfg).enchantBaseAdd, Is.Zero);
             var gold = Snapshot("1,2,3,4,6", "RBBRB", "C20", "base10"); gold.dice[4].isGold = gold.dice[4].isGlass = true;
             var contribution = ScoreCalculator.Evaluate(gold, cfg);
-            Assert.That(contribution.pipContributions[4], Is.EqualTo(126));
-            Assert.That(contribution.enchantBaseAdd, Is.EqualTo(10));
+            Assert.That(contribution.pipContributions[4], Is.EqualTo(90)); // p1.1.1: (6 + 24) x 3 glass; gold no longer doubles the die
+            Assert.That(contribution.enchantBaseAdd, Is.EqualTo(15));
         }
         [Test]
         public void BaseEnchantIsOncePerCardAndPairAddIsNotPerDieOrMultipliedByGold()
@@ -92,16 +93,21 @@ namespace DiceCraft.Core.Tests
             var s = Snapshot("1,1,1", "BBB", "C10", "base10"); s.equippedControllers = new[] { Card("C10", "base10"), Card("C27", "base10", 2) };
             foreach (var d in s.dice) d.isGold = true;
             var b = ScoreCalculator.Evaluate(s, cfg);
-            Assert.That(b.pipSum, Is.EqualTo("66")); Assert.That(b.pairBaseAdd, Is.EqualTo(10)); Assert.That(b.enchantBaseAdd, Is.EqualTo(20));
-            Assert.That(b.baseTotal, Is.EqualTo("96")); Assert.That(b.score, Is.EqualTo("1152"));
+            // p1.1.1 rewrite: three 1s contribute 1 + 15 each = 48 (gold adds nothing to the die); the pair add is 20
+            // once; two base enchantments add 30: base 98. Trips x4; A = all blue 0.25 + three gold faces 1.5:
+            // 98 x 4 x 2.75 = 1078.
+            Assert.That(b.pipSum, Is.EqualTo("48")); Assert.That(b.pairBaseAdd, Is.EqualTo(20)); Assert.That(b.enchantBaseAdd, Is.EqualTo(30));
+            Assert.That(b.baseTotal, Is.EqualTo("98")); Assert.That(b.score, Is.EqualTo("1078"));
         }
         [Test]
         public void MultipleMultiplierEnchantmentsUseOneFinalFloor()
         {
             var s = Snapshot("1", "B", "C10", "mult2"); s.equippedControllers = new[] { Card("C10", "mult2"), Card("C39", "mult2", 2) };
             var b = ScoreCalculator.Evaluate(s, cfg);
-            Assert.That(b.baseTotal, Is.EqualTo("17")); Assert.That(b.enchantMultiplierCount, Is.EqualTo(2));
-            Assert.That(b.scoreNumerator, Is.EqualTo("204000000")); Assert.That(b.scoreDenominator, Is.EqualTo("1000000")); Assert.That(b.score, Is.EqualTo("204"));
+            // p1.1.1 rewrite: a blue 1 contributes 1 + 15 (C10) + 9 (C39) = 25. The two score enchantments add 1.5 each
+            // instead of doubling: A = 0.25 + 3 = 3.25. 25 x 4.25 = 425/4 = 106.25, floored once.
+            Assert.That(b.baseTotal, Is.EqualTo("25")); Assert.That(b.enchantAdditiveCount, Is.EqualTo(2));
+            Assert.That(b.scoreNumerator, Is.EqualTo("425")); Assert.That(b.scoreDenominator, Is.EqualTo("4")); Assert.That(b.score, Is.EqualTo("106"));
         }
 
         [TestCase(false, false, true, false, new[] { 116667, 116667, 116667, 216667, 216666, 216666 })]
@@ -170,9 +176,12 @@ namespace DiceCraft.Core.Tests
         {
             // p0.9.0: five ordinary slots by default; a run that bought slots passes its own count (up to seven).
             var all = cfg.controllers.Take(10).Select((c, i) => Card(c.id, i < 5 ? "none" : "slotless", i + 1)).ToArray();
-            Assert.DoesNotThrow(() => ControllerRules.ValidateEquipment(all, cfg)); Assert.That(ControllerRules.OrdinaryUsed(all), Is.EqualTo(5));
-            all[5].enchantmentId = "none"; Assert.Throws<ArgumentException>(() => ControllerRules.ValidateEquipment(all, cfg));
-            Assert.DoesNotThrow(() => ControllerRules.ValidateEquipment(all, cfg, false, 6)); Assert.Throws<ArgumentException>(() => ControllerRules.ValidateEquipment(all, cfg, false, 5)); all[5].enchantmentId = "slotless";
+            Assert.DoesNotThrow(() => ControllerRules.ValidateEquipment(all, cfg)); Assert.That(ControllerRules.OrdinaryUsed(all, cfg), Is.EqualTo(5));
+            // p1.1.1 rewrite (docs/specs/v111/TEST_CHANGES.md): all[5] is C07, a cultivation card, which rides for free
+            // once it loses its slotless enchantment, so the sixth ordinary card is now all[6] (C08).
+            all[5].enchantmentId = "none"; Assert.DoesNotThrow(() => ControllerRules.ValidateEquipment(all, cfg)); Assert.That(ControllerRules.OrdinaryUsed(all, cfg), Is.EqualTo(5)); all[5].enchantmentId = "slotless";
+            all[6].enchantmentId = "none"; Assert.Throws<ArgumentException>(() => ControllerRules.ValidateEquipment(all, cfg));
+            Assert.DoesNotThrow(() => ControllerRules.ValidateEquipment(all, cfg, false, 6)); Assert.Throws<ArgumentException>(() => ControllerRules.ValidateEquipment(all, cfg, false, 5)); all[6].enchantmentId = "slotless";
             Assert.Throws<ArgumentException>(() => ControllerRules.ValidateEquipment(all.Concat(new[] { Card("C11", "slotless", 11) }), cfg));
             // v1.1 rewrite (docs/specs/v11/RULES_DELTA.md): a repeated definition id is a legal copy; a repeated instance id is not.
             all[9].definitionId = "C01"; Assert.DoesNotThrow(() => ControllerRules.ValidateEquipment(all, cfg));
@@ -189,12 +198,12 @@ namespace DiceCraft.Core.Tests
         [Test]
         public void HandbookAlwaysContainsFourteenHandAndTwoColorRowsAndSeparatesTemporaryFormationFromUpgradeEligibility()
         {
-            var cards = new[] { Card("C21"), Card("C22", "none", 2) }; var levels = new[] { new HandLevel { handId = "pair", level = 8 } };
+            var cards = new[] { Card("C21"), Card("C22", "none", 2) }; var levels = new[] { new HandLevel { handId = "pair", level = 12 } }; // p1.1.1: the cap is 12
             var rows = HandbookRules.Build(cfg, levels, cards, 8, 5, 8); Assert.That(rows.Length, Is.EqualTo(16));
             Assert.That(rows[0].handId, Is.EqualTo("scatter")); Assert.That(rows[0].upgradeEligible, Is.False);
             var eight = rows.Single(x => x.handId == "eight_kind"); Assert.That(eight.canForm, Is.True); Assert.That(eight.upgradeEligible, Is.False);
-            var pair = rows.Single(x => x.handId == "pair"); Assert.That(pair.currentMult100, Is.EqualTo(800)); Assert.That(pair.upgradeEligible, Is.False);
-            Assert.That(levels[0].level, Is.EqualTo(8)); Assert.That(cards.Length, Is.EqualTo(2));
+            var pair = rows.Single(x => x.handId == "pair"); Assert.That(pair.currentMult100, Is.EqualTo(1100)); Assert.That(pair.upgradeEligible, Is.False); // 2 + 12 x 0.75
+            Assert.That(levels[0].level, Is.EqualTo(12)); Assert.That(cards.Length, Is.EqualTo(2));
         }
         [Test]
         public void HandbookC29ChangesOnlyStraightThresholdAndNextReadRefreshes()

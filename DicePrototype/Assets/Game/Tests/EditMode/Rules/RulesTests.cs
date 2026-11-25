@@ -136,7 +136,7 @@ namespace DiceCraft.Core.Tests
         [Test]
         public void Configuration_ContainsExactly71SupportedItemsAnd13Hands2Colors()
         {
-            Assert.That(config.controllers.Length + config.consumables.Length + config.services.Length + config.diceUpgrades.Length, Is.EqualTo(184)); // p1.0.0: 150 controllers, 12 consumables, 11 services, 11 die upgrades
+            Assert.That(config.controllers.Length + config.consumables.Length + config.services.Length + config.diceUpgrades.Length, Is.EqualTo(185)); // p1.1.1: 150 controllers, 13 consumables, 11 services, 11 die upgrades
             Assert.That(config.handDefinitions.Length, Is.EqualTo(13));
         }
         [Test]
@@ -288,7 +288,7 @@ namespace DiceCraft.Core.Tests
             Assert.Throws<ArgumentException>(() => ScoreCalculator.Evaluate(snapshot, config));
             snapshot = example.Snapshot(config); snapshot.capacity = 0;
             Assert.Throws<ArgumentException>(() => ScoreCalculator.Evaluate(snapshot, config));
-            snapshot = example.Snapshot(config); snapshot.handLevels = new[] { new HandLevel { handId = "pair", level = 9 } };
+            snapshot = example.Snapshot(config); snapshot.handLevels = new[] { new HandLevel { handId = "pair", level = 13 } }; // p1.1.1: the normal cap is 12
             Assert.Throws<ArgumentException>(() => ScoreCalculator.Evaluate(snapshot, config));
         }
         [Test]
@@ -310,7 +310,7 @@ namespace DiceCraft.Core.Tests
             var actual = ScoreCalculator.Evaluate(snapshot, config);
             Assert.That(actual.chosenGroupId, Is.EqualTo("quads"));
             Assert.That(actual.groupMult100, Is.EqualTo(800));
-            Assert.That(actual.score, Is.EqualTo("480"));
+            Assert.That(actual.score, Is.EqualTo("200")); // p1.1.1: 20 x 8 x 1.25 (all blue adds 0.25)
         }
     }
 }

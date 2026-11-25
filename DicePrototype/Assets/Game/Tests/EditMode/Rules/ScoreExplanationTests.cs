@@ -53,20 +53,24 @@ namespace DiceCraft.Core.Tests
         }
 
         [Test]
-        public void Trace_StackedContributionsAddBeforeGlassThenGold()
+        public void Trace_StackedContributionsAddBeforeGlassAndGoldMovesToTheAdditiveLine()
         {
+            // p1.1.1 rewrite of Trace_StackedContributionsAddBeforeGlassThenGold (docs/specs/v111/TEST_CHANGES.md):
+            // C10 +15, C13 +8 and C17 +9 add to the pip, glass x3; C19 and the gold face are additive bonuses now.
             var snapshot = Snapshot(new[] { 1 }, new[] { "blue" }, 5, "C10", "C13", "C17", "C19");
             snapshot.dice[0].permanentSixFaceSum = 6;
             snapshot.dice[0].isGlass = true; snapshot.dice[0].isGold = true;
             var breakdown = ScoreCalculator.Evaluate(snapshot, config);
-            var die = ScoreExplanation.Build(snapshot, breakdown, config).dice.Single();
-            CollectionAssert.AreEqual(new[] { "C10", "C13", "C17", "C19", null, null }, die.steps.Select(s => s.sourceId));
-            CollectionAssert.AreEqual(new[] { "contribution", "contribution", "contribution", "contribution", "glass", "gold" }, die.steps.Select(s => s.kind));
-            CollectionAssert.AreEqual(new string[] { "1", "11", "15", "21", "29", "87" }, die.steps.Select(s => s.before));
-            CollectionAssert.AreEqual(new string[] { "10", "4", "6", "8", "3", "2" }, die.steps.Select(s => s.operand));
-            CollectionAssert.AreEqual(new string[] { "11", "15", "21", "29", "87", "174" }, die.steps.Select(s => s.after));
-            Assert.That(die.contribution, Is.EqualTo(174));
-            Assert.That(breakdown.score, Is.EqualTo("522"));
+            var trace = ScoreExplanation.Build(snapshot, breakdown, config); var die = trace.dice.Single();
+            CollectionAssert.AreEqual(new[] { "C10", "C13", "C17", null }, die.steps.Select(s => s.sourceId));
+            CollectionAssert.AreEqual(new[] { "contribution", "contribution", "contribution", "glass" }, die.steps.Select(s => s.kind));
+            CollectionAssert.AreEqual(new string[] { "1", "16", "24", "33" }, die.steps.Select(s => s.before));
+            CollectionAssert.AreEqual(new string[] { "15", "8", "9", "3" }, die.steps.Select(s => s.operand));
+            CollectionAssert.AreEqual(new string[] { "16", "24", "33", "99" }, die.steps.Select(s => s.after));
+            Assert.That(die.contribution, Is.EqualTo(99));
+            // A = all blue 0.25 + gold face 0.5 + C19 (smallest pip 1) 2.5 = 3.25: 99 x 4.25 = 420.75.
+            CollectionAssert.AreEqual(new[] { "color:25", "gold:50", "controller:250" }, trace.global.Single(s => s.kind == "additive").entries.Select(e => e.kind + ":" + e.amount100));
+            Assert.That(breakdown.score, Is.EqualTo("420"));
         }
 
         [Test]
@@ -78,7 +82,7 @@ namespace DiceCraft.Core.Tests
             Assert.That(breakdown.effectivePips[0], Is.EqualTo(2));
             CollectionAssert.AreEqual(new[] { "C17" }, die.steps.Select(s => s.sourceId));
             Assert.That(die.steps[0].before, Is.EqualTo("2"));
-            Assert.That(die.steps[0].after, Is.EqualTo("8"));
+            Assert.That(die.steps[0].after, Is.EqualTo("11")); // p1.1.1: C17 adds 9
         }
 
         [Test]
@@ -88,15 +92,19 @@ namespace DiceCraft.Core.Tests
             snapshot.handLevels = new[] { new HandLevel { handId = "pair", level = 1 } };
             var breakdown = ScoreCalculator.Evaluate(snapshot, config);
             var steps = ScoreExplanation.Build(snapshot, breakdown, config).global;
-            CollectionAssert.AreEqual(new[] { "unused_rolls", "hand", "color", "red_group", "controller", "controller", "floor" }, steps.Select(s => s.kind));
-            CollectionAssert.AreEqual(new string[] { "26", "26", "143/2", "143/2", "1001/8", "3003/8", "3003/2" }, steps.Select(s => s.before));
-            CollectionAssert.AreEqual(new string[] { "26", "143/2", "143/2", "1001/8", "3003/8", "3003/2", "1501" }, steps.Select(s => s.after));
+            // p1.1.1 rewrite (docs/specs/v111/TEST_CHANGES.md). C20 adds 24 to the last die of a full row: base
+            // 1 + 1 + 3 + 30 = 35. Level 1 pair x2.75 = 11/4; two red 1s are a red group of 2 = x1; two red and two
+            // blue is mixed, so no colour line; C18 is an additive +5 (x6); C09 x2.5 = 5/2.
+            // 35 x 11/4 = 385/4, x6 = 1155/2, x5/2 = 5775/4 = 1443.75.
+            CollectionAssert.AreEqual(new[] { "unused_rolls", "hand", "red_group", "additive", "controller", "floor" }, steps.Select(s => s.kind));
+            CollectionAssert.AreEqual(new string[] { "35", "35", "385/4", "385/4", "1155/2", "5775/4" }, steps.Select(s => s.before));
+            CollectionAssert.AreEqual(new string[] { "35", "385/4", "385/4", "1155/2", "5775/4", "1443" }, steps.Select(s => s.after));
             Assert.That(steps[4].sourceId, Is.EqualTo("C09"));
-            Assert.That(steps[5].sourceId, Is.EqualTo("C18"));
+            CollectionAssert.AreEqual(new[] { "C18" }, steps[3].entries.Select(e => e.abilityId));
             Assert.That(ScoreExplanation.Build(snapshot, breakdown, config).dice.Last().steps.Single().sourceId, Is.EqualTo("C20"));
-            Assert.That(breakdown.score, Is.EqualTo("1501"));
-            decimal prematurelyRounded = decimal.Floor(decimal.Floor(26m * 2.75m) * 1.75m) * 3 * 4;
-            Assert.That(prematurelyRounded, Is.EqualTo(1488));
+            Assert.That(breakdown.score, Is.EqualTo("1443"));
+            decimal prematurelyRounded = decimal.Floor(decimal.Floor(35m * 2.75m) * 6m) * 2.5m;
+            Assert.That(prematurelyRounded, Is.EqualTo(1440));
             Assert.That(steps.Last().after, Is.Not.EqualTo(prematurelyRounded.ToString()), "The explanation must not introduce intermediate floors.");
         }
 
