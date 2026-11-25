@@ -107,6 +107,11 @@ OPEN_READINGS = {
     "W4-10": "C36 / C37 的 growthIndices 为前 min(3, 提交数) 颗；净和为 0 时仍给出下标与来源绑定。",
     "W4-11": "百变模仿带倍率附魔时附魔条目的 stateOwnerId 取被模仿的真实卡；基础技能加成条目同样 emitterId=模仿者、stateOwnerId=真实卡。",
     "W4-12": "C49 无 5 点时的 ×1/2 计入 multiplierFactors 与 controllerMultiplier，abilityId 为 C49，不产生加成条目。",
+    "W4-13": "旧输入的改写规则（C137 补 starPip、C53 表外结果改 8、缺上一主牌型补 scatter、p0.9.0 快照补 lifetime / stageHandsUsed / 栏位数、"
+             "B29 / B37 失效名单重算、人员流动 turnoverUnits2 换算为 growth）是本文件自定的，逐条记在各样例的 derivedFrom.rewrites。",
+    "W4-14": "C92 纯色主义、C93 始终如一读这颗骰冻结的六个物理面，不区分永久骰与临时骰；没有六面数据的合成快照一律不满足。",
+    "W4-15": "空值约定：colorId、chosenGroupId、upgradeHandId 无值时写空串；additiveEntries 里无卡来源的 emitterId / stateOwnerId 写 null。",
+    "W4-16": "返璞归真减半的范围取 §5 表的 15 张成长卡（含 C51、C100、C125）；C141 的倒计时、C63 不在其内。",
 }
 
 FIELD_NOTES = {
@@ -118,7 +123,7 @@ FIELD_NOTES = {
                 "controllerMultiplierNumerator/Denominator、scoreNumerator/Denominator、score；其余沿用 V1.0 附录 A。",
     "expected.afterScorePlan": "计分后计划里由冻结快照就能确定的部分：growthChanges（含 halve）、glassRiskDieIds、faceChanges（每条含 stateOwnerId）、"
                                "cultivationSourceBindings、goldSpent，以及沿用的 earnedGold、copyFirstToSecond、dyeAllFacesRed、redSpreadIndices、growthNetDelta、growthIndices、"
-                               "blueSpreadIndices、upgradeHandId / upgradeRequested / upgradeApplied、nextPreviousPrimary、nextColorOwnerIds、randomFactorOwnerIds、cannonRiskEmitterIds。",
+                               "blueSpreadIndices、upgradeHandId（无升级时为空串）/ upgradeRequested / upgradeApplied、nextPreviousPrimary、nextColorOwnerIds、randomFactorOwnerIds、cannonRiskEmitterIds。",
     "selfNamed": "规格没有给名字或形状、由本文件自定的字段：expected.redGroupKey（被选中红组的分组键，无红组或红运当头时为 0）、"
                  "expected.redMemberIndices（被选中红组的提交下标）、expected.chosenGroupId（计分选中的同点牌型，无则空串）、expected.enchantBaseAdd（基础分附魔金额）、"
                  "expected.triggeredSourceIds（触发来源的发出者实例，卡列顺序）、expected.triggeredMultiplierIds、expected.triggeredControllerIds、"
@@ -1527,6 +1532,7 @@ def build_new_cases(cfg):
     add("§5 C54 例 续：0.15 减半取 0.07，×1.52：34×1.52=51.68", PAIR, "C54:g=7:k=20", prev="trips", s="51",
         chk={"controllerMultiplierNumerator": "38", "controllerMultiplierDenominator": "25"}, tag="连庄两次减半", cid="CHAIN-C54-3")
     add("§5 C54 与上一手相同：事件累计 +0.1", PAIR, "C54:g=30:k=20", prev="pair", s="59", plan={"growthChanges": one("ctl_01", "C54", 10)})
+    add("§5 C54 事件累计为 0 时换牌型：仍列减半计划（减半后还是 0）", PAIR, "C54", prev="trips", s="42", plan={"growthChanges": one("ctl_01", "C54", 0, True)})
     add("§5 C54 上一手是散点、本手也是散点：相同，+0.1", SCAT, "C54", prev="scatter", s="18", plan={"growthChanges": one("ctl_01", "C54", 10)})
     add("§5 C55 首手 +12，计分后 +3", PAIR, "C55", s="58", chk={"controllerBaseAdds": [{"emitterId": "ctl_01", "abilityId": "C55", "amount": "12"}]}, plan={"growthChanges": one("ctl_01", "C55", 3)})
     add("§5 C55 下手 +15", PAIR, "C55:g=3", s="64", tag="成长读值C55")
@@ -1697,6 +1703,7 @@ def coverage(cfg, cases, infos, tags):
             if not row["duplicate"]: problems.append(f"{card} ({category[card]}): no same-name stacking case")
             if not row["mimic"]: problems.append(f"{card} ({category[card]}): no mimic case")
     problems += [f"section 14 item without a case: {t}" for t in SPEC14_TAGS if not tags.get(t)]
+    problems += [f"modifier effect {code}: no case where it changes the result" for code, hits in effect_coverage(cfg, cases).items() if not hits]
     names = ("cases", "new_cases", "hit", "miss", "disabled", "duplicate", "mimic")
     return {card: {k: row[k] for k in names} for card, row in table.items()}, problems
 
@@ -1779,6 +1786,8 @@ def check_config(cfg):
     if set(definitions) - set(rules["nonSubmitControllerIds"]) != SCORING: problems.append("scoring card inventory")
     if {c for c, d in definitions.items() if "growthKind" in d["parameters"]} != GROWTH: problems.append("growth card inventory")
     if {c for c, d in definitions.items() if d["isCultivation"]} != CULTIVATION: problems.append("cultivation card inventory")
+    rarities = Counter(d["rarity"] for d in definitions.values())
+    if (rarities["common"], rarities["uncommon"], rarities["rare"]) != (29, 88, 33): problems.append(f"rarity counts {dict(rarities)}")
     by_id = {m["id"]: m for m in cfg["bossModifiers"]}
     if (by_id["B25"]["effects"], by_id["B25"]["amount"]) != (["DisableLeftmost"], 2): problems.append("B25")
     if (by_id["B29"]["effects"], by_id["B29"]["amount"], by_id["B29"]["filter"]) != (["DisableRarity"], 1, "rare"): problems.append("B29")

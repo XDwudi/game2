@@ -1,0 +1,1802 @@
+{
+  "generator": "tools/v111_golden.py",
+  "schema": "v111-golden-1",
+  "configVersion": "p1.1.1",
+  "derived_from_production_code": false,
+  "independence": "期望值只来自规格文本与配置数据；没有读取或运行 Core/、UI/、Runtime/、Tests/、tools/balance_sim/*.cs，也没有读取 W3A_NOTES、W3B1_NOTES、TEST_CHANGES。旧样例文件只取输入。",
+  "input_sha256": {
+    "tools/v111_golden.py": "32f2e940727f1ec488de53687a946e56ead6d9d11217cd40ab7a1ad8daa6b3c4",
+    "DicePrototype/Assets/Game/Data/P0Config.json": "5ba97c8158062e355796d888dbdb581710351cdff15cd6b3e3fbf49b394b777b",
+    "tools/v111_config.py": "878915ca37d96b46deb7d811c678318d7cf5b4f07dbf34431f9df75ce246d9aa",
+    "docs/specs/v111/RULES_DELTA.md": "687b99dad802aec10c0e83bce05e1113590454ea727d13196b95b663c31ea431",
+    "docs/specs/v11/RULES_DELTA.md": "55b79ae1dd37e8181ec7167e744f6a575d08c514f952bd82db46f72ba9baf4f6",
+    "docs/specs/v10/RULES_SPEC.md": "4c0e386432b120fafda7c1fd3742cf2bd411facd0a2256697d6eda164d76bd07",
+    "docs/specs/v09/RULES_SPEC.md": "a3d6b6219956efc9f4eac3fe2b40af759dad774296bcb90d8b609b928704f217",
+    "docs/specs/v08/RULES_DELTA.md": "e2628fb3b944cb830c590957b4feda62a314e1452aafdef5b7bfd6ffc5cc281e",
+    "docs/specs/P0_v0.6.md": "36118847044185925057ea33b342756c97498f044bb558a684c82902084245c8",
+    "DicePrototype/Assets/Game/Data/GoldenScores.json": "f9ffc7640d31d3a1eded22084e963ef1029d2c74745fb9fdd421d0295e33fd60",
+    "DicePrototype/Assets/Game/Data/GoldenScoresV09.json": "2aff977888f4b6e2a33560ff5ad9d3b91e2486acc1ebe61d1e93a46cea82de56",
+    "DicePrototype/Assets/Game/Data/GoldenScoresV10.json": "e9b6d1f41dbf83c34b51767c48b6d84943f2cb049d8adf2dc5bff3936b7f1ef1",
+    "DicePrototype/Assets/Game/Data/GoldenScoresV11.json": "13262d1bdfe548849f6040ecb6d0a8b265e4abe20ebcd2f22bf50261c5f85396"
+  },
+  "golden": "DicePrototype/Assets/Game/Data/GoldenScoresV111.json",
+  "golden_sha256": "04603f99aeda75e0bb51f800d4cf582ee033922e2a3d67a38a04868165314a75",
+  "cases": 2152,
+  "cases_by_source": {
+    "new": 263,
+    "matrix": 572,
+    "GoldenScores.json": 160,
+    "GoldenScoresV09.json": 257,
+    "GoldenScoresV10.json": 445,
+    "GoldenScoresV11.json": 455
+  },
+  "historical_inputs": {
+    "DicePrototype/Assets/Game/Data/GoldenScores.json": {
+      "inputs": 160,
+      "kept": 160,
+      "excluded": 0
+    },
+    "DicePrototype/Assets/Game/Data/GoldenScoresV09.json": {
+      "inputs": 260,
+      "kept": 257,
+      "excluded": 3
+    },
+    "DicePrototype/Assets/Game/Data/GoldenScoresV10.json": {
+      "inputs": 446,
+      "kept": 445,
+      "excluded": 1
+    },
+    "DicePrototype/Assets/Game/Data/GoldenScoresV11.json": {
+      "inputs": 459,
+      "kept": 455,
+      "excluded": 4
+    }
+  },
+  "new_cases": {
+    "hand_written": 263,
+    "matrix": 572
+  },
+  "hand_checked_cases": 263,
+  "rewritten_historical_inputs": 212,
+  "rewrite_kinds": {
+    "合成快照": 160,
+    "客串明星换机制": 19,
+    "本关已有过提交却没有上一主牌型": 17,
+    "旧快照没有栏位字段": 8,
+    "人员流动改读 growth": 6,
+    "p0.9.0 快照没有 lifetime": 5,
+    "B37 的失效名单按 p1.1.1 重算": 4,
+    "fundAccrual 与计分无关，已去掉": 2,
+    "去掉已移除的卡 C90 的实例": 2,
+    "去掉已移除的卡 C128 的实例": 2,
+    "已销毁的实例 t 不再出现在卡列里": 1,
+    "ctl_01 的错乱乘积结果 units2=10 不在新": 1,
+    "ctl_02 的错乱乘积结果 units2=10 不在新": 1,
+    "去掉已移除的卡 C145 的实例": 1,
+    "B29 的失效名单按 p1.1.1 重算": 1
+  },
+  "excluded_historical_inputs": [
+    {
+      "file": "DicePrototype/Assets/Game/Data/GoldenScoresV09.json",
+      "id": "N038",
+      "description": "C90玻璃心 成长0",
+      "reason": "输入的卡牌只有已移除的 C90（及复制它的百变模仿），去掉后没有可重算的内容"
+    },
+    {
+      "file": "DicePrototype/Assets/Game/Data/GoldenScoresV09.json",
+      "id": "N039",
+      "description": "C90 成长15：×1.75",
+      "reason": "输入的卡牌只有已移除的 C90（及复制它的百变模仿），去掉后没有可重算的内容"
+    },
+    {
+      "file": "DicePrototype/Assets/Game/Data/GoldenScoresV09.json",
+      "id": "N040",
+      "description": "C90 成长45：×3.25",
+      "reason": "输入的卡牌只有已移除的 C90（及复制它的百变模仿），去掉后没有可重算的内容"
+    },
+    {
+      "file": "DicePrototype/Assets/Game/Data/GoldenScoresV10.json",
+      "id": "P214",
+      "description": "百变模仿复制C128：不触发",
+      "reason": "输入的卡牌只有已移除的 C128（及复制它的百变模仿），去掉后没有可重算的内容"
+    },
+    {
+      "file": "DicePrototype/Assets/Game/Data/GoldenScoresV11.json",
+      "id": "C90-two_hit",
+      "description": "C90 双持：两个真实来源同时触发",
+      "reason": "样例专为已移除的 C90 而设，p1.1.1 没有对应的卡"
+    },
+    {
+      "file": "DicePrototype/Assets/Game/Data/GoldenScoresV11.json",
+      "id": "C90-three_hit",
+      "description": "C90 三持：逐来源相乘或加值/次数相加",
+      "reason": "样例专为已移除的 C90 而设，p1.1.1 没有对应的卡"
+    },
+    {
+      "file": "DicePrototype/Assets/Game/Data/GoldenScoresV11.json",
+      "id": "C90-mimic_hit",
+      "description": "C90 两张真实卡与中间C41，模仿右侧副本；独立来源",
+      "reason": "样例专为已移除的 C90 而设，p1.1.1 没有对应的卡"
+    },
+    {
+      "file": "DicePrototype/Assets/Game/Data/GoldenScoresV11.json",
+      "id": "C90-separate_state_and_mimic",
+      "description": "C90：separate_state_and_mimic",
+      "reason": "样例专为已移除的 C90 而设，p1.1.1 没有对应的卡"
+    }
+  ],
+  "coverage_by_card": {
+    "C01": {
+      "cases": 13,
+      "new_cases": 5,
+      "hit": 12,
+      "miss": 0,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 3
+    },
+    "C02": {
+      "cases": 24,
+      "new_cases": 7,
+      "hit": 18,
+      "miss": 3,
+      "disabled": 3,
+      "duplicate": 4,
+      "mimic": 3
+    },
+    "C03": {
+      "cases": 20,
+      "new_cases": 5,
+      "hit": 18,
+      "miss": 0,
+      "disabled": 2,
+      "duplicate": 4,
+      "mimic": 2
+    },
+    "C06": {
+      "cases": 16,
+      "new_cases": 7,
+      "hit": 12,
+      "miss": 3,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 3
+    },
+    "C07": {
+      "cases": 13,
+      "new_cases": 8,
+      "hit": 8,
+      "miss": 4,
+      "disabled": 1,
+      "duplicate": 3,
+      "mimic": 2
+    },
+    "C08": {
+      "cases": 13,
+      "new_cases": 6,
+      "hit": 9,
+      "miss": 3,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 2
+    },
+    "C09": {
+      "cases": 16,
+      "new_cases": 7,
+      "hit": 14,
+      "miss": 0,
+      "disabled": 2,
+      "duplicate": 4,
+      "mimic": 2
+    },
+    "C10": {
+      "cases": 20,
+      "new_cases": 6,
+      "hit": 17,
+      "miss": 2,
+      "disabled": 1,
+      "duplicate": 6,
+      "mimic": 2
+    },
+    "C11": {
+      "cases": 14,
+      "new_cases": 6,
+      "hit": 11,
+      "miss": 2,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 2
+    },
+    "C12": {
+      "cases": 37,
+      "new_cases": 8,
+      "hit": 33,
+      "miss": 2,
+      "disabled": 2,
+      "duplicate": 4,
+      "mimic": 3
+    },
+    "C13": {
+      "cases": 16,
+      "new_cases": 6,
+      "hit": 12,
+      "miss": 3,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 2
+    },
+    "C14": {
+      "cases": 12,
+      "new_cases": 6,
+      "hit": 9,
+      "miss": 2,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 2
+    },
+    "C15": {
+      "cases": 12,
+      "new_cases": 6,
+      "hit": 8,
+      "miss": 3,
+      "disabled": 1,
+      "duplicate": 3,
+      "mimic": 2
+    },
+    "C17": {
+      "cases": 14,
+      "new_cases": 6,
+      "hit": 11,
+      "miss": 2,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 2
+    },
+    "C18": {
+      "cases": 12,
+      "new_cases": 6,
+      "hit": 8,
+      "miss": 3,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 2
+    },
+    "C19": {
+      "cases": 13,
+      "new_cases": 8,
+      "hit": 10,
+      "miss": 2,
+      "disabled": 1,
+      "duplicate": 5,
+      "mimic": 2
+    },
+    "C20": {
+      "cases": 18,
+      "new_cases": 6,
+      "hit": 14,
+      "miss": 3,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 3
+    },
+    "C24": {
+      "cases": 20,
+      "new_cases": 10,
+      "hit": 16,
+      "miss": 3,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 2
+    },
+    "C25": {
+      "cases": 21,
+      "new_cases": 9,
+      "hit": 17,
+      "miss": 3,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 2
+    },
+    "C26": {
+      "cases": 11,
+      "new_cases": 6,
+      "hit": 8,
+      "miss": 2,
+      "disabled": 1,
+      "duplicate": 3,
+      "mimic": 2
+    },
+    "C27": {
+      "cases": 20,
+      "new_cases": 7,
+      "hit": 16,
+      "miss": 3,
+      "disabled": 1,
+      "duplicate": 3,
+      "mimic": 3
+    },
+    "C28": {
+      "cases": 16,
+      "new_cases": 7,
+      "hit": 12,
+      "miss": 3,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 2
+    },
+    "C29": {
+      "cases": 20,
+      "new_cases": 7,
+      "hit": 13,
+      "miss": 5,
+      "disabled": 2,
+      "duplicate": 4,
+      "mimic": 2
+    },
+    "C30": {
+      "cases": 17,
+      "new_cases": 6,
+      "hit": 14,
+      "miss": 2,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 2
+    },
+    "C31": {
+      "cases": 19,
+      "new_cases": 6,
+      "hit": 16,
+      "miss": 2,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 2
+    },
+    "C32": {
+      "cases": 15,
+      "new_cases": 6,
+      "hit": 12,
+      "miss": 2,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 2
+    },
+    "C33": {
+      "cases": 16,
+      "new_cases": 9,
+      "hit": 10,
+      "miss": 5,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 2
+    },
+    "C36": {
+      "cases": 19,
+      "new_cases": 11,
+      "hit": 15,
+      "miss": 3,
+      "disabled": 1,
+      "duplicate": 5,
+      "mimic": 4
+    },
+    "C37": {
+      "cases": 13,
+      "new_cases": 6,
+      "hit": 10,
+      "miss": 2,
+      "disabled": 1,
+      "duplicate": 3,
+      "mimic": 3
+    },
+    "C38": {
+      "cases": 11,
+      "new_cases": 6,
+      "hit": 10,
+      "miss": 0,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 2
+    },
+    "C39": {
+      "cases": 17,
+      "new_cases": 8,
+      "hit": 14,
+      "miss": 2,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 2
+    },
+    "C40": {
+      "cases": 13,
+      "new_cases": 7,
+      "hit": 9,
+      "miss": 3,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 2
+    },
+    "C41": {
+      "cases": 384,
+      "new_cases": 136,
+      "hit": 362,
+      "miss": 22,
+      "disabled": 4,
+      "duplicate": 3,
+      "mimic": 0
+    },
+    "C42": {
+      "cases": 12,
+      "new_cases": 7,
+      "hit": 11,
+      "miss": 0,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 4
+    },
+    "C43": {
+      "cases": 21,
+      "new_cases": 8,
+      "hit": 15,
+      "miss": 5,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 5
+    },
+    "C44": {
+      "cases": 26,
+      "new_cases": 8,
+      "hit": 21,
+      "miss": 3,
+      "disabled": 2,
+      "duplicate": 4,
+      "mimic": 2
+    },
+    "C45": {
+      "cases": 17,
+      "new_cases": 4,
+      "hit": 16,
+      "miss": 0,
+      "disabled": 1,
+      "duplicate": 6,
+      "mimic": 4
+    },
+    "C46": {
+      "cases": 56,
+      "new_cases": 15,
+      "hit": 39,
+      "miss": 0,
+      "disabled": 17,
+      "duplicate": 7,
+      "mimic": 7
+    },
+    "C47": {
+      "cases": 18,
+      "new_cases": 6,
+      "hit": 16,
+      "miss": 0,
+      "disabled": 2,
+      "duplicate": 5,
+      "mimic": 3
+    },
+    "C48": {
+      "cases": 12,
+      "new_cases": 6,
+      "hit": 9,
+      "miss": 2,
+      "disabled": 1,
+      "duplicate": 3,
+      "mimic": 2
+    },
+    "C49": {
+      "cases": 17,
+      "new_cases": 7,
+      "hit": 16,
+      "miss": 0,
+      "disabled": 1,
+      "duplicate": 7,
+      "mimic": 2
+    },
+    "C50": {
+      "cases": 54,
+      "new_cases": 14,
+      "hit": 41,
+      "miss": 0,
+      "disabled": 13,
+      "duplicate": 4,
+      "mimic": 4
+    },
+    "C51": {
+      "cases": 16,
+      "new_cases": 6,
+      "hit": 15,
+      "miss": 0,
+      "disabled": 1,
+      "duplicate": 5,
+      "mimic": 5
+    },
+    "C53": {
+      "cases": 45,
+      "new_cases": 18,
+      "hit": 43,
+      "miss": 0,
+      "disabled": 2,
+      "duplicate": 6,
+      "mimic": 15
+    },
+    "C54": {
+      "cases": 31,
+      "new_cases": 15,
+      "hit": 29,
+      "miss": 0,
+      "disabled": 2,
+      "duplicate": 7,
+      "mimic": 5
+    },
+    "C55": {
+      "cases": 25,
+      "new_cases": 9,
+      "hit": 23,
+      "miss": 0,
+      "disabled": 2,
+      "duplicate": 4,
+      "mimic": 4
+    },
+    "C56": {
+      "cases": 22,
+      "new_cases": 8,
+      "hit": 20,
+      "miss": 0,
+      "disabled": 2,
+      "duplicate": 6,
+      "mimic": 4
+    },
+    "C57": {
+      "cases": 26,
+      "new_cases": 8,
+      "hit": 25,
+      "miss": 0,
+      "disabled": 1,
+      "duplicate": 6,
+      "mimic": 4
+    },
+    "C58": {
+      "cases": 18,
+      "new_cases": 7,
+      "hit": 17,
+      "miss": 0,
+      "disabled": 1,
+      "duplicate": 5,
+      "mimic": 4
+    },
+    "C59": {
+      "cases": 12,
+      "new_cases": 5,
+      "hit": 11,
+      "miss": 0,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 3
+    },
+    "C60": {
+      "cases": 13,
+      "new_cases": 5,
+      "hit": 12,
+      "miss": 0,
+      "disabled": 1,
+      "duplicate": 5,
+      "mimic": 3
+    },
+    "C61": {
+      "cases": 13,
+      "new_cases": 5,
+      "hit": 12,
+      "miss": 0,
+      "disabled": 1,
+      "duplicate": 5,
+      "mimic": 3
+    },
+    "C62": {
+      "cases": 12,
+      "new_cases": 5,
+      "hit": 11,
+      "miss": 0,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 3
+    },
+    "C63": {
+      "cases": 16,
+      "new_cases": 5,
+      "hit": 15,
+      "miss": 0,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 3
+    },
+    "C64": {
+      "cases": 47,
+      "new_cases": 10,
+      "hit": 41,
+      "miss": 0,
+      "disabled": 6,
+      "duplicate": 5,
+      "mimic": 4
+    },
+    "C65": {
+      "cases": 32,
+      "new_cases": 6,
+      "hit": 21,
+      "miss": 6,
+      "disabled": 5,
+      "duplicate": 4,
+      "mimic": 3
+    },
+    "C66": {
+      "cases": 18,
+      "new_cases": 5,
+      "hit": 14,
+      "miss": 3,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 2
+    },
+    "C67": {
+      "cases": 17,
+      "new_cases": 5,
+      "hit": 13,
+      "miss": 3,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 2
+    },
+    "C68": {
+      "cases": 25,
+      "new_cases": 5,
+      "hit": 19,
+      "miss": 5,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 4
+    },
+    "C69": {
+      "cases": 32,
+      "new_cases": 6,
+      "hit": 27,
+      "miss": 4,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 3
+    },
+    "C70": {
+      "cases": 20,
+      "new_cases": 6,
+      "hit": 15,
+      "miss": 4,
+      "disabled": 1,
+      "duplicate": 3,
+      "mimic": 3
+    },
+    "C71": {
+      "cases": 18,
+      "new_cases": 6,
+      "hit": 13,
+      "miss": 4,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 3
+    },
+    "C72": {
+      "cases": 15,
+      "new_cases": 6,
+      "hit": 11,
+      "miss": 3,
+      "disabled": 1,
+      "duplicate": 3,
+      "mimic": 2
+    },
+    "C73": {
+      "cases": 37,
+      "new_cases": 11,
+      "hit": 27,
+      "miss": 8,
+      "disabled": 2,
+      "duplicate": 4,
+      "mimic": 3
+    },
+    "C74": {
+      "cases": 19,
+      "new_cases": 7,
+      "hit": 13,
+      "miss": 5,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 2
+    },
+    "C75": {
+      "cases": 25,
+      "new_cases": 6,
+      "hit": 14,
+      "miss": 10,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 2
+    },
+    "C76": {
+      "cases": 22,
+      "new_cases": 6,
+      "hit": 16,
+      "miss": 5,
+      "disabled": 1,
+      "duplicate": 3,
+      "mimic": 2
+    },
+    "C77": {
+      "cases": 24,
+      "new_cases": 7,
+      "hit": 14,
+      "miss": 9,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 2
+    },
+    "C80": {
+      "cases": 19,
+      "new_cases": 6,
+      "hit": 13,
+      "miss": 5,
+      "disabled": 1,
+      "duplicate": 3,
+      "mimic": 2
+    },
+    "C81": {
+      "cases": 18,
+      "new_cases": 6,
+      "hit": 11,
+      "miss": 6,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 2
+    },
+    "C82": {
+      "cases": 17,
+      "new_cases": 7,
+      "hit": 10,
+      "miss": 6,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 2
+    },
+    "C83": {
+      "cases": 19,
+      "new_cases": 6,
+      "hit": 10,
+      "miss": 8,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 2
+    },
+    "C84": {
+      "cases": 29,
+      "new_cases": 6,
+      "hit": 24,
+      "miss": 4,
+      "disabled": 1,
+      "duplicate": 5,
+      "mimic": 3
+    },
+    "C85": {
+      "cases": 22,
+      "new_cases": 6,
+      "hit": 18,
+      "miss": 3,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 3
+    },
+    "C86": {
+      "cases": 19,
+      "new_cases": 7,
+      "hit": 13,
+      "miss": 5,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 2
+    },
+    "C87": {
+      "cases": 21,
+      "new_cases": 7,
+      "hit": 17,
+      "miss": 3,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 2
+    },
+    "C88": {
+      "cases": 20,
+      "new_cases": 6,
+      "hit": 12,
+      "miss": 7,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 2
+    },
+    "C89": {
+      "cases": 15,
+      "new_cases": 6,
+      "hit": 10,
+      "miss": 4,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 2
+    },
+    "C91": {
+      "cases": 21,
+      "new_cases": 10,
+      "hit": 5,
+      "miss": 15,
+      "disabled": 1,
+      "duplicate": 1,
+      "mimic": 1
+    },
+    "C92": {
+      "cases": 17,
+      "new_cases": 6,
+      "hit": 12,
+      "miss": 4,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 2
+    },
+    "C93": {
+      "cases": 19,
+      "new_cases": 7,
+      "hit": 15,
+      "miss": 3,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 4
+    },
+    "C94": {
+      "cases": 17,
+      "new_cases": 4,
+      "hit": 16,
+      "miss": 0,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 3
+    },
+    "C100": {
+      "cases": 13,
+      "new_cases": 5,
+      "hit": 12,
+      "miss": 0,
+      "disabled": 1,
+      "duplicate": 5,
+      "mimic": 3
+    },
+    "C101": {
+      "cases": 12,
+      "new_cases": 5,
+      "hit": 11,
+      "miss": 0,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 3
+    },
+    "C102": {
+      "cases": 20,
+      "new_cases": 6,
+      "hit": 15,
+      "miss": 4,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 3
+    },
+    "C103": {
+      "cases": 20,
+      "new_cases": 8,
+      "hit": 15,
+      "miss": 4,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 3
+    },
+    "C104": {
+      "cases": 20,
+      "new_cases": 6,
+      "hit": 12,
+      "miss": 7,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 3
+    },
+    "C105": {
+      "cases": 21,
+      "new_cases": 8,
+      "hit": 13,
+      "miss": 7,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 2
+    },
+    "C106": {
+      "cases": 19,
+      "new_cases": 6,
+      "hit": 14,
+      "miss": 4,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 3
+    },
+    "C107": {
+      "cases": 21,
+      "new_cases": 6,
+      "hit": 14,
+      "miss": 6,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 3
+    },
+    "C108": {
+      "cases": 17,
+      "new_cases": 6,
+      "hit": 16,
+      "miss": 0,
+      "disabled": 1,
+      "duplicate": 3,
+      "mimic": 3
+    },
+    "C109": {
+      "cases": 17,
+      "new_cases": 5,
+      "hit": 12,
+      "miss": 4,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 3
+    },
+    "C117": {
+      "cases": 18,
+      "new_cases": 6,
+      "hit": 16,
+      "miss": 0,
+      "disabled": 2,
+      "duplicate": 3,
+      "mimic": 3
+    },
+    "C118": {
+      "cases": 17,
+      "new_cases": 7,
+      "hit": 15,
+      "miss": 0,
+      "disabled": 2,
+      "duplicate": 3,
+      "mimic": 2
+    },
+    "C119": {
+      "cases": 15,
+      "new_cases": 6,
+      "hit": 14,
+      "miss": 0,
+      "disabled": 1,
+      "duplicate": 3,
+      "mimic": 3
+    },
+    "C122": {
+      "cases": 14,
+      "new_cases": 6,
+      "hit": 13,
+      "miss": 0,
+      "disabled": 1,
+      "duplicate": 3,
+      "mimic": 2
+    },
+    "C123": {
+      "cases": 12,
+      "new_cases": 5,
+      "hit": 11,
+      "miss": 0,
+      "disabled": 1,
+      "duplicate": 3,
+      "mimic": 2
+    },
+    "C124": {
+      "cases": 13,
+      "new_cases": 6,
+      "hit": 12,
+      "miss": 0,
+      "disabled": 1,
+      "duplicate": 3,
+      "mimic": 5
+    },
+    "C125": {
+      "cases": 16,
+      "new_cases": 6,
+      "hit": 15,
+      "miss": 0,
+      "disabled": 1,
+      "duplicate": 3,
+      "mimic": 2
+    },
+    "C126": {
+      "cases": 15,
+      "new_cases": 6,
+      "hit": 10,
+      "miss": 4,
+      "disabled": 1,
+      "duplicate": 3,
+      "mimic": 3
+    },
+    "C127": {
+      "cases": 17,
+      "new_cases": 7,
+      "hit": 14,
+      "miss": 2,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 3
+    },
+    "C129": {
+      "cases": 16,
+      "new_cases": 6,
+      "hit": 15,
+      "miss": 0,
+      "disabled": 1,
+      "duplicate": 5,
+      "mimic": 4
+    },
+    "C130": {
+      "cases": 19,
+      "new_cases": 8,
+      "hit": 12,
+      "miss": 5,
+      "disabled": 2,
+      "duplicate": 4,
+      "mimic": 3
+    },
+    "C132": {
+      "cases": 13,
+      "new_cases": 5,
+      "hit": 12,
+      "miss": 0,
+      "disabled": 1,
+      "duplicate": 5,
+      "mimic": 3
+    },
+    "C134": {
+      "cases": 13,
+      "new_cases": 5,
+      "hit": 12,
+      "miss": 0,
+      "disabled": 1,
+      "duplicate": 5,
+      "mimic": 3
+    },
+    "C135": {
+      "cases": 19,
+      "new_cases": 6,
+      "hit": 14,
+      "miss": 4,
+      "disabled": 1,
+      "duplicate": 3,
+      "mimic": 3
+    },
+    "C137": {
+      "cases": 25,
+      "new_cases": 11,
+      "hit": 19,
+      "miss": 5,
+      "disabled": 2,
+      "duplicate": 6,
+      "mimic": 4
+    },
+    "C138": {
+      "cases": 38,
+      "new_cases": 10,
+      "hit": 32,
+      "miss": 11,
+      "disabled": 2,
+      "duplicate": 8,
+      "mimic": 13
+    },
+    "C139": {
+      "cases": 24,
+      "new_cases": 9,
+      "hit": 19,
+      "miss": 4,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 3
+    },
+    "C141": {
+      "cases": 21,
+      "new_cases": 9,
+      "hit": 20,
+      "miss": 0,
+      "disabled": 1,
+      "duplicate": 5,
+      "mimic": 5
+    },
+    "C142": {
+      "cases": 19,
+      "new_cases": 6,
+      "hit": 13,
+      "miss": 5,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 3
+    },
+    "C143": {
+      "cases": 21,
+      "new_cases": 6,
+      "hit": 16,
+      "miss": 4,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 3
+    },
+    "C144": {
+      "cases": 16,
+      "new_cases": 6,
+      "hit": 12,
+      "miss": 3,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 3
+    },
+    "C146": {
+      "cases": 33,
+      "new_cases": 12,
+      "hit": 24,
+      "miss": 7,
+      "disabled": 2,
+      "duplicate": 4,
+      "mimic": 3
+    },
+    "C147": {
+      "cases": 18,
+      "new_cases": 6,
+      "hit": 14,
+      "miss": 3,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 3
+    },
+    "C148": {
+      "cases": 16,
+      "new_cases": 6,
+      "hit": 12,
+      "miss": 3,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 3
+    },
+    "C149": {
+      "cases": 18,
+      "new_cases": 9,
+      "hit": 11,
+      "miss": 6,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 3
+    },
+    "C150": {
+      "cases": 20,
+      "new_cases": 6,
+      "hit": 15,
+      "miss": 4,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 3
+    },
+    "C151": {
+      "cases": 23,
+      "new_cases": 8,
+      "hit": 19,
+      "miss": 3,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 3
+    },
+    "C152": {
+      "cases": 19,
+      "new_cases": 6,
+      "hit": 14,
+      "miss": 4,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 3
+    },
+    "C153": {
+      "cases": 21,
+      "new_cases": 7,
+      "hit": 14,
+      "miss": 6,
+      "disabled": 1,
+      "duplicate": 4,
+      "mimic": 4
+    },
+    "C155": {
+      "cases": 10,
+      "new_cases": 10,
+      "hit": 7,
+      "miss": 2,
+      "disabled": 1,
+      "duplicate": 1,
+      "mimic": 1
+    },
+    "C156": {
+      "cases": 10,
+      "new_cases": 10,
+      "hit": 5,
+      "miss": 4,
+      "disabled": 1,
+      "duplicate": 1,
+      "mimic": 1
+    }
+  },
+  "changed_cards": [
+    "C02",
+    "C06",
+    "C08",
+    "C09",
+    "C10",
+    "C11",
+    "C13",
+    "C14",
+    "C17",
+    "C18",
+    "C19",
+    "C20",
+    "C27",
+    "C28",
+    "C29",
+    "C30",
+    "C31",
+    "C32",
+    "C33",
+    "C36",
+    "C37",
+    "C39",
+    "C40",
+    "C41",
+    "C42",
+    "C43",
+    "C44",
+    "C46",
+    "C47",
+    "C48",
+    "C49",
+    "C50",
+    "C51",
+    "C53",
+    "C54",
+    "C55",
+    "C56",
+    "C57",
+    "C58",
+    "C59",
+    "C60",
+    "C61",
+    "C62",
+    "C63",
+    "C70",
+    "C71",
+    "C72",
+    "C74",
+    "C75",
+    "C76",
+    "C77",
+    "C80",
+    "C81",
+    "C82",
+    "C83",
+    "C84",
+    "C85",
+    "C86",
+    "C87",
+    "C88",
+    "C89",
+    "C91",
+    "C92",
+    "C93",
+    "C100",
+    "C101",
+    "C102",
+    "C103",
+    "C104",
+    "C105",
+    "C106",
+    "C107",
+    "C108",
+    "C117",
+    "C119",
+    "C122",
+    "C123",
+    "C124",
+    "C125",
+    "C126",
+    "C127",
+    "C129",
+    "C130",
+    "C132",
+    "C134",
+    "C135",
+    "C137",
+    "C138",
+    "C139",
+    "C141",
+    "C143",
+    "C144",
+    "C147",
+    "C148",
+    "C149",
+    "C150",
+    "C151",
+    "C152",
+    "C153",
+    "C155",
+    "C156"
+  ],
+  "conditional_cards": [
+    "C02",
+    "C06",
+    "C07",
+    "C08",
+    "C10",
+    "C11",
+    "C12",
+    "C13",
+    "C14",
+    "C15",
+    "C17",
+    "C18",
+    "C19",
+    "C20",
+    "C24",
+    "C25",
+    "C26",
+    "C27",
+    "C28",
+    "C29",
+    "C30",
+    "C31",
+    "C32",
+    "C33",
+    "C36",
+    "C37",
+    "C39",
+    "C40",
+    "C43",
+    "C44",
+    "C48",
+    "C65",
+    "C66",
+    "C67",
+    "C68",
+    "C69",
+    "C70",
+    "C71",
+    "C72",
+    "C73",
+    "C74",
+    "C75",
+    "C76",
+    "C77",
+    "C80",
+    "C81",
+    "C82",
+    "C83",
+    "C84",
+    "C85",
+    "C86",
+    "C87",
+    "C88",
+    "C89",
+    "C91",
+    "C92",
+    "C93",
+    "C102",
+    "C103",
+    "C104",
+    "C105",
+    "C106",
+    "C107",
+    "C109",
+    "C126",
+    "C127",
+    "C130",
+    "C135",
+    "C137",
+    "C138",
+    "C139",
+    "C142",
+    "C143",
+    "C144",
+    "C146",
+    "C147",
+    "C148",
+    "C149",
+    "C150",
+    "C151",
+    "C152",
+    "C153",
+    "C155",
+    "C156"
+  ],
+  "card_categories": {
+    "additive": [
+      "C06",
+      "C08",
+      "C11",
+      "C14",
+      "C18",
+      "C19",
+      "C28",
+      "C30",
+      "C32",
+      "C40",
+      "C46",
+      "C47",
+      "C49",
+      "C63",
+      "C74",
+      "C75",
+      "C77",
+      "C81",
+      "C82",
+      "C83",
+      "C86",
+      "C88",
+      "C91",
+      "C102",
+      "C104",
+      "C105",
+      "C106",
+      "C137",
+      "C139",
+      "C141",
+      "C144",
+      "C147",
+      "C148",
+      "C149",
+      "C150",
+      "C151",
+      "C152",
+      "C153",
+      "C156"
+    ],
+    "multiplier": [
+      "C02",
+      "C09",
+      "C31",
+      "C33",
+      "C42",
+      "C53",
+      "C71",
+      "C87",
+      "C89",
+      "C101",
+      "C103",
+      "C130",
+      "C138",
+      "C155"
+    ],
+    "base": [
+      "C10",
+      "C13",
+      "C17",
+      "C20",
+      "C27",
+      "C39",
+      "C44",
+      "C45",
+      "C48",
+      "C50",
+      "C70",
+      "C72",
+      "C76",
+      "C80",
+      "C92",
+      "C93",
+      "C94",
+      "C107",
+      "C108",
+      "C135"
+    ],
+    "growth": [
+      "C51",
+      "C54",
+      "C55",
+      "C56",
+      "C57",
+      "C58",
+      "C59",
+      "C60",
+      "C61",
+      "C62",
+      "C100",
+      "C125",
+      "C129",
+      "C132",
+      "C134"
+    ]
+  },
+  "section14_tags": {
+    "无卡": [
+      "Q001"
+    ],
+    "混色": [
+      "Q001"
+    ],
+    "全蓝0级": [
+      "Q003"
+    ],
+    "全蓝12级": [
+      "Q007"
+    ],
+    "全红0级": [
+      "Q004"
+    ],
+    "全红12级": [
+      "Q006"
+    ],
+    "红组0": [
+      "Q003"
+    ],
+    "红组1": [
+      "Q001"
+    ],
+    "红组2": [
+      "Q004",
+      "Q022"
+    ],
+    "红组3": [
+      "Q023"
+    ],
+    "红组4": [
+      "Q011",
+      "Q024"
+    ],
+    "红组5": [
+      "Q025"
+    ],
+    "红组6": [
+      "Q026"
+    ],
+    "红组7": [
+      "Q027"
+    ],
+    "红组8": [
+      "Q028"
+    ],
+    "红组9+": [
+      "Q029"
+    ],
+    "C24": [
+      "Q031"
+    ],
+    "C25": [
+      "Q034"
+    ],
+    "C73": [
+      "Q032"
+    ],
+    "C146": [
+      "Q033"
+    ],
+    "C69": [
+      "Q035"
+    ],
+    "点数有效化": [
+      "Q040"
+    ],
+    "封印": [
+      "Q042"
+    ],
+    "基础分附魔": [
+      "Q044"
+    ],
+    "倍率附魔": [
+      "Q008",
+      "Q045"
+    ],
+    "黄金": [
+      "Q008",
+      "Q050",
+      "Q052"
+    ],
+    "玻璃": [
+      "Q053",
+      "Q054"
+    ],
+    "再计": [
+      "Q009",
+      "Q172"
+    ],
+    "精确减半": [
+      "Q010",
+      "Q016"
+    ],
+    "末尾取整": [
+      "Q003",
+      "Q015"
+    ],
+    "顺子与同点同时成立": [
+      "Q017"
+    ],
+    "实际12级表观0级": [
+      "Q019"
+    ],
+    "C49两个同名惩罚": [
+      "Q111"
+    ],
+    "C138预算先后": [
+      "Q091",
+      "Q092"
+    ],
+    "C53票0": [
+      "Q069"
+    ],
+    "C53票1": [
+      "Q070"
+    ],
+    "C53票2": [
+      "Q071"
+    ],
+    "C53票3": [
+      "Q011",
+      "Q072"
+    ],
+    "C53票4": [
+      "Q073"
+    ],
+    "C53票5": [
+      "Q074"
+    ],
+    "C53票6": [
+      "Q075"
+    ],
+    "C53票7": [
+      "Q076"
+    ],
+    "C53票8": [
+      "Q077"
+    ],
+    "C53模仿共用": [
+      "Q078"
+    ],
+    "C53失效不抽": [
+      "Q080"
+    ],
+    "C137明星": [
+      "Q184",
+      "Q185"
+    ],
+    "C137失效": [
+      "Q187"
+    ],
+    "连庄两次减半": [
+      "CHAIN-C54-1",
+      "CHAIN-C54-2",
+      "CHAIN-C54-3"
+    ],
+    "周期追赶": [
+      "CHAIN-C54-1",
+      "Q206",
+      "Q220",
+      "Q221",
+      "Q222"
+    ],
+    "停滞": [
+      "Q231"
+    ],
+    "返璞归真": [
+      "Q225",
+      "Q226",
+      "Q228"
+    ],
+    "C125读值": [
+      "Q182",
+      "Q183"
+    ],
+    "C141衰减0": [
+      "Q133"
+    ],
+    "C141衰减1": [
+      "Q134"
+    ],
+    "C141衰减2": [
+      "Q135"
+    ],
+    "C141衰减3": [
+      "Q136"
+    ],
+    "成长读值C51": [
+      "Q199"
+    ],
+    "成长读值C54": [
+      "CHAIN-C54-1"
+    ],
+    "成长读值C55": [
+      "Q205"
+    ],
+    "成长读值C56": [
+      "Q207"
+    ],
+    "成长读值C57": [
+      "Q210"
+    ],
+    "成长读值C58": [
+      "Q212"
+    ],
+    "成长读值C59": [
+      "Q213"
+    ],
+    "成长读值C60": [
+      "Q214"
+    ],
+    "成长读值C61": [
+      "Q215"
+    ],
+    "成长读值C62": [
+      "Q216"
+    ],
+    "成长读值C100": [
+      "Q084"
+    ],
+    "成长读值C125": [
+      "Q183"
+    ],
+    "成长读值C129": [
+      "Q217"
+    ],
+    "成长读值C132": [
+      "Q218"
+    ],
+    "成长读值C134": [
+      "Q219"
+    ]
+  },
+  "modifier_effect_coverage": {
+    "SealOdd": 2,
+    "SealEven": 2,
+    "SealLow": 1,
+    "SealHigh": 3,
+    "SealRed": 4,
+    "SealBlue": 3,
+    "SealFirst": 12,
+    "SealAlternate": 8,
+    "NoStraight": 8,
+    "SmallHandsOnly": 13,
+    "NoRepeatHand": 6,
+    "HandHalf": 16,
+    "ZeroLevels": 10,
+    "NoRed": 6,
+    "NoBlue": 5,
+    "FirstHalf": 10,
+    "LaterHalf": 4,
+    "PipsOnly": 13,
+    "GrowthHalf": 12,
+    "EnchantSilence": 8
+  },
+  "open_readings": {
+    "W4-01": "multiplierFactors / triggeredMultiplierIds / triggeredControllerIds 的形状规格未给：分别取 {emitterId,abilityId,numerator,denominator} 列表、因子对应的发出者实例编号列表、触发来源技能编号去重后按 Ordinal 排序。",
+    "W4-02": "C122 见五成群对朝上面已是 5 点的骰也列 pipSet=5（按“每颗…生成”的字面；执行后无变化）。",
+    "W4-03": "连庄换牌型时即使事件累计为 0 也列一条 halve=true、delta=0 的成长计划。",
+    "W4-04": "逐条即时加成卡在数额为 0 时的触发口径沿用 p1.0.0：C147 需有留池骰、C148 需剩余投掷≥1、C151 需有空栏、C152 需至少一张普通卡、C137 需至少一颗匹配；C63 总是触发，永久骰为 0 时不列加成条目。",
+    "W4-05": "C117 已是黄金面、C124 权重已满仍照列（沿用 V1.0 附录 A 的“照列，由会话夹取”）；C123 只列计划值（+1 / −2），下限 3 由会话执行。",
+    "W4-06": "基础分附魔的“原计数”字段名在可读规格里没有出现，只输出金额 enchantBaseAdd。",
+    "W4-07": "旧输入的成长值按整数原样保留并按新单位解释（乘法 / 加成为百分单位，基础分为整数分），不做事件数换算。",
+    "W4-08": "§5.1 的深蓝“已长 0.45”不是 0.4 的整数倍，只能由调试构造；样例按 growth=45 给出，读值 +1.22 与正文一致。",
+    "W4-09": "C127 移花接木不再限本关首手（§6.1“每手至少两颗时”，§12.3 删除 submissionOrdinal）。",
+    "W4-10": "C36 / C37 的 growthIndices 为前 min(3, 提交数) 颗；净和为 0 时仍给出下标与来源绑定。",
+    "W4-11": "百变模仿带倍率附魔时附魔条目的 stateOwnerId 取被模仿的真实卡；基础技能加成条目同样 emitterId=模仿者、stateOwnerId=真实卡。",
+    "W4-12": "C49 无 5 点时的 ×1/2 计入 multiplierFactors 与 controllerMultiplier，abilityId 为 C49，不产生加成条目。",
+    "W4-13": "旧输入的改写规则（C137 补 starPip、C53 表外结果改 8、缺上一主牌型补 scatter、p0.9.0 快照补 lifetime / stageHandsUsed / 栏位数、B29 / B37 失效名单重算、人员流动 turnoverUnits2 换算为 growth）是本文件自定的，逐条记在各样例的 derivedFrom.rewrites。",
+    "W4-14": "C92 纯色主义、C93 始终如一读这颗骰冻结的六个物理面，不区分永久骰与临时骰；没有六面数据的合成快照一律不满足。",
+    "W4-15": "空值约定：colorId、chosenGroupId、upgradeHandId 无值时写空串；additiveEntries 里无卡来源的 emitterId / stateOwnerId 写 null。",
+    "W4-16": "返璞归真减半的范围取 §5 表的 15 张成长卡（含 C51、C100、C125）；C141 的倒计时、C63 不在其内。"
+  },
+  "open_readings_doc": "docs/specs/v111/W4_OPEN_READINGS.md",
+  "production_comparison": "Not part of this script. The C# side compares its own results with GoldenScoresV111.json."
+}
