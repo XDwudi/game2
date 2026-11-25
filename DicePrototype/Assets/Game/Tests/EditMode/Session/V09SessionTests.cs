@@ -114,60 +114,69 @@ namespace DiceCraft.Tests
 
         [Test] public void V09_PoolCardsScoreFromTheDiceLeftBehind()
         {
-            // Submit 6,6 blue; leave 6,5,1 in the pool. C70: +6 x 3. C72: +(6+5+1) x 2. C71: x1.5 for the one pool six. C74: pool 3 >= 2 submitted, x3.
+            // p1.1.1: submit 6,6 blue; leave 6,5,1 in the pool. C70: +9 x 3. C72: +(6+5+1) x 3. C71: x1.5 for the one pool six.
+            // C74: pool 3 >= 2 submitted, bonus +4.
             var s = Selecting(new[] { 6, 6, 6, 5, 1 }, null, new[] { "C70", "C72", "C71", "C74" }, 2);
             Do(s, CommandKind.Submit);
             var b = s.State.lastSubmission.breakdown;
-            Assert.That(b.baseTotal, Is.EqualTo((12 + 18 + 24).ToString()));
-            Assert.That(b.controllerMultiplierNumerator, Is.EqualTo("9")); Assert.That(b.controllerMultiplierDenominator, Is.EqualTo("2"));
-            // 54 x pair 2 x all-blue 3 x 9/2 = 1458
-            Assert.That(b.score, Is.EqualTo("1458"));
+            Assert.That(b.baseTotal, Is.EqualTo((12 + 27 + 36).ToString()));
+            Assert.That(b.controllerMultiplierNumerator, Is.EqualTo("3")); Assert.That(b.controllerMultiplierDenominator, Is.EqualTo("2"));
+            // 75 x pair 2 x (1 + 0.25 all-blue + 4) x 3/2 = 1181.25
+            Assert.That(b.score, Is.EqualTo("1181"));
         }
 
-        [Test] public void V09_SubmitGrowthUsesTheOldValueThenGrowsAndC54ResetsOnADifferentHand()
+        [Test] public void V09_SubmitGrowthUsesTheOldValueThenGrowsAndC54HalvesOnADifferentHand()
         {
+            // p1.1.1 section 5. Five red 4s: 20 pips, five of a kind x12, red group of five x4.5, all red +0.5.
+            // Start values: C55 +12 base, C54 x1.25, C56 +1, C57 +1.
             var s = Selecting(Fours, Reds, new[] { "C55", "C54", "C56", "C57" });
             Do(s, CommandKind.Submit);
-            // 20 pips, five of a kind x12, all red x2, red group of five x5; every growth card still at its start value.
-            Assert.That(s.State.lastSubmission.breakdown.score, Is.EqualTo("2400"));
-            Assert.That(Growth(s, "C55"), Is.EqualTo(2)); Assert.That(Growth(s, "C54"), Is.Zero, "No previous hand: C54 stays at x1.");
-            Assert.That(Growth(s, "C56"), Is.Zero, "Red dice were submitted."); Assert.That(Growth(s, "C57"), Is.EqualTo(3));
+            // (20 + 12) x 12 x 4.5 x (1 + 0.5 + 1 + 1) x 1.25 = 7560; every growth card still at its start value.
+            Assert.That(s.State.lastSubmission.breakdown.score, Is.EqualTo("7560"));
+            Assert.That(Growth(s, "C55"), Is.EqualTo(3)); Assert.That(Growth(s, "C54"), Is.Zero, "No previous hand: C54 stays at x1.25.");
+            Assert.That(Growth(s, "C56"), Is.Zero, "Red dice were submitted."); Assert.That(Growth(s, "C57"), Is.EqualTo(80));
 
             s = Force(s, Fours, "red"); Do(s, CommandKind.Submit);
-            // base 20 + C55 growth 2 = 22; x12 x2 x5 = 2640; C57 x23/20 = 3036. C54 only grows after this hand.
-            Assert.That(s.State.lastSubmission.breakdown.score, Is.EqualTo("3036"));
-            Assert.That(Growth(s, "C55"), Is.EqualTo(4)); Assert.That(Growth(s, "C54"), Is.EqualTo(3)); Assert.That(Growth(s, "C57"), Is.EqualTo(6));
+            // (20 + 15) x 12 x 4.5 x (1 + 0.5 + 1 + 1.8) x 1.25 = 10158.75. C54 only grows after this hand.
+            Assert.That(s.State.lastSubmission.breakdown.score, Is.EqualTo("10158"));
+            Assert.That(Growth(s, "C55"), Is.EqualTo(6)); Assert.That(Growth(s, "C54"), Is.EqualTo(10)); Assert.That(Growth(s, "C57"), Is.EqualTo(160));
 
             s = Force(s, new[] { 6, 6, 5, 5, 3 }, "blue"); var result = Do(s, CommandKind.Submit);
-            // base 25 + 4 = 29; two pair x3; all blue x3 = 261; C54 x23/20; C57 x26/20 -> floor(261 x 598 / 400) = 390.
-            Assert.That(s.State.lastSubmission.breakdown.score, Is.EqualTo("390"));
-            Assert.That(Growth(s, "C54"), Is.Zero, "A different primary hand resets C54.");
-            Assert.That(Growth(s, "C55"), Is.EqualTo(6)); Assert.That(Growth(s, "C56"), Is.EqualTo(2)); Assert.That(Growth(s, "C57"), Is.EqualTo(6));
-            Assert.That(result.receipt.effects.Any(e => e.kind == "ControllerGrowthReset" && e.sourceId == "C54" && e.oldValue == 3 && e.newValue == 0), Is.True);
+            // (25 + 18) x two pair 3 x (1 + 0.25 all-blue + 1 + 2.6) x 1.35 = 43 x 3 x 4.85 x 1.35 = 844.6275.
+            Assert.That(s.State.lastSubmission.breakdown.score, Is.EqualTo("844"));
+            Assert.That(Growth(s, "C54"), Is.EqualTo(5), "A different primary hand halves what C54 has grown.");
+            Assert.That(Growth(s, "C55"), Is.EqualTo(9)); Assert.That(Growth(s, "C56"), Is.EqualTo(40)); Assert.That(Growth(s, "C57"), Is.EqualTo(160));
+            Assert.That(result.receipt.effects.Any(e => e.kind == "ControllerGrowthHalved" && e.sourceId == "C54" && e.oldValue == 10 && e.newValue == 5), Is.True);
         }
 
         [Test] public void V09_MimicUsesTheOwnersGrowthButOnlyTheRealCardGrows()
         {
             var s = Selecting(Fours, Reds, new[] { "C41", "C55" });
             Do(s, CommandKind.Submit);
-            Assert.That(s.State.lastSubmission.breakdown.score, Is.EqualTo("2400")); Assert.That(Growth(s, "C55"), Is.EqualTo(2), "One real card, one growth step.");
+            // p1.1.1: base 20 + 12 (real) + 12 (mimic); x12 x4.5 x1.5 = 44 x 81 = 3564.
+            Assert.That(s.State.lastSubmission.breakdown.score, Is.EqualTo("3564")); Assert.That(Growth(s, "C55"), Is.EqualTo(3), "One real card, one growth step.");
             s = Force(s, Fours, "red"); Do(s, CommandKind.Submit);
-            // base 20 + 2 (real) + 2 (mimic reads the same value) = 24; x120 = 2880.
-            Assert.That(s.State.lastSubmission.breakdown.score, Is.EqualTo("2880")); Assert.That(Growth(s, "C55"), Is.EqualTo(4));
+            // base 20 + 15 (real) + 15 (mimic reads the same value) = 50; x81 = 4050.
+            Assert.That(s.State.lastSubmission.breakdown.score, Is.EqualTo("4050")); Assert.That(Growth(s, "C55"), Is.EqualTo(6));
             Assert.That(s.State.controllers.Single(c => c.definitionId == "C41").state.growth, Is.Zero);
         }
 
-        [Test] public void V09_C62GrowsOnEveryRollAndC90OnEveryGlassBreak()
+        [Test] public void V09_C62GrowsOnEveryRollAndTheSubmissionOfThatHandReadsIt()
         {
+            // p1.1.1 section 5: +1 right after every successful roll; three rolls in one hand: +12 + 3 = +15 for that hand.
             var s = Ready("C62"); Do(s, CommandKind.Roll); Assert.That(Growth(s, "C62"), Is.EqualTo(1));
             Do(s, CommandKind.Roll); Assert.That(Growth(s, "C62"), Is.EqualTo(2));
+            Do(s, CommandKind.Roll); Lock(s, "D001"); Do(s, CommandKind.Submit);
+            Assert.That(s.State.lastSubmission.breakdown.controllerBaseAdds.Single(a => a.abilityId == "C62").amount, Is.EqualTo("15"));
 
-            var broken = Edit(Ready("C90"), x => { x.dice[0].isGlass = true; x.effectRngState = SeedWithFirstTicket(100, 0); });
-            Do(broken, CommandKind.Roll);
-            Assert.That(broken.State.dice.Count, Is.EqualTo(4)); Assert.That(Growth(broken, "C90"), Is.EqualTo(15), "+0.75 per broken glass die");
-            var kept = Edit(Ready("C90"), x => { x.dice[0].isGlass = true; x.effectRngState = SeedWithFirstTicket(100, 99); });
-            Do(kept, CommandKind.Roll);
-            Assert.That(kept.State.dice.Count, Is.EqualTo(5)); Assert.That(Growth(kept, "C90"), Is.Zero);
+            // C90 was removed in p1.1.1 and glass no longer breaks on a roll (section 7.3): whatever the ticket, the
+            // roll keeps all five dice, draws nothing from the effect stream, and C62 still grows.
+            foreach (int ticket in new[] { 0, 99 })
+            {
+                var glass = Edit(Ready("C62"), x => { x.dice[0].isGlass = true; x.effectRngState = SeedWithFirstTicket(100, ticket); });
+                uint before = glass.State.effectRngState; Do(glass, CommandKind.Roll);
+                Assert.That(glass.State.dice.Count, Is.EqualTo(5)); Assert.That(glass.State.effectRngState, Is.EqualTo(before)); Assert.That(Growth(glass, "C62"), Is.EqualTo(1));
+            }
         }
 
         [Test] public void V09_StageClearGrowsC58C59PaysC95WidensInterestWithC96AndRaisesResaleWithC99()
@@ -178,13 +187,13 @@ namespace DiceCraft.Tests
             Assert.That(r.interestPrincipalCap, Is.EqualTo(50)); Assert.That(r.interestPrincipal, Is.EqualTo(40)); Assert.That(r.interest, Is.EqualTo(8));
             Assert.That(r.controllerIncome, Is.EqualTo(3)); Assert.That(r.unusedSubmissionReward, Is.EqualTo(2));
             Assert.That(r.goldAfter, Is.EqualTo(40 + 5 + 2 + 8 + 3)); Assert.That(s.State.gold, Is.EqualTo(58));
-            Assert.That(Growth(s, "C58"), Is.EqualTo(4), "+0.2 per cleared stage"); Assert.That(Growth(s, "C59"), Is.EqualTo(8), "+4 for each of the two unused submissions");
+            Assert.That(Growth(s, "C58"), Is.EqualTo(15), "p1.1.1: +0.15 per cleared stage"); Assert.That(Growth(s, "C59"), Is.EqualTo(12), "p1.1.1: +6 for each of the two unused submissions");
             Assert.That(s.State.controllers.All(c => c.state.saleBonus == 1), Is.True, "C99 raises every owned controller, itself included.");
             Do(s, CommandKind.Continue);
             string id = s.State.controllers.Single(c => c.definitionId == "C58").instanceId;
-            Assert.That(s.GetControllerSalePrice(id), Is.EqualTo(8 / 2 + 1));
-            Do(s, CommandKind.Sell, c => c.itemInstanceId = id); Assert.That(s.State.gold, Is.EqualTo(63));
-            Assert.That(new GameSession(cfg, new MemorySaveStore(), s.State).State.gold, Is.EqualTo(63), "The settlement with the new income fields restores.");
+            Assert.That(s.GetControllerSalePrice(id), Is.EqualTo(7 / 2 + 1), "p1.1.1: C58 costs 7");
+            Do(s, CommandKind.Sell, c => c.itemInstanceId = id); Assert.That(s.State.gold, Is.EqualTo(62));
+            Assert.That(new GameSession(cfg, new MemorySaveStore(), s.State).State.gold, Is.EqualTo(62), "The settlement with the new income fields restores.");
         }
 
         [Test] public void V09_C60GrowsOnDieUpgradesAndC61OnEveryLevelGained()
@@ -192,15 +201,16 @@ namespace DiceCraft.Tests
             string upgrade = null, hand = null;
             var s = Edit(Shop(), x => { x.gold = 100; Equip(x, "C60", "C61"); upgrade = PutOffer(x, "die_upgrade", "U01"); hand = PutOffer(x, "hand_upgrade", "pair"); });
             Do(s, CommandKind.Buy, c => { c.offerId = upgrade; c.targetDieId = s.State.dice[0].dieId; c.targetFaceId = "F02"; });
-            Assert.That(Growth(s, "C60"), Is.EqualTo(2)); Assert.That(Growth(s, "C61"), Is.Zero);
-            Do(s, CommandKind.Buy, c => c.offerId = hand); Assert.That(Growth(s, "C61"), Is.EqualTo(2));
-            Do(s, CommandKind.Study, c => c.handId = "trips"); Assert.That(Growth(s, "C61"), Is.EqualTo(4));
-            Assert.That(Growth(s, "C60"), Is.EqualTo(2), "Hand upgrades are not die upgrades.");
+            // p1.1.1 section 5: C60 +0.5 per die-upgrade purchase, C61 +0.5 per level actually gained (hundredths).
+            Assert.That(Growth(s, "C60"), Is.EqualTo(50)); Assert.That(Growth(s, "C61"), Is.Zero);
+            Do(s, CommandKind.Buy, c => c.offerId = hand); Assert.That(Growth(s, "C61"), Is.EqualTo(50));
+            Do(s, CommandKind.Study, c => c.handId = "trips"); Assert.That(Growth(s, "C61"), Is.EqualTo(100));
+            Assert.That(Growth(s, "C60"), Is.EqualTo(50), "Hand upgrades are not die upgrades.");
 
             var upgraded = Edit(Selecting(Fours, Reds, new[] { "C43", "C61" }), x => x.previousPrimaryHandId = "five_kind");
             Do(upgraded, CommandKind.Submit);
             Assert.That(upgraded.State.handLevels.Single(h => h.handId == "five_kind").level, Is.EqualTo(1));
-            Assert.That(Growth(upgraded, "C61"), Is.EqualTo(2), "The level granted by C43 counts.");
+            Assert.That(Growth(upgraded, "C61"), Is.EqualTo(50), "The level granted by C43 counts.");
         }
 
         [Test] public void V09_C97PaysWhenOneSubmissionReachesHalfTheTargetAtMostTwiceAStage()
@@ -220,12 +230,12 @@ namespace DiceCraft.Tests
 
         [Test] public void V09_C97ComparesAgainstExactlyHalfTheTarget()
         {
-            // Stage 1 target 300. One blue 5 with C50 (+20): (5 + 20) x 3 = 75 < 150. Two blue 5s: (10 + 20) x pair 2 x 3 = 180 >= 150.
+            // p1.1.1: stage 1 target 160, half is 80. One blue 5 with C50 (+30): (5 + 30) x 1.25 = 43.75 -> 43 < 80.
             var below = Selecting(new[] { 5 }, new[] { "blue" }, new[] { "C97", "C50" }); Do(below, CommandKind.Submit);
-            Assert.That(below.State.lastSubmission.breakdown.score, Is.EqualTo("75")); Assert.That(below.State.gold, Is.Zero);
-            // Exactly 150: one blue 5 with C50 and C46 (x2): 25 x 3 x 2 = 150.
-            var exact = Selecting(new[] { 5 }, new[] { "blue" }, new[] { "C97", "C50", "C46" }); Do(exact, CommandKind.Submit);
-            Assert.That(exact.State.lastSubmission.breakdown.score, Is.EqualTo("150")); Assert.That(exact.State.gold, Is.EqualTo(3));
+            Assert.That(below.State.lastSubmission.breakdown.score, Is.EqualTo("43")); Assert.That(below.State.gold, Is.Zero);
+            // Exactly 80: a red 5 and a blue 5 (a pair, mixed colours, no colour bonus) with C50: (10 + 30) x 2 = 80.
+            var exact = Selecting(new[] { 5, 5 }, new[] { "red", "blue" }, new[] { "C97", "C50" }); Do(exact, CommandKind.Submit);
+            Assert.That(exact.State.lastSubmission.breakdown.score, Is.EqualTo("80")); Assert.That(exact.State.gold, Is.EqualTo(3));
         }
 
         [Test] public void V09_C98LowersControllerAndDieUpgradePricesPerSourceWithAFloorOfOne()
@@ -247,12 +257,12 @@ namespace DiceCraft.Tests
             long before = twice.State.gold; Do(twice, CommandKind.Buy, c => c.offerId = dear); Assert.That(twice.State.gold, Is.EqualTo(before - 4));
         }
 
-        [Test] public void V09_AltarDestroysItsRightNeighbourAtStageStartAndGainsATenthOfItsPrice()
+        [Test] public void V09_AltarDestroysItsRightNeighbourAtStageStartAndGainsFifteenHundredthsPerGoldOfItsPrice()
         {
             var s = Edit(New(), x => Equip(x, "C13", "C100", "C50", "C46"));
             var start = Do(s, CommandKind.StartStage);
             Assert.That(s.State.controllers.Select(c => c.definitionId), Is.EqualTo(new[] { "C13", "C100", "C46" }));
-            Assert.That(Growth(s, "C100"), Is.EqualTo(8), "C50 costs 4: +0.4 is eight steps of 0.05.");
+            Assert.That(Growth(s, "C100"), Is.EqualTo(60), "p1.1.1: C50 costs 4: 4 x 0.15 = +0.6, in hundredths.");
             Assert.That(start.receipt.effects.Count(e => e.kind == "ControllerSacrificed"), Is.EqualTo(1));
             Assert.That(s.State.stage.controllerOrderSnapshot.Length, Is.EqualTo(3), "Order is frozen after the sacrifice.");
 
@@ -264,9 +274,9 @@ namespace DiceCraft.Tests
         {
             var s = Edit(New(), x => Equip(x, "C100", "C100", "C13"));
             Do(s, CommandKind.StartStage);
-            // The left altar destroys the second altar (price 6: +12). The survivor's new right neighbour is C13, but each altar acts once.
+            // The left altar destroys the second altar (price 6: 6 x 0.15 = +0.9). The survivor's new right neighbour is C13, but each altar acts once.
             Assert.That(s.State.controllers.Select(c => c.definitionId), Is.EqualTo(new[] { "C100", "C13" }));
-            Assert.That(s.State.controllers[0].state.growth, Is.EqualTo(12));
+            Assert.That(s.State.controllers[0].state.growth, Is.EqualTo(90));
         }
 
         [Test] public void V09_MimicOfTheAltarSharesItsMultiplierButNeverSacrifices()
@@ -274,10 +284,10 @@ namespace DiceCraft.Tests
             var s = Edit(New(), x => Equip(x, "C41", "C100", "C13"));
             Do(s, CommandKind.StartStage);
             Assert.That(s.State.controllers.Select(c => c.definitionId), Is.EqualTo(new[] { "C41", "C100" }), "Only the real altar destroyed its neighbour.");
-            Assert.That(Growth(s, "C100"), Is.EqualTo(4), "C13 costs 2.");
+            Assert.That(Growth(s, "C100"), Is.EqualTo(30), "C13 costs 2: 2 x 0.15.");
             s = Force(s, Fours, "red"); Do(s, CommandKind.Submit);
-            // 2400 x (24/20) x (24/20) = 3456
-            Assert.That(s.State.lastSubmission.breakdown.score, Is.EqualTo("3456"));
+            // p1.1.1: 20 x 12 x 4.5 x 1.5 = 1620; the altar and its mimic each multiply by 1.25 + 0.30: 1620 x 1.55 x 1.55 = 3892.05
+            Assert.That(s.State.lastSubmission.breakdown.score, Is.EqualTo("3892"));
         }
 
         // ---- added after the independent review (docs/tasks/P0-V09.md): real rolls, altar previews, mimic stacking,
@@ -295,8 +305,8 @@ namespace DiceCraft.Tests
             Lock(thrice, "D001"); Do(thrice, CommandKind.Submit);
             var snapshot = thrice.State.lastSubmission.snapshot; var b = thrice.State.lastSubmission.breakdown;
             Assert.That(snapshot.rollsUsed, Is.EqualTo(3)); Assert.That(snapshot.rollsRemaining, Is.Zero); Assert.That(snapshot.poolDice.Length, Is.EqualTo(4));
-            Assert.That(Triggered(thrice, "C75"), Is.False, "Three rolls: no x3."); Assert.That(Triggered(thrice, "C77"), Is.True, "No rolls left: x2.");
-            Assert.That(b.controllerBaseAdds.Single(a => a.abilityId == "C76").amount, Is.EqualTo("20"), "+10 for each roll after the first");
+            Assert.That(Triggered(thrice, "C75"), Is.False, "Three rolls: no +4.5."); Assert.That(Triggered(thrice, "C77"), Is.True, "No rolls left: +2.5.");
+            Assert.That(b.controllerBaseAdds.Single(a => a.abilityId == "C76").amount, Is.EqualTo("30"), "p1.1.1: +15 for each roll after the first");
 
             var once = Ready("C75", "C76", "C77");
             Do(once, CommandKind.Roll); Lock(once, "D001"); Do(once, CommandKind.Submit);
@@ -336,13 +346,14 @@ namespace DiceCraft.Tests
         [Test] public void V09_C68AndC102OnlyActOnTheLastSubmissionOfTheStage()
         {
             var s = Selecting(Fours, Reds, new[] { "C102", "C68" });
-            Do(s, CommandKind.Submit); Assert.That(s.State.lastSubmission.breakdown.score, Is.EqualTo("2400")); Assert.That(Triggered(s, "C102"), Is.False);
-            s = Force(s, Fours, "red"); Do(s, CommandKind.Submit); Assert.That(s.State.lastSubmission.breakdown.score, Is.EqualTo("2400"));
+            // p1.1.1: five red 4s are 20 x 12 x 4.5 x (1 + 0.5) = 1620.
+            Do(s, CommandKind.Submit); Assert.That(s.State.lastSubmission.breakdown.score, Is.EqualTo("1620")); Assert.That(Triggered(s, "C102"), Is.False);
+            s = Force(s, Fours, "red"); Do(s, CommandKind.Submit); Assert.That(s.State.lastSubmission.breakdown.score, Is.EqualTo("1620"));
             s = Force(s, Fours, "red"); Do(s, CommandKind.Submit);
-            // Last chance: every die counts twice (base 40), and C102 multiplies by 3: 40 x 12 x 2 x 5 x 3.
+            // Last chance: every die counts twice (base 40), and C102 adds +4.5: 40 x 12 x 4.5 x (1 + 0.5 + 4.5) = 12960.
             Assert.That(s.State.lastSubmission.snapshot.submissionsRemainingBefore, Is.EqualTo(1));
             Assert.That(s.State.lastSubmission.breakdown.pipRetriggers, Is.EqualTo(new[] { 1, 1, 1, 1, 1 }));
-            Assert.That(s.State.lastSubmission.breakdown.score, Is.EqualTo("14400"));
+            Assert.That(s.State.lastSubmission.breakdown.score, Is.EqualTo("12960"));
         }
 
         // v1.1 rewrite (RULES_DELTA): buying a second copy of a grown card neither trades the old one in nor touches it. The
