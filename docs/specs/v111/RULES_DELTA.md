@@ -32,13 +32,13 @@
 | 5 逐骰贡献 | 有效点数 → 逐骰基础加值 → 飘忽不定 ×3 → 始终如一每来源 ×3 → 玻璃 ×3。黄金贡献改在步骤 9。封印骰为 0；`PipsOnly` 时其余骰只取有效点数 |
 | 6 再计 | 按来源顺序为每颗目标骰累加再计次数 `r`。点数合计 = Σ 逐骰贡献 × (1 + r)。封印骰照记再计次数。再计只重复步骤 5 的结果，不增加提交数，不重新触发卡牌、黄金、等级、改面、随机或成长 |
 | 7 基础分 | 点数合计 + 未用投掷奖励 + 整手基础分加值 + 基础分附魔。整手基础分卡见 §4–5。每个触发且附魔有效的基础分附魔加 15。`PipsOnly` 保留点数、再计和未用投掷奖励，抑制其它本步加值 |
-| 8 牌型倍率 | `H0 = max(1, 同点倍率 + 顺子倍率 + 牌型倍率加值)`。成双成对、三足鼎立、一条龙在此加。先应用不重样 `NoRepeatHand`（本关曾交过相同非散点主牌型则 ×1），再应用 `HandHalf`：以百分单位整除，`H100 = max(100, floor(H100 / 2))`，与 p1.1.0 相同（×2.25 减半为 ×1.12） |
+| 8 牌型倍率 | `H0 = max(1, 同点倍率 + 顺子倍率 + 牌型倍率加值)`。成双成对、三足鼎立、一条龙在此加。先应用不重样 `NoRepeatHand`（本关曾交过相同非散点主牌型则 ×1），再应用 `HandHalf`：以百分单位整除，`H100 = max(100, floor(H100 / 2))`，与 p1.1.0 相同（×2.75 减半为 ×1.37） |
 | 9 加成与连乘 | 加成合计依次记录颜色、每颗提交黄金面、触发的基础技能加成、触发的倍率附魔。加成项全相加。按公式依次乘牌型、红组、`1+A`、控制器侧因子、灵光一闪、`FirstHalf`／`LaterHalf`，最后取整。C49 无 5 时每个触发来源在控制器侧 ×1/2。倍率附魔有效时每个触发来源 +1.5。附魔静默既不取消基础技能的触发，也不影响不占栏位附魔 |
 | 10 计分后计划 | 返回冻结时产生的扣款、收入、改写、升级、成长、C45 重抽、C42 自毁和玻璃风险资料。会话一次事务存分、更新纪录、扣提交次数并增序号；执行永久改写、提交成长、存钱罐收入、一掷千金扣款、牌型升级及相关成长、削级、更新上一主牌型、C45 重抽、C42 自毁、以战养战、首领税，最后按 §7 判玻璃。随后更新主牌型历史、达标锁存与后继，成功过关走一次关末结算 |
 
 加成项用本手实际提交行计算。黄金面每颗 +0.5，封印或 `PipsOnly` 仍保留该项；`NoRed`／`NoBlue` 只清除对应的颜色加成，不改黄金面或卡牌条件。`ZeroLevels` 时颜色仍给 0 级值。失效卡不产生基础技能加成、附魔加成、再计或该卡的成长事件，仍计入持有数。重复持有的加成、基础分、再计与经济来源按各自规则叠加。百变模仿有有效绑定时，与真实目标并列发出一份该技能。
 
-例。基础分 20、牌型 ×3、红组 ×2、两张卡分别 +2 与 +3、一颗黄金面 +0.5、触发倍率附魔 +1.5，得 `A=7`。再乘 ×2.5 的卡与首领 ×1/2，最终 `20×3×2×8×2.5×0.5 = 1200`。该黄金骰再计一次只改变基础分。若该骰贡献 4，则基础分变 24，加成合计仍是 7。若牌型倍率 2.25 被减半，按百分单位整除得 ×1.12；基础分 200 且其余因子均为 1 时得 224。
+例。基础分 20、牌型 ×3、红组 ×2、两张卡分别 +2 与 +3、一颗黄金面 +0.5、触发倍率附魔 +1.5，得 `A=7`。再乘 ×2.5 的卡与首领 ×1/2，最终 `20×3×2×8×2.5×0.5 = 1200`。该黄金骰再计一次只改变基础分。若该骰贡献 4，则基础分变 24，加成合计仍是 7。若 1 级一对（×2.75）被减半，按百分单位整除得 ×1.37；基础分 200 且其余因子均为 1 时得 274。
 
 ## 3. 颜色、红组与等级
 
@@ -401,7 +401,7 @@ B25、B29、B37 的失效名单在祭坛与替罪羊处理后、其它关初技�
 | 字段 | 稳定规则 |
 | --- | --- |
 | `colorAdd100`（替 `colorMult100`） | 本手实际颜色加成的百分单位，混色或被对应减益清除时为 0，`colorId` 保持 |
-| `additiveEntries[]` | 依次为颜色（非零才列）、每颗黄金面（提交顺序）、基础技能各项（卡列顺序）、倍率附魔各项（卡列顺序）。每条 `{kind,abilityId,emitterId,stateOwnerId,dieIndex,amount100}`，`amount100` 是百分单位的正整数。四种 kind 为 `color,gold,controller,enchantment`；颜色 abilityId 为颜色 ID，黄金为 `U06`，倍率附魔为 `mult2`，卡牌为实际技能 ID。无卡来源的实例字段为 null，非黄金的 `dieIndex` 为 null，黄金为零基提交下标。零加成不列 |
+| `additiveEntries[]` | 依次为颜色（非零才列）、每颗黄金面（提交顺序）、基础技能各项（卡列顺序）、倍率附魔各项（卡列顺序）。每条 `{kind,abilityId,emitterId,stateOwnerId,dieIndex,amount100}`，`amount100` 是百分单位的正整数。四种 kind 为 `color,gold,controller,enchantment`；颜色 abilityId 为颜色 ID，黄金为 `U06`，倍率附魔为 `mult2`，卡牌为实际技能 ID。无卡来源的实例字段为 null；`dieIndex` 是整数，黄金为零基提交下标，其余为 −1。倍率附魔条目的 `emitterId`、`stateOwnerId` 照抄触发它的那个技能来源（模仿者带附魔时，`stateOwnerId` 是被模仿的卡）。`amount100` 与 `additiveTotal100` 是 64 位整数。零加成不列 |
 | `additiveTotal100` | 加成合计 `A` 的百分单位整数，没有加成时为 0。加成因子 `1+A` = (100 + `additiveTotal100`) / 100 |
 | `enchantAdditiveCount`（替 `enchantMultiplierCount`） | 有效倍率附魔加成项数。基础分附魔的原计数口径保留，`PipsOnly` 禁计分时金额为 0 |
 | `totalHandMult100`、`handMultBeforeModifier100` | 不变，仍是百分单位整数 |
@@ -425,23 +425,23 @@ W2 基于现行 p1.1.0 生成 p1.1.1。字段名和单位如下。凡后缀 `100
 | 颜色、牌型、红组 | 颜色删 `baseMult100`、`incrementPerLevel100`、`multiplierZone`，增 `baseAdd100`（蓝 25、红 50）、`addPerLevel100=50`。可升级定义的 `maxLevel=12`。红组按 0–8 的 `factor100` 列表为 `[100,100,100,200,300,450,600,800,1100]` |
 | 卡牌共用 | 每张定义增必填 `isCultivation`，真值只限 §6 名单。删 C90/C128/C145 定义及参数行，增 C154–C156。普通／罕见／稀有数量为 29／88／33。稀有度变化时按已有稀有度权重同步 `offerWeight` |
 | 附魔 | `enchantRules` 增 `shopChanceByCyclePercent=[10,20,35,45,55,60,65,65]`。删 `scoreMultiplier`，增 `scoreAdd100=150`；`baseAdd=15`。附魔表保留稳定 ID、现有非空权重和原先非商店用池。改变 `mult2.buyPremium=5`，非提交清单删 C128/C145、加 C154，`scoreEnchantEligible` 一致 |
-| 商店与成长 | `shop` 增 `selfDieUpgradeLimit=2`、`selfDieUpgradePremium=1`、`uniqueControllerIds`（§9.3）。`upgradePricePerExistingLevel=1`。顶层增 `growthCatchupPerLateCycle100`，对象内 `additive=50,base=600,multiplier=10`。顶层增 `cultivationFacesPerSaleBonus=4,cultivationMaxSaleBonus=6` |
-| 道具、改造 | 道具定义加 `initialUses`，I13 为 3、其它 1。I13 的 `window=Selecting,lifetime=UntilUsesExhausted,baseBuyPrice=3,sellPrice=1`。I01/I10 基础价 1。改造定义加 `maxSelectableFaces`，§7 双面清单 2，U05 为 0，U11 为 1 |
+| 商店与成长 | `shop` 增 `selfDieUpgradeLimit=2`、`selfDieUpgradePremium=1`、`uniqueControllerIds`（§9.3）。`upgradePricePerExistingLevel=1`。顶层增 `growthCatchupPerCycle`，对象内 `additive=50,base=6,multiplier=10`（单位同 §5：加成与乘法为百分单位，基础分为整数分）。顶层增 `cultivationFacesPerSaleBonus=4,cultivationMaxSaleBonus=6` |
+| 道具、改造 | 道具定义加 `initialUses`，I13 为 3、其它 1。I13 的 `window=Selecting,lifetime=Permanent,baseBuyPrice=3,sellPrice=1`（`lifetime` 沿用点金笔的取值，次数由 `initialUses` 表达）。I01/I10 基础价 1。改造定义加 `maxSelectableFaces`，§7 双面清单 2，U05 为 0，U11 为 1 |
 | 首领和显示 | 修改 §10 中的目标字段与效果代码；`ModifierEffects` 以 `GrowthHalf` 替 `GrowthZero`。保持减益 B01–B39。内容图标数 `presentation.contentIconCount=185`，附魔徽标计数不变 |
 | 目标 | `normalTarget` 用 §11 的普通基准整数字符串；仅 `pressure` 设 `riskTarget`，等于其 3/2。每阶段奖励、顺序等字段沿用 V1.0 §2.1 |
 
-逐卡参数按下表增删。`trigger` 同步行为：即时加成用 `ScoreAdditive`，加成成长用 `GrowthAdditive`，C125 用 `GrowthMultiply`，C154 用 `Unlock`，C155 用 `ScoreMultiply`。原字段含义未变、只有表中数值变化的直接改值（例如 C10 的 `perDieAdd`、C89 的步长分子和分母、C143 的 `retriggers`、C53 的 `factorUnits2`）。
+逐卡参数按下表增删。`trigger` 同步行为：即时加成用 `ScoreAdditive`，加成成长用 `GrowthAdditive`，C125 用 `GrowthMultiply`，C154 用 `UnlockDie`，C155 用 `ScoreMultiply`。原字段含义未变、只有表中数值变化的直接改值（例如 C10 的 `perDieAdd`、C89 的步长分子和分母、C143 的 `retriggers`、C53 的 `factorUnits2`）。
 
 | 卡牌范围 | 参数键 |
 | --- | --- |
 | C06/08/11/14/18/28/30/32/40/46/74/75/77/81/82/83/86/88/102/104/105/106/144/149/153 | `scoreMultiplier` → `additiveBonus100` |
-| C09、C138 | `scoreMultiplier` → `scoreMultiplier100`；C138 的 `goldCost=2` |
+| C02、C09、C31、C33、C42、C101、C130、C138、C103 | 全部固定乘法卡的 `scoreMultiplier` → `scoreMultiplier100`（×3 写 300，×2.5 写 250）；C103 另有 `strictScoreMultiplier100=300`；C138 的 `goldCost=2`。配置里不再有 `scoreMultiplier` 键 |
 | C19、C91、C137 | C19 删 `maxPermanentSixFaceSum,perDieAdd`，增 `minOneAdd100=250,minTwoAdd100=150`。C91 删 `perDieAdd,textures`，增 `minDice=3,additiveBonus100=250`。C137 用 `additivePerMatch100=100` 替 `perDieAdd` |
 | C47、C49、C63 | C47 删 `factor,perControllerUnits2`，增 `additivePerController100=60`。C49 删 `factor,allowZero`，增 `additivePerFive100=150,noFiveMultiplier100=50`。C63 的 `perDieUnits10` → `additivePerPermanentDie100=50` |
 | C51、C54–C62、C100、C125、C129、C132、C134 | 加 `growthKind`（`additive/base/multiplier`）、`growthStart`、`growthEvent`，单位随 `growthKind`：`additive` 与 `multiplier` 是百分单位（深蓝 `growthStart=100,growthEvent=40`；连庄 `growthStart=125,growthEvent=10`），`base` 是整数分（积少成多 `growthStart=12,growthEvent=3`）。移除 `growthPerEvent`。C51 移除 `initialMultiplierUnits2,addUnits2PerRealControllerSale`，保留 `maxGrowthPerShop` 等事件约束；C100 用 `growthEvent=15` 表每 1 金事件增量，删 `growthPerBuyPrice`；C125 删 `targetIndices,textures`。参数单位按 §5 的表，包括 C59 每次未用提交和 C61 每级 |
 | C139、C141、C147、C148、C150、C151、C152 | C139 删 `stepUnits4,maxSteps`，增 `additivePerGoldStep100=50`。C141 删 `initialMultiplierUnits2`，增 `initialAdditive100=400,decayPerClear100=100`，`expireGrowth=4`。C147 的 `stepUnits4` → `additivePerPoolDie100=60`。C148 的 `perRollUnits2` → `additivePerUnusedRoll100=100`。C150 加 `additivePerPreviousSubmit100=200`。C151 的 `perSlotUnits2` → `additivePerEmptyOrdinarySlot100=125`。C152 的 `stepUnits4` → `additivePerCommon100=60` |
-| C36/37、C115、C117、C119–C124、C126–C127 | C36/37 的 `indices` 改 `[0,1,2]`，超出提交数的项忽略。C115 的 `facesPerStage=3,upgradeIds=[U03,U04,U06,U08]`。C117 的 `targetIndices` 改 `first_and_last_distinct`。C119 删 `index`，增 `targetIndices=first_and_last_distinct,facesPerDie=2`。C120/121 增 `facesPerDie=3`。C122 的 `pip=5` 改为设值语义。C123 保留 `pips=[2,3]`（冻结判定的中间区间，3 也为减点下限），另增 `lowPipDelta=1,highPipDelta=-2`。C124/126 的 `delta=2`。C127 删 `submissionOrdinal`，保留 `minDice,sourceIndex` |
-| C154、C155、C156 | C154 `freeUnlocksPerHand=1`；C155 `minFours=4,minOnes=2,scoreMultiplier=2,enhancedScoreMultiplier=4`；C156 `targetDivisor=2,additiveBonus100=500` |
+| C36/37、C115、C117、C119–C124、C126–C127 | C36/37 的 `indices` 改 `[0,1,2]`，超出提交数的项忽略。C115 的 `facesPerStage=3,upgradeIds=[U03,U04,U06,U08]`。C117 的 `targetIndices` 改 `first_and_last_distinct`。C119 删 `index`，增 `targetIndices=first_and_last_distinct,facesPerDie=2`。C120/121 增 `facesPerDie=3`。C122 的 `pip=5` 改为设值语义。C123 保留 `pips=[2,3]`（冻结判定的中间区间，3 也为减点下限），另增 `lowPipDelta=1,highPipDelta=-2,highPipFloor=3`。C124/126 的 `delta=2`。C127 删 `submissionOrdinal`，保留 `minDice,sourceIndex` |
+| C154、C155、C156 | C154 `freeUnlocksPerHand=1`；C155 `minFours=4,minOnes=2,scoreMultiplier100=200,enhancedScoreMultiplier100=400`；C156 `targetDivisor=2,additiveBonus100=500` |
 
 `ConfigJsonContract` 必须同步严格的字段和参数白名单。`ConfigValidation` 要替换现有硬编码：规则与结构版本、185 项和图标数、C01–C156 排除 C04/C16/C23/C90/C128/C145、I01–I13、普通牌型与颜色上限 12、颜色配置字段、9 档红组系数、黄金与玻璃参数、新商店字段、附魔数值与池、成长与养成名单、C53 票表、移除卡字段引用与改写语义、B29 的数量与筛选及 B06 档位。校验 §11 普通目标为偶数且高压倍率严格为 3/2、首领目标调整可整除。运行时实例编号范围、调试候选和存档版本门禁同步变更。主牌型定义数量、普通栏位容量、道具槽上限和调试实验上限仍用原数值。
 
