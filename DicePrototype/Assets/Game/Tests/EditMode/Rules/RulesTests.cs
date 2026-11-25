@@ -8,75 +8,8 @@ using UnityEngine;
 
 namespace DiceCraft.Core.Tests
 {
-    [Serializable] public sealed class GoldenFile { public GoldenCase[] cases; }
-    [Serializable]
-    public sealed class GoldenCase
-    {
-        public string id, description;
-        public GoldenInput input;
-        public ScoreBreakdown expected;
-        public SubmissionSnapshot Snapshot(GameConfig cfg)
-        {
-            var cards = input.controllers ?? Array.Empty<ControllerInstance>();
-            foreach (var card in cards) { if (card.state == null) card.state = new ControllerDynamicState(); if (card.state.turnoverUnits2 == 0) card.state.turnoverUnits2 = 3; }
-            return new SubmissionSnapshot { configVersion = cfg.configVersion, capacity = input.capacity, rollsRemaining = input.rolls_remaining, redWave = input.red_wave, submissionOrdinalBefore = input.submission_ordinal, wallet = input.wallet, previousPrimaryHandId = input.previous_primary, debug = input.debug, equippedControllers = cards.Select(c => c.Clone()).ToArray(), handLevels = input.levels.ToArray(false), colorLevels = input.color_levels.ToArray(true), mimicBindings = input.bindings.ToBindings(), resolvedRandomChoices = input.random_units2.ToChoices(), dice = input.dice.Select((d, i) => new SubmissionDie { dieId = "D" + i, faceId = "F01", currentPip = d.p, currentColor = d.c, permanentSixFaceSum = d.sum6, isGlass = d.glass, isGold = d.gold }).ToArray() };
-        }
-    }
-    [Serializable]
-    public sealed class GoldenInput
-    {
-        public GoldenDie[] dice; public ControllerInstance[] controllers; public int rolls_remaining, capacity, submission_ordinal; public bool red_wave, debug; public long wallet; public string previous_primary; public GoldenLevels levels, color_levels; public GoldenBindings bindings; public GoldenRandom random_units2;
-    }
-    [Serializable] public sealed class GoldenDie { public int p, sum6; public string c; public bool gold, glass; }
-    [Serializable]
-    public sealed class GoldenLevels
-    {
-        public int pair, two_pair, trips, full_house, three_pair, quads, two_trips, five_kind, four_pair, six_kind, seven_kind, eight_kind, straight, all_blue, all_red;
-        public HandLevel[] ToArray(bool colors) => GetType().GetFields().Where(f => (f.Name == "all_blue" || f.Name == "all_red") == colors).Select(f => new HandLevel { handId = f.Name, level = (int)f.GetValue(this) }).ToArray();
-    }
-    [Serializable]
-    public sealed class GoldenBindings
-    {
-        public string ctl_01, ctl_02, ctl_03, m;
-        public MimicBinding[] ToBindings() => GetType().GetFields().Where(f => !string.IsNullOrEmpty((string)f.GetValue(this))).Select(f => new MimicBinding { sourceInstanceId = f.Name, targetInstanceId = (string)f.GetValue(this) == GoldenJsonLoader.NullMarker ? null : (string)f.GetValue(this) }).ToArray();
-    }
-    [Serializable]
-    public sealed class GoldenRandom
-    {
-        public int ctl_01, ctl_02, ctl_04;
-        public RandomMultiplierChoice[] ToChoices() => GetType().GetFields().Where(f => (int)f.GetValue(this) != 0).Select(f => new RandomMultiplierChoice { ownerInstanceId = f.Name, units2 = (int)f.GetValue(this) }).ToArray();
-    }
-    public static class GoldenJsonLoader
-    {
-        public const string NullMarker = "__DICECRAFT_GOLDEN_NULL__";
-        public static GoldenFile Read(string json)
-        {
-            if (json.Contains(NullMarker)) throw new ArgumentException("Reserved golden JSON marker.");
-            string encoded = Regex.Replace(json, ":\\s*null(?=\\s*[,}])", ":\"" + NullMarker + "\"");
-            if (encoded.TrimStart().StartsWith("[", StringComparison.Ordinal)) encoded = "{\"cases\":" + encoded + "}";
-            var file = JsonUtility.FromJson<GoldenFile>(encoded);
-            foreach (var item in file.cases)
-            {
-                if (item.expected != null) { if (item.expected.chosenGroupId == NullMarker) item.expected.chosenGroupId = null; if (item.expected.colorId == NullMarker) item.expected.colorId = null; if (item.expected.afterScorePlan != null && item.expected.afterScorePlan.upgradeHandId == NullMarker) item.expected.afterScorePlan.upgradeHandId = null; }
-                if (item.input != null && item.input.previous_primary == NullMarker) item.input.previous_primary = null;
-            }
-            return file;
-        }
-        public static readonly string[] ExpectedFields = { "score", "baseTotal", "pipContributions", "pairKinds", "pairBaseAdd", "walletBaseAdd", "emptySlotBaseAdd", "steadyBaseAdd", "enchantBaseAdd", "chosenGroupId", "primaryHandId", "totalHandMult100", "colorId", "colorMult100", "redCount", "redMult100", "controllerMultiplierNumerator", "controllerMultiplierDenominator", "triggeredSourceIds", "enchantMultiplierCount", "afterScorePlan" };
-        public static void AssertExpected(ScoreBreakdown expected, ScoreBreakdown actual, string id)
-        {
-            foreach (string name in ExpectedFields)
-            {
-                var f = typeof(ScoreBreakdown).GetField(name); object a = f.GetValue(expected), b = f.GetValue(actual);
-                if (name == "afterScorePlan")
-                {
-                    foreach (var p in typeof(AfterScorePlan).GetFields())
-                    { if (p.FieldType.IsArray) CollectionAssert.AreEqual((IEnumerable)p.GetValue(a), (IEnumerable)p.GetValue(b), id + "." + p.Name); else Assert.That(p.GetValue(b), Is.EqualTo(p.GetValue(a)), id + "." + p.Name); }
-                }
-                else if (f.FieldType.IsArray) CollectionAssert.AreEqual((IEnumerable)a, (IEnumerable)b, id + "." + name); else Assert.That(b, Is.EqualTo(a), id + "." + name);
-            }
-        }
-    }
+    // p1.1.1 (W4b): the 160 vectors of the first golden file are now the L08- slice of GoldenScoresV111.json, read and
+    // compared by V111Golden (V111GoldenTests.cs). The old file and its JsonUtility DTOs are gone from the game data.
 
     public class RulesTests
     {
@@ -93,45 +26,65 @@ namespace DiceCraft.Core.Tests
         [SetUp] public void Setup() { config = ReadConfig(); }
         public static IEnumerable Goldens()
         {
-            var cases = GoldenJsonLoader.Read(File.ReadAllText(DataPath("GoldenScores.json"))).cases;
-            foreach (var item in cases) yield return new TestCaseData(item).SetName("GOLD-" + item.id);
-
+            // p1.1.1 (W4b): the same 160 inputs, recomputed under p1.1.1 by the independent reference (ids L08-G001...).
+            foreach (var item in V111Golden.Slice("L08-")) yield return new TestCaseData(item.id).SetName("GOLD-" + item.derivedId);
         }
 
+        // The name is historical: the comparison now covers every expected field of the p1.1.1 file (33 fields and
+        // the 19 fields of the post-score plan), see V111Golden.ExpectedFieldNames.
         [TestCaseSource(nameof(Goldens))]
-        public void Golden_All21Fields_Plan14_AndNoMutation(GoldenCase example)
+        public void Golden_All21Fields_Plan14_AndNoMutation(string id)
         {
-            var snapshot = example.Snapshot(config);
-            string before = JsonUtility.ToJson(snapshot);
-            var actual = ScoreCalculator.Evaluate(snapshot, config);
-            GoldenJsonLoader.AssertExpected(example.expected, actual, example.id);
-            Assert.That(JsonUtility.ToJson(snapshot), Is.EqualTo(before), "Pure preview mutated input.");
+            V111Golden.AssertCase(V111Golden.Case(id), config, out _); // also asserts that scoring did not mutate the snapshot
         }
 
         [Test]
         public void GoldenFile_HasExactly160UniqueCases()
         {
-            var cases = GoldenJsonLoader.Read(File.ReadAllText(DataPath("GoldenScores.json"))).cases;
-            CollectionAssert.AreEquivalent(Enumerable.Range(1, 160).Select(i => "G" + i.ToString("D3")), cases.Select(c => c.id));
+            var cases = V111Golden.Slice("L08-");
+            CollectionAssert.AreEquivalent(Enumerable.Range(1, 160).Select(i => "G" + i.ToString("D3")), cases.Select(c => c.derivedId));
+            Assert.That(cases.All(c => c.source == "GoldenScores.json" && c.id == "L08-" + c.derivedId), Is.True);
         }
         [Test]
         public void GoldenJson_PreservesNullEmptyAndNonemptyGroupIdsExactly()
         {
-            var file = GoldenJsonLoader.Read("{\"cases\":[{\"expected\":{\"chosenGroupId\":null}},{\"expected\":{\"chosenGroupId\":\"\"}},{\"expected\":{\"chosenGroupId\":\"pair\"}}]}");
-            Assert.That(file.cases[0].expected.chosenGroupId, Is.Null);
-            Assert.That(file.cases[1].expected.chosenGroupId, Is.EqualTo(""));
-            Assert.That(file.cases[2].expected.chosenGroupId, Is.EqualTo("pair"));
+            var cases = V111Golden.List(V111Golden.Obj(V111Json.Parse("{\"cases\":[{\"expected\":{\"chosenGroupId\":null}},{\"expected\":{\"chosenGroupId\":\"\"}},{\"expected\":{\"chosenGroupId\":\"pair\"}}]}"))["cases"])
+                .Select(c => V111Golden.Obj(V111Golden.Obj(c)["expected"])).ToArray();
+            Assert.That(cases[0]["chosenGroupId"], Is.Null);
+            Assert.That(cases[1]["chosenGroupId"], Is.EqualTo(""));
+            Assert.That(cases[2]["chosenGroupId"], Is.EqualTo("pair"));
         }
+        // p1.1.1 file: a missing optional id is an empty string; null is written only for "bindings" (a mimic copies
+        // its right neighbour), for a binding without a target, and for the card ids of an additive entry that has no
+        // card behind it (colour, gold face). Every null token of the raw text must be one of those.
         [Test]
         public void GoldenJson_AllOriginalNullTokensAreAccountedFor()
         {
-            string json = File.ReadAllText(DataPath("GoldenScores.json"));
+            string json = File.ReadAllText(DataPath(V111Golden.FileName));
             int allNulls = Regex.Matches(json, ":\\s*null(?=\\s*[,}])").Count;
-            int groupNulls = Regex.Matches(json, "\"chosenGroupId\"\\s*:\\s*null(?=\\s*[,}])").Count;
-            Assert.That(groupNulls, Is.GreaterThan(0));
-            Assert.That(allNulls, Is.GreaterThan(groupNulls), "v0.6 also has nullable color, previous primary and upgrade IDs.");
-            Assert.That(GoldenJsonLoader.Read(json).cases.Count(c => c.expected.chosenGroupId == null), Is.EqualTo(groupNulls));
-            Assert.That(GoldenJsonLoader.Read(json).cases.All(c => c.expected.primaryHandId != null && c.expected.score != null), Is.True);
+            int adjacency = 0, unbound = 0, cardless = 0;
+            Action<object> entries = block =>
+            {
+                if (block == null || !V111Golden.Obj(block).ContainsKey("additiveEntries")) return;
+                foreach (var entry in V111Golden.List(V111Golden.Obj(block)["additiveEntries"]).Select(V111Golden.Obj))
+                {
+                    string kind = V111Golden.Str(entry, "kind"); bool noCard = kind == "color" || kind == "gold";
+                    Assert.That(entry["emitterId"] == null, Is.EqualTo(noCard), kind + " emitterId"); Assert.That(entry["stateOwnerId"] == null, Is.EqualTo(noCard), kind + " stateOwnerId");
+                    if (noCard) cardless += 2;
+                }
+            };
+            foreach (var example in V111Golden.Cases)
+            {
+                if (example.input["bindings"] == null) adjacency++; else unbound += V111Golden.Obj(example.input["bindings"]).Values.Count(v => v == null);
+                entries(example.expected);
+                if (example.handChecks != null && example.handChecks.ContainsKey("expected")) entries(example.handChecks["expected"]);
+                Assert.That(example.expected["chosenGroupId"], Is.Not.Null, example.id); Assert.That(example.expected["colorId"], Is.Not.Null, example.id);
+                Assert.That(V111Golden.Obj(example.expected["afterScorePlan"])["upgradeHandId"], Is.Not.Null, example.id);
+                Assert.That(example.input["previousPrimary"], Is.Not.Null, example.id);
+                Assert.That(example.expected["primaryHandId"], Is.Not.Null.And.Not.Empty, example.id); Assert.That(example.expected["score"], Is.Not.Null.And.Not.Empty, example.id);
+            }
+            Assert.That(adjacency, Is.GreaterThan(0)); Assert.That(unbound, Is.GreaterThan(0)); Assert.That(cardless, Is.GreaterThan(0));
+            Assert.That(adjacency + unbound + cardless, Is.EqualTo(allNulls), "A null token outside the three documented places.");
         }
         [Test]
         public void Configuration_ContainsExactly71SupportedItemsAnd13Hands2Colors()
@@ -280,15 +233,16 @@ namespace DiceCraft.Core.Tests
         [Test]
         public void Score_RejectsEmptyDuplicateOverCapacityAndInvalidLevels()
         {
-            var example = GoldenJsonLoader.Read(File.ReadAllText(DataPath("GoldenScores.json"))).cases[0];
-            var snapshot = example.Snapshot(config);
+            var example = V111Golden.Case("L08-G001"); // p1.1.1 (W4b): the same first vector, read from the new file
+            var snapshot = V111Golden.Snapshot(example, config);
+            Assert.DoesNotThrow(() => ScoreCalculator.Evaluate(snapshot, config), "The template itself must be legal.");
             snapshot.dice = Array.Empty<SubmissionDie>();
             Assert.Throws<ArgumentException>(() => ScoreCalculator.Evaluate(snapshot, config));
-            snapshot = example.Snapshot(config); snapshot.dice = new[] { snapshot.dice[0], snapshot.dice[0] };
+            snapshot = V111Golden.Snapshot(example, config); snapshot.dice = new[] { snapshot.dice[0], snapshot.dice[0] };
             Assert.Throws<ArgumentException>(() => ScoreCalculator.Evaluate(snapshot, config));
-            snapshot = example.Snapshot(config); snapshot.capacity = 0;
+            snapshot = V111Golden.Snapshot(example, config); snapshot.capacity = 0;
             Assert.Throws<ArgumentException>(() => ScoreCalculator.Evaluate(snapshot, config));
-            snapshot = example.Snapshot(config); snapshot.handLevels = new[] { new HandLevel { handId = "pair", level = 13 } }; // p1.1.1: the normal cap is 12
+            snapshot = V111Golden.Snapshot(example, config); snapshot.handLevels = new[] { new HandLevel { handId = "pair", level = 13 } }; // p1.1.1: the normal cap is 12
             Assert.Throws<ArgumentException>(() => ScoreCalculator.Evaluate(snapshot, config));
         }
         [Test]

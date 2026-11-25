@@ -34,14 +34,16 @@ namespace DiceCraft.Presentation.Tests
         { Assert.That(ScorePresentationTier.Resolve("0", "99999999999999999999", "1"), Is.Zero); Assert.That(ScorePresentationTier.Resolve("1", "0", "1"), Is.Zero); Assert.Throws<ArgumentOutOfRangeException>(() => ScorePresentationTier.Resolve("1", "1", "0")); }
         public static IEnumerable GoldenReceipts()
         {
-            foreach (var item in GoldenJsonLoader.Read(File.ReadAllText(Path.Combine(Application.dataPath, "Game/Data/GoldenScores.json"))).cases)
-                yield return new TestCaseData(item).SetName("ART07_RECEIPT_" + item.id);
+            // p1.1.1 (W4b): the same 160 inputs, now the L08- slice of GoldenScoresV111.json (scores recomputed for p1.1.1).
+            foreach (var item in V111Golden.Slice("L08-"))
+                yield return new TestCaseData(item.id).SetName("ART07_RECEIPT_" + item.derivedId);
         }
         [TestCaseSource(nameof(GoldenReceipts))]
-        public void AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow(GoldenCase example)
+        public void AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow(string id)
         {
-            var snap = example.Snapshot(cfg); string original = JsonUtility.ToJson(snap); var receipt = Build(snap);
-            Assert.That(receipt.ScoreDecimal, Is.EqualTo(example.expected.score)); Assert.That(JsonUtility.ToJson(snap), Is.EqualTo(original));
+            var example = V111Golden.Case(id);
+            var snap = V111Golden.Snapshot(example, cfg); string original = JsonUtility.ToJson(snap); var receipt = Build(snap);
+            Assert.That(receipt.ScoreDecimal, Is.EqualTo(V111Golden.Str(example.expected, "score"))); Assert.That(JsonUtility.ToJson(snap), Is.EqualTo(original));
             Assert.That(receipt.Events.Select(e => e.EventId).Distinct().Count(), Is.EqualTo(receipt.Events.Count));
             Assert.That(PresentationSequence.Create(receipt).TotalDurationMs, Is.LessThanOrEqualTo(3200));
             Assert.That(PresentationSequence.Create(receipt, new PresentationOptions(PresentationSpeed.Fast)).TotalDurationMs, Is.LessThanOrEqualTo(800));

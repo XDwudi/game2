@@ -19,37 +19,65 @@ namespace DiceCraft.Core.Tests
         }
         public static IEnumerable GoldenTraces()
         {
-            foreach (var golden in GoldenJsonLoader.Read(File.ReadAllText(DataPath("GoldenScores.json"))).cases)
-                yield return new TestCaseData(golden).SetName("TRACE-" + golden.id);
+            // p1.1.1 (W4b): the same 160 inputs, recomputed under p1.1.1 by the independent reference (ids L08-G001...).
+            foreach (var golden in V111Golden.Slice("L08-"))
+                yield return new TestCaseData(golden.id).SetName("TRACE-" + golden.derivedId);
         }
 
         [TestCaseSource(nameof(GoldenTraces))]
-        public void Trace_All160GoldenOutputsAndEveryArithmeticLinkRemainExact(GoldenCase golden)
+        public void Trace_All160GoldenOutputsAndEveryArithmeticLinkRemainExact(string id)
         {
-            var snapshot = golden.Snapshot(config);
-            string original = JsonUtility.ToJson(snapshot), originalConfig = JsonUtility.ToJson(config);
+            string originalConfig = JsonUtility.ToJson(config);
+            AssertTrace(V111Golden.Case(id));
+            Assert.That(JsonUtility.ToJson(config), Is.EqualTo(originalConfig));
+        }
+
+        // p1.1.1 (W4b): the same chain of checks on every other input of the p1.1.1 file (the reworked L09-L11 inputs,
+        // the new cases and the per-card matrix), so that the additive zone and the new cards are explained too.
+        [Test]
+        public void Trace_EveryOtherP111GoldenInputAlsoRebuildsStepByStep()
+        {
+            var others = V111Golden.Cases.Where(c => !c.id.StartsWith("L08-", StringComparison.Ordinal)).ToArray();
+            Assert.That(others.Length, Is.GreaterThanOrEqualTo(1992));
+            var failures = new System.Collections.Generic.List<string>();
+            foreach (var golden in others)
+            {
+                try { AssertTrace(golden); }
+                catch (Exception ex) { failures.Add(golden.id + ": " + ex.Message.Split('\n')[0].Trim()); }
+            }
+            Assert.That(failures, Is.Empty, failures.Count + " inputs, first: " + string.Join(" | ", failures.Take(10)));
+        }
+
+        private void AssertTrace(V111GoldenCase golden)
+        {
+            var snapshot = V111Golden.Snapshot(golden, config);
+            string original = JsonUtility.ToJson(snapshot);
             var breakdown = ScoreCalculator.Evaluate(snapshot, config);
             string frozen = JsonUtility.ToJson(breakdown);
             var trace = ScoreExplanation.Build(snapshot, breakdown, config);
-            GoldenJsonLoader.AssertExpected(golden.expected, breakdown, golden.id);
+            Assert.That(V111Golden.Differences(golden, breakdown, config), Is.Empty, golden.id + " differs from the independent reference");
+            var contributions = V111Golden.List(golden.expected["pipContributions"]);
             Assert.That(trace.dice.Length, Is.EqualTo(snapshot.dice.Length));
             for (int i = 0; i < trace.dice.Length; i++)
             {
                 Assert.That(trace.dice[i].dieId, Is.EqualTo(snapshot.dice[i].dieId));
-                Assert.That(trace.dice[i].contribution, Is.EqualTo(golden.expected.pipContributions[i]));
+                Assert.That(trace.dice[i].contribution, Is.EqualTo((long)contributions[i]));
+                Assert.That(trace.dice[i].retriggers, Is.EqualTo(breakdown.pipRetriggers[i]));
                 string value = breakdown.effectivePips[i].ToString();
                 foreach (var step in trace.dice[i].steps) value = AssertStep(step, value);
-                Assert.That(value, Is.EqualTo(trace.dice[i].contribution.ToString()));
+                // The chain of a die ends at its total: the contribution, plus one "+ contribution x count" step per
+                // retrigger source (v0.9). Without retriggers the total is the contribution itself.
+                Assert.That(value, Is.EqualTo(trace.dice[i].total));
+                Assert.That(trace.dice[i].total, Is.EqualTo((trace.dice[i].contribution * (1 + trace.dice[i].retriggers)).ToString()));
             }
             string running = breakdown.pipSum;
             foreach (var step in trace.global) running = AssertStep(step, running);
-            Assert.That(running, Is.EqualTo(golden.expected.score));
+            Assert.That(running, Is.EqualTo(V111Golden.Str(golden.expected, "score")));
             CollectionAssert.AreEqual(breakdown.triggeredMultiplierIds, trace.global.Where(s => s.kind == "controller").Select(s => s.sourceId));
             Assert.That(trace.global.Count(s => s.operation == "floor"), Is.EqualTo(1));
             Assert.That(trace.global.Last().kind, Is.EqualTo("floor"));
             Assert.That(JsonUtility.ToJson(snapshot), Is.EqualTo(original));
             Assert.That(JsonUtility.ToJson(breakdown), Is.EqualTo(frozen));
-            Assert.That(JsonUtility.ToJson(config), Is.EqualTo(originalConfig));
         }
 
         [Test]
