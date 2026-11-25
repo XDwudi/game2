@@ -34,7 +34,7 @@ namespace DiceCraft
                 string hand=string.IsNullOrEmpty(b.chosenGroupId)?(b.straightMult100>0?"顺子":"牌型"):NameOf(b.chosenGroupId)+(b.straightMult100>0?"＋顺子":"");
                 list.Add(new Factor11{role=1,name=hand,value="×"+Factor(b.totalHandMult100),tint=UiKit.Red});
             }
-            if(b.colorMult100!=100)list.Add(new Factor11{role=2,name=string.IsNullOrEmpty(b.colorId)?"颜色":NameOf(b.colorId),value="×"+Factor(b.colorMult100),tint=b.colorId=="all_red"?UiKit.Red:UiKit.Blue});
+            if((100+b.colorAdd100)!=100)list.Add(new Factor11{role=2,name=string.IsNullOrEmpty(b.colorId)?"颜色":NameOf(b.colorId),value="×"+Factor((100+b.colorAdd100)),tint=b.colorId=="all_red"?UiKit.Red:UiKit.Blue}); // W4B-ADAPT: was colorMult100; shows 1 + the colour bonus only
             if(b.redMult100!=100)list.Add(new Factor11{role=3,name="红组",value="×"+Factor(b.redMult100),tint=UiKit.Red});
             bool zeroFive=b.multiplierFactors.Any(f=>f.abilityId=="C49"&&f.numerator=="0");
             if(zeroFive)list.Add(new Factor11{role=4,name="卡牌",value="×0 没有有效 5 点",tint=UiKit.Gold});

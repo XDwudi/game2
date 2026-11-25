@@ -60,7 +60,7 @@ namespace DiceCraft.Presentation
             Func<string, string, string> term = label ?? ((key, value) => value);
             var parts = new List<string> { term("base", number(b.baseTotal)) };
             if (b.totalHandMult100 != 100) parts.Add(term("hand", factor(b.totalHandMult100)));
-            if (b.colorMult100 != 100) parts.Add(term("color", factor(b.colorMult100)));
+            if ((100+b.colorAdd100) != 100) parts.Add(term("color", factor((100+b.colorAdd100)))); // W4B-ADAPT: was colorMult100; shows 1 + the colour bonus only
             if (b.redMult100 != 100) parts.Add(term("red", factor(b.redMult100)));
             if (b.controllerMultiplierNumerator != b.controllerMultiplierDenominator) parts.Add(term("controller", ratio(b.controllerMultiplierNumerator, b.controllerMultiplierDenominator)));
             if (b.enchantAdditiveCount > 0) parts.Add(term("enchant", enchant(b.enchantAdditiveCount))); // W3A-ADAPT: renamed field; W3b/UI merges colour and enchantment into one additive term

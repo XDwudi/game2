@@ -207,12 +207,6 @@ namespace DiceCraft.Core
         public int colorAdd100, enchantAdditiveCount;
         public long additiveTotal100;
         public AdditiveEntry[] additiveEntries = Array.Empty<AdditiveEntry>();
-        // LEGACY-GOLDEN: the golden-vector tests of p1.1.0 and earlier still read the old field name. They are kept
-        // unchanged (and fail) until the independent reference is regenerated for p1.1.1; this read-only alias only
-        // lets them compile. Not a field, so it is neither saved nor part of the contract. Remove it with those vectors.
-        // A few interface readers still show it as the "colour" factor (docs/specs/v111/W3A_NOTES.md lists them); it is
-        // 1 + the colour bonus only and ignores every other additive entry, so they must move to additiveTotal100.
-        public int colorMult100 => 100 + colorAdd100;
         public ScoreBreakdown Clone()
         {
             var result = (ScoreBreakdown)MemberwiseClone();

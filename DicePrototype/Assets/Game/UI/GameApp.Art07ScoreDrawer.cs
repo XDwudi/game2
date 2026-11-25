@@ -90,7 +90,7 @@ namespace DiceCraft
                 if (n != d) formula.Append(" × ").Append(label).Append(" ").Append(PlayerNumberFormat.Ratio(n,d,PlayerNumberFormat.Unlimited));
             }
             Factor100("牌型",b.totalHandMult100);
-            Factor100("颜色",b.colorMult100);
+            Factor100("颜色",(100+b.colorAdd100)); // W4B-ADAPT: was colorMult100; shows 1 + the colour bonus only
             Factor100("红组",b.redMult100);
             Ratio("卡牌",b.controllerMultiplierNumerator,b.controllerMultiplierDenominator);
             if (b.enchantAdditiveCount > 0) // W3A-ADAPT: renamed field; the factor is 1 until W3b/UI shows the additive line

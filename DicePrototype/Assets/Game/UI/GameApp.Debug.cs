@@ -159,7 +159,7 @@ namespace DiceCraft
             var preview=Session.PreviewScoreRange();
             string score=preview==null?"尚无可提交的已锁骰。":preview.isRandom?"随机范围 "+Big(preview.minimum.score)+" — "+Big(preview.maximum.score):Big(preview.minimum.score);
             Art07DetailSection(list,"Score","预计得分",score,ref y,560);
-            if(preview!=null)Art07DetailSection(list,"Formula","独立乘区","基础 "+preview.minimum.baseTotal+"\n牌型 ×"+Factor(preview.minimum.totalHandMult100)+" · 颜色 ×"+Factor(preview.minimum.colorMult100)+"\n红组 ×"+Factor(preview.minimum.redMult100)+"\n控制器 ×"+preview.minimum.controllerMultiplierNumerator+"/"+preview.minimum.controllerMultiplierDenominator+" · 附魔 2^"+preview.minimum.enchantAdditiveCount,ref y,560);
+            if(preview!=null)Art07DetailSection(list,"Formula","独立乘区","基础 "+preview.minimum.baseTotal+"\n牌型 ×"+Factor(preview.minimum.totalHandMult100)+" · 颜色 ×"+Factor((100+preview.minimum.colorAdd100))+"\n红组 ×"+Factor(preview.minimum.redMult100)+"\n控制器 ×"+preview.minimum.controllerMultiplierNumerator+"/"+preview.minimum.controllerMultiplierDenominator+" · 附魔 2^"+preview.minimum.enchantAdditiveCount,ref y,560); // W4B-ADAPT: was colorMult100; shows 1 + the colour bonus only
             Art07DetailSection(list,"Locked","有序提交",s.hand==null||s.hand.orderedLockedIds.Count==0?"空":string.Join(" → ",s.hand.orderedLockedIds),ref y,560);
             Art07DetailSection(list,"Rng","当前随机流",$"Dice {s.diceRngState}\nShop {s.shopRngState}\nEffect {s.effectRngState}",ref y,560);
             if(debugErrors.Count>0)Art07DetailSection(list,"Errors","候选输入错误",string.Join("\n",debugErrors.Values),ref y,560);

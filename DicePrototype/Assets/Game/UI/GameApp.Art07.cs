@@ -208,7 +208,7 @@ namespace DiceCraft
             bool zeroFive=b.multiplierFactors.Any(f=>f.abilityId=="C49"&&f.numerator=="0");
             // v1.1 (W09): decimals instead of fractions, the enchantment as its actual factor, "卡牌" for controllers (D2).
             string control=zeroFive?"卡牌 ×0\n没有有效 5 点":"卡牌 "+PlayerNumberFormat.Times(ExactScoreMath.Parse(b.controllerMultiplierNumerator),ExactScoreMath.Parse(b.controllerMultiplierDenominator),ChipDigits07);
-            string[] labels={"基础 "+PlayerNumberFormat.Integer(ExactScoreMath.Parse(b.baseTotal),9),"牌型 ×"+Factor(b.totalHandMult100),"颜色 ×"+Factor(b.colorMult100),"红组 ×"+Factor(b.redMult100),control,"附魔 "+PlayerNumberFormat.Times(EnchantFactor07(b.enchantAdditiveCount),1,ChipDigits07)};
+            string[] labels={"基础 "+PlayerNumberFormat.Integer(ExactScoreMath.Parse(b.baseTotal),9),"牌型 ×"+Factor(b.totalHandMult100),"颜色 ×"+Factor((100+b.colorAdd100)),"红组 ×"+Factor(b.redMult100),control,"附魔 "+PlayerNumberFormat.Times(EnchantFactor07(b.enchantAdditiveCount),1,ChipDigits07)}; // W4B-ADAPT: was colorMult100; shows 1 + the colour bonus only
             float bw=(w-(thin?440:48))/6;for(int i=0;i<6;i++)
             {
                 // rc.2: the shallow rail's factor hit area is 60 units (was 52) so it stays 40 physical
@@ -218,7 +218,7 @@ namespace DiceCraft
                 var text=button.GetComponentInChildren<TextMeshProUGUI>();text.fontSize=(c?15:UiKit.FontScale>1?16:20)*UiKit.FontScale;
                 text.rectTransform.anchoredPosition=new Vector2(8,-2);text.rectTransform.sizeDelta=new Vector2(bw-24,factorHeight-4);
                 text.textWrappingMode=TextWrappingModes.NoWrap;text.lineSpacing=i==4&&zeroFive?-20:0;
-                bool neutral=i==1?b.totalHandMult100==100:i==2?b.colorMult100==100:i==3?b.redMult100==100:i==4?!zeroFive&&b.controllerMultiplierNumerator==b.controllerMultiplierDenominator:i==5&&b.enchantAdditiveCount==0;
+                bool neutral=i==1?b.totalHandMult100==100:i==2?(100+b.colorAdd100)==100:i==3?b.redMult100==100:i==4?!zeroFive&&b.controllerMultiplierNumerator==b.controllerMultiplierDenominator:i==5&&b.enchantAdditiveCount==0; // W4B-ADAPT: was colorMult100; shows 1 + the colour bonus only
                 StyleFactorChip072(button,i,neutral);
                 if(thin)
                 {

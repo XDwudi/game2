@@ -46,11 +46,11 @@ namespace DiceCraft.Tests
                 var preview=app.Session.PreviewScore();
                 Assert.That(preview.totalHandMult100,Is.EqualTo(100));Assert.That(preview.redMult100,Is.EqualTo(100));
                 Assert.That(preview.controllerMultiplierNumerator,Is.EqualTo("1"));Assert.That(preview.controllerMultiplierDenominator,Is.EqualTo("1"));
-                Assert.That(preview.enchantAdditiveCount,Is.Zero);Assert.That(preview.colorMult100%100,Is.Zero);
+                Assert.That(preview.enchantAdditiveCount,Is.Zero);Assert.That((100+preview.colorAdd100)%100,Is.Zero); // W4B-ADAPT: was colorMult100; shows 1 + the colour bonus only
                 Click("Submit");app.SkipVisual();
                 var committed=app.Session.State.processedReceipts.Last();Assert.That(committed.command.kind,Is.EqualTo(CommandKind.Submit));
                 long value=long.Parse(committed.score,System.Globalization.CultureInfo.InvariantCulture);
-                expectedTotal+=value;expectedMaximum=System.Math.Max(expectedMaximum,value);expectedMultiplier=System.Math.Max(expectedMultiplier,preview.colorMult100/100);
+                expectedTotal+=value;expectedMaximum=System.Math.Max(expectedMaximum,value);expectedMultiplier=System.Math.Max(expectedMultiplier,(100+preview.colorAdd100)/100); // W4B-ADAPT: was colorMult100; shows 1 + the colour bonus only
             }
             Assert.That(app.Session.State.phase,Is.EqualTo("RunFailed"));Assert.That(app.Session.State.isDebug,Is.False);
             Assert.That(app.Session.State.processedReceipts.Count(r=>r.command.kind==CommandKind.Submit),Is.EqualTo(3));
