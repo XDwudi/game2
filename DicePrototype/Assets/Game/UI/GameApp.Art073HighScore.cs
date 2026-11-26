@@ -80,15 +80,15 @@ namespace DiceCraft
             ring.raycastTarget=false;ring.pixelsPerUnitMultiplier=.7f;var c=color;c.a=strength;ring.color=c;highScoreGlows073.Add(ring);
         }
         /// <summary>
-        /// v1.1 (W09, text proposal 1 #1): the celebration formula with a name before each factor, the enchantment as its
-        /// actual factor instead of "2^n", and the item and boss factors the score also applies. Decimals, never fractions.
+        /// v1.1 (W09, text proposal 1 #1): the celebration formula with a name before each factor and the item and boss
+        /// factors the score also applies. Decimals, never fractions. v1.1.1 (W7a): colour, gold faces, card bonuses and
+        /// the score enchantment are the one factor "加成" (1 + A).
         /// </summary>
         private string ScoreFormulaShort07(ScoreBreakdown b)
             =>HighScore073.Formula(b,n=>Factor(n),(n,d)=>ScoreFactorShort07(n,d),n=>ScoreFactorShort07(n),
-                count=>PlayerNumberFormat.Integer(EnchantFactor07(count),9),
                 (key,value)=>FormulaLabel07(key)+" "+value,
                 f=>NameOf(f.abilityId)+" "+PlayerNumberFormat.Ratio(ExactScoreMath.Parse(f.numerator),ExactScoreMath.Parse(f.denominator),9));
-        private static string FormulaLabel07(string key)=>key=="base"?"基础":key=="hand"?"牌型":key=="color"?"颜色":key=="red"?"红组":key=="controller"?"卡牌":key=="enchant"?"附魔":key;
+        private static string FormulaLabel07(string key)=>key=="base"?"基础":key=="hand"?"牌型":key=="additive"?"加成":key=="red"?"红组":key=="controller"?"卡牌":key;
         private void EndHighScore073(bool immediately)
         {
             if(highScore073==null||!highScore073.gameObject.activeSelf)return;

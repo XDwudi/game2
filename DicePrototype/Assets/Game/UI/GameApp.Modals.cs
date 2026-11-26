@@ -182,7 +182,7 @@ namespace DiceCraft
                 switch(offer.contentId)
                 {
                     case "U01":afterFace.texture="smooth";break;case "U02":afterFace.texture="rough";break;
-                    case "U03":afterFace.baseColor="red";break;case "U04":afterFace.baseColor="blue";break;case "U06":afterFace.isGold=true;break;
+                    case "U03":afterFace.baseColor="red";break;case "U04":afterFace.baseColor="blue";break;case "U06":afterFace.isGold=true;afterFace.baseWeight=Math.Min(Config.maxFaceWeight,afterFace.baseWeight+Config.gildedFaceWeightDelta);break; // p1.1.1: a newly gilded face gains weight
                     // p1.0.0: carve, plane, weight and mirror are deterministic, so they can be previewed.
                     case "U08":afterFace.permanentPip=Math.Min(Config.maxPipValue,afterFace.permanentPip+1);break;case "U09":afterFace.permanentPip=Math.Max(Config.minPipValue,afterFace.permanentPip-1);break;
                     case "U10":afterFace.baseWeight=Math.Min(Config.maxFaceWeight,afterFace.baseWeight+1);break;
@@ -212,7 +212,7 @@ namespace DiceCraft
             if(offer!=null)
             {
                 string change=offer.contentId=="U07"&&chosen!=null?"改造后这一面随机变成 "+string.Join("、",Enumerable.Range(Config.minPipValue,Config.maxPipValue-Config.minPipValue+1).Where(n=>n!=chosen.permanentPip))+" 之一（颜色、纹理、黄金不变）。":
-                    whole?offer.contentId=="O04"?"删除这颗骰子（连同改造），提交栏格数不变。至少要留 1 颗。":"整颗变成玻璃骰（计分 ×"+Config.glassContributionMultiplier+"）。每次掷到它有 "+Session.GlassBreakPercentIn(ViewState)+"% 概率碎掉，锁定后不会碎。":
+                    whole?offer.contentId=="O04"?"删除这颗骰子（连同改造），提交栏格数不变。至少要留 1 颗。":"整颗变成玻璃骰（计分 ×"+Config.glassContributionMultiplier+"）。"+GlassRiskText111+"；留在骰池里不会碎。":
                     afterFace==null?"请在右边选一个面。":offer.contentId=="U11"?"对面（"+FaceName11(Config.Opposite(chosen.faceId))+"）现在："+FaceSummary07(die.faces.First(f=>f.faceId==Config.Opposite(chosen.faceId)))+"\n改造后："+FaceSummary07(afterDie.faces.First(f=>f.faceId==Config.Opposite(chosen.faceId))):"当前："+FaceSummary07(chosen)+"\n改造后："+FaceSummary07(afterFace);
                 Art07DetailSection(layers,"PurchasePreview","改造预览",change,ref ly,424);
             }
@@ -344,7 +344,17 @@ namespace DiceCraft
                 cursor+=14;
             }
             var globalTitle=UiKit.Text(list,"GlobalTitle","整手计算",12,cursor,1440,48,28,UiKit.Gold);cursor+=FitHeight(globalTitle,48)+10;
-            for(int i=0;i<trace.global.Length;i++){var line=UiKit.Text(list,"GlobalStep"+i,ScoreStepText(trace.global[i],snapshot),12,cursor,1440,43,25);cursor+=FitHeight(line,43)+5;}
+            for(int i=0;i<trace.global.Length;i++)
+            {
+                var line=UiKit.Text(list,"GlobalStep"+i,ScoreStepText(trace.global[i],snapshot),12,cursor,1440,43,25);cursor+=FitHeight(line,43)+5;
+                // v1.1.1 (RULES_DELTA 13): the bonus line opened into its sources.
+                if(trace.global[i].kind!="additive"||trace.global[i].entries==null)continue;
+                for(int j=0;j<trace.global[i].entries.Length;j++)
+                {
+                    var entry=trace.global[i].entries[j];
+                    var sub=UiKit.Text(list,"GlobalStep"+i+"Bonus"+j,BonusSource111(entry,snapshot)+"：加成 "+Bonus111(entry.amount100),40,cursor,1410,33,23,UiKit.Muted);cursor+=FitHeight(sub,33)+4;
+                }
+            }
             string triggered=b.triggeredControllerIds.Length==0?"没有卡牌生效":string.Join(" · ",b.triggeredControllerIds.Select(NameOf));
             var footer=UiKit.Text(list,"Triggered",triggered+"\n复制、染色等永久效果在计分后才发生，不影响这一手的分数。"+(effects.Length>0?(historical?"\n\n计分后发生了：\n":"\n\n提交后会发生：\n")+effects:""),12,cursor+12,1440,260,25,UiKit.Teal);
             list.sizeDelta=new Vector2(list.sizeDelta.x,Math.Max(620,cursor+FitHeight(footer,260)+36));
@@ -363,8 +373,9 @@ namespace DiceCraft
         }
         private string ScoreStepSource07(ScoreStep step,SubmissionSnapshot snapshot=null)
         {
-            string label=step.sourceId!=null?NameOf(step.sourceId):step.kind=="glass"?"玻璃":step.kind=="gold"?"黄金面":step.kind=="unused_rolls"?"剩余掷骰奖励":step.kind=="hand"?"牌型倍率":step.kind=="color"?"颜色倍率":step.kind=="red_group"?"红组倍率":step.kind=="floor"?"去掉小数":"加分";
-            if(step.kind=="enchantment_base"||step.kind=="enchantment_multiplier")label+=" · 附魔";
+            // v1.1.1: "additive" is the one bonus line x(1 + A); the colour and the gold faces are entries of it.
+            string label=step.sourceId!=null?NameOf(step.sourceId):step.kind=="glass"?"玻璃":step.kind=="unused_rolls"?"剩余掷骰奖励":step.kind=="hand"?"牌型倍率":step.kind=="additive"?(step.entries==null||step.entries.Length==0?"加成（没有加成）":"加成（共 "+step.entries.Length+" 项）"):step.kind=="red_group"?"红组倍率":step.kind=="floor"?"去掉小数":"加分";
+            if(step.kind=="enchantment_base")label+=" · 附魔";
             if(step.kind=="retrigger")label+=" · 再计一次";
             // p1.0.0: boss modifier and item steps.
             if(step.kind=="sealed")label+=" · 封印";
@@ -389,9 +400,13 @@ namespace DiceCraft
             string label=ScoreStepSource07(step,snapshot),before=ScoreValue07(step.before),after=ScoreValue07(step.after);
             return step.operation=="floor"?$"{label}：{before} → {after}":$"{label}：{before} {step.operation} {ScoreValue07(step.operand)} → {after}";
         }
-        /// <summary>v0.9: a growth counter shown the way the card uses it ("×1.35" or "+24").</summary>
-        private static string GrowthValue09(string abilityId,long growth)
-            => ControllerRules.IsGrowthMultiplier(abilityId)?PlayerNumberFormat.Times(20+growth,20):"+"+growth;
+        /// <summary>v0.9: a recorded growth counter shown the way the card uses it. v1.1.1 (W7a): the record holds the
+        /// grown part only, so the value is start + the card's catch-up + that part: "加成 +1.4", "得分 ×1.35", "基础分 +15".</summary>
+        private string GrowthValue09(string abilityId,long growth,string instanceId=null,SubmissionSnapshot snapshot=null)
+            => GrowthShown111(abilityId,instanceId,growth,snapshot?.equippedControllers);
+        /// <summary>昙花一现 after `cleared` stages: what is left of its bonus.</summary>
+        private string EphemeralLeft111(long cleared)
+        {var p=Config.Controller("C141").parameters;return "加成 "+Bonus111(Math.Max(0,p.initialAdditive100-cleared*p.decayPerClear100));}
         private string EffectText(EffectRecord e,SubmissionSnapshot snapshot)
         {
             string added=EffectText10(e);if(added!=null)return added;
@@ -410,7 +425,7 @@ namespace DiceCraft
                 case "FaceDyed":return NameOf(e.sourceId)+"："+DieFaceName11(e.dieId,e.faceId)+(e.sourceId=="C38"?"永久染蓝":"永久染红");
                 case "FaceValueChanged":return "骰面点数："+DieFaceName11(e.dieId,e.faceId)+" "+e.oldValue+" → "+e.newValue;
                 case "DieDyed":return "永久染色："+DieName11(e.dieId)+" 六面全部染红";
-                case "DieBroken":return DieName11(e.dieId)+" 玻璃损坏，已移出骰组";
+                case "DieBroken":return DieName11(e.dieId)+" 是玻璃骰，提交后碎裂，已移出骰组";
                 case "TemporaryDieExpired":return DieName11(e.dieId)+" 临时骰已在关卡结束时移除";
                 case "ExtraRolls":return NameOf(e.sourceId)+"：增加 "+e.newValue+" 次掷骰";
                 case "SubmissionIncome":return "存钱罐：本次提交收入 +"+e.newValue+" 金币";
@@ -421,9 +436,21 @@ namespace DiceCraft
                     var previous=snapshot?.equippedControllers?.FirstOrDefault(c=>c.instanceId==e.detail)?.state?.fundAccrual;
                     return previous.HasValue?"成长基金卖价 +"+(e.newValue-previous.Value):"成长基金：卖价累计增加 "+e.newValue;
                 // v0.9
-                case "ControllerGrown":return e.sourceId=="C141"?"昙花一现：已过 "+e.newValue+" 关，倍率 −0.5":NameOf(e.sourceId)+"：成长 "+GrowthValue09(e.sourceId,e.oldValue)+" → "+GrowthValue09(e.sourceId,e.newValue);
-                case "ControllerGrowthReset":return NameOf(e.sourceId)+"：牌型中断，回到 "+GrowthValue09(e.sourceId,e.newValue);
-                case "ControllerSacrificed":return "祭坛：摧毁右侧的"+NameOf((e.detail??"").Split(':').LastOrDefault())+"，成长到 "+GrowthValue09("C100",e.newValue);
+                // v1.1.1 (W7a): growth in the card's own unit; 昙花一现 counts cleared stages in the same record.
+                case "ControllerGrown":return e.sourceId=="C141"?"昙花一现：已过 "+e.newValue+" 关，"+EphemeralLeft111(e.oldValue)+" → "+Bonus111(Math.Max(0,Config.Controller("C141").parameters.initialAdditive100-e.newValue*Config.Controller("C141").parameters.decayPerClear100)):NameOf(e.sourceId)+"：成长 "+GrowthValue09(e.sourceId,e.oldValue,e.detail,snapshot)+" → "+GrowthValue09(e.sourceId,e.newValue,e.detail,snapshot);
+                case "ControllerGrowthHalved":return NameOf(e.sourceId)+"：牌型换了，长出的部分减半，"+GrowthValue09(e.sourceId,e.oldValue,e.detail,snapshot)+" → "+GrowthValue09(e.sourceId,e.newValue,e.detail,snapshot);
+                case "TurnoverGrown":return NameOf("C51")+"：卖出卡牌，"+GrowthValue09("C51",e.oldValue,e.detail,snapshot)+" → "+GrowthValue09("C51",e.newValue,e.detail,snapshot);
+                case "ControllerSacrificed":return "祭坛：摧毁右侧的"+NameOf((e.detail??"").Split(':').LastOrDefault())+"，成长到 "+GrowthValue09("C100",e.newValue,(e.detail??"").Split(':')[0],snapshot);
+                // v1.1.1 receipts without a presentation of their own: a line in the record (W7A_NOTES).
+                case "StarPipDrawn":return NameOf("C137")+"（"+(CardPosition11(snapshot?.equippedControllers??(IList<ControllerInstance>)ViewState?.controllers,e.detail)??"已不在场")+"）：本关明星点数 "+e.newValue;
+                case "FaceCultivated":
+                {
+                    var ids=(e.detail??"").Split(':');string owner=ids.LastOrDefault();
+                    string who=CardLabelIn11(owner,snapshot?.equippedControllers)??CardLabel11(owner);
+                    return NameOf(e.sourceId)+"：改写了"+DieFaceName11(e.dieId,e.faceId)+"；"+who+" 累计改写 "+e.newValue+" 个骰面"+(e.newValue==e.oldValue?"（已到上限）":"");
+                }
+                case "HandRecordBroken":{var v=(e.detail??"").Split(':');return "本局最高单手："+CompactScore(v.FirstOrDefault())+" → "+CompactScore(v.LastOrDefault());}
+                case "ClearRatioRecord":return "刷新了本局最高过关倍数";
                 case "WarIncome":return "以战养战：+"+e.newValue+" 金币（本关第 "+e.oldValue+" 次）";
                 case "SaleBonusGrown":return "聚宝盆："+e.oldValue+" 张卡牌卖价各 +"+e.newValue;
                 case "ControllerSlotAdded":return "卡牌栏位 "+e.oldValue+" → "+e.newValue;

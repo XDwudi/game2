@@ -20,17 +20,9 @@ namespace DiceCraft
         private MimicBinding[] ViewBindings => ViewState.stage.started&&ViewState.phase!="Shop"&&ViewState.phase!="StagePreview"?ViewState.stage.mimicBindings:null;
         private AbilitySource[] controllerSourceCache;
         private AbilitySource[] ViewSources => controllerSourceCache??(controllerSourceCache=ControllerRules.ResolveSources(ViewState.controllers,ViewBindings,ViewDisabled10));
-        /// <summary>v0.9: the current value of a growth card ("×1.35" / "+24"), or null for other abilities.</summary>
-        private string GrowthText09(string abilityId,ControllerDynamicState state)
-        {
-            if(abilityId==null||state==null)return null;
-            // v1.1 (W09): one number format for every multiplier (PlayerNumberFormat).
-            if(ControllerRules.IsGrowthMultiplier(abilityId))return PlayerNumberFormat.Times(20+state.growth,20);
-            if(ControllerRules.IsGrowthBase(abilityId))return "+"+state.growth;
-            if(abilityId=="C141")return "+"+Factor(checked((int)(Config.Controller("C141").parameters.initialAdditive100-state.growth*Config.Controller("C141").parameters.decayPerClear100))); // W3A-ADAPT: C141 is an additive bonus now
-            if(abilityId=="C63")return "+"+Factor(ViewState.dice.Count(d=>d.lifetime=="permanent")*Config.Controller("C63").parameters.additivePerPermanentDie100); // W3A-ADAPT: C63 is an additive bonus now
-            return null;
-        }
+        /// <summary>v0.9: the current value of a held card whose value changes, or null for other abilities. v1.1.1 (W7a):
+        /// in the card's own words - "加成 +1.5", "得分 ×1.25", "基础分 +15", "本关明星点数 4" (CardValue111).</summary>
+        private string GrowthText09(string abilityId,ControllerDynamicState state)=>CardValue111(abilityId,state,true);
         /// <summary>v0.9 C100: before a stage starts, the controllers the altars will destroy when it does.</summary>
         private System.Collections.Generic.HashSet<string> AltarVictims09()
         {
@@ -56,7 +48,7 @@ namespace DiceCraft
                         ?"右边："+CardPosition11(ViewState.controllers,target)+" "+NameOf(neighbor.definitionId)
                             +"\n实际复制："+CardPosition11(ViewState.controllers,source.stateOwnerId)+" "+NameOf(source.abilityId)
                         :detail?"复制：右边的"+NameOf(source.abilityId):"复制："+NameOf(source.abilityId);
-                    if(detail && (source.abilityId=="C45" || source.abilityId=="C51" || GrowthText09(source.abilityId,source.state)!=null))
+                    if(detail && (source.abilityId=="C45" || GrowthText09(source.abilityId,source.state)!=null))
                         copy+="\n成长与状态来自："+CardPosition11(ViewState.controllers,source.stateOwnerId);
                 }
                 else copy=string.IsNullOrEmpty(target)?"右边没有卡":
@@ -64,10 +56,20 @@ namespace DiceCraft
                 text=string.IsNullOrEmpty(text)?copy:text+" · "+copy;
             }
             if(source?.abilityId=="C45")text+=(text.Length>0?" · ":"")+(source.state.activeColor=="red"?"当前红":"当前蓝");
-            if(source?.abilityId=="C51")text+=(text.Length>0?" · ":"")+PlayerNumberFormat.Times(source.state.turnoverUnits2,2);
-            string growth=GrowthText09(source?.abilityId,source?.state);
-            if(growth!=null)text+=(text.Length>0?" · ":"")+"当前 "+growth;
-            if(c.state!=null&&c.state.saleBonus>0&&c.definitionId!="C52"&&c.definitionId!="C41")text+=(text.Length>0?" · ":"")+"售价 "+OwnedSalePrice10(c);
+            // v1.1.1: 人员流动 is an ordinary growth card now; every changing value reads in the card's own words.
+            string growth=CurrentValue111(GrowthText09(source?.abilityId,source?.state));
+            if(growth!=null)text+=(text.Length>0?" · ":"")+growth;
+            if(detail&&growth!=null&&ControllerRules.HasGrowth(source.abilityId))
+            {
+                long catchup=source.state.growthCatchup;
+                if(catchup>0)text+="（含买入时的起步补偿 "+GrowthStep111(source.abilityId,catchup)+"）";
+                if(GrowthHalved111&&source.state.growth>0)text+="\n首领减益：本关长出的部分只算一半";
+            }
+            // v1.1.1 section 6: the cultivation tag, the free slot and the faces rewritten; the real resale price beside them.
+            string cultivation=detail?CultivationText111(c):IsCultivation111(c.definitionId)?(ControllerRules.FreeCultivationInstanceId(ViewState.controllers,Config)==c.instanceId?"养成卡 · 不占栏位":"养成卡"):null;
+            if(cultivation!=null)text+=(text.Length>0?(detail?"\n":" · "):"")+cultivation;
+            bool cultivationPrice=IsCultivation111(c.definitionId)&&(c.state?.cultivationFacesChanged??0)>=Config.cultivationFacesPerSaleBonus;
+            if(c.state!=null&&(c.state.saleBonus>0||cultivationPrice)&&c.definitionId!="C52"&&c.definitionId!="C41")text+=(text.Length>0?" · ":"")+"售价 "+OwnedSalePrice10(c);
             if(source?.abilityId=="C05")text+=(text.Length>0?" · ":"")+(ViewState.hand?.c05UsedEmitterIds.Contains(c.instanceId)==true?"本手已用":"本手可用");
             if(source?.abilityId=="C43")text+=(text.Length>0?" · ":"")+"上次 "+NameOf(ViewState.previousPrimaryHandId);
             if(c.definitionId=="C52"||c.definitionId=="C41")text+=(text.Length>0?" · ":"")+"售价 "+OwnedSalePrice10(c);

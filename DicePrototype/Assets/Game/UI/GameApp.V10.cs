@@ -389,19 +389,18 @@ namespace DiceCraft
                 case "FaceChanged":
                     {
                         string what=(e.detail??"").Split(':')[0],where=DieFaceName11(e.dieId,e.faceId);
-                        string change=what=="pipDelta"||what=="pipSet"?"点数 "+e.oldValue+" → "+e.newValue:what=="color"?(e.newValue==1?"染红":"染蓝")+(e.oldValue==e.newValue?"（已是该色）":""):what=="gold"?(e.newValue==1?"镀金":"去掉黄金")+(e.oldValue==e.newValue?"（无变化）":""):what=="texture"?"纹理变为"+((e.detail??"").EndsWith("smooth")?"光滑":(e.detail??"").EndsWith("rough")?"粗糙":"无")+(e.oldValue==e.newValue?"（无变化）":""):"权重 "+e.oldValue+" → "+e.newValue;
+                        string change=what=="pipDelta"||what=="pipSet"?"点数 "+e.oldValue+" → "+e.newValue:what=="color"?(e.newValue==1?"染红":"染蓝")+(e.oldValue==e.newValue?"（已是该色）":""):what=="gold"?(e.newValue==1?"镀金":"去掉黄金")+(e.oldValue==e.newValue?"（无变化）":""):what=="weightDelta"?"权重 "+e.oldValue+" → "+e.newValue+(e.oldValue==e.newValue?"（已到上限）":""):what=="texture"?"纹理变为"+((e.detail??"").EndsWith("smooth")?"光滑":(e.detail??"").EndsWith("rough")?"粗糙":"无")+(e.oldValue==e.newValue?"（无变化）":""):"权重 "+e.oldValue+" → "+e.newValue;
                         return NameOf(e.sourceId)+"："+where+" "+change;
                     }
                 case "DieUpgraded":return NameOf(e.sourceId)+" · 完成";
                 case "FaceTransformed":return DieFaceName11(e.dieId,e.faceId)+"：骰面点数 "+e.oldValue+" → "+e.newValue;
                 case "FaceMirrored":return "镜像："+DieFaceName11(e.dieId,e.faceId)+" 变为 "+e.newValue+" 点"+(e.detail=="red"?"红":"蓝");
-                case "DieGlassed":return "吹玻璃："+DieName11(e.dieId)+" 变为玻璃骰";
                 case "DieAdded":return (string.IsNullOrEmpty(e.sourceId)?"":NameOf(e.sourceId)+"：")+"获得"+DieName11(e.dieId);
                 case "ItemGranted":return "百宝袋：获得 "+NameOf((e.detail??"").Split(':').LastOrDefault());
                 case "ControllerGranted":return "滥竽充数：获得 "+NameOf((e.detail??"").Split(':').LastOrDefault());
-                case "ControllerExpired":return "昙花一现：倍率耗尽，已消失";
+                case "ControllerExpired":return "昙花一现：加成耗尽，已消失";
+                // p1.1.1: every draw of 无心插柳 lands (no "missed" record), and nothing turns a die to glass at stage start.
                 case "RandomUpgrade":return "无心插柳："+DieFaceName11(e.dieId,e.faceId)+" 获得 "+NameOf(e.detail);
-                case "RandomUpgradeMissed":return "无心插柳："+DieFaceName11(e.dieId,e.faceId)+" 的 "+NameOf(e.detail)+" 落空";
                 case "LootGold":return "战利品折现：+"+e.newValue+" 金币";
                 case "BossRerolled":return "贿赂首领：第 "+e.newValue+" 章的减益改为 "+NameOf((e.detail??"").Split(':').LastOrDefault());
                 case "InterestCapRaised":
@@ -423,8 +422,9 @@ namespace DiceCraft
                 new[]{"封印","被封印的骰子计 0 分，但仍算牌型、颜色、红组和位置。"},
                 new[]{"失效的卡牌","首领减益可以让一些卡牌本关失效：没有技能、附魔不触发，也不能被百变模仿复制；仍然占栏位，仍然计入控制欲和草根逆袭的张数。"},
                 new[]{"战利品与赠礼",$"首领关通关后先选战利品：按种类可以拿 1 到 3 件，也可以整组折现 {Config.lootGoldValue} 金币。杂货郎、铁匠铺每家商店各送一次三选一。"},
-                new[]{"骰面权重","每个骰面有权重，权重越高越容易掷出，上限 5。灌铅和配重可以提高权重。"},
-                new[]{"骰面养成","点金手、表里同色、潜移默化、见五成群、二三其德、灌铅、抛光匠、养精蓄锐、移花接木在提交计分后永久改写骰面；拔苗助长、大事化小在每关结算时改写。"},
+                new[]{"骰面权重","每个骰面有权重，权重越高越容易掷出，上限 "+Config.maxFaceWeight+"。灌铅、配重和镀金可以提高权重。"},
+                // p1.1.1: 抛光匠 left this group (it grows with the run's best hand now); 无心插柳 rewrites at settlement.
+                new[]{"骰面养成","点金手、表里同色、潜移默化、见五成群、二三其德、灌铅、养精蓄锐、移花接木在提交计分后永久改写骰面；拔苗助长、大事化小、无心插柳在每关结算时改写。"},
             };
             if(ViewState?.cycles!=null&&ViewState.stage!=null)
             {

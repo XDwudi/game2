@@ -23,28 +23,34 @@ namespace DiceCraft
         private struct Factor11 { public int role; public string name,value; public Color tint; }
         /// <summary>
         /// The named factors of a score, in the order ScoreCalculator applies them. Factors of x1 are left out, as on the old
-        /// celebration formula; roles keep their button names (Factor0 base ... Factor5 enchantment, Factor6+ item and boss).
+        /// celebration formula; roles keep their button names. v1.1.1 (W7a, RULES_DELTA 2 and 13): the list is
+        /// ScoreFactors111's, so the chips multiply to the score before the final floor - Factor0 base, Factor1 hand,
+        /// Factor3 red group, Factor5 the bonus line "加成 ×(1+A)" (it took the place of the colour chip Factor2 and of the
+        /// enchantment chip: colour, gold faces, card bonuses and the score enchantment are its entries, shown when the
+        /// chip is clicked), Factor4 the cards' multipliers, Factor6+ item and boss.
         /// </summary>
         private List<Factor11> Factors11(ScoreBreakdown b)
         {
-            var list=new List<Factor11>();if(b==null)return list;
-            list.Add(new Factor11{role=0,name="基础分",value=PlayerNumberFormat.Integer(ExactScoreMath.Parse(b.baseTotal),9),tint=UiKit.Blue});
-            if(b.totalHandMult100!=100)
+            var list=new List<Factor11>();if(b==null)return list;int g=6;
+            foreach(var f in ScoreFactors111.List(b,true))
             {
-                string hand=string.IsNullOrEmpty(b.chosenGroupId)?(b.straightMult100>0?"顺子":"牌型"):NameOf(b.chosenGroupId)+(b.straightMult100>0?"＋顺子":"");
-                list.Add(new Factor11{role=1,name=hand,value="×"+Factor(b.totalHandMult100),tint=UiKit.Red});
+                string value=PlayerNumberFormat.Times(f.Numerator,f.Denominator,ChipDigits07);
+                switch(f.Key)
+                {
+                    case "base":list.Add(new Factor11{role=0,name="基础分",value=PlayerNumberFormat.Integer(f.Numerator,9),tint=UiKit.Blue});break;
+                    case "hand":
+                        string hand=string.IsNullOrEmpty(b.chosenGroupId)?(b.straightMult100>0?"顺子":"牌型"):NameOf(b.chosenGroupId)+(b.straightMult100>0?"＋顺子":"");
+                        list.Add(new Factor11{role=1,name=hand,value="×"+Factor(b.totalHandMult100),tint=UiKit.Red});break;
+                    case "red":list.Add(new Factor11{role=3,name="红组",value="×"+Factor(b.redMult100),tint=UiKit.Red});break;
+                    case "additive":list.Add(new Factor11{role=5,name="加成",value=value,tint=UiKit.Violet});break;
+                    case "controller":list.Add(new Factor11{role=4,name="卡牌",value=value,tint=UiKit.Gold});break;
+                    default:list.Add(new Factor11{role=g++,name=NameOf(f.SourceId),value=value,tint=f.Key=="boss"?UiKit.Boss:UiKit.Teal});break;
+                }
             }
-            if((100+b.colorAdd100)!=100)list.Add(new Factor11{role=2,name=string.IsNullOrEmpty(b.colorId)?"颜色":NameOf(b.colorId),value="×"+Factor((100+b.colorAdd100)),tint=b.colorId=="all_red"?UiKit.Red:UiKit.Blue}); // W4B-ADAPT: was colorMult100; shows 1 + the colour bonus only
-            if(b.redMult100!=100)list.Add(new Factor11{role=3,name="红组",value="×"+Factor(b.redMult100),tint=UiKit.Red});
-            bool zeroFive=b.multiplierFactors.Any(f=>f.abilityId=="C49"&&f.numerator=="0");
-            if(zeroFive)list.Add(new Factor11{role=4,name="卡牌",value="×0 没有有效 5 点",tint=UiKit.Gold});
-            else if(b.controllerMultiplierNumerator!=b.controllerMultiplierDenominator)
-                list.Add(new Factor11{role=4,name="卡牌",value=PlayerNumberFormat.Times(ExactScoreMath.Parse(b.controllerMultiplierNumerator),ExactScoreMath.Parse(b.controllerMultiplierDenominator),ChipDigits07),tint=UiKit.Gold});
-            if(b.enchantAdditiveCount>0)list.Add(new Factor11{role=5,name="附魔",value=PlayerNumberFormat.Times(EnchantFactor07(b.enchantAdditiveCount),1,ChipDigits07),tint=UiKit.Violet});
-            int g=6;foreach(var f in b.globalFactors??Array.Empty<MultiplierFactor>())
-                list.Add(new Factor11{role=g++,name=NameOf(f.abilityId),value=PlayerNumberFormat.Times(ExactScoreMath.Parse(f.numerator),ExactScoreMath.Parse(f.denominator),ChipDigits07),tint=f.abilityId!=null&&f.abilityId.StartsWith("B")?UiKit.Boss:UiKit.Teal});
             return list;
         }
+        /// <summary>True when a card or its enchantment added to the bonus line (then the line is shown with the cards).</summary>
+        private static bool BonusFromCards11(ScoreBreakdown b)=>b?.additiveEntries!=null&&b.additiveEntries.Any(e=>!string.IsNullOrEmpty(e.emitterId));
 
         private enum Formula11Mode{Empty,Preview,Presenting,Stable,Recovered,LastHand}
         private int litChips11=-1;
@@ -151,7 +157,7 @@ namespace DiceCraft
             var snapshot=mode==Formula11Mode.Preview?DisplayScoreSnapshot07():s.lastSubmission?.snapshot;
             for(int i=0;i<factors.Count;i++)
             {
-                var f=factors[i];bool lit=ChipLit11(mode,f.role);if(lit)litCount++;
+                var f=factors[i];bool lit=ChipLit11(mode,f.role,b);if(lit)litCount++;
                 bool clickable=mode==Formula11Mode.Preview||mode==Formula11Mode.Stable||mode==Formula11Mode.Recovered||mode==Formula11Mode.LastHand;
                 var bd=b;var chip=FormulaChip11(row,f,x,widths[i],l.chips.height,lit,font,nameFont,named[i],clickable&&!LockVisualPlaying07,()=>ShowBreakdown(snapshot,bd));
                 if(lit&&mode==Formula11Mode.Presenting&&litCount>litChips11&&litChips11>=0)UiKit.Component<Play11Pop>(chip.gameObject).Play((litCount-litChips11-1)*.06f);
@@ -168,13 +174,15 @@ namespace DiceCraft
             var post=receipt07?.Events.Where(e=>e.Phase==PresentationPhase.PostScore).ToArray();
             return post==null||post.Length==0?"":"后置："+PostSummary07(new PresentationBeat(PresentationPhase.PostScore,0,0,null,true,post));
         }
-        private bool ChipLit11(Formula11Mode mode,int role)
+        private bool ChipLit11(Formula11Mode mode,int role,ScoreBreakdown b=null)
         {
             if(mode!=Formula11Mode.Presenting)return true;
             var phase=beat07?.Phase??PresentationPhase.Receipt;
             if(phase>=PresentationPhase.FinalScore)return true;
             if(phase==PresentationPhase.ControllerAndEnchant)return role<=5;
-            if(phase==PresentationPhase.BaseAndStructure)return role<=3;
+            // v1.1.1: the bonus line (role 5) lights with the cards when a card added to it, otherwise with the hand
+            // and the red group - the phase PresentationReceiptAdapter gives its "additive" event.
+            if(phase==PresentationPhase.BaseAndStructure)return role<=3||role==5&&!BonusFromCards11(b);
             return false;
         }
         private RectTransform FormulaChip11(Transform row,Factor11 f,float x,float w,float h,bool lit,float font,float nameFont,bool showName,bool clickable,Action click)
@@ -354,20 +362,31 @@ namespace DiceCraft
         {
             if(receipt07==null)return null;
             var events=receipt07.Events.Where(e=>e.IsScoring&&e.CountsForChain&&e.SourceEmitterIds.Contains(emitterId)&&!string.IsNullOrEmpty(e.Operand)).ToArray();
-            var adds=events.Where(e=>e.Operation=="+").Select(e=>ExactFraction.Parse(e.Operand)).ToArray();
+            // v1.1.1 (W7a): a bonus of the additive zone (the card's own or its score enchantment's) is not a base add:
+            // it reads "加成+1.5" and is never summed with base points.
+            bool Bonus(PresentationEvent e)=>e.EffectFamily=="controller_additive"||e.EffectFamily=="enchantment_additive";
+            var adds=events.Where(e=>e.Operation=="+"&&!Bonus(e)).Select(e=>ExactFraction.Parse(e.Operand)).ToArray();
+            var bonuses=events.Where(e=>e.Operation=="+"&&Bonus(e)).Select(e=>ExactFraction.Parse(e.Operand)).ToArray();
             var muls=events.Where(e=>e.Operation=="×").Select(e=>ExactFraction.Parse(e.Operand)).ToArray();
             if(muls.Length>0)
             {
                 BigInteger num=1,den=1;foreach(var m in muls){num*=m.Numerator;den*=m.Denominator;}
                 return PlayerNumberFormat.Times(num,den,ChipDigits07);
             }
+            string bonus=null;
+            if(bonuses.Length>0)
+            {
+                BigInteger num=0,den=1;foreach(var a in bonuses){num=num*a.Denominator+a.Numerator*den;den*=a.Denominator;}
+                bonus="加成+"+PlayerNumberFormat.Ratio(num,den,6);
+            }
             if(adds.Length>0)
             {
                 bool same=adds.All(a=>a.Numerator==adds[0].Numerator&&a.Denominator==adds[0].Denominator);
-                if(same&&adds.Length>1)return "+"+PlayerNumberFormat.Ratio(adds[0].Numerator,adds[0].Denominator,6)+"×"+adds.Length;
+                if(same&&adds.Length>1)return "+"+PlayerNumberFormat.Ratio(adds[0].Numerator,adds[0].Denominator,6)+"×"+adds.Length+(bonus==null?"":" "+bonus);
                 BigInteger num=0,den=1;foreach(var a in adds){num=num*a.Denominator+a.Numerator*den;den*=a.Denominator;}
-                return "+"+PlayerNumberFormat.Ratio(num,den,6);
+                return "+"+PlayerNumberFormat.Ratio(num,den,6)+(bonus==null?"":" "+bonus);
             }
+            if(bonus!=null)return bonus;
             var other=receipt07.Events.FirstOrDefault(e=>e.IsScoring&&e.SourceEmitterIds.Contains(emitterId));
             return other==null?null:"✓";
         }

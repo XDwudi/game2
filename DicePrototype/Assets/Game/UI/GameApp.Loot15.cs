@@ -236,9 +236,9 @@ namespace DiceCraft
                 int level=(color?ViewState.colorLevels:ViewState.handLevels).First(v=>v.handId==o.contentId).level;
                 int max=color?Config.maxColorLevel:Config.Hand(o.contentId).maxLevel;
                 int next=Math.Min(max,level+Math.Max(1,o.levels));
-                int basis=color?100+Config.Color(o.contentId).baseAdd100:Config.Hand(o.contentId).baseMult100; // W3A-ADAPT: a colour is an additive bonus; shown as 1 + bonus until W3b/UI rewords it
-                int step=color?Config.Color(o.contentId).addPerLevel100:Config.Hand(o.contentId).incrementPerLevel100;
-                card.text="直接升级：Lv."+level+" → Lv."+next+"\n倍率 ×"+Factor(basis+step*level)+" → ×"+Factor(basis+step*next);
+                // v1.1.1 (W7a): a hand has a multiplier, a colour a bonus of the additive zone ("加成 +0.75 → +1.25").
+                int basis=color?0:Config.Hand(o.contentId).baseMult100,step=color?0:Config.Hand(o.contentId).incrementPerLevel100;
+                card.text="直接升级：Lv."+level+" → Lv."+next+"\n"+(color?ColorUpgrade111(o.contentId,level,next-level):"倍率 ×"+Factor(basis+step*level)+" → ×"+Factor(basis+step*next));
                 card.picture=(t,r)=>HandPattern14(t,o.contentId,color,r);
             }
             var b=DrawCard13(panel,(o.category=="controller"?"Offer_":"Product_")+o.offerId,x,y,w,h,card,

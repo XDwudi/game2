@@ -55,13 +55,20 @@ namespace DiceCraft.Tests
         [Test]
         public void HighScore_FormulaListsOnlyFactorsThatChangedTheScore()
         {
-            var plain = new ScoreBreakdown { baseTotal = "23", totalHandMult100 = 100, colorAdd100 = 0, redMult100 = 100, // W3A-ADAPT: colorMult100 is now 100 + colorAdd100
+            var plain = new ScoreBreakdown { baseTotal = "23", totalHandMult100 = 100, colorAdd100 = 0, redMult100 = 100,
                 controllerMultiplierNumerator = "1", controllerMultiplierDenominator = "1", enchantAdditiveCount = 0 };
             Assert.That(HighScore073.Formula(plain, n => (n / 100m).ToString("0.##"), (n, d) => n + "/" + d, n => n), Is.EqualTo("23"));
-            var full = new ScoreBreakdown { baseTotal = "36", totalHandMult100 = 2800, colorAdd100 = 400, redMult100 = 100, // W3A-ADAPT: colorMult100 is now 100 + colorAdd100
-                controllerMultiplierNumerator = "192", controllerMultiplierDenominator = "1", enchantAdditiveCount = 2 };
+            // p1.1.1 (W7a, RULES_DELTA 2): the colour (+4) and two score enchantments (+1.5 each) are one bonus factor
+            // 1 + 7 = 8, written between the hand and the cards; there is no colour factor and no "2^n" any more.
+            // p1.1.0 wrote "36  ×  28  ×  5  ×  192  ×  2^2" for the same hand.
+            var full = new ScoreBreakdown { baseTotal = "36", totalHandMult100 = 2800, colorAdd100 = 400, redMult100 = 100,
+                controllerMultiplierNumerator = "192", controllerMultiplierDenominator = "1", enchantAdditiveCount = 2, additiveTotal100 = 700 };
             Assert.That(HighScore073.Formula(full, n => (n / 100m).ToString("0.##"), (n, d) => d == "1" ? n : n + "/" + d, n => n),
-                Is.EqualTo("36  ×  28  ×  5  ×  192  ×  2^2"));
+                Is.EqualTo("36  ×  28  ×  8  ×  192"));
+            // A bonus that is not a whole number stays exact: +0.75 is the factor 7/4.
+            full.additiveTotal100 = 75; full.redMult100 = 300;
+            Assert.That(HighScore073.Formula(full, n => (n / 100m).ToString("0.##"), (n, d) => d == "1" ? n : n + "/" + d, n => n, (key, value) => key + "=" + value, null),
+                Is.EqualTo("base=36  ×  hand=28  ×  red=3  ×  additive=7/4  ×  controller=192"));
             Assert.That(HighScore073.Formula(null, n => "", (n, d) => "", n => n), Is.Empty);
         }
     }

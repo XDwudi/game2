@@ -3,9 +3,9 @@
   <ItemGroup>
     <Compile Include="../../../Core/Rules/*.cs" />
     <Compile Include="../../../Core/Session/*.cs" />
-    <Compile Include="../PresentationModels.cs" /><Compile Include="../PresentationReceiptAdapter.cs" /><Compile Include="../PresentationSequence.cs" /><Compile Include="../AudioCueMap.cs" /><Compile Include="../PresentationEffectBudget.cs" />
-    <Compile Include="../../../Tests/EditMode/Rules/RulesTests.cs" />
-    <Compile Include="../../../Tests/EditMode/Presentation/PresentationTests.cs" />
+    <Compile Include="../PresentationModels.cs" /><Compile Include="../PresentationReceiptAdapter.cs" /><Compile Include="../PresentationSequence.cs" /><Compile Include="../AudioCueMap.cs" /><Compile Include="../PresentationEffectBudget.cs" /><Compile Include="../ScoreFactors111.cs" /><Compile Include="../HighScore073.cs" />
+    <Compile Include="../../../Tests/EditMode/Rules/RulesTests.cs" /><Compile Include="../../../Tests/EditMode/Rules/V111GoldenTests.cs" />
+    <Compile Include="../../../Tests/EditMode/Presentation/PresentationTests.cs" /><Compile Include="../../../Tests/EditMode/Presentation/V111DisplayTests.cs" /><Compile Include="../../../Tests/EditMode/Presentation/HighScore073Tests.cs" />
     <Compile Include="Runner.cs" />
     <Reference Include="nunit.framework"><HintPath>../../../../../Library/PackageCache/com.unity.ext.nunit@0198eae3b53e/net472/unity-custom/nunit.framework.dll</HintPath></Reference>
   </ItemGroup>

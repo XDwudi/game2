@@ -199,7 +199,8 @@ namespace DiceCraft
             if(offer.contentId=="U05")
             {
                 change=OwnedDieLabel14(die.dieId)+" → 玻璃骰";
-                note="计分 ×3；每次掷到它有 "+Session.GlassBreakPercentIn(ViewState)+"% 概率碎掉，锁定后不会碎";return;
+                // p1.1.1 (RULES_DELTA 7.3): glass is judged after a submission, die by die; never on a roll or in the pool.
+                note="计分 ×"+Config.glassContributionMultiplier+"；"+GlassRiskText111+"，留在骰池里不会碎";return;
             }
             if(offer.contentId=="O04")
             {
@@ -215,7 +216,8 @@ namespace DiceCraft
                 case "U02":changed.texture="rough";note=opposite!=null?"它的对面（"+FaceText14(opposite)+"）更容易掷出":null;break;
                 case "U03":changed.baseColor="red";break;
                 case "U04":changed.baseColor="blue";break;
-                case "U06":changed.isGold=true;note="朝上提交时这颗计分 ×2";break;
+                // p1.1.1 (RULES_DELTA 7.2): a gold face adds to the bonus line and a newly gilded face gains weight.
+                case "U06":changed.isGold=true;changed.baseWeight=Math.Min(Config.maxFaceWeight,changed.baseWeight+Config.gildedFaceWeightDelta);note=GoldFaceText111+"；"+GildWeightText111;break;
                 case "U07":
                     change=FaceText14(face)+" → 随机变成 "+string.Join("、",Enumerable.Range(Config.minPipValue,Config.maxPipValue-Config.minPipValue+1).Where(n=>n!=face.permanentPip))+" 之一";
                     note="颜色、纹理、黄金不变；买下时才抽";return;

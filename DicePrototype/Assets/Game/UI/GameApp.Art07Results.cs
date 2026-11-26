@@ -43,8 +43,9 @@ namespace DiceCraft
             foreach(var record in ViewState.processedReceipts.Where(r=>r.command.kind==CommandKind.Submit))
             {
                 var b=record.submission.breakdown;var score=ExactScoreMath.Parse(b.score);total+=score;if(score>max)max=score;
-                var n=(BigInteger)b.totalHandMult100*(100+b.additiveTotal100)*b.redMult100*ExactScoreMath.Parse(b.controllerMultiplierNumerator); // W3A-ADAPT: the colour and enchantment zones became the additive zone x(1+A)
-                var d=1000000*ExactScoreMath.Parse(b.controllerMultiplierDenominator);
+                // v1.1.1 (W7a): the hand's own multiplier = hand x red group x (1 + bonus) x cards, as before without the
+                // item and boss factors (ScoreFactors111, the list every readout uses).
+                var m=DiceCraft.Presentation.ScoreFactors111.Multiplier(b,false);BigInteger n=m.Numerator,d=m.Denominator;
                 if(n*multD>multN*d){multN=n;multD=d;}
             }
             if(multN>0){var gcd=BigInteger.GreatestCommonDivisor(multN,multD);multN/=gcd;multD/=gcd;}

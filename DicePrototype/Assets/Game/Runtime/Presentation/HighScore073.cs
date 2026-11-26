@@ -44,27 +44,34 @@ namespace DiceCraft.Presentation
             return ExactScoreMath.SaveDecimal(score * permille / 1000);
         }
 
-        /// <summary>Factors that actually changed the score, in the order the score rail shows them.</summary>
+        /// <summary>Factors that actually changed the score, in the order the score applies them.</summary>
         public static string Formula(ScoreBreakdown b, Func<int, string> factor, Func<string, string, string> ratio, Func<string, string> number)
-            => Formula(b, factor, ratio, number, n => "2^" + n, null, null);
+            => Formula(b, factor, ratio, number, null, null);
 
         /// <summary>
-        /// v1.1 (task W09): the same factors and order. label puts a name before each value (keys "base", "hand", "color",
-        /// "red", "controller", "enchant"); enchant writes the enchantment factor; global, when given, appends the item and
-        /// boss factors that ScoreCalculator applies after the enchantment.
+        /// v1.1 (task W09): label puts a name before each value. v1.1.1 (W7a): the factors are ScoreFactors111's -
+        /// keys "base", "hand", "red", "additive" (one factor 1 + A for the colour, gold faces, card bonuses and the
+        /// score enchantment), "controller"; global, when given, appends the item and boss factors. A factor of
+        /// exactly x1 is left out, so the product of what is written is always the score before the final floor.
         /// </summary>
         public static string Formula(ScoreBreakdown b, Func<int, string> factor, Func<string, string, string> ratio, Func<string, string> number,
-            Func<int, string> enchant, Func<string, string, string> label, Func<MultiplierFactor, string> global)
+            Func<string, string, string> label, Func<MultiplierFactor, string> global)
         {
             if (b == null) return "";
             Func<string, string, string> term = label ?? ((key, value) => value);
-            var parts = new List<string> { term("base", number(b.baseTotal)) };
-            if (b.totalHandMult100 != 100) parts.Add(term("hand", factor(b.totalHandMult100)));
-            if ((100+b.colorAdd100) != 100) parts.Add(term("color", factor((100+b.colorAdd100)))); // W4B-ADAPT: was colorMult100; shows 1 + the colour bonus only
-            if (b.redMult100 != 100) parts.Add(term("red", factor(b.redMult100)));
-            if (b.controllerMultiplierNumerator != b.controllerMultiplierDenominator) parts.Add(term("controller", ratio(b.controllerMultiplierNumerator, b.controllerMultiplierDenominator)));
-            if (b.enchantAdditiveCount > 0) parts.Add(term("enchant", enchant(b.enchantAdditiveCount))); // W3A-ADAPT: renamed field; W3b/UI merges colour and enchantment into one additive term
-            if (global != null) foreach (var f in b.globalFactors ?? Array.Empty<MultiplierFactor>()) parts.Add(global(f));
+            var parts = new List<string>();
+            foreach (var f in ScoreFactors111.List(b, true))
+            {
+                string n = ExactScoreMath.SaveDecimal(f.Numerator), d = ExactScoreMath.SaveDecimal(f.Denominator);
+                switch (f.Key)
+                {
+                    case "base": parts.Add(term("base", number(b.baseTotal))); break;
+                    case "hand": parts.Add(term("hand", factor(b.totalHandMult100))); break;
+                    case "red": parts.Add(term("red", factor(b.redMult100))); break;
+                    case "item": case "boss": if (global != null) parts.Add(global(new MultiplierFactor { emitterId = f.Key == "item" ? "ITEM" : "BOSS", abilityId = f.SourceId, numerator = n, denominator = d })); break;
+                    default: parts.Add(term(f.Key, ratio(n, d))); break;
+                }
+            }
             return string.Join("  ×  ", parts);
         }
     }

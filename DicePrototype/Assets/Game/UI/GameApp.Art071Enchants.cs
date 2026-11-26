@@ -45,7 +45,9 @@ namespace DiceCraft
         }
         private void PresentScoringEnchants071(PresentationBeat beat)
         {
-            foreach(var e in beat.Events.Where(e=>e.IsScoring&&(e.EffectFamily=="enchantment_base"||e.EffectFamily=="enchantment_multiplier")))
+            // v1.1.1 (W7a): the score enchantment adds to the bonus line ("enchantment_additive"); its arc still lands on
+            // Factor5, which is now that line's chip ("加成").
+            foreach(var e in beat.Events.Where(e=>e.IsScoring&&(e.EffectFamily=="enchantment_base"||e.EffectFamily=="enchantment_additive")))
             {
                 if(!TryCardBounds07(e.EmitterId,out var card))continue;
                 // Stay by the actual top-right enchant badge, clear of the main illustration and exact score.
@@ -53,7 +55,7 @@ namespace DiceCraft
                 if(e.EffectFamily=="enchantment_base")EnchantCue071("base10",e.EmitterId,area,Vector2.zero,Vector2.zero);
                 else
                 {
-                    // V1.1 (W11): the arc lands on the enchantment chip of the formula row ("附魔", Factor5); the v0.73
+                    // V1.1 (W11): the arc lands on Factor5 of the formula row (v1.1.1: the bonus chip "加成"); the v0.73
                     // receipt banner it used to reach no longer exists.
                     var factors=FindTransactionRect07("Factor5")??FindTransactionRect07("ScorePanel")??FindTransactionRect07("ReceiptFactors");if(factors==null)continue;
                     var destination=EnchantBounds071(factors);var full=new Rect(0,0,1920,1080);

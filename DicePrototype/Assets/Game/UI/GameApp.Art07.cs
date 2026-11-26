@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using BigInteger = System.Numerics.BigInteger;
 using DiceCraft.Core;
+using DiceCraft.Presentation;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -136,10 +137,10 @@ namespace DiceCraft
             if(DisabledNext10(item.instanceId))return "首领关将失效";
             if(item.definitionId=="C41")return source?.abilityId==null?"右邻失效":"→ "+NameOf(source.abilityId);
             if(source?.abilityId=="C45")return source.state.activeColor=="red"?"当前红":"当前蓝";
-            if(source?.abilityId=="C51")return "当前 ×"+PlayerNumberFormat.Ratio(source.state.turnoverUnits2,2);
             if(source?.abilityId=="C53")return "随机倍率";
-            string growth=GrowthText09(source?.abilityId,source?.state);
-            if(growth!=null)return "当前 "+growth;
+            // v1.1.1 (W7a): "当前 加成 +1.5" / "当前 得分 ×1.25" / "当前 基础分 +15" / "本关明星点数 4".
+            string growth=CurrentValue111(GrowthText09(source?.abilityId,source?.state));
+            if(growth!=null)return growth;
             if(item.definitionId=="C52")return "售价 "+OwnedSalePrice10(item);
             if(source?.abilityId=="C05")return ViewState.hand?.c05UsedEmitterIds.Contains(item.instanceId)==true?"本手已用":"本手可用";
             return "点击查看条件";
@@ -205,10 +206,13 @@ namespace DiceCraft
                 string label=owners>1?"查看随机来源":preview.isRandom?"查看 9 种结果":"查看覆盖来源";
                 UiKit.Button(p,"RandomPreview",label,564,0,300,60,ShowRandomPreview07,!LockVisualPlaying07);
             }
-            bool zeroFive=b.multiplierFactors.Any(f=>f.abilityId=="C49"&&f.numerator=="0");
-            // v1.1 (W09): decimals instead of fractions, the enchantment as its actual factor, "卡牌" for controllers (D2).
-            string control=zeroFive?"卡牌 ×0\n没有有效 5 点":"卡牌 "+PlayerNumberFormat.Times(ExactScoreMath.Parse(b.controllerMultiplierNumerator),ExactScoreMath.Parse(b.controllerMultiplierDenominator),ChipDigits07);
-            string[] labels={"基础 "+PlayerNumberFormat.Integer(ExactScoreMath.Parse(b.baseTotal),9),"牌型 ×"+Factor(b.totalHandMult100),"颜色 ×"+Factor((100+b.colorAdd100)),"红组 ×"+Factor(b.redMult100),control,"附魔 "+PlayerNumberFormat.Times(EnchantFactor07(b.enchantAdditiveCount),1,ChipDigits07)}; // W4B-ADAPT: was colorMult100; shows 1 + the colour bonus only
+            // v1.1 (W09): decimals instead of fractions, "卡牌" for controllers (D2). v1.1.1 (W7a): the six chips are
+            // ScoreFactors111's - base, hand, red group, the bonus line x(1 + A), the cards' multipliers, and the item
+            // and boss factors as one chip - so their product is the score before the final floor.
+            var shown=ScoreFactors111.List(b);var global=ScoreFactors111.Product(shown.Where(f=>f.Key=="item"||f.Key=="boss"));
+            var globals=shown.Where(f=>f.Key=="item"||f.Key=="boss").ToArray();
+            string control="卡牌 "+PlayerNumberFormat.Times(ExactScoreMath.Parse(b.controllerMultiplierNumerator),ExactScoreMath.Parse(b.controllerMultiplierDenominator),ChipDigits07);
+            string[] labels={"基础 "+PlayerNumberFormat.Integer(ExactScoreMath.Parse(b.baseTotal),9),"牌型 ×"+Factor(b.totalHandMult100),"红组 ×"+Factor(b.redMult100),"加成 "+BonusFactor111(b.additiveTotal100,ChipDigits07),control,(globals.Length==1?NameOf(globals[0].SourceId):globals.Length==0?"道具":"道具与首领")+" "+PlayerNumberFormat.Times(global.Numerator,global.Denominator,ChipDigits07)};
             float bw=(w-(thin?440:48))/6;for(int i=0;i<6;i++)
             {
                 // rc.2: the shallow rail's factor hit area is 60 units (was 52) so it stays 40 physical
@@ -217,9 +221,10 @@ namespace DiceCraft
                 var button=UiKit.FlatButton(p,"Factor"+i,labels[i],16+i*bw,c?62:thin?44:80,bw-8,factorHeight,()=>ShowBreakdown(DisplayScoreSnapshot07(),b),!LockVisualPlaying07);
                 var text=button.GetComponentInChildren<TextMeshProUGUI>();text.fontSize=(c?15:UiKit.FontScale>1?16:20)*UiKit.FontScale;
                 text.rectTransform.anchoredPosition=new Vector2(8,-2);text.rectTransform.sizeDelta=new Vector2(bw-24,factorHeight-4);
-                text.textWrappingMode=TextWrappingModes.NoWrap;text.lineSpacing=i==4&&zeroFive?-20:0;
-                bool neutral=i==1?b.totalHandMult100==100:i==2?(100+b.colorAdd100)==100:i==3?b.redMult100==100:i==4?!zeroFive&&b.controllerMultiplierNumerator==b.controllerMultiplierDenominator:i==5&&b.enchantAdditiveCount==0; // W4B-ADAPT: was colorMult100; shows 1 + the colour bonus only
-                StyleFactorChip072(button,i,neutral);
+                text.textWrappingMode=TextWrappingModes.NoWrap;text.lineSpacing=0;
+                bool neutral=i==1?b.totalHandMult100==100:i==2?b.redMult100==100:i==3?b.additiveTotal100==0:i==4?b.controllerMultiplierNumerator==b.controllerMultiplierDenominator:i==5&&global.Numerator==global.Denominator;
+                // Tints by meaning: base 0, multipliers 1 (hand, red group), cards 4, the bonus line and the item/boss chip 5.
+                StyleFactorChip072(button,i==2?1:i==3?5:i,neutral);
                 if(thin)
                 {
                     // The shallow rail is 104 high: the painted chip (50..94) stays inside the slab while the
@@ -236,8 +241,6 @@ namespace DiceCraft
             =>PlayerNumberFormat.Ratio(ExactScoreMath.Parse(numerator),ExactScoreMath.Parse(denominator),9);
         // A multiplier chip has room for "×" plus about ten digit widths at 150% text: six integer digits and two decimals.
         private const int ChipDigits07=6;
-        /// <summary>The actual factor of n score-multiplier enchantments (2^n with the shipped configuration).</summary>
-        private BigInteger EnchantFactor07(int count)=>BigInteger.One; // W3A-ADAPT: the score enchantment is an additive +1.5 in p1.1.1, no longer a factor; W3b/UI replaces the colour and enchantment chips by one additive chip.
         private void ShowRandomPreview07()
         {
             var preview=Session.PreviewScoreRange();var snapshot=Session.PreviewSnapshot();

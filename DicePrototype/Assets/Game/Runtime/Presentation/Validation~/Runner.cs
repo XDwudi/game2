@@ -21,7 +21,7 @@ internal static class Runner
     public static int Main()
     {
         var results = new List<object>(); int passed = 0, failed = 0;
-        foreach (var type in Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Namespace == "DiceCraft.Presentation.Tests"))
+        foreach (var type in Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Namespace == "DiceCraft.Presentation.Tests" || t.FullName == "DiceCraft.Tests.HighScore073Tests"))
         foreach (var method in type.GetMethods().Where(m => m.GetCustomAttribute<TestAttribute>() != null || m.GetCustomAttributes<TestCaseAttribute>().Any() || m.GetCustomAttributes<TestCaseSourceAttribute>().Any()))
         {
             var cases = new List<(string name, object[] args)>();

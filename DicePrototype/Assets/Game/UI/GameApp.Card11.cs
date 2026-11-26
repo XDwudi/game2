@@ -105,7 +105,9 @@ namespace DiceCraft
             value=null;warning=false;
             if(string.IsNullOrEmpty(state)||state=="点击查看条件"||state=="技能详情"||state=="随机倍率")return;
             warning=state=="本关失效"||state=="首领关将失效"||state=="将被祭坛摧毁"||state=="右邻失效";
-            if(state.StartsWith("当前 ×",StringComparison.Ordinal)||state.StartsWith("当前 +",StringComparison.Ordinal))value=state.Substring(3);
+            // v1.1.1 (W7a): the three kinds of value keep their word on the badge ("加成 +1.5", "得分 ×1.25", "基础分 +15").
+            if(state.StartsWith("当前 ×",StringComparison.Ordinal)||state.StartsWith("当前 +",StringComparison.Ordinal)
+                ||state.StartsWith("当前 加成 ",StringComparison.Ordinal)||state.StartsWith("当前 得分 ",StringComparison.Ordinal)||state.StartsWith("当前 基础分 ",StringComparison.Ordinal))value=state.Substring(3);
             else if(state=="当前红"||state=="当前蓝")value="当前 "+state.Substring(2);
             else value=state.Replace("→ ","→");
         }

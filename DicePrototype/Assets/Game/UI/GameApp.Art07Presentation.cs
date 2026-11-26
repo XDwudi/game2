@@ -212,15 +212,24 @@ namespace DiceCraft
                 case "GoldTaxed":return "首领减益 −"+(ParseLong09(e.BeforeValue)-ParseLong09(e.AfterValue))+" 金币";
                 case "HandDowngraded":return "首领减益：牌型等级 "+e.BeforeValue+" → "+e.AfterValue;
                 // v0.9 growth and economy events
-                case "ControllerGrown":return e.AbilityId=="C141"?"昙花一现 倍率 −0.5":(e.AbilityId==null?"成长":NameOf(e.AbilityId))+" "+GrowthValue09(e.AbilityId,ParseLong09(e.BeforeValue))+" → "+GrowthValue09(e.AbilityId,ParseLong09(e.AfterValue));
-                case "ControllerGrowthReset":return (e.AbilityId==null?"成长":NameOf(e.AbilityId))+" 回到 "+GrowthValue09(e.AbilityId,ParseLong09(e.AfterValue));
-                case "ControllerSacrificed":return "祭坛吞下右边的卡牌 → "+GrowthValue09("C100",ParseLong09(e.AfterValue));
+                // v1.1.1 (W7a): growth in the card's own unit (start + catch-up + grown part); 连庄 halves on a new hand.
+                case "ControllerGrown":return e.AbilityId=="C141"?"昙花一现 "+EphemeralLeft111(ParseLong09(e.AfterValue)):e.AbilityId==null?"成长":NameOf(e.AbilityId)+" "+GrowthValue09(e.AbilityId,ParseLong09(e.BeforeValue),e.StateOwnerId??e.EmitterId)+" → "+GrowthValue09(e.AbilityId,ParseLong09(e.AfterValue),e.StateOwnerId??e.EmitterId);
+                case "ControllerGrowthHalved":return e.AbilityId==null?"成长减半":NameOf(e.AbilityId)+" 换了牌型，成长减半 → "+GrowthValue09(e.AbilityId,ParseLong09(e.AfterValue),e.StateOwnerId??e.EmitterId);
+                case "ControllerSacrificed":return "祭坛吞下右边的卡牌 → "+GrowthValue09("C100",ParseLong09(e.AfterValue),e.StateOwnerId??e.EmitterId);
+                case "FaceCultivated":return "养成卡改写骰面";
                 case "WarIncome":return "以战养战 +"+e.AfterValue+" 金币";
                 case "SaleBonusGrown":return "聚宝盆：卡牌卖价 +"+e.AfterValue;
                 case "ControllerSlotAdded":return "卡牌栏位 "+e.BeforeValue+" → "+e.AfterValue;
-                case "glass":name="玻璃";break;case "gold":name="黄金面";break;
-                case "unused_rolls":name="剩余掷骰";break;case "hand":name="牌型";break;case "color":name="颜色";break;case "red_group":name="红组";break;
-                case "enchantment_base":name="附魔";break;case "enchantment_multiplier":name="附魔";break;
+                case "glass":name="玻璃";break;
+                case "unused_rolls":name="剩余掷骰";break;case "hand":name="牌型";break;case "red_group":name="红组";break;
+                case "enchantment_base":name="附魔";break;
+                // v1.1.1 (W7a): the bonus line and its entries. An entry adds to the bonus total ("加成 +1.5"), the line
+                // multiplies the score ("加成 ×4.75").
+                case "additive":name="加成";break;
+                case "color":return (string.IsNullOrEmpty(e.Detail)?"颜色":NameOf(e.Detail))+" 加成 +"+DisplayFraction07(e.Operand);
+                case "gold":return "黄金面 加成 +"+DisplayFraction07(e.Operand);
+                case "controller_additive":return (e.AbilityId==null?"卡牌":NameOf(e.AbilityId))+" 加成 +"+DisplayFraction07(e.Operand);
+                case "enchantment_additive":return "附魔 加成 +"+DisplayFraction07(e.Operand);
                 case "effective_pip":name="点数算作";break;case "effective_color":name="颜色算作";break;
                 case "red_group_key":return "红色1点按红色4点分组";case "red_group_merge":return "所有红骰算作一组";case "short_straight":return "简化顺子成立";
                 case "random_reveal":return "错乱乘积 "+PlayerNumberFormat.Times(e.AfterValue);

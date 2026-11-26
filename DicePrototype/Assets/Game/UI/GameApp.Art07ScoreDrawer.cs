@@ -60,7 +60,19 @@ namespace DiceCraft
                 }
             }
             var title=UiKit.Text(list,"DrawerGlobalTitle","整手计算",8,cursor,contentWidth,48,28,UiKit.Gold);cursor+=FitHeight(title,48)+10;
-            for(int i=0;i<trace.global.Length;i++){var step=trace.global[i];Row("Global"+i,ScoreStepSource07(step,snapshot),ScoreStepCalculation07(step),ScoreValue07(step.after),25,UiKit.Paper);}
+            for(int i=0;i<trace.global.Length;i++)
+            {
+                var step=trace.global[i];Row("Global"+i,ScoreStepSource07(step,snapshot),ScoreStepCalculation07(step),ScoreValue07(step.after),25,UiKit.Paper);
+                // v1.1.1 (RULES_DELTA 13): the bonus line is opened into its entries - every source and its amount, with
+                // the running total A on the right; the line itself stays "×1" when there is no bonus.
+                if(step.kind!="additive"||step.entries==null)continue;
+                long running=0;
+                for(int j=0;j<step.entries.Length;j++)
+                {
+                    var entry=step.entries[j];long before=running;running+=entry.amount100;
+                    Row("Global"+i+"Bonus"+j,"　"+BonusSource111(entry,snapshot),"加成 "+PlayerNumberFormat.Ratio(before,100)+" + "+PlayerNumberFormat.Ratio(entry.amount100,100),"加成 "+PlayerNumberFormat.Ratio(running,100),23,UiKit.Muted);
+                }
+            }
             string triggered=b.triggeredControllerIds.Length==0?"没有卡牌生效":string.Join(" · ",b.triggeredControllerIds.Select(NameOf));
             var footer=UiKit.Text(list,"Triggered",triggered+"\n复制、染色等永久效果在计分后才发生，不影响这一手的分数。"+(effects.Length>0?(historical?"\n\n计分后发生了：\n":"\n\n提交后会发生：\n")+effects:""),8,cursor+12,contentWidth,260,25,UiKit.Teal);
             list.sizeDelta=new Vector2(list.sizeDelta.x,cursor+FitHeight(footer,260)+36);
@@ -78,25 +90,14 @@ namespace DiceCraft
         // W16b: only exact identity factors are omitted. The copied and visible formula use the same frozen score.
         private string ScoreFormula07(ScoreBreakdown b)
         {
-            var formula = new System.Text.StringBuilder("基础 " + Big(b.baseTotal));
-            void Factor100(string label,int units)
+            // v1.1.1 (W7a): the factors are ScoreFactors111's (base, hand, red group, the bonus line 1 + A, cards, item,
+            // boss), so what is written multiplies to the score before the floor.
+            var formula = new System.Text.StringBuilder();
+            foreach (var f in DiceCraft.Presentation.ScoreFactors111.List(b, true))
             {
-                if (units != 100) formula.Append(" × ").Append(label).Append(" ").Append(Factor(units));
+                if (f.Key == "base") { formula.Append("基础 ").Append(Big(b.baseTotal)); continue; }
+                formula.Append(" × ").Append(FactorLabel111(f)).Append(" ").Append(PlayerNumberFormat.Ratio(f.Numerator, f.Denominator, PlayerNumberFormat.Unlimited));
             }
-            void Ratio(string label,string top,string bottom)
-            {
-                var n=ExactScoreMath.Parse(top);
-                var d=ExactScoreMath.Parse(bottom);
-                if (n != d) formula.Append(" × ").Append(label).Append(" ").Append(PlayerNumberFormat.Ratio(n,d,PlayerNumberFormat.Unlimited));
-            }
-            Factor100("牌型",b.totalHandMult100);
-            Factor100("颜色",(100+b.colorAdd100)); // W4B-ADAPT: was colorMult100; shows 1 + the colour bonus only
-            Factor100("红组",b.redMult100);
-            Ratio("卡牌",b.controllerMultiplierNumerator,b.controllerMultiplierDenominator);
-            if (b.enchantAdditiveCount > 0) // W3A-ADAPT: renamed field; the factor is 1 until W3b/UI shows the additive line
-                formula.Append(" × 附魔 ").Append(PlayerNumberFormat.Integer(EnchantFactor07(b.enchantAdditiveCount),PlayerNumberFormat.Unlimited));
-            if (b.globalFactors != null)
-                foreach (var factor in b.globalFactors) Ratio(NameOf(factor.abilityId),factor.numerator,factor.denominator);
             return formula.Append("\n= ").Append(Big(b.score)).Append("（最后去掉小数）").ToString();
         }
 

@@ -96,13 +96,17 @@ namespace DiceCraft
                     if(string.IsNullOrEmpty(item.state?.activeColor))return forDetails?"买入时随机定色":"购入定色";
                     if(forDetails)return item.state.activeColor=="red"?"加成色：红 ●":"加成色：蓝 ◆";
                     return item.state.activeColor=="red"?"当前 红 ●":"当前 蓝 ◆";
-                case "C51":return "当前 ×"+PlayerNumberFormat.Ratio(item.state?.turnoverUnits2??3,2);
                 case "C52":return "卖价 "+ControllerRules.SalePrice(item,Config);
                 case "C41":return forDetails?"复制右边的卡":"模拟右邻";
                 case "C53":return "随机倍率";
                 default:
-                    if(ControllerRules.IsGrowthMultiplier(item.definitionId))return "从 ×1 成长";
-                    if(ControllerRules.IsGrowthBase(item.definitionId))return "从 +0 成长";
+                    // v1.1.1 (W7a): the value the card starts from when bought - the configured start plus this
+                    // offer's catch-up (RULES_DELTA 5); 昙花一现 its full bonus; 客串明星 has no star before a stage.
+                    string value=CardValue111(item.definitionId,item.state??new ControllerDynamicState(),false);
+                    if(value!=null&&ControllerRules.HasGrowth(item.definitionId))
+                        return forDetails?"买入时 "+value+(item.state!=null&&item.state.growthCatchup>0?"（含起步补偿 "+GrowthStep111(item.definitionId,item.state.growthCatchup)+"）":""):"当前 "+value;
+                    if(value!=null)return CurrentValue111(value);
+                    if(forDetails&&IsCultivation111(item.definitionId))return "养成卡：最左边的一张养成卡不占卡牌栏位；每改写 "+Config.cultivationFacesPerSaleBonus+" 个骰面卖价 +1（最多 +"+Config.cultivationMaxSaleBonus+"）";
                     return forDetails?"":"技能详情";
             }
         }

@@ -380,10 +380,10 @@ namespace DiceCraft
             {
                 bool color=Config.colorDefinitions.Any(d=>d.id==offer.contentId);
                 int level=(color?ViewState.colorLevels:ViewState.handLevels).First(v=>v.handId==offer.contentId).level;
-                int basis=color?100+Config.Color(offer.contentId).baseAdd100:Config.Hand(offer.contentId).baseMult100; // W3A-ADAPT: a colour is an additive bonus; shown as 1 + bonus until W3b/UI rewords it
-                int step=color?Config.Color(offer.contentId).addPerLevel100:Config.Hand(offer.contentId).incrementPerLevel100;
+                int basis=color?0:Config.Hand(offer.contentId).baseMult100,step=color?0:Config.Hand(offer.contentId).incrementPerLevel100;
                 // UI_REWRITES Art073Shop.cs:277: "Lv.0 → Lv.1" and the multiplier change on one line (the short text).
-                face.text="Lv."+level+" → Lv."+(level+1)+" · ×"+Factor(basis+step*level)+" → ×"+Factor(basis+step*(level+1));
+                // v1.1.1 (W7a): a colour changes its bonus instead ("加成 +0.75 → +1.25").
+                face.text="Lv."+level+" → Lv."+(level+1)+" · "+(color?ColorUpgrade111(offer.contentId,level):"×"+Factor(basis+step*level)+" → ×"+Factor(basis+step*(level+1)));
                 face.picture=(t,r)=>HandPattern14(t,offer.contentId,color,r);tip=face.text+"\n"+tip;
             }
             if(offer.category=="die_upgrade"||offer.contentId=="O04")face.buy=()=>BeginFacePick14(offer);

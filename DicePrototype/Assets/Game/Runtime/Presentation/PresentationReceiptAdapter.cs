@@ -61,13 +61,12 @@ namespace DiceCraft.Presentation
                     if (snap == null || score == null) throw new ArgumentException("Incomplete submission receipt.");
                     sources = ControllerRules.ResolveSources(ControllerRules.Resolve(snap), snap.mimicBindings, snap.disabledControllerIds);
                     // p1.0.0: the item multiplier and the boss half-score factor are part of the total multiplier.
-                    BigInteger globalNumerator = 1, globalDenominator = 1;
-                    foreach (var factor in score.globalFactors ?? Array.Empty<MultiplierFactor>()) { globalNumerator *= ExactScoreMath.Parse(factor.numerator); globalDenominator *= ExactScoreMath.Parse(factor.denominator); }
-                    multiplier = new ExactFraction((BigInteger)score.totalHandMult100 * (100 + score.additiveTotal100) * score.redMult100 * ExactScoreMath.Parse(score.controllerMultiplierNumerator) * globalNumerator, // W3A-ADAPT: the colour and enchantment zones became the additive zone x(1+A)
-                        1000000 * ExactScoreMath.Parse(score.controllerMultiplierDenominator) * globalDenominator);
+                    // p1.1.1: hand x red group x (1 + bonus) x cards x item x boss, so base x multiplier is the score
+                    // before the floor (ScoreFactors111 is the one list every readout uses).
+                    multiplier = ScoreFactors111.Multiplier(score, true);
                     BuildScoring();
+                    // p1.1.1: no card can zero a hand any more (C49 without a five halves it), so the total needs no note.
                     Add(PresentationPhase.FinalScore, "final_score", beforeValue: "0", afterValue: score.score,
-                        detail: score.score == "0" && score.multiplierFactors.Any(f => f.numerator == "0") ? "千年老二 ×0：没有有效5点" : null,
                         audio: ScorePresentationTier.Resolve(score.score, ExactScoreMath.SaveDecimal(multiplier.Numerator), ExactScoreMath.SaveDecimal(multiplier.Denominator)) >= 3 ? "SFX_SCORE_BURST" : "SFX_SCORE_STEP");
                 }
                 else if (before != null)
@@ -149,8 +148,9 @@ namespace DiceCraft.Presentation
                         if (current.ToString() != step.after) throw new ArgumentException("Base contribution attribution does not sum to receipt.");
                         continue;
                     }
+                    if (step.kind == "additive") { AddAdditive(step); continue; }
                     var emitter = sources.FirstOrDefault(s => s.emitterId == step.emitterId);
-                    var phase = step.kind == "controller" || step.kind == "enchantment_multiplier" ? PresentationPhase.ControllerAndEnchant : PresentationPhase.BaseAndStructure;
+                    var phase = step.kind == "controller" ? PresentationPhase.ControllerAndEnchant : PresentationPhase.BaseAndStructure;
                     bool meaningful = step.operation == "+" ? ExactFraction.Parse(step.operand).Numerator != 0 : step.operation == "×" && step.operand != "1";
                     Add(phase, step.kind, emitter, beforeValue: step.before, operand: step.operand, afterValue: step.after, operation: step.operation,
                         chain: emitter != null && meaningful, scoring: true, audio: phase == PresentationPhase.ControllerAndEnchant ? "SFX_CARD_TRIGGER" : "SFX_SCORE_STEP");
@@ -165,6 +165,32 @@ namespace DiceCraft.Presentation
                 }
             }
 
+            /// <summary>
+            /// p1.1.1 (RULES_DELTA 2 step 9, 13): the bonus line. Every bonus is one "+" event on the running bonus total A
+            /// (exact fractions: +1.5 is "3/2") - "color" and "gold" without a card, "controller_additive" and
+            /// "enchantment_additive" from the card that gave it (these count for the chain and light the card) - and
+            /// then one "additive" event multiplies the running score by 1 + A. The line is shown with the cards when a
+            /// card contributed, otherwise with the hand and the red group; it is emitted even when A is 0 (x1).
+            /// </summary>
+            private void AddAdditive(ScoreStep step)
+            {
+                var running = new ExactFraction(0, 1); bool fromCards = false;
+                foreach (var entry in step.entries ?? Array.Empty<AdditiveEntry>())
+                {
+                    var amount = ScoreFactors111.Bonus(entry.amount100); var next = running + amount;
+                    var owner = entry.emitterId == null ? null : sources.FirstOrDefault(s => s.emitterId == entry.emitterId);
+                    bool card = owner != null; fromCards |= card;
+                    string family = entry.kind == "color" ? "color" : entry.kind == "gold" ? "gold" : entry.kind == "enchantment" ? "enchantment_additive" : "controller_additive";
+                    var die = entry.kind == "gold" && entry.dieIndex >= 0 && entry.dieIndex < snap.dice.Length ? snap.dice[entry.dieIndex] : null;
+                    Add(card ? PresentationPhase.ControllerAndEnchant : PresentationPhase.BaseAndStructure, family, owner,
+                        die == null ? null : new[] { die.dieId }, die == null ? null : new[] { die.faceId },
+                        running.ToString(), amount.ToString(), next.ToString(), "+", detail: entry.kind == "color" ? entry.abilityId : null,
+                        chain: card, scoring: true, audio: card ? "SFX_CARD_TRIGGER" : "SFX_SCORE_STEP");
+                    running = next;
+                }
+                Add(fromCards ? PresentationPhase.ControllerAndEnchant : PresentationPhase.BaseAndStructure, "additive",
+                    beforeValue: step.before, operand: step.operand, afterValue: step.after, operation: step.operation, scoring: true, audio: "SFX_SCORE_STEP");
+            }
             private bool Hit(AbilitySource source) => score != null && score.triggeredSourceIds.Contains(source.emitterId);
             private void BuildPostEffects()
             {
@@ -174,8 +200,10 @@ namespace DiceCraft.Presentation
                 {
                     var abilities = (effect.sourceId ?? "").Split('+');
                     var owners = sources.Where(s => abilities.Contains(s.abilityId) && (score == null || Hit(s))).ToArray();
-                    string explicitEmitter = effect.kind == "ControllerDestroyed" || effect.kind == "FundAccrued" || effect.kind == "ControllerGrown" || effect.kind == "ControllerGrowthReset" ? effect.detail
-                        : effect.kind == "ControllerSacrificed" ? (effect.detail ?? "").Split(':')[0] : null;
+                    string explicitEmitter = effect.kind == "ControllerDestroyed" || effect.kind == "FundAccrued" || effect.kind == "ControllerGrown" || effect.kind == "ControllerGrowthHalved"
+                        || effect.kind == "StarPipDrawn" || effect.kind == "TurnoverGrown" ? effect.detail
+                        // p1.1.1: FaceCultivated names "emitter:real owner"; the card that did the rewrite is the emitter.
+                        : effect.kind == "ControllerSacrificed" || effect.kind == "FaceCultivated" ? (effect.detail ?? "").Split(':')[0] : null;
                     if (explicitEmitter != null) owners = sources.Where(s => s.emitterId == explicitEmitter).ToArray();
                     string ownerId = null, old = effect.oldValue.ToString(CultureInfo.InvariantCulture), value = effect.newValue.ToString(CultureInfo.InvariantCulture), family = effect.kind;
                     string audio = null; string[] dice = effect.dieId == null ? Array.Empty<string>() : new[] { effect.dieId };

@@ -53,8 +53,17 @@ namespace DiceCraft.Presentation.Tests
         {
             var snap = Snap(new[] { 6, 6, 6, 6, 6 }, Card("C02", 1), Card("C30", 2), Card("C31", 3), Card("C32", 4));
             snap.handLevels = new[] { new HandLevel { handId = "five_kind", level = 4 } }; snap.colorLevels = new[] { new HandLevel { handId = "all_blue", level = 4 } }; snap.rollsRemaining = 2;
-            var r = Build(snap); Assert.That(r.ScoreDecimal, Is.EqualTo("181440")); Assert.That(r.MultiplierNumeratorDecimal, Is.EqualTo("5040")); Assert.That(r.MultiplierDenominatorDecimal, Is.EqualTo("1"));
+            // p1.1.1 (W7a; RULES_DELTA 2, 3.1, 4): base 30 + 2 unused rolls x 3 = 36; five of a kind level 4 x28; the bonus
+            // line is all-blue level 4 (+2.25) + C30 (+2.5) + C32 (+3) = +7.75, so x8.75; C02 x3 and C31 x3.
+            // 36 x 28 x 8.75 x 9 = 79380, total multiplier 28 x 8.75 x 9 = 2205 (tier 4: >= 1024). p1.1.0 gave 181440 and 5040.
+            var r = Build(snap); Assert.That(r.ScoreDecimal, Is.EqualTo("79380")); Assert.That(r.MultiplierNumeratorDecimal, Is.EqualTo("2205")); Assert.That(r.MultiplierDenominatorDecimal, Is.EqualTo("1"));
             Assert.That(r.ChainCount, Is.EqualTo(4)); Assert.That(r.ComboTier, Is.EqualTo(4)); Assert.That(r.QualifiedAfter, Is.False); Assert.That(r.Events.Any(e => e.EffectFamily == "qualified"), Is.False);
+            // The two bonus cards add to the bonus line (and count for the chain), then the line multiplies once.
+            var bonuses = r.Events.Where(e => e.EffectFamily == "controller_additive").ToArray();
+            Assert.That(bonuses.Select(e => e.EmitterId + e.Operation + e.Operand), Is.EqualTo(new[] { "c2+5/2", "c4+3" })); Assert.That(bonuses.Last().AfterValue, Is.EqualTo("31/4"));
+            var line = r.Events.Single(e => e.EffectFamily == "additive"); Assert.That(line.Operand, Is.EqualTo("35/4")); Assert.That(line.BeforeValue, Is.EqualTo("1008")); Assert.That(line.AfterValue, Is.EqualTo("8820"));
+            Assert.That(line.Phase, Is.EqualTo(PresentationPhase.ControllerAndEnchant)); Assert.That(line.EmitterId, Is.Null); Assert.That(line.CountsForChain, Is.False);
+            Assert.That(r.Events.Single(e => e.EffectFamily == "color").Operand, Is.EqualTo("9/4"));
         }
         [Test] public void FX03_MultiDieAndOwnEnchantOnlyOneEmitter()
         { var r = Build(Snap(new[] { 1, 1, 1 }, Card("C10", 1, "mult2"))); Assert.That(r.ChainCount, Is.EqualTo(1)); Assert.That(r.Events.Count(e => e.EmitterId == "c1" && e.IsScoring), Is.EqualTo(4)); }
@@ -72,7 +81,16 @@ namespace DiceCraft.Presentation.Tests
             Assert.That(Build(snap).ChainCount, Is.Zero); card.enchantmentId = "base10"; Assert.That(Build(snap).ChainCount, Is.EqualTo(1));
         }
         [Test] public void FX03_ZeroAndFractionAreNonIdentityScoringSources()
-        { var r = Build(Snap(new[] { 2 }, Card("C49", 1))); Assert.That(r.ChainCount, Is.EqualTo(1)); Assert.That(r.ComboTier, Is.Zero); Assert.That(r.Events.Single(e => e.EffectFamily == "final_score").Detail, Does.Contain("×0")); }
+        {
+            // p1.1.1 (W7a; RULES_DELTA 4.2 C49): without a five the card halves the hand - it no longer zeroes it, so the
+            // total carries no "×0" note. 2 x (1 + 0.25 all-blue) x 1/2 = 1.25 -> 1. The fraction still counts for the chain.
+            var r = Build(Snap(new[] { 2 }, Card("C49", 1))); Assert.That(r.ChainCount, Is.EqualTo(1)); Assert.That(r.ComboTier, Is.Zero); Assert.That(r.ScoreDecimal, Is.EqualTo("1"));
+            Assert.That(r.Events.Single(e => e.EffectFamily == "controller").Operand, Is.EqualTo("1/2")); Assert.That(r.Events.Single(e => e.EffectFamily == "final_score").Detail, Is.Null);
+            Assert.That(r.Events.Single(e => e.EffectFamily == "additive").Phase, Is.EqualTo(PresentationPhase.BaseAndStructure), "only the colour added to the bonus line");
+            // With a five it only adds +1.5 to the bonus line: 5 x (1 + 0.25 + 1.5) = 13.75 -> 13, still one card in the chain.
+            var five = Build(Snap(new[] { 5 }, Card("C49", 1))); Assert.That(five.ScoreDecimal, Is.EqualTo("13")); Assert.That(five.ChainCount, Is.EqualTo(1));
+            Assert.That(five.Events.Any(e => e.EffectFamily == "controller"), Is.False); Assert.That(five.Events.Single(e => e.EffectFamily == "controller_additive").Operand, Is.EqualTo("3/2"));
+        }
         [Test] public void FX04_SharedHalfRevealOnceBeforeBothFactors()
         {
             var snap = Snap(new[] { 5 }, Card("C41", 1), Card("C53", 2)); snap.resolvedRandomChoices = new[] { new RandomMultiplierChoice { ownerInstanceId = "c2", units2 = 1 } };
@@ -104,7 +122,9 @@ namespace DiceCraft.Presentation.Tests
             var snap = Snap(new[] { 2, 2 }, Card("C41", 1), Card("C44", 2)); snap.wallet = 9007199254740993L;
             var r = Build(snap); var adds = r.Events.Where(e => e.EffectFamily == "controller_base").ToArray();
             Assert.That(adds.Length, Is.EqualTo(2)); Assert.That(adds.Select(e => e.EmitterId), Is.EquivalentTo(new[] { "c1", "c2" }));
-            Assert.That(adds[0].Operand, Is.EqualTo("9007199254740993")); Assert.That(adds[1].AfterValue, Is.EqualTo("18014398509481990"));
+            // p1.1.1 (W7a; RULES_DELTA 4.3 C44): +2 base per gold (was +1), so each of the two sources adds
+            // 2 x 9007199254740993 = 18014398509481986 and the base ends at 4 + 2 x that.
+            Assert.That(adds[0].Operand, Is.EqualTo("18014398509481986")); Assert.That(adds[1].AfterValue, Is.EqualTo("36028797018963976"));
         }
         [Test] public void FX05_PostSourceGroupAndTrueEffectOrderRemainDetached()
         {

@@ -51,7 +51,8 @@ namespace DiceCraft
             // v1.1 (W09): decimal total multiplier; "连锁 N" is now "生效 N 张" (DEV_PLAN 4.1 item 4).
             string multiplier="总倍率 "+ReceiptMultiplier07();
             string chain=receipt07.ChainCount==0?"":" · 生效 "+receipt07.ChainCount+" 张";
-            string zeroReason=receipt07.Events.Any(e=>e.AbilityId=="C49"&&e.IsScoring&&e.Operand=="0")?" · 千年老二 ×0，没有有效5点":"";
+            // p1.1.1: 千年老二 without a five halves the hand (it no longer zeroes it); the half is named beside the total.
+            string zeroReason=receipt07.Events.Any(e=>e.AbilityId=="C49"&&e.IsScoring&&e.EffectFamily=="controller"&&e.Operand=="1/2")?" · 千年老二：没有 5 点，得分减半":"";
             var post=receipt07.Events.Where(e=>e.Phase==PresentationPhase.PostScore).ToArray();
             string changes=post.Length==0?"":"\n后置："+PostSummary07(new PresentationBeat(PresentationPhase.PostScore,0,0,null,true,post));
             var detail=UiKit.Text(panel,"StableResultFactors07",multiplier+chain+zeroReason+changes,20,thin?58:compact?65:82,width-(thin?1180:290),thin?40:compact?48:64,thin?20:compact?17:21,UiKit.Muted);
