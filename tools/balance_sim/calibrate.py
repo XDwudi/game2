@@ -281,7 +281,7 @@ class Model:
         targets.update(partial)
         return targets
 
-    def report(self, partial):
+    def report(self, partial, segments=None):
         targets = self.full(partial)
         total = len(self.base["logs"])
         out, wins = self.walk(targets)
@@ -303,6 +303,13 @@ class Model:
             ks = [k for k in range(1, self.n + 1) if self.kinds[k - 1] == kind]
             reach = sum(out[k][0] for k in ks)
             print(f"predicted clear rate, {kind} stages: {100 * sum(out[k][0] * out[k][1] for k in ks) / reach:.1f}%")
+        if segments:
+            edges = [0] + list(segments)
+            print("predicted death share by segment (% of deaths / % of runs): " + "  ".join(
+                f"{a + 1}-{b}: {100 * sum(v for k, v in deaths.items() if a < k <= b) / all_deaths:.0f}% / {100 * sum(v for k, v in deaths.items() if a < k <= b) / total:.0f}%"
+                for a, b in zip(edges, edges[1:])))
+            boss = sum(v for k, v in deaths.items() if self.kinds[k - 1] == "boss")
+            print(f"predicted share of deaths at boss stages: {100 * boss / all_deaths:.0f}%")
         print("targets: " + ",".join(str(int(targets[k])) for k in range(1, self.n + 1)))
 
 
@@ -356,7 +363,15 @@ def main():
     ap.add_argument("--steps", default="1.2,2.6")
     ap.add_argument("--last-power", type=float, default=0.0)
     ap.add_argument("--round", action="store_true")
+    # p1.1.1 (plan 21.1): deaths are not spread evenly. --segments gives the last stage of each segment and
+    # --death-shares the share of all deaths wanted inside each one, e.g. --segments 6,15,24 --death-shares 0.2,0.55,0.25.
+    ap.add_argument("--segments")
+    ap.add_argument("--death-shares")
     args = ap.parse_args()
+    segments = [int(x) for x in args.segments.split(",")] if args.segments else None
+    shares = [float(x) for x in args.death_shares.split(",")] if args.death_shares else None
+    if shares and (not segments or len(shares) != len(segments) or abs(sum(shares) - 1) > 1e-6):
+        raise SystemExit("--death-shares needs --segments of the same length and must add up to 1")
     if args.mode == "summary":
         summary(args.files, args.md)
         return
@@ -365,7 +380,7 @@ def main():
         values = [int(x) for x in args.targets.replace("_", "").split(",")]
         if len(values) != model.n - args.first + 1:
             raise SystemExit(f"need {model.n - args.first + 1} targets for stages {args.first}..{model.n}")
-        model.report({args.first + i: v for i, v in enumerate(values)})
+        model.report({args.first + i: v for i, v in enumerate(values)}, segments)
         return
     # solve: stage by stage bisection on the target so that the predicted clear rate equals the schedule
     if args.clear:
@@ -376,7 +391,33 @@ def main():
     step_lo, step_hi = [float(x) for x in args.steps.split(",")]
     targets = {k: model.fixed[k - 1] for k in range(1, args.first)}
     prev = model.fixed[args.first - 2] if args.first > 1 else None
+    total = len(model.base["logs"])
+    survive_at_end = {}
+    if shares:
+        dead = 0.0
+        for end, share in zip(segments, shares):
+            dead += share * (1 - args.win)
+            survive_at_end[end] = 1 - dead
     for k in range(args.first, model.n + 1):
+        if shares:
+            # The share of runs that should still be alive after this stage's segment, spread over the stages that are
+            # left in it; what the earlier (possibly fixed) stages already lost is taken from the prediction.
+            end = next(e for e in segments if e >= k)
+            trial = dict(targets)
+            for j in range(k, model.n + 1):
+                trial[j] = 10.0
+            reach = model.walk(trial)[0][k][0] / total
+            rest = list(range(k, end + 1))
+            bosses = sum(1 for j in rest if model.kinds[j - 1] == "boss")
+            goal = min(1.0, survive_at_end[end] / max(reach, 1e-9))
+            lo_c, hi_c = args.min_clear, 0.999
+            for _ in range(60):
+                c = (lo_c + hi_c) / 2
+                if c ** (len(rest) - bosses) * max(args.min_clear, c - args.boss_gap) ** bosses > goal:
+                    hi_c = c
+                else:
+                    lo_c = c
+            want[k] = max(args.min_clear, lo_c - args.boss_gap) if model.kinds[k - 1] == "boss" else lo_c
         lo, hi = 10.0, 1e13
         for _ in range(70):
             mid = math.sqrt(lo * hi)
@@ -398,7 +439,7 @@ def main():
         targets[k] = nice(value) if args.round else int(value) + int(value) % 2
         prev = targets[k]
     print("wanted clear % by stage: " + " ".join(f"{100 * want[k]:.0f}" for k in range(args.first, model.n + 1)))
-    model.report(targets)
+    model.report(targets, segments)
 
 
 if __name__ == "__main__":
