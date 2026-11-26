@@ -150,7 +150,7 @@ namespace DiceCraft.Tests
                     if(TryClick9a("Controller_"+scene.controllers[0].instanceId)){yield return Wait9a();yield return W9aShot("detail-growth-C56"+tag,false);TryClick9a("CloseDialog");yield return Wait9a(.2f);}
                     if(TryClick9a("Controller_"+scene.controllers[4].instanceId)){yield return Wait9a();yield return W9aShot("detail-cultivation-C120"+tag,false);TryClick9a("CloseDialog");yield return Wait9a(.2f);}
                     // Glass: three locked dice, two of them glass; then the submission and what the summary says.
-                    var glass=W11Scene(new string[0],new[]{4,4,4,2,6},"bbbbr",3,true);foreach(var die in glass.dice.Take(2))die.isGlass=true;
+                    var glass=W11Scene(new string[0],new[]{4,4,4,2,6},"bbbbr",3,true);foreach(var glassDie in glass.dice.Take(2))glassDie.isGlass=true;
                     W11Apply(glass);yield return W11Settle();yield return W9aShot("play-glass-preview"+tag);
                     if(TryClick9a("Submit")){yield return Wait9a(.2f);app.SkipVisual();yield return Wait9a(.4f);yield return W9aShot("play-glass-after"+tag);}
                     // The unlock button with a key ring (W7b §2, longest at 150 %).
