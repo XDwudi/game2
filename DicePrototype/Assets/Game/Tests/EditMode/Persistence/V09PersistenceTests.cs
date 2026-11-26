@@ -36,19 +36,21 @@ namespace DiceCraft.Tests
             var live = session.State.lastSubmission;
             Assert.That(live.snapshot.poolDice.Length, Is.EqualTo(5)); Assert.That(live.snapshot.rollsUsed, Is.EqualTo(2)); Assert.That(live.snapshot.permanentDiceCount, Is.EqualTo(7));
             Assert.That(live.breakdown.retriggerEntries.Length, Is.EqualTo(1)); Assert.That(live.breakdown.pipRetriggers, Is.EqualTo(new[] { 1, 0 }));
-            Assert.That(live.breakdown.controllerBaseAdds.Select(a => a.abilityId + ":" + a.amount), Is.EqualTo(new[] { "C55:6", "C70:30" }));
-            Assert.That(live.breakdown.afterScorePlan.growthChanges.Single().delta, Is.EqualTo(2));
+            // p1.1.1 (RULES_DELTA 3, 5): C55 adds 12 plus its growth (6) and grows 3 a submission; C70 adds 9 a pool die (5).
+            Assert.That(live.breakdown.controllerBaseAdds.Select(a => a.abilityId + ":" + a.amount), Is.EqualTo(new[] { "C55:18", "C70:45" }));
+            Assert.That(live.breakdown.afterScorePlan.growthChanges.Single().delta, Is.EqualTo(3));
             session = Reopen(session, path);
             var restored = session.State.lastSubmission;
             Assert.That(JsonUtility.ToJson(restored), Is.EqualTo(JsonUtility.ToJson(live)), "The recorded submission, including pool dice and retriggers, is preserved.");
-            Assert.That(session.State.controllers.Single(c => c.definitionId == "C55").state.growth, Is.EqualTo(8));
+            Assert.That(session.State.controllers.Single(c => c.definitionId == "C55").state.growth, Is.EqualTo(9));
 
             Do(session, CommandKind.EndStage);
             session = Reopen(session, path);
             var r = session.State.lastStageSettlement;
             Assert.That(r.controllerIncome, Is.EqualTo(3)); Assert.That(r.interestPrincipalCap, Is.EqualTo(50)); Assert.That(r.interest, Is.EqualTo(8));
             Assert.That(session.State.controllers.All(c => c.state.saleBonus == 1), Is.True);
-            Assert.That(session.State.controllers.Single(c => c.definitionId == "C58").state.growth, Is.EqualTo(4));
+            // p1.1.1 (RULES_DELTA 5): C58 grows 0.15 (15 hundredths) a cleared stage.
+            Assert.That(session.State.controllers.Single(c => c.definitionId == "C58").state.growth, Is.EqualTo(15));
             Do(session, CommandKind.Continue);
             session = Reopen(session, path);
             Assert.That(session.State.phase, Is.EqualTo("Shop")); Assert.That(session.State.controllerSlots, Is.EqualTo(7));

@@ -547,3 +547,15 @@ p1.1.1 的内容是 185 项（卡牌 150、道具 13、服务 11、骰面改造 
 | `test_art_v11_install.InstalledArtTests.test_w8_batch_check_passes_on_the_repository` | `install_art.py --batch …/w8-install.json --check` 在仓库上通过：48 个文件与清单的 SHA-256 一致，72 个已移除文件都不在了 |
 | `test_art_v11_install.InstallToolTests.test_retired_id_folders_are_history_and_other_unknown_folders_are_refused` | ArtSource 里已移除 id（`RETIRED_IDS`）的文件夹不装、不进清单；其它不在配置里的文件夹仍整次拒绝 |
 | `test_art_v11_install.InstallToolTests.test_batch_installs_byte_identical_removes_retired_files_and_refuses_before_writing` | 批次安装逐字节复制、只删已移除 id 的文件（连 `.meta`）、第二次核对通过；图标哈希、插画哈希、目标路径不符，删除清单里出现在用 id 或非美术文件，五种情况都整次拒绝且一个文件也不写 |
+
+## EditMode 首次全量：过时的存档往返测试（归因 a）
+
+这三条不在 .NET 宿主里（用 Unity 的 `JsonUtility` 与 `AtomicSaveStore`），之前没有人在 p1.1.1 下跑过。测试的本意（状态经真实 JSON 往返不变）不变，只把按旧规则写的数值换成 p1.1.1 的规定值；改后在 Unity EditMode 里单独跑过，全过。
+
+| 测试 | 原期望 | 新期望 | 依据 |
+| --- | --- | --- | --- |
+| `V09PersistenceTests.SAVE_V09_GrowthPoolRetriggerSlotsAndStageIncomeSurviveARealJsonRoundTrip` | 基础分加值 `C55:6`、`C70:30`；C55 成长 +2，提交后成长 8；过关后 C58 成长 4 | `C55:18`（起步 12 + 成长 6）、`C70:45`（每颗留池骰 +9，5 颗）；成长 +3，提交后 9；C58 成长 15（每过一关 +0.15，以百分之一计） | RULES_DELTA §5 C55、C58，§3 C70 |
+| `V10PersistenceTests.SAVE_V10_CyclePlanBossStageFaceChangesAndGiftGroupsSurviveARealJsonRoundTrip` | 计分后的面变化 `C117:gold`、`C124:weightDelta` ×2；第二颗骰朝上面权重 2 | `C117:gold` ×2（首末两颗提交骰）、`C124:weightDelta` ×2；权重 4（1，镀金 +1，灌铅 +2） | RULES_DELTA §4.6 C117、C124，§7 镀金加权 |
+| `V10PersistenceTests.SAVE_V11_SameNameCopiesAndAPendingLootShopSurviveARealJsonRoundTrip` | 两张 C46 都出现在乘法因子里；基础分加值只有长过的那张 `10`；成长后 `{12, 2}` | 两张 C46 各有一条加成条目（不同的发出者，C46 现在是加成卡）；基础分加值 `22`、`12`（起步 12，新的一张也列出）；成长后 `{13, 3}`（每次 +3） | RULES_DELTA §2、§3 C46，§5 C55 |
+
+`PlayerVerificationBindingTests.VERIFY_RecoveryRoleReportBindsActualConfigWithoutReplayInitialization` 的两个用例失败不是测试或代码的问题：它把读到的配置哈希与本机的 `Resources/BuildIdentity.json`（未跟踪，由交付工具在发布时写）比，而那个文件还是 p1.1.0 的。没有改测试，见 [W9A_NOTES.md](W9A_NOTES.md) 第 3 节。

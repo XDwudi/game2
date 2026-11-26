@@ -38,11 +38,13 @@ namespace DiceCraft.Tests
             Assert.That(live.snapshot.modifierId, Is.EqualTo("B25")); Assert.That(live.snapshot.stageKind, Is.EqualTo("boss")); Assert.That(live.snapshot.disabledControllerIds.Length, Is.EqualTo(2));
             Assert.That(live.snapshot.ordinaryControllerSlots, Is.EqualTo(6));
             Assert.That(live.breakdown.triggeredSourceIds.Length, Is.EqualTo(2), "C50 and C46 are disabled; C117 and C124 trigger.");
-            Assert.That(live.breakdown.afterScorePlan.faceChanges.Select(f => f.sourceId + ":" + f.kind), Is.EqualTo(new[] { "C117:gold", "C124:weightDelta", "C124:weightDelta" }));
+            // p1.1.1 (RULES_DELTA 4.6, 7): C117 gilds the first and the last submitted die (two here); C124 adds weight 2 to each.
+            Assert.That(live.breakdown.afterScorePlan.faceChanges.Select(f => f.sourceId + ":" + f.kind), Is.EqualTo(new[] { "C117:gold", "C117:gold", "C124:weightDelta", "C124:weightDelta" }));
             session = Reopen(session, path);
             Assert.That(JsonUtility.ToJson(session.State.lastSubmission), Is.EqualTo(JsonUtility.ToJson(live)), "The recorded submission, including the boss context and face changes, is preserved.");
             var second = session.State.dice.Single(d => d.dieId == "D002"); var up = second.faces.Single(f => f.faceId == live.snapshot.dice[1].faceId);
-            Assert.That(up.isGold, Is.True); Assert.That(up.baseWeight, Is.EqualTo(2));
+            // Weight 1, +1 for the new gold layer (RULES_DELTA 7), +2 from C124.
+            Assert.That(up.isGold, Is.True); Assert.That(up.baseWeight, Is.EqualTo(4));
             CollectionAssert.AreEqual(live.breakdown.primaryHandId == "scatter" ? new string[0] : new[] { live.breakdown.primaryHandId }, session.State.stage.primaryHandsUsed, "The primary hands scored in this stage are part of the save.");
 
             Do(session, CommandKind.EndStage);
@@ -84,11 +86,12 @@ namespace DiceCraft.Tests
             session = Reopen(session, path);
             Do(session, CommandKind.Submit);
             var live = session.State.lastSubmission;
-            Assert.That(live.breakdown.multiplierFactors.Count(f => f.abilityId == "C46"), Is.EqualTo(2), "both copies of C46 multiply");
-            Assert.That(live.breakdown.controllerBaseAdds.Select(a => a.amount), Is.EqualTo(new[] { "10" }), "the grown copy adds 10, the new one 0 (not listed)");
+            // p1.1.1 (RULES_DELTA 2, 3, 5): C46 is a bonus card (+2 to the bonus sum), C55 adds 12 plus its growth.
+            Assert.That(live.breakdown.additiveEntries.Where(e => e.abilityId == "C46").Select(e => e.emitterId).Distinct().Count(), Is.EqualTo(2), "both copies of C46 add to the bonus");
+            Assert.That(live.breakdown.controllerBaseAdds.Select(a => a.amount), Is.EqualTo(new[] { "22", "12" }), "the grown copy adds 12 + 10, the new one 12");
             session = Reopen(session, path);
             Assert.That(JsonUtility.ToJson(session.State.lastSubmission), Is.EqualTo(JsonUtility.ToJson(live)), "the recorded submission with both copies is preserved");
-            Assert.That(session.State.controllers.Where(c => c.definitionId == "C55").Select(c => c.state.growth), Is.EqualTo(new long[] { 12, 2 }), "each copy grows on its own");
+            Assert.That(session.State.controllers.Where(c => c.definitionId == "C55").Select(c => c.state.growth), Is.EqualTo(new long[] { 13, 3 }), "each copy grows on its own (+3 a submission)");
 
             Do(session, CommandKind.EndStage); Do(session, CommandKind.Continue);
             Assert.That(session.IsLootPending, Is.True);

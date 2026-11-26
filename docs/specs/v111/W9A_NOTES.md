@@ -63,6 +63,20 @@
 
 ## 3. EditMode
 
+入口 `V072BatchTests.RunEditMode`（批处理）。`TestEvidence` 把报告写死在 `evidence/v11/unity/`（发布门禁与 `v11_delivery.py` 也读那里，切换属于协调者的发布步骤，本包没有改）；每次运行后我把 NUnit 报告与绑定文件原样移到 `evidence/v111/unity/`（字节不变，所以绑定文件里的 `report.path` 仍写着 `evidence/v11/unity/…`，以 SHA-256 对应）。V1.1 的 `evidence/v11/unity/` 本来就不进 git，这里同样没有提交报告本身，只在本节记下文件名、提交号与结果。
+
+| 轮次 | 源提交 | 报告 | 总数 | 通过 | 失败 | 跳过 |
+| --- | --- | --- | ---: | ---: | ---: | ---: |
+| 第 1 次全量 | `cd8a389d` | `nunit-20261126-174727.xml` | 7146 | 7141 | 5 | 0 |
+| 修复后只跑相关的（诊断，不算门禁） | 工作区（`cd8a389d` + 三个测试文件的改写） | `nunit-20261126-175052.xml` | 8 | 8 | 0 | 0 |
+
+第 1 次的 5 条失败与归因：
+
+1. `V09PersistenceTests.SAVE_V09_…RealJsonRoundTrip`（a）：按旧规则写的 C55、C70、C58 数值。按 RULES_DELTA 改写，登记在 TEST_CHANGES W9a。
+2. `V10PersistenceTests.SAVE_V10_…RealJsonRoundTrip`（a）：C117 现在镀首末两颗、镀金加权 +1、C124 权重 +2。同上。
+3. `V10PersistenceTests.SAVE_V11_SameNameCopies…`（a）：C46 现在是加成卡、C55 起步 12、每次成长 +3。同上。
+4–5. `PlayerVerificationBindingTests.VERIFY_RecoveryRoleReportBindsActualConfigWithoutReplayInitialization` 的两个用例（环境）：断言“读到的配置哈希等于构建身份里的哈希”。`DicePrototype/Assets/Resources/BuildIdentity.json` 不进 git（只有 `.meta` 被跟踪），由 `tools/v11_delivery.py identity` 在出包前写；本机这份还是 p1.1.0 的（`contentConfigVersion` p1.1.0、旧哈希）。而 `v11_delivery.py identity` 现在写死要求 p1.1.0，不能用来生成。处理：用一个一次性脚本（不进仓库）只刷新这份本机文件里由源文件推出的字段——`sourceCommit`、`contentConfigVersion`（p1.1.1）、`contentConfigSha256`、`saveSchemaVersion`（8）；发布标签 `releaseVersion`（p1.1.0）、`artVersion`（art1.1.0）原样保留，`goldenCaseSetSha256` 也原样保留（它对应的 `Data/GoldenScores.json` 已经不存在）。原文件备份在本次会话的临时目录。**出包前协调者要用切换后的交付工具重写它**（见第 6 节）。测试与运行时代码都没有改。
+
 ## 4. PlayMode
 
 ## 5. 看图结论
