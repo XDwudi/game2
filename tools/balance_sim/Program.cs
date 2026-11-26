@@ -80,7 +80,7 @@ public static class Program
     }
     static readonly JsonSerializerOptions Pretty = new JsonSerializerOptions { IncludeFields = true, WriteIndented = true, Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping, Converters = { new FiniteDouble() } };
     static int Num(string controllerId) => int.Parse(controllerId.Substring(1));
-    static string Generation(int a) => a < 54 ? "p0.6" : a < 104 ? "p0.9" : "p1.0";
+    static string Generation(int a) => a < 54 ? "p0.6" : a < 104 ? "p0.9" : a < 154 ? "p1.0" : "p1.1.1";
 
     // ------------------------------------------------------------------ verify
     /// <summary>Enumerate all independent C53 draws, retaining repeated entries in the configured distribution.
@@ -181,32 +181,47 @@ public static class Program
             foreach (string id in pick)
             {
                 string e; do e = ench[rnd.Next(ench.Length)]; while (!ControllerRules.IsEnchantmentLegal(id, e, cfg));
-                var c = Ctl(id, serial++, e, rnd.Next(2) == 0 ? "red" : "blue"); if (id == "C51") c.state.turnoverUnits2 = 3 + rnd.Next(5);
-                if (ControllerRules.HasGrowth(id)) c.state.growth = rnd.Next(4) == 0 ? 0 : rnd.Next(0, 201);
+                var c = Ctl(id, serial++, e, rnd.Next(2) == 0 ? "red" : "blue"); if (id == "C51") c.state.turnoverUnits2 = 3 + rnd.Next(5);   // kept but no longer read by any rule
+                if (ControllerRules.HasGrowth(id))
+                {
+                    // p1.1.1: grown part 0..1200 in the unit of the card (odd values exercise the halving floor) and a
+                    // catch-up of 0..7 cycle steps, one case in four any value up to 400.
+                    int a = Num(id), stepUnit = P.gKind[a] == 1 ? P.catchAdd : P.gKind[a] == 2 ? P.catchBase : P.catchMul;
+                    c.state.growth = rnd.Next(4) == 0 ? 0 : rnd.Next(3) == 0 ? rnd.Next(0, 1201) : rnd.Next(0, 201);
+                    c.state.growthCatchup = rnd.Next(3) == 0 ? 0 : rnd.Next(4) == 0 ? rnd.Next(0, 401) : stepUnit * rnd.Next(0, 8);
+                }
                 if (id == "C141") c.state.growth = rnd.Next(0, cfg.Controller("C141").parameters.expireGrowth);   // stages survived: 0..3
+                if (id == "C137") c.state.starPip = rnd.Next(7);   // 0 = no star pip drawn yet (never triggers)
+                if (cfg.Controller(id).isCultivation) c.state.cultivationFacesChanged = rnd.Next(3) == 0 ? rnd.Next(0, 25) : 0;
                 st.controllers.Add(c);
             }
             // The shape the face-up sides are steered towards (see below). For a run (7) most dice keep all six pips,
             // otherwise five dice showing five consecutive pips would be too rare to cover the straight cards.
-            int shape = rnd.Next(12);
-            int m = shape == 7 && rnd.Next(4) != 0 ? rnd.Next(5, 11) : rnd.Next(1, 11);
+            // p1.1.1: shape 12 steers towards four 4s followed by two 1s (C155 and its stronger tier).
+            int shape = rnd.Next(13);
+            int m = (shape == 7 || shape == 12) && rnd.Next(4) != 0 ? rnd.Next(5, 11) : rnd.Next(1, 11);
             for (int d = 0; d < m; d++)
             {
                 var die = DiceFactory.CreateStandard(cfg, d + 1);
-                bool low = rnd.Next(4) == 0, monoPip = rnd.Next(6) == 0, monoColor = rnd.Next(5) == 0, weighted = rnd.Next(4) == 0, full = shape == 7 && rnd.Next(5) != 0; int onePip = rnd.Next(1, 7); string oneColor = rnd.Next(2) == 0 ? "red" : "blue";
+                bool low = rnd.Next(4) == 0, monoPip = rnd.Next(6) == 0, monoColor = rnd.Next(5) == 0, weighted = rnd.Next(4) == 0, full = (shape == 7 || shape == 12) && rnd.Next(5) != 0; int onePip = rnd.Next(1, 7); string oneColor = rnd.Next(2) == 0 ? "red" : "blue";
                 foreach (var f in die.faces)
                 {
                     if (!full) f.permanentPip = monoPip ? onePip : low ? rnd.Next(1, 3) : rnd.Next(1, 7);
                     f.baseColor = monoColor ? oneColor : rnd.Next(2) == 0 ? "red" : "blue";
                     f.isGold = rnd.Next(5) == 0; f.texture = textures[rnd.Next(textures.Length)]; if (weighted) f.baseWeight = rnd.Next(1, cfg.maxFaceWeight + 1);
+                    f.cultivated = rnd.Next(8) == 0;   // p1.1.1 face mark: carried by the snapshot, never read by scoring
                 }
                 die.isGlass = rnd.Next(5) == 0; if (rnd.Next(6) == 0) die.lifetime = "stage_temporary"; st.dice.Add(die);
             }
-            foreach (var hl in st.handLevels) hl.level = rnd.Next(0, 9);
-            foreach (var hl in st.colorLevels) hl.level = rnd.Next(0, 9);
+            foreach (var hl in st.handLevels) hl.level = rnd.Next(0, cfg.Hand(hl.handId).maxLevel + 1);     // 0..12
+            foreach (var hl in st.colorLevels) hl.level = rnd.Next(0, cfg.Color(hl.handId).maxLevel + 1);   // 0..12
             int purse = rnd.Next(10); st.gold = purse < 2 ? rnd.Next(0, 6) : purse < 8 ? rnd.Next(0, 60) : rnd.Next(60, 130);
             st.controllerSlots = rnd.Next(6) == 0 ? 0 : cfg.initialControllerSlots + rnd.Next(cfg.maxOrdinaryControllerSlots - cfg.initialControllerSlots + 1);
-            st.inventory.Clear(); if (rnd.Next(2) == 0) for (int q = rnd.Next(1, 4); q > 0; q--) st.inventory.Add(new OwnedItem { instanceId = "I" + q, contentId = "I06" });
+            st.inventory.Clear(); if (rnd.Next(2) == 0) for (int q = rnd.Next(1, 4); q > 0; q--) { bool ring = rnd.Next(3) == 0; st.inventory.Add(new OwnedItem { instanceId = "I" + q, contentId = ring ? "I13" : "I06", usesRemaining = ring ? rnd.Next(1, 4) : 1 }); }
+            // p1.1.1 C156: the frozen stage score and the effective target. A third of the cases start the stage, a
+            // third sit anywhere below the target, a third sit on the half-target line (target / 2 - 1, exactly, + 1).
+            long stageTarget = 2L * rnd.Next(1, 1000001) + (rnd.Next(4) == 0 ? 1 : 0), stageBefore;
+            switch (rnd.Next(3)) { case 0: stageBefore = 0; break; case 1: stageBefore = (long)(rnd.NextDouble() * stageTarget); break; default: stageBefore = Math.Max(0, stageTarget / 2 + rnd.Next(-1, 2)); break; }
             // p1.0.0 stage context: a boss modifier in three cases of five, the controllers it disables plus (one case
             // in six) one or two arbitrary ones, the stage kind, hands already used in the stage.
             string modifierId = rnd.Next(5) < 2 ? null : cfg.bossModifiers[rnd.Next(cfg.bossModifiers.Length)].id;
@@ -218,9 +233,11 @@ public static class Program
             var usedHands = new List<string>(); if (rnd.Next(2) == 0) for (int q = rnd.Next(1, 4); q > 0; q--) { string id = P.hId[rnd.Next(13)]; if (!usedHands.Contains(id)) usedHands.Add(id); }
             foreach (string id in usedHands) b.usedHands |= 1 << P.hIndex[id];
             int prevSel = rnd.Next(-2, 13); b.prev = Math.Max(-1, prevSel);   // -2 = no previous hand, -1 = scatter
+            b.stageScore = stageBefore; b.stageTarget = stageTarget;
             if (rnd.Next(2) == 0) b.capacity = rnd.Next(1, 9);
             int cnt = rnd.Next(1, Math.Min(m, b.capacity) + 1);
             if (shape == 7 && m >= 5 && rnd.Next(4) != 0) { b.capacity = Math.Max(b.capacity, 5); cnt = rnd.Next(5, Math.Min(m, b.capacity) + 1); }   // room for a straight
+            if (shape == 12 && m >= 4 && rnd.Next(4) != 0) { b.capacity = Math.Max(b.capacity, Math.Min(m, 6)); cnt = rnd.Next(4, Math.Min(m, b.capacity) + 1); }   // room for four 4s and two 1s
             int poolN = rnd.Next(0, Math.Min(5, m - cnt) + 1), rolls = rnd.Next(0, 4);
             b.subsLeft = rnd.Next(1, 5); b.permDice = rnd.Next(0, 9); h.rolls = rolls; h.rollsUsed = rnd.Next(1, 7);
             var order = Enumerable.Range(0, m).OrderBy(_ => rnd.Next()).ToArray();
@@ -233,7 +250,7 @@ public static class Program
             {
                 int di = order[rank]; face[di] = rnd.Next(6);
                 int want = shape == 4 ? start : shape == 5 ? (start + rank / 2 - 1) % 6 + 1 : shape == 6 ? (start + rank / 3 - 1) % 6 + 1 : shape == 7 ? runStart + rank % 5
-                    : shape == 8 ? (rank < cnt ? pal[Math.Min(rank, cnt - 1 - rank) % 4] : 0) : shape == 9 ? 2 * rnd.Next(1, 4) : shape == 10 ? Math.Min(6, start + rank) : shape == 11 ? (rank < 2 ? start : start % 6 + 1 + rank % 2) : 0;
+                    : shape == 8 ? (rank < cnt ? pal[Math.Min(rank, cnt - 1 - rank) % 4] : 0) : shape == 9 ? 2 * rnd.Next(1, 4) : shape == 10 ? Math.Min(6, start + rank) : shape == 11 ? (rank < 2 ? start : start % 6 + 1 + rank % 2) : shape == 12 ? (rank < 4 ? 4 : rank < 6 ? 1 : 0) : 0;
                 if (want > 6) want = 6;
                 int wantRed = colourShape == 5 ? (((rank & 1) == 0) == firstRed ? 1 : 0) : colourShape == 6 ? (rank < redLead ? 1 : 0) : colourShape == 7 ? (firstRed ? 1 : 0) : -1;
                 if (want == 0 && wantRed < 0) continue;
@@ -266,19 +283,21 @@ public static class Program
                 resolvedRandomChoices = choices,
                 rollsUsed = h.rollsUsed, submissionsRemainingBefore = b.subsLeft, permanentDiceCount = b.permDice, poolDice = pool,
                 stageKind = stageKind, modifierId = modifierId ?? "", disabledControllerIds = disabled.ToArray(), stageHandsUsed = usedHands.ToArray(),
-                inventoryCount = st.inventory.Count, ordinaryControllerSlots = st.controllerSlots, blueWave = b.blueWave, scoreItemMultiplier = b.itemMult == 2 ? 2 : 0
+                inventoryCount = st.inventory.Count, ordinaryControllerSlots = st.controllerSlots, blueWave = b.blueWave, scoreItemMultiplier = b.itemMult == 2 ? 2 : 0,
+                stageScoreBefore = stageBefore.ToString(CultureInfo.InvariantCulture), stageTarget = stageTarget.ToString(CultureInfo.InvariantCulture)
             };
             var real = ScoreCalculator.Evaluate(snap, cfg);
             double truth = (double)BigInteger.Parse(real.score), exact = (double)BigInteger.Parse(real.scoreNumerator) / (double)BigInteger.Parse(real.scoreDenominator);
             double fast = b.Score(h, out int prim);
+            double fastAdditive = b.lastAdditive;
             string realPrim = real.primaryHandId == "scatter" ? null : real.primaryHandId; string fastPrim = prim < 0 ? null : P.hId[prim];
             var fastTrig = new HashSet<string>(Enumerable.Range(1, Params.N - 1).Where(a => b.lastHits.Has(a)).Select(Params.Cid), StringComparer.Ordinal);
             var fastSources = b.TriggeredSourceIds().ToArray();
             double rel = Math.Abs(fast - exact) / Math.Max(1.0, exact); if (rel > maxRel) maxRel = rel;
             bool ok = rel <= 1e-9 && Math.Abs(Math.Floor(fast + 1e-6) - truth) <= 1e-9 * truth + 0.5 && realPrim == fastPrim && fastTrig.SetEquals(real.triggeredControllerIds)
-                && fastSources.SequenceEqual(real.triggeredSourceIds);
+                && fastSources.SequenceEqual(real.triggeredSourceIds) && fastAdditive == real.additiveTotal100;
             if (!ok && ++bad <= 8)
-                Console.WriteLine($"MISMATCH it={it} real={real.score} exact={exact:R} fast={fast:R} prim {realPrim}/{fastPrim} trig real=[{string.Join(",", real.triggeredControllerIds)}] fast=[{string.Join(",", fastTrig.OrderBy(x => x, StringComparer.Ordinal))}] ctl=[{string.Join(",", st.controllers.Select(c => c.definitionId + ":" + c.enchantmentId + (c.state.growth > 0 ? "+g" + c.state.growth : "") + (disabled.Contains(c.instanceId) ? "!off" : "")))}] pips=[{string.Join(",", sub.Select(d => d.currentPip + d.currentColor.Substring(0, 1) + (d.lifetime == "permanent" ? "" : "t")))}] pool=[{string.Join(",", pool.Select(d => d.currentPip + d.currentColor.Substring(0, 1)))}] cap={b.capacity} rolls={rolls} used={h.rollsUsed} subsLeft={b.subsLeft} perm={b.permDice} mod={modifierId} kind={stageKind} ordinal={b.ordinal} wallet={st.gold} inv={st.inventory.Count} slots={st.controllerSlots} waves={b.redWave}/{b.blueWave} item={b.itemMult} usedHands=[{string.Join(",", usedHands)}]");
+                Console.WriteLine($"MISMATCH it={it} real={real.score} exact={exact:R} fast={fast:R} A {real.additiveTotal100}/{fastAdditive:R} prim {realPrim}/{fastPrim} trig real=[{string.Join(",", real.triggeredControllerIds)}] fast=[{string.Join(",", fastTrig.OrderBy(x => x, StringComparer.Ordinal))}] ctl=[{string.Join(",", st.controllers.Select(c => c.definitionId + ":" + c.enchantmentId + (c.state.growth > 0 ? "+g" + c.state.growth : "") + (c.state.growthCatchup > 0 ? "+c" + c.state.growthCatchup : "") + (c.state.starPip > 0 ? "*" + c.state.starPip : "") + (disabled.Contains(c.instanceId) ? "!off" : "")))}] stage={stageBefore}/{stageTarget} pips=[{string.Join(",", sub.Select(d => d.currentPip + d.currentColor.Substring(0, 1) + (d.lifetime == "permanent" ? "" : "t")))}] pool=[{string.Join(",", pool.Select(d => d.currentPip + d.currentColor.Substring(0, 1)))}] cap={b.capacity} rolls={rolls} used={h.rollsUsed} subsLeft={b.subsLeft} perm={b.permDice} mod={modifierId} kind={stageKind} ordinal={b.ordinal} wallet={st.gold} inv={st.inventory.Count} slots={st.controllerSlots} waves={b.redWave}/{b.blueWave} item={b.itemMult} usedHands=[{string.Join(",", usedHands)}]");
             // Coverage.
             var sources = ControllerRules.ResolveSources(snap.equippedControllers, null, snap.disabledControllerIds);
             foreach (var group in sources.Where(s => s.abilityId != null && s.emitterDefinitionId != "C41").GroupBy(s => s.abilityId))
@@ -300,10 +319,40 @@ public static class Program
             mark("submitted die: textured face up", sub.Any(d => DieFacts.Texture(d) != "none")); mark("submitted die: mono-colour", sub.Any(DieFacts.MonoColor)); mark("submitted die: mono-pip", sub.Any(DieFacts.MonoPip));
             mark("submitted die: gold face up", sub.Any(d => d.isGold)); mark("submitted die: glass", sub.Any(d => d.isGlass)); mark("submitted die: temporary", sub.Any(d => d.lifetime == "stage_temporary"));
             mark("last submission of the stage", b.subsLeft == 1); mark("exactly one roll used", h.rollsUsed == 1); mark("no rolls left", rolls == 0);
-            mark("enchant base10 or mult2 counted", real.enchantBaseCount + real.enchantMultiplierCount > 0);
+            mark("enchant base10 or mult2 counted", real.enchantBaseCount + real.enchantAdditiveCount > 0);
             // p1.0.0 inputs
             mark("stage kind boss", stageKind == "boss"); mark("inventory > 0", st.inventory.Count > 0); mark("blue wave", b.blueWave); mark("red wave", b.redWave); mark("item multiplier x2 (I09)", b.itemMult == 2);
-            mark("empty ordinary slots > 0", st.controllerSlots - ControllerRules.OrdinaryUsed(st.controllers) > 0); mark("stage hands used: primary repeated", usedHands.Contains(real.primaryHandId));
+            mark("empty ordinary slots > 0", st.controllerSlots - ControllerRules.OrdinaryUsed(st.controllers, cfg) > 0); mark("stage hands used: primary repeated", usedHands.Contains(real.primaryHandId));
+            // p1.1.1 inputs and zones
+            var live = sources.Where(s => s.abilityId != null).ToArray(); bool half = ControllerRules.ModifierHas(cfg, modifierId, "GrowthHalf");
+            mark("v111 additive: colour entry", real.additiveEntries.Any(e => e.kind == "color")); mark("v111 additive: gold face entry", real.additiveEntries.Any(e => e.kind == "gold"));
+            mark("v111 additive: card entry", real.additiveEntries.Any(e => e.kind == "controller")); mark("v111 additive: score enchantment entry", real.additiveEntries.Any(e => e.kind == "enchantment"));
+            mark("v111 additive: gold face on a sealed die or under PipsOnly", sub.Where((d, i) => d.isGold && (real.sealedDice[i] || ControllerRules.ModifierHas(cfg, modifierId, "PipsOnly"))).Any());
+            mark("v111 additive total = 0", real.additiveTotal100 == 0); mark("v111 additive total >= 1000 (x11 or more)", real.additiveTotal100 >= 1000);
+            mark("v111 colour level 12 scored", real.colorAdd100 >= cfg.Color("all_blue").baseAdd100 + 12 * cfg.Color("all_blue").addPerLevel100);
+            mark("v111 hand level 12 held", st.handLevels.Any(x => x.level == 12));
+            mark("v111 growth: catch-up > 0 on a live source", live.Any(s => ControllerRules.HasGrowth(s.abilityId) && s.state.growthCatchup > 0));
+            mark("v111 growth: odd grown part read at half (floor)", half && live.Any(s => ControllerRules.HasGrowth(s.abilityId) && s.state.growth % 2 == 1));
+            mark("v111 growth: multiplier card as a factor", real.multiplierFactors.Any(f => ControllerRules.IsGrowthMultiplier(f.abilityId)));
+            mark("v111 growth: base card as a base add", real.controllerBaseAdds.Any(a => ControllerRules.IsGrowthBase(a.abilityId)));
+            mark("v111 growth: additive card as an entry", real.additiveEntries.Any(e => e.kind == "controller" && ControllerRules.IsGrowthAdditive(e.abilityId)));
+            mark("v111 C49 with a 5 (adds only)", real.additiveEntries.Any(e => e.abilityId == "C49")); mark("v111 C49 without a 5 (x1/2 per source)", real.multiplierFactors.Any(f => f.abilityId == "C49"));
+            mark("v111 C49 two or more halving sources", real.multiplierFactors.Count(f => f.abilityId == "C49") >= 2);
+            mark("v111 C103 strict (<= 3 permanent dice)", real.multiplierFactors.Any(f => f.abilityId == "C103" && f.numerator == "3")); mark("v111 C103 loose (4 permanent dice)", real.multiplierFactors.Any(f => f.abilityId == "C103" && f.numerator == "2"));
+            mark("v111 C137 star pip 0 (not drawn)", live.Any(s => s.abilityId == "C137" && s.state.starPip == 0)); mark("v111 C137 matched two or more dice", real.additiveEntries.Any(e => e.abilityId == "C137" && e.amount100 >= 2 * cfg.Controller("C137").parameters.additivePerMatch100));
+            mark("v111 C137 sources with different star pips", live.Where(s => s.abilityId == "C137").Select(s => s.state.starPip).Distinct().Count() >= 2);
+            mark("v111 C137 only some of its sources triggered", live.Any(s => s.abilityId == "C137" && real.triggeredSourceIds.Contains(s.emitterId)) && live.Any(s => s.abilityId == "C137" && !real.triggeredSourceIds.Contains(s.emitterId)));
+            foreach (var s141 in live.Where(s => s.abilityId == "C141")) mark("v111 C141 with " + s141.state.growth + " stages survived", true);
+            mark("v111 C155 x2 (four 4s)", real.multiplierFactors.Any(f => f.abilityId == "C155" && f.numerator == "2")); mark("v111 C155 x4 (four 4s and two 1s)", real.multiplierFactors.Any(f => f.abilityId == "C155" && f.numerator == "4"));
+            bool has156 = live.Any(s => s.abilityId == "C156");
+            mark("v111 C156 triggered", real.triggeredControllerIds.Contains("C156")); mark("v111 C156 present, not triggered", has156 && !real.triggeredControllerIds.Contains("C156"));
+            mark("v111 C156 on the line: 2 x score = target (no)", has156 && 2 * stageBefore == stageTarget); mark("v111 C156 one below the line: 2 x score = target - 1 (yes)", has156 && 2 * stageBefore == stageTarget - 1);
+            mark("v111 C156 one above the line: 2 x score = target + 1 (no)", has156 && 2 * stageBefore == stageTarget + 1);
+            mark("v111 C19 minimum pip 1", real.additiveEntries.Any(e => e.abilityId == "C19" && e.amount100 == cfg.Controller("C19").parameters.minOneAdd100)); mark("v111 C19 minimum pip 2", real.additiveEntries.Any(e => e.abilityId == "C19" && e.amount100 == cfg.Controller("C19").parameters.minTwoAdd100));
+            mark("v111 C91 zigzag of five or more dice", real.triggeredControllerIds.Contains("C91") && cnt >= 5);
+            mark("v111 cultivation card rides free (slot count)", ControllerRules.FreeCultivationInstanceId(st.controllers, cfg) != null);
+            mark("v111 key ring in the inventory", st.inventory.Any(x => x.contentId == "I13")); mark("v111 glass risk listed", real.afterScorePlan.glassRiskDieIds.Length > 0);
+            mark("v111 growth plan: C54 halve", real.afterScorePlan.growthChanges.Any(g => g.halve));
             mark("red group bonus (C146)", real.redBonusCount > 0); mark("gold spent (C138)", real.afterScorePlan.goldSpent > 0);
             mark("C138: fewer sources triggered than held", sources.Count(s => s.abilityId == "C138") * cfg.Controller("C138").parameters.goldCost > real.afterScorePlan.goldSpent && sources.Any(s => s.abilityId == "C138"));
             mark("face changes planned", real.afterScorePlan.faceChanges.Length > 0); mark("sealed die", real.sealedDice.Any(x => x));
@@ -327,13 +376,14 @@ public static class Program
                         case "NoStraight": active = off.straightMult100 > 0; break;
                         case "SmallHandsOnly": active = off.matchedGroupIds.Any(g => g != "pair" && g != "two_pair" && g != "trips"); break;
                         case "NoRepeatHand": case "HandHalf": active = real.handMultBeforeModifier100 != real.totalHandMult100; break;
-                        case "ZeroLevels": active = off.groupMult100 != real.groupMult100 || off.straightMult100 != real.straightMult100 || off.colorMult100 != real.colorMult100; break;
-                        case "NoRed": active = off.redMult100 != real.redMult100 || (off.colorId == "all_red" && off.colorMult100 != real.colorMult100); break;
-                        case "NoBlue": active = off.colorId == "all_blue" && off.colorMult100 != real.colorMult100; break;
+                        case "ZeroLevels": active = off.groupMult100 != real.groupMult100 || off.straightMult100 != real.straightMult100 || off.colorAdd100 != real.colorAdd100; break;
+                        case "NoRed": active = off.redMult100 != real.redMult100 || (off.colorId == "all_red" && off.colorAdd100 != real.colorAdd100); break;
+                        case "NoBlue": active = off.colorId == "all_blue" && off.colorAdd100 != real.colorAdd100; break;
                         case "FirstHalf": case "LaterHalf": active = real.globalFactors.Any(g => g.emitterId == "BOSS"); break;
                         case "PipsOnly": active = off.baseTotal != real.baseTotal; break;
-                        case "GrowthZero": active = sources.Any(s => s.abilityId != null && ControllerRules.HasGrowth(s.abilityId) && s.state.growth > 0); break;
-                        case "EnchantSilence": active = off.enchantBaseCount + off.enchantMultiplierCount > 0; break;
+                        // GrowthHalf took effect when a live growth source really reads a smaller value (grown part >= 1).
+                        case "GrowthHalf": active = sources.Any(s => s.abilityId != null && ControllerRules.HasGrowth(s.abilityId) && s.state.growth > 0 && ControllerRules.GrowthValue(cfg, s.abilityId, s.state, true) != ControllerRules.GrowthValue(cfg, s.abilityId, s.state)); break;
+                        case "EnchantSilence": active = off.enchantBaseCount + off.enchantAdditiveCount > 0; break;
                         default: active = real.sealedDice.Any(x => x); break;   // the eight seals
                     }
                     if (active) fxActive[e]++;
@@ -361,7 +411,7 @@ public static class Program
         }
         if (line.Length > 0) Console.WriteLine("  " + line);
         Console.WriteLine("  (* = non-scoring by rule: never a triggered source. C41 is counted under the ability it copies.)");
-        foreach (string gen in new[] { "p0.6", "p0.9", "p1.0" })
+        foreach (string gen in new[] { "p0.6", "p0.9", "p1.0", "p1.1.1" })
         {
             var set = cfg.controllers.Where(c => Generation(Num(c.id)) == gen && !nonScoring.Contains(c.id)).ToArray();
             Console.WriteLine($"scoring controllers {gen}: {set.Length}; with present>0 and triggered>0: {set.Count(c => present[Num(c.id)] > 0 && trig[Num(c.id)] > 0)}; min present={set.Min(c => present[Num(c.id)])}, min triggered={set.Min(c => trig[Num(c.id)])}");
@@ -389,6 +439,9 @@ public static class Program
         if (feature["disabled controller changed the result"] == 0) gaps.Add("disabled controllers");
         if (duplicateBuilds == 0 || twoCopyBuilds == 0 || threeCopyBuilds == 0 || duplicateCopiedByMimicBuilds == 0) gaps.Add("duplicate build classes");
         if (feature.GetValueOrDefault("two C53 owners with different frozen draws") == 0 || feature.GetValueOrDefault("C53 owner copied by a mimic") == 0) gaps.Add("independent and mimicked C53 draws");
+        // p1.1.1: every new state and zone listed under "v111 ..." must have been exercised at least once.
+        foreach (var kv in feature) if (kv.Key.StartsWith("v111 ", StringComparison.Ordinal) && kv.Value == 0) gaps.Add(kv.Key);
+        for (int g141 = 0; g141 < cfg.Controller("C141").parameters.expireGrowth; g141++) if (feature.GetValueOrDefault("v111 C141 with " + g141 + " stages survived") == 0) gaps.Add("C141 countdown " + g141);
         Console.WriteLine(gaps.Count == 0 ? "\ncoverage: OK, every scoring controller, scoring boss modifier and scoring effect was present and took effect at least once" : "\ncoverage: GAPS " + string.Join(",", gaps));
         if (outPath != null) File.WriteAllText(outPath, JsonSerializer.Serialize(new { config = cfg.configVersion, cases = n, mismatches = bad, maxRelativeError = maxRel,
             duplicateBuilds, twoCopyBuilds, threeCopyBuilds, duplicateMimicBuilds, duplicateCopiedByMimicBuilds,

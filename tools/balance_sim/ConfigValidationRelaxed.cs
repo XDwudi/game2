@@ -21,7 +21,7 @@ namespace DiceCraft.Core
         // p1.0.0
         public BossModifierDefinition Modifier(string id) => Required(bossModifiers, d => d.id, id);
         public LootKindDefinition Loot(string id) => Required(lootKinds, d => d.id, id);
-        public static readonly string[] ModifierEffects = { "SealOdd", "SealEven", "SealLow", "SealHigh", "SealRed", "SealBlue", "SealFirst", "SealAlternate", "NoStraight", "SmallHandsOnly", "NoRepeatHand", "HandHalf", "ZeroLevels", "NoRed", "NoBlue", "FirstHalf", "LaterHalf", "PipsOnly", "GrowthZero", "EnchantSilence", "RollsDelta", "RollsFixed", "SubmissionsDelta", "CapacityDelta", "TargetPercent", "MustFill", "NoItems", "LoseHalfGold", "TaxPerDie", "NoReward", "GrowthFreeze", "HandDowngrade", "DisableLeftmost", "DisableRarity" };
+        public static readonly string[] ModifierEffects = { "SealOdd", "SealEven", "SealLow", "SealHigh", "SealRed", "SealBlue", "SealFirst", "SealAlternate", "NoStraight", "SmallHandsOnly", "NoRepeatHand", "HandHalf", "ZeroLevels", "NoRed", "NoBlue", "FirstHalf", "LaterHalf", "PipsOnly", "GrowthHalf", "EnchantSilence", "RollsDelta", "RollsFixed", "SubmissionsDelta", "CapacityDelta", "TargetPercent", "MustFill", "NoItems", "LoseHalfGold", "TaxPerDie", "NoReward", "GrowthFreeze", "HandDowngrade", "DisableLeftmost", "DisableRarity" };
         private static T Required<T>(T[] entries, Func<T, string> key, string id)
         {
             if (entries == null) throw new InvalidOperationException("Configuration is not loaded.");
@@ -47,7 +47,10 @@ namespace DiceCraft.Core
             Check(lootKinds != null && lootKinds.Length >= 2 && lootKinds.All(k => k != null && k.weight > 0 && k.picks >= 1), "Loot kinds.");
             foreach (var m in bossModifiers.Where(m => m.effects.Contains("TargetPercent")))
                 Check(m.amount > 100 && stages.All(s => (ExactScoreMath.Parse(s.normalTarget) * m.amount) % 100 == 0), "TargetPercent must keep targets whole: " + m.id);
-            foreach (var s in stages) Check(ExactScoreMath.Parse(s.normalTarget) > 0 && (!s.riskEnabled || ExactScoreMath.Parse(s.riskTarget) > ExactScoreMath.Parse(s.normalTarget)), "Stage target: " + s.stageId);
+            // p1.1.1 section 11: normal targets are even and a pressure target is exactly 3/2 of the normal one.
+            foreach (var s in stages) Check(ExactScoreMath.Parse(s.normalTarget) > 0 && ExactScoreMath.Parse(s.normalTarget) % 2 == 0 && (!s.riskEnabled || ExactScoreMath.Parse(s.riskTarget) * 2 == ExactScoreMath.Parse(s.normalTarget) * 3), "Stage target: " + s.stageId);
+            // p1.1.1 structure the simulator relies on: the unique multiplier list and the growth catch-up steps.
+            Check(shop != null && shop.uniqueControllerIds != null && growthCatchupPerCycle != null && enchantRules != null && enchantRules.shopChanceByCyclePercent != null && enchantRules.shopChanceByCyclePercent.Length == 8, "p1.1.1 shop and growth fields.");
         }
         public string Opposite(string id)
         {

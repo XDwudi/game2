@@ -6,6 +6,12 @@
 // blue wave, the item multiplier, stage kind, inventory size, empty ordinary slots, hands already used in the stage.
 // p1.1.0: independent same-name instances, source-identity trigger coverage, and independent C53 owner draws
 // with correlated mimics (both frozen outcomes and their planning expectation).
+// p1.1.1 (docs/specs/v111/RULES_DELTA.md section 2): score = B x H x R x (1 + A) x M x G. Colours, gold faces, the
+// additive cards, the additive growth cards and the score enchantment add to A (hundredths); the multiplier cards,
+// the multiplier growth cards and C49 without a 5 multiply M. A growth card is worth start + catch-up + grown part,
+// the grown part at half (rounded down) under GrowthHalf. C137 reads the star pip of each source, C156 the frozen
+// stage score and target. C90 / C128 / C145 are gone, C154 never scores, C155 / C156 are new. Glass breaks after a
+// submission (15% per submitted glass die), never on a roll.
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,12 +76,12 @@ public sealed class ModFx
 {
     public static readonly ModFx None = new ModFx();
     public string id;
-    public bool sealOdd, sealEven, sealLow, sealHigh, sealRed, sealBlue, sealFirst, sealAlt, noStraight, smallHands, noRepeat, handHalf, zeroLevels, noRed, noBlue, firstHalf, laterHalf, pipsOnly, growthZero, silence;
+    public bool sealOdd, sealEven, sealLow, sealHigh, sealRed, sealBlue, sealFirst, sealAlt, noStraight, smallHands, noRepeat, handHalf, zeroLevels, noRed, noBlue, firstHalf, laterHalf, pipsOnly, growthHalf, silence;
     /// <summary>valueSeal: a seal that depends on the die (pip or colour); posSeal: a seal that depends on the slot.</summary>
     public bool valueSeal, posSeal;
     public bool mustFill, noItems, loseHalfGold, taxPerDie, noReward, growthFreeze, handDowngrade, disables;
     public int targetPercent = 100;
-    public static readonly string[] ScoringEffects = { "SealOdd", "SealEven", "SealLow", "SealHigh", "SealRed", "SealBlue", "SealFirst", "SealAlternate", "NoStraight", "SmallHandsOnly", "NoRepeatHand", "HandHalf", "ZeroLevels", "NoRed", "NoBlue", "FirstHalf", "LaterHalf", "PipsOnly", "GrowthZero", "EnchantSilence" };
+    public static readonly string[] ScoringEffects = { "SealOdd", "SealEven", "SealLow", "SealHigh", "SealRed", "SealBlue", "SealFirst", "SealAlternate", "NoStraight", "SmallHandsOnly", "NoRepeatHand", "HandHalf", "ZeroLevels", "NoRed", "NoBlue", "FirstHalf", "LaterHalf", "PipsOnly", "GrowthHalf", "EnchantSilence" };
     public static ModFx Of(BossModifierDefinition m)
     {
         var f = new ModFx { id = m.id };
@@ -86,7 +92,7 @@ public sealed class ModFx
                 case "SealRed": f.sealRed = true; break; case "SealBlue": f.sealBlue = true; break; case "SealFirst": f.sealFirst = true; break; case "SealAlternate": f.sealAlt = true; break;
                 case "NoStraight": f.noStraight = true; break; case "SmallHandsOnly": f.smallHands = true; break; case "NoRepeatHand": f.noRepeat = true; break; case "HandHalf": f.handHalf = true; break;
                 case "ZeroLevels": f.zeroLevels = true; break; case "NoRed": f.noRed = true; break; case "NoBlue": f.noBlue = true; break; case "FirstHalf": f.firstHalf = true; break; case "LaterHalf": f.laterHalf = true; break;
-                case "PipsOnly": f.pipsOnly = true; break; case "GrowthZero": f.growthZero = true; break; case "EnchantSilence": f.silence = true; break;
+                case "PipsOnly": f.pipsOnly = true; break; case "GrowthHalf": f.growthHalf = true; break; case "EnchantSilence": f.silence = true; break;
                 case "MustFill": f.mustFill = true; break; case "NoItems": f.noItems = true; break; case "LoseHalfGold": f.loseHalfGold = true; break; case "TaxPerDie": f.taxPerDie = true; break;
                 case "NoReward": f.noReward = true; break; case "GrowthFreeze": f.growthFreeze = true; break; case "HandDowngrade": f.handDowngrade = true; break;
                 case "TargetPercent": f.targetPercent = m.amount; break; case "DisableLeftmost": case "DisableRarity": f.disables = true; break;
@@ -109,7 +115,7 @@ public sealed class StageCtx
 
 public sealed class Params
 {
-    public const int N = 154;
+    public const int N = 157;
     public readonly GameConfig cfg;
     public readonly int[] hBase = new int[13], hInc = new int[13], hPri = new int[13];
     public readonly string[] hId = new string[13];
@@ -117,19 +123,30 @@ public sealed class Params
     public readonly int PAIR, TWO_PAIR, TRIPS, FULL, THREE_PAIR, QUADS, TWO_TRIPS, FIVE, FOUR_PAIR, SIX, SEVEN, EIGHT, STRAIGHT;
     public readonly int blueBase, blueInc, redBase, redInc;
     public readonly int[] redTable = new int[9];
-    public readonly double[] mult = new double[N];
-    public static readonly int[] Fixed = { 2, 6, 8, 9, 11, 14, 18, 28, 30, 31, 32, 33, 40, 42, 46, 74, 75, 77, 81, 82, 83, 86, 88, 101, 102, 104, 105, 106, 130, 138, 144, 149, 153 };
-    public static readonly int[] GrowthMul = { 54, 56, 57, 58, 60, 61, 90, 100, 129, 132, 134 }, GrowthAdd = { 55, 59, 62 };
+    /// <summary>mult[a]: the fixed factor of a multiplier card (scoreMultiplier100 / 100), 0 for every other card.
+    /// add100[a]: the fixed additive bonus of an additive card in hundredths, 0 for every other card.</summary>
+    public readonly double[] mult = new double[N]; public readonly int[] add100 = new int[N];
+    /// <summary>Abilities with a fixed factor / a fixed bonus (C103, C155 and the per-count cards are handled apart).</summary>
+    public readonly int[] FixedMul, FixedAdd;
+    /// <summary>Growth cards by kind (section 5): multiplier (x value / 100), additive (+ value / 100), base (+ value points).</summary>
+    public static readonly int[] GrowthMul = { 54, 58, 100, 125 }, GrowthAddi = { 51, 56, 57, 60, 61, 129, 132, 134 }, GrowthBase = { 55, 59, 62 };
+    /// <summary>Per ability: 0 = no growth, 1 = additive, 2 = base, 3 = multiplier; the configured start and event.</summary>
+    public readonly int[] gKind = new int[N], gStart = new int[N], gEvent = new int[N];
+    public readonly int catchAdd, catchBase, catchMul;
+    public readonly bool[] unique = new bool[N], cultivation = new bool[N];
     public readonly double c53mean; public readonly int[] c53units;
-    public readonly int p3idx, p6min, p10pip, p10add, p11c2, p11c3, p12add, p13add, p17add, p19max, p19add, p20pip, p20add, p24from, p24to, p27add, p28min, p29len, p30min, p31min, p32d, p33min, p33diff, p39add, p44add, p45mult, p47units, p48add, p50add, enchBase, enchMult, unusedRoll, glassMult, goldMult, minStraight;
+    public readonly int p3idx, p6min, p10pip, p10add, p11c2, p11c3, p12add, p13add, p17add, p19one, p19two, p20pip, p20add, p24from, p24to, p27add, p28min, p29len, p30min, p31min, p32d, p33min, p33diff, p39add, p44add, p45mult, p47add, p48add, p49add, p50add, enchBase, enchAdd, unusedRoll, glassMult, goldAdd, minStraight;
+    public readonly double p49half;
     public readonly bool[] p17 = new bool[9], p66 = new bool[9], p67 = new bool[9];
     public readonly double glassBreak;
     // p0.9.0
-    public readonly int p63units, p64idx, p64r, p65r, p66r, p67r, p68r, p69r, p70add, p71pip, p72mul, p75max, p76add, p80sum, p80add, p82mask, p86mask, p84add, p84min, p85add, p85min, p87min, p88min, p91add, p92add, p93mult, p103max, p103strictMax;
-    public readonly double p71step, p87step, p89step, p103strict;
+    public readonly int p63add, p64idx, p64r, p65r, p66r, p67r, p68r, p69r, p70add, p71pip, p72mul, p75max, p76add, p80sum, p80add, p82mask, p86mask, p84add, p84min, p85add, p85min, p87min, p88min, p91min, p92add, p93mult, p103max, p103strictMax;
+    public readonly double p71step, p87step, p89step, p103strict, p103loose;
     // p1.0.0
-    public readonly int p104min, p106min, p107add, p108idx, p108add, p109r, p109min, p127ord, p127min, p135add, p137add, p138cost, p139gold, p139step4, p139max, p141init, p142add, p143r, p143req, p147step4, p148units2, p149req, p151units2, p152step4, p153ord, redCap;
-    public readonly double glassBreakFilm;
+    public readonly int p104min, p106min, p107add, p108idx, p108add, p109r, p109min, p127min, p135add, p137add, p138cost, p139gold, p139add, p141init, p141decay, p142add, p143r, p143req, p147add, p148add, p149req, p150add, p151add, p152add, p153ord, redCap;
+    // p1.1.1
+    public readonly int p155fours, p155ones, p156div;
+    public readonly double p155mult, p155strong;
     /// <summary>isCommon[a]: controller Ca has the rarity that C152 counts.</summary>
     public readonly bool[] isCommon = new bool[N];
     readonly Dictionary<string, ModFx> fx = new Dictionary<string, ModFx>(StringComparer.Ordinal);
@@ -141,35 +158,54 @@ public sealed class Params
         for (int i = 0; i < 13; i++) { var h = c.handDefinitions[i]; hId[i] = h.id; hIndex[h.id] = i; hBase[i] = h.baseMult100; hInc[i] = h.incrementPerLevel100; hPri[i] = h.structuralPriority; }
         PAIR = hIndex["pair"]; TWO_PAIR = hIndex["two_pair"]; TRIPS = hIndex["trips"]; FULL = hIndex["full_house"]; THREE_PAIR = hIndex["three_pair"]; QUADS = hIndex["quads"]; TWO_TRIPS = hIndex["two_trips"];
         FIVE = hIndex["five_kind"]; FOUR_PAIR = hIndex["four_pair"]; SIX = hIndex["six_kind"]; SEVEN = hIndex["seven_kind"]; EIGHT = hIndex["eight_kind"]; STRAIGHT = hIndex["straight"];
-        var b = c.Color("all_blue"); var r = c.Color("all_red"); blueBase = b.baseMult100; blueInc = b.incrementPerLevel100; redBase = r.baseMult100; redInc = r.incrementPerLevel100;
+        var b = c.Color("all_blue"); var r = c.Color("all_red"); blueBase = b.baseAdd100; blueInc = b.addPerLevel100; redBase = r.baseAdd100; redInc = r.addPerLevel100;
         foreach (var rr in c.redRewards) redTable[rr.count] = rr.factor100;
         redCap = c.debug.redGroupCapForExperiments; if (redCap > 8) throw new NotSupportedException("Fast scorer assumes a red reward table of at most 8.");
         Func<int, ControllerParameters> p = id => c.Controller(Cid(id)).parameters;
-        foreach (int id in Fixed) mult[id] = p(id).scoreMultiplier;
+        // Fixed factors and fixed bonuses straight from the configuration, exactly as ScoreCalculator's default
+        // branches read them. The cards with their own formula are listed here and handled one by one in Score.
+        var ownFactor = new HashSet<int> { 49, 53, 71, 87, 89, 103, 155 }; var ownBonus = new HashSet<int> { 19, 47, 49, 63, 137, 139, 141, 147, 148, 150, 151, 152 };
+        var fm = new List<int>(); var fa = new List<int>();
+        foreach (var d in c.controllers)
+        {
+            int a = int.Parse(d.id.Substring(1)); var q = d.parameters;
+            gKind[a] = ControllerRules.IsGrowthAdditive(d.id) ? 1 : ControllerRules.IsGrowthBase(d.id) ? 2 : ControllerRules.IsGrowthMultiplier(d.id) ? 3 : 0;
+            if (gKind[a] != 0) { gStart[a] = q.growthStart; gEvent[a] = q.growthEvent; }
+            unique[a] = ControllerRules.IsUniqueController(d.id, c); cultivation[a] = d.isCultivation;
+            if (gKind[a] == 0 && !ownFactor.Contains(a) && q.scoreMultiplier100 > 0) { mult[a] = q.scoreMultiplier100 / 100.0; fm.Add(a); }
+            if (gKind[a] != 1 && !ownBonus.Contains(a) && q.additiveBonus100 != 0) { add100[a] = q.additiveBonus100; fa.Add(a); }
+        }
+        FixedMul = fm.ToArray(); FixedAdd = fa.ToArray();
+        if (!GrowthMul.All(a => gKind[a] == 3) || !GrowthAddi.All(a => gKind[a] == 1) || !GrowthBase.All(a => gKind[a] == 2) || gKind.Count(k => k != 0) != GrowthMul.Length + GrowthAddi.Length + GrowthBase.Length)
+            throw new NotSupportedException("Fast scorer's growth card lists differ from ControllerRules.");
+        catchAdd = c.growthCatchupPerCycle.additive; catchBase = c.growthCatchupPerCycle.@base; catchMul = c.growthCatchupPerCycle.multiplier;
         c53units = p(53).factorUnits2; c53mean = c53units.Average() / 2.0;
         p3idx = p(3).index; p6min = p(6).minDistinct; p10pip = p(10).pip; p10add = p(10).perDieAdd; p11c2 = p(11).requiredCounts.pip2; p11c3 = p(11).requiredCounts.pip3; p12add = p(12).oddToEvenAdd; p13add = p(13).oddPerDieAdd;
-        p17add = p(17).perDieAdd; foreach (int v in p(17).pips) p17[v] = true; p19max = p(19).maxPermanentSixFaceSum; p19add = p(19).perDieAdd; p20pip = p(20).lastActualCapacitySlotPip; p20add = p(20).perDieAdd;
+        p17add = p(17).perDieAdd; foreach (int v in p(17).pips) p17[v] = true; p19one = p(19).minOneAdd100; p19two = p(19).minTwoAdd100; p20pip = p(20).lastActualCapacitySlotPip; p20add = p(20).perDieAdd;
         p24from = p(24).redGroupKeyFrom; p24to = p(24).redGroupKeyTo; p27add = p(27).baseAddPerDistinctPairedPip; p28min = p(28).minDistinctPairs; p29len = p(29).minimumStraightLength; p30min = p(30).minSamePip; p31min = p(31).minSamePip;
-        p32d = p(32).distinctPips; p33min = p(33).minDice; p33diff = p(33).firstMinusSecondAtLeast; p39add = p(39).perDieAdd; p44add = p(44).baseAddPerFrozenGold; p47units = p(47).perControllerUnits2; p45mult = p(45).matchingDieContributionMultiplier;
-        p48add = p(48).baseAddPerEmptySubmitSlot; p50add = p(50).baseAdd; enchBase = c.enchantRules.baseAdd; enchMult = c.enchantRules.scoreMultiplier; unusedRoll = c.bonusPerUnusedRoll;
-        glassMult = c.glassContributionMultiplier; goldMult = c.goldContributionMultiplier; minStraight = c.minStraightLength; glassBreak = c.glassBreakPercent / 100.0;
+        p32d = p(32).distinctPips; p33min = p(33).minDice; p33diff = p(33).firstMinusSecondAtLeast; p39add = p(39).perDieAdd; p44add = p(44).baseAddPerFrozenGold; p47add = p(47).additivePerController100; p45mult = p(45).matchingDieContributionMultiplier;
+        p48add = p(48).baseAddPerEmptySubmitSlot; p49add = p(49).additivePerFive100; p49half = p(49).noFiveMultiplier100 / 100.0; p50add = p(50).baseAdd; enchBase = c.enchantRules.baseAdd; enchAdd = c.enchantRules.scoreAdd100; unusedRoll = c.bonusPerUnusedRoll;
+        glassMult = c.glassContributionMultiplier; goldAdd = c.goldAdd100; minStraight = c.minStraightLength; glassBreak = c.glassBreakPercent / 100.0;
         if (p(39).effectiveColor != "blue") throw new NotSupportedException("Fast scorer assumes C39 counts blue dice.");
-        if (p3idx != 0 || p(64).index != 0 || p(108).index != 0 || p(119).index != 0 || p(127).sourceIndex != 0) throw new NotSupportedException("Fast scorer assumes the first-die cards read index 0.");
-        p63units = p(63).perDieUnits10; p64idx = p(64).index; p64r = p(64).retriggers; p65r = p(65).retriggers; p66r = p(66).retriggers; p67r = p(67).retriggers; p68r = p(68).retriggers; p69r = p(69).retriggers;
+        if (p3idx != 0 || p(64).index != 0 || p(108).index != 0 || p(127).sourceIndex != 0) throw new NotSupportedException("Fast scorer assumes the first-die cards read index 0.");
+        if (p(7).submissionOrdinal != 0 || p(7).requiredDice != 2 || p(7).sourceIndex != 0 || p(7).targetIndex != 1 || p(36).minDice != 2 || p(37).minDice != 2 || p(26).requiredDice != 1) throw new NotSupportedException("Fast scorer assumes the C07 / C26 / C36 / C37 trigger shapes.");
+        p63add = p(63).additivePerPermanentDie100; p64idx = p(64).index; p64r = p(64).retriggers; p65r = p(65).retriggers; p66r = p(66).retriggers; p67r = p(67).retriggers; p68r = p(68).retriggers; p69r = p(69).retriggers;
         foreach (int v in p(66).pips) p66[v] = true; foreach (int v in p(67).pips) p67[v] = true;
         p70add = p(70).baseAddPerPoolDie; p71pip = p(71).pip; p71step = p(71).stepNumerator / (double)p(71).stepDenominator; p72mul = p(72).poolPipSumMultiplier;
         p75max = p(75).maxRollsUsed; p76add = p(76).baseAddPerExtraRoll; p80sum = p(80).pairSum; p80add = p(80).baseAddPerPair;
         foreach (string id in p(82).handIds) p82mask |= 1 << hIndex[id]; foreach (string id in p(86).handIds) p86mask |= 1 << hIndex[id];
         p84add = p(84).handMultAdd100; p84min = p(84).minSamePip; p85add = p(85).handMultAdd100; p85min = p(85).minSamePip;
         p87min = p(87).minSamePip; p87step = p(87).stepNumerator / (double)p(87).stepDenominator; p88min = p(88).minDice; p89step = p(89).stepNumerator / (double)p(89).stepDenominator;
-        p91add = p(91).perDieAdd; p92add = p(92).perDieAdd; p93mult = p(93).dieContributionMultiplier;
-        mult[103] = p(103).scoreMultiplier; p103strict = p(103).strictScoreMultiplier; p103max = p(103).maxOwnedPermanentDice; p103strictMax = p(103).strictMaxOwnedPermanentDice;
+        p91min = p(91).minDice; p92add = p(92).perDieAdd; p93mult = p(93).dieContributionMultiplier;
+        p103loose = p(103).scoreMultiplier100 / 100.0; p103strict = p(103).strictScoreMultiplier100 / 100.0; p103max = p(103).maxOwnedPermanentDice; p103strictMax = p(103).strictMaxOwnedPermanentDice;
         // p1.0.0
         p104min = p(104).minDice; p106min = p(106).minDice; p107add = p(107).perDieAdd; p108idx = p(108).index; p108add = p(108).baseAddPerPip; p109r = p(109).retriggers; p109min = p(109).minDice;
-        p127ord = p(127).submissionOrdinal; p127min = p(127).minDice; p135add = p(135).baseAddPerItem; p137add = p(137).perDieAdd; p138cost = p(138).goldCost;
-        p139gold = p(139).goldPerStep; p139step4 = p(139).stepUnits4; p139max = p(139).maxSteps; p141init = p(141).initialMultiplierUnits2; p142add = p(142).handMultAdd100;
-        p143r = p(143).retriggers; p143req = p(143).requiredDice; p147step4 = p(147).stepUnits4; p148units2 = p(148).perRollUnits2; p149req = p(149).requiredDice;
-        p151units2 = p(151).perSlotUnits2; p152step4 = p(152).stepUnits4; p153ord = p(153).submissionOrdinal; glassBreakFilm = p(145).glassBreakPercent / 100.0;
+        p127min = p(127).minDice; p135add = p(135).baseAddPerItem; p137add = p(137).additivePerMatch100; p138cost = p(138).goldCost;
+        p139gold = p(139).goldPerStep; p139add = p(139).additivePerGoldStep100; p141init = p(141).initialAdditive100; p141decay = p(141).decayPerClear100; p142add = p(142).handMultAdd100;
+        p143r = p(143).retriggers; p143req = p(143).requiredDice; p147add = p(147).additivePerPoolDie100; p148add = p(148).additivePerUnusedRoll100; p149req = p(149).requiredDice;
+        p150add = p(150).additivePerPreviousSubmit100; p151add = p(151).additivePerEmptyOrdinarySlot100; p152add = p(152).additivePerCommon100; p153ord = p(153).submissionOrdinal;
+        // p1.1.1
+        p155fours = p(155).minFours; p155ones = p(155).minOnes; p155mult = p(155).scoreMultiplier100 / 100.0; p155strong = p(155).enhancedScoreMultiplier100 / 100.0; p156div = p(156).targetDivisor;
         foreach (var d in c.controllers) isCommon[int.Parse(d.id.Substring(1))] = d.rarity == p(152).rarity;
         foreach (var m in c.bossModifiers) fx[m.id] = ModFx.Of(m);
     }
@@ -179,8 +215,15 @@ public sealed class Build
 {
     public Params P;
     public int[] cnt = new int[Params.N], eb = new int[Params.N], em = new int[Params.N];
-    /// <summary>Per ability: product of (20 + growth) / 20 and sum of growth over its sources (a mimic shares its target's value).</summary>
-    public double[] gMul = new double[Params.N], gAdd = new double[Params.N];
+    /// <summary>Growth cards, per ability over its sources (a mimic reads its target's value): the sum of the values
+    /// for additive (hundredths) and base (points) cards, the product of value / 100 for multiplier cards.
+    /// gHalf is the same with the grown part halved and rounded down per source (boss effect GrowthHalf).</summary>
+    public double[] gFull = new double[Params.N], gHalf = new double[Params.N];
+    /// <summary>C156: the stage score before this submission and the effective stage target.</summary>
+    public double stageScore, stageTarget = 1;
+    /// <summary>C137 sources in controller order: the star pip of the state owner (0 = none drawn) and the scoring
+    /// enchant of the emitter (0 none, 1 base10, 2 mult2). Each source triggers on its own star pip.</summary>
+    public byte[] star137 = Array.Empty<byte>(), e137 = Array.Empty<byte>();
     public int[] present = Array.Empty<int>();
     public int alive, capacity, ordinal, rollsPerHand, submissions, prev = -1;
     /// <summary>Owned permanent dice, and submissions left in the stage before the one being scored (1 = last chance).</summary>
@@ -188,7 +231,7 @@ public sealed class Build
     public long wallet; public bool redWave, pos;
     public int[] handLv = new int[13]; public int blueLv, redLv;
     public FDie[] dice = Array.Empty<FDie>();
-    public int c45Red, c45Blue; public double c51 = 1;
+    public int c45Red, c45Blue;
     /// <summary>C53 product: expectation when planning, or exact product after SetRandomChoices.
     /// Independent real cards draw separately; mimics share their state owner's draw.</summary>
     public double c53Factor = 1;
@@ -210,12 +253,12 @@ public sealed class Build
     /// <summary>Stage kind is boss (C130); items held (C135); empty ordinary slots (C151); alive controllers of
     /// common rarity, disabled ones included (C152); primary hands already scored this stage as a bit mask (NoRepeatHand).</summary>
     public bool boss, blueWave; public int inventory, emptySlots, commons, usedHands, itemMult = 1;
-    /// <summary>C141: product of (initial - stages survived) / 2 over its sources.</summary>
-    public double c141 = 1;
+    /// <summary>C141: sum over its sources of the bonus left, initial - stages survived x decay, in hundredths (never below 0).</summary>
+    public double c141;
     /// <summary>C138 sources in controller order: 0 = no scoring enchant, 1 = base10, 2 = mult2. Only the first
     /// wallet / cost sources trigger, so their enchants cannot be pooled in eb / em.</summary>
     public byte[] e138 = Array.Empty<byte>();
-    /// <summary>Chance that a glass die breaks on a roll (2% with C145, otherwise the configured 8%).</summary>
+    /// <summary>Chance that a submitted glass die breaks after the submission (section 7.3). Never on a roll.</summary>
     public double glassBreak;
     /// <summary>Face-growth cards are held, so equal-scoring submission orders are not equally good (see Planner.FinalEval).</summary>
     public bool growOrder, lowBuild;
@@ -240,26 +283,30 @@ public sealed class Build
         b.c53Owners = randomOwners.Select(g => g.Key).ToArray(); b.c53OwnerCopies = randomOwners.Select(g => g.Count()).ToArray();
         // E[X^k] for one owner copied k times; multiply across independent owners.
         foreach (int copies in b.c53OwnerCopies) b.c53Factor *= P.c53units.Average(u => PowI(u / 2.0, copies));
-        for (int i = 0; i < Params.N; i++) b.gMul[i] = 1;
-        var gold138 = new List<byte>(); bool film = false;
+        foreach (int a in Params.GrowthMul) { b.gFull[a] = 1; b.gHalf[a] = 1; }
+        var gold138 = new List<byte>(); var star = new List<byte>(); var ench137 = new List<byte>();
         foreach (var src in sources)
         {
             if (src.abilityId == null) continue;
             int a = int.Parse(src.abilityId.Substring(1)); b.cnt[a]++;
-            if (a == 138) gold138.Add((byte)(src.enchantmentId == "base10" ? 1 : src.enchantmentId == "mult2" ? 2 : 0));
-            else if (src.enchantmentId == "base10") b.eb[a]++; else if (src.enchantmentId == "mult2") b.em[a]++;
+            byte enchant = (byte)(src.enchantmentId == "base10" ? 1 : src.enchantmentId == "mult2" ? 2 : 0);
+            if (a == 138) gold138.Add(enchant);
+            else if (a == 137) { star.Add((byte)src.state.starPip); ench137.Add(enchant); }
+            else if (enchant == 1) b.eb[a]++; else if (enchant == 2) b.em[a]++;
             if (a == 45) { if (src.state.activeColor == "red") b.c45Red++; else b.c45Blue++; }
-            if (a == 51) b.c51 *= src.state.turnoverUnits2 / 2.0;
-            if (a == 141) b.c141 *= (P.p141init - src.state.growth) / 2.0;
-            if (a == 145) film = true;
-            if (ControllerRules.IsGrowthMultiplier(src.abilityId)) b.gMul[a] *= (20 + src.state.growth) / 20.0;
-            else if (ControllerRules.IsGrowthBase(src.abilityId)) b.gAdd[a] += src.state.growth;
+            if (a == 141) b.c141 += Math.Max(0, P.p141init - src.state.growth * P.p141decay);
+            if (P.gKind[a] != 0)
+            {
+                long full = P.gStart[a] + src.state.growthCatchup + src.state.growth, half = P.gStart[a] + src.state.growthCatchup + src.state.growth / 2;
+                if (P.gKind[a] == 3) { b.gFull[a] *= full / 100.0; b.gHalf[a] *= half / 100.0; } else { b.gFull[a] += full; b.gHalf[a] += half; }
+            }
         }
-        b.e138 = gold138.ToArray(); b.glassBreak = film ? P.glassBreakFilm : P.glassBreak;
+        b.e138 = gold138.ToArray(); b.star137 = star.ToArray(); b.e137 = ench137.ToArray(); b.glassBreak = P.glassBreak;
         b.present = Enumerable.Range(1, Params.N - 1).Where(i => b.cnt[i] > 0).ToArray();
         b.alive = all.Count(c => c.alive);
         foreach (var c in all) if (c.alive && P.isCommon[int.Parse(c.definitionId.Substring(1))]) b.commons++;
-        b.emptySlots = Math.Max(0, s.controllerSlots - ControllerRules.OrdinaryUsed(all));
+        b.emptySlots = Math.Max(0, s.controllerSlots - ControllerRules.OrdinaryUsed(all, cfg));
+        if (started) { b.stageScore = double.Parse(s.stage.score); b.stageTarget = double.Parse(s.stage.target); }
         b.inventory = s.inventory.Count;
         b.capacity = ctx != null && ctx.capacity > 0 ? ctx.capacity : started ? s.stage.capacity : ControllerRules.Capacity(all, cfg, false, bindings, rules);
         b.rollsPerHand = ctx != null && ctx.rolls > 0 ? ctx.rolls : ControllerRules.RollBudget(all, cfg, started ? s.stage.stageRollBonus : 0, bindings, rules);
@@ -287,10 +334,10 @@ public sealed class Build
     {
         // Pattern cards: first-die colour, last slot, first-minus-second, rising run, alternating colours, reds first,
         // palindrome, +1 neighbours, first pip. Slot cards: retrigger the first / last / middle die, positional seals.
-        int pattern = cnt[3] + cnt[20] + cnt[33] + cnt[40] + cnt[104] + cnt[105] + cnt[106] + cnt[107] + cnt[108];
+        int pattern = cnt[3] + cnt[20] + cnt[33] + cnt[40] + cnt[91] + cnt[104] + cnt[105] + cnt[106] + cnt[107] + cnt[108];
         bool slots = cnt[64] + cnt[65] + cnt[109] > 0 || fx.posSeal;
         pos = pattern > 0 || slots; posSimple = pos && pattern == 0;
-        growOrder = cnt[117] + cnt[119] + cnt[127] > 0; lowBuild = cnt[10] + cnt[17] + cnt[19] + cnt[66] > 0;
+        growOrder = cnt[117] + cnt[119] + cnt[127] > 0; lowBuild = cnt[10] + cnt[17] + cnt[66] > 0;
     }
 
     public static FDie MakeDie(DieInstance d, GameConfig cfg, bool large, bool small, int high, int low)
@@ -299,13 +346,12 @@ public sealed class Build
         // Real probability units: face weights (p1.0.0, up to 5), textures, item buffs and the C34 / C35 shift.
         var units = ProbabilityCalculator.BuildUnits(faces, large, small, cfg, high, low);
         var f = new FDie { id = d.dieId, glass = d.isGlass, temp = d.lifetime != "permanent", six = faces.Sum(x => x.permanentPip) };
-        var textures = cfg.Controller("C91").parameters.textures;
         f.monoColor = faces.All(x => x.baseColor == faces[0].baseColor); f.monoPip = faces.All(x => x.permanentPip == faces[0].permanentPip);
         double acc = 0;
         for (int i = 0; i < 6; i++)
         {
             f.pip[i] = faces[i].permanentPip; f.red[i] = faces[i].baseColor == "red"; f.gold[i] = faces[i].isGold; acc += units[i] / (double)cfg.probabilityUnits; f.cdf[i] = acc;
-            f.tex[i] = textures.Contains(faces[i].texture); string oppId = cfg.Opposite(faces[i].faceId); f.opp[i] = faces.First(x => x.faceId == oppId).permanentPip;
+            f.tex[i] = !string.IsNullOrEmpty(faces[i].texture) && faces[i].texture != "none"; string oppId = cfg.Opposite(faces[i].faceId); f.opp[i] = faces.First(x => x.faceId == oppId).permanentPip;
         }
         f.cdf[5] = 1.0000001;
         return f;
@@ -341,15 +387,15 @@ public sealed class Build
         for (int i = 0; i < n; i++) { int v = h.pip[i]; if (has12 && (v & 1) == 1) { v += P.p12add; changedOdd = true; } pip[i] = v; red[i] = h.red[i]; }
         if (cnt[3] > 0) red[P.p3idx] = true;
         if (redWave) red.Fill(true); else if (blueWave) red.Fill(false);
-        int redN = 0, goldN = 0; bool anyOdd = false, allOdd = true, anyLow = false, anySmall = false, redOne = false, any66 = false, any67 = false, anyTex = false, anyMonoC = false, anyMonoP = false, anyTemp = false;
+        int redN = 0, goldN = 0, minPip = 99; bool anyOdd = false, allOdd = true, anyLow = false, redOne = false, any66 = false, any67 = false, anyMonoC = false, anyMonoP = false;
         for (int i = 0; i < n; i++)
         {
-            int v = pip[i]; c[v]++;
+            int v = pip[i]; c[v]++; if (v < minPip) minPip = v;
             if (red[i]) { redN++; if (v == P.p24from) redOne = true; }
             if ((v & 1) == 1) anyOdd = true; else allOdd = false;
-            if (P.p17[v]) anyLow = true; if (h.six[i] <= P.p19max) anySmall = true;
+            if (P.p17[v]) anyLow = true;
             if (P.p66[v]) any66 = true; if (P.p67[v]) any67 = true;
-            if (h.gold[i]) goldN++; if (h.tex[i]) anyTex = true; if (h.monoC[i]) anyMonoC = true; if (h.monoP[i]) anyMonoP = true; if (h.temp[i]) anyTemp = true;
+            if (h.gold[i]) goldN++; if (h.monoC[i]) anyMonoC = true; if (h.monoP[i]) anyMonoP = true;
         }
         // 2. Hands. SmallHandsOnly keeps pair / two pair / trips; NoStraight removes the straight; ZeroLevels zeroes levels.
         int distinct = 0, maxSame = 0, pairKinds = 0, trips = 0, run = 0, maxRun = 0; bool exactGroup = false;
@@ -374,7 +420,8 @@ public sealed class Build
         int reqLen = cnt[29] > 0 ? P.p29len : P.minStraight;
         bool hasStraight = !fx.noStraight && maxRun >= reqLen; int straight = 0;
         if (hasStraight) { int S = P.STRAIGHT; straight = P.hBase[S] + (zero ? 0 : P.hInc[S] * handLv[S]); if (P.hPri[S] > bestPri) primary = S; }
-        int color = 100;
+        // Colour is an additive bonus (hundredths); NoRed / NoBlue clear only the matching bonus.
+        int color = 0;
         if (redN == n) { if (!fx.noRed) color = P.redBase + (zero ? 0 : P.redInc * redLv); }
         else if (redN == 0) { if (!fx.noBlue) color = P.blueBase + (zero ? 0 : P.blueInc * blueLv); }
 
@@ -398,7 +445,7 @@ public sealed class Build
         lastRedN = redN; lastRedCount = redCount;
 
         // 4. Which sources trigger. Disabled controllers are not sources at all (Build.From left them out of cnt).
-        var hits = new HitSet(); Span<bool> on = stackalloc bool[Params.N]; on.Clear(); int hits138 = 0;
+        var hits = new HitSet(); Span<bool> on = stackalloc bool[Params.N]; on.Clear(); int hits138 = 0, hits137 = 0, star137Add = 0;
         foreach (int a in present)
         {
             bool hit;
@@ -417,7 +464,7 @@ public sealed class Build
                 case 15: { hit = false; for (int i = 1; i < n - 1; i++) if (!red[i] && red[i - 1] && red[i + 1]) { hit = true; break; } break; }
                 case 17: hit = anyLow; break;
                 case 18: hit = redN == n - redN; break;
-                case 19: hit = anySmall; break;
+                case 19: hit = minPip == 1 || minPip == 2; break;
                 case 20: hit = n == capacity && pip[n - 1] == P.p20pip; break;
                 case 24: hit = redOne; break;
                 case 25: hit = redN > 0; break;
@@ -435,7 +482,7 @@ public sealed class Build
                 case 43: hit = primary >= 0 && primary == prev; break;
                 case 44: hit = wallet > 0; break;
                 // p0.9.0
-                case 54: case 55: case 56: case 57: case 58: case 59: case 60: case 61: case 62: case 63: case 64: case 90: case 94: case 100: case 101: hit = true; break;
+                case 54: case 55: case 56: case 57: case 58: case 59: case 60: case 61: case 62: case 63: case 64: case 94: case 100: case 101: hit = true; break;
                 case 65: hit = n == capacity; break;
                 case 66: hit = any66; break;
                 case 67: hit = any67; break;
@@ -458,7 +505,8 @@ public sealed class Build
                 case 87: hit = maxSame >= P.p87min; break;
                 case 88: hit = n >= P.p88min && distinct == n; break;
                 case 89: hit = goldN > 0; break;
-                case 91: hit = anyTex; break;
+                // Zigzag: at least minDice dice, every neighbour differs and the direction flips at every step.
+                case 91: { hit = n >= P.p91min; for (int i = 1; hit && i < n; i++) if (pip[i] == pip[i - 1] || (i >= 2 && (pip[i] > pip[i - 1]) == (pip[i - 1] > pip[i - 2]))) hit = false; break; }
                 case 92: hit = anyMonoC; break;
                 case 93: hit = anyMonoP; break;
                 case 103: hit = permDice <= P.p103max; break;
@@ -470,10 +518,11 @@ public sealed class Build
                 case 107: { hit = false; for (int i = 1; i < n; i++) if (pip[i] == pip[i - 1] + 1) { hit = true; break; } break; }
                 case 109: hit = (n & 1) == 1 && n >= P.p109min; break;
                 case 126: case 147: hit = h.poolN > 0; break;
-                case 127: hit = ordinal == P.p127ord && n >= P.p127min; break;
+                case 127: hit = n >= P.p127min; break;
                 case 130: hit = boss; break;
                 case 135: hit = inventory > 0; break;
-                case 137: hit = anyTemp; break;
+                // Each source reads the star pip of its state owner; the bonus is per matching die, per source.
+                case 137: { for (int k = 0; k < star137.Length; k++) { int sp = star137[k]; if (sp >= 1 && c[sp] > 0) { hits137 |= 1 << k; star137Add += c[sp]; } } hit = hits137 != 0; break; }
                 // Sources are served left to right from the frozen wallet; each one that triggers reserves the cost.
                 case 138: hits138 = (int)Math.Min(cnt[138], wallet / P.p138cost); hit = hits138 > 0; break;
                 case 139: hit = wallet >= P.p139gold; break;
@@ -487,16 +536,19 @@ public sealed class Build
                 case 151: hit = emptySlots > 0; break;
                 case 152: hit = commons > 0; break;
                 case 153: hit = ordinal == P.p153ord; break;
+                // p1.1.1
+                case 155: hit = c[4] >= P.p155fours; break;
+                case 156: hit = stageScore * P.p156div < stageTarget; break;
                 default: hit = false; break;
             }
             if (hit) { hits.Set(a); on[a] = true; }
         }
         lastHits = hits;
-        lastSourceHits = 0; int served138 = 0;
+        lastSourceHits = 0; int served138 = 0, served137 = 0;
         for (int i = 0; i < sourceAbilities.Length; i++)
         {
             int a = sourceAbilities[i];
-            bool hit = a == 138 ? served138++ < hits138 : on[a];
+            bool hit = a == 138 ? served138++ < hits138 : a == 137 ? (hits137 >> served137++ & 1) != 0 : on[a];
             if (hit) lastSourceHits |= 1UL << i;
         }
         // 8. Hand multiplier: adds, floor of x1, then NoRepeatHand and HandHalf.
@@ -506,8 +558,8 @@ public sealed class Build
         if (fx.handHalf) hand = Math.Max(100, hand / 2);
 
         // 5-6. Per-die contributions and retriggers. A sealed die contributes nothing; PipsOnly keeps the bare pip.
-        int a10 = cnt[10] * P.p10add, a13 = cnt[13] * P.p13add, a17 = cnt[17] * P.p17add, a19 = cnt[19] * P.p19add, a20 = cnt[20] * P.p20add, a39 = cnt[39] * P.p39add;
-        int a91 = cnt[91] * P.p91add, a92 = cnt[92] * P.p92add, k93 = cnt[93], k94 = cnt[94], a107 = cnt[107] * P.p107add, a137 = cnt[137] * P.p137add;
+        int a10 = cnt[10] * P.p10add, a13 = cnt[13] * P.p13add, a17 = cnt[17] * P.p17add, a20 = cnt[20] * P.p20add, a39 = cnt[39] * P.p39add;
+        int a92 = cnt[92] * P.p92add, k93 = cnt[93], k94 = cnt[94], a107 = cnt[107] * P.p107add;
         int r64 = cnt[64] * P.p64r, r65 = on[65] ? cnt[65] * P.p65r : 0, r66 = cnt[66] * P.p66r, r67 = cnt[67] * P.p67r, r68 = on[68] ? cnt[68] * P.p68r : 0, r69 = cnt[69] * P.p69r;
         int r109 = on[109] ? cnt[109] * P.p109r : 0, r143 = cnt[143] * P.p143r, mid = (n - 1) / 2;
         bool valueSeal = fx.valueSeal, pipsOnly = fx.pipsOnly;
@@ -520,15 +572,14 @@ public sealed class Build
             else
             {
                 x = v;
-                if (v == P.p10pip) x += a10; if ((v & 1) == 1) x += a13; if (P.p17[v]) x += a17; if (h.six[i] <= P.p19max) x += a19;
+                if (v == P.p10pip) x += a10; if ((v & 1) == 1) x += a13; if (P.p17[v]) x += a17;
                 if (a20 != 0 && n == capacity && i == capacity - 1 && v == P.p20pip) x += a20;
                 if (!red[i]) x += a39;
-                if (h.tex[i]) x += a91; if (h.monoC[i]) x += a92; x += k94 * h.opp[i];
+                if (h.monoC[i]) x += a92; x += k94 * h.opp[i];
                 if (a107 != 0 && i > 0 && v == pip[i - 1] + 1) x += a107;
-                if (h.temp[i]) x += a137;
                 int k45 = red[i] ? c45Red : c45Blue; for (int k = 0; k < k45; k++) x *= P.p45mult;
                 if (h.monoP[i]) for (int k = 0; k < k93; k++) x *= P.p93mult;
-                if (h.glass[i]) x *= P.glassMult; if (h.gold[i]) x *= P.goldMult;
+                if (h.glass[i]) x *= P.glassMult;   // a gold face no longer doubles the die: it adds to the additive zone
             }
             int rt = r68;
             if (P.p66[v]) rt += r66; if (P.p67[v]) rt += r67;
@@ -545,7 +596,9 @@ public sealed class Build
         {
             foreach (int a in present) if (on[a]) { bc += eb[a]; mc += em[a]; }
             for (int k = 0; k < hits138; k++) { if (e138[k] == 1) bc++; else if (e138[k] == 2) mc++; }
+            for (int k = 0; k < e137.Length; k++) if ((hits137 >> k & 1) != 0) { if (e137[k] == 1) bc++; else if (e137[k] == 2) mc++; }
         }
+        var growth = fx.growthHalf ? gHalf : gFull;
         double baseTotal = sum + P.unusedRoll * h.rolls;
         if (!pipsOnly)
         {
@@ -554,7 +607,7 @@ public sealed class Build
             if (on[44]) baseTotal += (double)wallet * cnt[44] * P.p44add;
             if (on[48]) baseTotal += cnt[48] * (capacity - n) * P.p48add;
             if (on[50]) baseTotal += cnt[50] * P.p50add;
-            if (!fx.growthZero) foreach (int a in Params.GrowthAdd) if (cnt[a] > 0) baseTotal += gAdd[a];
+            foreach (int a in Params.GrowthBase) if (cnt[a] > 0) baseTotal += growth[a];
             if (on[70]) baseTotal += cnt[70] * h.poolN * P.p70add;
             if (on[72]) baseTotal += cnt[72] * h.poolSum * P.p72mul;
             if (on[76]) baseTotal += cnt[76] * (h.rollsUsed - 1) * P.p76add;
@@ -563,31 +616,41 @@ public sealed class Build
             if (on[135]) baseTotal += cnt[135] * inventory * P.p135add;
         }
         int redMult = fx.noRed ? 100 : P.redTable[Math.Min(redCount, P.redCap)];
-        // 9. Controller multipliers, enchant multipliers, item multiplier, boss half-score.
+        // 9a. Additive zone A in hundredths: colour, every submitted gold face (also sealed or under PipsOnly), the
+        // additive abilities of the triggered sources, then the score enchantment of each triggered source.
+        double A = color + (double)goldN * P.goldAdd + (double)mc * P.enchAdd;
+        foreach (int a in P.FixedAdd) if (on[a]) A += cnt[a] * P.add100[a];
+        foreach (int a in Params.GrowthAddi) if (cnt[a] > 0) A += growth[a];
+        if (on[19]) A += cnt[19] * (minPip == 1 ? P.p19one : P.p19two);
+        if (on[47]) A += (double)cnt[47] * alive * P.p47add;
+        if (on[49]) A += (double)cnt[49] * c[5] * P.p49add;
+        if (on[63]) A += (double)cnt[63] * permDice * P.p63add;
+        if (hits137 != 0) A += (double)star137Add * P.p137add;
+        if (on[139]) A += (double)cnt[139] * (wallet / P.p139gold) * P.p139add;
+        if (cnt[141] > 0) A += c141;
+        if (on[147]) A += (double)cnt[147] * h.poolN * P.p147add;
+        if (on[148]) A += (double)cnt[148] * h.rolls * P.p148add;
+        if (on[150]) A += (double)cnt[150] * ordinal * P.p150add;
+        if (on[151]) A += (double)cnt[151] * emptySlots * P.p151add;
+        if (on[152]) A += (double)cnt[152] * commons * P.p152add;
+        lastAdditive = A;
+        // 9b. Controller-side product M, then the item multiplier and the boss half-score (G).
         double X = 1;
-        foreach (int a in Params.Fixed) if (on[a]) { int times = a == 138 ? hits138 : cnt[a]; for (int k = 0; k < times; k++) X *= P.mult[a]; }
-        if (on[47]) for (int k = 0; k < cnt[47]; k++) X *= Math.Max(2, alive * P.p47units) / 2.0;
-        if (on[49]) for (int k = 0; k < cnt[49]; k++) X *= c[5];
-        if (on[51]) X *= c51;
+        foreach (int a in P.FixedMul) if (on[a]) { int times = a == 138 ? hits138 : cnt[a]; for (int k = 0; k < times; k++) X *= P.mult[a]; }
+        if (on[49] && c[5] == 0) X *= PowI(P.p49half, cnt[49]);
         if (on[53]) X *= c53Factor;
-        if (!fx.growthZero) foreach (int a in Params.GrowthMul) if (cnt[a] > 0) X *= gMul[a];
-        if (cnt[63] > 0) X *= PowI(Math.Max(10, permDice * P.p63units) / 10.0, cnt[63]);
+        foreach (int a in Params.GrowthMul) if (cnt[a] > 0) X *= growth[a];
         if (on[71]) X *= PowI(P.p71step, h.poolHot * cnt[71]);
         if (on[87]) X *= PowI(P.p87step, (maxSame - P.p87min + 1) * cnt[87]);
         if (on[89]) X *= PowI(P.p89step, goldN * cnt[89]);
-        if (on[103]) X *= PowI(permDice <= P.p103strictMax ? P.p103strict : P.mult[103], cnt[103]);
-        if (on[139]) X *= PowI((4 + Math.Min(P.p139max, wallet / P.p139gold) * P.p139step4) / 4.0, cnt[139]);
-        if (cnt[141] > 0) X *= c141;
-        if (on[147]) X *= PowI((4 + h.poolN * P.p147step4) / 4.0, cnt[147]);
-        if (on[148]) X *= PowI((2 + h.rolls * P.p148units2) / 2.0, cnt[148]);
-        if (on[150]) X *= PowI(ordinal + 1, cnt[150]);
-        if (on[151]) X *= PowI((2 + emptySlots * P.p151units2) / 2.0, cnt[151]);
-        if (on[152]) X *= PowI((4 + commons * P.p152step4) / 4.0, cnt[152]);
-        for (int k = 0; k < mc; k++) X *= P.enchMult;
+        if (on[103]) X *= PowI(permDice <= P.p103strictMax ? P.p103strict : P.p103loose, cnt[103]);
+        if (on[155]) X *= PowI(c[1] >= P.p155ones ? P.p155strong : P.p155mult, cnt[155]);
         X *= itemMult;
         if ((fx.firstHalf && ordinal == 0) || (fx.laterHalf && ordinal >= 1)) X *= 0.5;
-        return baseTotal * hand * color * redMult * X / 1e6;
+        return baseTotal * hand * redMult * (100 + A) * X / 1e6;
     }
+    /// <summary>Additive total A (hundredths) of the last Score call.</summary>
+    public double lastAdditive;
 }
 
 /// <summary>Hand policy: after every roll choose which dice to lock and whether to submit, by sampled look-ahead.
@@ -608,6 +671,8 @@ public sealed class Planner
     public readonly int[] bestOrd = new int[12]; public int bestN, lastPrimary, lastRedN, lastRedCount, lastRollsUsed, lastPoolN; public HitSet lastHits;
     /// <summary>After PlayHand: the dice still alive (bit mask) and the rolls left when the hand was submitted.</summary>
     public int lastAlive, lastRollsLeft;
+    /// <summary>After PlayHand: the submitted glass dice that broke after this submission (bit mask).</summary>
+    public int lastBroken;
     /// <summary>PlayHand also applies the order tie-break for face-growth cards (the real bot always does).</summary>
     public bool steer;
     /// <summary>Faces of the hand PlayHand just finished (index = die), for callers that replay the submission.</summary>
@@ -640,7 +705,7 @@ public sealed class Planner
     void Fill(int[] order, int n, int[] face) { h.n = n; for (int k = 0; k < n; k++) h.Put(k, dice[order[k]], face[order[k]]); }
     int Eff(int die, int[] face) { int v = dice[die].pip[face[die]]; return b.cnt[12] > 0 && (v & 1) == 1 ? v + P.p12add : v; }
     /// <summary>Rough size of a die's contribution, used only to pick the die that C65 should retrigger.</summary>
-    int Weight(int die, int[] face) { var d = dice[die]; return Eff(die, face) * (d.glass ? P.glassMult : 1) * (d.gold[face[die]] ? P.goldMult : 1); }
+    int Weight(int die, int[] face) { var d = dice[die]; return Eff(die, face) * (d.glass ? P.glassMult : 1); }
     void Keep(double v, int prim, int n, int[] order, ref double best)
     {
         if (v <= best) return;
@@ -716,7 +781,20 @@ public sealed class Planner
         if (cnt[104] + cnt[105] > 0 && !b.redWave && !b.blueWave) ColourOrders(n, face, ref best);
         if (cnt[106] > 0 && n >= P.p106min && Palindrome(n, face)) Try(n, face, ref best);
         if (cnt[107] > 0) { Chains(n, face); Try(n, face, ref best); }
+        if (cnt[91] > 0 && n >= P.p91min) { Zigzag(n, face, true); Try(n, face, ref best); Zigzag(n, face, false); Try(n, face, ref best); }
         return best;
+    }
+
+    /// <summary>C91: an order whose pips go up and down alternately. The dice sorted by pip are cut into a low and a
+    /// high half which are interleaved so that equal pips end up as far apart as possible (it is a zigzag whenever
+    /// one exists for this start direction; Score decides).</summary>
+    void Zigzag(int n, int[] face, bool highFirst)
+    {
+        for (int k = 0; k < n; k++) listA[k] = k;
+        for (int i = 1; i < n; i++) { int t = listA[i], e = Eff(idx[t], face), j = i - 1; while (j >= 0 && Eff(idx[listA[j]], face) > e) { listA[j + 1] = listA[j]; j--; } listA[j + 1] = t; }
+        int even = (n + 1) / 2, odd = n / 2;
+        if (highFirst) { for (int k = 0; k < even; k++) ord[2 * k] = idx[listA[odd + k]]; for (int k = 0; k < odd; k++) ord[2 * k + 1] = idx[listA[k]]; }
+        else { for (int k = 0; k < even; k++) ord[2 * k] = idx[listA[even - 1 - k]]; for (int k = 0; k < odd; k++) ord[2 * k + 1] = idx[listA[n - 1 - k]]; }
     }
 
     /// <summary>Writes into `ord` the order that puts the most valuable dice on the most retriggered slots and the
@@ -885,7 +963,7 @@ public sealed class Planner
         int f = order[0], l = order[n - 1]; var df = dice[f]; var dl = dice[l]; int pf = df.pip[face[f]], pl = dl.pip[face[l]]; double dir = b.lowBuild ? -1 : 1, s = 0;
         if (b.cnt[119] > 0 && !df.temp) { int same = 0; for (int k = 0; k < 6; k++) if (df.pip[k] == pf) same++; if (same < 6) s += 100 * (dir * pf + 3 * same); }
         if (b.cnt[117] > 0 && !dl.temp && !dl.gold[face[l]]) s += 10 * (6 + pl);
-        if (b.cnt[127] > 0 && b.ordinal == P.p127ord && n >= P.p127min && !dl.temp) s += 20 * dir * (pf * (df.gold[face[f]] ? 2 : 1) - pl);
+        if (b.cnt[127] > 0 && n >= P.p127min && !dl.temp) s += 20 * dir * (pf + (df.gold[face[f]] ? 3 : 0) - pl - (dl.gold[face[l]] ? 3 : 0));
         return s;
     }
 
@@ -1036,8 +1114,7 @@ public sealed class Planner
             {
                 int bit = 1 << i; if ((alive & bit) == 0 || (locked & bit) != 0) continue;
                 var d = dice[i];
-                if (d.glass && rng.NextDouble() < b.glassBreak) { aliveNow &= ~bit; continue; }
-                f[i] = SampleFace(d); rolled |= bit;
+                f[i] = SampleFace(d); rolled |= bit;   // p1.1.1: glass never breaks on a roll
             }
             int r2 = r - 1, used2 = used + 1; bool c05 = c05used;
             if (r2 == 0 && !c05 && b.cnt[5] > 0) { int un = Pop(aliveNow) - Pop(locked); if (un >= 1 && un <= 2) { r2 += 3 * b.cnt[5]; c05 = true; } }
@@ -1115,7 +1192,6 @@ public sealed class Planner
                 int bit = 1 << i; if ((alive & bit) == 0 || (locked & bit) != 0) continue;
                 var one = new Rng(rollSeed + (ulong)(rollNo * 64 + i) * 7919UL);
                 var d = dice[i];
-                if (d.glass && one.NextDouble() < b.glassBreak) { alive &= ~bit; continue; }
                 double x = one.NextDouble(); int f = 0; while (x >= d.cdf[f]) f++;
                 face[i] = f; rolled |= bit;
             }
@@ -1124,7 +1200,14 @@ public sealed class Planner
             if ((locked | rolled) == 0) { primary = -1; nSub = 0; lastHits = default; lastRedN = 0; lastRedCount = 0; lastPoolN = 0; bestN = 0; return 0; }
             int add = Decide(locked, alive, rolled, r, used, face, c05, out bool submit);
             locked |= add;
-            if (submit) { double v = FinalEval(locked, alive & ~locked, r, used, face, steer); primary = lastPrimary; nSub = Pop(locked); lastAlive = alive; lastRollsLeft = r; return v; }
+            if (submit)
+            {
+                double v = FinalEval(locked, alive & ~locked, r, used, face, steer); primary = lastPrimary; nSub = Pop(locked); lastAlive = alive; lastRollsLeft = r;
+                // p1.1.1 section 7.3: every submitted glass die breaks with glassBreak after the submission.
+                lastBroken = 0;
+                for (int i = 0; i < m; i++) if ((locked >> i & 1) != 0 && dice[i].glass && new Rng(rollSeed + (ulong)(8192 + i) * 104729UL).NextDouble() < b.glassBreak) lastBroken |= 1 << i;
+                return v;
+            }
         }
     }
 }

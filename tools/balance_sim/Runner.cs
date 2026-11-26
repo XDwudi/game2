@@ -14,6 +14,8 @@ public sealed class StageLog
     /// <summary>normal / pressure / boss.</summary>
     public string kind;
     public bool risk, riskOffered, cleared;
+    /// <summary>p1.1.1: a submission of this stage beat the run's highest single hand (what C125 grows on).</summary>
+    public bool recordBroken;
     /// <summary>target = the target actually played (pressure x1.5, TargetPercent, after a lifted modifier);
     /// targetBase = the stage's normal target. power / safe = the bot's estimate for the stage as it was entered
     /// (modifier in force unless lifted); powerRaw / safeRaw = the same build without any modifier;
@@ -264,17 +266,15 @@ public sealed class Runner
         if (mod != null && st.controllers.Any(c => c.definitionId == "C131")) mod = null;
         return new StageCtx { modifierId = mod, boss = ctx.boss, disabled = ControllerRules.DisabledBy(st.controllers, cfg, mod), capacity = ctx.capacity, rolls = ctx.rolls, submissions = ctx.submissions };
     }
-    /// <summary>The build as it will stand once the stage has started: every C136 source adds a temporary die and
-    /// every real C128 turns the oldest non-glass permanent die into glass.</summary>
+    /// <summary>The build as it will stand once the stage has started: every C136 source adds a temporary die, and a
+    /// real C137 without a star pip (shop, preview) is given pip 0 here; see StarPips for how it is valued.</summary>
     RunState AtStageStart(RunState st, StageCtx ctx)
     {
-        if (!st.controllers.Any(c => c.definitionId == "C136" || c.definitionId == "C128")) return st;
+        if (!st.controllers.Any(c => c.definitionId == "C136")) return st;
         var sources = ControllerRules.ResolveSources(st.controllers, null, ctx == null ? null : ctx.disabled);
         int temps = sources.Count(x => x.abilityId == "C136") * cfg.Controller("C136").parameters.dicePerStage;
-        int glass = sources.Count(x => x.abilityId == "C128" && x.emitterDefinitionId == "C128") * cfg.Controller("C128").parameters.dicePerStage;
-        if (temps == 0 && glass == 0) return st;
+        if (temps == 0) return st;
         var copy = st.Clone();
-        for (int i = 0; i < glass; i++) { var die = copy.dice.Where(d => d.lifetime == "permanent" && !d.isGlass).OrderBy(d => d.createdSerial).FirstOrDefault(); if (die == null) break; die.isGlass = true; }
         for (int i = 0; i < temps; i++)
         {
             if (copy.dice.Count >= cfg.maxActiveDice || copy.dice.Count(d => d.lifetime == "stage_temporary") >= cfg.maxTemporaryDice) break;
@@ -541,7 +541,7 @@ public sealed class Runner
     /// simulated with the current build.</summary>
     sealed class Habits
     {
-        public double subs = 2.2, unusedSubs = 0.8, upgrades = 0.3, levels = 0.8, sells = 0.3, buys = 1.0, items = 0.3, risk = 0.5;   // per stage
+        public double subs = 2.2, unusedSubs = 0.8, upgrades = 0.3, levels = 0.8, sells = 0.3, buys = 1.0, items = 0.3, risk = 0.5, record = 0.7;   // per stage
         public double rolls = 3, noRed = 0.1, red3 = 0.1, same = 0.3, half = 0.3, dice = 4, pool = 1, redShare = 0.5;                  // per simulated hand
         public int glass; public long gold; public bool danger, comfy;
     }
@@ -560,6 +560,7 @@ public sealed class Runner
             buys = Blend(cleared.Sum(x => (double)x.bought.Count(l => l.StartsWith("C") || l.StartsWith("U"))), n, 1.0),
             items = Blend(cleared.Sum(x => (double)x.itemsUsed), n, 0.3),
             risk = Blend(pressure.Sum(x => x.risk ? 1.0 : 0.0), pressure.Length, 0.5),
+            record = Blend(cleared.Sum(x => x.recordBroken ? 1.0 : 0.0), n, 0.7),
             rolls = stats.RollsPerHand, noRed = stats.ShareNoRed, red3 = stats.ShareRed3, same = stats.ShareSame, half = stats.ShareHalf,
             dice = stats.DicePerHand, pool = stats.PoolPerHand, redShare = stats.RedShare,
             glass = s.dice.Count(d => d.isGlass), gold = s.gold, danger = danger, comfy = comfy
@@ -587,45 +588,70 @@ public sealed class Runner
     /// owned growth card is not sold for a card that is only stronger today. Face-growth cards: see ProjectFaces.</summary>
     void Project(RunState st, int nextIndex)
     {
-        double horizon = Math.Min(cfg.stages.Length - nextIndex, hab.danger ? 2 : 6);
+        double horizon = Math.Min(cfg.stages.Length - nextIndex, hab.danger ? 2 : GrowthHorizon);
         var fade = cfg.Controller("C141").parameters;
         foreach (var c in st.controllers.ToArray())
         {
             string id = c.definitionId;
             if (id == "C141")
             {
-                int steps = Math.Max(1, (int)Math.Round(horizon)); double sumLog = 0;
-                for (int k = 0; k < steps; k++) { double g2 = c.state.growth + k; if (g2 < fade.expireGrowth) sumLog += Math.Log((fade.initialMultiplierUnits2 - g2) / 2.0); }
-                double mean = Math.Exp(sumLog / steps);
-                if (mean < 1.25) { st.controllers.Remove(c); continue; }
-                c.state.growth = Math.Max(c.state.growth, Math.Min(fade.expireGrowth - 1, (long)Math.Round(fade.initialMultiplierUnits2 - 2 * mean)));
+                // p1.1.1: +4 falling by 1 per cleared stage. Valued at its mean bonus over the horizon (0 once it is
+                // gone); dropped from the projection when that mean is below +1.
+                int steps = Math.Max(1, (int)Math.Round(horizon)); double sum = 0;
+                for (int k = 0; k < steps; k++) sum += Math.Max(0, fade.initialAdditive100 - (c.state.growth + k) * fade.decayPerClear100);
+                double mean = sum / steps;
+                if (mean < 100) { st.controllers.Remove(c); continue; }
+                c.state.growth = Math.Max(c.state.growth, Math.Min(fade.expireGrowth - 1, (long)Math.Round((fade.initialAdditive100 - mean) / fade.decayPerClear100)));
                 continue;
             }
             if (!ControllerRules.HasGrowth(id)) continue;
-            double g = c.state.growth, step = cfg.Controller(id).parameters.growthPerEvent, rate, limit = ControllerRules.IsGrowthBase(id) ? 300 : 100;
-            switch (id)
-            {
-                case "C54": { double p = Math.Min(0.9, hab.same); rate = step * hab.subs * p; limit = Math.Min(limit, Math.Max(g, step * p / (1 - p))); break; }
-                case "C55": rate = step * hab.subs; break;
-                case "C56": rate = step * hab.subs * hab.noRed; break;
-                case "C57": rate = step * hab.subs * hab.red3; break;
-                case "C58": rate = step; break;
-                case "C59": rate = step * hab.unusedSubs; break;
-                case "C60": rate = step * hab.upgrades; break;
-                case "C61": rate = step * hab.levels; break;
-                case "C62": rate = step * hab.rolls * hab.subs; break;
-                case "C90": rate = step * hab.glass * P.glassBreak * hab.rolls * hab.subs * 0.5; break;
-                case "C129": rate = step * StagesOfKind("boss", nextIndex, Math.Min(cfg.stages.Length - 1, nextIndex + (int)horizon)) / Math.Max(1, horizon); break;
-                case "C132": rate = step * hab.risk * StagesOfKind("pressure", nextIndex, nextIndex + (int)horizon) / Math.Max(1, horizon); break;
-                case "C134": rate = step * hab.items; break;
-                default: rate = 0; break;
-            }
-            c.state.growth = (long)Math.Round(Math.Max(g, Math.Min(limit, g + rate * horizon)));
+            c.state.growth = (long)Math.Round(Math.Max(c.state.growth, ProjectedGrowth(id, c.state.growth, nextIndex, horizon)));
         }
         ProjectFaces(st, horizon);
     }
+    /// <summary>Stages a growth card is projected over when the next stage does not look dangerous (p1.1.1: no cap on
+    /// the value itself, so the horizon is the only brake).</summary>
+    public const double GrowthHorizon = 6;
+    /// <summary>p1.1.1 section 5: the grown part (in the unit of the card: hundredths, or points for base cards) a
+    /// growth card is expected to hold after `horizon` more stages. No cap. Events per stage come from the habits:
+    ///   C55 S                      C56 S x share(no red)            C57 S x share(red group >= 3)
+    ///   C58 1                      C59 unused submissions           C60 die upgrade transactions per shop
+    ///   C61 levels gained per shop C62 rolls per hand x S           C51 share of shops with a sale (at most 1)
+    ///   C125 share of cleared stages that beat the run's highest hand
+    ///   C129 boss stages in the horizon / horizon                   C132 pressure stages x acceptance / horizon
+    ///   C134 item uses per stage (a key ring use counts)            C100 0 (the bot never feeds it)
+    ///   C54: N = horizon x S submissions of g := p (g + event) + (1 - p) g / 2, p = share of hands repeating the
+    ///        previous primary hand (a different hand halves the grown part instead of clearing it).</summary>
+    double ProjectedGrowth(string id, double g, int nextIndex, double horizon)
+    {
+        double step = cfg.Controller(id).parameters.growthEvent, rate;
+        switch (id)
+        {
+            case "C54":
+                {
+                    double p = Math.Min(0.95, hab.same); int n = (int)Math.Round(horizon * hab.subs);
+                    for (int k = 0; k < n; k++) g = p * (g + step) + (1 - p) * Math.Floor(g / 2);
+                    return g;
+                }
+            case "C51": rate = step * Math.Min(1, hab.sells); break;
+            case "C55": rate = step * hab.subs; break;
+            case "C56": rate = step * hab.subs * hab.noRed; break;
+            case "C57": rate = step * hab.subs * hab.red3; break;
+            case "C58": rate = step; break;
+            case "C59": rate = step * hab.unusedSubs; break;
+            case "C60": rate = step * hab.upgrades; break;
+            case "C61": rate = step * hab.levels; break;
+            case "C62": rate = step * hab.rolls * hab.subs; break;
+            case "C125": rate = step * hab.record; break;
+            case "C129": rate = step * StagesOfKind("boss", nextIndex, Math.Min(cfg.stages.Length - 1, nextIndex + (int)horizon)) / Math.Max(1, horizon); break;
+            case "C132": rate = step * hab.risk * StagesOfKind("pressure", nextIndex, nextIndex + (int)horizon) / Math.Max(1, horizon); break;
+            case "C134": rate = step * hab.items; break;
+            default: rate = 0; break;
+        }
+        return g + rate * horizon;
+    }
     static bool Projectable(string id) => ControllerRules.HasGrowthCounter(id) || FaceGrowers.Contains(id);
-    static readonly HashSet<string> FaceGrowers = new HashSet<string> { "C117", "C118", "C119", "C120", "C121", "C122", "C123", "C124", "C125", "C126", "C127" };
+    static readonly HashSet<string> FaceGrowers = new HashSet<string> { "C115", "C117", "C118", "C119", "C120", "C121", "C122", "C123", "C124", "C126", "C127" };
 
     /// <summary>Face-growth cards change dice slowly, so a build that holds one is valued with the dice it is expected
     /// to have after `horizon` stages. Stage-end cards follow their exact rule; after-score cards are approximated
@@ -650,16 +676,25 @@ public sealed class Runner
         var dice = st.dice.Where(d => d.lifetime == "permanent").OrderBy(d => d.createdSerial).ToList(); if (dice.Count == 0) return;
         Func<DieInstance, FaceState[]> ordered = d => d.faces.OrderBy(f => f.faceId, StringComparer.Ordinal).ToArray();
         int stages = Math.Max(0, (int)Math.Round(horizon)); double subs = horizon * hab.subs;
-        bool low = st.controllers.Any(c => c.definitionId == "C10" || c.definitionId == "C17" || c.definitionId == "C19" || c.definitionId == "C66");
-        int k120 = count("C120"), k121 = count("C121");
+        bool low = st.controllers.Any(c => c.definitionId == "C10" || c.definitionId == "C17" || c.definitionId == "C66");
+        int k120 = count("C120"), k121 = count("C121"), per120 = cfg.Controller("C120").parameters.facesPerDie, per121 = cfg.Controller("C121").parameters.facesPerDie;
+        Action<FaceState> gild = f => { if (!f.isGold) { f.isGold = true; f.baseWeight = Math.Min(cfg.maxFaceWeight, f.baseWeight + cfg.gildedFaceWeightDelta); } };
         for (int t = 0; t < stages && k120 + k121 > 0; t++)
         {
-            for (int k = 0; k < k120; k++) foreach (var d in dice) { var f = ordered(d).OrderBy(x => x.permanentPip).First(); if (f.permanentPip < cfg.maxPipValue) f.permanentPip++; }
-            for (int k = 0; k < k121; k++) foreach (var d in dice) { var f = ordered(d).OrderByDescending(x => x.permanentPip).First(); if (f.permanentPip > cfg.minPipValue) f.permanentPip--; }
+            // Exact: every stage each source raises the three lowest faces that can still rise (lowers the three highest).
+            for (int k = 0; k < k120; k++) foreach (var d in dice) foreach (var f in ordered(d).Where(x => x.permanentPip < cfg.maxPipValue).OrderBy(x => x.permanentPip).Take(per120).ToArray()) f.permanentPip++;
+            for (int k = 0; k < k121; k++) foreach (var d in dice) foreach (var f in ordered(d).Where(x => x.permanentPip > cfg.minPipValue).OrderByDescending(x => x.permanentPip).Take(per121).ToArray()) f.permanentPip--;
         }
         Func<double, int> steps = x => (int)Math.Round(Math.Max(0, x));
-        for (int t = 0, n = steps(subs * 0.8) * Math.Min(1, count("C117")); t < n; t++)
-        { var f = ordered(dice[t % dice.Count]).Where(x => !x.isGold).OrderByDescending(x => x.permanentPip).FirstOrDefault(); if (f != null) f.isGold = true; }
+        // C115: three random faces a stage out of gold / red / blue / +1; projected as one gold face and one +1 a stage.
+        for (int t = 0, n = stages * count("C115"); t < n; t++)
+        {
+            var g = ordered(dice[t % dice.Count]).Where(x => !x.isGold).OrderByDescending(x => x.permanentPip).FirstOrDefault(); if (g != null) gild(g);
+            var up = ordered(dice[t % dice.Count]).Where(x => x.permanentPip < cfg.maxPipValue).OrderBy(x => x.permanentPip).FirstOrDefault(); if (up != null && !low) up.permanentPip++;
+        }
+        // C117 gilds the up faces of the first and the last submitted die (two faces a submission, fewer once many are gold).
+        for (int t = 0, n = steps(subs * 1.2) * Math.Min(1, count("C117")); t < n; t++)
+        { var f = ordered(dice[t % dice.Count]).Where(x => !x.isGold).OrderByDescending(x => x.permanentPip).FirstOrDefault(); if (f != null) gild(f); }
         if (count("C118") > 0 && (hab.redShare >= 0.6 || hab.redShare <= 0.4))
         {
             string colour = hab.redShare >= 0.6 ? "red" : "blue"; int left = steps(subs * hab.dice * 0.5);
@@ -670,30 +705,36 @@ public sealed class Runner
                     if (left > 0 && f.baseColor != o.baseColor) { f.baseColor = colour; o.baseColor = colour; left--; }
                 }
         }
-        for (int left = steps(subs * 0.5) * Math.Min(1, count("C119")), di = 0; left > 0 && di < dice.Count; di++)
+        // C119: two faces of the first and of the last die a submission (up to four), projected as two a submission.
+        for (int left = steps(subs * 2.0) * Math.Min(1, count("C119")), di = 0; left > 0 && di < dice.Count; di++)
         {
             var faces = ordered(dice[di]); int want = low ? faces.Min(x => x.permanentPip) : faces.Max(x => x.permanentPip);
             foreach (var f in faces) if (left > 0 && f.permanentPip != want) { f.permanentPip = want; left--; }
         }
         int target = cfg.Controller("C122").parameters.pip;
         int k122 = count("C122"), k123 = count("C123");
-        for (int t = 0, n = k122 == 0 ? 0 : steps(subs * hab.dice * 0.8); t < n; t++)
-        { var f = ordered(dice[t % dice.Count]).Where(x => x.permanentPip != target).OrderByDescending(x => Math.Abs(x.permanentPip - target)).FirstOrDefault(); if (f != null) f.permanentPip = Math.Clamp(f.permanentPip + (f.permanentPip < target ? k122 : -k122), cfg.minPipValue, cfg.maxPipValue); }
-        int[] band = cfg.Controller("C123").parameters.pips;
-        for (int t = 0, n = k123 == 0 ? 0 : steps(subs * hab.dice * 0.8); t < n; t++)
-        { var f = ordered(dice[t % dice.Count]).Where(x => x.permanentPip < band[0] || x.permanentPip > band[1]).OrderByDescending(x => x.permanentPip < band[0] ? band[0] - x.permanentPip : x.permanentPip - band[1]).FirstOrDefault(); if (f != null) f.permanentPip = Math.Clamp(f.permanentPip + (f.permanentPip < band[0] ? k123 : -k123), cfg.minPipValue, cfg.maxPipValue); }
+        // C122 (p1.1.1): the up face of every submitted die becomes 5 outright; 0.6 N D faces, dice in turn.
+        for (int t = 0, n = k122 == 0 ? 0 : steps(subs * hab.dice * 0.6); t < n; t++)
+        { var f = ordered(dice[t % dice.Count]).Where(x => x.permanentPip != target).OrderByDescending(x => Math.Abs(x.permanentPip - target)).FirstOrDefault(); if (f != null) f.permanentPip = target; }
+        // C123 (p1.1.1): an up face showing 1 gains lowPipDelta, one showing 4-6 loses 2 but not below highPipFloor.
+        var q123 = cfg.Controller("C123").parameters; int[] band = q123.pips;
+        for (int t = 0, n = k123 == 0 ? 0 : steps(subs * hab.dice * 0.6); t < n; t++)
+        {
+            var f = ordered(dice[t % dice.Count]).Where(x => x.permanentPip < band[0] || x.permanentPip > band[1]).OrderByDescending(x => x.permanentPip < band[0] ? band[0] - x.permanentPip : x.permanentPip - band[1]).FirstOrDefault(); if (f == null) continue;
+            f.permanentPip = f.permanentPip < band[0] ? Math.Min(cfg.maxPipValue, f.permanentPip + q123.lowPipDelta * k123) : Math.Max(q123.highPipFloor, f.permanentPip + q123.highPipDelta * k123);
+        }
+        int d124 = cfg.Controller("C124").parameters.delta, d126 = cfg.Controller("C126").parameters.delta;
         for (int t = 0, n = steps(subs * hab.dice * 0.8) * count("C124"); t < n; t++)
-        { var f = ordered(dice[t % dice.Count]).Where(x => x.baseWeight < cfg.maxFaceWeight).OrderByDescending(x => (low ? 7 - x.permanentPip : x.permanentPip) * (x.isGold ? 2 : 1)).FirstOrDefault(); if (f != null) f.baseWeight++; }
-        for (int t = 0, n = steps(subs * 1.6) * Math.Min(1, count("C125")); t < n; t++)
-        { var f = ordered(dice[t % dice.Count]).Where(x => x.texture == "none").OrderByDescending(x => x.permanentPip).FirstOrDefault(); if (f != null) f.texture = cfg.Controller("C125").parameters.textures[0]; }
+        { var f = ordered(dice[t % dice.Count]).Where(x => x.baseWeight < cfg.maxFaceWeight).OrderByDescending(x => (low ? 7 - x.permanentPip : x.permanentPip) + (x.isGold ? 3 : 0)).FirstOrDefault(); if (f != null) f.baseWeight = Math.Min(cfg.maxFaceWeight, f.baseWeight + d124); }
         for (int t = 0, n = steps(subs * hab.pool * 0.8) * count("C126"); t < n; t++)
-        { var f = ordered(dice[t % dice.Count]).Where(x => x.permanentPip < cfg.maxPipValue).OrderBy(x => x.permanentPip).FirstOrDefault(); if (f != null) f.permanentPip += cfg.Controller("C126").parameters.delta > 0 ? 1 : 0; }
-        for (int t = 0, n = steps(stages * 0.7) * Math.Min(1, count("C127")); t < n && dice.Count > 1; t++)
+        { var f = ordered(dice[t % dice.Count]).Where(x => x.permanentPip < cfg.maxPipValue).OrderBy(x => x.permanentPip).FirstOrDefault(); if (f != null) f.permanentPip = Math.Min(cfg.maxPipValue, f.permanentPip + d126); }
+        // C127 (p1.1.1): every hand of at least two dice copies the first die's up face onto the last die's; 0.5 N copies.
+        for (int t = 0, n = steps(subs * 0.5) * Math.Min(1, count("C127")); t < n && dice.Count > 1; t++)
         {
             var all = dice.SelectMany(d => d.faces.Select(f => (d, f))).ToArray();
-            var best = all.OrderByDescending(x => (low ? 7 - x.f.permanentPip : x.f.permanentPip) * (x.f.isGold ? 2 : 1)).First();
-            var worst = all.Where(x => x.d != best.d).OrderBy(x => (low ? 7 - x.f.permanentPip : x.f.permanentPip) * (x.f.isGold ? 2 : 1)).First();
-            worst.f.permanentPip = best.f.permanentPip; worst.f.baseColor = best.f.baseColor; worst.f.texture = best.f.texture; worst.f.isGold = best.f.isGold;
+            var best = all.OrderByDescending(x => (low ? 7 - x.f.permanentPip : x.f.permanentPip) + (x.f.isGold ? 3 : 0)).First();
+            var worst = all.Where(x => x.d != best.d).OrderBy(x => (low ? 7 - x.f.permanentPip : x.f.permanentPip) + (x.f.isGold ? 3 : 0)).First();
+            worst.f.permanentPip = best.f.permanentPip; worst.f.baseColor = best.f.baseColor; worst.f.texture = best.f.texture; if (best.f.isGold) gild(worst.f); else worst.f.isGold = false;
         }
     }
 
@@ -755,11 +796,10 @@ public sealed class Runner
             case "C112": { int free = Math.Max(0, s.controllerSlots - s.controllers.Count(c => c.enchantmentId != "slotless" && c.definitionId != "C112") - 1); return G * 2.0 * Math.Min(free, shops); }
             case "C113": return G * Math.Min(12, shops) * 1.5 * 0.6;
             case "C114": return 0.15 * bosses * 0.6;
-            case "C115": return 0.004 * remaining;
+            case "C115": return 0;   // p1.1.1: valued through ProjectFaces (one gold face and one +1 a stage)
             case "C116": return G * 4 * Math.Min(bosses, Math.Max(0, cfg.maxPermanentDice - s.dice.Count(d => d.lifetime == "permanent"))) * 0.6;
             case "C133": { var p = cfg.Controller("C133").parameters; return G * (p.goldPerBoss * bosses + p.goldPerPressure * hab.risk * StagesOfKind("pressure", nextIndex, cfg.stages.Length)) * 0.6; }
             case "C140": return G * hab.sells * 2 * Math.Min(10, remaining) * 0.6;
-            case "C145": return Math.Min(0.6, 0.10 * (s.dice.Count(d => d.isGlass) + (s.controllers.Any(c => c.definitionId == "C128") ? 2 : 0)));
             case "C131": return 0.5 * -Math.Log(Math.Max(0.05, 1 - bossLoss));
             case "C130": return evalCtx != null && evalCtx.boss ? 0 : 0.5 * Math.Log(P.mult[130]);
             case "C138": return -G * Math.Min(8, remaining) * P.p138cost * Math.Max(1, hab.subs * 0.7) * 0.6;
@@ -776,7 +816,7 @@ public sealed class Runner
             string id = group.Key; int count = group.Count();
             switch (id)
             {
-                case "C140": case "C145": count = 1; break;
+                case "C140": case "C154": count = 1; break;
                 case "C111": case "C113": count = Math.Min(3, count); break;
                 case "C110": count = Math.Min(s.consumableSlots, count); break;
                 case "C131": count = Math.Min(bosses, s.controllers.Count(c => c.alive && c.definitionId == "C131")); break;
@@ -787,7 +827,7 @@ public sealed class Runner
                     if (hab.comfy) extra = Math.Max(extra, top / 2);
                     total += 0.04 * Math.Min(10, remaining) * extra * 0.6; continue;
                 case "C112":
-                    int free = Math.Max(0, s.controllerSlots - ControllerRules.OrdinaryUsed(s.controllers));
+                    int free = Math.Max(0, s.controllerSlots - ControllerRules.OrdinaryUsed(s.controllers, cfg));
                     total += 0.04 * 2 * Math.Min(free, count * shops); continue;
                 case "C116":
                     total += 0.04 * 4 * Math.Min(count * bosses, Math.Max(0, cfg.maxPermanentDice - s.dice.Count(d => d.lifetime == "permanent"))) * 0.6; continue;
