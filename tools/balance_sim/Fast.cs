@@ -27,7 +27,7 @@ public struct Rng
     public int NextInt(int n) => (int)(NextDouble() * n);
 }
 
-/// <summary>Set of abilities with at least one triggered source (C01..C153). This is a coverage summary,
+/// <summary>Set of abilities with at least one triggered source (C01..C156). This is a coverage summary,
 /// never a source count: same-name copies and mimics are counted separately by Build.</summary>
 public struct HitSet
 {
@@ -110,7 +110,9 @@ public sealed class StageCtx
 {
     public string modifierId; public string[] disabled = Array.Empty<string>(); public bool boss;
     public int capacity = -1, rolls = -1, submissions = -1;
-    public string Key => (modifierId ?? "-") + (boss ? "B" : "n") + (disabled == null ? "?" : string.Join(",", disabled)) + "/" + capacity + "/" + rolls + "/" + submissions;
+    /// <summary>p1.1.1: the effective target of that stage (C156 compares the stage score with it); -1 = its normal target.</summary>
+    public double target = -1;
+    public string Key => (modifierId ?? "-") + (boss ? "B" : "n") + (disabled == null ? "?" : string.Join(",", disabled)) + "/" + capacity + "/" + rolls + "/" + submissions + "/" + target.ToString("R", System.Globalization.CultureInfo.InvariantCulture);
 }
 
 public sealed class Params
@@ -224,6 +226,9 @@ public sealed class Build
     /// <summary>C137 sources in controller order: the star pip of the state owner (0 = none drawn) and the scoring
     /// enchant of the emitter (0 none, 1 base10, 2 mult2). Each source triggers on its own star pip.</summary>
     public byte[] star137 = Array.Empty<byte>(), e137 = Array.Empty<byte>();
+    /// <summary>C137 sources whose star pip is not drawn yet because the build is valued outside its stage: the
+    /// power estimate draws one per simulated stage (Runner.Power); Score itself reads star137 as it stands.</summary>
+    public bool[] starOpen = Array.Empty<bool>();
     public int[] present = Array.Empty<int>();
     public int alive, capacity, ordinal, rollsPerHand, submissions, prev = -1;
     /// <summary>Owned permanent dice, and submissions left in the stage before the one being scored (1 = last chance).</summary>
@@ -302,6 +307,7 @@ public sealed class Build
             }
         }
         b.e138 = gold138.ToArray(); b.star137 = star.ToArray(); b.e137 = ench137.ToArray(); b.glassBreak = P.glassBreak;
+        b.starOpen = b.star137.Select(pip => !started && pip == 0).ToArray();
         b.present = Enumerable.Range(1, Params.N - 1).Where(i => b.cnt[i] > 0).ToArray();
         b.alive = all.Count(c => c.alive);
         foreach (var c in all) if (c.alive && P.isCommon[int.Parse(c.definitionId.Substring(1))]) b.commons++;
@@ -315,6 +321,7 @@ public sealed class Build
         // Stage kind: the running stage, the stage being previewed, or (after settlement) the next one.
         int stageIndex = s.stage == null ? 0 : Math.Min(cfg.stages.Length - 1, s.stage.stageIndex + (s.stage.settled ? 1 : 0));
         b.boss = ctx != null ? ctx.boss : cfg.stages[stageIndex].stageKind == "boss";
+        if (!started) { b.stageScore = 0; b.stageTarget = ctx != null && ctx.target > 0 ? ctx.target : double.Parse(cfg.stages[stageIndex].normalTarget, System.Globalization.CultureInfo.InvariantCulture); }
         if (started)
         {
             foreach (string id in s.stage.primaryHandsUsed) b.usedHands |= 1 << P.hIndex[id];
@@ -673,6 +680,11 @@ public sealed class Planner
     public int lastAlive, lastRollsLeft;
     /// <summary>After PlayHand: the submitted glass dice that broke after this submission (bit mask).</summary>
     public int lastBroken;
+    /// <summary>Dice PlayHand starts with (bit mask; Set puts every die back). A caller that simulates a whole stage
+    /// clears the glass dice that broke in the earlier hands.</summary>
+    public int startAlive;
+    /// <summary>After Decide: the utility of the decision it returned (capped at `needed`, see U).</summary>
+    public double lastDecideValue;
     /// <summary>PlayHand also applies the order tie-break for face-growth cards (the real bot always does).</summary>
     public bool steer;
     /// <summary>Faces of the hand PlayHand just finished (index = die), for callers that replay the submission.</summary>
@@ -695,7 +707,7 @@ public sealed class Planner
 
     public void Set(Build build)
     {
-        b = build; P = build.P; dice = build.dice; m = dice.Length; K = build.capacity;
+        b = build; P = build.P; dice = build.dice; m = dice.Length; K = build.capacity; startAlive = (1 << m) - 1;
         // C76 pays per extra roll and C77 only with no rolls left, so leftover rolls are worth burning on the pool dice.
         burn = b.cnt[76] + b.cnt[77] > 0;
     }
@@ -1144,7 +1156,7 @@ public sealed class Planner
     public int Decide(int locked, int alive, int rolled, int r, int used, int[] face, bool c05used, out bool submit)
     {
         int addS = 0; double raw = (locked | rolled) == 0 ? 0 : BestComplete(locked, rolled, r, used, face, out addS);
-        submit = true;
+        submit = true; lastDecideValue = U(raw);
         if (r <= 0 || raw >= needed) return addS;
         int[] cand = candBuf[0]; int nc;
         if (Pop(rolled) <= fullEnum) { nc = 0; for (int a = rolled; ; a = (a - 1) & rolled) { cand[nc++] = a; if (a == 0) break; } }
@@ -1173,7 +1185,7 @@ public sealed class Planner
         {
             for (int k = 0; k < nc; k++) if (val[k] > bestV * 1.01) { bestV = val[k]; bestH = cand[k]; }
         }
-        rng.s = seed * 0x2545F4914F6CDD1DUL + 99;
+        rng.s = seed * 0x2545F4914F6CDD1DUL + 99; lastDecideValue = bestV;
         if (bestH < 0) return addS;
         submit = false; return bestH;
     }
@@ -1182,8 +1194,8 @@ public sealed class Planner
     /// in a fixed layout so that two builds compared with the same seed see the same dice.</summary>
     public double PlayHand(out int primary, out int nSub)
     {
-        int[] face = faceBuf[0]; int locked = 0, alive = (1 << m) - 1, r = b.rollsPerHand, used = 0; bool c05 = false;
-        ulong rollSeed = rollRng.Next(); int rollNo = 0;
+        int[] face = faceBuf[0]; int locked = 0, alive = startAlive, r = b.rollsPerHand, used = 0; bool c05 = false;
+        ulong rollSeed = rollRng.Next(); int rollNo = 0; lastBroken = 0;
         while (true)
         {
             int rolled = 0;

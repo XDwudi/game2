@@ -1,6 +1,9 @@
 // Full-run bot. Drives the real GameSession with legal commands only; it sees what a player sees
 // (current faces, shop offers, prices, the cycle panel) and never reads RNG state. Planning uses its own random stream.
 // p1.1.0: each same-name card is an independent instance; boss loot is decided before other shop actions.
+// p1.1.1: growth without a cap (start + catch-up + grown part), unique multiplier cards, the free cultivation slot,
+// two-face and self-selected die upgrades, glass that breaks after a submission, UnlockDie (C154 / key ring), and the
+// per-stage fields the target calibration reads (StageLog, CardSnap, ShelfSnap, UpgradeLog).
 // Three-stage cycles, gift groups and heuristics are documented in README.md.
 using System;
 using System.Collections.Generic;
@@ -8,8 +11,45 @@ using System.Globalization;
 using System.Linq;
 using DiceCraft.Core;
 
+/// <summary>p1.1.1: one card of the build as a stage is entered (or as the run ends). value = what a growth card is
+/// worth now (start + catch-up + grown part: hundredths, or points for base growth; 0 for other cards), growthKind =
+/// additive / base / multiplier / "" ; star = C137's pip (0 before the stage draws it); cultivated = permanent faces
+/// a cultivation card has rewritten (0-24); slotFree = it takes no ordinary slot (slotless, or the free cultivation card).</summary>
+public sealed class CardSnap
+{
+    public string instanceId, id, enchant, growthKind = "";
+    public int position, star, cultivated; public long growth, catchup, value; public bool slotFree;
+}
+/// <summary>p1.1.1 BX-10: one controller of the first shelf of a shop, as the bot found it.</summary>
+public sealed class ShelfSnap { public string id, enchant; public long price; public bool affordable, unique; }
+/// <summary>p1.1.1 BX-14: one die upgrade transaction. via = shelf / self (self-selected) / free (gift or loot).</summary>
+public sealed class UpgradeLog { public string id, via; public int faces; public long price; }
+
 public sealed class StageLog
 {
+    // ---- p1.1.1 calibration fields ----
+    /// <summary>The bot's estimate when the stage was entered, per hand: mean and 25th-percentile hand, and the
+    /// submissions it counted on. handMeanOverTarget / handP25OverTarget divide by the target actually played
+    /// (power / target = handMeanOverTarget x subsBudget).</summary>
+    public double handMean, handP25, handMeanOverTarget, handP25OverTarget; public int subsBudget;
+    /// <summary>Highest single submission of the stage (real session score).</summary>
+    public double bestHand;
+    /// <summary>The build as the stage was entered: cards in order, hand and colour levels above 0, dice count is `dice`, gold is `goldStart`.</summary>
+    public List<CardSnap> build = new List<CardSnap>();
+    public Dictionary<string, int> handLevels = new Dictionary<string, int>(), colorLevels = new Dictionary<string, int>();
+    /// <summary>Gold faces and glass dice among the permanent dice as the stage was entered.</summary>
+    public int goldFaces, glassDice, permanentDice;
+    /// <summary>BX-17, boss stages only: for every growth card, power of the build without it / power with it (no
+    /// modifier, mean stage total). Key = instanceId + ":" + definition.</summary>
+    public Dictionary<string, double> growthShare;
+    /// <summary>BX-10: the first shelf of the shop after this stage (before any refresh), and the gold the bot had then.</summary>
+    public List<ShelfSnap> shelf = new List<ShelfSnap>(); public long shelfGold; public int shopCycle;
+    /// <summary>BX-14: die upgrade transactions in the shop after this stage.</summary>
+    public List<UpgradeLog> upgrades = new List<UpgradeLog>();
+    /// <summary>Dice unlocked during the stage with the free unlock of C154 / with a key ring use (I13).</summary>
+    public int unlocksFree, unlocksKey;
+    /// <summary>Submitted glass dice that broke during the stage.</summary>
+    public int glassBroken;
     public int stage, subsUsed, unusedSubs, dice, ctrl, slots, itemsUsed;
     /// <summary>normal / pressure / boss.</summary>
     public string kind;
@@ -58,6 +98,11 @@ public sealed class RunLog
     /// <summary>Stage previews where the session's quoted budgets differ from the rules the bot plans with. Expected 0.</summary>
     public int quoteMismatch; public string firstQuoteMismatch;
     public List<StageLog> stages = new List<StageLog>();
+    // ---- p1.1.1 ----
+    /// <summary>Stage the run died in (0 = won) and its kind; the build at the terminal state (cultivation counts after the last stage).</summary>
+    public int failStage; public string failKind;
+    public List<CardSnap> finalBuild = new List<CardSnap>();
+    public int unlocksFree, unlocksKey; public double highestHand;
 }
 
 public sealed class BotOptions
@@ -72,6 +117,9 @@ public sealed class BotOptions
 public sealed class HandStats
 {
     public int hands, noRed, red3, half, dice, redDice, pool; public double rolls;
+    /// <summary>p1.1.1: sum of the additive totals (hundredths) of the simulated hands.</summary>
+    public double additive;
+    public double MeanAdditive => hands == 0 ? 100 : additive / hands;
     public int[] prim = new int[14];   // 13 = scatter
     public double ShareNoRed => hands == 0 ? 0 : noRed / (double)hands;
     public double ShareRed3 => hands == 0 ? 0 : red3 / (double)hands;
@@ -98,6 +146,8 @@ public sealed class Runner
     /// <summary>--prepared: before a boss whose modifier disables the leftmost controllers, move the controllers the build
     /// misses least to the left (a player who reads the stage intel). --lab: record the controlled modifier comparison.</summary>
     public static bool Prepared, Lab;
+    /// <summary>--grant I13,C154: content every run starts with (a test switch for mechanisms the bot rarely reaches).</summary>
+    public static string[] Grant = Array.Empty<string>();
     public Runner(GameConfig cfg, Params P, BotOptions opt) { this.cfg = cfg; this.P = P; this.opt = opt; if (opt.weak) { strong.depthMax = 1; strong.s0 = 8; } }
 
     CommandResult Send(CommandKind kind, Action<SessionCommand> configure)
@@ -128,7 +178,9 @@ public sealed class Runner
             recorded?.Add(new Dictionary<string, object> {
                 ["kind"] = kind.ToString(), ["seed"] = command.seed, ["risk"] = command.risk, ["offerId"] = command.offerId, ["itemInstanceId"] = command.itemInstanceId,
                 ["targetDieId"] = command.targetDieId, ["targetFaceId"] = command.targetFaceId, ["handId"] = command.handId,
-                ["dieIds"] = command.dieIds ?? Array.Empty<string>(), ["targetPips"] = command.targetPips ?? Array.Empty<int>() });
+                ["dieIds"] = command.dieIds ?? Array.Empty<string>(), ["targetPips"] = command.targetPips ?? Array.Empty<int>(),
+                // p1.1.1: the faces of a die upgrade and the upgrade of a self-selected one (UnlockDie only needs targetDieId).
+                ["upgradeId"] = command.upgradeId, ["targetFaceIds"] = command.targetFaceIds ?? Array.Empty<string>() });
             if (recorded != null && command.kind == CommandKind.ReorderControllers)
                 recorded[recorded.Count - 1]["controllerIds"] = command.controllerIds;
         }
@@ -173,6 +225,7 @@ public sealed class Runner
                 log.seconds = clock.Elapsed.TotalSeconds;
                 var terminal = session?.State;
                 if (terminal != null) log.finalCopies = terminal.controllers.Where(c => c.alive).GroupBy(c => c.definitionId).ToDictionary(g => g.Key, g => g.Count());
+                if (terminal != null) try { log.finalBuild = Snap(terminal); } catch { }
             }
         }
     }
@@ -181,6 +234,19 @@ public sealed class Runner
         session = new GameSession(cfg, new MemorySaveStore()); seq = 0; log = new RunLog { seed = seed };
         strong.rng = new Rng(seed * 31UL + 7); cheap.rng = new Rng(seed * 17UL + 3); powerSeed = seed * 1000003UL;
         Act(CommandKind.NewRun, c => c.seed = seed);
+        if (Grant.Length > 0)
+        {
+            // Test switch (--grant): the run starts holding these items / cards, put into the freshly created state
+            // the way the session itself creates them. Never used for a balance measurement.
+            var st = session.State;
+            foreach (string id in Grant)
+            {
+                int serial = st.nextItemSerial++; string instanceId = "ITEM_" + serial.ToString("D5");
+                if (id.StartsWith("I", StringComparison.Ordinal)) st.inventory.Add(new OwnedItem { instanceId = instanceId, contentId = id, usesRemaining = Math.Max(1, cfg.Consumable(id).initialUses) });
+                else st.controllers.Add(new ControllerInstance { instanceId = instanceId, acquiredSerial = serial, definitionId = id, enchantmentId = "none", state = new ControllerDynamicState { activeColor = id == "C45" ? "blue" : null } });
+            }
+            session = new GameSession(cfg, new MemorySaveStore(), st);
+        }
         for (int guard = 0; guard < 8000; guard++)
         {
             var s = session.State;
@@ -197,7 +263,7 @@ public sealed class Runner
                 case "RunWon": log.won = true; log.reached = cfg.stages.Length; return log;
                 case "RunFailed":
                     cur.cleared = false; cur.score = D(s.stage.score); cur.subsUsed = s.stage.submissionOrdinal;
-                    log.reached = s.stage.stageIndex + 1; log.fail = s.failureReason; return log;
+                    log.reached = s.stage.stageIndex + 1; log.fail = s.failureReason; log.failStage = log.reached; log.failKind = cfg.stages[s.stage.stageIndex].stageKind; return log;
                 default: throw new Exception("Unexpected phase " + s.phase);
             }
         }
@@ -209,7 +275,13 @@ public sealed class Runner
     // ---------- power estimate ----------
     /// <summary>mean = expected stage total; safe = stage total if every hand were a 25th-percentile hand.
     /// V blends both so that swingy cards are not valued at their lucky average.</summary>
-    public struct Pw { public double mean, safe; public double V => Math.Sqrt(Math.Max(1e-9, mean) * Math.Max(safe, mean * 0.02)); }
+    public struct Pw
+    {
+        public double mean, safe;
+        /// <summary>p1.1.1 output: the mean and the 25th-percentile hand behind mean / safe, and the submissions counted.</summary>
+        public double hand, handSafe; public int subs;
+        public double V => Math.Sqrt(Math.Max(1e-9, mean) * Math.Max(safe, mean * 0.02));
+    }
     readonly double[] handBuf = new double[256];
     /// <summary>Simulated hands cycle through the stage's submission positions: the ordinal (C150, C153, C07, C127,
     /// FirstHalf / LaterHalf), the submissions left (C68, C102 pay on the last one) and the primary hands already
@@ -218,23 +290,34 @@ public sealed class Runner
     {
         long started = System.Diagnostics.Stopwatch.GetTimestamp();
         cheap.Set(b); cheap.needed = double.PositiveInfinity; cheap.rollRng = new Rng(seed); cheap.rng = new Rng(seed ^ 0xABCDEFUL);
-        double sum = 0;
+        double sum = 0; var starRng = new Rng(seed ^ 0x51A7UL); int allDice = (1 << b.dice.Length) - 1;
         for (int h = 0; h < hands; h++)
         {
             int position = h % b.submissions;
-            b.subsLeft = b.submissions - position; b.ordinal = position; if (position == 0) b.usedHands = 0;
+            b.subsLeft = b.submissions - position; b.ordinal = position;
+            if (position == 0)
+            {
+                // A new simulated stage: no hand used yet, nothing scored (C156), every die back (glass), and a fresh
+                // star pip for every C137 whose pip is not known yet (a card valued outside its stage).
+                b.usedHands = 0; b.stageScore = 0; cheap.startAlive = allDice;
+                for (int k = 0; k < b.star137.Length; k++) if (b.starOpen[k]) b.star137[k] = (byte)(1 + starRng.NextInt(6));
+            }
             double v = handBuf[h] = cheap.PlayHand(out int prim, out int nSub); sum += v;
+            b.stageScore += Math.Floor(v + 1e-6);
+            // p1.1.1: a submitted glass die that breaks is gone for the rest of the stage (and, in a real run, for good).
+            // With no die left the remaining hands of this simulated stage score nothing.
+            cheap.startAlive &= ~cheap.lastBroken;
             if (prim >= 0) b.usedHands |= 1 << prim;
             if (stats != null && nSub > 0)
             {
-                stats.hands++; stats.prim[prim < 0 ? 13 : prim]++; stats.rolls += cheap.lastRollsUsed; stats.dice += nSub; stats.redDice += cheap.lastRedN; stats.pool += cheap.lastPoolN;
+                stats.hands++; stats.prim[prim < 0 ? 13 : prim]++; stats.rolls += cheap.lastRollsUsed; stats.dice += nSub; stats.redDice += cheap.lastRedN; stats.pool += cheap.lastPoolN; stats.additive += b.lastAdditive;
                 if (cheap.lastRedN == 0) stats.noRed++; if (cheap.lastRedCount >= 3) stats.red3++; if (halfScore > 0 && v >= halfScore) stats.half++;
             }
         }
         Array.Sort(handBuf, 0, hands);
         double took = System.Diagnostics.Stopwatch.GetElapsedTime(started).TotalSeconds;
         log.powerCalls++; log.secPower += took; log.powerSecondsBy[powerTag] = log.powerSecondsBy.GetValueOrDefault(powerTag) + took; log.powerCallsBy[powerTag] = log.powerCallsBy.GetValueOrDefault(powerTag) + 1;
-        return new Pw { mean = sum / hands * b.submissions, safe = handBuf[hands / 4] * b.submissions };
+        return new Pw { mean = sum / hands * b.submissions, safe = handBuf[hands / 4] * b.submissions, hand = sum / hands, handSafe = handBuf[hands / 4], subs = b.submissions };
     }
     /// <summary>Power() is deterministic for a given build (the hand seed is fixed per run), so results are reused
     /// within one shop visit and the following stage preview.</summary>
@@ -245,7 +328,7 @@ public sealed class Runner
     string Key(RunState st, StageCtx ctx)
     {
         var k = keyBuf; k.Clear();
-        foreach (var c in st.controllers) k.Append(c.instanceId).Append('=').Append(c.definitionId).Append(':').Append(c.enchantmentId).Append(c.alive ? '+' : '-').Append(c.state.growth).Append(',').Append(c.state.turnoverUnits2).Append(c.state.activeColor).Append(';');
+        foreach (var c in st.controllers) k.Append(c.instanceId).Append('=').Append(c.definitionId).Append(':').Append(c.enchantmentId).Append(c.alive ? '+' : '-').Append(c.state.growth).Append(',').Append(c.state.growthCatchup).Append(',').Append(c.state.starPip).Append(c.state.activeColor).Append(';');
         k.Append('|');
         foreach (var d in st.dice.OrderBy(d => d.createdSerial))
         {
@@ -264,7 +347,7 @@ public sealed class Runner
         if (ctx == null || ctx.disabled != null) return ctx;
         string mod = ctx.modifierId;
         if (mod != null && st.controllers.Any(c => c.definitionId == "C131")) mod = null;
-        return new StageCtx { modifierId = mod, boss = ctx.boss, disabled = ControllerRules.DisabledBy(st.controllers, cfg, mod), capacity = ctx.capacity, rolls = ctx.rolls, submissions = ctx.submissions };
+        return new StageCtx { modifierId = mod, boss = ctx.boss, disabled = ControllerRules.DisabledBy(st.controllers, cfg, mod), capacity = ctx.capacity, rolls = ctx.rolls, submissions = ctx.submissions, target = ctx.target };
     }
     /// <summary>The build as it will stand once the stage has started: every C136 source adds a temporary die, and a
     /// real C137 without a star pip (shop, preview) is given pip 0 here; see StarPips for how it is valued.</summary>
@@ -290,7 +373,7 @@ public sealed class Runner
         else if (statsCache.TryGetValue(key, out var seen) && seen.halfScore == halfScore && powerCache.TryGetValue(key, out var same))
         {
             // The same build was already played with statistics in this shop: hand the recorded statistics back.
-            var from = seen.stats; stats.hands = from.hands; stats.noRed = from.noRed; stats.red3 = from.red3; stats.half = from.half; stats.dice = from.dice; stats.redDice = from.redDice; stats.pool = from.pool; stats.rolls = from.rolls;
+            var from = seen.stats; stats.hands = from.hands; stats.noRed = from.noRed; stats.red3 = from.red3; stats.half = from.half; stats.dice = from.dice; stats.redDice = from.redDice; stats.pool = from.pool; stats.rolls = from.rolls; stats.additive = from.additive;
             Array.Copy(from.prim, stats.prim, from.prim.Length); return same;
         }
         var pw = PowerOfStateUncached(st, ctx, stats, halfScore); powerCache[key] = pw;
@@ -309,6 +392,7 @@ public sealed class Runner
         {
             foreach (var c in open) c.state.activeColor = col;
             var p = Power(Build.From(st, P, false, ctx: ctx), opt.powerHands, powerSeed, stats, halfScore); total.mean += p.mean / 2; total.safe += p.safe / 2;
+            total.hand += p.hand / 2; total.handSafe += p.handSafe / 2; total.subs = p.subs;
         }
         foreach (var c in open) c.state.activeColor = null;
         return total;
@@ -323,8 +407,13 @@ public sealed class Runner
         cur = new StageLog { stage = index + 1, kind = def.stageKind, goldStart = s.gold, dice = s.dice.Count, ctrl = s.controllers.Count, slots = s.controllerSlots, targetBase = D(def.normalTarget),
             controllers = s.controllers.Select(c => c.definitionId + (c.enchantmentId == "none" ? "" : ":" + c.enchantmentId)).ToArray() };
         enteringControllerIds = s.controllers.Select(c => c.instanceId).ToHashSet();
+        cur.build = Snap(s);
+        foreach (var h in s.handLevels) if (h.level > 0) cur.handLevels[h.handId] = h.level;
+        foreach (var h in s.colorLevels) if (h.level > 0) cur.colorLevels[h.handId] = h.level;
+        var permanent = s.dice.Where(d => d.lifetime == "permanent").ToArray();
+        cur.permanentDice = permanent.Length; cur.glassDice = permanent.Count(d => d.isGlass); cur.goldFaces = permanent.Sum(d => d.faces.Count(f => f.isGold));
         log.stages.Add(cur);
-        evalCtx = new StageCtx { boss = boss, disabled = Array.Empty<string>() };
+        evalCtx = new StageCtx { boss = boss, disabled = Array.Empty<string>(), target = cur.targetBase };
         var raw = PowerOfState(s); cur.powerRaw = raw.mean; cur.safeRaw = raw.safe; var pw = raw;
         if (boss && !string.IsNullOrEmpty(s.stage.modifierId))
         {
@@ -332,17 +421,18 @@ public sealed class Runner
             // disabled controllers; with a scapegoat the modifier is quoted as already lifted).
             string mod = s.stage.modifierId; var fx = P.Fx(mod); var entry = session.EntryView();
             cur.modifier = mod; cur.targetMod = cur.targetBase * fx.targetPercent / 100.0;
-            var withMod = PowerOfState(s, new StageCtx { modifierId = mod, boss = true, disabled = ControllerRules.DisabledBy(s.controllers, cfg, mod) });
+            var withMod = PowerOfState(s, new StageCtx { modifierId = mod, boss = true, disabled = ControllerRules.DisabledBy(s.controllers, cfg, mod), target = cur.targetMod });
             cur.powerMod = withMod.mean; cur.safeMod = withMod.safe;
             var quoted = new StageCtx { modifierId = string.IsNullOrEmpty(entry.modifierId) ? null : entry.modifierId, disabled = entry.disabledControllerIds, boss = true,
-                capacity = session.EffectiveCapacity, rolls = session.InitialRolls, submissions = session.InitialSubmissions };
+                capacity = session.EffectiveCapacity, rolls = session.InitialRolls, submissions = session.InitialSubmissions, target = D(entry.target) };
             CheckQuotes(s, entry, quoted);
             if (Lab) RecordLab(s, index);
             var st = s;
             if (entry.scapegoat) { cur.nullifiedBy = "C131"; st = s.Clone(); st.controllers.Remove(st.controllers.First(c => c.definitionId == "C131")); }
             pw = PowerOfState(st, quoted);
         }
-        cur.power = pw.mean; cur.safe = pw.safe;
+        cur.power = pw.mean; cur.safe = pw.safe; cur.handMean = pw.hand; cur.handP25 = pw.handSafe; cur.subsBudget = pw.subs;
+        if (boss) cur.growthShare = GrowthShares(s, raw);
         // Pressure challenge: accept only with a margin over the x1.5 target.
         if (def.riskEnabled)
         {
@@ -351,6 +441,37 @@ public sealed class Runner
         }
         Act(CommandKind.StartStage);
         cur.target = D(session.State.stage.target);
+        cur.handMeanOverTarget = cur.handMean / cur.target; cur.handP25OverTarget = cur.handP25 / cur.target;
+    }
+
+    /// <summary>p1.1.1 output: the cards of a state in their order (see CardSnap).</summary>
+    List<CardSnap> Snap(RunState s)
+    {
+        string free = ControllerRules.FreeCultivationInstanceId(s.controllers, cfg); var list = new List<CardSnap>(); int position = 0;
+        foreach (var c in s.controllers.Where(c => c.alive))
+        {
+            string id = c.definitionId; bool grows = ControllerRules.HasGrowth(id);
+            list.Add(new CardSnap
+            {
+                instanceId = c.instanceId, id = id, enchant = string.IsNullOrEmpty(c.enchantmentId) ? "none" : c.enchantmentId, position = position++,
+                growth = c.state.growth, catchup = c.state.growthCatchup, value = grows ? ControllerRules.GrowthValue(cfg, id, c.state) : 0,
+                growthKind = ControllerRules.IsGrowthAdditive(id) ? "additive" : ControllerRules.IsGrowthBase(id) ? "base" : ControllerRules.IsGrowthMultiplier(id) ? "multiplier" : "",
+                star = c.state.starPip, cultivated = c.state.cultivationFacesChanged, slotFree = c.enchantmentId == ControllerRules.SlotlessEnchantmentId || c.instanceId == free
+            });
+        }
+        return list;
+    }
+    /// <summary>BX-17: for every growth card held, power without it / power with it (mean stage total, no modifier).
+    /// One more power estimate per growth card, so it is only taken before boss stages.</summary>
+    Dictionary<string, double> GrowthShares(RunState s, Pw with)
+    {
+        var shares = new Dictionary<string, double>(); string tag = powerTag; powerTag = "growth-share";
+        foreach (var c in s.controllers.Where(c => c.alive && ControllerRules.HasGrowth(c.definitionId)))
+        {
+            var without = s.Clone(); without.controllers.RemoveAll(x => x.instanceId == c.instanceId);
+            shares[c.instanceId + ":" + c.definitionId] = PowerOfState(without).mean / Math.Max(1e-9, with.mean);
+        }
+        powerTag = tag; return shares;
     }
 
     /// <summary>The bot plans with ControllerRules + StageRules; the stage-select screen shows the session's own
@@ -429,7 +550,9 @@ public sealed class Runner
             if (s.hand.orderedLockedIds.Contains(all[i].dieId)) locked |= 1 << i;
         }
         int rolled = alive & ~locked;
+        var rngBefore = strong.rng;
         int add = strong.Decide(locked, alive, rolled, s.hand.rollsRemaining, s.hand.rollsUsed, face, s.hand.c05Used, out bool submit);
+        if (locked != 0 && TryUnlock(s, all, locked, alive, face, strong.lastDecideValue, rngBefore)) return;   // the state changed: decide again
         if (add != 0) Act(CommandKind.ConfirmLocks, c => c.dieIds = Enumerable.Range(0, all.Length).Where(i => (add >> i & 1) != 0).Select(i => all[i].dieId).ToArray());
         if (!submit) { Act(CommandKind.Roll); return; }
         // The unlocked dice stay in the pool of this submission.
@@ -442,7 +565,9 @@ public sealed class Runner
         };
         if (s.inventory.Count > 0 && !b.fx.noItems) b = SubmissionItems(s, b, mask, pool, rollsLeft, used, face, all, ref expected, rebuild);
         SetOrder(all);
-        double real = D(Act(CommandKind.Submit).receipt.score);
+        var receipt = Act(CommandKind.Submit).receipt; double real = D(receipt.score);
+        if (real > cur.bestHand) cur.bestHand = real; if (real > log.highestHand) log.highestHand = real;
+        cur.glassBroken += receipt.effects.Count(e => e.kind == "DieBroken");
         // Self-check: the planner's value for the submission it chose must be the score the real session awards.
         if (b.cnt[53] == 0)
         {
@@ -450,6 +575,34 @@ public sealed class Runner
             if (Math.Abs(Math.Floor(expected + 1e-6) - real) > 1e-9 * real + 0.5 && log.mispredicted++ == 0)
                 log.firstMisprediction = $"stage {s.stage.stageIndex + 1} modifier={session.State.stage.modifierId} planner={expected:R} session={real:R} controllers=[{string.Join(",", s.controllers.Select(c => c.definitionId))}]";
         }
+    }
+    /// <summary>p1.1.1 section 8: take one locked die back (UnlockDie) when that is clearly worth more than going on
+    /// with the locks as they are. The session picks the source: the free unlock of C154 first, then a key ring use.
+    /// Each locked die is valued by the same decision the planner makes for the hand (its utility: the score, capped
+    /// at what the stage still needs), with that die back among the unlocked ones: with rolls left it may be thrown
+    /// again, without rolls it may simply be left out of the submission. The free unlock is taken for a gain of 8%,
+    /// a key ring use (one third of a 3-gold item) for 20%; never when the hand already clears the stage.
+    /// The planner's look-ahead itself does not know that locks can be undone.</summary>
+    bool TryUnlock(RunState s, DieInstance[] all, int locked, int alive, int[] face, double current, Rng rngBefore)
+    {
+        var quote = session.UnlockQuote(); if (!quote.available) return false;
+        if (current >= strong.needed) return false;
+        double margin = quote.sourceId == "C154" ? 1.08 : 1.20, best = current * margin + 1e-9; int pick = -1;
+        var keep = strong.rng;
+        for (int i = 0; i < all.Length; i++)
+        {
+            if ((locked >> i & 1) == 0) continue;
+            int locked2 = locked & ~(1 << i);
+            // The same planning random numbers as the decision it is compared with.
+            strong.rng = rngBefore; strong.Decide(locked2, alive, alive & ~locked2, s.hand.rollsRemaining, s.hand.rollsUsed, face, s.hand.c05Used, out _);
+            if (strong.lastDecideValue > best) { best = strong.lastDecideValue; pick = i; }
+        }
+        strong.rng = keep;
+        if (pick < 0) return false;
+        string dieId = all[pick].dieId, source = session.UnlockQuote(dieId).sourceId;
+        if (!Try(CommandKind.UnlockDie, c => c.targetDieId = dieId, "unlock " + dieId)) return false;
+        if (source == "C154") { cur.unlocksFree++; log.unlocksFree++; } else { cur.unlocksKey++; log.unlocksKey++; cur.itemsUsed++; cur.items.Add("I13"); }
+        return true;
     }
     void SetOrder(DieInstance[] all)
     {
@@ -504,7 +657,7 @@ public sealed class Runner
     void Settle(RunState s)
     {
         var r = s.lastStageSettlement;
-        cur.cleared = true; cur.score = D(r.score); cur.subsUsed = s.stage.submissionOrdinal; cur.unusedSubs = r.remainingSubmissions;
+        cur.cleared = true; cur.score = D(r.score); cur.subsUsed = s.stage.submissionOrdinal; cur.unusedSubs = r.remainingSubmissions; cur.recordBroken = s.stage.handRecordBroken;
         cur.reward = r.baseReward; cur.unused = r.unusedSubmissionReward; cur.interest = r.interest; cur.ctlIncome = r.controllerIncome; cur.pig = r.goldBefore - cur.goldStart; cur.goldAfterSettle = r.goldAfter;
         cur.goldAfterShop = r.goldAfter;
         // Controllers that appeared during the stage can only come from C112.
@@ -512,12 +665,17 @@ public sealed class Runner
     }
 
     // ---------- shop ----------
-    sealed class Cand { public string key, label; public double gain; public long price; public Action buy; public bool stale, reevaluate; }
+    /// <summary>exact: the gain was computed, not measured from sampled hands, so the noise floor (minGain) does not apply.</summary>
+    sealed class Cand { public string key, label; public double gain; public long price; public Action buy; public bool stale, reevaluate, exact; }
+    /// <summary>A gain below this is not worth a command even when it is exact.</summary>
+    const double ExactFloor = 0.01;
+    double Floor(Cand c) => c.exact ? ExactFloor : opt.minGain;
 
     static RunState WithController(RunState s, ControllerInstance offer, string removeInstanceId)
     {
         var st = s.Clone(); if (removeInstanceId != null) st.controllers.RemoveAll(c => c.instanceId == removeInstanceId);
-        var c2 = offer.Clone(); c2.state = new ControllerDynamicState(); c2.alive = true; st.controllers.Add(c2); return st;
+        // p1.1.1: a growth card on offer carries its catch-up, which the acquired card keeps; everything else starts fresh.
+        var c2 = offer.Clone(); c2.state = new ControllerDynamicState { growthCatchup = offer.state?.growthCatchup ?? 0 }; c2.alive = true; st.controllers.Add(c2); return st;
     }
     /// <summary>Use the session quote, capped by what this bot actually paid in the open shop. The cap also keeps
     /// estimates conservative before the separately implemented C98 resale rule is integrated.</summary>
@@ -570,22 +728,11 @@ public sealed class Runner
     /// <summary>Boss stages still to clear that are followed by a shop (the final boss pays nothing afterwards).</summary>
     int BossesAhead(int nextIndex) => StagesOfKind("boss", nextIndex, cfg.stages.Length - 1);
 
-    /// <summary>Growth cards are worth nothing at purchase, so the shop values every build at its projected state:
-    ///   growth' = min(cap, growth + rate x horizon),   horizon = min(stages still to play, 6; 2 if the next stage looks dangerous)
-    /// with a per-stage rate estimated from the habits above (S = submissions used per stage):
-    ///   C55 2*S                         C56 2*S*share(no red)            C57 3*S*share(red group >= 3)
-    ///   C58 4                           C59 4*unused submissions         C60 2*die upgrades bought per stage
-    ///   C61 2*levels bought per stage   C62 1*rolls per hand*S           C90 15*glass dice*break chance*rolls per hand*S/2
-    ///   C54 3*S*share(same primary), and never above its steady state 3*p/(1-p) because a different hand resets it
-    ///   C100 0 (the bot never feeds it)
-    /// p1.0.0:
-    ///   C129 10 x boss stages inside the horizon (the final boss does not count)
-    ///   C132 12 x pressure stages inside the horizon x the bot's own acceptance rate so far
-    ///   C134 3 x items used per stage
-    ///   C141 decays: it is valued at the geometric mean of its multiplier over the horizon (x1 once it is gone) and
-    ///        dropped from the projection when that mean is below x1.25
-    /// cap: 100 for multiplier cards (x6), 300 for base-add cards. Applied to owned and candidate cards alike, so an
-    /// owned growth card is not sold for a card that is only stronger today. Face-growth cards: see ProjectFaces.</summary>
+    /// <summary>Growth cards start small, so the shop values every build at its projected state (p1.1.1: no cap):
+    ///   grown' = grown + events per stage x event size x horizon,   horizon = min(stages still to play, 6; 2 if the next stage looks dangerous)
+    /// The events per stage of each card are listed at ProjectedGrowth. C141 decays instead (see below). Applied to
+    /// owned and candidate cards alike, so an owned growth card is not sold for a card that is only stronger today.
+    /// Face-growth cards: see ProjectFaces.</summary>
     void Project(RunState st, int nextIndex)
     {
         double horizon = Math.Min(cfg.stages.Length - nextIndex, hab.danger ? 2 : GrowthHorizon);
@@ -656,16 +803,17 @@ public sealed class Runner
     /// <summary>Face-growth cards change dice slowly, so a build that holds one is valued with the dice it is expected
     /// to have after `horizon` stages. Stage-end cards follow their exact rule; after-score cards are approximated
     /// from the bot's habits (N = horizon x submissions per stage, D = dice per submission):
-    ///   C120 / C121  exact: every stage each permanent die's lowest face +1 / highest face -1
-    ///   C117  0.8 N faces turn gold, highest pips first, dice in turn
+    /// p1.1.1 values:
+    ///   C120 / C121  exact: every stage each permanent die's three lowest faces +1 / three highest faces -1
+    ///   C115  one gold face and one +1 pip a stage (the rule: three random faces out of gold / red / blue / +1)
+    ///   C117  1.2 N faces turn gold (and gain weight), highest pips first, dice in turn
     ///   C118  when at least 60% of the submitted dice share a colour: mixed opposite pairs take that colour, 0.5 N D pairs at most
-    ///   C119  0.5 N faces take the die's highest pip (lowest for small-pip builds), one die after another
-    ///   C122  0.8 N D single steps towards 5, the face farthest from 5 first, dice in turn
-    ///   C123  0.8 N D single steps into 2..3, same order
-    ///   C124  0.8 N D weight steps on each die's most valuable face (pip x gold), up to the weight cap
-    ///   C125  1.6 N faces turn smooth, highest pips first
-    ///   C126  0.8 N x pool dice per submission steps of +1 on the lowest faces
-    ///   C127  0.7 x horizon copies of the best face onto the worst face of another die
+    ///   C119  2 N faces take the die's highest pip (lowest for small-pip builds), one die after another
+    ///   C122  0.6 N D faces become 5 outright, the face farthest from 5 first, dice in turn
+    ///   C123  0.6 N D faces: a 1 gains 1, a 4-6 loses 2 but not below 3
+    ///   C124  0.8 N D steps of +2 weight on each die's most valuable face, up to the weight cap
+    ///   C126  0.8 N x pool dice per submission steps of +2 on the lowest faces
+    ///   C127  0.5 N copies of the best face onto the worst face of another die (a new gold face gains weight)
     /// Duplicates and mimics add sources; idempotent changes are applied only once per event. C122 / C123 use
     /// a frozen face for each event, so two or more sources can overshoot their target.</summary>
     void ProjectFaces(RunState st, double horizon)
@@ -751,6 +899,7 @@ public sealed class Runner
             case "I12": return s.dice.Count(d => d.lifetime == "permanent") > ControllerRules.Capacity(s.controllers, cfg) ? 2 : 0.5;
             case "I08": return bossLoss >= 0.25 ? 4 : 1;                    // lifts the coming boss modifier
             case "I10": case "I01": return 1;                               // waves: used only when they add 25%
+            case "I13": return s.inventory.Any(x => x.contentId == "I13") ? 0.5 : 2;   // key ring: three unlocks (see Select)
             default: return 0;                                               // I03, I04, I05: never used by the bot
         }
     }
@@ -800,6 +949,8 @@ public sealed class Runner
             case "C116": return G * 4 * Math.Min(bosses, Math.Max(0, cfg.maxPermanentDice - s.dice.Count(d => d.lifetime == "permanent"))) * 0.6;
             case "C133": { var p = cfg.Controller("C133").parameters; return G * (p.goldPerBoss * bosses + p.goldPerPressure * hab.risk * StagesOfKind("pressure", nextIndex, cfg.stages.Length)) * 0.6; }
             case "C140": return G * hab.sells * 2 * Math.Min(10, remaining) * 0.6;
+            // p1.1.1 C154: one free unlock a hand; valued like one key ring use a stage (a third of a 3-gold item).
+            case "C154": return G * Math.Min(12, remaining) * 1.0 * 0.6;
             case "C131": return 0.5 * -Math.Log(Math.Max(0.05, 1 - bossLoss));
             case "C130": return evalCtx != null && evalCtx.boss ? 0 : 0.5 * Math.Log(P.mult[130]);
             case "C138": return -G * Math.Min(8, remaining) * P.p138cost * Math.Max(1, hab.subs * 0.7) * 0.6;
@@ -961,6 +1112,13 @@ public sealed class Runner
         {
             var s0 = session.State; var loot = s0.shop.groups.FirstOrDefault(g => g.groupId == "LOOT");
             if (loot != null) { cur.lootKind = loot.kind; cur.lootPicksAvailable = loot.picks; cur.lootOffered.AddRange(s0.shop.offers.Where(o => o.groupId == "LOOT").Select(OfferLabel)); }
+            // BX-10: the first shelf as the bot found it (before loot, purchases or a refresh).
+            cur.shelfGold = s0.gold; cur.shopCycle = session.ShopCycleIn(s0);
+            foreach (var o in s0.shop.offers.Where(o => o.category == "controller" && string.IsNullOrEmpty(o.groupId) && !o.sold))
+            {
+                long price = session.GetOfferPrice(o);
+                cur.shelf.Add(new ShelfSnap { id = o.contentId, enchant = string.IsNullOrEmpty(o.controller?.enchantmentId) ? "none" : o.controller.enchantmentId, price = price, affordable = s0.gold >= price, unique = ControllerRules.IsUniqueController(o.contentId, cfg) });
+            }
         }
         for (int iter = 0; iter < 60; iter++)
         {
@@ -996,7 +1154,7 @@ public sealed class Runner
             long spendable = s.gold - reserve;
             if (!evaluated) { cands = Evaluate(s, basePow, stats, nextIndex, null, null, spendable); evaluated = true; }
             Cand pick = null;
-            foreach (var c in cands.Where(c => !c.stale && c.gain >= opt.minGain).OrderByDescending(c => c.gain / Math.Max(1, c.price)))
+            foreach (var c in cands.Where(c => !c.stale && c.gain >= Floor(c)).OrderByDescending(c => c.gain / Math.Max(1, c.price)))
             {
                 if (s.gold < c.price) continue;
                 // Gold above the interest cap earns nothing, so any real improvement is worth buying with it.
@@ -1017,7 +1175,7 @@ public sealed class Runner
             // Re-check the pick against the current state: earlier purchases may have changed its value or its slot.
             var fresh = Evaluate(s, basePow, stats, nextIndex, pick.key, null, spendable).FirstOrDefault();
             pick.stale = true;
-            if (fresh == null || fresh.gain < opt.minGain || s.gold < fresh.price) continue;
+            if (fresh == null || fresh.gain < Floor(fresh) || s.gold < fresh.price) continue;
             if (!(!opt.weak && s.gold - fresh.price >= cap) && (fresh.gain / Math.Max(1, fresh.price) < theta || s.gold - fresh.price < reserve)) continue;
             fresh.buy(); cur.bought.Add(fresh.label);
             if (fresh.reevaluate) evaluated = false;   // a new slot changes what every controller offer costs
@@ -1030,13 +1188,23 @@ public sealed class Runner
             ratio = nextBoss ? PowerOfState(s, new StageCtx { modifierId = bossMod, boss = true }).safe / (target * P.Fx(bossMod).targetPercent / 100.0) : BestMimicPower(s).safe / target;
             bool barred = nextBoss && P.Fx(bossMod).noItems && !s.controllers.Any(c => c.definitionId == "C131");
             if (ratio < 1.0 && !barred)
-                foreach (string id in new[] { "I06", "I09", "I07", "I02", "I12" })
+                foreach (string id in new[] { "I06", "I09", "I07", "I02", "I12", "I13" })
                 {
                     var now = session.State; var offer = now.shop.offers.FirstOrDefault(o => o.category == "consumable" && !o.sold && string.IsNullOrEmpty(o.groupId) && o.contentId == id);
                     if (offer == null || now.gold < session.GetOfferPrice(offer) || session.PurchaseError(offer.offerId) != null) continue;
                     if (id == "I12" && ItemValue("I12", now) < 2) continue;
+                    if (id == "I13" && now.inventory.Any(x => x.contentId == "I13")) continue;   // p1.1.1: one key ring is enough
                     Act(CommandKind.Buy, c => c.offerId = offer.offerId); cur.bought.Add(id);
                 }
+        }
+        // p1.1.1 key ring (I13): bought with gold that earns no interest any more, one at a time, never against a NoItems boss.
+        {
+            var now = session.State; string bossMod = session.CycleView().Where(v => v.stageKind == "boss").Select(v => v.modifierId).FirstOrDefault();
+            var ring = now.shop.offers.FirstOrDefault(o => o.category == "consumable" && !o.sold && string.IsNullOrEmpty(o.groupId) && o.contentId == "I13");
+            bool barred = nextBoss && !string.IsNullOrEmpty(bossMod) && P.Fx(bossMod).noItems;
+            if (ring != null && !barred && !opt.weak && !now.inventory.Any(x => x.contentId == "I13") && now.inventory.Count < now.consumableSlots
+                && now.gold - session.GetOfferPrice(ring) >= InterestCap(now) && session.PurchaseError(ring.offerId) == null)
+            { Act(CommandKind.Buy, c => c.offerId = ring.offerId); cur.bought.Add("I13"); }
         }
         powerTag = "mimic"; OptimizeMimic(); KeepAltarRight(); if (Prepared) PrepareForBoss(); powerTag = "preview";
         var end = session.State; cur.goldAfterShop = end.gold; cur.spent = goldIn - end.gold;
@@ -1142,10 +1310,77 @@ public sealed class Runner
         var die = st.dice.First(d => d.dieId == dieId); var f = die.faces.First(x => x.faceId == faceId);
         switch (u)
         {
-            case "U03": f.baseColor = "red"; break; case "U04": f.baseColor = "blue"; break; case "U06": f.isGold = true; break;
-            case "U08": f.permanentPip++; break; case "U09": f.permanentPip--; break; case "U10": f.baseWeight++; break;
+            case "U03": f.baseColor = "red"; break; case "U04": f.baseColor = "blue"; break;
+            // p1.1.1 section 7.2: a face that turns gold gains weight (up to the cap).
+            case "U06": if (!f.isGold) { f.isGold = true; f.baseWeight = Math.Min(cfg.maxFaceWeight, f.baseWeight + cfg.gildedFaceWeightDelta); } break;
+            case "U08": f.permanentPip = Math.Min(cfg.maxPipValue, f.permanentPip + 1); break; case "U09": f.permanentPip = Math.Max(cfg.minPipValue, f.permanentPip - 1); break;
+            case "U10": f.baseWeight = Math.Min(cfg.maxFaceWeight, f.baseWeight + 1); break;
             case "U11": { var o = die.faces.First(x => x.faceId == cfg.Opposite(faceId)); o.permanentPip = f.permanentPip; o.baseColor = f.baseColor; break; }
         }
+    }
+
+    /// <summary>p1.1.1: where a die upgrade goes and what it is worth (shelf offers, gifts and the self-selected ones
+    /// share this). dieId = null: no use for it. A per-face upgrade takes one or two faces of one die (section 7.1).
+    ///   U06 gold   computed, not sampled: the die whose chance of showing a gold face rises most (its two highest
+    ///              non-gold faces; lowest for small-pip builds), gain = ln(1 + q x dP x goldAdd / (100 + A)) plus
+    ///              q x dP x ln(step) per C89 source, with q = share of the dice that are submitted, dP = the rise of
+    ///              that chance including the +1 weight of a gilded face, A = the mean additive total of the bot's hands.
+    ///   U05 glass  the oldest plain permanent die; the measured gain while it lives and the measured loss once it has
+    ///              broken are weighted by the share of the horizon it survives (15% per submission).
+    ///   others     each face of the short list (UpgradeTargets) alone, then the best two together; measured.
+    ///   U01 / U02 / U07 are never used.</summary>
+    (string dieId, string[] faces, double gain, bool exact) PlanUpgrade(RunState s, string u, HandStats stats, Func<RunState, double> gain, int nextIndex)
+    {
+        if (u == "U01" || u == "U02" || u == "U07") return (null, null, 0, false);
+        var permanent = s.dice.Where(d => d.lifetime == "permanent").OrderBy(d => d.createdSerial).ToArray();
+        if (u == "U05")
+        {
+            var die = permanent.FirstOrDefault(d => !d.isGlass && session.IsUpgradeTargetLegal(u, d.dieId, null)); if (die == null || permanent.Length < 2) return (null, null, 0, false);
+            var glass = s.Clone(); glass.dice.First(d => d.dieId == die.dieId).isGlass = true;
+            var gone = s.Clone(); gone.dice.RemoveAll(d => d.dieId == die.dieId);
+            double horizon = Math.Min(cfg.stages.Length - nextIndex, hab.danger ? 2 : GrowthHorizon), n = Math.Max(1, horizon * hab.subs * Math.Min(1, hab.dice / Math.Max(1, s.dice.Count)));
+            double keep = 1 - P.glassBreak, alive = (1 - Math.Pow(keep, n)) / (P.glassBreak * n);
+            return (die.dieId, Array.Empty<string>(), alive * gain(glass) + (1 - alive) * gain(gone), false);
+        }
+        int maxFaces = Math.Max(1, session.MaxSelectableFaces(u));
+        if (u == "U06")
+        {
+            bool low = s.controllers.Any(c => c.definitionId == "C10" || c.definitionId == "C17" || c.definitionId == "C66");
+            double bestRise = 0; string bd = null; string[] bf = null;
+            foreach (var die in permanent)
+            {
+                var legal = session.LegalUpgradeFaces(u, die.dieId); if (legal.Length == 0) continue;
+                var pick = die.faces.Where(f => legal.Contains(f.faceId)).OrderByDescending(f => low ? -f.permanentPip : f.permanentPip).Take(maxFaces).ToArray();
+                double total = die.faces.Sum(f => (double)f.baseWeight), golden = die.faces.Where(f => f.isGold).Sum(f => (double)f.baseWeight), before = golden / total;
+                foreach (var f in pick) { int w = Math.Min(cfg.maxFaceWeight, f.baseWeight + cfg.gildedFaceWeightDelta); total += w - f.baseWeight; golden += w; }
+                double rise = golden / total - before;
+                if (rise > bestRise) { bestRise = rise; bd = die.dieId; bf = pick.Select(f => f.faceId).OrderBy(x => x, StringComparer.Ordinal).ToArray(); }
+            }
+            if (bd == null) return (null, null, 0, false);
+            double q = Math.Min(1, hab.dice / Math.Max(1, s.dice.Count)), k89 = ControllerRules.ResolveSources(s.controllers).Count(x => x.abilityId == "C89");
+            double g = Math.Log(1 + q * bestRise * P.goldAdd / (100 + stats.MeanAdditive)) + k89 * q * bestRise * Math.Log(P.p89step);
+            return (bd, bf, g, true);
+        }
+        double bestG = double.NegativeInfinity; string dieId = null; var singles = new List<(string face, double g)>();
+        foreach (var (die, f) in UpgradeTargets(s, u))
+        {
+            var st = s.Clone(); ApplyUpgrade(st, u, die.dieId, f.faceId);
+            double g = gain(st); singles.Add((f.faceId, g)); dieId = die.dieId; if (g > bestG) bestG = g;
+        }
+        if (dieId == null) return (null, null, 0, false);
+        var ranked = singles.OrderByDescending(x => x.g).ToArray(); string[] faces = { ranked[0].face };
+        if (maxFaces >= 2 && ranked.Length >= 2)
+        {
+            var both = new[] { ranked[0].face, ranked[1].face }.OrderBy(x => x, StringComparer.Ordinal).ToArray();
+            var st = s.Clone(); foreach (string f in both) ApplyUpgrade(st, u, dieId, f);
+            double g = gain(st); if (g > bestG) { bestG = g; faces = both; }
+        }
+        return (dieId, faces, bestG, false);
+    }
+    /// <summary>BX-14: die upgrade transactions of the shop after the current stage, by how they were paid for.</summary>
+    void NoteUpgrade(string u, int faces, long price, string via)
+    {
+        cur.upgrades.Add(new UpgradeLog { id = u, via = via, faces = faces, price = price });
     }
 
     /// <summary>Values the offers of the shelf (group == null) or of one gift group. Gift offers cost nothing; a
@@ -1161,7 +1396,10 @@ public sealed class Runner
         Func<RunState, double> economyGain = st => EconomyValue(st, nextIndex) - baseEconomy;
         Func<RunState, int, double> gainOf = (st, mode) => { Project(st, nextIndex); return Math.Log(Math.Max(1e-9, BestMimicPower(st, mode).V) / Math.Max(1e-9, basePow)); };
         Func<RunState, double> gain = st => gainOf(st, 1);
-        int ordinary = s.controllers.Count(c => c.enchantmentId != "slotless"); bool film = s.controllers.Any(c => c.definitionId == "C145");
+        // p1.1.1 section 6: the leftmost cultivation card without a slotless enchant takes no ordinary slot, so whether
+        // a card fits is asked of the build as it would stand (a new card goes to the right end).
+        int ordinary = ControllerRules.OrdinaryUsed(s.controllers, cfg);
+        Func<RunState, bool> fits = st => st.controllers.Count <= cfg.maxControllerInstances && ControllerRules.OrdinaryUsed(st.controllers, cfg) <= s.controllerSlots;
         // With every slot used a new controller needs one to be sold. Trying every owned card for every offer is too slow
         // with 5-7 slots, so only the two cards the build misses least (power without the card, plus its gold value)
         // are tried as the one to sell.
@@ -1191,15 +1429,15 @@ public sealed class Runner
                     {
                         string id = offer.contentId;
                         if (id == "C100") break;   // limitation: the bot never plays the sacrifice card
-                        bool slotless = offer.controller.enchantmentId == "slotless";
+                        // p1.1.1 section 9.3: a unique multiplier card that is already held cannot be bought or claimed again.
+                        if (ControllerRules.OwnsUniqueController(s.controllers, id, cfg)) break;
                         string label = OfferLabel(offer);
-                        // C128 turns one more die into glass every stage; without the film (C145) those dice soon break.
-                        double scale = id == "C128" ? (film ? 0.8 : 0.15) : 1;
-                        if (!capped && (slotless || ordinary < s.controllerSlots))
+                        var direct = capped ? null : WithController(s, offer.controller, null);
+                        if (direct != null && fits(direct))
                         {
                             if (price > spendable) break;
-                            var candidate = WithController(s, offer.controller, null); double bonus = economyGain(candidate);
-                            double g = gainOf(candidate, id == "C41" ? 0 : 2) * scale + bonus;
+                            var candidate = direct; double bonus = economyGain(candidate);
+                            double g = gainOf(candidate, id == "C41" ? 0 : 2) + bonus;
                             list.Add(new Cand { key = key, label = label, gain = g, price = price, buy = plainBuy });
                         }
                         else
@@ -1207,13 +1445,14 @@ public sealed class Runner
                             double bestG = double.NegativeInfinity; ControllerInstance victim = null; long net = 0;
                             foreach (var w in victims())
                             {
-                                // Selling a slotless card frees no ordinary slot, so it cannot make room for an ordinary one when the slots are full.
-                                if (!slotless && w.enchantmentId == "slotless" && ordinary >= s.controllerSlots) continue;
                                 if (!saleQuotes.TryGetValue(w.instanceId, out var quote)) saleQuotes[w.instanceId] = quote = AfterSale(s, w.instanceId);
                                 long cost = quote.GetOfferPrice(offer) - SaleEstimate(w.instanceId);
                                 if (cost > spendable || cost > s.gold) continue;
-                                var candidate = WithController(quote.State, offer.controller, null); double bonus = economyGain(candidate);
-                                double g = gainOf(candidate, id == "C41" ? 0 : 2) * scale + bonus;
+                                var candidate = WithController(quote.State, offer.controller, null);
+                                // Selling a card that took no ordinary slot (slotless, or the free cultivation card) may not make room.
+                                if (!fits(candidate)) continue;
+                                double bonus = economyGain(candidate);
+                                double g = gainOf(candidate, id == "C41" ? 0 : 2) + bonus;
                                 if (g > bestG) { bestG = g; victim = w; net = cost; }
                             }
                             if (victim == null) break;
@@ -1240,23 +1479,11 @@ public sealed class Runner
                     }
                 case "die_upgrade":
                     {
-                        string u = offer.contentId; if (u == "U01" || u == "U02" || u == "U07") break;
-                        double bestG = double.NegativeInfinity; string bd = null, bf = null;
-                        if (u == "U05")
-                        {
-                            // Glass triples a die but it can break; the measured gain is halved (kept at 90% with the film C145).
-                            var die = s.dice.Where(d => d.lifetime == "permanent" && !d.isGlass).OrderBy(d => d.createdSerial).FirstOrDefault(); if (die == null) break;
-                            var st = s.Clone(); st.dice.First(d => d.dieId == die.dieId).isGlass = true; bestG = gain(st) * (film ? 0.9 : 0.5); bd = die.dieId; bf = die.faces[0].faceId;
-                        }
-                        else
-                            foreach (var (die, f) in UpgradeTargets(s, u))
-                            {
-                                var st = s.Clone(); ApplyUpgrade(st, u, die.dieId, f.faceId);
-                                double g = gain(st); if (g > bestG) { bestG = g; bd = die.dieId; bf = f.faceId; }
-                            }
-                        if (bd == null) break;
-                        string dieId = bd, faceId = bf;
-                        list.Add(new Cand { key = key, label = u, gain = bestG, price = price, buy = () => Act(CommandKind.Buy, c => { c.offerId = offer.offerId; c.targetDieId = dieId; c.targetFaceId = faceId; }) });
+                        string u = offer.contentId;
+                        var plan = PlanUpgrade(s, u, stats, gain, nextIndex); if (plan.dieId == null) break;
+                        string via = group == null ? "shelf" : "free";
+                        list.Add(new Cand { key = key, label = u, gain = plan.gain, price = price, exact = plan.exact,
+                            buy = () => { Act(CommandKind.Buy, c => { c.offerId = offer.offerId; c.targetDieId = plan.dieId; c.targetFaceIds = plan.faces; }); NoteUpgrade(u, plan.faces.Length, price, via); } });
                         break;
                     }
                 case "consumable":
@@ -1289,6 +1516,19 @@ public sealed class Runner
                     break;
             }
         }
+        // p1.1.1 section 9.2: up to selfDieUpgradeLimit self-selected die upgrades a shop, one more gold than the shelf
+        // price, two faces at a time. Tried: gold (valued analytically), +1 pip and the two dyes (measured).
+        if (group == null && session.CustomDieUpgradesRemaining > 0 && !session.IsLootPending)
+            foreach (var option in session.CustomDieUpgradeOptions())
+            {
+                string u = option.upgradeId; if (u != "U06" && u != "U08" && u != "U03" && u != "U04") continue;
+                string key = "self:" + u; if (onlyKey != null && key != onlyKey) continue;
+                if (option.error != null || !option.hasTarget || option.price > spendable) continue;
+                var plan = PlanUpgrade(s, u, stats, gain, nextIndex); if (plan.dieId == null) continue;
+                long price = option.price;
+                list.Add(new Cand { key = key, label = u + "@self", gain = plan.gain, price = price, exact = plan.exact, reevaluate = true,
+                    buy = () => { Act(CommandKind.CustomDieUpgrade, c => { c.upgradeId = u; c.targetDieId = plan.dieId; c.targetFaceIds = plan.faces; }); NoteUpgrade(u, plan.faces.Length, price, "self"); } });
+            }
         if (group == null && s.shop.selfStudyUsed < cfg.shop.selfStudyLimit)
         {
             var legal = session.LegalStudyHands(); int total = Math.Max(1, stats.prim.Take(13).Sum());

@@ -1,4 +1,4 @@
-// Balance simulator for the dice-building prototype (rules p1.1.0).
+// Balance simulator for the dice-building prototype (rules p1.1.1).
 //   verify  : compare the fast planning scorer with the real ScoreCalculator on random submissions
 //   cards   : marginal strength of every controller in reference builds
 //   scen    : hand-built scenarios (accumulation end states, starter odds)
@@ -56,7 +56,7 @@ public static class Program
                 case "scen": return Scenarios(int.Parse(Arg(args, "--hands", "3000")), Arg(args, "--out", null));
                 case "probe": return Probe();
                 case "trace": return Trace(uint.Parse(Arg(args, "--seed", "5000")), int.Parse(Arg(args, "--steps", "80")), Arg(args, "--out", "trace.json"), args.Contains("--full"));
-                case "run": Runner.Prepared = args.Contains("--prepared"); Runner.Lab = args.Contains("--lab"); return Runs(uint.Parse(Arg(args, "--first", "1000")), int.Parse(Arg(args, "--seeds", "200")), Arg(args, "--out", null), args.Contains("--weak"), path);
+                case "run": Runner.Prepared = args.Contains("--prepared"); Runner.Lab = args.Contains("--lab"); Runner.Grant = (Arg(args, "--grant", "") ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries); return Runs(uint.Parse(Arg(args, "--first", "1000")), int.Parse(Arg(args, "--seeds", "200")), Arg(args, "--out", null), args.Contains("--weak"), path);
                 default: Console.WriteLine("unknown mode"); return 2;
             }
         }
@@ -459,12 +459,20 @@ public static class Program
     {
         var b = Build.From(st, P, false, ctx: ctx);
         var pl = new Planner(); pl.Set(b); pl.rollRng = new Rng(seed); pl.rng = new Rng(seed ^ 0x77UL);
-        var v = new double[hands]; var s = new Stat(); double hit = 0, dice = 0;
+        var v = new double[hands]; var s = new Stat(); double hit = 0, dice = 0; var starRng = new Rng(seed ^ 0x51A7UL); int allDice = (1 << b.dice.Length) - 1;
         for (int h = 0; h < hands; h++)
         {
             int position = h % b.submissions;
-            b.subsLeft = b.submissions - position; b.ordinal = position; if (position == 0) b.usedHands = 0;
+            b.subsLeft = b.submissions - position; b.ordinal = position;
+            if (position == 0)
+            {
+                // p1.1.1, as in Runner.Power: a new simulated stage starts with nothing scored (C156), every die
+                // back (glass) and a fresh star pip for every C137 that has none.
+                b.usedHands = 0; b.stageScore = 0; pl.startAlive = allDice;
+                for (int k = 0; k < b.star137.Length; k++) if (b.starOpen[k]) b.star137[k] = (byte)(1 + starRng.NextInt(6));
+            }
             v[h] = pl.PlayHand(out int prim, out int nSub); if (prim >= 0) { s.prim[prim]++; b.usedHands |= 1 << prim; }
+            b.stageScore += Math.Floor(v[h] + 1e-6); pl.startAlive &= ~pl.lastBroken;
             dice += nSub; if (hitId > 0 && nSub > 0 && pl.lastHits.Has(hitId)) hit++;
         }
         s.mean = v.Average(); s.hit = hit / hands; s.dice = dice / hands; s.subs = b.submissions; s.stage = s.mean * b.submissions;
@@ -504,6 +512,7 @@ public static class Program
                     handLevels = st.handLevels.Select(x => x.Clone()).ToArray(), colorLevels = st.colorLevels.Select(x => x.Clone()).ToArray(), mimicBindings = null,
                     resolvedRandomChoices = st.controllers.Where(c => c.definitionId == "C53").Select(c => new RandomMultiplierChoice { ownerInstanceId = c.instanceId, units2 = P.c53units[0] }).ToArray(),
                     rollsUsed = pl.lastRollsUsed, submissionsRemainingBefore = subs - k, permanentDiceCount = b.permDice, stageKind = "normal", inventoryCount = st.inventory.Count, ordinaryControllerSlots = st.controllerSlots,
+                    stageScoreBefore = "0", stageTarget = cfg.stages[0].normalTarget,
                     dice = chosen.Select(i => new SubmissionDie { dieId = dice[i].dieId, faceId = up(i).faceId, currentPip = up(i).permanentPip, currentColor = up(i).baseColor, permanentSixFaceSum = dice[i].faces.Sum(f => f.permanentPip), isGlass = dice[i].isGlass, isGold = up(i).isGold, lifetime = dice[i].lifetime, permanentFacesCopy = dice[i].faces.Select(f => f.Clone()).ToArray() }).ToArray(),
                     poolDice = Enumerable.Range(0, dice.Length).Where(i => (pl.lastAlive >> i & 1) != 0 && !chosen.Contains(i)).Select(i => new PoolDie { dieId = dice[i].dieId, faceId = up(i).faceId, currentPip = up(i).permanentPip, currentColor = up(i).baseColor }).ToArray()
                 };
@@ -519,10 +528,15 @@ public static class Program
                     var f = die(change.dieId).faces.First(x => x.faceId == change.faceId);
                     switch (change.kind)
                     {
-                        case "pipDelta": f.permanentPip = Math.Max(cfg.minPipValue, Math.Min(cfg.maxPipValue, f.permanentPip + change.amount)); break;
+                        // p1.1.1: C123 lowers a face by 2 but only while it is above highPipFloor, and not below it.
+                        case "pipDelta":
+                            if (change.sourceId == "C123" && change.amount < 0) { int floor = cfg.Controller("C123").parameters.highPipFloor; if (f.permanentPip > floor) f.permanentPip = Math.Max(floor, f.permanentPip + change.amount); }
+                            else f.permanentPip = Math.Max(cfg.minPipValue, Math.Min(cfg.maxPipValue, f.permanentPip + change.amount));
+                            break;
                         case "pipSet": f.permanentPip = change.amount; break;
                         case "color": f.baseColor = change.text; break;
-                        case "gold": f.isGold = change.amount != 0; break;
+                        // p1.1.1 section 7.2: a face that turns gold gains weight, up to the cap.
+                        case "gold": if (change.amount != 0 && !f.isGold) f.baseWeight = Math.Min(cfg.maxFaceWeight, f.baseWeight + cfg.gildedFaceWeightDelta); f.isGold = change.amount != 0; break;
                         case "texture": f.texture = change.text; break;
                         case "weightDelta": f.baseWeight = Math.Max(1, Math.Min(cfg.maxFaceWeight, f.baseWeight + change.amount)); break;
                     }
@@ -534,9 +548,10 @@ public static class Program
                 for (int q = sources.Count(x => x.abilityId == id); q > 0; q--)
                     foreach (var d in st.dice.Where(d => d.lifetime == "permanent").OrderBy(d => d.createdSerial))
                     {
-                        var ordered = d.faces.OrderBy(f => f.faceId, StringComparer.Ordinal).ToArray();
-                        var f = id == "C120" ? ordered.OrderBy(x => x.permanentPip).First() : ordered.OrderByDescending(x => x.permanentPip).First();
-                        if (id == "C120" ? f.permanentPip < cfg.maxPipValue : f.permanentPip > cfg.minPipValue) f.permanentPip += cfg.Controller(id).parameters.delta;
+                        // p1.1.1: the three lowest faces that can still rise (the three highest that can still fall), ties by face id.
+                        var ordered = d.faces.OrderBy(f => f.faceId, StringComparer.Ordinal).ToArray(); int per = cfg.Controller(id).parameters.facesPerDie;
+                        var picked = id == "C120" ? ordered.Where(x => x.permanentPip < cfg.maxPipValue).OrderBy(x => x.permanentPip).Take(per).ToArray() : ordered.Where(x => x.permanentPip > cfg.minPipValue).OrderByDescending(x => x.permanentPip).Take(per).ToArray();
+                        foreach (var f in picked) f.permanentPip += cfg.Controller(id).parameters.delta;
                     }
         }
     }
@@ -546,13 +561,13 @@ public static class Program
     /// These are stated assumptions for the `cards` table, not measurements.</summary>
     public static readonly Dictionary<string, (long growth, string why)> MidGrowth = new Dictionary<string, (long, string)>
     {
-        ["C54"] = (9, "3 consecutive same-primary submissions (x1.45)"), ["C55"] = (40, "20 submissions (+40 base)"), ["C56"] = (20, "10 submissions without red (x2.0)"),
-        ["C57"] = (24, "8 submissions with a red group of 3+ (x2.2)"), ["C58"] = (32, "8 stages cleared (x2.6)"), ["C59"] = (32, "8 unused submissions (+32 base)"),
-        ["C60"] = (12, "6 die-face upgrades bought (x1.6)"), ["C61"] = (20, "10 hand/colour levels gained (x2.0)"), ["C62"] = (50, "50 rolls thrown (+50 base)"),
-        ["C90"] = (30, "2 glass dice broken (x2.5)"), ["C100"] = (20, "10 gold of controllers sacrificed (x2.0)"),
-        // p1.0.0
-        ["C129"] = (30, "3 boss stages cleared (x2.5)"), ["C132"] = (36, "3 pressure challenges completed (x2.8)"), ["C134"] = (30, "10 items used (x2.5)"),
-        ["C141"] = (2, "2 stages after purchase (x2.0; x3 when bought, gone after 4 stages)")
+        // p1.1.1 units: the grown part in hundredths (additive and multiplier cards) or points (base cards), on top of the configured start.
+        ["C51"] = (320, "sold a card in 4 shops (+1 -> +4.2)"), ["C54"] = (60, "6 same-primary submissions in a row (x1.25 -> x1.85)"), ["C55"] = (60, "20 submissions (+12 -> +72 base)"),
+        ["C56"] = (400, "10 submissions without red (+1 -> +5)"), ["C57"] = (640, "8 submissions with a red group of 3+ (+1 -> +7.4)"), ["C58"] = (120, "8 stages cleared (x1.25 -> x2.45)"),
+        ["C59"] = (48, "8 unused submissions (+12 -> +60 base)"), ["C60"] = (300, "6 die upgrade transactions (+1 -> +4)"), ["C61"] = (500, "10 hand/colour levels gained (+1 -> +6)"),
+        ["C62"] = (50, "50 rolls thrown (+12 -> +62 base)"), ["C100"] = (150, "10 gold of cards sacrificed (x1.25 -> x2.75)"), ["C125"] = (120, "6 stages that beat the run's best hand (x1.25 -> x2.45)"),
+        ["C129"] = (750, "3 boss stages cleared (+1 -> +8.5)"), ["C132"] = (750, "3 pressure challenges completed (+1 -> +8.5)"), ["C134"] = (400, "10 items used (+1 -> +5)"),
+        ["C141"] = (2, "2 stages after purchase (+2; +4 when bought, gone after 4 stages)")
     };
     /// <summary>Cards whose effect depends on something the reference builds do not have. The stated situation is
     /// applied to the build with the card and to the build it is compared with.</summary>
@@ -560,18 +575,17 @@ public static class Program
     {
         ["C130"] = ("首领关", null, true),
         ["C135"] = ("背包里有2个道具", s => { s.inventory.Add(new OwnedItem { instanceId = "ITEM_90001", contentId = "I06" }); s.inventory.Add(new OwnedItem { instanceId = "ITEM_90002", contentId = "I07" }); }, false),
-        ["C137"] = ("带1颗临时骰", s => s.dice.Add(DiceFactory.CreateStandard(cfg, s.nextDieSerial++, "stage_temporary", "")), false),
-        ["C138"] = ("钱包30金（每次提交另付3金）", s => s.gold = 30, false),
+        ["C138"] = ("钱包30金（每次提交另付2金）", s => s.gold = 30, false),
         ["C139"] = ("钱包40金", s => s.gold = 40, false),
     };
     /// <summary>Non-scoring cards whose effect can be put into the build directly: only the build with the card gets it.</summary>
     static readonly Dictionary<string, (string note, Action<RunState> effect)> CardEffect = new Dictionary<string, (string, Action<RunState>)>
     {
         ["C136"] = ("折算：每关多1颗标准临时骰", s => s.dice.Add(DiceFactory.CreateStandard(cfg, s.nextDieSerial++, "stage_temporary", ""))),
-        ["C128"] = ("折算：1颗骰子变玻璃（第1关；不计碎裂损失）", s => s.dice.OrderBy(d => d.createdSerial).First(d => !d.isGlass).isGlass = true),
     };
-    /// <summary>Cards that change dice over time are also measured after this many stages of ordinary play (Evolve).</summary>
-    static readonly string[] DiceGrowers = { "C07", "C15", "C26", "C36", "C37", "C38", "C117", "C118", "C119", "C120", "C121", "C122", "C123", "C124", "C125", "C126", "C127" };
+    /// <summary>Cards that change dice over time are also measured after this many stages of ordinary play (Evolve).
+    /// p1.1.1: C125 no longer changes dice (it is a multiplier growth card); C115 acts at stage end at random and is not evolved.</summary>
+    static readonly string[] DiceGrowers = { "C07", "C15", "C26", "C36", "C37", "C38", "C117", "C118", "C119", "C120", "C121", "C122", "C123", "C124", "C126", "C127" };
     static readonly int[] EvolveStages = { 6, 12 };
 
     static int Cards(int hands, string outPath)
@@ -677,8 +691,16 @@ public static class Program
         list.Add(("[v1.0] 6点面权重5(灌铅C124/配重U10成型)", mk(new string[0], s => AllFaces(s, f => { if (f.permanentPip == 6) f.baseWeight = 5; }))));
         list.Add(("[v1.0] 6点面权重5+掷地有声C67+三条开泰C30+四平八稳C31", mk(new[] { "C67", "C30", "C31" }, s => AllFaces(s, f => { if (f.permanentPip == 6) f.baseWeight = 5; }))));
         list.Add(("[v1.0] 4/5/6点面权重3", mk(new string[0], s => AllFaces(s, f => { if (f.permanentPip >= 4) f.baseWeight = 3; }))));
-        list.Add(("[v1.0] 5骰全玻璃+防碎膜C145", mk(new[] { "C145" }, s => { foreach (var d in s.dice) d.isGlass = true; })));
-        list.Add(("[v1.0] 5骰全玻璃+C145+玻璃心C90(成长30)", () => { var s = mk(new[] { "C145" }, x => { foreach (var d in x.dice) d.isGlass = true; })(); s.controllers.Add(Ctl("C90", 7, "none", null, 30)); return s; }));
+        // p1.1.1: the two glass scenes with C145 (film) and C90 (glass heart) are retired with those cards; the plain
+        // "5骰全玻璃" scene above stays (glass now breaks after a submission, 15% per submitted die).
+        list.Add(("[v1.1.1] 每骰两面黄金(镀金加权重:6点与5点面)", mk(new string[0], s => { foreach (var d in s.dice) foreach (var f in d.faces.Where(f => f.permanentPip >= 5)) { f.isGold = true; f.baseWeight = Math.Min(cfg.maxFaceWeight, f.baseWeight + cfg.gildedFaceWeightDelta); } })));
+        list.Add(("[v1.1.1] 每骰两面黄金+金玉满堂C89", mk(new[] { "C89" }, s => { foreach (var d in s.dice) foreach (var f in d.faces.Where(f => f.permanentPip >= 5)) { f.isGold = true; f.baseWeight = Math.Min(cfg.maxFaceWeight, f.baseWeight + cfg.gildedFaceWeightDelta); } })));
+        list.Add(("[v1.1.1] 全牌型与颜色Lv12(无卡)", mk(new string[0], s => { foreach (var h in s.handLevels) h.level = cfg.Hand(h.handId).maxLevel; foreach (var h in s.colorLevels) h.level = cfg.Color(h.handId).maxLevel; })));
+        list.Add(("[v1.1.1] 乘法成长三件:连庄C54(成长300)+老当益壮C58(成长150)+抛光匠C125(成长200)", () => { var s = Fresh(); s.controllers.Add(Ctl("C54", 1, "none", null, 300)); s.controllers.Add(Ctl("C58", 2, "none", null, 150)); s.controllers.Add(Ctl("C125", 3, "none", null, 200)); return s; }));
+        list.Add(("[v1.1.1] 加成五件:C46+C30+C63+屠龙者C129(成长1500)+学无止境C61(成长600)", () => { var s = mk(new[] { "C46", "C30", "C63" }, null)(); s.controllers.Add(Ctl("C129", 7, "none", null, 1500)); s.controllers.Add(Ctl("C61", 8, "none", null, 600)); return s; }));
+        list.Add(("[v1.1.1] 状元插金花C155:全4点面,其中两颗骰全1点面,7骰K=7(C22)", mk(new[] { "C155", "C22" }, s => { AddDice(s, 7); int k = 0; foreach (var d in s.dice.OrderBy(d => d.createdSerial)) { int pip = k++ < 2 ? 1 : 4; foreach (var f in d.faces) f.permanentPip = pip; } })));
+        list.Add(("[v1.1.1] 绝地反击C156+背水一战C102+开门红C153", mk(new[] { "C156", "C102", "C153" }, null)));
+        list.Add(("[v1.1.1] 纹理大师C91(高低交替)+小头大用C19+杂牌军C88", mk(new[] { "C91", "C19", "C88" }, null)));
         list.Add(("[v1.0] 顺子:一条龙C142+顺水推舟C83+顺藤摸瓜C107", mk(new[] { "C142", "C83", "C107" }, null)));
         list.Add(("[v1.0] 顺子:C142+C83+C107+简单顺子C29+顺子Lv4", mk(new[] { "C142", "C83", "C107", "C29" }, s => s.handLevels.First(h => h.handId == "straight").level = 4)));
         list.Add(("[v1.0] 顺子:8骰+C142+C83+C107(更容易凑顺)", mk(new[] { "C142", "C83", "C107" }, s => AddDice(s, 8))));
@@ -700,8 +722,8 @@ public static class Program
         list.Add(("[v1.0] 构筑:留白C151(其余4栏空)", mk(new[] { "C151" }, null)));
         list.Add(("[v1.0] 构筑:草根逆袭C152+4张普通卡(C50,C27,C48,C39)", mk(new[] { "C152", "C50", "C27", "C48", "C39" }, null)));
         list.Add(("[v1.0] 金币:富甲一方C139@80金+有钱真好C44", mk(new[] { "C139", "C44" }, s => s.gold = 80)));
-        list.Add(("[v1.0] 临时骰:雇佣兵C136(1颗临时骰)+客串明星C137", mk(new[] { "C136", "C137" }, s => s.dice.Add(DiceFactory.CreateStandard(cfg, s.nextDieSerial++, "stage_temporary", "")))));
-        list.Add(("[v1.0] 首领关:逆流而上C130+屠龙者C129(成长30)", () => { var s = mk(new[] { "C130" }, null)(); s.controllers.Add(Ctl("C129", 7, "none", null, 30)); return s; }));
+        list.Add(("[v1.1.1] 雇佣兵C136(1颗临时骰)+客串明星C137(每关随机明星点数)", mk(new[] { "C136", "C137" }, s => s.dice.Add(DiceFactory.CreateStandard(cfg, s.nextDieSerial++, "stage_temporary", "")))));
+        list.Add(("[v1.0] 首领关:逆流而上C130+屠龙者C129(成长750)", () => { var s = mk(new[] { "C130" }, null)(); s.controllers.Add(Ctl("C129", 7, "none", null, 750)); return s; }));
         var rows = new ConcurrentDictionary<int, string>(); var data = new ConcurrentDictionary<int, object>();
         // Which stage's normal target the scenario's expected stage total reaches (0 = none).
         Func<double, int> stageReached = total => { int k = 0; for (int i = 0; i < cfg.stages.Length; i++) if (total >= double.Parse(cfg.stages[i].normalTarget)) k = i + 1; return k; };
@@ -1020,6 +1042,45 @@ public static class Program
         double lastRaw = Median(final.Select(s => s.powerRaw / s.targetBase)), lastMod = Median(final.Select(s => s.powerMod / Math.Max(1, s.targetMod)));
         Console.WriteLine($"stage {lastStage}: median power/target before the final-boss modifier {lastRaw:F2}, with it {lastMod:F2}   clear% stages 1-{lastStage}: " + string.Join(" ", Enumerable.Range(1, lastStage).Select(k => clearByStage[k].ToString("F0"))));
         Console.WriteLine("fail reasons: " + string.Join(" ", ok.Where(l => !l.won).GroupBy(l => l.fail ?? "?").Select(g => g.Key + ":" + g.Count())));
+
+        // ---- p1.1.1: what the target calibration and the BX checks read ----
+        var blockRows = Enumerable.Range(0, blocks).Select(bk =>
+        {
+            var at = all.Where(s => (s.stage - 1) / 4 == bk).ToArray();
+            return new { block = $"{bk * 4 + 1}-{bk * 4 + 4}", stagesEntered = at.Length, powerOverTargetMedian = Median(at.Select(s => s.power / s.target)), safeOverTargetMedian = Median(at.Select(s => s.safe / s.target)),
+                handMeanOverTargetMedian = Median(at.Select(s => s.handMeanOverTarget)), handP25OverTargetMedian = Median(at.Select(s => s.handP25OverTarget)), bestHandOverTargetMedian = Median(at.Where(s => s.cleared).Select(s => s.bestHand / s.target)) };
+        }).ToArray();
+        Console.WriteLine("\np1.1.1 power / target by four-stage block (median over the stages entered; power = mean hand x submissions; hand = one mean hand; p25 = one 25th-percentile hand):");
+        foreach (var r in blockRows) Console.WriteLine($"  {r.block,-6} entered {r.stagesEntered,4}  power {r.powerOverTargetMedian:F2}  safe {r.safeOverTargetMedian:F2}  hand {r.handMeanOverTargetMedian:F2}  p25 hand {r.handP25OverTargetMedian:F2}  best real hand (cleared) {r.bestHandOverTargetMedian:F2}");
+        double secondsPerRun = ok.Length == 0 ? 0 : ok.Average(l => l.seconds);
+        Console.WriteLine($"seconds per run (mean): {secondsPerRun:F1}   reached by stage: " + string.Join(" ", Enumerable.Range(1, lastStage).Select(k => k + ":" + ok.Count(l => l.reached >= k))));
+        var ups = all.SelectMany(s => s.upgrades).ToArray(); double perRun = 1.0 / Math.Max(1, ok.Length); int shopsVisited = all.Count(s => s.cleared && s.stage < lastStage);
+        var upgradeSummary = new
+        {
+            shopsVisited, transactionsPerRun = ups.Length * perRun, shelfPerRun = ups.Count(u => u.via == "shelf") * perRun, selfPerRun = ups.Count(u => u.via == "self") * perRun, freePerRun = ups.Count(u => u.via == "free") * perRun,
+            gildTransactionsPerRun = ups.Count(u => u.id == "U06") * perRun, gildFacesPerRun = ups.Where(u => u.id == "U06").Sum(u => u.faces) * perRun, twoFaceSharePct = Pct(ups.Count(u => u.faces == 2), ups.Count(u => u.faces >= 1)),
+            goldSpentPerRun = ups.Sum(u => u.price) * perRun, byUpgrade = ups.GroupBy(u => u.id).OrderBy(g => g.Key).ToDictionary(g => g.Key, g => g.Count() * perRun),
+            shopsWithSelfUpgradePct = Pct(all.Count(s => s.upgrades.Any(u => u.via == "self")), shopsVisited), shopsWithTwoSelfUpgradesPct = Pct(all.Count(s => s.upgrades.Count(u => u.via == "self") >= 2), shopsVisited),
+            goldFacesAtLastStageEnteredMedian = Median(ok.Where(l => l.stages.Count > 0).Select(l => (double)l.stages[l.stages.Count - 1].goldFaces))
+        };
+        Console.WriteLine($"die upgrades per run: {upgradeSummary.transactionsPerRun:F1} (shelf {upgradeSummary.shelfPerRun:F1}, self-selected {upgradeSummary.selfPerRun:F1}, free {upgradeSummary.freePerRun:F1}); gilding {upgradeSummary.gildTransactionsPerRun:F1} transactions / {upgradeSummary.gildFacesPerRun:F1} faces; gold spent {upgradeSummary.goldSpentPerRun:F1}; shops with a self-selected upgrade {upgradeSummary.shopsWithSelfUpgradePct:F0}%; by upgrade: " + string.Join(" ", upgradeSummary.byUpgrade.Select(k => $"{k.Key}:{k.Value:F1}")));
+        var unlockSummary = new { freePerRun = ok.Sum(l => l.unlocksFree) * perRun, keyRingPerRun = ok.Sum(l => l.unlocksKey) * perRun, runsWithUnlock = ok.Count(l => l.unlocksFree + l.unlocksKey > 0), glassBrokenPerRun = all.Sum(s => s.glassBroken) * perRun };
+        Console.WriteLine($"unlocks per run: free (C154) {unlockSummary.freePerRun:F2}, key ring (I13) {unlockSummary.keyRingPerRun:F2}; runs that unlocked at least once: {unlockSummary.runsWithUnlock}; glass dice broken per run: {unlockSummary.glassBrokenPerRun:F2}");
+        var shelfRows = all.Where(s => s.shelf.Count > 0).GroupBy(s => s.shopCycle).OrderBy(g => g.Key).Select(g =>
+        {
+            var offers = g.SelectMany(s => s.shelf).ToArray();
+            return new { cycle = g.Key, shops = g.Count(), offers = offers.Length, enchantedPct = Pct(offers.Count(o => o.enchant != "none"), offers.Length), affordablePct = Pct(offers.Count(o => o.affordable), offers.Length),
+                enchantedAffordablePct = Pct(offers.Count(o => o.enchant != "none" && o.affordable), offers.Count(o => o.enchant != "none")), meanPrice = offers.Length == 0 ? double.NaN : offers.Average(o => (double)o.price), meanGold = g.Average(s => (double)s.shelfGold) };
+        }).ToArray();
+        Console.WriteLine("first shelf by shop cycle (cycle: shops, offers, enchanted %, affordable %, mean price, mean gold; the cycle-1/2 cheap guarantee card is included): " + string.Join("  ", shelfRows.Select(r => $"{r.cycle}: {r.shops}/{r.offers}/{r.enchantedPct:F0}%/{r.affordablePct:F0}%/{r.meanPrice:F1}/{r.meanGold:F0}")));
+        var shareRows = all.Where(s => s.growthShare != null).SelectMany(s => s.growthShare.Select(kv => new { id = kv.Key.Substring(kv.Key.IndexOf(':') + 1), s.stage, share = kv.Value })).GroupBy(x => x.id).OrderBy(g => g.Key)
+            .Select(g => new { id = g.Key, name = cfg.Controller(g.Key).displayName, samples = g.Count(), powerWithoutOverWithMedian = Median(g.Select(x => x.share)), powerWithoutOverWithMin = g.Min(x => x.share) }).ToArray();
+        Console.WriteLine("growth cards at boss stages (power without the card / with it; median, lowest, samples): " + string.Join("  ", shareRows.Select(r => $"{r.id}:{r.powerWithoutOverWithMedian:F2}/{r.powerWithoutOverWithMin:F2}/{r.samples}")));
+        var cultivation = ok.SelectMany(l => l.finalBuild.Where(c => cfg.Controller(c.id).isCultivation).Select(c => new { c.id, c.cultivated, stagesHeld = l.stages.Count(s => s.build.Any(b => b.instanceId == c.instanceId)) })).GroupBy(x => x.id).OrderBy(g => g.Key)
+            .Select(g => new { id = g.Key, name = cfg.Controller(g.Key).displayName, heldAtEnd = g.Count(), facesChangedMedian = Median(g.Select(x => (double)x.cultivated)), stagesHeldMedian = Median(g.Select(x => (double)x.stagesHeld)) }).ToArray();
+        Console.WriteLine("cultivation cards held at the end (card: copies, faces rewritten median, stages held median): " + string.Join("  ", cultivation.Select(r => $"{r.id}:{r.heldAtEnd}/{r.facesChangedMedian:F0}/{r.stagesHeldMedian:F0}")));
+        var v111 = new { secondsPerRun, reachedByStage = Enumerable.Range(1, lastStage).Select(k => ok.Count(l => l.reached >= k)).ToArray(), blocks = blockRows, dieUpgrades = upgradeSummary, unlocks = unlockSummary, firstShelfByCycle = shelfRows, growthShares = shareRows, cultivation,
+            highestHandMedian = Median(ok.Select(l => l.highestHand)), highestHandMax = ok.Length == 0 ? 0 : ok.Max(l => l.highestHand) };
         if (outPath != null)
         {
             var summary = new { winRatePct = winRate, deathsByStage = deathList.ToDictionary(g => g.Key.ToString(), g => g.Value), deathShareByBlockPct = blockShare, deathsByStageKind = deathsByKind,
@@ -1028,7 +1089,7 @@ public static class Program
             File.WriteAllText(outPath, JsonSerializer.Serialize(new { config = cfg.configVersion, configPath, bot = weak ? "weak" : Runner.Prepared ? "planner+prepared" : "planner", firstSeed = first, seeds, runs = ok.Length, errors = seeds - ok.Length, wins = ok.Count(l => l.won),
                 plannerSelfCheck = new { predicted, mispredicted }, rejectedOptionalCommands = rejected, rejectedShopCommands = shopRejected,
                 shopRejections = logs.SelectMany(l => l.shopRejections.Select(reason => new { l.seed, reason })).ToArray(), quoteMismatches = quoteMismatch, summary, stages = stageRows, stageKinds = kindRows, pressure, bossModifiers = bossRows, bossLab = labRows, loot = lootRows, duplicates,
-                gifts = giftPicks.ToDictionary(g => g.Key, g => g.Count()), itemsUsedPerRun = itemUse.ToDictionary(g => g.Key, g => g.Count() / (double)ok.Length), items = itemRows, cards = cardRows, winningBuilds = winRows, neverBought, logs }, Pretty));
+                gifts = giftPicks.ToDictionary(g => g.Key, g => g.Count()), itemsUsedPerRun = itemUse.ToDictionary(g => g.Key, g => g.Count() / (double)ok.Length), items = itemRows, cards = cardRows, winningBuilds = winRows, neverBought, v111, logs }, Pretty));
         }
         return seeds == ok.Length && mispredicted == 0 && rejected == 0 && shopRejected == 0 && quoteMismatch == 0 ? 0 : 1;
     }
