@@ -82,7 +82,8 @@ namespace DiceCraft.Tests
         public void CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent(string id)
         {
             string offer=null;var s=Edit(Shop(),x=>{x.gold=100; x.dice[0].faces[0].baseColor=id=="U03"?"blue":"red"; offer=PutOffer(x,"die_upgrade",id);});
-            var c=Command(s,CommandKind.Buy);c.offerId=offer;c.targetDieId="D001";c.targetFaceId="F01";var before=s.State;
+            // p1.1.1 section 7.1: U05 takes a die and no face; every other upgrade here takes the face F01.
+            var c=Command(s,CommandKind.Buy);c.offerId=offer;c.targetDieId="D001";c.targetFaceId=id=="U05"?null:"F01";var before=s.State;
             Assert.That(s.Execute(c).accepted,Is.True);var after=s.State;Assert.That(s.Execute(c).duplicate,Is.True);AssertUnchanged(after,s.State);
             Assert.That(after.gold,Is.EqualTo(before.gold-cfg.Upgrade(id).buyPrice));Assert.That(after.dice[0].dataRevision,Is.EqualTo(before.dice[0].dataRevision+1));
             Assert.That(after.dice[1].faces[0].permanentPip,Is.EqualTo(before.dice[1].faces[0].permanentPip));
@@ -92,7 +93,7 @@ namespace DiceCraft.Tests
                 case "U03":Assert.That(after.dice[0].faces[0].baseColor,Is.EqualTo("red"));break;
                 case "U04":Assert.That(after.dice[0].faces[0].baseColor,Is.EqualTo("blue"));break;
                 case "U05":Assert.That(after.dice[0].isGlass,Is.True);break;
-                case "U06":Assert.That(after.dice[0].faces[0].isGold,Is.True);break;
+                case "U06":Assert.That(after.dice[0].faces[0].isGold,Is.True);Assert.That(after.dice[0].faces[0].baseWeight,Is.EqualTo(before.dice[0].faces[0].baseWeight+1),"p1.1.1 section 7.2: a newly gilded face gains 1 weight");break;
                 case "U07":Assert.That(after.dice[0].faces[0].permanentPip,Is.Not.EqualTo(before.dice[0].faces[0].permanentPip));break;
             }
         }
@@ -144,10 +145,12 @@ namespace DiceCraft.Tests
         [Test] public void SelfStudyAndRandomHandUseCurrentLevelAndEligibility()
         {
             string offer=null;var s=Edit(Shop(),x=>{x.gold=100;offer=PutOffer(x,"hand_upgrade","pair");});
-            Do(s,CommandKind.Buy,c=>c.offerId=offer);Assert.That(s.GetStudyPrice("pair"),Is.EqualTo(5));
-            Do(s,CommandKind.Study,c=>c.handId="pair");Assert.That(s.State.gold,Is.EqualTo(93));Assert.That(s.State.handLevels.First(x=>x.handId=="pair").level,Is.EqualTo(2));
-            Assert.That(s.GetStudyPrice("pair"),Is.EqualTo(7));
-            Do(s,CommandKind.Study,c=>c.handId="pair");Assert.That(s.State.gold,Is.EqualTo(86));Assert.That(s.State.handLevels.First(x=>x.handId=="pair").level,Is.EqualTo(3));
+            // p1.1.1 section 3.1: price = base 2 + current level x 1 (+1 for a self study). Shelf at level 0: 2 (gold 98);
+            // study at level 1: 2 + 1 + 1 = 4 (gold 94); study at level 2: 2 + 2 + 1 = 5 (gold 89).
+            Do(s,CommandKind.Buy,c=>c.offerId=offer);Assert.That(s.GetStudyPrice("pair"),Is.EqualTo(4));
+            Do(s,CommandKind.Study,c=>c.handId="pair");Assert.That(s.State.gold,Is.EqualTo(94));Assert.That(s.State.handLevels.First(x=>x.handId=="pair").level,Is.EqualTo(2));
+            Assert.That(s.GetStudyPrice("pair"),Is.EqualTo(5));
+            Do(s,CommandKind.Study,c=>c.handId="pair");Assert.That(s.State.gold,Is.EqualTo(89));Assert.That(s.State.handLevels.First(x=>x.handId=="pair").level,Is.EqualTo(3));
             Assert.That(s.Execute(new SessionCommand{kind=CommandKind.Study,commandId="thirdstudy",expectedActionSequence=s.State.actionSequence,handId="pair"}).accepted,Is.False);
         }
         [Test] public void GeneratedShopHasExactCategoriesNoReplacementAndAffordableFirstController()

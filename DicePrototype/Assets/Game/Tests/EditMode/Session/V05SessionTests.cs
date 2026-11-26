@@ -223,24 +223,29 @@ namespace DiceCraft.Tests
 
         [Test] public void V05_SellingOldCardBeforeReplacementPaysFullNewPrice()
         {
+            // p1.1.1: C02 lists 7 and the mult2 premium is 5 (section 9.1), so the offer costs 12. C02 is a unique
+            // multiplier card (section 9.3): the offer is refused while the old C02 is held and accepted once it is sold.
             string offer = null; var s = Edit(Shop(), x => { x.gold = 100; Equip(x, "C02"); offer = EnchantedOffer(x, "C02", "mult2"); });
+            Assert.That(s.PurchaseError(offer), Is.EqualTo(GameSession.UniqueControllerOwned));
             Do(s, CommandKind.Sell, c => c.itemInstanceId = s.State.controllers.Single().instanceId);
-            var quoted = s.State.shop.offers.Single(o => o.offerId == offer); Assert.That(s.State.gold, Is.EqualTo(103)); Assert.That(s.GetOfferTradeIn(quoted), Is.Zero); Assert.That(s.GetOfferNetPrice(quoted), Is.EqualTo(13));
-            Do(s, CommandKind.Buy, c => c.offerId = offer); Assert.That(s.State.gold, Is.EqualTo(90));
+            var quoted = s.State.shop.offers.Single(o => o.offerId == offer); Assert.That(s.State.gold, Is.EqualTo(103)); Assert.That(s.GetOfferTradeIn(quoted), Is.Zero); Assert.That(s.GetOfferNetPrice(quoted), Is.EqualTo(12));
+            Do(s, CommandKind.Buy, c => c.offerId = offer); Assert.That(s.State.gold, Is.EqualTo(91));
         }
 
         // v1.1 rewrite: buying a same-name copy pays the full price (no trade-in of the owned C02) and appends a second
         // instance; insufficient money and a failed write still leave the state untouched.
         [Test] public void V05_SameNameCopyInsufficientMoneyAndWriteFailureAreAtomic()
         {
-            string offer = null; var s = Edit(Shop(), x => { x.gold = 12; Equip(x, "C02"); offer = EnchantedOffer(x, "C02", "mult2"); });
+            // p1.1.1: C02 became a unique multiplier card (section 9.3) and can no longer be held twice, so the same-name
+            // copy is now C06 (list 4 + mult2 premium 5 = 9).
+            string offer = null; var s = Edit(Shop(), x => { x.gold = 8; Equip(x, "C06"); offer = EnchantedOffer(x, "C06", "mult2"); });
             var before = s.State; var command = Command(s, CommandKind.Buy); command.offerId = offer;
-            Assert.That(s.Execute(command).accepted, Is.False, "13 is needed; the owned C02 is not traded in"); AssertUnchanged(before, s.State);
+            Assert.That(s.Execute(command).accepted, Is.False, "9 is needed; the owned C06 is not traded in"); AssertUnchanged(before, s.State);
             var store = new FaultStore(); s = Edit(s, x => x.gold = 100, store); before = s.State;
             command = Command(s, CommandKind.Buy); command.offerId = offer; Assert.That(s.Execute(command).pendingSave, Is.True); AssertUnchanged(before, s.State);
             var expected = store.attempted; store.fail = false; Assert.That(s.RetrySave().accepted, Is.True);
-            Assert.That(s.State.controllers.Select(c => c.instanceId), Is.EqualTo(expected.controllers.Select(c => c.instanceId))); Assert.That(s.State.gold, Is.EqualTo(87));
-            Assert.That(s.State.controllers.Select(c => c.definitionId + ":" + c.enchantmentId), Is.EqualTo(new[] { "C02:none", "C02:mult2" }));
+            Assert.That(s.State.controllers.Select(c => c.instanceId), Is.EqualTo(expected.controllers.Select(c => c.instanceId))); Assert.That(s.State.gold, Is.EqualTo(91));
+            Assert.That(s.State.controllers.Select(c => c.definitionId + ":" + c.enchantmentId), Is.EqualTo(new[] { "C06:none", "C06:mult2" }));
             Assert.That(s.State.controllers[0].instanceId, Is.EqualTo(before.controllers.Single().instanceId), "the owned copy is kept in place");
             Assert.That(s.State.shopRngState, Is.EqualTo(before.shopRngState)); Assert.That(s.Execute(command).duplicate, Is.True);
         }
@@ -265,13 +270,15 @@ namespace DiceCraft.Tests
             Assert.That(s.LegalStudyHands(), Does.Not.Contain("straight")); Assert.That(s.State.handLevels.Single(h => h.handId == "straight").level, Is.EqualTo(1));
         }
 
-        [Test] public void V05_EightKindRequiresEightPermanentDiceAndCapacityAndLv8StopsSales()
+        // p1.1.1 section 3.1: the level cap is 12 and a level costs base + current level (+1 for a self study):
+        // eight of a kind at level 11 costs 5 + 11 + 1 = 17, and level 12 ends the sales.
+        [Test] public void V05_EightKindRequiresEightPermanentDiceAndCapacityAndLv12StopsSales()
         {
             var s = Edit(Shop(), x => { x.gold = 500; Equip(x, "C21", "C22"); for (int i = 6; i <= 8; i++) x.dice.Add(DiceFactory.CreateStandard(cfg, i)); x.nextDieSerial = 9; });
             Assert.That(s.LegalStudyHands(), Does.Contain("eight_kind"));
-            s = Edit(s, x => x.handLevels.Single(h => h.handId == "eight_kind").level = 7);
-            Assert.That(s.GetStudyPrice("eight_kind"), Is.EqualTo(20)); Do(s, CommandKind.Study, c => c.handId = "eight_kind");
-            Assert.That(s.State.handLevels.Single(h => h.handId == "eight_kind").level, Is.EqualTo(8)); Assert.That(s.LegalStudyHands(), Does.Not.Contain("eight_kind"));
+            s = Edit(s, x => x.handLevels.Single(h => h.handId == "eight_kind").level = 11);
+            Assert.That(s.GetStudyPrice("eight_kind"), Is.EqualTo(17)); Do(s, CommandKind.Study, c => c.handId = "eight_kind");
+            Assert.That(s.State.handLevels.Single(h => h.handId == "eight_kind").level, Is.EqualTo(12)); Assert.That(s.LegalStudyHands(), Does.Not.Contain("eight_kind"));
             s = Edit(s, x => { x.handLevels.Single(h => h.handId == "eight_kind").level = 0; x.dice[7].lifetime = "stage_temporary"; x.dice[7].createdStageId = x.stage.stageId; });
             Assert.That(s.LegalStudyHands(), Does.Not.Contain("eight_kind"));
         }
@@ -292,13 +299,17 @@ namespace DiceCraft.Tests
             state = s.State; state.baseSubmitCapacity = 6; Assert.That(() => new GameSession(cfg, new MemorySaveStore(), state), Throws.Exception);
         }
 
-        [TestCase(1u, "C84:none,C66:none,C59:none,C48:submit1")]
-        [TestCase(0u, "C10:submit1,C95:none,C66:none,C20:none")]
-        [TestCase(20261030u, "C11:slotless,C67:none,C58:slotless,C55:none")]
-        [TestCase(4294967295u, "C94:submit1,C57:slotless,C153:base10,C36:none")]
+        [TestCase(1u, "C59:none,C105:none,C64:none,C153:none")]
+        [TestCase(0u, "C48:none,C65:none,C31:none,C36:slotless")]
+        [TestCase(20261030u, "C135:none,C30:submit1,C150:roll1,C74:none")]
+        [TestCase(4294967295u, "C142:none,C42:none,C139:none,C13:none")]
         public void V05_ShopInterleavesIdAndEnchantmentWithFrozenReferenceVectors(uint seed, string expected)
         {
-            // p0.9.0 vectors (four offers, 100 controllers) from tools/v08_session_vectors.py, an independent reference that first reproduces the four p0.6.0 vectors; not copied from observed C# output.
+            // p1.1.1 vectors (four offers, 150 controllers, shop cycle 1): the low-price guarantee card has no enchantment
+            // and draws no ticket, every other card draws one ticket of NextIndex(100 x W) at 10% (RULES_DELTA 9.1).
+            // Computed by an independent script that re-implements that procedure from the rule text, in the manner of
+            // tools/v08_session_vectors.py (the script is listed in docs/specs/v111/W3B2_NOTES.md); not copied from
+            // observed C# output. The same seeds in cycle 3 are in V111_CycleThreeShelfMatchesTheIndependentReferenceVectors.
             var s = Qualified(); Do(s, CommandKind.EndStage);
             s = Edit(s, x => x.shopRngState = new GameRng(seed ^ 0xC8013EA4u).State);
             Do(s, CommandKind.Continue);

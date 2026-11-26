@@ -241,15 +241,16 @@ namespace DiceCraft.Tests
         [Test] public void V09_C98LowersControllerAndDieUpgradePricesPerSourceWithAFloorOfOne()
         {
             string cheap = null, dear = null, smooth = null, gold = null, swap = null;
-            var s = Edit(Shop(), x => { x.gold = 100; Equip(x, "C98", "C02"); cheap = PutOffer(x, "controller", "C13"); dear = PutOffer(x, "controller", "C42");
-                smooth = PutOffer(x, "die_upgrade", "U01"); gold = PutOffer(x, "die_upgrade", "U06"); swap = Enchanted(x, "C02", "mult2"); });
+            // p1.1.1: C02 is a unique multiplier card now (section 9.3), so the same-name copy is C06 (list 4).
+            var s = Edit(Shop(), x => { x.gold = 100; Equip(x, "C98", "C06"); cheap = PutOffer(x, "controller", "C13"); dear = PutOffer(x, "controller", "C42");
+                smooth = PutOffer(x, "die_upgrade", "U01"); gold = PutOffer(x, "die_upgrade", "U06"); swap = Enchanted(x, "C06", "mult2"); });
             Func<string, ShopOffer> offer = id => s.State.shop.offers.Single(o => o.offerId == id);
             Assert.That(s.GetOfferPrice(offer(cheap)), Is.EqualTo(1)); Assert.That(s.GetOfferPrice(offer(dear)), Is.EqualTo(5));
             Assert.That(s.GetOfferPrice(offer(smooth)), Is.EqualTo(1), "1 - 1 stays at the floor of 1."); Assert.That(s.GetOfferPrice(offer(gold)), Is.EqualTo(2));
-            // v1.1 rewrite (RULES_DELTA): a same-name copy: list 7 + mult2 premium 6 - 1 = 12, and the owned C02 is not traded in.
-            Assert.That(s.GetOfferPrice(offer(swap)), Is.EqualTo(12)); Assert.That(s.GetOfferTradeIn(offer(swap)), Is.Zero); Assert.That(s.GetOfferNetPrice(offer(swap)), Is.EqualTo(12));
+            // v1.1 rewrite (RULES_DELTA): a same-name copy is not traded in. p1.1.1: list 4 + mult2 premium 5 - 1 = 8.
+            Assert.That(s.GetOfferPrice(offer(swap)), Is.EqualTo(8)); Assert.That(s.GetOfferTradeIn(offer(swap)), Is.Zero); Assert.That(s.GetOfferNetPrice(offer(swap)), Is.EqualTo(8));
             long held = s.State.gold; Do(s, CommandKind.Buy, c => c.offerId = swap);
-            Assert.That(s.State.gold, Is.EqualTo(held - 12)); Assert.That(s.State.controllers.Count(c => c.definitionId == "C02"), Is.EqualTo(2));
+            Assert.That(s.State.gold, Is.EqualTo(held - 8)); Assert.That(s.State.controllers.Count(c => c.definitionId == "C06"), Is.EqualTo(2));
 
             var twice = Edit(Shop(), x => { x.gold = 100; Equip(x, "C41", "C98"); cheap = PutOffer(x, "controller", "C13"); dear = PutOffer(x, "controller", "C42"); });
             Assert.That(twice.GetOfferPrice(twice.State.shop.offers.Single(o => o.offerId == cheap)), Is.EqualTo(1));

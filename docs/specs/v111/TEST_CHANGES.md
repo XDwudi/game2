@@ -218,6 +218,9 @@ C19 是换机制的卡，三行夹具原样保留，名字改成它们现在表�
 | V10_EnchantedLootHandLootDiceLootUpgradeLootAndItemLootFollowTheirRules | 战利品测试；现在停在 C61 成长单位（4→100），后面还有 L5 镀金骰 |
 | V10_GiftControllersAddAFreeGroupToEveryShopAndAMimicAddsAPick | 赠礼测试；现在停在 C60 成长单位（2→50） |
 | V10_NewItemsDoubleTheScoreTurnDiceBlueGildAFaceAndWidenTheRow | 道具测试；得分数值与点金笔加权重 |
+
+后续：这 19 条已由 W3b-2 全部改写，见文末“W3b-2”一节。
+
 ---
 
 # W4b：与黄金样例对拍的测试改指 p1.1.1 样例
@@ -273,3 +276,40 @@ C19 是换机制的卡，三行夹具原样保留，名字改成它们现在表�
 ## Python 测试
 
 没有改 `tests/` 下任何文件。`tests/test_v11_config.py`（17 条）与 `tests/test_v11_golden.py`（7 条）原先因为读到 p1.1.1 的现行配置而失败，本包把它们测的旧生成器（`tools/v08…v11_config.py`、`tools/v08…v11_golden.py`）改为读写各自版本的冻结副本后，两个文件不经修改全部通过。其余见 [W4b 备注](W4B_NOTES.md) 第 6 节。
+
+---
+
+# W3b-2：会话层旧测试改写登记（商店、道具、存档）
+
+工作包 W3b-2（[交接包](briefs/W3B2_SESSION_SHOP.md)）。范围是 `DicePrototype/Assets/Game/Tests/EditMode/Session/` 里与 [规则增量](RULES_DELTA.md) 的商店、道具、升级价与存档版本规则冲突的旧测试：W3b-1 留下的 19 条，加上本包实现 §7.1、§7.2 后新冲突的 2 条（`CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent` 的 U05、U06）。共改写 14 个测试方法、21 条用例。没有删除任何测试，没有使用 `[Ignore]`，没有降低阈值。新期望按规格手算，算式写在测试注释里；货架向量由独立脚本算出（见下）。
+
+公共数值：倍率附魔加价 5（§9.1，原 6）；升级价 = 基础价 + 当前等级 × 1，自选研习再 +1（§3.1）；等级上限 12；参照手“五颗红 4”= 1620。
+
+| 测试名 | 旧期望 | 新期望 | 依据 |
+| --- | --- | --- | --- |
+| ShopTests.CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent（U05） | 带着 `targetFaceId=F01` 买 U05 被接受 | U05 不带面（`targetFaceId` 为空）才被接受；其余断言不变 | §7.1：U05 只选骰、不选面。带面的请求现在被拒，这条规则另由 `V111_TheFaceCountOfAnUpgradeFollowsItsDefinition` 钉住 |
+| ShopTests.CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent（U06） | 只断言镀金 | 另断言权重 +1；骰子版本号仍只 +1 | §7.2 |
+| ShopTests.SelfStudyAndRandomHandUseCurrentLevelAndEligibility | 研习价 5、7；金币 93、86 | 4（2+1+1）、5（2+2+1）；金币 94、89 | §3.1、§9.2 |
+| V05_EightKindRequiresEightPermanentDiceAndCapacityAndLv8StopsSales → **…AndLv12StopsSales** | 7 级研习价 20，升到 8 级后停售 | 夹具等级 7 改 11：研习价 17（5+11+1），升到 12 级后停售 | §3.1 |
+| V05_SellingOldCardBeforeReplacementPaysFullNewPrice | C02+倍率附魔 13，买后金币 90 | 12（7+5），买后 91；另断言卖掉旧 C02 之前这张报价因“已持有同名乘法卡”被拒 | §9.1 加价、§9.3 |
+| V05_SameNameCopyInsufficientMoneyAndWriteFailureAreAtomic | 持 C02 再买 C02+倍率附魔（13 金） | C02 现在是去重卡，不能持两张。夹具换成 C06（4+5=9）：8 金不够被拒，100 金买后 91，卡列 `C06:none, C06:mult2`。原子性与写失败重试的断言不变 | §9.3 |
+| V05_ShopInterleavesIdAndEnchantmentWithFrozenReferenceVectors（4 条） | p0.9.0 的四条货架向量 | p1.1.1、第 1 周期的四条：`C59:none,C105:none,C64:none,C153:none`；`C48:none,C65:none,C31:none,C36:slotless`；`C135:none,C30:submit1,C150:roll1,C74:none`；`C142:none,C42:none,C139:none,C13:none` | §9.1。向量由独立脚本按规格文字重算（脚本附在 [W3b-2 备注](W3B2_NOTES.md) 末尾，做法同 `tools/v08_session_vectors.py`），再与游戏输出比对，不是照抄游戏输出 |
+| V06_InitialZeroWalletAndSchema4SeparateColorLevels | 存档结构 7；第 1 关目标 300 | 结构 8；目标 160 | §12.1、§11 |
+| V08_UpgradePriceRisesByTwoPerExistingLevel → **V08_UpgradePriceRisesByOnePerExistingLevel**（4 条） | 0–7 级，每级 +2 | 0–11 级，每级 +1（货架 基础价+等级，研习再 +1） | §3.1 |
+| V09_C98LowersControllerAndDieUpgradePricesPerSourceWithAFloorOfOne | 同名卡用 C02：7+6−1=12 | C02 是去重卡，换成 C06：4+5−1=8；买后持两张 C06。其余价格断言不变 | §9.1、§9.3 |
+| V10_EnchantedLootHandLootDiceLootUpgradeLootAndItemLootFollowTheirRules | C61 成长 4；镀金骰只断言两个金面；骰面工坊给每种改造都带面 | 100（两级各 +0.5）；两个金面权重各 2、其余 1；U05 不带面 | §5 C61、§7.2 L5、§7.1 |
+| V10_GiftControllersAddAFreeGroupToEveryShopAndAMimicAddsAPick | C60 成长 2；赠礼改造一律带面 | 50；U05 不带面 | §5 C60、§7.1 |
+| V10_NewItemsDoubleTheScoreTurnDiceBlueGildAFaceAndWidenTheRow | 灵光一闪 4800；蓝色浪潮 720；点金笔 2880；C134 成长 2 | 3240（1620×2）；300（20×12×1.25）；2160（20×12×4.5×(1+0.5+0.5)），另断言点金笔使该面权重变 2；40 | §2、§3.1、§7.2、§5 C134 |
+| V10_TheRecyclerSellsAtTheFullListPrice | 13（7+6） | 12（7+5） | §9.1 |
+| V11_ThreeOrMoreBargainersCanNoLongerBuyAndResellAtAProfitInTheSameShop | C47 标价 8、五张砍价高手买入 3、卖 3 | C47 标价 7：买入 2、卖 2（半价 3 被实付价封顶） | §4.2 C47 改价 |
+
+测试支持类 `SessionTestSupport.AddItem` 现在按配置的 `initialUses` 给道具次数（钥匙串 3，其余 1），不属于某一条测试的期望变化。
+
+## 会话宿主条数
+
+| | 总数 | 通过 | 失败 |
+| --- | --- | --- | --- |
+| 本包之前 | 516 | 497 | 19 |
+| 本包之后 | 616 | 616 | 0 |
+
+新增 100 条都在 `V111ShopTests.cs`（54 个测试方法）。

@@ -132,14 +132,15 @@ namespace DiceCraft.Tests
         }
 
         [TestCase("pair", 2)] [TestCase("three_pair", 3)] [TestCase("eight_kind", 5)] [TestCase("all_blue", 2)]
-        public void V08_UpgradePriceRisesByTwoPerExistingLevel(string hand, int basePrice)
+        // p1.1.1 section 3.1: price = base + current level x 1 (+1 for a self study), for every level below the cap of 12.
+        public void V08_UpgradePriceRisesByOnePerExistingLevel(string hand, int basePrice)
         {
-            for (int level = 0; level < 8; level++)
+            for (int level = 0; level < 12; level++)
             {
                 var s = Edit(Shop(), x => { x.gold = 1000; Equip(x, "C21", "C22"); for (int i = 6; i <= 8; i++) x.dice.Add(DiceFactory.CreateStandard(cfg, i)); x.nextDieSerial = 9; x.handLevels.Concat(x.colorLevels).Single(h => h.handId == hand).level = level; });
-                Assert.That(s.GetStudyPrice(hand), Is.EqualTo(basePrice + 2 * level + 1), hand + " level " + level);
+                Assert.That(s.GetStudyPrice(hand), Is.EqualTo(basePrice + level + 1), hand + " level " + level);
                 string offer = null; s = Edit(s, x => offer = PutOffer(x, "hand_upgrade", hand));
-                Assert.That(s.GetOfferPrice(s.State.shop.offers.Single(o => o.offerId == offer)), Is.EqualTo(basePrice + 2 * level));
+                Assert.That(s.GetOfferPrice(s.State.shop.offers.Single(o => o.offerId == offer)), Is.EqualTo(basePrice + level));
             }
         }
 

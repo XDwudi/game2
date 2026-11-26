@@ -59,7 +59,8 @@ namespace DiceCraft.Tests
         }
         protected string AddItem(RunState s, string id)
         {
-            var item = new OwnedItem { contentId = id, instanceId = "ITEM_" + (s.nextItemSerial++).ToString("D5") };
+            // p1.1.1: an item is created with its configured uses (3 for a key ring, 1 otherwise).
+            var item = new OwnedItem { contentId = id, instanceId = "ITEM_" + (s.nextItemSerial++).ToString("D5"), usesRemaining = cfg.Consumable(id).initialUses };
             s.inventory.Add(item); s.consumableSlots = Math.Max(s.consumableSlots, s.inventory.Count); return item.instanceId;
         }
         protected GameSession Ready(params string[] controllers)

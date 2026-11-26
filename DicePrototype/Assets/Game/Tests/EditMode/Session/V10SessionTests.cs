@@ -458,19 +458,20 @@ namespace DiceCraft.Tests
         {
             string id = null;
             var twice = Edit(Force(Ready(), Fours, "red"), x => id = AddItem(x, "I09")); Do(twice, CommandKind.UseItem, c => c.itemInstanceId = id);
-            Assert.That(Submit(twice), Is.EqualTo("4800")); Assert.That(twice.State.hand.doubleScore, Is.False, "the next hand starts clean");
+            Assert.That(Submit(twice), Is.EqualTo("3240"), "p1.1.1: five red 4s are 1620, doubled"); Assert.That(twice.State.hand.doubleScore, Is.False, "the next hand starts clean");
             var blue = Edit(Force(Ready(), Fours, "red"), x => id = AddItem(x, "I10")); Do(blue, CommandKind.UseItem, c => c.itemInstanceId = id);
-            Assert.That(Submit(blue), Is.EqualTo("720"), "all blue: 20 x 12 x 3, no red group");
+            Assert.That(Submit(blue), Is.EqualTo("300"), "all blue: 20 x 12 x (1 + 0.25), no red group");
             string red = null; var both = Edit(Force(Ready(), Fours, "red"), x => { id = AddItem(x, "I10"); red = AddItem(x, "I01"); });
             Do(both, CommandKind.UseItem, c => c.itemInstanceId = id); var second = Command(both, CommandKind.UseItem); second.itemInstanceId = red;
             Assert.That(both.Execute(second).accepted, Is.False, "one wave per hand");
             var pen = Edit(Force(Ready(), Fours, "red"), x => id = AddItem(x, "I11")); Do(pen, CommandKind.UseItem, c => c.itemInstanceId = id);
             Assert.That(pen.State.dice.OrderBy(d => d.createdSerial).First().faces.Single(f => f.faceId == "F01").isGold, Is.True);
-            Assert.That(Submit(pen), Is.EqualTo("2880"), "the gilded die counts 8: 24 x 12 x 2 x 5");
+            Assert.That(pen.State.dice.OrderBy(d => d.createdSerial).First().faces.Single(f => f.faceId == "F01").baseWeight, Is.EqualTo(2), "p1.1.1 section 7.2: the gilding pen adds 1 weight");
+            Assert.That(Submit(pen), Is.EqualTo("2160"), "gold no longer doubles the die, it adds +0.5: 20 x 12 x 4.5 x (1 + 0.5 + 0.5)");
             var wide = Edit(Ready(), x => id = AddItem(x, "I12")); Do(wide, CommandKind.UseItem, c => c.itemInstanceId = id);
             Assert.That(wide.State.stage.capacity, Is.EqualTo(6)); Assert.That(wide.EffectiveCapacity, Is.EqualTo(6));
             var used = Edit(Ready("C134"), x => id = AddItem(x, "I12")); Do(used, CommandKind.UseItem, c => c.itemInstanceId = id);
-            Assert.That(Growth(used, "C134"), Is.EqualTo(2), "every used item grows C134");
+            Assert.That(Growth(used, "C134"), Is.EqualTo(40), "every used item grows C134 by +0.4");
         }
 
         // ---- shop: loot, gifts, services, upgrades ----
@@ -515,17 +516,19 @@ namespace DiceCraft.Tests
             Assert.That(Loot(enchanted).Where(o => o.category == "controller").All(o => o.controller.enchantmentId != "none"), Is.True); Assert.That(Loot(enchanted).Count(o => o.category == "controller"), Is.EqualTo(3));
             var hands = LootShop("L3", null, "C61"); var hand = Loot(hands).First(o => o.category == "hand_upgrade");
             Assert.That(hand.levels, Is.EqualTo(2)); Do(hands, CommandKind.Buy, c => c.offerId = hand.offerId);
-            Assert.That(hands.State.handLevels.Concat(hands.State.colorLevels).Single(h => h.handId == hand.contentId).level, Is.EqualTo(2)); Assert.That(Growth(hands, "C61"), Is.EqualTo(4), "two levels, +2 each");
+            Assert.That(hands.State.handLevels.Concat(hands.State.colorLevels).Single(h => h.handId == hand.contentId).level, Is.EqualTo(2)); Assert.That(Growth(hands, "C61"), Is.EqualTo(100), "two levels, +0.5 each");
             var dice = LootShop("L5"); var offers = Loot(dice).Where(o => o.category == "new_die").ToArray(); Assert.That(offers.Length, Is.EqualTo(3));
             Assert.That(offers[0].die.faces.Select(f => f.permanentPip).Distinct().Count(), Is.EqualTo(1), "mono-pip die");
             Assert.That(offers[1].die.faces.Select(f => f.baseColor).Distinct().Count(), Is.EqualTo(1), "mono-colour die");
             Assert.That(offers[2].die.faces.Count(f => f.isGold), Is.EqualTo(2), "two gold faces");
+            Assert.That(offers[2].die.faces.Select(f => f.baseWeight).OrderBy(w => w), Is.EqualTo(new[] { 1, 1, 1, 1, 2, 2 }), "p1.1.1 section 7.2: each gold face of the loot die weighs template 1 + 1");
+            Assert.That(offers[2].die.faces.Where(f => f.isGold).All(f => f.baseWeight == 2), Is.True);
             Do(dice, CommandKind.Buy, c => c.offerId = offers[2].offerId); Assert.That(dice.State.dice.Count, Is.EqualTo(6));
             var workshop = LootShop("L4"); Assert.That(workshop.ShopGroups().Single().picks, Is.EqualTo(3));
             foreach (var upgrade in Loot(workshop).Where(o => o.category == "die_upgrade").ToArray())
             {
                 var target = workshop.State.dice.SelectMany(d => d.faces.Select(f => new { d.dieId, f.faceId })).First(t => workshop.IsUpgradeTargetLegal(upgrade.contentId, t.dieId, t.faceId));
-                Do(workshop, CommandKind.Buy, c => { c.offerId = upgrade.offerId; c.targetDieId = target.dieId; c.targetFaceId = target.faceId; });
+                Do(workshop, CommandKind.Buy, c => { c.offerId = upgrade.offerId; c.targetDieId = target.dieId; c.targetFaceId = upgrade.contentId == "U05" ? null : target.faceId; }); // p1.1.1: U05 takes no face
             }
             Assert.That(workshop.ShopGroups().Single().picked, Is.EqualTo(3)); Assert.That(workshop.ShopGroups().Single().closed, Is.True);
             var supply = LootShop("L6"); var items = Loot(supply).Where(o => o.category == "consumable").ToArray(); Assert.That(items.Length, Is.EqualTo(3));
@@ -550,8 +553,8 @@ namespace DiceCraft.Tests
             var craft = Force(Ready("C113", "C60"), Fours, "red"); Submit(craft); Do(craft, CommandKind.EndStage); Do(craft, CommandKind.Continue);
             var upgrade = craft.State.shop.offers.First(o => o.groupId == "GIFT_C113");
             var target = craft.State.dice.SelectMany(d => d.faces.Select(f => new { d.dieId, f.faceId })).First(t => craft.IsUpgradeTargetLegal(upgrade.contentId, t.dieId, t.faceId));
-            Do(craft, CommandKind.Buy, c => { c.offerId = upgrade.offerId; c.targetDieId = target.dieId; c.targetFaceId = target.faceId; });
-            Assert.That(Growth(craft, "C60"), Is.EqualTo(2), "a free die upgrade still counts as one bought in the shop");
+            Do(craft, CommandKind.Buy, c => { c.offerId = upgrade.offerId; c.targetDieId = target.dieId; c.targetFaceId = upgrade.contentId == "U05" ? null : target.faceId; }); // p1.1.1: U05 takes no face
+            Assert.That(Growth(craft, "C60"), Is.EqualTo(50), "a free die upgrade still counts as one bought in the shop: +0.5");
         }
 
         [Test] public void V10_BribingTheBossRerollsTheUpcomingModifierAtARisingPrice()
@@ -637,8 +640,8 @@ namespace DiceCraft.Tests
         [Test] public void V10_TheRecyclerSellsAtTheFullListPrice()
         {
             var s = Edit(ShopAfterStage(0), x => { Equip(x, "C02", "C140"); x.controllers[0].enchantmentId = "mult2"; });
-            Assert.That(s.GetControllerSalePrice(s.State.controllers[0].instanceId), Is.EqualTo(13), "7 + 6 for the enchantment");
-            long gold = s.State.gold; Do(s, CommandKind.Sell, c => c.itemInstanceId = s.State.controllers[0].instanceId); Assert.That(s.State.gold, Is.EqualTo(gold + 13));
+            Assert.That(s.GetControllerSalePrice(s.State.controllers[0].instanceId), Is.EqualTo(12), "7 + 5 for the enchantment");
+            long gold = s.State.gold; Do(s, CommandKind.Sell, c => c.itemInstanceId = s.State.controllers[0].instanceId); Assert.That(s.State.gold, Is.EqualTo(gold + 12));
             var plain = Edit(ShopAfterStage(0), x => Equip(x, "C02"));
             Assert.That(plain.GetControllerSalePrice(plain.State.controllers[0].instanceId), Is.EqualTo(3), "half of 7 without the recycler");
         }
@@ -1092,10 +1095,10 @@ namespace DiceCraft.Tests
             Assert.That(s.GetControllerSalePrice(bought.instanceId), Is.EqualTo(1)); Assert.That(s.ControllerSalePriceIn(s.State, bought), Is.EqualTo(1));
             Do(s, CommandKind.Sell, c => c.itemInstanceId = bought.instanceId);
             Assert.That(s.State.gold, Is.EqualTo(before), "no profit"); Assert.That(s.State.shop.paidControllerPrices, Is.Empty);
-            // List 8 with five C98: bought for 3; half of 8 would be 4, the cap keeps it at 3.
+            // p1.1.1: C47 lists 7. With five C98 it is bought for 2; half of 7 would be 3, the cap keeps it at 2.
             var dear = BargainShop(5, "C47", out string dearOffer);
             before = dear.State.gold; Do(dear, CommandKind.Buy, c => c.offerId = dearOffer); var card = dear.State.controllers.Last();
-            Assert.That(dear.State.gold, Is.EqualTo(before - 3)); Assert.That(dear.GetControllerSalePrice(card.instanceId), Is.EqualTo(3));
+            Assert.That(dear.State.gold, Is.EqualTo(before - 2)); Assert.That(dear.GetControllerSalePrice(card.instanceId), Is.EqualTo(2));
             Do(dear, CommandKind.Sell, c => c.itemInstanceId = card.instanceId); Assert.That(dear.State.gold, Is.EqualTo(before));
             // Without a discount the cap changes nothing: list 4 bought for 4 still resells for half, 2.
             var plain = BargainShop(0, "C50", out string plainOffer); Do(plain, CommandKind.Buy, c => c.offerId = plainOffer);
