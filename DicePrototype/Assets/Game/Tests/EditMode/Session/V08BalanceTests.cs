@@ -164,20 +164,20 @@ namespace DiceCraft.Tests
             Assert.That(result.pipContributions[0], Is.EqualTo(12)); Assert.That(result.score, Is.EqualTo("15"));
         }
 
-        [Test] public void V08_StageCurveStartsAt160EndsAt1881334AndGrowsBetween1Point3And2EveryStage()
+        [Test] public void V08_StageCurveStartsAt160EndsAt7MillionAndEveryStageIsHigherThanTheLast()
         {
             Assert.That(cfg.stages.Length, Is.EqualTo(24));
-            // p1.1.1 section 11 (provisional until W6): 160, 320, 500, then 500 x 1.48^(stage - 3) to the nearest even number.
+            // p1.1.1 section 11 (calibrated in W6): 160, 320, 500 are anchored; inside a cycle the normal stage takes the big step and the boss stage a small one.
             Assert.That(cfg.stages[0].normalTarget, Is.EqualTo("160")); Assert.That(cfg.stages[1].normalTarget, Is.EqualTo("320")); Assert.That(cfg.stages[2].normalTarget, Is.EqualTo("500"));
-            Assert.That(cfg.stages[10].normalTarget, Is.EqualTo("11510")); Assert.That(cfg.stages[23].normalTarget, Is.EqualTo("1881334"), "p1.1.1 ends near 1.88 million");
+            Assert.That(cfg.stages[5].normalTarget, Is.EqualTo("4000")); Assert.That(cfg.stages[10].normalTarget, Is.EqualTo("58000")); Assert.That(cfg.stages[14].normalTarget, Is.EqualTo("260000")); Assert.That(cfg.stages[23].normalTarget, Is.EqualTo("7000000"), "p1.1.1 ends at 7 million");
             BigInteger previous = 0; int risky = 0;
             foreach (var stage in cfg.stages)
             {
                 BigInteger target = ExactScoreMath.Parse(stage.normalTarget);
                 if (previous > 0)
                 {
-                    Assert.That(target * 100, Is.GreaterThanOrEqualTo(previous * 130), stage.stageId + " grows too slowly");
-                    Assert.That(target * 100, Is.LessThanOrEqualTo(previous * 200), stage.stageId + " grows too fast");
+                    Assert.That(target * 100, Is.GreaterThanOrEqualTo(previous * 110), stage.stageId + " grows too slowly");
+                    Assert.That(target * 100, Is.LessThanOrEqualTo(previous * 280), stage.stageId + " grows too fast");
                 }
                 Assert.That(stage.normalReward, Is.EqualTo(5), stage.stageId);
                 if (stage.riskEnabled)

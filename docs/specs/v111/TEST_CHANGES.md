@@ -473,3 +473,12 @@ p1.1.0 时“碎裂特效的位置与朝向”原来在 `Art07FxIntegrationPlayM
 | 文件 | 内容 |
 | --- | --- |
 | `Tests/PlayMode/V111InteractionsPlayModeTests.cs`（9 个测试） | 双面改造成功与一合法一非法被拒；自选两笔后入口变灰、金币不足时的原因；钥匙串 3→2→1→0 与图标消失、撤回后骰子位置；免费撤回优先；徒手下的原因提示与没有来源时的原行为；结算页纪录与主菜单历史最高；正式局写入历史最高；三档演出各触发一次。逐条内容见 [W7B_NOTES.md](W7B_NOTES.md) 1.9。每个测试在关键画面截审阅图 |
+
+### 关卡目标定稿（W6）
+
+依据：RULES_DELTA §11 的定稿表（方案 §25.4）。
+
+| 测试 | 原断言 | 新断言 |
+| --- | --- | --- |
+| `V08BalanceTests.V08_StageCurveStartsAt160EndsAt1881334AndGrowsBetween1Point3And2EveryStage` → 改名 `…EndsAt7MillionAndEveryStageIsHigherThanTheLast` | 第 11 关 11510、第 24 关 1881334；相邻两关的比在 1.3 到 2 之间 | 第 6 关 4000、第 11 关 58000、第 15 关 260000、第 24 关 7000000；相邻两关的比在 1.1 到 2.8 之间（定稿曲线里最小的是第 24 关 ×1.13，最大的是第 7 关 ×2.75）。前三关、奖励、高压 ×1.5 等其余断言不变 |
+| `V111StageTests.V111_C156ReadsTheTargetActuallyInForce_BossPercentThenThePlainTargetOnceLifted` | 第 6 关基准 1620、厚墙后 2430：累计 1214 触发、1215 不触发；解除后 809 触发、810 不触发 | 第 6 关基准 4000、厚墙后 6000：累计 2999 触发、3000 不触发；解除后 1999 触发、2000 不触发。得分 42 与 7 不变 |

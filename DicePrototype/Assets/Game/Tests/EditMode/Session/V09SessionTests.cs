@@ -187,7 +187,7 @@ namespace DiceCraft.Tests
             Assert.That(r.interestPrincipalCap, Is.EqualTo(50)); Assert.That(r.interestPrincipal, Is.EqualTo(40)); Assert.That(r.interest, Is.EqualTo(8));
             Assert.That(r.controllerIncome, Is.EqualTo(3)); Assert.That(r.unusedSubmissionReward, Is.EqualTo(2));
             Assert.That(r.goldAfter, Is.EqualTo(40 + 5 + 2 + 8 + 3)); Assert.That(s.State.gold, Is.EqualTo(58));
-            Assert.That(Growth(s, "C58"), Is.EqualTo(15), "p1.1.1: +0.15 per cleared stage"); Assert.That(Growth(s, "C59"), Is.EqualTo(8), "p1.1.1 (calibrated): +4 for each of the two unused submissions");
+            Assert.That(Growth(s, "C58"), Is.EqualTo(15), "p1.1.1: +0.15 per cleared stage"); Assert.That(Growth(s, "C59"), Is.EqualTo(6), "p1.1.1 (calibrated): +3 for each of the two unused submissions");
             Assert.That(s.State.controllers.All(c => c.state.saleBonus == 1), Is.True, "C99 raises every owned controller, itself included.");
             Do(s, CommandKind.Continue);
             string id = s.State.controllers.Single(c => c.definitionId == "C58").instanceId;

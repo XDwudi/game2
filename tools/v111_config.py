@@ -22,12 +22,13 @@ TARGET = ROOT / "DicePrototype" / "Assets" / "Game" / "Data" / "P0Config.json"
 RARITY = {"普通": ("common", 6), "罕见": ("uncommon", 4), "稀有": ("rare", 2)}
 
 # Normal targets per stage. Stages 1-3 are anchored by the exact opening-hand computation
-# (tools/balance_sim/opening_dp.py). Stages 4-24 are PROVISIONAL (RULES_DELTA section 11) until W6 calibrates them.
-TARGETS_PROVISIONAL = True
+# (tools/balance_sim/opening_dp.py). Stages 4-24 were calibrated in W6 with the simulator (BALANCE_PLAN section 25,
+# candidate t3/t4: 300 runs each, evidence/v111/balance/run_p111_t4_300.json).
+TARGETS_PROVISIONAL = False
 TARGETS = {
-    1: 160, 2: 320, 3: 500, 4: 740, 5: 1096, 6: 1620, 7: 2398, 8: 3550, 9: 5254, 10: 7776, 11: 11510, 12: 17034,
-    13: 25210, 14: 37312, 15: 55222, 16: 81728, 17: 120958, 18: 179018, 19: 264946, 20: 392120, 21: 580338,
-    22: 858900, 23: 1271172, 24: 1881334,
+    1: 160, 2: 320, 3: 500, 4: 1300, 5: 2500, 6: 4000, 7: 11000, 8: 16000, 9: 20000, 10: 40000, 11: 58000, 12: 78000,
+    13: 150000, 14: 200000, 15: 260000, 16: 420000, 17: 560000, 18: 760000, 19: 1400000, 20: 1900000, 21: 3000000,
+    22: 4600000, 23: 6200000, 24: 7000000,
 }
 
 REMOVED = ["C90", "C128", "C145"]
@@ -153,9 +154,9 @@ PATCH = {
                 d="加成从+1起。每次红组达到3颗及以上的有效提交后+0.8。", s="加成从+1起，每次提交红组达3颗以上就+0.8。"),
     "C58": dict(price=7, set={"growthKind": "multiplier", "growthStart": 125, "growthEvent": 15}, drop=["growthPerEvent"],
                 d="整手得分×n，n从1.25起。每通过一关n+0.15。", s="得分倍率从×1.25起，每通过一关+0.15。"),
-    "C59": dict(set={"growthKind": "base", "growthStart": 12, "growthEvent": 4}, drop=["growthPerEvent"],  # W6: 6 -> 4, see BALANCE_PLAN 25
-                d="整手基础分加上本卡的成长值，从+12起。每关结算时，每剩1次提交机会成长值+4。",
-                s="基础分+12；每关结算时每剩1次提交再+4。"),
+    "C59": dict(set={"growthKind": "base", "growthStart": 12, "growthEvent": 3}, drop=["growthPerEvent"],  # W6: 6 -> 3, see BALANCE_PLAN 25
+                d="整手基础分加上本卡的成长值，从+12起。每关结算时，每剩1次提交机会成长值+3。",
+                s="基础分+12；每关结算时每剩1次提交再+3。"),
     "C60": dict(trigger="GrowthAdditive", set={"growthKind": "additive", "growthStart": 100, "growthEvent": 50}, drop=["growthPerEvent"],
                 d="加成从+1起。每做1次骰面改造+0.5（购买、自选、赠礼、战利品都算）。", s="加成从+1起，每做1次骰面改造+0.5。",
                 x="货架、自选、战利品、赠礼里的骰面改造都算；一次改两个面只算1次；骰子脆化也算。"),
@@ -234,7 +235,7 @@ NEW_CARDS = [
 
 ITEM_I13 = dict(id="I13", displayName="钥匙串", baseBuyPrice=3, sellPrice=1, window="Selecting", lifetime="Permanent", initialUses=3,
                 description="选一颗已锁定的骰子放回骰池；共可使用3次。", shortText="把一颗已锁定的骰子放回骰池，可用3次。",
-                details="放回的骰子保持朝上的面，还有投掷次数时可以重掷；不消耗投掷次数；没用完的次数留到下一手、下一关；用完才腾出道具栏。")
+                details="放回的骰子保持朝上的面，还有投掷次数时可以重掷；不消耗投掷次数；没用完的次数留到下一手、下一关；用完才腾出道具栏。持有“回心转意”时，先用它每手一次的免费次数。")
 
 UPGRADE_TEXT = {
     "U05": ("整骰玻璃，提交时该骰贡献×3；每次被提交计分之后独立判定15%永久损坏，留在骰池里不会碎。",
@@ -402,6 +403,9 @@ def build():
     for upgrade in cfg["diceUpgrades"]:
         if upgrade["id"] in UPGRADE_TEXT:
             upgrade["description"], upgrade["shortText"], upgrade["details"] = UPGRADE_TEXT[upgrade["id"]]
+        if upgrade["id"] in TWO_FACE_UPGRADES:
+            note = "一次可以改同一颗骰子的两个面，价格不变；两个面各抽一次。" if upgrade["id"] == "U07" else "一次可以改同一颗骰子的两个面，价格不变。"
+            upgrade["details"] = (upgrade["details"] + note) if upgrade["details"].endswith("。") or not upgrade["details"] else (upgrade["details"] + "。" + note)
         entry = {}
         for key, value in upgrade.items():
             entry[key] = value

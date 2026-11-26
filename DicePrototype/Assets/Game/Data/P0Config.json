@@ -1584,10 +1584,10 @@
       "parameters": {
         "growthKind": "base",
         "growthStart": 12,
-        "growthEvent": 4
+        "growthEvent": 3
       },
-      "description": "整手基础分加上本卡的成长值，从+12起。每关结算时，每剩1次提交机会成长值+4。",
-      "shortText": "基础分+12；每关结算时每剩1次提交再+4。",
+      "description": "整手基础分加上本卡的成长值，从+12起。每关结算时，每剩1次提交机会成长值+3。",
+      "shortText": "基础分+12；每关结算时每剩1次提交再+3。",
       "details": ""
     },
     {
@@ -3517,7 +3517,7 @@
       "initialUses": 3,
       "description": "选一颗已锁定的骰子放回骰池；共可使用3次。",
       "shortText": "把一颗已锁定的骰子放回骰池，可用3次。",
-      "details": "放回的骰子保持朝上的面，还有投掷次数时可以重掷；不消耗投掷次数；没用完的次数留到下一手、下一关；用完才腾出道具栏。"
+      "details": "放回的骰子保持朝上的面，还有投掷次数时可以重掷；不消耗投掷次数；没用完的次数留到下一手、下一关；用完才腾出道具栏。持有“回心转意”时，先用它每手一次的免费次数。"
     }
   ],
   "services": [
@@ -3630,7 +3630,7 @@
       "maxSelectableFaces": 2,
       "description": "目标面纹理设为光滑：对面相对权重×0.80，其余5面各×1.04，最后归一化。",
       "shortText": "这一面变光滑：它的对面更难掷出。",
-      "details": "对面的机会×0.8，其余5面×1.04；标准骰对面约13.3%，其余约17.3%。"
+      "details": "对面的机会×0.8，其余5面×1.04；标准骰对面约13.3%，其余约17.3%。一次可以改同一颗骰子的两个面，价格不变。"
     },
     {
       "id": "U02",
@@ -3640,7 +3640,7 @@
       "maxSelectableFaces": 2,
       "description": "目标面纹理设为粗糙：对面相对权重×1.20，其余5面各×0.96，最后归一化。",
       "shortText": "这一面变粗糙：它的对面更容易掷出。",
-      "details": "对面的机会×1.2，其余5面×0.96；标准骰对面20%，其余16%。"
+      "details": "对面的机会×1.2，其余5面×0.96；标准骰对面20%，其余16%。一次可以改同一颗骰子的两个面，价格不变。"
     },
     {
       "id": "U03",
@@ -3650,7 +3650,7 @@
       "maxSelectableFaces": 2,
       "description": "目标物理面永久红色，保持其他属性。",
       "shortText": "这一面永久变成红色。",
-      "details": "点数等其他属性不变。"
+      "details": "点数等其他属性不变。一次可以改同一颗骰子的两个面，价格不变。"
     },
     {
       "id": "U04",
@@ -3660,7 +3660,7 @@
       "maxSelectableFaces": 2,
       "description": "目标物理面永久蓝色，保持其他属性。",
       "shortText": "这一面永久变成蓝色。",
-      "details": "点数等其他属性不变。"
+      "details": "点数等其他属性不变。一次可以改同一颗骰子的两个面，价格不变。"
     },
     {
       "id": "U05",
@@ -3680,7 +3680,7 @@
       "maxSelectableFaces": 2,
       "description": "目标面增加金层并且权重+1；该面朝上且提交时，加成+0.5，红蓝底色不变。",
       "shortText": "这一面镀金：朝上提交时加成+0.5，更容易掷出。",
-      "details": "颜色不变；新镀金的面权重+1（上限5）。"
+      "details": "颜色不变；新镀金的面权重+1（上限5）。一次可以改同一颗骰子的两个面，价格不变。"
     },
     {
       "id": "U07",
@@ -3690,7 +3690,7 @@
       "maxSelectableFaces": 2,
       "description": "物理面原值等概率随机变为1至6中另外5种之一，颜色及其他属性不变。",
       "shortText": "这一面的点数随机变成另外5个数之一。",
-      "details": "等概率；颜色等其他属性不变。"
+      "details": "等概率；颜色等其他属性不变。一次可以改同一颗骰子的两个面，价格不变；两个面各抽一次。"
     },
     {
       "id": "U08",
@@ -3700,7 +3700,7 @@
       "maxSelectableFaces": 2,
       "description": "目标面点数+1，上限6。",
       "shortText": "这一面点数+1，上限6。",
-      "details": ""
+      "details": "一次可以改同一颗骰子的两个面，价格不变。"
     },
     {
       "id": "U09",
@@ -3710,7 +3710,7 @@
       "maxSelectableFaces": 2,
       "description": "目标面点数−1，下限1。",
       "shortText": "这一面点数−1，下限1。",
-      "details": ""
+      "details": "一次可以改同一颗骰子的两个面，价格不变。"
     },
     {
       "id": "U10",
@@ -3720,7 +3720,7 @@
       "maxSelectableFaces": 2,
       "description": "目标面权重+1（上限5），更容易掷出这一面。",
       "shortText": "这一面权重+1（上限5），更容易掷出这一面。",
-      "details": "与“灌铅”共用上限5。"
+      "details": "与“灌铅”共用上限5。一次可以改同一颗骰子的两个面，价格不变。"
     },
     {
       "id": "U11",
@@ -3775,7 +3775,7 @@
       "chapter": 2,
       "indexInChapter": 1,
       "stageKind": "normal",
-      "normalTarget": "740",
+      "normalTarget": "1300",
       "normalReward": 5,
       "riskEnabled": false,
       "riskTarget": null,
@@ -3787,10 +3787,10 @@
       "chapter": 2,
       "indexInChapter": 2,
       "stageKind": "pressure",
-      "normalTarget": "1096",
+      "normalTarget": "2500",
       "normalReward": 5,
       "riskEnabled": true,
-      "riskTarget": "1644",
+      "riskTarget": "3750",
       "riskReward": 10,
       "shopAfterClear": true
     },
@@ -3799,7 +3799,7 @@
       "chapter": 2,
       "indexInChapter": 3,
       "stageKind": "boss",
-      "normalTarget": "1620",
+      "normalTarget": "4000",
       "normalReward": 5,
       "riskEnabled": false,
       "riskTarget": null,
@@ -3811,7 +3811,7 @@
       "chapter": 3,
       "indexInChapter": 1,
       "stageKind": "normal",
-      "normalTarget": "2398",
+      "normalTarget": "11000",
       "normalReward": 5,
       "riskEnabled": false,
       "riskTarget": null,
@@ -3823,10 +3823,10 @@
       "chapter": 3,
       "indexInChapter": 2,
       "stageKind": "pressure",
-      "normalTarget": "3550",
+      "normalTarget": "16000",
       "normalReward": 5,
       "riskEnabled": true,
-      "riskTarget": "5325",
+      "riskTarget": "24000",
       "riskReward": 10,
       "shopAfterClear": true
     },
@@ -3835,7 +3835,7 @@
       "chapter": 3,
       "indexInChapter": 3,
       "stageKind": "boss",
-      "normalTarget": "5254",
+      "normalTarget": "20000",
       "normalReward": 5,
       "riskEnabled": false,
       "riskTarget": null,
@@ -3847,7 +3847,7 @@
       "chapter": 4,
       "indexInChapter": 1,
       "stageKind": "normal",
-      "normalTarget": "7776",
+      "normalTarget": "40000",
       "normalReward": 5,
       "riskEnabled": false,
       "riskTarget": null,
@@ -3859,10 +3859,10 @@
       "chapter": 4,
       "indexInChapter": 2,
       "stageKind": "pressure",
-      "normalTarget": "11510",
+      "normalTarget": "58000",
       "normalReward": 5,
       "riskEnabled": true,
-      "riskTarget": "17265",
+      "riskTarget": "87000",
       "riskReward": 10,
       "shopAfterClear": true
     },
@@ -3871,7 +3871,7 @@
       "chapter": 4,
       "indexInChapter": 3,
       "stageKind": "boss",
-      "normalTarget": "17034",
+      "normalTarget": "78000",
       "normalReward": 5,
       "riskEnabled": false,
       "riskTarget": null,
@@ -3883,7 +3883,7 @@
       "chapter": 5,
       "indexInChapter": 1,
       "stageKind": "normal",
-      "normalTarget": "25210",
+      "normalTarget": "150000",
       "normalReward": 5,
       "riskEnabled": false,
       "riskTarget": null,
@@ -3895,10 +3895,10 @@
       "chapter": 5,
       "indexInChapter": 2,
       "stageKind": "pressure",
-      "normalTarget": "37312",
+      "normalTarget": "200000",
       "normalReward": 5,
       "riskEnabled": true,
-      "riskTarget": "55968",
+      "riskTarget": "300000",
       "riskReward": 10,
       "shopAfterClear": true
     },
@@ -3907,7 +3907,7 @@
       "chapter": 5,
       "indexInChapter": 3,
       "stageKind": "boss",
-      "normalTarget": "55222",
+      "normalTarget": "260000",
       "normalReward": 5,
       "riskEnabled": false,
       "riskTarget": null,
@@ -3919,7 +3919,7 @@
       "chapter": 6,
       "indexInChapter": 1,
       "stageKind": "normal",
-      "normalTarget": "81728",
+      "normalTarget": "420000",
       "normalReward": 5,
       "riskEnabled": false,
       "riskTarget": null,
@@ -3931,10 +3931,10 @@
       "chapter": 6,
       "indexInChapter": 2,
       "stageKind": "pressure",
-      "normalTarget": "120958",
+      "normalTarget": "560000",
       "normalReward": 5,
       "riskEnabled": true,
-      "riskTarget": "181437",
+      "riskTarget": "840000",
       "riskReward": 10,
       "shopAfterClear": true
     },
@@ -3943,7 +3943,7 @@
       "chapter": 6,
       "indexInChapter": 3,
       "stageKind": "boss",
-      "normalTarget": "179018",
+      "normalTarget": "760000",
       "normalReward": 5,
       "riskEnabled": false,
       "riskTarget": null,
@@ -3955,7 +3955,7 @@
       "chapter": 7,
       "indexInChapter": 1,
       "stageKind": "normal",
-      "normalTarget": "264946",
+      "normalTarget": "1400000",
       "normalReward": 5,
       "riskEnabled": false,
       "riskTarget": null,
@@ -3967,10 +3967,10 @@
       "chapter": 7,
       "indexInChapter": 2,
       "stageKind": "pressure",
-      "normalTarget": "392120",
+      "normalTarget": "1900000",
       "normalReward": 5,
       "riskEnabled": true,
-      "riskTarget": "588180",
+      "riskTarget": "2850000",
       "riskReward": 10,
       "shopAfterClear": true
     },
@@ -3979,7 +3979,7 @@
       "chapter": 7,
       "indexInChapter": 3,
       "stageKind": "boss",
-      "normalTarget": "580338",
+      "normalTarget": "3000000",
       "normalReward": 5,
       "riskEnabled": false,
       "riskTarget": null,
@@ -3991,7 +3991,7 @@
       "chapter": 8,
       "indexInChapter": 1,
       "stageKind": "normal",
-      "normalTarget": "858900",
+      "normalTarget": "4600000",
       "normalReward": 5,
       "riskEnabled": false,
       "riskTarget": null,
@@ -4003,10 +4003,10 @@
       "chapter": 8,
       "indexInChapter": 2,
       "stageKind": "pressure",
-      "normalTarget": "1271172",
+      "normalTarget": "6200000",
       "normalReward": 5,
       "riskEnabled": true,
-      "riskTarget": "1906758",
+      "riskTarget": "9300000",
       "riskReward": 10,
       "shopAfterClear": true
     },
@@ -4015,7 +4015,7 @@
       "chapter": 8,
       "indexInChapter": 3,
       "stageKind": "boss",
-      "normalTarget": "1881334",
+      "normalTarget": "7000000",
       "normalReward": 5,
       "riskEnabled": false,
       "riskTarget": null,

@@ -110,22 +110,22 @@ namespace DiceCraft.Tests
 
         [Test] public void V111_C156ReadsTheTargetActuallyInForce_BossPercentThenThePlainTargetOnceLifted()
         {
-            // Spec section 11: stage 6 has base 1620; under the 150% wall (B11) the target is 2430, so 1214 triggers
-            // (2428 < 2430) and 1215 does not (2430). Once the talisman lifts the modifier the target is 1620 again:
-            // 809 triggers (1618 < 1620), 810 does not.
+            // Spec section 11 (calibrated targets): stage 6 has base 4000; under the 150% wall (B11) the target is 6000,
+            // so 2999 triggers (5998 < 6000) and 3000 does not (6000). Once the talisman lifts the modifier the target is
+            // 4000 again: 1999 triggers (3998 < 4000), 2000 does not.
             Func<string, bool, string> score = (before, lift) =>
             {
                 string talisman = null;
                 var s = BossPreview("B11", 5, x => talisman = AddItem(x, "I08"), "C156"); Do(s, CommandKind.StartStage);
-                Assert.That(s.State.stage.target, Is.EqualTo("2430"));
-                if (lift) { Do(s, CommandKind.UseItem, c => c.itemInstanceId = talisman); Assert.That(s.State.stage.target, Is.EqualTo("1620")); }
+                Assert.That(s.State.stage.target, Is.EqualTo("6000"));
+                if (lift) { Do(s, CommandKind.UseItem, c => c.itemInstanceId = talisman); Assert.That(s.State.stage.target, Is.EqualTo("4000")); }
                 s = Deal(s, new[] { 3, 4 }, R("red", "blue"), edit: x => x.stage.score = before);
                 var result = Submit(s);
-                Assert.That(result.receipt.submission.snapshot.stageTarget, Is.EqualTo(lift ? "1620" : "2430"));
+                Assert.That(result.receipt.submission.snapshot.stageTarget, Is.EqualTo(lift ? "4000" : "6000"));
                 return result.receipt.score;
             };
-            Assert.That(score("1214", false), Is.EqualTo("42")); Assert.That(score("1215", false), Is.EqualTo("7"));
-            Assert.That(score("809", true), Is.EqualTo("42")); Assert.That(score("810", true), Is.EqualTo("7"));
+            Assert.That(score("2999", false), Is.EqualTo("42")); Assert.That(score("3000", false), Is.EqualTo("7"));
+            Assert.That(score("1999", true), Is.EqualTo("42")); Assert.That(score("2000", true), Is.EqualTo("7"));
         }
 
         [Test] public void V111_C156ReadsThePressureTargetWhenThePressureChallengeWasChosen()
@@ -240,16 +240,16 @@ namespace DiceCraft.Tests
             Assert.That(third.additiveEntries.Single(e => e.abilityId == "C57").amount100, Is.EqualTo(180));
         }
 
-        [Test] public void V111_StageClearGrowsC58ByFifteenAndC59ByFourPerUnusedSubmission()
+        [Test] public void V111_StageClearGrowsC58ByFifteenAndC59ByThreePerUnusedSubmission()
         {
-            // Section 5: C58 +0.15 per cleared stage (x1.55 after two); C59 +4 per unused submission at settlement
-            // (W6 calibration; 2 left -> +8, so +20 next stage).
+            // Section 5: C58 +0.15 per cleared stage (x1.55 after two); C59 +3 per unused submission at settlement
+            // (W6 calibration; 2 left -> +6, so +18 next stage).
             var s = Start(new[] { "C58", "C59" });
             s = Clear(s);
             Assert.That(s.State.lastStageSettlement.remainingSubmissions, Is.EqualTo(2));
             Assert.That(Card(s.State, "C58").state.growth, Is.EqualTo(15));
-            Assert.That(Card(s.State, "C59").state.growth, Is.EqualTo(8));
-            Assert.That(ControllerRules.GrowthValue(cfg, "C59", Card(s.State, "C59").state), Is.EqualTo(20));
+            Assert.That(Card(s.State, "C59").state.growth, Is.EqualTo(6));
+            Assert.That(ControllerRules.GrowthValue(cfg, "C59", Card(s.State, "C59").state), Is.EqualTo(18));
             Do(s, CommandKind.Continue); s = Edit(s, x => x.debugCapacityOverride = 0); Do(s, CommandKind.LeaveShop); Do(s, CommandKind.StartStage);
             s = Clear(s);
             Assert.That(ControllerRules.GrowthValue(cfg, "C58", Card(s.State, "C58").state), Is.EqualTo(155));

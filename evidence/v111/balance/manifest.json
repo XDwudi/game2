@@ -1,0 +1,47 @@
+{
+    "purpose":  "W6 stage-target calibration, rules p1.1.1. The run JSON files are 25-42 MB each and are not committed; this manifest pins them by hash, the logs are committed.",
+    "simulator":  "tools/balance_sim (BalanceSim.dll built from the working tree at the time of each run)",
+    "seeds":  "5000-5299",
+    "runs":  [
+                 {
+                     "file":  "run_p111_t0_300.json",
+                     "bytes":  41652991,
+                     "sha256":  "53c21242b39ce4b5e9fc0c6739862468319aefd335fa4d65c2c752b418ec415f",
+                     "log":  "run_p111_t0_300.log",
+                     "command":  "run --first 5000 --seeds 300 --threads 8",
+                     "note":  "provisional targets (500 x 1.48^n), card values of the plan; config at commit 65b4c611"
+                 },
+                 {
+                     "file":  "run_p111_t1_300.json",
+                     "bytes":  31654769,
+                     "sha256":  "849f83324afe0e90ac6bfee315e8646856a405a4c413ec3204cca3ea6f952c8f",
+                     "log":  "run_p111_t1_300.log",
+                     "command":  "run --first 5000 --seeds 300 --threads 8 --config tools/balance_sim/candidates/v111_t1.json",
+                     "note":  "candidate v111_t1, card values of the plan"
+                 },
+                 {
+                     "file":  "run_p111_t2_300.json",
+                     "bytes":  24951857,
+                     "sha256":  "ad8987cfee3f12d496eef389fc7600e504c29933d4c442b87aebc267f73f01af",
+                     "log":  "run_p111_t2_300.log",
+                     "command":  "run --first 5000 --seeds 300 --threads 8 --config tools/balance_sim/candidates/v111_t2.json",
+                     "note":  "candidate v111_t2, C59 +4 per unused submission, C53 rare at 7"
+                 },
+                 {
+                     "file":  "run_p111_t3_300.json",
+                     "bytes":  27756555,
+                     "sha256":  "ca6068d218ae4651c5bd861dbae38937d9706a0af9f931a1c50cdf4207db539b",
+                     "log":  "run_p111_t3_300.log",
+                     "command":  "run --first 5000 --seeds 300 --threads 8 --config tools/balance_sim/candidates/v111_t3.json",
+                     "note":  "candidate v111_t3, same cards as t2"
+                 },
+                 {
+                     "file":  "run_p111_t4_300.json",
+                     "bytes":  27256003,
+                     "sha256":  "9a71daf8a01fdc66012444052e87366a2e2c6b16aaf5f0450cf6b3b29be5733e",
+                     "log":  "run_p111_t4_300.log",
+                     "command":  "run --first 5000 --seeds 300 --threads 8 --config tools/balance_sim/candidates/v111_t4.json",
+                     "note":  "candidate v111_t4 (targets of t3), C59 +3: the final values"
+                 }
+             ]
+}
