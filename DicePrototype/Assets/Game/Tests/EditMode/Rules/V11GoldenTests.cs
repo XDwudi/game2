@@ -136,9 +136,9 @@ namespace DiceCraft.Core.Tests
             {
                 if (card == Replaced)
                 {
-                    // No case of the new file holds three copies of C91 that trigger under its new condition; two do.
+                    // The p1.1.0 input no longer satisfies the new condition of C91; the matrix carries the three-copy case instead.
                     Assert.That(slice.Any(c => HasCopiesCase(c, card, 3, true, "three_hit")), Is.False, card + " triggers again with three copies; drop the exception.");
-                    Assert.That(Matrix().Any(c => HasCopiesCase(c, card, 2, true, "two_hit")), Is.True, card + " needs two real copies that both trigger.");
+                    Assert.That(Matrix().Any(c => HasCopiesCase(c, card, 3, true, "three_hit")), Is.True, card + " needs three real copies that all trigger.");
                     continue;
                 }
                 Assert.That(slice.Any(c => HasCopiesCase(c, card, 3, true, "three_hit")), Is.True, card + " needs three real copies that all trigger.");

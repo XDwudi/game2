@@ -46,14 +46,16 @@
 
 ## 环境、提交、备注
 
-同 W3b-1：PowerShell 5.1；git 用完整路径；两个 .NET 宿主的命令与“提交前还原被改写的证据文件”的做法见 `docs/specs/v111/briefs/W3B1_SESSION_STAGE.md` 的同名小节。开工先跑一遍两个宿主记基线。分小块提交，只 `git add` 自己改过的具体路径，提交前 `git status` 确认暂存区干净；提交信息用 `git commit -F`，最后一行加 `Co-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>`。不推送、不切分支。
+同 W3b-1：PowerShell 5.1；git 用完整路径；两个 .NET 宿主的命令与“提交前还原被改写的证据文件”的做法见 `docs/specs/v111/briefs/W3B1_SESSION_STAGE.md` 的同名小节。开工先跑一遍两个宿主记基线：现在规则宿主是 3977 条全部通过（含与独立黄金样例的 2152 条对拍，W4b 已完成），会话宿主是 516 条里 497 条通过，失败的 19 条都属于本包。本包结束时两个宿主都应当零失败；规则宿主若出现失败，说明你动了计分行为，必须还原。24 关流程测试的夹具（`TwentyFourStageFlowSupportsEightRiskBranchesAndNoFinalShop`，入关后把累计分预设为目标）保持现状，它要等目标分校准后由协调者重配。
+
+省着用上下文：会话层的文件很大，按需分段读，宿主输出只看汇总与失败清单；工作量超出一次能做完的范围时，先提交已完成的部分并把进度写进备注再继续。分小块提交，只 `git add` 自己改过的具体路径，提交前 `git status` 确认暂存区干净；提交信息用 `git commit -F`，最后一行加 `Co-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>`。不推送、不切分支。
 
 备注文件 `docs/specs/v111/W3B2_NOTES.md`：规格疑点与处理；留给界面工作包的查询接口清单与新命令的参数；留给模拟器工作包的接口变化；没做完的事。
 
 ## 最后的报告（中文）
 
 1. 起止提交与提交清单。
-2. 两个宿主的基线与最终结果；失败逐条归类：黄金对拍 / 其他。“其他”必须为零，否则说明。
+2. 两个宿主的基线与最终结果；最终应当都是零失败，仍有失败的逐条说明。另跑一次 `dotnet build DicePrototype/Assets/Game/Tests/UnityTestsCompilation~/UnityTestsCompilation.csproj`（路径以仓库里实际位置为准，W4b 备注 §9 提到过它）确认界面、运行时与 PlayMode 测试仍能编译，基线是 5 个与本包无关的既有错误。
 3. 新测试条数与覆盖；没写的例子及原因。
 4. 改写与退役的旧测试条数。
 5. 规格疑点（最重要的在前）。

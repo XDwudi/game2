@@ -266,9 +266,9 @@ namespace DiceCraft.Core.Tests
             ["additiveTotal100"] = new Field(S, a => S(a.additiveTotal100)),
             ["enchantAdditiveCount"] = new Field(S, a => S(a.enchantAdditiveCount)),
             ["multiplierFactors"] = new Field(e => Rows(e, FactorKeys), a => Factors(a.multiplierFactors)),
-            // The reference lists the emitter instance of every factor; the game's field of the same name lists
-            // their ability ids. The emitters are compared here, the ability ids through multiplierFactors.
-            ["triggeredMultiplierIds"] = new Field(e => Seq(List(e)), a => Seq(a.multiplierFactors.Select(f => f.emitterId))),
+            // RULES_DELTA 12.2 (ruling after the first comparison): the ability id of each multiplier factor, in factor
+            // order. The emitter instances are compared through multiplierFactors.
+            ["triggeredMultiplierIds"] = new Field(e => Seq(List(e)), a => Seq(a.triggeredMultiplierIds)),
             ["controllerMultiplierNumerator"] = new Field(S, a => S(a.controllerMultiplierNumerator)),
             ["controllerMultiplierDenominator"] = new Field(S, a => S(a.controllerMultiplierDenominator)),
             ["globalFactors"] = new Field(e => Rows(e, FactorKeys), a => Factors(a.globalFactors)),
@@ -403,13 +403,13 @@ namespace DiceCraft.Core.Tests
         }
 
         [Test]
-        public void GoldenV111_FileIsTheP111SetWithAtLeast2152UniqueCases()
+        public void GoldenV111_FileIsTheP111SetWithAtLeast2157UniqueCases()
         {
             var header = V111Golden.Header; var cases = V111Golden.Cases;
             Assert.That(V111Golden.Str(header, "schema"), Is.EqualTo(V111Golden.Schema));
             Assert.That(V111Golden.Str(header, "configVersion"), Is.EqualTo(V111Golden.ConfigVersion));
             Assert.That(config.configVersion, Is.EqualTo(V111Golden.ConfigVersion));
-            Assert.That(cases.Length, Is.GreaterThanOrEqualTo(2152));
+            Assert.That(cases.Length, Is.GreaterThanOrEqualTo(2157));
             Assert.That(V111Golden.Int(header, "caseCount"), Is.EqualTo(cases.Length));
             Assert.That(cases.Select(c => c.id).Distinct(StringComparer.Ordinal).Count(), Is.EqualTo(cases.Length), "Golden case ids must be unique.");
             var declared = V111Golden.Obj(header["casesBySource"]);
