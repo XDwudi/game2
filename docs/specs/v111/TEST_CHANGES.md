@@ -449,3 +449,13 @@ C19 是换机制的卡，三行夹具原样保留，名字改成它们现在表�
 | `Art073PlayModeTests.PLAY_ART073_HighScoreBurstStartsOnFinalScoreCountsUpAndLeavesWithoutBlocking` | 档位文字“两倍目标！” | “十倍目标！”；其余（最高档、皇冠、火花、三处光圈、计数、淡出、不挡输入）不变 | 只编译 |
 
 `Art073PlayModeTests` 另两个用 `Burst09` 的测试（快速、减少动效、即时、跳过、重播）期望的仍是最高档，没有改断言。`V11PlayScreenAxPlayModeTests` 那一手是“四个蓝 4 对目标 900 并且过关”，只要求有档，没有改。
+
+## 玻璃提交后碎裂的演出（§7.3）：补回 W7a 登记的四处检查
+
+碎片演出接到了提交之后的结算节拍上（见 [W7B_NOTES.md](W7B_NOTES.md) 1.6）。W7a 一节“这四处少了的检查”在提交路径上补回，都写进同一个测试：
+
+| 测试 | W7a 之后检查的 | 现在检查的 | 运行 |
+| --- | --- | --- | --- |
+| `Art07PostEffectsPlayModeTests.PLAY_ART07_POST_ThirdAndFourthBrokenDiceKeepOriginalOutlineAndOnlyTwelveFragments` | 投掷不碎；锁定 4 颗玻璃骰提交后回执按提交顺序记 4 条 `DieBroken`、骰子少 4 颗、计分记录有 4 行；跳过后没有轮廓和碎裂特效、状态与存档不变 | 前面这些不变，另加：计分期间 4 颗骰子还在格子里、没有碎裂特效；到结算节拍时 4 颗都离开骰桌；前两颗各有一个碎裂特效，位置、朝向、大小与提交前这颗骰子在格子里的姿态一致（位置差 < 0.001、角度差 < 0.01 度、大小差 < 0.001），特效演到一半位置不动；碎片一共 12 片；第 3、第 4 颗留下轮廓；演出中途重画界面不会把碎掉的骰子放回去；跳过后轮廓与特效清空 | 只编译 |
+
+p1.1.0 时“碎裂特效的位置与朝向”原来在 `Art07FxIntegrationPlayModeTests.PLAY_ART07_FX_RealRollAndRemoteBreakUsePlacedWorldPoolAndSkipResets` 里检查（投掷与遥控骰子各碎 1 颗）。那个测试现在检查的是“投掷与遥控骰子都不碎”，仍然成立，没有再改；位置与朝向的检查并进了上面这个提交路径的测试。`UiBoundaryPlayModeTests` 的两处（遥控骰子、存档失败重试）原来检查的是“投掷碎裂后的提示文字”，投掷不再碎裂，它们现在的断言（不碎、不抽票、没有提示）仍然成立，没有可补的演出检查。

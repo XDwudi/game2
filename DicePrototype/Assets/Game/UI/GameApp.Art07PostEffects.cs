@@ -151,7 +151,11 @@ namespace DiceCraft
         private void ShowAdditionalBrokenOutlines07(EffectRecord[] broken,Dictionary<string,DiePose07> poses)
         {
             int start=effectOptions07.ReducedMotion||effectOptions07.Quality==PresentationQuality.Low?0:2;
-            foreach(var e in broken.Skip(start))if(poses.TryGetValue(e.dieId,out var pose))
+            foreach(var e in broken.Skip(start))if(poses.TryGetValue(e.dieId,out var pose))ShowBrokenOutline07(e.dieId,pose);
+        }
+        /// <summary>The outline a broken die leaves where it stood (its projected box and a cross), fading with the effect.</summary>
+        private void ShowBrokenOutline07(string dieId,DiePose07 pose)
+        {
             {
                 Vector2 low=Vector2.positiveInfinity,high=Vector2.negativeInfinity;
                 for(int i=0;i<8;i++)
@@ -160,10 +164,10 @@ namespace DiceCraft
                     Vector3 point=pose.Position+pose.Rotation*Vector3.Scale(corner,pose.Scale);Vector3 screen=table.viewCamera.WorldToScreenPoint(point);
                     var design=ScreenToDesign(screen);low=Vector2.Min(low,design);high=Vector2.Max(high,design);
                 }
-                var outline=UiKit.Rect(effectLabels07,"BrokenOutline_"+e.dieId,low.x,low.y,high.x-low.x,high.y-low.y);
+                var outline=UiKit.Rect(effectLabels07,"BrokenOutline_"+dieId,low.x,low.y,high.x-low.x,high.y-low.y);
                 UiKit.Outline(outline,"Contour",0,0,high.x-low.x,high.y-low.y,UiKit.Muted,2);
                 UiKit.Text(outline,"Removed","×",0,0,high.x-low.x,high.y-low.y,26,UiKit.Muted,TextAlignmentOptions.Center);
-                var group=UiKit.Component<CanvasGroup>(outline.gameObject);group.alpha=1;group.interactable=false;group.blocksRaycasts=false;brokenOutlines07.Add(new KeyValuePair<string,CanvasGroup>(e.dieId,group));
+                var group=UiKit.Component<CanvasGroup>(outline.gameObject);group.alpha=1;group.interactable=false;group.blocksRaycasts=false;brokenOutlines07.Add(new KeyValuePair<string,CanvasGroup>(dieId,group));
             }
         }
         private bool QualifiedStampPlayingForCurrentStage07=>qualifiedStamp07!=null&&qualifiedStamp07.IsPlaying&&qualifiedStage07==ViewState?.stage?.stageId;

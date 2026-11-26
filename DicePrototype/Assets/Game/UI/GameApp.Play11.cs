@@ -689,7 +689,9 @@ namespace DiceCraft
         private void DrawSlotDie11(DieInstance die,DieHandState result,Vector2 center,int index,float scale,Rect slot)
         {
             string id=die.dieId;
-            table.Display(die,result,center,scale,false);dieCenters[id]=center;
+            // v1.1.1 (W7b, RULES_DELTA 7.3): a glass die that has shattered in the presentation on screen stays off the table.
+            if(!DieShattered111(id))table.Display(die,result,center,scale,false);
+            dieCenters[id]=center;
             // The die's hit is the slot below the "+N" band: the die and the right column with its grip (W11b).
             float hitX=slot.x+2,w=slot.width-6,hitY=slot.y+36,height=slot.height-38;
             var hit=UiKit.Box(main,"Die_"+id,hitX,hitY,w,height,Color.clear,true);

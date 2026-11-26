@@ -62,6 +62,7 @@ namespace DiceCraft
         private void ResetReceiptEffects07()
         {
             ReturnLibraryEffects07(true);punchedEmitters07.Clear();revealedOwners07.Clear();offscreenLinks07=0;ClearScore11();
+            shatteredDice111.Clear(); // v1.1.1 (W7b): a new or replayed receipt shows its glass dice whole again until they break
         }
         private void EffectLayerOrder07()
         {
@@ -233,6 +234,10 @@ namespace DiceCraft
                 var v=Effect07("fx_card_destroy",e.EventId,r.position,r.size);
                 if(v!=null)v.SetParticleBudget(EffectReserve07("risk",EffectPoolKind.Fragment,5));
             }
+            // v1.1.1 (W7b, RULES_DELTA 7.3): glass is judged after the submission, so the shatter plays here, on the beat
+            // that carries the "DieBroken" events, at the pose each die has in its slot. It shares the risk group (and
+            // the twelve-fragment limit) with destroyed cards, which keep their fragments first.
+            PresentSubmissionBreaks111(beat);
             if(EffectGroup07("states"))
             {
                 foreach(var e in beat.Events.Where(e=>e.EffectFamily=="ActiveColorChanged"||e.EffectFamily=="FundAccrued"))
@@ -323,7 +328,7 @@ namespace DiceCraft
             placement.localScale=new Vector3(pose.Scale.x/parentScale.x,pose.Scale.y/parentScale.y,pose.Scale.z/parentScale.z);
             placement.gameObject.SetActive(true);
             // Motion affects the child only; the placed world pose cannot be reset by Play/Evaluate.
-            v.Bind(eventId,"","","");v.SetParticleBudget(EffectReserve07("risk",EffectPoolKind.Fragment,6));
+            v.Bind(eventId,"","","");v.SetParticleBudget(EffectReserve07("risk",EffectPoolKind.Fragment,FragmentsPerDie111));
             v.Play(Vector3.zero,reduced,effectDuration07);activeEffects07.Add(v);
         }
         private void Link07(string from,string to,string eventId)
