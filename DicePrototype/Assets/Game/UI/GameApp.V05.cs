@@ -122,7 +122,7 @@ namespace DiceCraft
                     UiKit.Box(card,"Divider",16,sectionHeight-14,1400,1,PaperMuted071); // v1.1.1 (W7a): a colour is a bonus of the additive zone (the row's baseAdd100 / addPerLevel100 / currentAdd100; its multiplier fields are 0)
                     UiKit.Text(card,"Name",(red?"● ":"◆ ")+r.displayName+"   Lv."+r.level,20,16,640,54,28,UiKit.Ink);
                     UiKit.Text(card,"Value","加成 "+Bonus111(r.currentAdd100)+(r.level<r.maxLevel?"（下一级 "+Bonus111(r.currentAdd100+r.addPerLevel100)+"）":"（已满级）"),724,16,680,54,28,UiKit.Ink,TextAlignmentOptions.TopRight);
-                    UiKit.Text(card,"Rule","提交的骰子全是"+(red?"红色":"蓝色")+"即可（1 颗也算）。0 级加成 "+Bonus111(r.baseAdd100)+"，每级再 "+Bonus111(r.addPerLevel100)+"，最高 "+r.maxLevel+" 级；它和卡牌、黄金面、附魔的加成加在一起。\n"+(r.canForm?"":r.formReason+" · ")+r.upgradeReason,20,80,1380,sectionHeight-88,23,PaperMuted071);
+                    UiKit.Text(card,"Rule","提交的骰子全是"+(red?"红色":"蓝色")+"即可（1 颗也算）。0 级加成 "+Bonus111(r.baseAdd100)+"，每级再 "+Bonus111(r.addPerLevel100)+"，最高 "+r.maxLevel+" 级；它和卡牌、黄金面、附魔的加成加在一起。\n"+(r.canForm?"":r.formReason+" · ")+r.upgradeReason,20,80,1340,sectionHeight-88,23,PaperMuted071); // W9a: 1380 let a line-end 、 or 。 hang past the deco / sancai paper frame
                 }
                 float redTop=sectionHeight*2+16;
                 UiKit.Text(list,"RedTitle","红组倍率",12,redTop,1380,64,30,UiKit.Ink);
