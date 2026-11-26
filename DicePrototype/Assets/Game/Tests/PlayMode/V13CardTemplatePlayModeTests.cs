@@ -438,7 +438,7 @@ namespace DiceCraft.Tests
                 Assert.That(defaults.icons.Length,Is.EqualTo(ids.Length),"One default icon per card, item, service and face upgrade.");
                 CollectionAssert.AreEquivalent(ids.Select(id=>"icon_"+id),defaults.icons.Select(s=>s.name));
                 // V1.1 (W22i): was the seven trial redraws (C08, C139, C34, C39, C46, C50, C56); the whole set is installed now.
-                CollectionAssert.AreEquivalent(ids.Select(id=>"icon_"+id),swiss.icons.Select(s=>s.name),"The Swiss theme bakes all its 184 illustrations (W22i).");
+                CollectionAssert.AreEquivalent(ids.Select(id=>"icon_"+id),swiss.icons.Select(s=>s.name),"The Swiss theme bakes all its illustrations (W22i; 185 in p1.1.1).");
                 foreach(var icon in defaults.icons.Concat(swiss.icons))
                 {
                     Assert.That(icon.texture.width==160&&icon.texture.height==160,Is.True,icon.name+" is "+icon.texture.width+"x"+icon.texture.height);

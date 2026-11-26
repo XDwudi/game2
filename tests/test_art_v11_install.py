@@ -99,7 +99,8 @@ class InstalledArtTests(unittest.TestCase):
             with self.subTest(style=style):
                 data = self.manifests[style][1]
                 ids = [e["id"] for e in data["illustrations"]]
-                self.assertEqual(len(ids), 184, "Review W22i scope if the content set changes.")
+                # p1.1.1 (V1.1.1 W9a): 185 ids; C90, C128, C145 retired, C154, C155, C156, I13 added (was 184).
+                self.assertEqual(len(ids), 185, "Review W22i scope if the content set changes.")
                 self.assertEqual(set(ids), self.ids)
                 self.assertEqual(len(set(ids)), len(ids))
                 self.assertEqual([e["file"] for e in data["illustrations"]], [f"illustration_{i}.png" for i in ids])
@@ -143,7 +144,7 @@ class InstalledArtTests(unittest.TestCase):
                 installed = {p.name for p in target.glob("*.png")}
                 if style != "default":
                     cards = {f"illustration_{key}.png" for key in self.ids}
-                    self.assertEqual(len(cards), 184)
+                    self.assertEqual(len(cards), 185)
                     self.assertEqual(installed, listed | {f"illustration_L{i}.png" for i in range(1, 7)})
                     self.assertEqual(cards, {e["file"] for e in data["illustrations"]})
                 else:
@@ -188,6 +189,13 @@ class InstalledArtTests(unittest.TestCase):
                                 timeout=1200)
         self.assertEqual(result.returncode, 0, result.stdout[-3000:] + result.stderr[-3000:])
         self.assertIn("INSTALL_CHECK_OK", result.stdout)
+
+    def test_w8_batch_check_passes_on_the_repository(self):
+        """V1.1.1 W9a: the W8 batch (24 illustrations, 24 icons, 72 retired files of C90/C128/C145) is installed."""
+        result = subprocess.run([sys.executable, "-B", str(TOOL), "--batch", str(MANIFESTS / "w8-install.json"),
+                                 "--check"], cwd=ROOT, capture_output=True, text=True, timeout=600)
+        self.assertEqual(result.returncode, 0, result.stdout[-3000:] + result.stderr[-3000:])
+        self.assertIn("BATCH_CHECK_OK W8 files=48 retired=72", result.stdout)
 
 
 def png_bytes(seed):
@@ -409,6 +417,79 @@ class InstallToolTests(unittest.TestCase):
         self.assertEqual((target / "illustration_L1.png").read_bytes(), png_bytes(7))
         self.assertEqual((target / "illustration_L1.png.meta").read_text(), "loot-guid")
         self.assertEqual(self.tree.run(self.tool, check=True)[0], 0)
+
+    def test_retired_id_folders_are_history_and_other_unknown_folders_are_refused(self):
+        self.tree.revision("swiss", "illustrations", "C90", "r01", 70, True)   # retired in p1.1.1
+        self.assertEqual(self.tree.run(self.tool)[0], 0)
+        data = json.loads((self.tree.manifests / "swiss.json").read_text(encoding="utf-8"))
+        self.assertEqual([e["id"] for e in data["illustrations"]], list(FixtureTree.IDS))
+        self.assertFalse((self.tree.target() / "illustration_C90.png").exists())
+        self.tree.revision("swiss", "illustrations", "C77", "r01", 71, True)
+        with self.assertRaises(self.tool.InstallError):
+            self.tree.run(self.tool)
+
+    def batch_fixture(self):
+        """A one-row batch (default C01: illustration and icon) that also retires the default icon of C90."""
+        tree = self.tree
+        tree.revision("default", "illustrations", "C01", "r01", 80, True)
+        icon = tree.root / "ArtSource/Art11/default/icons/icon_C01.png"
+        icon.parent.mkdir(parents=True)
+        icon.write_bytes(png_bytes(81))
+        old = tree.game / "Art/Art11/Icons/default/icon_C90.png"
+        old.parent.mkdir(parents=True)
+        old.write_bytes(png_bytes(82))
+        old.with_name(old.name + ".meta").write_text("guid", encoding="utf-8")
+        original = tree.art / "default/illustrations/C01/r01/original.png"
+        row = {"theme": "default", "id": "C01", "revision": "r01",
+               "illustration": {"source": original.relative_to(tree.root).as_posix(),
+                                "target": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c01.png",
+                                "sha256": sha256(original)},
+               "icon": {"source": icon.relative_to(tree.root).as_posix(),
+                        "target": "DicePrototype/Assets/Art/Art11/Icons/default/icon_C01.png", "sha256": sha256(icon)}}
+        removals = ["DicePrototype/Assets/Art/Art11/Icons/default/icon_C90.png",
+                    "DicePrototype/Assets/Art/Art11/Icons/default/icon_C90.png.meta"]
+        return {"workPackage": "T", "copies": [row], "removeAfterCoordinatorReview": removals}
+
+    def run_batch(self, data, check=False):
+        manifest = Path(self.scratch.name) / "batch.json"
+        manifest.write_text(json.dumps(data), encoding="utf-8")
+        paths = self.tool.Paths(self.tree.root, self.tree.art, self.tree.game, self.tree.manifests)
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            code = self.tool.install_batch(paths, manifest, check=check)
+        return code, out.getvalue()
+
+    def test_batch_installs_byte_identical_removes_retired_files_and_refuses_before_writing(self):
+        data = self.batch_fixture()
+        self.assertEqual(self.run_batch(data, check=True)[0], 1)
+        code, text = self.run_batch(data)
+        self.assertEqual(code, 0)
+        self.assertIn("BATCH_INSTALLED T files=2 written=2 retired=2 removed=2", text)
+        game = self.tree.game
+        self.assertEqual((game / "Art/Art071/Illustrations/illustration_c01.png").read_bytes(),
+                         (self.tree.art / "default/illustrations/C01/r01/original.png").read_bytes())
+        self.assertEqual((game / "Art/Art11/Icons/default/icon_C01.png").read_bytes(), png_bytes(81))
+        self.assertEqual(sorted(p.name for p in (game / "Art/Art11/Icons/default").iterdir()), ["icon_C01.png"])
+        self.assertEqual(self.run_batch(data, check=True), (0, "BATCH_CHECK_OK T files=2 retired=2\n"))
+        for name, change in {
+            "icon hash": lambda d: d["copies"][0]["icon"].update(sha256="0" * 64),
+            "illustration hash": lambda d: d["copies"][0]["illustration"].update(sha256="0" * 64),
+            "wrong target": lambda d: d["copies"][0]["icon"].update(
+                target="DicePrototype/Assets/Art/Art11/Icons/swiss/icon_C01.png"),
+            "live id removed": lambda d: d["removeAfterCoordinatorReview"].append(
+                "DicePrototype/Assets/Art/Art11/Icons/default/icon_C02.png"),
+            "not an art file": lambda d: d["removeAfterCoordinatorReview"].append("DicePrototype/Assets/Game/C90.cs"),
+        }.items():
+            with self.subTest(case=name):
+                scratch = tempfile.TemporaryDirectory(prefix="w9a-batch-")
+                self.addCleanup(scratch.cleanup)
+                self.tree = FixtureTree(scratch.name)
+                broken = self.batch_fixture()
+                change(broken)
+                with self.assertRaises(self.tool.InstallError):
+                    self.run_batch(broken)
+                self.assertFalse((self.tree.game / "Art/Art071").exists(), "nothing is written when refused")
+                self.assertTrue((self.tree.game / "Art/Art11/Icons/default/icon_C90.png").exists())
 
 
 if __name__ == "__main__":

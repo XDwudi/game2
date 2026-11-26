@@ -10,13 +10,15 @@ namespace DiceCraft.Presentation.Tests
     /// <summary>
     /// V1.1 task W22i items 2-4 (THEME_SPEC §3, SETTLEMENT_LAYOUT §8.6): every installed picture is imported like the Swiss
     /// trial illustrations (the theme Art rule of Editor/V11ThemeImport.cs: sprite, 100 pixels per unit, at most 1024 on the
-    /// default platform, compressed, no mipmaps, clamped bilinear sRGB with transparency): the five styles' 184
+    /// default platform, compressed, no mipmaps, clamped bilinear sRGB with transparency): the five styles' 185
     /// illustrations and 7 emblems under Resources/Themes/&lt;style&gt;/Art, and the default style's 7 emblems under
-    /// Art/Art11/Emblems. Every style has a full set of baked compact icons (184) imported like the default style's (W13).
+    /// Art/Art11/Emblems. Every style has a full set of baked compact icons (185) imported like the default style's (W13).
     /// </summary>
     public sealed class W22iArtImportTests
     {
         private static readonly string[] Styles={"swiss","sancai","comic","deco","glass"};
+        /// <summary>p1.1.1 content ids (150 cards, 13 items, 11 services, 11 face upgrades); 184 until V1.1.1 W9a installed W8.</summary>
+        private const int Content=185;
         private static readonly string[] Families={"seal","constraint","multiplier","cards","economy","target","final"};
         /// <summary>A Swiss trial illustration (W12) whose .meta the trial committed: the reference for every other picture.</summary>
         private const string Reference="Assets/Resources/Themes/swiss/Art/illustration_C08.png";
@@ -75,17 +77,17 @@ namespace DiceCraft.Presentation.Tests
                 var pictures=pngs.Select(Path.GetFileNameWithoutExtension).Where(n=>n.StartsWith("illustration_")).ToArray();
                 Assert.That(pictures.Where(n=>n.StartsWith("illustration_L")), Is.EquivalentTo(lootNames), style+": six reward categories");
                 var cards=pictures.Except(lootNames).ToArray();
-                Assert.That(cards.Length,Is.EqualTo(184),style+": card illustrations");
-                Assert.That(cards,Is.EquivalentTo(Pngs(Icons+"/"+style).Select(p=>"illustration_"+Path.GetFileNameWithoutExtension(p).Substring("icon_".Length))),style+": the 184 card icons have matching card illustrations");
+                Assert.That(cards.Length,Is.EqualTo(Content),style+": card illustrations");
+                Assert.That(cards,Is.EquivalentTo(Pngs(Icons+"/"+style).Select(p=>"illustration_"+Path.GetFileNameWithoutExtension(p).Substring("icon_".Length))),style+": every card icon has a matching card illustration");
                 Assert.That(pngs.Where(p=>Path.GetFileName(p).StartsWith("emblem_")).Select(Path.GetFileNameWithoutExtension),
                     Is.EquivalentTo(Families.Select(f=>"emblem_"+f)),style+": emblems");
-                Assert.That(pngs.Length,Is.EqualTo(184+7+6),style+": nothing else");
+                Assert.That(pngs.Length,Is.EqualTo(Content+7+6),style+": nothing else");
                 foreach(string asset in pngs){AssertArtImport(asset,reference);checkedFiles++;}
             }
             var emblems=Pngs(DefaultEmblems);
             Assert.That(emblems.Select(Path.GetFileNameWithoutExtension),Is.EquivalentTo(Families.Select(f=>"emblem_"+f)),"the default style's emblems");
             foreach(string asset in emblems){AssertArtImport(asset,reference);checkedFiles++;}
-            Assert.That(checkedFiles,Is.EqualTo(5*(184+7+6)+7));
+            Assert.That(checkedFiles,Is.EqualTo(5*(Content+7+6)+7));
             TestContext.WriteLine("W22i: kept uncompressed (a side not a multiple of 4 after the 1024 cap): "+uncompressed.Count+": "+string.Join(", ",uncompressed));
         }
 
@@ -96,7 +98,7 @@ namespace DiceCraft.Presentation.Tests
             foreach(string style in new[]{"default"}.Concat(Styles))
             {
                 var pngs=Pngs(Icons+"/"+style);
-                Assert.That(pngs.Length,Is.EqualTo(184),style+": one icon per content id");
+                Assert.That(pngs.Length,Is.EqualTo(Content),style+": one icon per content id");
                 foreach(string asset in pngs)
                 {
                     var importer=(TextureImporter)AssetImporter.GetAtPath(asset);Assert.That(importer,Is.Not.Null,asset);

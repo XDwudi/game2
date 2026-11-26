@@ -4,6 +4,7 @@ The committed tables and icons must be exactly what the script produces from the
 script is run and its output compared byte for byte with them (and with a second run).
 V1.1 W22i: the five styles carry their whole sets (184 each; Swiss had its 7 trial redraws until then), with the
 per-style overrides of make_crops.OVERRIDES.
+V1.1.1 W9a: p1.1.1 has 185 content ids (C90, C128, C145 retired; C154, C155, C156, I13 added by W8).
 """
 
 import importlib.util
@@ -27,12 +28,12 @@ CONFIG = ROOT / "DicePrototype/Assets/Game/Data/P0Config.json"
 ICONS = ROOT / "DicePrototype/Assets/Art/Art11/Icons"
 THEMES = {
     "default": {"source": "DicePrototype/Assets/Art/Art071/Illustrations",
-                "table": ROOT / "DicePrototype/Assets/Resources/IconCrops/default.json", "count": 184},
+                "table": ROOT / "DicePrototype/Assets/Resources/IconCrops/default.json", "count": 185},
 }
 # V1.1 W22i: Swiss was 7 (its trial redraws); every style now ships the whole set.
 for _style in ("swiss", "sancai", "comic", "deco", "glass"):
     THEMES[_style] = {"source": f"DicePrototype/Assets/Resources/Themes/{_style}/Art",
-                      "table": ROOT / f"DicePrototype/Assets/Resources/IconCrops/{_style}.json", "count": 184}
+                      "table": ROOT / f"DicePrototype/Assets/Resources/IconCrops/{_style}.json", "count": 185}
 STYLES = [theme for theme in THEMES if theme != "default"]
 CONTENT_LISTS = ("controllers", "consumables", "services", "diceUpgrades")
 TOP_KEYS = ["schema", "theme", "source", "generatedBy", "imageSize", "units", "crops"]
@@ -153,7 +154,7 @@ class CropTableTests(unittest.TestCase):
 
     def test_ids_match_illustrations_and_config(self):
         default = set(self.tables["default"]["crops"])
-        self.assertEqual(len(self.files["default"]), 184, "Review W13a scope if the illustration set changes.")
+        self.assertEqual(len(self.files["default"]), 185, "Review W13a scope if the illustration set changes.")
         self.assertEqual(default, set(self.files["default"]))
         self.assertEqual(default, self.config_ids & set(self.files["default"]))
         self.assertTrue(set(self.files["default"]) <= self.config_ids)

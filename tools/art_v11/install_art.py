@@ -13,8 +13,15 @@ The default style's illustrations stay where they are (Assets/Art/Art071/Illustr
 A revision folder without record.json (a run that was interrupted before it was recorded) or with "runValid" other than
 true is never installed. The tool refuses to install anything (exit 2, nothing written) when an id or family has no
 valid record, when the chosen record does not describe its own folder (revision, archived path, content id or job
-path), when its original.png is missing, or when the file's SHA-256 differs from the record. The ids must be the 184
-content ids of P0Config, the families the seven of SETTLEMENT_LAYOUT 8.5.
+path), when its original.png is missing, or when the file's SHA-256 differs from the record. The ids must be the
+content ids of P0Config (185 in p1.1.1), the families the seven of SETTLEMENT_LAYOUT 8.5. ArtSource keeps the folders of
+retired ids (RETIRED_IDS) as history; they are never installed, and any other folder without a P0Config id is refused.
+
+A batch manifest (V1.1.1 W9a, `--batch tools/art_v11/install_manifests/w8-install.json`) installs one production batch
+across all six styles: each listed illustration (the default style's under Art071/Illustrations as well) after its
+record and SHA-256 were checked like above, each listed compact icon after its SHA-256 was checked against the
+manifest, and it removes every listed retired file (PNG or .meta). The whole batch is checked before anything is
+written; `--check` verifies it and writes nothing.
 
 A manifest per style (tools/art_v11/install_manifests/<style>.json; default.json for the default emblems) lists every
 installed file with its id or family, the source revision, its SHA-256, size, pixel size and record path. Files are
@@ -24,6 +31,7 @@ that the plan no longer lists are removed with their Unity .meta. Unity imports 
 
     python tools/art_v11/install_art.py              # install and write the manifests
     python tools/art_v11/install_art.py --check      # verify, write nothing (exit 1 when anything differs)
+    python tools/art_v11/install_art.py --batch tools/art_v11/install_manifests/w8-install.json [--check]
 """
 from __future__ import annotations
 
@@ -46,6 +54,8 @@ DEFAULT = "default"
 FAMILIES = ("seal", "constraint", "multiplier", "cards", "economy", "target", "final")
 CONTENT_LISTS = ("controllers", "consumables", "services", "diceUpgrades")
 LOOT_IDS = tuple("L" + str(index) for index in range(1, 7))
+# Content ids removed from P0Config whose ArtSource folders stay as history (subjects.json notes say why).
+RETIRED_IDS = {"C90": "p1.1.1", "C128": "p1.1.1", "C145": "p1.1.1"}
 REVISION = re.compile(r"^r(\d{2,})$")
 PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
 
@@ -167,7 +177,8 @@ def plan(paths, style):
             raise InstallError(f"{paths.rel(folder)}: no such folder")
         ids = config_ids(paths)
         present = sorted((p.name for p in folder.iterdir() if p.is_dir()), key=id_key)
-        missing, extra = sorted(set(ids) - set(present), key=id_key), sorted(set(present) - set(ids), key=id_key)
+        missing = sorted(set(ids) - set(present), key=id_key)
+        extra = sorted(set(present) - set(ids) - set(RETIRED_IDS), key=id_key)
         if missing or extra:
             raise InstallError(f"{paths.rel(folder)}: ids missing {missing}, not in P0Config {extra}")
         for content_id in ids:
@@ -335,18 +346,114 @@ def install_loot(paths, styles, check=False, log=print):
     return int(check and differences>0)
 
 
+BATCH_REMOVABLE = re.compile(r"^DicePrototype/Assets/(?:Art/Art071/Illustrations/illustration_|"
+                             r"Resources/Themes/(?:swiss|sancai|comic|deco|glass)/Art/illustration_|"
+                             r"Art/Art11/Icons/(?:default|swiss|sancai|comic|deco|glass)/icon_)([A-Za-z]+\d+)\.png(?:\.meta)?$")
+
+
+def batch_targets(style, content_id):
+    """Where a batch installs one id of one style: (illustration, compact icon), relative to the repository."""
+    if style == DEFAULT:
+        illustration = f"DicePrototype/Assets/Art/Art071/Illustrations/illustration_{content_id.lower()}.png"
+    else:
+        illustration = f"DicePrototype/Assets/Resources/Themes/{style}/Art/illustration_{content_id}.png"
+    return illustration, f"DicePrototype/Assets/Art/Art11/Icons/{style}/icon_{content_id}.png"
+
+
+def install_batch(paths, manifest, check=False, log=print):
+    """Installs (or, with check, verifies) one production batch: every listed illustration and compact icon of every
+    style, and the removal of the listed files of retired ids. The whole batch is checked before anything is written."""
+    try:
+        data = json.loads(Path(manifest).read_text(encoding="utf-8"))
+        copies, removals = data["copies"], data["removeAfterCoordinatorReview"]
+        if not isinstance(copies, list) or not isinstance(removals, list):
+            raise ValueError("copies and removeAfterCoordinatorReview must be lists")
+    except (OSError, ValueError, KeyError, TypeError) as error:
+        raise InstallError(f"{manifest}: unreadable batch manifest ({error})") from error
+    live = set(config_ids(paths))
+    planned, seen = [], set()
+    for row in copies:
+        try:
+            style, content_id, revision = row["theme"], row["id"], row["revision"]
+            specs = {"illustration": row["illustration"], "icon": row["icon"]}
+        except (KeyError, TypeError) as error:
+            raise InstallError(f"{manifest}: malformed copy row {row!r}") from error
+        if style not in STYLES + (DEFAULT,) or content_id not in live:
+            raise InstallError(f"{style}/{content_id}: not a style with a P0Config id")
+        folder = paths.art / style / "illustrations" / content_id
+        entry = choose(paths, folder, {"jobPath": paths.rel(folder / "job.json"), "contentId": content_id},
+                       revision=revision)
+        sources = {"illustration": entry["source"], "icon": paths.root / str(specs["icon"].get("source"))}
+        for kind, target in zip(("illustration", "icon"), batch_targets(style, content_id)):
+            spec, source = specs[kind], sources[kind]
+            if spec.get("target") != target:
+                raise InstallError(f"{style}/{content_id}: {kind} target {spec.get('target')!r} is not {target!r}")
+            if paths.rel(source) != spec.get("source"):
+                raise InstallError(f"{style}/{content_id}: {kind} source {spec.get('source')!r} is not {paths.rel(source)!r}")
+            if not source.is_file() or sha256(source) != spec.get("sha256"):
+                raise InstallError(f"{paths.rel(source)}: missing or not the manifest's sha256 {spec.get('sha256')}")
+            if target in seen:
+                raise InstallError(f"{target}: listed twice")
+            seen.add(target)
+            planned.append((paths.root / target, source, spec["sha256"]))
+    stale = []
+    for rel in removals:
+        match = BATCH_REMOVABLE.match(str(rel))
+        if not match or match.group(1).upper() not in RETIRED_IDS or match.group(1).upper() in live:
+            raise InstallError(f"{rel}: not an illustration or icon file of a retired id")
+        stale.append(paths.root / rel)
+    differences, written, removed = [], 0, 0
+    for target, source, digest in planned:
+        if target.is_file() and sha256(target) == digest:
+            continue
+        if check:
+            differences.append(f"{paths.rel(target)}: not the listed source")
+            continue
+        target.parent.mkdir(parents=True, exist_ok=True)
+        with tempfile.NamedTemporaryFile(dir=target.parent, delete=False, suffix=".tmp") as temp:
+            temp.write(source.read_bytes())
+        temp_path = Path(temp.name)
+        try:
+            if sha256(temp_path) != digest:
+                raise InstallError(f"Copy verification failed for {paths.rel(target)}")
+            temp_path.replace(target)
+        finally:
+            temp_path.unlink(missing_ok=True)
+        written += 1
+    for path in stale:
+        if not path.exists():
+            continue
+        if check:
+            differences.append(f"{paths.rel(path)}: retired file still present")
+            continue
+        path.unlink()
+        removed += 1
+    name = data.get("workPackage", Path(manifest).stem)
+    if check:
+        for line in differences[:40]:
+            log("DIFFERS " + line)
+        log(f"BATCH_CHECK_OK {name} files={len(planned)} retired={len(stale)}" if not differences
+            else f"BATCH_CHECK_FAILED {name} {len(differences)}")
+        return 0 if not differences else 1
+    log(f"BATCH_INSTALLED {name} files={len(planned)} written={written} retired={len(stale)} removed={removed}")
+    return 0
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     parser.add_argument("--styles", default=",".join(STYLES + (DEFAULT,)),
                         help="comma list of styles (default: the five styles and default, whose emblems only are installed)")
     parser.add_argument("--check", action="store_true", help="verify the installed files and manifests; write nothing")
     parser.add_argument("--loot", action="store_true", help="install six reward illustrations per style, using approved W23 revisions wherever a rollout receipt exists")
+    parser.add_argument("--batch", help="install one production batch manifest (e.g. install_manifests/w8-install.json)")
     args = parser.parse_args(argv)
     styles = [s.strip() for s in args.styles.split(",") if s.strip()]
     unknown = sorted(set(styles) - set(STYLES + (DEFAULT,)))
     if unknown:
         parser.error(f"unknown styles {unknown}")
     try:
+        if args.batch:
+            return install_batch(Paths(), args.batch, check=args.check)
         return (install_loot if args.loot else install)(Paths(), styles, check=args.check)
     except InstallError as error:
         print(f"REFUSED {error}")

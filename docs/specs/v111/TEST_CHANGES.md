@@ -522,3 +522,28 @@ p1.1.0 时“碎裂特效的位置与朝向”原来在 `Art07FxIntegrationPlayM
 断言：原有流程断言全部保留（每关进 `StageSettlement`、非末关进商店、首领关后战利品待领且先离店被拒、领金币后离店、最终 `RunWon` 且没有商店、新开一局后金币 0、无卡、提交栏 5）。新增：每关结束投掷循环时已达标；高压关确实选了高压；首领关的减益是周期计划里那一个且没有被解除；结算回执里的目标等于配置目标（高压 ×1.5、首领 `TargetPercent` 按比例）；结算回执里的累计分不低于这个目标。
 
 运行：会话宿主 616 条全过（基线 616）。Unity EditMode 未运行。
+
+# W9a：Unity 里的集成与首次实跑
+
+工作包 W9a（[备注](W9A_NOTES.md)）。没有删除测试，没有降低阈值。
+
+## 美术入库：钉着“184”的内容数
+
+p1.1.1 的内容是 185 项（卡牌 150、道具 13、服务 11、骰面改造 11；C90、C128、C145 移除，C154、C155、C156、I13 新增），与 `P0Config.json` 的 `activeContentCount` 和 `ConfigValidation` 一致。
+
+| 测试 | 原期望 | 新期望 |
+| --- | --- | --- |
+| `tests/test_art_v11_crops.py`：`THEMES` 六套的 `count`、`test_ids_match_illustrations_and_config` | 每套 184 张插画与裁切 | 185 |
+| `tests/test_art_v11_install.py`：`test_every_content_id_and_family_once`、`test_installed_files_are_the_originals_byte_for_byte` | 每套 184 个 id | 185 |
+| `W22iArtImportTests.W22i_EveryInstalledPictureIsImportedLikeTheSwissTrialImages`、`W22i_EveryStyleHasItsBakedCompactIcons`（EditMode） | 184 张插画、184+7+6 个 PNG、5×(184+7+6)+7 个文件、每套 184 个图标 | 同样的式子，184 换成常量 `Content = 185` |
+| `GameplayPlayModeTests`（内容图一节，原第 133–134 行） | 内容 id 与 `contentIcons` 各 184 | 185 |
+| `W22iArtInstallPlayModeTests.PLAY_W22I_01…` | 内容 id 184 | 185 |
+| `V13CardTemplatePlayModeTests.PLAY_V13_CompactIconsResolveThemeThenDefaultThenIllustration` | 断言信息里写着“184 illustrations”（不是数值断言，断言本身是“瑞士图标集合 = 全部内容 id”） | 只改信息文字 |
+
+## 新增：安装工具
+
+| 测试 | 内容 |
+| --- | --- |
+| `test_art_v11_install.InstalledArtTests.test_w8_batch_check_passes_on_the_repository` | `install_art.py --batch …/w8-install.json --check` 在仓库上通过：48 个文件与清单的 SHA-256 一致，72 个已移除文件都不在了 |
+| `test_art_v11_install.InstallToolTests.test_retired_id_folders_are_history_and_other_unknown_folders_are_refused` | ArtSource 里已移除 id（`RETIRED_IDS`）的文件夹不装、不进清单；其它不在配置里的文件夹仍整次拒绝 |
+| `test_art_v11_install.InstallToolTests.test_batch_installs_byte_identical_removes_retired_files_and_refuses_before_writing` | 批次安装逐字节复制、只删已移除 id 的文件（连 `.meta`）、第二次核对通过；图标哈希、插画哈希、目标路径不符，删除清单里出现在用 id 或非美术文件，五种情况都整次拒绝且一个文件也不写 |

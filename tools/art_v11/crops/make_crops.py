@@ -126,6 +126,12 @@ SPLIT_MIN_SHARE = 0.15    # a subject group counts when it holds >= 15% of the k
 REVIEW_BELOW = 0.80       # crops below this confidence go to the side-by-side review sheet
 EIGHT = np.ones((3, 3), dtype=bool)
 
+W8_C154 = ("The automatic crop clips the tray edge or separates the die pool. Keep the whole tray, releasing hand and "
+           "destination.")
+W8_C156 = ("The automatic crop can touch the rock or cut the measuring tube and base. Keep the rebounding die, ledge and "
+           "complete low-fill tube.")
+W8_I13_KEY_TIP = "The automatic crop cuts the outer key tip. Keep the silhouettes of all three keys and the open lock."
+
 # Per-theme manual squares, in table units (x, y, size), each with the reason the automatic square was replaced.
 # "pad": true lets the square overhang the picture's short side (transparent there). Keep this short (about 10 ids at
 # most); a crop that no square can save needs an art edit instead.
@@ -135,6 +141,20 @@ OVERRIDES = {
                 "reason": "1774x887 boat: the automatic padded square shows the whole boat small, and at 32 px it "
                           "reads like the long tray of C79; this square keeps the bow, the die, most of the hull "
                           "and the oar, letterboxed"},
+        # V1.1.1 W8 (docs/specs/v111/W8_REPORT.md section 7, tools/art_v11/install_manifests/w8-install.json
+        # cropOverrides; merged into this table by W9a): squares that keep each new picture's functional parts whole.
+        "C154": {"x": 0.0028, "y": 0.0000, "size": 0.9873, "reason": W8_C154},
+        "C156": {"x": 0.0359, "y": 0.0602, "size": 0.9083, "reason": W8_C156},
+    },
+    "swiss": {
+        "C154": {"x": 0.0083, "y": -0.0548, "size": 1.0868, "pad": True, "reason": W8_C154},
+        "C156": {"x": 0.0406, "y": 0.0717, "size": 0.9283, "reason": W8_C156},
+        "I13": {"x": 0.0063, "y": 0.0063, "size": 0.9937,
+                "reason": "The automatic box trims the padlock cast shadow. Keep the three keys, lock and complete shadow."},
+    },
+    "comic": {
+        "C154": {"x": 0.0035, "y": 0.0000, "size": 0.9929, "reason": W8_C154},
+        "C156": {"x": 0.0211, "y": 0.0363, "size": 0.9378, "reason": W8_C156},
     },
     # V1.1 W22i (docs/specs/v11/W22I_REPORT.md section 4): squares where the automatic one drops or slices a part that
     # carries the card's identity. These styles draw no dark ink rim around a loose die, so the ink rule (step 3) took
@@ -154,6 +174,9 @@ OVERRIDES = {
         "O05": {"x": 0.3203, "y": 0.0000, "size": 1.0000,
                 "reason": "1536x1024 stand: the square ends at the right, so the added extension with its fifth card "
                           "(the service's subject) stays whole; the first card is cut instead"},
+        "C154": {"x": 0.0048, "y": 0.0000, "size": 0.9825, "reason": W8_C154},
+        "C156": {"x": 0.0355, "y": 0.0594, "size": 0.9131, "reason": W8_C156},
+        "I13": {"x": 0.0000, "y": -0.0358, "size": 1.0942, "pad": True, "reason": W8_I13_KEY_TIP},
     },
     "deco": {
         "C64": {"x": 0.0430, "y": 0.0558, "size": 0.8931,
@@ -168,11 +191,16 @@ OVERRIDES = {
         "O08": {"x": 0.3287, "y": 0.0000, "size": 1.0000,
                 "reason": "1536x1024 rack: the automatic square drops the wrench bolting on the new slot (the service's "
                           "subject); this one ends at the right and cuts the first slots instead"},
+        "C154": {"x": 0.0000, "y": 0.0000, "size": 0.9985, "reason": W8_C154},
+        "C156": {"x": 0.0398, "y": 0.0614, "size": 0.9036, "reason": W8_C156},
+        "I13": {"x": 0.0183, "y": 0.0458, "size": 0.9506, "reason": W8_I13_KEY_TIP},
     },
     "glass": {
         "O05": {"x": 0.2962, "y": 0.0000, "size": 1.0000,
                 "reason": "1536x1024 stand: the automatic square cuts into the added extension with its fifth card (the "
                           "service's subject); this one ends at the right so the extension stays whole"},
+        "C154": {"x": 0.0024, "y": 0.0000, "size": 0.9833, "reason": W8_C154},
+        "C156": {"x": 0.0339, "y": 0.0522, "size": 0.9099, "reason": W8_C156},
     },
 }
 

@@ -20,7 +20,7 @@ namespace DiceCraft.Tests
     /// <summary>
     /// V1.1 task W22i (docs/specs/v11/W22I_REPORT.md): the five styles' card illustrations, boss emblems and compact icons
     /// in the game.
-    ///   01 Every style has its own picture for every content id (184 illustrations, 7 emblems, 184 compact icons; missing
+    ///   01 Every style has its own picture for every content id (185 illustrations, 7 emblems, 185 compact icons; missing
     ///      0), and wherever the card gallery, the shop and the play row draw a card picture, it is the style's own: never the
     ///      default style's sprite.
     ///   02 The compact icon stays in the style (CARD_TEMPLATE 7 as changed by W22i): the style's icon, then its own whole
@@ -98,7 +98,7 @@ namespace DiceCraft.Tests
             {
                 GameApp.CleanCapture11=true;
                 foreach(string theme in Styles22i)Assert.That(ThemeRegistry.Find(theme),Is.Not.Null,theme+" is offered (with previews)");
-                var ids=ContentIds22i;Assert.That(ids.Length,Is.EqualTo(184));
+                var ids=ContentIds22i;Assert.That(ids.Length,Is.EqualTo(185)); // p1.1.1 (V1.1.1 W9a): 185 content ids, was 184
                 var pictures=Styles22i.ToDictionary(t=>t,t=>new Dictionary<string,int>());
                 void Count(string theme,string where,int n){pictures[theme][where]=n;if(n==0)failures.Add(theme+" "+where+": no card picture drawn");}
                 StartRun("72201");
