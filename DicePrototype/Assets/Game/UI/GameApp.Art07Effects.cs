@@ -356,6 +356,7 @@ namespace DiceCraft
             string grant=BudgetGrantSummary07(before,after);
             if(cmd.kind==CommandKind.StartStage)LastTransactionSummary07=grant;
             if(cmd.kind==CommandKind.Buy)LastTransactionSummary07=PurchasedDieSummary07(cmd,before,after);
+            if(cmd.kind==CommandKind.CustomDieUpgrade)LastTransactionSummary07=CustomUpgradeSummary111(cmd,before,after);
             if(cmd.kind==CommandKind.UseItem)
             {
                 string id=before.inventory.FirstOrDefault(i=>i.instanceId==cmd.itemInstanceId)?.contentId;
@@ -460,9 +461,9 @@ namespace DiceCraft
         }
         private bool BeginCommittedTransactionVisual07(SessionCommand cmd,CommandResult result,RunState before,RunState after)
         {
-            if(cmd.kind!=CommandKind.Buy&&cmd.kind!=CommandKind.RefreshControllers)return false;
+            if(cmd.kind!=CommandKind.Buy&&cmd.kind!=CommandKind.RefreshControllers&&cmd.kind!=CommandKind.CustomDieUpgrade)return false;
             EnsureTransactionMotion07();
-            LastTransactionSummary07=CommittedTransactionSummary07(cmd,before,after);
+            LastTransactionSummary07=cmd.kind==CommandKind.CustomDieUpgrade?CustomUpgradeSummary111(cmd,before,after):CommittedTransactionSummary07(cmd,before,after);
             var offerBefore=before.shop?.offers.FirstOrDefault(o=>o.offerId==cmd.offerId);
             bool claim=LootPage15&&!string.IsNullOrEmpty(offerBefore?.groupId);
             // Keep a newly awarded die visible even when it starts the next debug-inventory page.
@@ -485,6 +486,8 @@ namespace DiceCraft
                 return true;
             }
             var bought=offerBefore;
+            // v1.1.1 (W7b): a self-selected upgrade plays the same face change as a shelf upgrade; it has no offer.
+            if(cmd.kind==CommandKind.CustomDieUpgrade)bought=new ShopOffer{offerId="",contentId=cmd.upgradeId,category="die_upgrade",groupId=""};
             if(bought==null){CompleteTransactionVisual07();return true;}
             if(bought.category=="die_upgrade")
             {
@@ -628,19 +631,24 @@ namespace DiceCraft
         {
             var oldDie=before.dice.FirstOrDefault(d=>d.dieId==cmd.targetDieId)?.Clone();var newDie=after.dice.FirstOrDefault(d=>d.dieId==cmd.targetDieId)?.Clone();
             if(oldDie==null||newDie==null){CompleteTransactionVisual07();return;}
-            bool whole=bought.contentId=="U05",special=whole||bought.contentId=="U07";float seconds=whole?.42f:.36f;string faceId=whole?"F02":cmd.targetFaceId;
+            // v1.1.1 (W7b, RULES_DELTA 7.1): a per-face upgrade may carry two faces. The die turns to the first one (face id
+            // order, the order they were applied in); the texts name both and describe each in two lines.
+            string[] faceIds=CommandFaces111(cmd);
+            bool whole=bought.contentId=="U05",special=whole||bought.contentId=="U07";float seconds=whole?.42f:.36f;string faceId=whole?"F02":faceIds.FirstOrDefault();
+            if(faceId==null||!oldDie.faces.Any(f=>f.faceId==faceId)||!newDie.faces.Any(f=>f.faceId==faceId)){CompleteTransactionVisual07();return;}
             var oldFace=oldDie.faces.First(f=>f.faceId==faceId);var newFace=newDie.faces.First(f=>f.faceId==faceId);
+            bool two=!whole&&faceIds.Length>1;string faceNames=whole?"":string.Join("、",faceIds.Select(FaceName11));
             var p=UiKit.Rect(transactionReadout07,"PhysicalUpgrade07",392,512,1496,416);
             UiKit.Outline(p,"Frame",0,0,1496,416,UiKit.Gold,3);
             UiKit.Box(p,"LeftPaper",4,4,450,408,UiKit.Panel);UiKit.Box(p,"RightPaper",1014,4,478,408,UiKit.Panel);
             UiKit.Text(p,"Title",NameOf(bought.contentId)+" · 完成",20,16,418,60,29,UiKit.Paper);
-            UiKit.Text(p,"Identity",DieName11(cmd.targetDieId)+"\n"+(whole?"整骰属性":FaceName11(faceId)),20,90,418,92,25,UiKit.Gold);
-            UiKit.Text(p,"Before",(whole?"改造前 · ":"改造前\n")+UpgradeFaceDescription07(oldDie,oldFace,whole),20,194,418,206,23,UiKit.Muted);
+            UiKit.Text(p,"Identity",DieName11(cmd.targetDieId)+"\n"+(whole?"整骰属性":faceNames),20,90,418,92,25,UiKit.Gold);
+            UiKit.Text(p,"Before",two?"改造前\n"+UpgradeFacesDescription111(oldDie,faceIds):(whole?"改造前 · ":"改造前\n")+UpgradeFaceDescription07(oldDie,oldFace,whole),20,194,418,206,23,UiKit.Muted);
             var result=UiKit.Rect(p,"Result",1030,18,446,378);
-            UiKit.Text(result,"After",(whole?"改造后 · ":"改造后\n")+UpgradeFaceDescription07(newDie,newFace,whole),0,0,442,218,25,UiKit.Paper);
+            UiKit.Text(result,"After",two?"改造后\n"+UpgradeFacesDescription111(newDie,faceIds):(whole?"改造后 · ":"改造后\n")+UpgradeFaceDescription07(newDie,newFace,whole),0,0,442,218,two?23:25,UiKit.Paper);
             var current=after.hand?.currentResults.FirstOrDefault(d=>d.dieId==cmd.targetDieId);
             UiKit.Text(result,"Current",current?.hasRolled==true?"本手朝上："+current.currentPip+" 点"+ColorText07(current.currentColor)+"（这次不受影响）":"还没掷",0,242,442,118,22,UiKit.Muted);
-            UiKit.Text(p,"TargetFace",whole?"整骰玻璃材质":FaceName11(faceId)+" · 永久面",504,354,450,48,23,UiKit.Gold,TextAlignmentOptions.Center);
+            UiKit.Text(p,"TargetFace",whole?"整骰玻璃材质":faceNames+" · 永久面",504,354,450,48,23,UiKit.Gold,TextAlignmentOptions.Center);
             var focus=UiKit.Rect(p,"TargetOutline",566,70,304,260);UiKit.Outline(focus,"Line",0,0,304,260,UiKit.Gold,3);var focusGroup=UiKit.Component<CanvasGroup>(focus.gameObject);
             var wipe=UiKit.Box(p,"MaterialWipe",568,72,300,3,UiKit.Gold);
             Vector2 center=new Vector2(392+718,512+202);Quaternion rotation=Quaternion.AngleAxis(18,-table.viewCamera.transform.forward)*Quaternion.FromToRotation(DiceTable.Normals[DiceTable.FaceIndex(faceId)],-table.viewCamera.transform.forward);

@@ -119,6 +119,12 @@ namespace DiceCraft
                 case "牌型已满级，或当前容量/永久骰数量不足。":return "这个牌型已满级，或骰子/提交栏不够。";
                 case GameSession.UpgradeTargetRejected:return SelectedUpgradeReason16(offer,dieId,faceId);
                 case GameSession.SelfStudyLimitReached:return "本店指定升级已用完";
+                // v1.1.1 (W7b): the self-selected die upgrade and the one-or-two-faces target, in the player's words.
+                case GameSession.SelfDieUpgradeLimitReached:return "本店自选改造已用完";
+                case GameSession.UpgradeFaceCountRejected:return "选同一颗骰子的 1 个或 2 个不同的面。";
+                case GameSession.UpgradeSingleFaceOnly:return "这种改造一次只能选 1 个面。";
+                case GameSession.UpgradeTakesWholeDie:return "这种改造改的是整颗骰子，不用选面。";
+                case GameSession.UpgradeFacesInconsistent:return UnavailableShopReason16;
                 case GameSession.NewDieUnavailable:
                     string limit=NewDieLimit16(offer,reason);
                     return limit==null?UnavailableShopReason16:limit+"。";
@@ -145,10 +151,11 @@ namespace DiceCraft
         private void QueueCommandRejection16(SessionCommand cmd,string reason)
         {
             string shown=null;
-            if(cmd.kind==CommandKind.Buy||cmd.kind==CommandKind.Sell||cmd.kind==CommandKind.Study||cmd.kind==CommandKind.RefreshControllers)
+            if(cmd.kind==CommandKind.Buy||cmd.kind==CommandKind.Sell||cmd.kind==CommandKind.Study||cmd.kind==CommandKind.RefreshControllers||cmd.kind==CommandKind.CustomDieUpgrade)
             {
-                var offer=ViewState?.shop?.offers.FirstOrDefault(o=>o.offerId==cmd.offerId);
-                string formatted=PlayerShopReason16(reason,offer,cmd.targetDieId,cmd.targetFaceId);
+                // v1.1.1 (W7b): a self-selected upgrade has no offer; its stand-in carries the upgrade id for the wording.
+                var offer=cmd.kind==CommandKind.CustomDieUpgrade?new ShopOffer{offerId="",contentId=cmd.upgradeId,category="die_upgrade",groupId=""}:ViewState?.shop?.offers.FirstOrDefault(o=>o.offerId==cmd.offerId);
+                string formatted=PlayerShopReason16(reason,offer,cmd.targetDieId,CommandFaces111(cmd).FirstOrDefault());
                 if(formatted!=reason)shown=formatted;
                 if(shown==UnavailableShopReason16)Debug.LogWarning("商店操作被拒："+reason);
             }

@@ -712,7 +712,8 @@ namespace DiceCraft
         }
         /// <summary>The six faces of a die in a row: pip tiles coloured like the faces (with colour assist, blue pips are
         /// diamonds), a gold rim on gold faces, the texture written under a tile (光滑 / 粗糙). Returns the tiles' row.</summary>
-        private RectTransform FaceStrip14(Transform parent,DieInstance die,float x,float y,float tile,Color caption,Action<string> pick=null,string selected=null,string prefix="FaceTile14_",float gap=8)
+        private RectTransform FaceStrip14(Transform parent,DieInstance die,float x,float y,float tile,Color caption,Action<string> pick=null,string selected=null,string prefix="FaceTile14_",float gap=8,
+            ICollection<string> alsoSelected=null,ICollection<string> legal=null)
         {
             var row=UiKit.Rect(parent,"FaceStrip14",x,y,6*tile+5*gap,tile+Line11(16));
             for(int i=0;i<die.faces.Length&&i<6;i++)
@@ -743,7 +744,9 @@ namespace DiceCraft
                 if(v>=4){Pip(.28f,.72f);Pip(.72f,.28f);}
                 if(v==6){Pip(.28f,.5f);Pip(.72f,.5f);}
                 if(f.isGold)UiKit.Ring(t,"GoldRim14",-3,-3,tile+6,tile+6,UiKit.Gold);
-                if(f.faceId==selected)UiKit.Ring(t,"Selected14",-5,-5,tile+10,tile+10,UiKit.Gold);
+                // v1.1.1 (W7b): a face the upgrade cannot change is dimmed; with two faces chosen both are ringed.
+                if(legal!=null&&!legal.Contains(f.faceId)){var dim=UiKit.Box(t,"Unavailable14",0,0,tile,tile,Alpha14(UiKit.Shadow,.45f)).GetComponent<Image>();dim.raycastTarget=false;}
+                if(f.faceId==selected||alsoSelected!=null&&alsoSelected.Contains(f.faceId))UiKit.Ring(t,"Selected14",-5,-5,tile+10,tile+10,UiKit.Gold);
                 string texture=f.texture=="smooth"?"光滑":f.texture=="rough"?"粗糙":"";
                 if(texture.Length>0)NoWrap11(UiKit.Text(row,"Texture14_"+f.faceId,texture,fx-gap*.5f,tile,tile+gap,Line11(16),Body11(16),caption,TextAlignmentOptions.Center));
             }

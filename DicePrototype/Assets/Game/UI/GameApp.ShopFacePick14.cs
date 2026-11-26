@@ -92,20 +92,53 @@ namespace DiceCraft
         private DieName14[] DieTitles14(DieInstance[] dice)=>DieTitles14(dice,Config.generation);
 
         // ================================================================ face pick on the table (SHOP_LAYOUT 7)
-        private sealed class FacePick14 { public string offerId,contentId,dieId,faceId; public bool whole; }
+        // v1.1.1 (W7b, RULES_DELTA 7.1 and 9.2): a per-face upgrade takes one or two faces of the same die (the limit is
+        // the session's MaxSelectableFaces), and the same flow serves a self-selected upgrade, which has no offer
+        // (custom: the upgrade id stands in contentId and the confirmation sends CustomDieUpgrade).
+        private sealed class FacePick14
+        {
+            public string offerId,contentId,dieId; public bool whole,custom,adding; public int maxFaces=1;
+            /// <summary>The chosen faces in the order they were chosen (at most maxFaces).</summary>
+            public readonly List<string> faces=new List<string>();
+            /// <summary>The face chosen last (the one the big die turns to), or null.</summary>
+            public string faceId=>faces.Count==0?null:faces[faces.Count-1];
+        }
         private FacePick14 facePick14;
         public bool FacePickActive14=>facePick14!=null;
-        /// <summary>S0 browsing, S1 choosing a die, S2 choosing a face, S3 confirming (SHOP_LAYOUT 7.1).</summary>
-        public string FacePickStep14=>facePick14==null?"S0":facePick14.dieId==null?"S1":!facePick14.whole&&facePick14.faceId==null?"S2":"S3";
+        /// <summary>S0 browsing, S1 choosing a die, S2 choosing a face (also while a second face is being added), S3
+        /// confirming (SHOP_LAYOUT 7.1).</summary>
+        public string FacePickStep14=>facePick14==null?"S0":facePick14.dieId==null?"S1":!facePick14.whole&&(facePick14.faces.Count==0||facePick14.adding)?"S2":"S3";
         public string FacePickDie14=>facePick14?.dieId;
         public string FacePickFace14=>facePick14?.faceId;
-        private ShopOffer FacePickOffer14=>facePick14==null?null:ViewState?.shop?.offers.FirstOrDefault(o=>o.offerId==facePick14.offerId);
+        /// <summary>The chosen faces in face id order, as the purchase command will carry them.</summary>
+        public string[] FacePickFaces14=>facePick14==null?Array.Empty<string>():FaceArray14(facePick14);
+        /// <summary>True while the flow is a self-selected upgrade (no shelf offer).</summary>
+        public bool FacePickCustom14=>facePick14?.custom==true;
+        private static string[] FaceArray14(FacePick14 pick)=>pick.whole?Array.Empty<string>():pick.faces.OrderBy(f=>f,StringComparer.Ordinal).ToArray();
+        // A self-selected upgrade has no offer of the shop: the panel reads this stand-in (id and category only); its
+        // price, legality and the command come from the session's self-selected queries.
+        private ShopOffer customOffer14;
+        private ShopOffer FacePickOffer14=>facePick14==null?null:facePick14.custom?customOffer14:ViewState?.shop?.offers.FirstOrDefault(o=>o.offerId==facePick14.offerId);
+        /// <summary>The live price of the picked good: the offer's net price, or the self-selected price.</summary>
+        private long FacePickPrice14(ShopOffer offer)=>facePick14?.custom==true?Session.GetCustomDieUpgradePrice(offer.contentId):Session.GetOfferNetPrice(offer);
+        private int MaxFaces14(string contentId)=>contentId!=null&&contentId.StartsWith("U",StringComparison.Ordinal)?Session.MaxSelectableFaces(contentId):0;
         /// <summary>S1: a face upgrade or 删除骰子 of the shelf starts the flow from its price button or its card.</summary>
         private void BeginFacePick14(ShopOffer offer)
         {
             if(offer==null||offer.sold||IsBusy||Session.HasPendingSave||ViewState?.phase!="Shop")return;
             CloseModal();
-            facePick14=new FacePick14{offerId=offer.offerId,contentId=offer.contentId,whole=offer.contentId=="U05"||offer.contentId=="O04"};
+            int max=MaxFaces14(offer.contentId);
+            facePick14=new FacePick14{offerId=offer.offerId,contentId=offer.contentId,whole=max<=0,maxFaces=Math.Max(1,max)};
+            Refresh();
+        }
+        /// <summary>S1 of a self-selected upgrade (RULES_DELTA 9.2): the same flow without an offer.</summary>
+        private void BeginCustomFacePick14(string upgradeId)
+        {
+            if(string.IsNullOrEmpty(upgradeId)||IsBusy||Session.HasPendingSave||ViewState?.phase!="Shop")return;
+            CloseModal();
+            int max=MaxFaces14(upgradeId);
+            customOffer14=new ShopOffer{offerId="",contentId=upgradeId,category="die_upgrade",groupId=""};
+            facePick14=new FacePick14{offerId="",contentId=upgradeId,custom=true,whole=max<=0,maxFaces=Math.Max(1,max)};
             Refresh();
         }
         /// <summary>Back to S0 without any command.</summary>
@@ -119,28 +152,50 @@ namespace DiceCraft
         {
             var offer=FacePickOffer14;
             if(offer==null||offer.sold||ViewState.phase!="Shop")return false;
-            if(facePick14.dieId!=null&&!ViewState.dice.Any(d=>d.dieId==facePick14.dieId&&d.lifetime=="permanent")){facePick14.dieId=null;facePick14.faceId=null;}
+            if(facePick14.dieId!=null&&!ViewState.dice.Any(d=>d.dieId==facePick14.dieId&&d.lifetime=="permanent")){facePick14.dieId=null;facePick14.faces.Clear();facePick14.adding=false;}
             return true;
         }
         private void FacePickChooseDie14(string dieId)
         {
             if(facePick14==null||IsBusy)return;
-            facePick14.dieId=dieId;facePick14.faceId=null;
+            // Another die (or the same one again) starts its faces afresh (W7b: 换骰子时清空已选面).
+            facePick14.dieId=dieId;facePick14.faces.Clear();facePick14.adding=false;
             Refresh();
         }
+        /// <summary>A click on a face. Choosing the first face goes to S3 as before. While a second face is being added
+        /// (再选一个面, S2 again) another face joins the first; in S3 a click on a face of the big die replaces the
+        /// choice with that one face.</summary>
         private void FacePickChooseFace14(string faceId)
         {
-            if(facePick14==null||facePick14.dieId==null||facePick14.whole||IsBusy)return;
-            facePick14.faceId=faceId;
+            var pick=facePick14;
+            if(pick==null||pick.dieId==null||pick.whole||IsBusy||string.IsNullOrEmpty(faceId))return;
+            if(pick.adding)
+            {
+                // The face already chosen keeps the single choice (the same as 只改一面).
+                if(!pick.faces.Contains(faceId)&&pick.faces.Count<pick.maxFaces)pick.faces.Add(faceId);
+                pick.adding=false;
+            }
+            else{pick.faces.Clear();pick.faces.Add(faceId);}
             Refresh();
+        }
+        /// <summary>S3 with one face of an upgrade that takes two: back to the six faces to add the second.</summary>
+        private void FacePickAddFace14()
+        {
+            var pick=facePick14;
+            if(pick==null||pick.whole||pick.dieId==null||pick.faces.Count==0||pick.faces.Count>=pick.maxFaces||IsBusy)return;
+            pick.adding=true;Refresh();
         }
         private void FacePickConfirm14()
         {
             var offer=FacePickOffer14;if(offer==null||IsBusy||Session.HasPendingSave)return;
             var pick=facePick14;if(FacePickReason14(offer,pick)!=null)return;
-            // S4: the one purchase command; the existing upgrade receipt plays the face being rewritten.
+            // S4: the one purchase command; the existing upgrade receipt plays the face being rewritten. One face keeps
+            // the old single-face field (RULES_DELTA 12.1: it equals a one-element array); two faces go in the array.
             facePick14=null;
-            Send(new SessionCommand{kind=CommandKind.Buy,offerId=offer.offerId,targetDieId=pick.dieId,targetFaceId=pick.whole?null:pick.faceId});
+            string[] faces=FaceArray14(pick);
+            if(pick.custom)Send(new SessionCommand{kind=CommandKind.CustomDieUpgrade,upgradeId=pick.contentId,targetDieId=pick.dieId,targetFaceIds=faces});
+            else if(faces.Length>1)Send(new SessionCommand{kind=CommandKind.Buy,offerId=offer.offerId,targetDieId=pick.dieId,targetFaceIds=faces});
+            else Send(new SessionCommand{kind=CommandKind.Buy,offerId=offer.offerId,targetDieId=pick.dieId,targetFaceId=faces.Length==0?null:faces[0]});
         }
 
         /// <summary>"5 点红面", with its traits in brackets: "5 点红面（光滑、黄金、权重 2）".</summary>
@@ -161,13 +216,31 @@ namespace DiceCraft
         /// <summary>Why the chosen target cannot be bought (SHOP_LAYOUT 7.2, last column), or null.</summary>
         private string FacePickReason14(ShopOffer offer,FacePick14 pick)
         {
-            if(pick==null||pick.dieId==null||!pick.whole&&pick.faceId==null)return "";
+            if(pick==null||pick.dieId==null||!pick.whole&&pick.faces.Count==0)return "";
             if(offer.groupId!="LOOT"&&Session.IsLootPending)return "先领取首领战利品";
-            if(offer.category=="die_upgrade"&&!Session.IsUpgradeTargetLegal(offer.contentId,pick.dieId,pick.whole?null:pick.faceId))
-                return SelectedUpgradeReason16(offer,pick.dieId,pick.faceId);
-            long cost=Session.GetOfferNetPrice(offer);
+            string[] faces=FaceArray14(pick);
+            if(offer.category=="die_upgrade")
+            {
+                // v1.1.1 (W7b): which faces are legal is the session's answer (LegalUpgradeFaces); with two faces chosen the
+                // reason names the one that cannot be changed, so the other can be kept.
+                if(pick.whole){if(!Session.IsUpgradeTargetLegal(offer.contentId,pick.dieId,null))return SelectedUpgradeReason16(offer,pick.dieId,null);}
+                else
+                {
+                    var legal=Session.LegalUpgradeFaces(offer.contentId,pick.dieId);
+                    string bad=faces.FirstOrDefault(f=>!legal.Contains(f));
+                    if(bad!=null)
+                    {
+                        string why=SelectedUpgradeReason16(offer,pick.dieId,bad);
+                        var face=faces.Length<2?null:ViewState.dice.FirstOrDefault(d=>d.dieId==pick.dieId)?.faces.FirstOrDefault(f=>f.faceId==bad);
+                        return face==null?why:FaceText14(face)+"："+why;
+                    }
+                }
+            }
+            long cost=FacePickPrice14(offer);
             if(cost>ViewState.gold)return "还差 "+(cost-ViewState.gold)+" 金币";
-            string error=Session.PurchaseError(offer.offerId,pick.dieId,pick.whole?null:pick.faceId);
+            string error=pick.custom?Session.CustomDieUpgradeError(offer.contentId,pick.dieId,faces)
+                :offer.category=="die_upgrade"?Session.PurchaseErrorForFaces(offer.offerId,pick.dieId,faces)
+                :Session.PurchaseError(offer.offerId,pick.dieId,null);
             if(error==null)return null;
             return PlayerShopReason16(error,offer,pick.dieId,pick.faceId).TrimEnd('。');
         }
@@ -207,7 +280,32 @@ namespace DiceCraft
                 change="删除 "+OwnedDieLabel14(die.dieId);
                 note="连同它的改造一起删除；提交栏仍是 "+Session.EffectiveCapacity+" 格";return;
             }
-            var face=die.faces.FirstOrDefault(f=>f.faceId==pick.faceId);if(face==null)return;
+            // v1.1.1 (W7b, RULES_DELTA 7.1): two faces show both changes, one line each in face order; the notes that
+            // name one face's opposite or weight become one shared sentence (the price line below is the same price).
+            string[] chosen=FaceArray14(pick);
+            if(chosen.Length>1)
+            {
+                var lines=new List<string>();var notes=new List<string>();
+                foreach(string id in chosen){FaceChange14(offer,die,id,out string one,out string oneNote);if(!string.IsNullOrEmpty(one))lines.Add(one);if(oneNote!=null&&!notes.Contains(oneNote))notes.Add(oneNote);}
+                change=string.Join("\n",lines);
+                switch(offer.contentId)
+                {
+                    case "U01":note="两个面的对面都更难掷出";break;
+                    case "U02":note="两个面的对面都更容易掷出";break;
+                    case "U06":note=GoldFaceText111+"；"+string.Join("；",chosen.Select(id=>GildWeightText111(die.faces.FirstOrDefault(f=>f.faceId==id))).Distinct());break;
+                    case "U07":note="颜色、纹理、黄金不变；买下时各抽一次";break;
+                    case "U10":note="更容易掷出这两面";break;
+                    default:note=notes.Count==0?null:string.Join("；",notes);break;
+                }
+                return;
+            }
+            FaceChange14(offer,die,pick.faceId,out change,out note);
+        }
+        /// <summary>One face's change line and its note for a per-face upgrade.</summary>
+        private void FaceChange14(ShopOffer offer,DieInstance die,string faceId,out string change,out string note)
+        {
+            change="";note=null;
+            var face=die.faces.FirstOrDefault(f=>f.faceId==faceId);if(face==null)return;
             var after=die.Clone();var changed=after.faces.First(f=>f.faceId==face.faceId);
             var opposite=die.faces.FirstOrDefault(f=>f.faceId==Config.Opposite(face.faceId));
             switch(offer.contentId)
@@ -242,7 +340,7 @@ namespace DiceCraft
             var offer=FacePickOffer14;var pick=facePick14;if(offer==null)return;bool c=Large11;
             var panel=Section14(main,"FacePick14","FacePickTitle14",NameOf(offer.contentId),l.dice,out float titleRight);
             var strip=panel.Find("HeaderStrip") as RectTransform;
-            string category=offer.category=="service"?"服务":"骰面改造";float categorySize=Body11(18),catW=ShopLabelWidth14(category,categorySize);
+            string category=pick.custom?"自选改造":offer.category=="service"?"服务":"骰面改造";float categorySize=Body11(18),catW=ShopLabelWidth14(category,categorySize);
             // Inside the header strip's drawn frame (its right end carries the strip's decoration).
             var stripFrame=FrameInsets11(strip.GetComponent<Image>());float stripRight=strip.anchoredPosition.x+strip.sizeDelta.x-stripFrame.z-12;
             FitLine13(panel,"FacePickCategory14",category,stripRight-catW-4,(ShopHead14-Line11(categorySize))*.5f,catW+4,categorySize,LabelOn11(strip,UiKit.Muted),TextAlignmentOptions.MidlineRight,false);
@@ -283,7 +381,8 @@ namespace DiceCraft
                 float rowH=Mathf.Max(big,labelH);
                 if(step=="S2")
                 {
-                    var prompt=UiKit.Text(panel,"FacePickPrompt14","选要改的面：点下面的方块，或点骰子上的面",textX,rowTop+labelH+6,textW,10,20,ink,TextAlignmentOptions.TopLeft);
+                    // v1.1.1 (W7b): the second face of an upgrade that takes two is chosen on the same six tiles.
+                    var prompt=UiKit.Text(panel,"FacePickPrompt14",pick.adding?"再选一个面，价格不变":"选要改的面：点下面的方块，或点骰子上的面",textX,rowTop+labelH+6,textW,10,20,ink,TextAlignmentOptions.TopLeft);
                     prompt.enableAutoSizing=false;prompt.textWrappingMode=TextWrappingModes.Normal;
                     prompt.text=WrapLines21(prompt,prompt.text,textW,int.MaxValue)??prompt.text;
                     float promptH=Mathf.Ceil(prompt.GetPreferredValues(prompt.text,textW,0).y)+2;
@@ -296,7 +395,10 @@ namespace DiceCraft
                     // big die is turned to the chosen face (a click on another of its faces, or 换一面, changes it), which leaves
                     // the change, its note and the price room with enlarged text.
                     const float tile=60;float gap=Mathf.Min(10,(w-6*tile)/5f);
-                    FaceStrip14(panel,die,x+(w-(6*tile+5*gap))*.5f,y,tile,muted,FacePickChooseFace14,pick.faceId,"Face_",gap);
+                    // v1.1.1 (W7b): the faces the session will not accept for this upgrade are dimmed (they can still be
+                    // clicked: S3 then says why and keeps 确认 off); every chosen face is ringed.
+                    FaceStrip14(panel,die,x+(w-(6*tile+5*gap))*.5f,y,tile,muted,FacePickChooseFace14,pick.faceId,"Face_",gap,pick.faces,
+                        offer.category=="die_upgrade"?Session.LegalUpgradeFaces(offer.contentId,die.dieId):null);
                     y+=tile+Line11(16)+8;
                 }
                 if(step=="S3")
@@ -306,8 +408,16 @@ namespace DiceCraft
                     Line("PurchasePreviewBody",change,20,ink,true);
                     if(reason!=null)Line("PurchaseUnavailable",reason,20,ink,false);
                     else if(note!=null)Line("FacePickNote14",note,20,ink,false);
-                    long cost=Session.GetOfferNetPrice(offer);
+                    long cost=FacePickPrice14(offer);
                     Line("FacePickPrice14",!string.IsNullOrEmpty(offer.groupId)?"免费":"价格 "+cost+"（你有 "+PlayerNumberFormat.Gold(ViewState.gold)+"）",20,muted,false);
+                    // v1.1.1 (W7b, RULES_DELTA 7.1): an upgrade that takes two faces offers the second one here, for the
+                    // same price. It is a second-level button of its own row, above the foot row.
+                    if(!pick.whole&&pick.faces.Count<pick.maxFaces)
+                    {
+                        string add=string.IsNullOrEmpty(offer.groupId)?"再选一个面（价格不变）":"再选一个面";
+                        float addW=Mathf.Min(w,ShopLabelWidth14(add,20)+32);
+                        ShopButton14(panel,"AddFace14",add,x,y,addW,60,FacePickAddFace14,!IsBusy);y+=60+6;
+                    }
                 }
             }
             // Buttons along the foot of the panel, right to left: 确认购买 ⦿N, 换一面 / 换一颗, 取消 (second-level: the screen's one
@@ -315,8 +425,8 @@ namespace DiceCraft
             // panel's row with enlarged text; the padding then steps down to 12 and the gaps to 6, so all stay inside it.
             float by=l.dice.height-ShopFoot14-4-60,bx=l.dice.width-ShopPad14;
             bool confirmShown=step=="S3";
-            string swap=step=="S3"&&!pick.whole?"换一面":step=="S2"||step=="S3"&&pick.whole?"换一颗":null;
-            long confirmCost=Session.GetOfferNetPrice(offer);bool gift=!string.IsNullOrEmpty(offer.groupId);string confirmWord=gift?"确认领取":offer.contentId=="O04"?"确认删除":"确认购买";
+            string swap=step=="S3"&&!pick.whole?"换一面":step=="S2"&&pick.adding?"只改一面":step=="S2"||step=="S3"&&pick.whole?"换一颗":null;
+            long confirmCost=FacePickPrice14(offer);bool gift=!string.IsNullOrEmpty(offer.groupId);string confirmWord=gift?"确认领取":offer.contentId=="O04"?"确认删除":"确认购买";
             float wordW=ShopLabelWidth14(confirmWord,20),priceW=26+4+ShopLabelWidth14(confirmCost.ToString(CultureInfo.InvariantCulture),22);
             float swapW=swap==null?0:ShopLabelWidth14(swap,20),cancelLabelW=ShopLabelWidth14("取消",20);
             float RowWidth(float p,float g)=>(confirmShown?p+wordW+(gift?0:10+priceW)+p+g:0)+(swap!=null?swapW+2*p+g:0)+cancelLabelW+2*p+8;
@@ -335,8 +445,9 @@ namespace DiceCraft
                 }
                 bx-=cw+gapB;
             }
-            if(swap=="换一面"){float ww=swapW+2*pad;ShopButton14(panel,"ChangeFace14",swap,bx-ww,by,ww,60,()=>{if(facePick14!=null){facePick14.faceId=null;Refresh();}},!IsBusy);bx-=ww+gapB;}
-            if(swap=="换一颗"){float ww=swapW+2*pad;ShopButton14(panel,"ChangeDie14",swap,bx-ww,by,ww,60,()=>{if(facePick14!=null){facePick14.dieId=null;facePick14.faceId=null;Refresh();}},!IsBusy);bx-=ww+gapB;}
+            if(swap=="换一面"){float ww=swapW+2*pad;ShopButton14(panel,"ChangeFace14",swap,bx-ww,by,ww,60,()=>{if(facePick14!=null){facePick14.faces.Clear();facePick14.adding=false;Refresh();}},!IsBusy);bx-=ww+gapB;}
+            if(swap=="只改一面"){float ww=swapW+2*pad;ShopButton14(panel,"KeepOneFace14",swap,bx-ww,by,ww,60,()=>{if(facePick14!=null){facePick14.adding=false;Refresh();}},!IsBusy);bx-=ww+gapB;}
+            if(swap=="换一颗"){float ww=swapW+2*pad;ShopButton14(panel,"ChangeDie14",swap,bx-ww,by,ww,60,()=>{if(facePick14!=null){facePick14.dieId=null;facePick14.faces.Clear();facePick14.adding=false;Refresh();}},!IsBusy);bx-=ww+gapB;}
             float cancelW=cancelLabelW+2*pad+8;ShopButton14(panel,"CancelFacePick14","取消",bx-cancelW,by,cancelW,60,CancelFacePick14,true);
         }
         /// <summary>A die of 我的骰子 that can be chosen (S1–S3): a hit area named Target_&lt;die&gt; over its cell, ringed in
