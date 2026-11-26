@@ -1,4 +1,9 @@
-"""Stage-target calibration helper for `BalanceSim run` output (p1.0.0: all 24 stages, three-stage cycles).
+"""Stage-target calibration helper for `BalanceSim run` output (rules p1.1.1: 24 stages, three-stage cycles).
+
+p1.1.1: the fields the three modes read (summary.targets / stageKinds, stages[].clear / reach / power, and per
+stage in logs[]: stage, kind, cleared, risk, riskOffered, target, targetBase, power, safe, powerRaw, safeRaw,
+powerMod, targetMod) kept their names. `summary` also prints the p1.1.1 per-stage fields when the run has them:
+power / target and one mean hand / target per four-stage block, the highest real hand / target, and who died where.
 
     python tools/balance_sim/calibrate.py summary <run.json> [<run2.json> ...] [--md]
         Headline numbers of each run: win rate, death share per four-stage block, clear rate per stage and per stage
@@ -33,7 +38,7 @@ import json
 import math
 from pathlib import Path
 
-RISK_FACTOR = 1.5      # pressure target = normal target x 1.5 (p1.0.0)
+RISK_FACTOR = 1.5      # pressure target = normal target x 3/2 (p1.0.0 and p1.1.1)
 BOT_RISK_MARGIN = 1.3  # BotOptions.riskFactor: the bot accepts when safe power >= margin x pressure target
 
 
@@ -81,7 +86,26 @@ def headline(run):
     offered = [s for s in stages if s.get("riskOffered")]
     accepted = [s for s in offered if s["risk"]]
     last = [s for s in stages if s["stage"] == n]
+    # p1.1.1 fields (absent in older runs): the per-hand estimates and the best real hand of each stage.
+    has_hand = bool(stages) and "handMeanOverTarget" in stages[0]
+    block_rows = []
+    for a, b in blocks(n):
+        at = [s for s in stages if a <= s["stage"] <= b and s["target"] > 0]
+        block_rows.append({
+            "block": f"{a}-{b}", "entered": len(at),
+            "power": median([s["power"] / s["target"] for s in at]), "safe": median([s["safe"] / s["target"] for s in at]),
+            "hand": median([s["handMeanOverTarget"] for s in at]) if has_hand else float("nan"),
+            "p25": median([s["handP25OverTarget"] for s in at]) if has_hand else float("nan"),
+            "best": median([s["bestHand"] / s["target"] for s in at if s["cleared"]]) if has_hand else float("nan"),
+        })
+    death_kinds = {}
+    for log in logs:
+        if not log["won"]:
+            kind = kinds[max(1, log["reached"]) - 1]
+            death_kinds[kind] = death_kinds.get(kind, 0) + 1
     return {
+        "blocks": block_rows, "death_kinds": death_kinds, "seconds": run.get("v111", {}).get("secondsPerRun"),
+        "errors": run.get("errors", 0), "rejected": (run.get("rejectedOptionalCommands", 0), run.get("rejectedShopCommands", 0), run.get("quoteMismatches", 0)),
         "name": Path(run.get("configPath", "?")).stem, "runs": len(logs), "wins": run["wins"], "win": 100.0 * run["wins"] / len(logs),
         "share": share, "share_runs": share_runs,
         "power_last": median([s["powerRaw"] / s["targetBase"] for s in last]) if last and "powerRaw" in last[0] else (by_stage[n]["power"] if n in by_stage else float("nan")),
@@ -126,6 +150,12 @@ def summary(paths, md):
         print("reach %:          " + " ".join(f"{fmt(c):>4}" for c in r["reach"]))
         print("power/target med: " + " ".join(f"{fmt(x, 1):>4}" for x in r["power"]))
         print(f"lowest stage clear rate: {low[0]:.0f}% at stage {low[1]};  stages below 85%: " + (" ".join(str(k) for c, k in valid if c < 85) or "none"))
+        print(f"diagnostics: errors={r['errors']}  refused optional / shop commands={r['rejected'][0]} / {r['rejected'][1]}  quote mismatches={r['rejected'][2]}"
+              + (f"  seconds per run={r['seconds']:.1f}" if r["seconds"] is not None else ""))
+        print("deaths by stage kind: " + "  ".join(f"{k}: {v}" for k, v in sorted(r["death_kinds"].items())) + "   deaths by stage: " + " ".join(f"{k}:{v}" for k, v in sorted(r["deaths"].items())))
+        print("per four-stage block, medians over the stages entered (power = mean hand x submissions, hand = one mean hand, p25 = one 25th-percentile hand, best = highest real hand of a cleared stage; all / target):")
+        for b in r["blocks"]:
+            print(f"  {b['block']:<6} entered {b['entered']:>5}  power {fmt(b['power'], 2)}  safe {fmt(b['safe'], 2)}  hand {fmt(b['hand'], 2)}  p25 {fmt(b['p25'], 2)}  best {fmt(b['best'], 2)}")
 
 
 # ---------------------------------------------------------------- prediction
