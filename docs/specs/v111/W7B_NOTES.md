@@ -14,7 +14,9 @@
 | 6 玻璃提交后碎裂的演出 | 完成（只编译，未在 Unity 里运行） | 见提交记录 |
 | 7 W7a 留下的小项 | 完成（节拍顺序在 .NET 宿主跑过；其余只编译） | 见提交记录 |
 | 8 回放工具 | 完成（.NET 回放工具跑过含新命令的记录；游戏内回放入口只编译） | 见提交记录 |
-| 9 测试与实看材料 | 进行中 | |
+| 9 测试与实看材料 | 完成（PlayMode 测试与截图步骤只编译；字表已重生成，Python 测试跑过） | 见提交记录 |
+
+九项都做了，但**没有一项在 Unity 里运行或实看过**：界面部分只通过了编译检查，纯逻辑部分在 .NET 宿主里跑过。哪些跑过、哪些只编译，见第 5 节。
 
 ## 1. 每个新交互的操作路径与实现位置
 
@@ -164,6 +166,32 @@
 
 没有动的：`Runtime/Verification/Art072CaptureTour.cs`（v0.72 的旧巡览，连卡牌调序的字段都没有，现行流程不用它）。`tools/replay_v11.py` 第 138 行与 `tools/package_v11.py` 的版本号还是 `p1.1.0`，用 p1.1.1 的记录跑它之前要先改这个版本号（属于出包工具，不在本包范围）。
 
+### 1.9 PlayMode 测试与审阅截图
+
+新文件 `Tests/PlayMode/V111InteractionsPlayModeTests.cs`（9 个测试，都走真实界面：点入口、选骰选面、点确认，再断言会话状态与界面文字）：
+
+| 测试 | 覆盖 |
+| --- | --- |
+| `PLAY_V111_TwoFaceUpgradeCostsOnePriceAndAnIllegalFaceBlocksThePair` | 不能改的面变暗；选一个面后出现“再选一个面”；一合法一非法：确认不可用、原因带出那个面、状态不变；“换一面”清空；两个合法面：预览两行、价格文字不变、只扣一次钱、回执两条 `DieUpgraded`、命令带两个面；换骰子清空已选面 |
+| `PLAY_V111_CustomUpgradeListBuysTwiceThenTheEntryIsGreyed` | 入口文字与剩余次数；列表 11 行的价格都等于会话的实时价；自选一笔双面染红、一笔整骰脆化；剩余次数刷新；两笔之后入口变灰、文字改变、第三笔被会话拒绝且提示是玩家用语 |
+| `PLAY_V111_CustomUpgradeListGivesTheReasonWhenGoldIsShort` | 金币为 0 时每一行不可买并写“现在不能买：还差 N 金币” |
+| `PLAY_V111_KeyRingTakesThreeLockedDiceBackThenLeavesItsSlot` | 图标上的次数 3→2→1；钥匙串的按钮不发命令、只标出可撤回的骰子；点骰子只是选中；按钮写明来源与次数；三次撤回各自的回执（先 `DieUnlocked` 后 `ItemUsed`、扣前扣后次数）、其余已锁骰子顺序不变、不耗投掷；用到 0 次图标消失、格子空出；撤回的骰子在骰池里按创建顺序排列 |
+| `PLAY_V111_FreeUnlockOfTheHandComesBeforeTheKeyRing` | 同时持有时先用回心转意（按钮写“本手免费”）、钥匙串次数不动、卡面从“可用”变“已用”；同一手第二次用钥匙串 |
+| `PLAY_V111_BareHandsBlocksTheKeyRingWithItsReasonAndNoSourceOpensTheDie` | 徒手：选中后按钮不可用、提示栏给出原因、硬发命令被拒且次数不变；徒手下回心转意仍可用；免费次数用掉之后的原因；没有任何来源时点已锁骰子仍是打开骰子详情 |
+| `PLAY_V111_SettlementShowsTheRunRecordsAndTheMenuTheFormalBest` | 结算页两行纪录的文字与“本关新纪录”；点开明细后仍在；调试局不写正式记录；主菜单“暂无记录”与读到记录文件之后的数字 |
+| `PLAY_V111_AFormalRunFeedsTheFormalRecordOnlyWhenItsBestHandRises` | 正式局提交一手之后历史最高更新并落盘在存档目录；重启读同一个目录数值还在、文件不被重写、主菜单显示 |
+| `PLAY_V111_ScoreTiersStartAtOneThreeAndTenTargets` | 同一手牌，目标分别设成 得分+1、得分、得分/3、得分/10：无档、一档、二档、三档各触发一次，档位文字与光圈、外圈、皇冠 |
+
+玻璃提交后碎裂在 `Art07PostEffectsPlayModeTests`（1.6 节），整局结果页在 `Art07ResultRowsPlayModeTests`（1.4 节）。
+
+**审阅截图**：没有往 `Art07VisualRecorder` 里加。它录的是“某个夹具的一段计分演出”的逐帧序列并做帧分析，本包的新画面大多是静止的商店、弹窗、结算页，放不进它的流程。V1.1 的 1080p／720p 审阅图实际是由 PlayMode 测试里的截图步骤产出的（`W11Capture`、`W14Shot`、`W20Xb` 审阅巡览），本包照这个办法：上面每个测试在关键画面调用 `W7bShot(名字)`，隐藏调试标记后截当前分辨率的整屏，写到 `artifacts/cache/v111/w7b/<宽>x<高>/<名字>.png`。分别以 1920×1080 和 1280×720 跑这个文件即可得到两套图。文件名：
+
+`custom-upgrade-list`、`custom-upgrade-two-faces`、`custom-upgrade-used-up`、`custom-upgrade-list-no-gold`、`face-pick-pair-rejected`、`face-pick-adding-second`、`face-pick-two-faces`、`items-key-ring-uses`、`unlock-key-ring-armed`、`unlock-by-key-ring`、`unlock-after-first`、`unlock-key-ring-used-up`、`unlock-by-free-card`、`unlock-blocked-bare-hands`、`settlement-records`、`menu-formal-record`、`score-tier-below`、`score-tier-one`、`score-tier-three`、`score-tier-ten`。
+
+整局结果页的图由原有的 `Art07ResultRowsPlayModeTests`（`S18-row…`）产出，现在是七行。玻璃碎裂的那一拍没有加截图步骤（那个测试在这一拍上做位置断言，中途重画会干扰），需要图时可以用 `Art07VisualRecorder` 录一段带玻璃骰的提交。
+
+这些截图步骤会在演出中途重画一次界面；如果实跑时发现某张图与断言互相干扰，先去掉那一处 `W7bShot`。
+
 ## 2. 需要在 Unity 里实看的画面
 
 | 屏 | 怎么到达 | 看什么 |
@@ -193,3 +221,76 @@
 | 加成卡与乘法卡混排时的演出 | 卡牌顺序排成 乘法、加成、乘法、加成 后提交 | 先亮两张加成卡、再亮“加成”筹码、然后才是乘法卡；节奏是否自然 |
 | 调试面板的道具 | 调试面板“道具”页加钥匙串 | 列表里“钥匙串 ×”旁边的“剩 3 次”按钮；点它 3→2→1→3 |
 | 得分演出三档 | 调试面板把目标设成一手得分的 1 倍、1/3、1/10 各提交一次（或用截图记录器的三张） | 一档蓝色光圈与“一手达标！”；二档金色光圈、外圈、火花与“三倍目标！”；三档再加皇冠与“十倍目标！”；差 1 分不到目标时什么都没有（以前过半就有蓝圈） |
+
+## 3. 需要编辑器操作的事项
+
+本包没有改场景、Prefab、项目设置，也没有新增资源。需要在 Unity 里做的：
+
+1. 导入：新文件的 `.meta` 都是手写的（随机 GUID，格式照同目录）：`UI/GameApp.Interact111.cs`、`UI/GameApp.Records111.cs`、`UI/GameApp.Glass111.cs`、`Runtime/FormalRecordStore.cs`、`Runtime/DiceTable.Break111.cs`、`Runtime/Presentation/RunRecords111.cs`、`Tests/EditMode/Presentation/V111RecordsTests.cs`、`Tests/PlayMode/V111InteractionsPlayModeTests.cs`。打开工程后确认没有 GUID 冲突的提示。
+2. 重烘字体图集（见第 4 节）。
+3. 跑 EditMode 与 PlayMode 全部测试；以 1920×1080 和 1280×720 各跑一次 `V111InteractionsPlayModeTests` 取审阅图。
+4. W7a 备注里那一项仍然没有动：`Editor/Art07AssetLibrary.cs` 生成的得分 Prefab 字段。
+
+## 4. 字表与需要重烘的字符
+
+改了玩家可见文字之后已用 `tools/v21_title_chars.py --write` 重生成字表（以工作区现行配置为准），`tests/test_v21_title_chars.py`、`tests/test_v21_linebreak_words.py`、`tests/test_v11_glossary_check.py` 共 100 条全过；换行词表检查通过（250 个词对 272 条短文字与选面样本），没有需要增删的词。
+
+| 字表 | 相对本包开始时新增的字 | 来自 |
+| --- | --- | --- |
+| `Fonts/Themes/title_chars.txt`（标题字体，四套主题） | 撤、自 | “撤回”按钮（主按钮用标题字体）、“自选改造”弹窗标题 |
+| `Fonts/Themes/bold_chars.txt`（粗体） | 悔 | 撤回提示里的“不能反悔” |
+
+这三个字要在 Unity 里按 W21 的流程重烘四套主题的标题字体与粗体静态图集；W7a 备注里列的那批（标题“匙反意绝转钥”、粗体“做偿匙反惩管纪罚钥零”）如果还没烘，一起烘。烘之前 `V21TitleFontAssetTests` 的 `FW02`、`Q5` 预计失败。
+
+档位文字“三倍目标！”“十倍目标！”走的是常驻的动态字形（`Score11Glyphs`），不在这两张静态字表里。
+
+## 5. 运行过的与只编译的
+
+运行过（.NET 10 宿主与 Python，结果是本包最后一次运行的数字；运行时工作区里还有协调者未提交的配置与测试改动）：
+
+| 检查 | 结果 |
+| --- | --- |
+| 规则宿主 `RulesNUnitValidation.csproj` | 3982 / 3982 |
+| 会话宿主 `SessionValidation.csproj` | 616 / 616 |
+| 表演宿主 `PresentationValidation.csproj` | 2419 / 2419（基线 2374；新增 45 条：`V111RecordsTests` 31、`HighScore073Tests` 净增 13、`PresentationTests` 1） |
+| 夹具预检 `FixturePreflight.csproj` | 11 个场景全过（`Burst09` 换了目标之后仍是最高档） |
+| `UnityTestsCompilation.csproj` | 5 个错误，与基线相同（`Art07ResourceDiagnosticPlayModeTests`），没有新增 |
+| `NormalRunSearch` → `NormalRunReplay` | 35 步重放通过；另有一份含两个面自选改造的真实记录 13 步重放通过（见 1.8） |
+| `tools/v11_glossary_check.py` | 违规 0，失效允许项 0 |
+| Python 测试三个文件 | 100 条全过 |
+
+宿主写出的证据文件已还原或删除：规则宿主改写的 `evidence/v05/rules/nunit-managed-report.json` 已 `git checkout`，会话宿主的 `evidence/v05/session/report.json` 与表演宿主的 `managed-<时间>.json` 已删，回放工具改写的 `evidence/v06/session/` 已还原。
+
+**只编译、没有运行的**（都要在 Unity 里跑）：
+
+- 新增：`Tests/PlayMode/V111InteractionsPlayModeTests.cs` 的 9 个测试。
+- 改写：`Art07ResultRowsPlayModeTests`（七行）、`V21TitleFontPlayModeTests`（期望表多一格）、`Art073PlayModeTests`（档位文字）、`Art07PostEffectsPlayModeTests`（碎裂演出的位置、轮廓、12 片）。
+- `V111RecordsTests`、`HighScore073Tests`、`PresentationTests` 在 .NET 宿主跑过，但没有在 Unity 的 EditMode 里跑过。
+- 全部界面代码：选面面板、自选改造列表、撤回的选中与按钮、道具次数角标、结算页与主菜单的纪录、整局结果页五格、碎裂演出、调试面板。它们的版式（位置、是否重叠、大字号下是否放得下）都是按代码里的尺寸推算的，没有看过画面。
+
+我对这些测试里把握较小的几处（实跑时如果失败，先看这里是不是测试写错了）：
+
+- `PLAY_V111_KeyRing…` 里“撤回后骰池按创建顺序从左到右排”的断言，假定骰池在 3 颗以内时排成一行。
+- 用到 `W7bShot` 的地方会在演出中途重画界面。
+- `Art07PostEffectsPlayModeTests` 里碎裂特效的位置容差沿用旧测试的 0.001；如果已锁骰子在计分期间有细微的位移，这个容差会偏紧。
+- `PLAY_V111_BareHands…` 用配置里第一个带“徒手”效果的首领减益放在第 9 关的调试场景里，假定调试场景不检查减益的章节档位（其它测试对 `B02` 是这样用的）。
+
+## 6. 需要协调者决定的事
+
+1. 自选改造入口的文字：现在是“自选改造 · 还剩 N 次”（与“指定升级”同一写法），交接包的原话是“自选改造 剩 N 次”。
+2. 持有钥匙串或回心转意时，点已锁骰子从“打开骰子详情”变成了“选中以便撤回”。是否保留“再点一次打开详情”之类的入口。
+3. `ScorePresentationTier`（按总倍率分的 0–5 档，决定节拍时长、粒子与爆发音效）没有动；§13 的三档是否也要接管它。
+4. 整局结果页“本局最高单手”现在读 `RunState.highestHandScore`；调试工作区里它可能高于调试期间提交过的最大值。
+5. 养成卡“不占栏位”用的是已有的读数角标（文字）；是否另配角标图。
+6. 碎掉的玻璃骰离开之后，那一格在演出结束前是空的而“+N”与锁标还在；是否要补一个“已碎”的格内标记。
+7. 得分明细里加成条目超过 4 条默认收起；阈值是否合适。
+8. 选面面板没有在第一步就说明“可以选两个面”，要选完第一个面才看到“再选一个面”按钮（自选列表里有一行说明，货架卡片上没有）。是否在选面提示或卡面短句里提前说。
+9. `tools/replay_v11.py`、`tools/package_v11.py` 的版本号仍是 `p1.1.0`；W3b-2 备注里提到的 `Editor/PrototypeBuild.cs:104` 发布身份检查也还没改。都不在本包范围。
+10. `V21WrapMatrix` 的选面样本没有加本包的新句子（“再选一个面，价格不变”、两个面的几句说明），因为 `V21WrapTests` 对样本条数有断言而本包跑不了它。需要时在 Unity 里加样本并同步条数。
+
+## 7. 卡面与配置文字的问题（在 `tools/v111_config.py`，没有改）
+
+1. 九种按面改造的短句都写“这一面……”（U01–U04、U06–U10），没有一处提到可以一次改两个面。
+2. U07 随机变形“这一面的点数随机变成另外5个数之一”：选两个面时是各抽一次，短句没有说。
+3. I13 钥匙串“选一颗已锁定的骰子放回骰池；共可使用3次”：没有提到持有回心转意时先用它的免费次数（界面的“用法”一段里写了）。
+4. W7a 备注第 3 节列的五条（C63、B22／B23／B36、B06、用语、最长短句）本包没有再核对是否已改。
