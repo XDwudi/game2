@@ -39,7 +39,7 @@ namespace DiceCraft.Tests
                 double limit=Time.realtimeSinceStartupAsDouble+6;
                 while(app.PresentationPlaying07&&Time.realtimeSinceStartupAsDouble<limit)yield return null;
                 Assert.That(app.PresentationPlaying07||app.IsBusy,Is.False);Assert.That(app.StablePresentationResultVisible07,Is.True,mode);
-                Assert.That(VisibleFinalText07("StableResultScore07").text.Replace(",",""),Is.EqualTo("181440"));
+                Assert.That(VisibleFinalText07("StableResultScore07").text.Replace(",",""),Is.EqualTo("79380")); // p1.1.1 (W7a): 36 x 28 x 8.75 x 9, was 181440
                 // v1.1 (W09): "生效 N 张" instead of "连锁 N" (DEV_PLAN 4.1 item 4). V1.1 (W11, PLAY_LAYOUT 3): the kept
                 // result is the formula row, so the multiplier is its chips (base x each factor = total), not one "x5,040".
                 Assert.That(VisibleFinalText07("FormulaCaptionText11").text,Is.EqualTo("上一手 · 生效 4 张"));
@@ -58,12 +58,14 @@ namespace DiceCraft.Tests
         {
             Art07Fixtures.Apply(app,Art07FixtureKind.ZeroMultiplier);Art07Fixtures.Submit(app,Art07FixtureKind.ZeroMultiplier);
             string state=GameSession.StateHash(app.Session.State);byte[] save=File.ReadAllBytes(app.SaveLocation);app.SkipVisual();
-            Assert.That(app.StablePresentationResultVisible07,Is.True);Assert.That(VisibleFinalText07("StableResultScore07").text,Is.EqualTo("0"));
-            // V1.1 (W11): the post-score changes stay beside the record button; the zero reason is the card chip's own value.
+            // p1.1.1 (W7a; RULES_DELTA 4.2 C49): 千年老二 without a five halves the hand, it no longer zeroes it. The scene scores
+            // 16 x 12 x 1.25 x 1/2 = 120 (was 0) and the card chip reads the half; the post-score changes are kept as before.
+            Assert.That(app.StablePresentationResultVisible07,Is.True);Assert.That(VisibleFinalText07("StableResultScore07").text,Is.EqualTo("120"));
+            // V1.1 (W11): the post-score changes stay beside the record button.
             var income=app.Session.State.processedReceipts.Last().effects.Single(e=>e.kind=="SubmissionIncome");
             Assert.That(income.newValue,Is.Positive);
             Assert.That(VisibleFinalText07("StableResultFactors07").text,Does.Contain("后置").And.Contain("提交得 +"+income.newValue+" 金币"));
-            Assert.That(Button("Factor4").transform.Find("Label").GetComponent<TextMeshProUGUI>().text,Does.Contain("没有有效 5 点"));
+            Assert.That(Button("Factor4").transform.Find("Label").GetComponent<TextMeshProUGUI>().text,Is.EqualTo("×0.5"));
             Click("StablePresentationDetails07");yield return null;Click("CloseDialog");
             Assert.That(app.StablePresentationResultVisible07,Is.True);Assert.That(GameSession.StateHash(app.Session.State),Is.EqualTo(state));CollectionAssert.AreEqual(save,File.ReadAllBytes(app.SaveLocation));
         }
@@ -120,7 +122,7 @@ namespace DiceCraft.Tests
             FinalOptions07("Normal",false);
             var before=app.Session.State;var result=app.Send(new SessionCommand{kind=CommandKind.Submit});Assert.That(result.accepted,Is.True,result.error);
             var receipt=PresentationReceiptAdapter.BuildCommitted(result,before,app.Session.State,app.Config);Assert.That(receipt.ComboTier,Is.EqualTo(5));
-            if(!tenCards)Assert.That(receipt.ScoreDecimal,Is.EqualTo("596160"));
+            if(!tenCards)Assert.That(receipt.ScoreDecimal,Is.EqualTo("510300")); // p1.1.1 (W7a): the burst scene at level 42, was 596160
             string stateHash=GameSession.StateHash(app.Session.State);byte[] save=File.ReadAllBytes(app.SaveLocation);
             yield return WaitFxPhase07(PresentationPhase.FinalScore);
             var view=LiveFx07("fx_combo_burst").Single();Assert.That(view.GetComponent<Art07ScoreBurstLayout>().IsConfigured,Is.True);Assert.That(view.transform.localScale,Is.EqualTo(Vector3.one));

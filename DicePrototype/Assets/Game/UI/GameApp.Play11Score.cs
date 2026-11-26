@@ -245,7 +245,13 @@ namespace DiceCraft
                     bool landed=beat07!=null&&beat07.Phase>=PresentationPhase.BaseAndStructure;
                     text=landed?structure+"\n"+colorName:"";color=UiKit.Gold;size=c?20:26;
                 }
-                else if(mode==Formula11Mode.Preview)text=(preview!=null&&preview.isRandom?"随机结果范围":"预计")+"："+structure+"\n"+colorName;
+                else if(mode==Formula11Mode.Preview)
+                {
+                    // p1.1.1 (W7a; RULES_DELTA 7.3): the locked glass dice are the ones this submission will judge
+                    // (afterScorePlan.glassRiskDieIds); the expected hand says how many and at what chance.
+                    int risk=b.afterScorePlan?.glassRiskDieIds?.Length??0;
+                    text=(preview!=null&&preview.isRandom?"随机结果范围":"预计")+"："+structure+"\n"+colorName+(risk>0?" · 玻璃 "+risk+" 颗，"+GlassRiskText111:"");
+                }
                 else text=structure+"\n"+colorName;
             }
             var hand=UiKit.Text(main,"Hand",text,ix,top,iw,h,size,LabelOn11(main.Find("SubmitInfo11") as RectTransform,color),TextAlignmentOptions.TopLeft);

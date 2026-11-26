@@ -145,20 +145,22 @@ namespace DiceCraft.Tests
                 var before=app.Session.State;var result=app.Send(new SessionCommand{kind=CommandKind.Submit});Assert.That(result.accepted,Is.True,result.error);
                 var receipt=PresentationReceiptAdapter.BuildCommitted(result,before,app.Session.State,app.Config);
                 string state=StateJson();byte[] saved=File.ReadAllBytes(app.SaveLocation);long sequence=app.Session.ActionSequence;
-                var e=receipt.Events.Single(x=>x.EffectFamily=="enchantment_multiplier");
+                // p1.1.1 (W7a; RULES_DELTA 2 step 9): the score enchantment adds +1.5 to the bonus line. Its event is
+                // "enchantment_additive" (was "enchantment_multiplier") and its arc lands on the bonus chip.
+                var e=receipt.Events.Single(x=>x.EffectFamily=="enchantment_additive");Assert.That(e.Operation,Is.EqualTo("+"));Assert.That(e.Operand,Is.EqualTo("3/2"));
                 var player=QualifiedPlayer07();var beat=player.Sequence.Beats.Single(b=>b.Events.Any(x=>x.EventId==e.EventId));
                 player.Tick(beat.StartMs/1000d);EnchantEffectsTick071(0);Canvas.ForceUpdateCanvases();
                 var cue=EnchantLive071("mult2").Single();Assert.That(cue.BoundInstanceId,Is.EqualTo(e.EmitterId));
                 var arc=(RectTransform)cue.transform.Find("MultiplierArc");var initial=V06ScreenRect(arc).center;
                 player.Tick(beat.DurationMs*.9/1000d);EnchantEffectsTick071(0);Canvas.ForceUpdateCanvases();
-                // V1.1 (W11, PLAY_LAYOUT 3): the arc lands on the formula row's enchantment chip (Factor5, "附魔"), which
-                // replaced the v0.73 receipt line "附魔倍率".
+                // V1.1 (W11, PLAY_LAYOUT 3): the arc lands on the formula row's chip Factor5, which replaced the v0.73
+                // receipt line "附魔倍率". p1.1.1 (W7a): Factor5 is the bonus line "加成" the enchantment adds to.
                 var chip=(RectTransform)Button("Factor5").transform;var target=V06ScreenRect(chip);
                 var actual=V06ScreenRect(arc);var near=target;near.xMin-=actual.width;near.xMax+=actual.width;near.yMin-=actual.height;near.yMax+=actual.height;
                 Assert.That(near.Contains(actual.center),Is.True,"Arc endpoint must reach the actual visible enchantment chip, not remain at a card badge.");
                 Assert.That(Vector2.Distance(initial,actual.center),Is.GreaterThan(20),"The fixture must exercise a real route.");
                 Assert.That(cue.GetComponent<CanvasGroup>().alpha,Is.GreaterThan(0));
-                Assert.That(chip.Find("Name").GetComponent<TextMeshProUGUI>().text,Is.EqualTo("附魔"));
+                Assert.That(chip.Find("Name").GetComponent<TextMeshProUGUI>().text,Is.EqualTo("加成"));
                 yield return CaptureEdge07("v071-enchant-multiplier-at-receipt");EnchantCheckpoint071(state,saved,sequence);
                 app.SkipVisual();Assert.That(app.ActiveEnchantmentSources071,Is.Empty);EnchantCheckpoint071(state,saved,sequence);
             }

@@ -181,12 +181,15 @@ namespace DiceCraft.Tests
                 yield return new WaitForSecondsRealtime(.22f);
                 var pose=app.table.GetFaceOrientation(scene.dice[0].dieId);Vector3 position=pose.position,scale=pose.lossyScale;Quaternion rotation=pose.rotation;
                 var command=remote?new SessionCommand{kind=CommandKind.UseItem,itemInstanceId="ITEM_09999",dieIds=scene.dice.Skip(1).Take(2).Select(d=>d.dieId).ToArray(),targetPips=new[]{2,5}}:new SessionCommand{kind=CommandKind.Roll};
-                var result=app.Send(command);Assert.That(result.accepted,Is.True,result.error);Assert.That(result.receipt.effects.Any(e=>e.kind=="DieBroken"),Is.True);
-                var view=LiveFx07("fx_dice_break").Single();Assert.That(Vector3.Distance(view.transform.parent.position,position),Is.LessThan(.001f));
-                Assert.That(Quaternion.Angle(view.transform.parent.rotation,rotation),Is.LessThan(.01f));Assert.That(Vector3.Distance(view.transform.parent.lossyScale,scale),Is.LessThan(.001f));
-                string hash=GameSession.StateHash(app.Session.State);byte[] save=File.ReadAllBytes(app.SaveLocation);view.Evaluate(.5f);
-                Assert.That(Vector3.Distance(view.transform.parent.position,position),Is.LessThan(.001f));Assert.That(Quaternion.Angle(view.transform.parent.rotation,rotation),Is.LessThan(.01f));
-                app.SkipVisual();Assert.That(view.gameObject.activeInHierarchy,Is.False);Assert.That(app.ActiveArtEffects07,Is.Zero);
+                // p1.1.1 (W7a; RULES_DELTA 7.3): neither a roll nor the remote item breaks glass any more (the break is judged
+                // after a submission), so the forced "break" ticket is not drawn and no break effect is placed. p1.1.0 broke
+                // the glass die here and this test checked the pose of the world-pool break view; W7A_NOTES lists that
+                // visual for W7b and TEST_CHANGES the assertions that wait for it.
+                var result=app.Send(command);Assert.That(result.accepted,Is.True,result.error);Assert.That(result.receipt.effects.Any(e=>e.kind=="DieBroken"),Is.False);
+                Assert.That(result.receipt.randomResults.Any(r=>r.kind=="Glass"),Is.False);Assert.That(LiveFx07("fx_dice_break"),Is.Empty);Assert.That(app.BrokenOutlineIds07,Is.Empty);
+                Assert.That(app.Session.State.dice.Any(d=>d.dieId==scene.dice[0].dieId&&d.isGlass),Is.True);Assert.That(scale.x,Is.GreaterThan(0));Assert.That(position.y,Is.Not.NaN);Assert.That(rotation.w,Is.Not.NaN);
+                string hash=GameSession.StateHash(app.Session.State);byte[] save=File.ReadAllBytes(app.SaveLocation);
+                app.SkipVisual();Assert.That(app.ActiveArtEffects07,Is.Zero);
                 Assert.That(GameSession.StateHash(app.Session.State),Is.EqualTo(hash));CollectionAssert.AreEqual(save,File.ReadAllBytes(app.SaveLocation));yield return null;
             }
         }

@@ -64,12 +64,14 @@ namespace DiceCraft.Tests
             var preview=app.Session.PreviewScoreRange().minimum;
             Assert.That(preview.primaryHandId,Is.EqualTo("trips"));Assert.That(preview.chosenGroupId,Is.EqualTo("pair"));
             Assert.That(InformationText07("Hand"),Does.Contain("结构 三条／计分 一对"));
-            Assert.That(InformationButton07("Factor4"),Does.Contain("×0").And.Contain("没有有效 5 点"));
-            Assert.That(InformationText07("FinalScore"),Is.EqualTo("0"));Assert.That(Button("Submit").interactable,Is.True);
+            // p1.1.1 (W7a; RULES_DELTA 4.2 C49): 千年老二 without a five halves the hand instead of zeroing it, so the card chip
+            // reads the half and the hand scores (6 + 2 unused rolls x 3) x pair level 8 (x8) x bonus line 1.25 x 1/2 = 60 (was 0).
+            Assert.That(InformationButton07("Factor4"),Does.Contain("×0.5").And.Not.Contain("没有有效"));
+            Assert.That(InformationText07("FinalScore"),Is.EqualTo("60"));Assert.That(Button("Submit").interactable,Is.True);
             string before=StateJson();byte[] disk=File.ReadAllBytes(app.SaveLocation);
             Click("Factor4");Click("CloseDialog");Assert.That(StateJson(),Is.EqualTo(before));CollectionAssert.AreEqual(disk,File.ReadAllBytes(app.SaveLocation));
             Click("Submit");app.SkipVisual();
-            Assert.That(app.Session.State.lastSubmission.breakdown.score,Is.EqualTo("0"));
+            Assert.That(app.Session.State.lastSubmission.breakdown.score,Is.EqualTo("60"));
             Assert.That(app.Session.State.lastEffects.Any(e=>e.kind=="SubmissionIncome"),Is.True);
             Assert.That(app.Session.State.lastEffects.Any(e=>e.kind=="HandGrown"),Is.True);
             yield return null;

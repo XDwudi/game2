@@ -170,7 +170,7 @@ namespace DiceCraft.Tests
         {
             string footer=CardExpectedFooter07(item,false);
             if(footer=="查看条件"||footer=="随机倍率")return null;
-            if(footer.StartsWith("当前 ×",StringComparison.Ordinal)||footer.StartsWith("当前 +",StringComparison.Ordinal))return footer.Substring(3);
+            if(footer.StartsWith("当前 ×",StringComparison.Ordinal)||footer.StartsWith("当前 +",StringComparison.Ordinal)||footer.StartsWith("当前 加成 ",StringComparison.Ordinal))return footer.Substring(3);
             if(footer=="当前红"||footer=="当前蓝")return "当前 "+footer.Substring(2);
             return footer;
         }
@@ -181,7 +181,7 @@ namespace DiceCraft.Tests
         {
             string footer=CardExpectedFooter07(item,true).Replace(" ●","").Replace(" ◆","");
             if(footer=="技能详情"||footer=="模拟右邻"||footer=="购入定色"||footer=="随机倍率")return null;
-            if(footer.StartsWith("当前 ×",StringComparison.Ordinal)||footer.StartsWith("当前 +",StringComparison.Ordinal))return footer.Substring(3);
+            if(footer.StartsWith("当前 ×",StringComparison.Ordinal)||footer.StartsWith("当前 +",StringComparison.Ordinal)||footer.StartsWith("当前 加成 ",StringComparison.Ordinal))return footer.Substring(3);
             return footer;
         }
         private string CardExpectedFooter07(ControllerInstance item,bool offer)
@@ -192,14 +192,15 @@ namespace DiceCraft.Tests
             {
                 if(item.definitionId=="C41")return "模拟右邻";
                 if(item.definitionId=="C45")return string.IsNullOrEmpty(item.state.activeColor)?"购入定色":item.state.activeColor=="red"?"当前 红 ●":"当前 蓝 ◆";
-                if(item.definitionId=="C51")return "当前 ×"+(item.state.turnoverUnits2/2m).ToString("0.#");
+                // p1.1.1 (W7a; RULES_DELTA 5): 人员流动 is a growth card of the bonus line - its start, the offer's catch-up and what it grew.
+                if(item.definitionId=="C51")return "当前 加成 +"+PlayerNumberFormat.Ratio(ControllerRules.GrowthValue(app.Config,"C51",item.state),100);
                 if(item.definitionId=="C52")return "卖价 "+ControllerRules.SalePrice(item,app.Config);
                 if(item.definitionId=="C53")return "随机倍率";
                 return "技能详情";
             }
             if(item.definitionId=="C41")return source?.abilityId==null?"右邻失效":"→"+app.Config.Controller(source.abilityId).displayName;
             if(source?.abilityId=="C45")return source.state.activeColor=="red"?"当前红":"当前蓝";
-            if(source?.abilityId=="C51")return "当前 ×"+(source.state.turnoverUnits2/2m).ToString("0.#");
+            if(source?.abilityId=="C51")return "当前 加成 +"+PlayerNumberFormat.Ratio(ControllerRules.GrowthValue(app.Config,"C51",source.state),100);
             if(source?.abilityId=="C53")return "随机倍率";
             if(item.definitionId=="C52")return "售价 "+ControllerRules.SalePrice(item,app.Config);
             if(source?.abilityId=="C05")return app.Session.State.hand.c05UsedEmitterIds.Contains(item.instanceId)?"本手已用":"本手可用";

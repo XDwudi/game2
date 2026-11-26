@@ -298,7 +298,7 @@ namespace DiceCraft
         }
         // v1.1 (W09): the colour name only; the English initials R/B are gone (colour-assist symbols stay on the dice).
         private static string ColorName07(string color)=>color=="red"?"红":"蓝";
-        private static string FaceSummary07(FaceState f)=>f.permanentPip+" 点 · "+ColorName07(f.baseColor)+" · "+(f.texture=="smooth"?"光滑":f.texture=="rough"?"粗糙":"无纹理")+(f.isGold?" · 黄金面":"")+(f.baseWeight>1?" · 权重 "+f.baseWeight:"");
+        private static string FaceSummary07(FaceState f)=>f.permanentPip+" 点 · "+ColorName07(f.baseColor)+" · "+(f.texture=="smooth"?"光滑":f.texture=="rough"?"粗糙":"无纹理")+(f.isGold?" · 黄金面":"")+(f.baseWeight>1?" · 权重 "+f.baseWeight:"")+(f.cultivated?" · 被养成卡改写过":""); // p1.1.1 (RULES_DELTA 6): the faces a cultivation card really rewrote are marked
         private void DrawProbability07(Transform parent,DieInstance die,DieInstance afterDie,int[] before,int[] after,bool comparison)
         {
             var list=UiKit.Scroll(parent,"FaceProbabilities",848,576,600,200,396);int row=0;

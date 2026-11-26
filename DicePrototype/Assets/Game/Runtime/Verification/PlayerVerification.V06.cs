@@ -412,7 +412,9 @@ namespace DiceCraft.Verification
             for (int i = 0; i < cards.Length; i++)
             {
                 yield return PressTargetReady("Add" + cards[i]); yield return PressTargetReady("DebugEnchant" + enchants[i]);
-                if (cards[i] == "C51") Input("Turnover", "1000000000");
+                // p1.1.1 (W7a): 人员流动 is an ordinary growth card; its large value goes through the growth field (the
+                // "Turnover" field of its old own multiplier is gone). 1000000 is the field's maximum.
+                if (cards[i] == "C51") Input("Growth", "1000000");
                 if (cards[i] == "C52") Input("Fund", "9");
             }
             yield return Capture("v06-debug-controllers");

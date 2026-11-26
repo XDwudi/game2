@@ -267,6 +267,9 @@ namespace DiceCraft
                 else if(e.EffectFamily=="DieDyed"||e.EffectFamily=="FaceDyed")parts.Add(count+" 处骰面永久染色");
                 else if(e.EffectFamily=="HandGrown")parts.Add(count+" 个牌型升级");
                 else if(e.EffectFamily=="FundAccrued")parts.Add("成长基金卖价上涨");
+                // p1.1.1 (W7a): glass is judged after the submission; a cultivation card's rewrites are counted per face.
+                else if(e.EffectFamily=="DieBroken")parts.Add(count+" 颗玻璃骰碎了（提交栏格数不变）");
+                else if(e.EffectFamily=="FaceCultivated")parts.Add("养成卡改写 "+group.SelectMany(x=>x.TargetDieIds.Zip(x.TargetFaceIds,(d,f)=>d+"/"+f)).Distinct().Count()+" 个骰面");
                 else parts.Add(EventText07(e)+(count>1?" 等"+count+"项":""));
             }
             return string.Join(" · ",parts);

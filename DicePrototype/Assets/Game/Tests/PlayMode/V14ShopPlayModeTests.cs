@@ -402,8 +402,10 @@ namespace DiceCraft.Tests
                     Assert.That(app.FacePickStep14,Is.EqualTo("S3"));Assert.That(app.FacePickFace14,Is.EqualTo("F02"));
                     var f2=dice[0].faces.First(x=>x.faceId=="F02");
                     string faceText=f2.permanentPip+" 点"+(f2.baseColor=="red"?"红":"蓝")+"面";
-                    Assert.That(FindActive<TextMeshProUGUI>("PurchasePreviewBody").text.Replace("\n",""),Does.StartWith(faceText).And.EndWith("（黄金）"));
-                    Assert.That(FindActive<TextMeshProUGUI>("FacePickNote14").text.Replace("\n",""),Is.EqualTo("朝上提交时这颗计分 ×2"));
+                    // p1.1.1 (W7a; RULES_DELTA 7.2): a gold face adds goldAdd100 to the bonus line (it no longer doubles the die)
+                    // and a newly gilded face gains weight, so the preview ends "（黄金、权重 2）" and the note says both.
+                    Assert.That(FindActive<TextMeshProUGUI>("PurchasePreviewBody").text.Replace("\n",""),Does.StartWith(faceText).And.EndWith("（黄金、权重 "+(f2.baseWeight+app.Config.gildedFaceWeightDelta)+"）"));
+                    Assert.That(FindActive<TextMeshProUGUI>("FacePickNote14").text.Replace("\n",""),Is.EqualTo("朝上提交时加成 +"+PlayerNumberFormat.Ratio(app.Config.goldAdd100,100)+"；权重 +"+app.Config.gildedFaceWeightDelta+"（上限 "+app.Config.maxFaceWeight+"）"));
                     Assert.That(FindActive<TextMeshProUGUI>("FacePickPrice14").text.Replace("\n",""),Is.EqualTo("价格 "+app.Config.Upgrade("U06").buyPrice+"（你有 "+PlayerNumberFormat.Gold(gold)+"）"));
                     Assert.That(Button("ConfirmPurchase").interactable,Is.True);Assert.That(W11PrimaryColoured(Button("ConfirmPurchase").targetGraphic.color),Is.False,"Second-level style.");
                     W14AssertNoIds(theme+" S3");Unchanged("S3");
@@ -426,7 +428,7 @@ namespace DiceCraft.Tests
                     Click("Buy_pick-glass");Click("Target_"+dice[1].dieId);yield return null;
                     Assert.That(app.FacePickStep14,Is.EqualTo("S3"));Assert.That(HasActive("Face_F01"),Is.False,"A whole-die upgrade has no faces to choose.");
                     Assert.That(FindActive<TextMeshProUGUI>("PurchasePreviewBody").text.Replace("\n",""),Does.StartWith("第 2 颗 · ").And.EndWith(" → 玻璃骰"));
-                    Assert.That(FindActive<TextMeshProUGUI>("FacePickNote14").text.Replace("\n",""),Is.EqualTo("计分 ×3；每次掷到它有 "+app.Session.GlassBreakPercentIn(app.Session.State)+"% 概率碎掉，锁定后不会碎"));
+                    Assert.That(FindActive<TextMeshProUGUI>("FacePickNote14").text.Replace("\n",""),Is.EqualTo("计分 ×"+app.Config.glassContributionMultiplier+"；提交后每颗有 "+app.Session.GlassBreakPercentIn(app.Session.State)+"% 概率碎裂，留在骰池里不会碎")); // p1.1.1 (W7a; RULES_DELTA 7.3): judged after a submission, not on a roll
                     Click("ChangeDie14");yield return null;Assert.That(app.FacePickStep14,Is.EqualTo("S1"));
                     Click("Target_"+dice[1].dieId);Click("ConfirmPurchase");
                     Assert.That(app.Session.ActionSequence,Is.EqualTo(seq+1));Assert.That(app.Session.State.dice.Single(d=>d.dieId==dice[1].dieId).isGlass,Is.True);

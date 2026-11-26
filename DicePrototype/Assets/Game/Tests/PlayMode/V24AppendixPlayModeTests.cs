@@ -280,8 +280,10 @@ namespace DiceCraft.Tests
                     {
                         case "none": expected = "无附魔"; break;
                         case "slotless": expected = "不占栏位：不占卡牌栏位（仍算在 " + app.Config.maxControllerInstances + " 张上限里）"; break;
-                        case "base10": expected = "基础 +10：这张卡生效时基础分 +10"; break;
-                        case "mult2": expected = "得分 ×2：这张卡生效时得分 ×2"; break;
+                        // p1.1.1 (W7a; RULES_DELTA 2 step 7 and 9, 12.3): the base enchantment adds enchantRules.baseAdd (15, was
+                        // 10) and the score enchantment adds enchantRules.scoreAdd100 (+1.5) to the bonus line (was "得分 ×2").
+                        case "base10": expected = "基础分 +" + app.Config.enchantRules.baseAdd + "：这张卡生效时基础分 +" + app.Config.enchantRules.baseAdd; break;
+                        case "mult2": expected = "加成 +" + PlayerNumberFormat.Ratio(app.Config.enchantRules.scoreAdd100, 100) + "：这张卡生效时加成 +" + PlayerNumberFormat.Ratio(app.Config.enchantRules.scoreAdd100, 100); break;
                         case "submit1": expected = "每关提交 +1"; break;
                         case "roll1": expected = "每手掷骰 +1"; break;
                         default: throw new ArgumentOutOfRangeException(enchant.id);

@@ -165,7 +165,8 @@ namespace DiceCraft.Tests
             Assert.That(config.lootKinds.Length,Is.EqualTo(6));
             foreach (var c in config.bossModifiers) entries.Add(c.id, c.shortText);
             foreach (var c in config.lootKinds) entries.Add(c.id, c.shortText);
-            Assert.That(entries.Count, Is.EqualTo(184 + 39 + 6));
+            // p1.1.1 (W7a; RULES_DELTA 1): 185 content items (150 cards, 13 items, 11 services, 11 face upgrades), was 184.
+            Assert.That(entries.Count, Is.EqualTo(config.activeContentCount + 39 + 6)); Assert.That(config.activeContentCount, Is.EqualTo(185));
             for (int i = 0; i < V21WrapMatrix.FaceLines.Length; i++) entries.Add("F" + i, V21WrapMatrix.FaceLines[i]);
 
             var atlas = AssetDatabase.LoadMainAssetAtPath("Assets/Game/Fonts/DiceChinese.asset");

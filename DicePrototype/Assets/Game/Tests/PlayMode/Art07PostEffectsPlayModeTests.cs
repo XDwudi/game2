@@ -29,7 +29,7 @@ namespace DiceCraft.Tests
             Assert.That(result.receipt.effects.Any(x=>x.kind=="ControllerExpired"&&x.sourceId=="C141"),Is.True);
             var granted=result.receipt.effects.Single(x=>x.kind=="ControllerGranted"&&x.sourceId=="C112");
             string grantedName=app.Config.Controller(granted.detail.Split(':').Last()).displayName;
-            Assert.That(result.receipt.effects.Any(x=>x.kind=="RandomUpgrade"||x.kind=="RandomUpgradeMissed"),Is.True);
+            Assert.That(result.receipt.effects.Any(x=>x.kind=="RandomUpgrade"),Is.True); // p1.1.1 (W7a): 无心插柳 always lands; "RandomUpgradeMissed" is no longer produced
 
             app.ShowCommittedPresentationDetails07();yield return null;
             var rows=app.canvas.GetComponentsInChildren<TextMeshProUGUI>(true).Where(row=>row.gameObject.activeInHierarchy&&row.name.StartsWith("Event",StringComparison.Ordinal)).ToArray();
@@ -165,10 +165,20 @@ namespace DiceCraft.Tests
         [UnityTest] public IEnumerator PLAY_ART07_POST_ThirdAndFourthBrokenDiceKeepOriginalOutlineAndOnlyTwelveFragments()
         {
             var scene=FxScene07(s=>{s.orderedLockedIds.Clear();foreach(var result in s.currentResults)result.isLocked=false;foreach(var die in s.dice.Take(4)){die.isGlass=true;s.randomOverrides.Add(new DebugRandomOverride{kind="Glass",sourceId=die.dieId,value="break"});}});
-            yield return new WaitForSecondsRealtime(.2f);var roll=app.Send(new SessionCommand{kind=CommandKind.Roll});Assert.That(roll.accepted,Is.True,roll.error);Assert.That(roll.receipt.effects.Count(e=>e.kind=="DieBroken"),Is.EqualTo(4));
-            CollectionAssert.AreEquivalent(scene.dice.Skip(2).Take(2).Select(d=>d.dieId),app.BrokenOutlineIds07);Assert.That(LiveFx07("fx_dice_break"),Has.Length.EqualTo(2));
-            Assert.That(LiveFx07("fx_dice_break").SelectMany(v=>v.particles).Count(p=>p.gameObject.activeInHierarchy),Is.EqualTo(12));
-            foreach(var id in app.BrokenOutlineIds07)Assert.That(app.canvas.GetComponentsInChildren<RectTransform>(true).Any(r=>r.gameObject.activeInHierarchy&&r.name=="BrokenOutline_"+id),Is.True);
+            // p1.1.1 (W7a; RULES_DELTA 7.3): glass breaks after a submission, die by die, never on a roll, so the four forced
+            // "break" tickets are drawn by the submission. p1.1.0 broke the four dice on this roll and the test checked the
+            // roll's break visual (two shard effects of twelve fragments, outlines for the third and fourth die); that
+            // visual is not attached to the submission yet - the record says what broke (W7A_NOTES lists the visual for
+            // W7b, TEST_CHANGES the assertions that wait for it).
+            yield return new WaitForSecondsRealtime(.2f);var roll=app.Send(new SessionCommand{kind=CommandKind.Roll});Assert.That(roll.accepted,Is.True,roll.error);Assert.That(roll.receipt.effects.Any(e=>e.kind=="DieBroken"),Is.False,"A roll never breaks glass.");
+            Assert.That(app.BrokenOutlineIds07,Is.Empty);Assert.That(LiveFx07("fx_dice_break"),Is.Empty);app.SkipVisual();
+            Assert.That(app.Session.State.dice.Count(d=>d.isGlass),Is.EqualTo(4));
+            foreach(var die in scene.dice.Take(4))app.Session.TogglePending(die.dieId);
+            Assert.That(app.Send(new SessionCommand{kind=CommandKind.ConfirmLocks}).accepted,Is.True);yield return WaitForIdle();
+            var submit=app.Send(new SessionCommand{kind=CommandKind.Submit});Assert.That(submit.accepted,Is.True,submit.error);
+            CollectionAssert.AreEqual(scene.dice.Take(4).Select(d=>d.dieId),submit.receipt.effects.Where(e=>e.kind=="DieBroken").Select(e=>e.dieId),"The submitted glass dice are judged in submission order.");
+            Assert.That(app.Session.State.dice.Any(d=>d.isGlass),Is.False);Assert.That(app.Session.State.dice.Count,Is.EqualTo(scene.dice.Count-4));
+            Assert.That(app.CommittedPresentationDetails07.Count(line=>line.Contains("玻璃骰碎了")),Is.EqualTo(4),"Each break has its line in the record.");
             string state=GameSession.StateHash(app.Session.State);byte[] save=File.ReadAllBytes(app.SaveLocation);app.SkipVisual();Assert.That(app.BrokenOutlineIds07,Is.Empty);Assert.That(LiveFx07("fx_dice_break"),Is.Empty);Assert.That(GameSession.StateHash(app.Session.State),Is.EqualTo(state));CollectionAssert.AreEqual(save,File.ReadAllBytes(app.SaveLocation));
         }
         [UnityTest] public IEnumerator PLAY_ART07_POST_ShopTextureAndGoldUseRealTwoLayerFadeDuringMaterialWindow()

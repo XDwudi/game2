@@ -13,8 +13,7 @@ namespace DiceCraft
         private bool handbookColors,handbookRules09;
         private string[][] HandbookRules09 => new string[][]
         {
-            // v1.1 (text proposal 5 #6): the order ScoreCalculator applies, including the item and boss factors after the enchantments.
-            // v1.1.1 (W7a, RULES_DELTA 2): hand x red group x (1 + every bonus added together) x the cards' multipliers.
+            // v1.1 (text proposal 5 #6): the order ScoreCalculator applies. v1.1.1 (W7a): hand x red group x (1 + all bonuses) x cards x item x boss.
             new[]{"计分顺序","点数合计（含再计一次）＋各种加值 ＝ 基础分；再依次乘以牌型倍率、红组倍率、加成（1 ＋ 全部加成之和）和各张卡牌的得分倍率；用了道具“灵光一闪”时再 ×2，首领减益让得分减半时再 ×0.5；最后向下取整一次。"},
             new[]{"成长值","卡面上标着“加成 +X”“得分 ×N”或“基础分 +N”的成长卡会随对局变强，越靠后的章买到的成长卡起步值越高。成长发生在触发它的那次计分之后，所以触发成长的那一手用的还是成长前的数值。卖出或损毁就失去成长值；同名的几张卡牌各自成长；百变模仿使用被模仿那张卡的成长值，但自己不成长。"},
             new[]{"再计一次","指定的提交骰把自己的计分再加进基础分一次，逐骰加值和玻璃的 ×"+Config.glassContributionMultiplier+" 都一并重复；黄金面的加成不重复。多个来源可以叠加成再计多次。不改变牌型、红组和骰子数量。"},
@@ -23,13 +22,6 @@ namespace DiceCraft
             new[]{"投掷次数","一锤定音要求只投 1 次就提交；越挫越勇从第 2 次投掷起每次加分；孤注一掷要求把投掷次数用完；熟能生巧每投 1 次成长一点。"},
             new[]{"栏位",$"卡牌栏位开局 {Config.initialControllerSlots} 个，商店服务“扩充栏位”最多加到 {Config.maxOrdinaryControllerSlots} 个。带“不占栏位”附魔的卡牌不占栏位，排在最左边的一张养成卡也不占；所有卡牌合计最多 {Config.maxControllerInstances} 张。"},
             new[]{"祭坛","每关开始时摧毁它右侧相邻的卡牌并成长。把它放在最右边就不会摧毁任何东西；想喂它，就把便宜的卡排在它右边。"}
-        };
-        /// <summary>v1.1.1 (W7a): the p1.1.1 mechanics, after the older rows so that their row numbers stay.</summary>
-        private string[][] HandbookRules111() => new string[][]
-        {
-            new[]{"加成","全红或全蓝、朝上提交的黄金面（每颗 "+Bonus111(Config.goldAdd100)+"）、卡面写着“加成 +X”的效果和“加成”附魔（每次 "+Bonus111(Config.enchantRules.scoreAdd100)+"），全部先加在一起，再让得分 ×（1 ＋ 合计）。例如 +2、+1.5、+0.5 合计 4，得分 ×5。它们之间是相加；卡面写“得分 ×N”的卡牌才各自相乘。得分明细里的“加成”一行列出每一项。"},
-            new[]{"养成卡","会永久改写骰面的卡牌是养成卡："+string.Join("、",Config.controllers.Where(c=>c.isCultivation).Select(c=>c.displayName))+"。排在最左边的一张养成卡不占卡牌栏位；每张养成卡每改写 "+Config.cultivationFacesPerSaleBonus+" 个骰面，卖价 +1，最多 +"+Config.cultivationMaxSaleBonus+"。"},
-            new[]{"黄金面与玻璃骰","新镀金的面权重 +"+Config.gildedFaceWeightDelta+"（上限 "+Config.maxFaceWeight+"），更容易掷出。玻璃骰计分 ×"+Config.glassContributionMultiplier+"；每次提交后，提交的每颗玻璃骰有 "+Config.glassBreakPercent+"% 概率碎裂，投掷时和留在骰池里都不会碎。"},
         };
         private void DrawHandbookRules09(Transform p,RectTransform paper)
         {
@@ -125,10 +117,8 @@ namespace DiceCraft
                 {
                     var r=rows[i];bool red=r.handId=="all_red";var card=UiKit.Box(list,"HandbookRow_"+r.handId,0,i*sectionHeight,1432,sectionHeight-12,Color.clear);
                     UiKit.Box(card,"ColorMark",4,16,4,sectionHeight-44,red?UiKit.Red:UiKit.Blue);
-                    UiKit.Box(card,"Divider",16,sectionHeight-14,1400,1,PaperMuted071);
+                    UiKit.Box(card,"Divider",16,sectionHeight-14,1400,1,PaperMuted071); // v1.1.1 (W7a): a colour is a bonus of the additive zone (the row's baseAdd100 / addPerLevel100 / currentAdd100; its multiplier fields are 0)
                     UiKit.Text(card,"Name",(red?"● ":"◆ ")+r.displayName+"   Lv."+r.level,20,16,640,54,28,UiKit.Ink);
-                    // v1.1.1 (W7a): a colour is a bonus of the additive zone, read from the row's baseAdd100 / addPerLevel100 /
-                    // currentAdd100 (its multiplier fields are 0).
                     UiKit.Text(card,"Value","加成 "+Bonus111(r.currentAdd100)+(r.level<r.maxLevel?"（下一级 "+Bonus111(r.currentAdd100+r.addPerLevel100)+"）":"（已满级）"),724,16,680,54,28,UiKit.Ink,TextAlignmentOptions.TopRight);
                     UiKit.Text(card,"Rule","提交的骰子全是"+(red?"红色":"蓝色")+"即可（1 颗也算）。0 级加成 "+Bonus111(r.baseAdd100)+"，每级再 "+Bonus111(r.addPerLevel100)+"，最高 "+r.maxLevel+" 级；它和卡牌、黄金面、附魔的加成加在一起。\n"+(r.canForm?"":r.formReason+" · ")+r.upgradeReason,20,80,1380,sectionHeight-88,23,PaperMuted071);
                 }
@@ -151,9 +141,7 @@ namespace DiceCraft
 
         private int[] FaceProbability(DieInstance die) => ProbabilityCalculator.BuildUnits(die.faces,false,false,Config,
             ViewState==null?0:ViewSources.Count(c=>c.abilityId=="C34"),ViewState==null?0:ViewSources.Count(c=>c.abilityId=="C35"));
-        // v1.1.1 (W7a): the two scoring enchantments read their amounts from the configuration - the base one adds
-        // enchantRules.baseAdd points, the score one adds enchantRules.scoreAdd100 to the bonus line (it no longer doubles).
-        private string EnchantShort(string id) => id=="slotless"?"不占栏位":id=="base10"?"基础分 +"+Config.enchantRules.baseAdd:id=="mult2"?"加成 "+Bonus111(Config.enchantRules.scoreAdd100):id=="submit1"?"提交 +"+Config.enchantRules.submissionBonus:id=="roll1"?"掷骰 +"+Config.enchantRules.rollBonus:"无附魔";
+        private string EnchantShort(string id) => /* v1.1.1 (W7a): amounts from the configuration; the score enchantment adds to the bonus line, it no longer doubles */ id=="slotless"?"不占栏位":id=="base10"?"基础分 +"+Config.enchantRules.baseAdd:id=="mult2"?"加成 "+Bonus111(Config.enchantRules.scoreAdd100):id=="submit1"?"提交 +"+Config.enchantRules.submissionBonus:id=="roll1"?"掷骰 +"+Config.enchantRules.rollBonus:"无附魔";
         private string EnchantLabel(string id) => id=="slotless"?"不占栏位：不占卡牌栏位（仍算在 "+Config.maxControllerInstances+" 张上限里）":id=="base10"?EnchantShort(id)+"：这张卡生效时基础分 +"+Config.enchantRules.baseAdd:id=="mult2"?EnchantShort(id)+"：这张卡生效时加成 "+Bonus111(Config.enchantRules.scoreAdd100):id=="submit1"?"每关提交 +"+Config.enchantRules.submissionBonus:id=="roll1"?"每手掷骰 +"+Config.enchantRules.rollBonus:"无附魔";
         /// <summary>V1.1 (W13): an enchantment's badge by name through the theme lookup (UiKit.Template: the active style's own
         /// badge_enchant_*, else the default template); the serialized list is only the last fallback, so a style's badges

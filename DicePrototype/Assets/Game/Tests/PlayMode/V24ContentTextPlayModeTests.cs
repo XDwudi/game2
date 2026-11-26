@@ -102,11 +102,14 @@ namespace DiceCraft.Tests
             fixture.handLevels.Single(h => h.handId == "pair").level = 2;
             AddBoundaryOffer(fixture, "pair", "hand_upgrade", "pair");
             yield return W14Load(fixture);
-            // pair starts at x2.00, gains x0.75 per level and costs 2 + 2 per existing level.
+            // pair starts at x2.00, gains x0.75 per level and costs its base price + shop.upgradePricePerExistingLevel per
+            // existing level: 2 + 2 x 1 = 4 in p1.1.1 (RULES_DELTA 3.1; it was 2 + 2 x 2 = 6).
+            string price = (app.Config.Hand("pair").baseUpgradePrice + 2 * app.Config.shop.upgradePricePerExistingLevel).ToString();
             const string preview = "Lv.2 → Lv.3 · ×3.5 → ×4.25";
-            const string effect = "本局一直有效；每升 1 级倍率 +0.75，最高 8 级。";
+            // p1.1.1 (W7a; RULES_DELTA 3.1): hands go up to level 12 (was 8); the value is read from the configuration.
+            string effect = "本局一直有效；每升 1 级倍率 +0.75，最高 " + app.Config.Hand("pair").maxLevel + " 级。";
             var row = FindActive<RectTransform>("Product_pair");
-            CheckContent24(row, "Buy_pair/Price", "6");
+            CheckContent24(row, "Buy_pair/Price", price);
             yield return CheckOfferTip24(row.Find("Inspect"), "一对", preview, effect);
             yield return OpenBoundaryOffer("pair");
             yield return Art073Settle(.2f);
@@ -116,7 +119,7 @@ namespace DiceCraft.Tests
             var scroll = dialog.Find("OfferDetail").GetComponent<ScrollRect>();
             scroll.verticalNormalizedPosition = 0;
             Canvas.ForceUpdateCanvases();
-            CheckContent24(dialog, "OfferDetail/Viewport/Content/PriceBody", "价格：6 金币（你有 200）");
+            CheckContent24(dialog, "OfferDetail/Viewport/Content/PriceBody", "价格：" + price + " 金币（你有 200）");
             Assert.That(app.Session.State.handLevels.Single(h => h.handId == "pair").level, Is.EqualTo(2));
         }
 

@@ -72,20 +72,20 @@ namespace DiceCraft.Tests
                 CollectionAssert.AreEqual(new[] {"D001", "D002"}, command.dieIds);
                 CollectionAssert.AreEqual(new[] {1, 5}, command.targetPips);
                 Assert.That(after.hand.currentResults.All(r => r.hasRolled), Is.True, "The item rolls every surviving unlocked die, not only its targets.");
-                Assert.That(after.dice.Count, Is.EqualTo(breakTarget ? 4 : 5));
-                if (breakTarget)
-                {
-                    Assert.That(after.dice.Any(d => d.dieId == "D001"), Is.False);
-                    Assert.That(HasActive("Die_D001"), Is.False);
-                    Assert.That(after.processedReceipts.Last().effects.Any(e=>e.kind=="DieBroken"&&e.dieId=="D001"),Is.True,"The committed break must identify the actual remote target.");
-                    Assert.That(after.hand.currentResults.Count(r => r.remoteOverride), Is.EqualTo(1), "Broken targets are not replaced or refunded.");
-                }
-                else Assert.That(after.hand.currentResults.Single(r => r.dieId == "D001").currentPip, Is.EqualTo(1));
+                // p1.1.1 (W7a; RULES_DELTA 7.3): glass is judged after a submission, never by a roll or by the remote item.
+                // Whatever the next effect ticket is (breakTarget only chooses it), the glass target D001 stays, takes
+                // its remote pip and no break is recorded. p1.1.0 removed D001 here when the ticket was a break.
+                Assert.That(after.dice.Count, Is.EqualTo(5));
+                Assert.That(after.dice.Single(d => d.dieId == "D001").isGlass, Is.True);
+                Assert.That(after.processedReceipts.Last().effects.Any(e=>e.kind=="DieBroken"),Is.False,"A remote roll never breaks glass.");
+                Assert.That(after.processedReceipts.Last().randomResults.Any(r=>r.kind=="Glass"),Is.False,"A remote roll draws no glass ticket.");
+                Assert.That(after.hand.currentResults.Count(r => r.remoteOverride), Is.EqualTo(2));
+                Assert.That(after.hand.currentResults.Single(r => r.dieId == "D001").currentPip, Is.EqualTo(1));
                 Assert.That(after.hand.currentResults.Single(r => r.dieId == "D002").currentPip, Is.EqualTo(5));
                 foreach (var die in after.dice)
                     Assert.That(JsonUtility.ToJson(die), Is.EqualTo(JsonUtility.ToJson(before.dice.Single(d => d.dieId == die.dieId))), "Remote must preserve permanent faces, colors, glass and physical IDs.");
                 Click("Skip");
-                if(breakTarget)Assert.That(FindActive<TextMeshProUGUI>("ActionReason").text.Replace("\n",""),Does.Contain("1 颗玻璃骰碎了").And.Contain("提交栏格数不变"));
+                Assert.That(app.LastTransactionSummary07??"",Does.Not.Contain("玻璃骰碎了"),"Nothing broke, so nothing says so.");
                 foreach (var result in after.hand.currentResults.Where(r => r.remoteOverride))
                 {
                     var orientation = app.table.GetFaceOrientation(result.dieId);
@@ -94,7 +94,7 @@ namespace DiceCraft.Tests
                     ClickDie(result.dieId);
                 }
                 Click("Confirm");yield return WaitForIdle();
-                CollectionAssert.AreEqual(breakTarget ? new[] {6} : new[] {2, 6}, app.Session.PreviewScore().effectivePips);
+                CollectionAssert.AreEqual(new[] {2, 6}, app.Session.PreviewScore().effectivePips);
                 yield return null;
             }
         }
@@ -224,10 +224,12 @@ namespace DiceCraft.Tests
                 Assert.That(app.IsBusy, Is.True, "Retry must use the same presentation path as an ordinary successful command.");
                 Assert.That(StateJson(), Is.EqualTo(JsonUtility.ToJson(candidate)));
                 Assert.That(JsonUtility.ToJson(new AtomicSaveStore(app.SaveLocation, app.Config).Load()), Is.EqualTo(StateJson()));
+                // p1.1.1 (W7a; RULES_DELTA 7.3): a roll never breaks glass, even when the next effect ticket would be a
+                // break; the retried candidate is the same roll with the glass die D001 still in the dice set.
                 if(kind==CommandKind.Roll)
-                    Assert.That(candidate.lastEffects.Any(e=>e.kind=="DieBroken"&&e.dieId=="D001"),Is.True,"The exact lost die remains in the same committed candidate.");
+                    Assert.That(candidate.lastEffects.Any(e=>e.kind=="DieBroken"),Is.False,"A roll breaks no glass, so the committed candidate records no loss.");
                 else Assert.That(candidate.lastEffects.Any(e=>e.kind=="DieCopied"&&e.dieId=="D002"&&e.otherDieId=="D001"),Is.True);
-                if (kind == CommandKind.Roll) Assert.That(HasActive("Die_D001"), Is.False);
+                if (kind == CommandKind.Roll) { Assert.That(candidate.dice.Any(d => d.dieId == "D001" && d.isGlass), Is.True); Assert.That(candidate.hand.currentResults.Single(r => r.dieId == "D001").hasRolled, Is.True, "The glass die was rolled like the others."); }
                 else Assert.That(app.Session.State.dice.Single(d => d.dieId == "D002").dataRevision, Is.EqualTo(1));
                 var actionLines = File.ReadAllLines(log).Select(JsonUtility.FromJson<TestActionLine>).ToArray();
                 Assert.That(actionLines.Length, Is.EqualTo(loggedBefore + 1));
@@ -242,7 +244,7 @@ namespace DiceCraft.Tests
                 yield return WaitForIdle();
                 Assert.That(StateJson(), Is.EqualTo(committed));
                 if(kind==CommandKind.Roll)
-                    Assert.That(FindActive<TextMeshProUGUI>("ActionReason").text.Replace("\n",""),Does.Contain("1 颗玻璃骰碎了").And.Contain("提交栏格数不变"));
+                    Assert.That(app.LastTransactionSummary07??"",Does.Not.Contain("玻璃骰碎了"));
                 else
                 {
                     yield return LegacyClick07("PreviousSubmission");

@@ -445,7 +445,7 @@ namespace DiceCraft.Tests
                     Assert.That(factors,Is.GreaterThanOrEqualTo(6),tag+": the longest-row fixture must show at least six factor chips.");
                     Assert.That(HasActive("Factor6")||HasActive("Factor7"),Is.True,tag+": the item and boss chips must be in the row.");
                     W11bAssertChipRow(tag+"-longest-preview",report);
-                    // The zero-multiplier value ("×0 没有有效 5 点") is the longest value text.
+                    // The former zero-multiplier scene (p1.1.1: 千年老二 halves the hand, the chip reads "×0.5"; "×0 没有有效 5 点" was the longest value text).
                     W11bApplyFixture(Art07FixtureKind.ZeroMultiplier);yield return W11Settle();
                     W11bAssertChipRow(tag+"-zero-multiplier",report);
                     // After a hand with post-score changes: the "后置：…" summary takes room at the right end.

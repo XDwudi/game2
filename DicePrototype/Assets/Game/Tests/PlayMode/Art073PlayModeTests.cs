@@ -274,7 +274,7 @@ namespace DiceCraft.Tests
             Art07Fixtures.Submit(app,Art07FixtureKind.Burst09);string state=GameSession.StateHash(app.Session.State);byte[] save=File.ReadAllBytes(app.SaveLocation);
             Assert.That(app.HighScoreTierShown073,Is.Zero,"Nothing before the committed final-score beat.");
             yield return WaitFxPhase07(PresentationPhase.FinalScore);
-            Assert.That(app.HighScoreTierShown073,Is.EqualTo(HighScore073.Burst),"596,160 is more than twice the 250,000 target: the top tier (p0.9.0 celebrates by share of the target only).");
+            Assert.That(app.HighScoreTierShown073,Is.EqualTo(HighScore073.Burst),"510,300 (p1.1.1; 596,160 before) is more than twice the 250,000 target: the top tier (p0.9.0 celebrates by share of the target only).");
             // V1.1 (W11, PLAY_LAYOUT 3, AX-01): no plate over the dice. The tier lights the top bar (two rings from "一手达标"
             // up) and the rims of both trays, a crown sits on the gain chip and sparks rise from it.
             Assert.That(HasActive("Crown"),Is.True);Assert.That(HasActive("Spark0"),Is.True);
@@ -288,7 +288,7 @@ namespace DiceCraft.Tests
             Assert.That(FindActive<TextMeshProUGUI>("TierWord11").text,Is.EqualTo("两倍目标！"));
             Assert.That(app.ScoreCardBadges11,Is.EqualTo(4),"One badge per scoring card.");
             // The number counts up to the committed score and never passes it.
-            System.Numerics.BigInteger last=-1,final=System.Numerics.BigInteger.Parse("596160");bool counted=false;
+            System.Numerics.BigInteger last=-1,final=System.Numerics.BigInteger.Parse("510300");bool counted=false;
             double limit=Time.realtimeSinceStartupAsDouble+6;
             while(app.PresentationPlaying07&&Time.realtimeSinceStartupAsDouble<limit)
             {
@@ -302,7 +302,7 @@ namespace DiceCraft.Tests
             Assert.That(app.PresentationPlaying07||app.IsBusy,Is.False);
             // After the presentation it only fades: input is free and the final number is exact.
             Assert.That(app.HighScoreTierShown073,Is.EqualTo(HighScore073.Burst));Assert.That(app.HighScoreFading073,Is.True);
-            Assert.That(app.HighScoreText073,Is.EqualTo("596,160"));
+            Assert.That(app.HighScoreText073,Is.EqualTo("510,300"));
             // v1.1 (W09): "生效 N 张" instead of "连锁 N" (DEV_PLAN 4.1 item 4): after the hand it heads the result row.
             Assert.That(FindActive<TextMeshProUGUI>("FormulaCaptionText11").text,Does.StartWith("上一手 · 生效 "));
             limit=Time.realtimeSinceStartupAsDouble+2;while(app.HighScoreTierShown073>0&&Time.realtimeSinceStartupAsDouble<limit){Assert.That(app.IsBusy,Is.False);yield return null;}
@@ -327,7 +327,7 @@ namespace DiceCraft.Tests
                 }
                 yield return WaitFxPhase07(PresentationPhase.FinalScore);
                 Assert.That(app.HighScoreTierShown073,Is.EqualTo(HighScore073.Burst),mode);
-                if(mode=="Fast"||mode=="Reduced")Assert.That(app.HighScoreText073,Is.EqualTo("596,160"),mode+" shows the final value at once.");
+                if(mode=="Fast"||mode=="Reduced")Assert.That(app.HighScoreText073,Is.EqualTo("510,300"),mode+" shows the final value at once.");
                 if(mode=="Reduced")
                 {
                     // V1.1 (W11): the lights stay, steady; no sparks; the crown appears without its drop-in scale.
@@ -347,7 +347,7 @@ namespace DiceCraft.Tests
                 Assert.That(app.HighScoreTierShown073,Is.Zero,mode);Assert.That(app.IsBusy,Is.False);
                 Assert.That(GameSession.StateHash(app.Session.State),Is.EqualTo(state),mode);
             }
-            // A hand that scores nothing never celebrates; a replay of a high hand celebrates again.
+            // A hand far below half the target never celebrates (p1.1.1: this scene scores 120 of 1,800,000; it scored 0 in p1.1.0); a replay of a high hand celebrates again.
             Art07Fixtures.Apply(app,Art07FixtureKind.ZeroMultiplier);FinalOptions07("Normal",false);Art07Fixtures.Submit(app,Art07FixtureKind.ZeroMultiplier);
             {double limit=Time.realtimeSinceStartupAsDouble+6;while(app.PresentationPlaying07&&Time.realtimeSinceStartupAsDouble<limit){Assert.That(app.HighScoreTierShown073,Is.Zero);yield return null;}}
             Art07Fixtures.Apply(app,Art07FixtureKind.Burst09);Art07Fixtures.Submit(app,Art07FixtureKind.Burst09);app.SkipVisual();yield return null;

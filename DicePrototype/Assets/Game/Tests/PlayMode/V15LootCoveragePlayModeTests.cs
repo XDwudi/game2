@@ -323,7 +323,8 @@ namespace DiceCraft.Tests
                     case "controller":authored=app.Config.Controller(offer.contentId).shortText;break;
                     case "consumable":authored=app.Config.Consumable(offer.contentId).shortText;break;
                     case "die_upgrade":authored=app.Config.Upgrade(offer.contentId).shortText;break;
-                    case "hand_upgrade":Assert.That(flat,Does.Contain("直接升级：Lv.").And.Contain("倍率 ×"));break;
+                    // p1.1.1 (W7a; RULES_DELTA 3.1): a hand upgrade changes a multiplier, a colour upgrade a bonus ("加成 +X → +Y").
+                    case "hand_upgrade":Assert.That(flat,Does.Contain("直接升级：Lv.").And.Contain(app.Config.colorDefinitions.Any(d=>d.id==offer.contentId)?"加成 +":"倍率 ×"));break;
                     case "new_die":
                         Assert.That(card.Find("FaceStrip14"),Is.Not.Null);Assert.That(card.GetComponentInChildren<Art073DieView>(),Is.Not.Null);
                         Assert.That(flat,Does.Contain("点数和 "+offer.die.faces.Sum(f=>f.permanentPip)));break;

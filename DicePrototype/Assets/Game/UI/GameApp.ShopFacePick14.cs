@@ -217,7 +217,7 @@ namespace DiceCraft
                 case "U03":changed.baseColor="red";break;
                 case "U04":changed.baseColor="blue";break;
                 // p1.1.1 (RULES_DELTA 7.2): a gold face adds to the bonus line and a newly gilded face gains weight.
-                case "U06":changed.isGold=true;changed.baseWeight=Math.Min(Config.maxFaceWeight,changed.baseWeight+Config.gildedFaceWeightDelta);note=GoldFaceText111+"；"+GildWeightText111;break;
+                case "U06":changed.isGold=true;changed.baseWeight=Math.Min(Config.maxFaceWeight,changed.baseWeight+Config.gildedFaceWeightDelta);note=GoldFaceText111+"；"+GildWeightText111(face);break;
                 case "U07":
                     change=FaceText14(face)+" → 随机变成 "+string.Join("、",Enumerable.Range(Config.minPipValue,Config.maxPipValue-Config.minPipValue+1).Where(n=>n!=face.permanentPip))+" 之一";
                     note="颜色、纹理、黄金不变；买下时才抽";return;

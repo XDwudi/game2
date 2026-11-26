@@ -72,7 +72,9 @@ namespace DiceCraft
             return "加成 "+Bonus111(c.baseAdd100+(long)level*c.addPerLevel100)+" → "+Bonus111(c.baseAdd100+(long)next*c.addPerLevel100);
         }
         private string GoldFaceText111=>"朝上提交时加成 "+Bonus111(Config.goldAdd100);
-        private string GildWeightText111=>"新镀金的面权重 +"+Config.gildedFaceWeightDelta+"（上限 "+Config.maxFaceWeight+"）";
+        /// <summary>What gilding does to this face's weight: "权重 +1（上限 5）", or that it is at the limit already.</summary>
+        private string GildWeightText111(FaceState face)
+            =>face!=null&&face.baseWeight>=Config.maxFaceWeight?"权重已到上限 "+Config.maxFaceWeight:"权重 +"+Config.gildedFaceWeightDelta+"（上限 "+Config.maxFaceWeight+"）";
         private string GlassRiskText111=>"提交后每颗有 "+Session.GlassBreakPercentIn(ViewState)+"% 概率碎裂";
 
         // ---------------------------------------------------------------- the bonus line of a score
@@ -107,6 +109,14 @@ namespace DiceCraft
         /// <summary>The label of a displayed factor (ScoreFactors111 keys).</summary>
         private string FactorLabel111(ScoreFactor111 f)
             =>f.Key=="base"?"基础":f.Key=="hand"?"牌型":f.Key=="red"?"红组":f.Key=="additive"?"加成":f.Key=="controller"?"卡牌":NameOf(f.SourceId);
+
+        /// <summary>Handbook rows of the p1.1.1 mechanics, after the older rows so that their row numbers stay.</summary>
+        private string[][] HandbookRules111() => new string[][]
+        {
+            new[]{"加成","全红或全蓝、朝上提交的黄金面（每颗 "+Bonus111(Config.goldAdd100)+"）、卡面写着“加成 +X”的效果和“加成”附魔（每次 "+Bonus111(Config.enchantRules.scoreAdd100)+"），全部先加在一起，再让得分 ×（1 ＋ 合计）。例如 +2、+1.5、+0.5 合计 4，得分 ×5。它们之间是相加；卡面写“得分 ×N”的卡牌才各自相乘。得分明细里的“加成”一行列出每一项。"},
+            new[]{"养成卡","会永久改写骰面的卡牌是养成卡："+string.Join("、",Config.controllers.Where(c=>c.isCultivation).Select(c=>c.displayName))+"。排在最左边的一张养成卡不占卡牌栏位；每张养成卡每改写 "+Config.cultivationFacesPerSaleBonus+" 个骰面，卖价 +1，最多 +"+Config.cultivationMaxSaleBonus+"。"},
+            new[]{"黄金面与玻璃骰","新镀金的面权重 +"+Config.gildedFaceWeightDelta+"（上限 "+Config.maxFaceWeight+"），更容易掷出。玻璃骰计分 ×"+Config.glassContributionMultiplier+"；每次提交后，提交的每颗玻璃骰有 "+Config.glassBreakPercent+"% 概率碎裂，投掷时和留在骰池里都不会碎。"},
+        };
 
         // ---------------------------------------------------------------- cultivation cards
         private bool IsCultivation111(string definitionId)=>definitionId!=null&&definitionId.StartsWith("C",StringComparison.Ordinal)&&Config.Controller(definitionId).isCultivation;

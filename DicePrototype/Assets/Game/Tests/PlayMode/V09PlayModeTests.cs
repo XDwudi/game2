@@ -75,8 +75,10 @@ namespace DiceCraft.Tests
             Click("StartStage"); yield return WaitForIdle();
             Assert.That(app.Session.State.stage.started, Is.True);
             Assert.That(app.Session.State.controllers.Select(c => c.definitionId), Is.EqualTo(new[] { "C13", "C100" }));
-            // C50 costs 4: the altar grows by 0.4.
-            Assert.That(CardState09("C100"), Is.EqualTo("×1.4"));
+            // p1.1.1 (W7a; RULES_DELTA 5 C100): the altar starts at ×1.25 and grows by 0.15 per gold of the destroyed card's
+            // base price; the card shows start + growth in its own words. p1.1.0 showed "×1.4" (from ×1, +0.1 per gold).
+            var altarRule = app.Config.Controller("C100").parameters;
+            Assert.That(CardState09("C100"), Is.EqualTo("得分 " + PlayerNumberFormat.Times(altarRule.growthStart + app.Config.Controller("C50").buyPrice * altarRule.growthEvent, 100)));
         }
 
         [UnityTest]
@@ -93,14 +95,17 @@ namespace DiceCraft.Tests
             yield return LoadBoundaryFixture(session.State); ResumeBoundaryFixture(); yield return WaitForIdle();
             var state = app.Session.State;
             Assert.That(state.dice.Count, Is.EqualTo(7)); Assert.That(state.hand.orderedLockedIds.Count, Is.EqualTo(2));
-            Assert.That(CardState09("C55"), Is.EqualTo("+24")); Assert.That(CardState09("C58"), Is.EqualTo("×1.4"));
+            // p1.1.1 (W7a; RULES_DELTA 5): a card is worth its start + what it grew, in its own unit: 积少成多 12 + 24 base
+            // points, 老当益壮 ×(1.25 + 0.08). p1.1.0 showed the grown part alone ("+24") and (20 + 8) / 20 = "×1.4".
+            int piled = app.Config.Controller("C55").parameters.growthStart + 24;
+            Assert.That(CardState09("C55"), Is.EqualTo("基础分 +" + piled)); Assert.That(CardState09("C58"), Is.EqualTo("得分 " + PlayerNumberFormat.Times(app.Config.Controller("C58").parameters.growthStart + 8, 100)));
             var left = state.hand.currentResults.Where(r => r.hasRolled && !r.isLocked).ToArray();
             string summary = FindActive<TextMeshProUGUI>("PoolSummary09").text;
             Assert.That(summary, Is.EqualTo("留在骰池：5 颗 · 点数和 " + left.Sum(r => r.currentPip) + " · 红 " + left.Count(r => r.currentColor == "red") + " 颗 · 6 点 " + left.Count(r => r.currentPip == 6) + " 颗"));
             // The live preview already includes the pool card: +6 for each of the five dice left behind.
             var preview = app.Session.PreviewScoreRange().minimum;
             Assert.That(preview.controllerBaseAdds.Single(a => a.abilityId == "C70").amount, Is.EqualTo("30"));
-            Assert.That(preview.controllerBaseAdds.Single(a => a.abilityId == "C55").amount, Is.EqualTo("24"));
+            Assert.That(preview.controllerBaseAdds.Single(a => a.abilityId == "C55").amount, Is.EqualTo(piled.ToString()));
 
             Click("Handbook"); Click("HandbookRules09");
             Assert.That(FindActive<TextMeshProUGUI>("Rule09Title1").text, Is.EqualTo("成长值"));
@@ -109,12 +114,13 @@ namespace DiceCraft.Tests
             Click("HandbookHands"); Assert.That(HasActive("HandbookRow_pair"), Is.True); Assert.That(HasActive("Rule09Title1"), Is.False);
             Click("CloseDialog");
 
-            // Submitting grows the real card after the score: C55 was worth 24 in this hand and shows 26 afterwards.
+            // Submitting grows the real card after the score: C55 was worth 36 in this hand and grows by its event (+3) afterwards.
             var result = app.Send(new SessionCommand { kind = CommandKind.Submit }); Assert.That(result.accepted, Is.True, result.error);
-            Assert.That(result.receipt.submission.breakdown.controllerBaseAdds.Single(a => a.abilityId == "C55").amount, Is.EqualTo("24"));
+            Assert.That(result.receipt.submission.breakdown.controllerBaseAdds.Single(a => a.abilityId == "C55").amount, Is.EqualTo(piled.ToString()));
             yield return WaitForIdle();
-            Assert.That(app.Session.State.controllers.Single(c => c.definitionId == "C55").state.growth, Is.EqualTo(26));
-            Assert.That(CardState09("C55"), Is.EqualTo("+26"));
+            int step = app.Config.Controller("C55").parameters.growthEvent;
+            Assert.That(app.Session.State.controllers.Single(c => c.definitionId == "C55").state.growth, Is.EqualTo(24 + step));
+            Assert.That(CardState09("C55"), Is.EqualTo("基础分 +" + (piled + step)));
         }
 
         [UnityTest]
@@ -144,7 +150,8 @@ namespace DiceCraft.Tests
             Click("SettlementDetailsToggle15");
             Assert.That(FindActive<TextMeshProUGUI>("SettlementInterestDetail").text, Does.Contain("每 5 金币 +1").And.Contain("利滚利：最多 +10"));
             Assert.That(FindActive<TextMeshProUGUI>("OtherChange15_0").text,Does.Contain(app.Config.Controller("C58").displayName));
-            Assert.That(app.Session.State.controllers.Single(c => c.definitionId == "C58").state.growth, Is.EqualTo(4), "C58 grows when the stage is cleared.");
+            // p1.1.1 (W7a; RULES_DELTA 5 C58): +0.15 per cleared stage, stored in hundredths (was 4 steps of 0.05).
+            Assert.That(app.Session.State.controllers.Single(c => c.definitionId == "C58").state.growth, Is.EqualTo(app.Config.Controller("C58").parameters.growthEvent), "C58 grows when the stage is cleared.");
         }
     }
 }

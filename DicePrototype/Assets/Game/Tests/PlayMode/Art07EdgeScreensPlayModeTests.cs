@@ -37,7 +37,9 @@ namespace DiceCraft.Tests
             var clockKeys=new System.Collections.Generic.HashSet<string>{ordinaryClockKey};
             try
             {
-            long expectedTotal=0,expectedMaximum=0;int expectedMultiplier=0;
+            // p1.1.1 (W7a): the best multiplier is kept in hundredths, because a lone die's colour is a bonus of +0.25 or
+            // +0.5 (x1.25 / x1.5) and no longer a whole colour multiplier.
+            long expectedTotal=0,expectedMaximum=0,expectedMultiplier=0;
             for(int hand=0;hand<3;hand++)
             {
                 while(app.Session.State.hand.rollsRemaining>0){Click("Roll");app.SkipVisual();}
@@ -46,11 +48,12 @@ namespace DiceCraft.Tests
                 var preview=app.Session.PreviewScore();
                 Assert.That(preview.totalHandMult100,Is.EqualTo(100));Assert.That(preview.redMult100,Is.EqualTo(100));
                 Assert.That(preview.controllerMultiplierNumerator,Is.EqualTo("1"));Assert.That(preview.controllerMultiplierDenominator,Is.EqualTo("1"));
-                Assert.That(preview.enchantAdditiveCount,Is.Zero);Assert.That((100+preview.colorAdd100)%100,Is.Zero); // W4B-ADAPT: was colorMult100; shows 1 + the colour bonus only
+                // One die is always all blue or all red: the bonus line is that colour's level-0 bonus and nothing else.
+                Assert.That(preview.enchantAdditiveCount,Is.Zero);Assert.That(preview.colorAdd100,Is.EqualTo(app.Config.Color(preview.colorId).baseAdd100));Assert.That(preview.additiveTotal100,Is.EqualTo((long)preview.colorAdd100));
                 Click("Submit");app.SkipVisual();
                 var committed=app.Session.State.processedReceipts.Last();Assert.That(committed.command.kind,Is.EqualTo(CommandKind.Submit));
                 long value=long.Parse(committed.score,System.Globalization.CultureInfo.InvariantCulture);
-                expectedTotal+=value;expectedMaximum=System.Math.Max(expectedMaximum,value);expectedMultiplier=System.Math.Max(expectedMultiplier,(100+preview.colorAdd100)/100); // W4B-ADAPT: was colorMult100; shows 1 + the colour bonus only
+                expectedTotal+=value;expectedMaximum=System.Math.Max(expectedMaximum,value);expectedMultiplier=System.Math.Max(expectedMultiplier,100+preview.additiveTotal100);
             }
             Assert.That(app.Session.State.phase,Is.EqualTo("RunFailed"));Assert.That(app.Session.State.isDebug,Is.False);
             Assert.That(app.Session.State.processedReceipts.Count(r=>r.command.kind==CommandKind.Submit),Is.EqualTo(3));
@@ -120,11 +123,11 @@ namespace DiceCraft.Tests
             var text=FindActive<RectTransform>(name).Find("Value").GetComponent<TextMeshProUGUI>();
             text.ForceMeshUpdate();return text.GetParsedText();
         }
-        private void AssertResultReloadStatistics07(long total,long maximum,int multiplier)
+        private void AssertResultReloadStatistics07(long total,long maximum,long multiplier100)
         {
             Assert.That(ResultValue15("EndTotalScore"),Is.EqualTo(total.ToString("N0",System.Globalization.CultureInfo.InvariantCulture)));
             Assert.That(ResultValue15("EndMaximumScore"),Is.EqualTo(maximum.ToString("N0",System.Globalization.CultureInfo.InvariantCulture)));
-            Assert.That(ResultValue15("EndMaximumMultiplier"),Is.EqualTo("×"+multiplier));
+            Assert.That(ResultValue15("EndMaximumMultiplier"),Is.EqualTo(PlayerNumberFormat.Times(multiplier100,100)));
             Assert.That(FindActive<TextMeshProUGUI>("EndStats").text,Is.EqualTo("种子 "+app.Session.State.seed));
         }
 

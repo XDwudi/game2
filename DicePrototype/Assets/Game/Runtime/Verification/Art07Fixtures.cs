@@ -32,7 +32,7 @@ namespace DiceCraft.Verification
                 seed = 20261031, diceRngState = 20261031, shopRngState = 20261032, effectRngState = 20261033,
                 stageIndex = 0, gold = 30, target = "1800000", score = "0", capacityOverride = 5,
                 remainingSubmissions = 3, rollsRemaining = 2, consumableSlots = 5,
-                handLevels = cfg.handDefinitions.Select(h => new HandLevel { handId = h.id, level = !golden ? 0 : burst && h.id == "five_kind" ? 20 : 4 }).ToList(),
+                handLevels = cfg.handDefinitions.Select(h => new HandLevel { handId = h.id, level = !golden ? 0 : burst && h.id == "five_kind" ? 42 : 4 }).ToList(), // p1.1.1: level 42 (x180) keeps the burst scenes in the top tier and above twice the 250,000 target (level 20 before)
                 colorLevels = cfg.colorDefinitions.Select(h => new HandLevel { handId = h.id, level = golden ? 4 : 0 }).ToList()
             };
             int dieCount = kind == Art07FixtureKind.Debug32 ? 32 : kind == Art07FixtureKind.MaximumTable || kind == Art07FixtureKind.MaximumPool ? 10 : 5;
@@ -126,15 +126,19 @@ namespace DiceCraft.Verification
             var result = app.Send(new SessionCommand { kind = CommandKind.Submit });
             if (!result.accepted || result.pendingSave) throw new InvalidOperationException("Art fixture submission rejected: " + result.error);
             var receipt = PresentationReceiptAdapter.BuildCommitted(result, before, app.Session.State, app.Config);
-            // p0.8.0: 36 base x five-of-a-kind 28 x all-blue 5 x controllers 36 = 181440 (tier 4); with level 20 it is 36 x 92 x 5 x 36 = 596160 (tier 5).
-            if (expectedKind == Art07FixtureKind.G147 && (receipt.ScoreDecimal != "181440" || receipt.MultiplierNumeratorDecimal != "5040" || receipt.MultiplierDenominatorDecimal != "1" || receipt.ChainCount != 4 || receipt.ComboTier != 4 || receipt.QualifiedAfter))
+            // p1.1.1 (W7a): 36 base x five-of-a-kind 28 x bonus line 8.75 (all-blue level 4 +2.25, C30 +2.5, C32 +3) x cards 9
+            // (C02 x3, C31 x3) = 79380, total multiplier 2205 (tier 4); with level 42 it is 36 x 180 x 8.75 x 9 = 510300, multiplier 14175 (tier 5).
+            // p1.1.0 had 181440 / 5040 and, at level 20, 596160 / 16560.
+            if (expectedKind == Art07FixtureKind.G147 && (receipt.ScoreDecimal != "79380" || receipt.MultiplierNumeratorDecimal != "2205" || receipt.MultiplierDenominatorDecimal != "1" || receipt.ChainCount != 4 || receipt.ComboTier != 4 || receipt.QualifiedAfter))
                 throw new InvalidOperationException("G147 final presentation does not match the frozen example.");
-            if (expectedKind == Art07FixtureKind.Burst08 && (receipt.ScoreDecimal != "596160" || receipt.MultiplierNumeratorDecimal != "16560" || receipt.MultiplierDenominatorDecimal != "1" || receipt.ChainCount != 4 || receipt.ComboTier != 5 || receipt.QualifiedAfter))
+            if (expectedKind == Art07FixtureKind.Burst08 && (receipt.ScoreDecimal != "510300" || receipt.MultiplierNumeratorDecimal != "14175" || receipt.MultiplierDenominatorDecimal != "1" || receipt.ChainCount != 4 || receipt.ComboTier != 5 || receipt.QualifiedAfter))
                 throw new InvalidOperationException("Burst08 final presentation is not the top tier it was built to be.");
-            if (expectedKind == Art07FixtureKind.Burst09 && (receipt.ScoreDecimal != "596160" || receipt.MultiplierNumeratorDecimal != "16560" || receipt.ComboTier != 5 || !receipt.QualifiedAfter))
-                throw new InvalidOperationException("Burst09 must score 596,160 against its 250,000 target.");
-            if (expectedKind == Art07FixtureKind.ZeroMultiplier && (receipt.ScoreDecimal != "0" || receipt.ComboTier != 0 || !receipt.Events.Any(e => e.EffectFamily == "SubmissionIncome") || !receipt.Events.Any(e => e.EffectFamily == "HandGrown")))
-                throw new InvalidOperationException("Zero multiplier fixture lost its legal post-score effects.");
+            if (expectedKind == Art07FixtureKind.Burst09 && (receipt.ScoreDecimal != "510300" || receipt.MultiplierNumeratorDecimal != "14175" || receipt.ComboTier != 5 || !receipt.QualifiedAfter))
+                throw new InvalidOperationException("Burst09 must score 510,300 against its 250,000 target.");
+            // p1.1.1 (W7a): no card zeroes a hand any more. The scene keeps its name and its cards; 千年老二 without a five
+            // now halves it: (10 + 2 unused rolls x 3) x five-of-a-kind 12 x bonus line 1.25 x 1/2 = 120, still tier 0.
+            if (expectedKind == Art07FixtureKind.ZeroMultiplier && (receipt.ScoreDecimal != "120" || !receipt.Events.Any(e => e.EffectFamily == "controller" && e.AbilityId == "C49" && e.Operand == "1/2") || receipt.ComboTier != 0 || !receipt.Events.Any(e => e.EffectFamily == "SubmissionIncome") || !receipt.Events.Any(e => e.EffectFamily == "HandGrown")))
+                throw new InvalidOperationException("The halved-hand (former zero multiplier) fixture lost its half factor or its legal post-score effects.");
             if(expectedKind==Art07FixtureKind.PermanentPost&&(!result.receipt.effects.Any(e=>e.kind=="FaceValueChanged"&&e.oldValue==3&&e.newValue==4)||!result.receipt.effects.Any(e=>e.kind=="ControllerDestroyed")))
                 throw new InvalidOperationException("Permanent-post fixture did not actually change its faces and destroy its risk source.");
             if(expectedKind==Art07FixtureKind.PermanentPost)
@@ -153,13 +157,13 @@ namespace DiceCraft.Verification
             if (state == null || !state.debugWorkspace || !state.isDebug || state.phase != "Selecting") throw new InvalidOperationException("Fixture is not an applied independent debug scene.");
             if (kind == Art07FixtureKind.G147 || kind == Art07FixtureKind.Burst08 || kind == Art07FixtureKind.Burst09)
             {
-                string expected = kind == Art07FixtureKind.G147 ? "181440" : "596160";
+                string expected = kind == Art07FixtureKind.G147 ? "79380" : "510300";
                 if (preview?.minimum?.score != expected || preview.maximum.score != expected || preview.isRandom || state.stage.target != (kind == Art07FixtureKind.Burst09 ? "250000" : "1800000") || state.stage.score != "0" || state.stage.qualified || state.hand.rollsRemaining != 2 || state.hand.orderedLockedIds.Count != 5)
                     throw new InvalidOperationException(kind + " fixture differs from the authoritative example.");
             }
             if ((kind == Art07FixtureKind.MaximumTable || kind == Art07FixtureKind.MaximumPool) && (state.dice.Count != 10 || state.controllers.Count != 10 || state.stage.capacity != 8 || state.inventory.Count != 5)) throw new InvalidOperationException("Maximum ordinary-sized fixture is incomplete.");
             if (kind == Art07FixtureKind.Debug32 && (state.dice.Count != 32 || state.controllers.Count != 32 || state.stage.capacity != 32)) throw new InvalidOperationException("Debug32 fixture is incomplete.");
-            if (kind == Art07FixtureKind.ZeroMultiplier && preview?.minimum?.score != "0") throw new InvalidOperationException("Zero-multiplier fixture contains an unexpected score.");
+            if (kind == Art07FixtureKind.ZeroMultiplier && (preview?.minimum?.score != "120" || !preview.minimum.multiplierFactors.Any(f => f.abilityId == "C49" && f.numerator == "1" && f.denominator == "2"))) throw new InvalidOperationException("The halved-hand (former zero multiplier) fixture contains an unexpected score.");
             if (kind == Art07FixtureKind.GoldenSample && !state.controllers.Select(c => c.definitionId).SequenceEqual(new[] { "C02", "C41", "C45", "C52" })) throw new InvalidOperationException("Golden sample controller identities/order changed.");
         }
     }

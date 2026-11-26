@@ -62,16 +62,18 @@ namespace DiceCraft.Tests
                     if(kind==Art07FixtureKind.Debug32)
                     {
                         var exact=app.Session.PreviewScoreRange().minimum;
-                        Assert.That(exact.controllerMultiplierNumerator,Is.EqualTo("4294967296"));
-                        // v1.1 (W09, TX-01): no fraction or "e" notation. Ten integer digits exceed the chip's six, so the
-                        // chip reads "约 ×4.29×10⁹" (superscript markup); "控制器" is "卡牌" (D2).
+                        // p1.1.1 (W7a): 稳稳乘数 adds to the bonus line now, so 32 of them no longer multiply to 2^32. This
+                        // test swaps the scene's cards for 32 × 蓝色疯狂 (×3 each, all dice are blue): 3^32.
+                        Assert.That(exact.controllerMultiplierNumerator,Is.EqualTo("1853020188851841"));
+                        // v1.1 (W09, TX-01): no fraction or "e" notation. Sixteen integer digits exceed the chip's six, so the
+                        // chip reads "约 ×1.85×10¹⁵" (superscript markup); "控制器" is "卡牌" (D2).
                         // V1.1 (W11): the chip's name ("卡牌") and value are two labels of the chip.
                         Assert.That(Button("Factor4").transform.Find("Name").GetComponent<TextMeshProUGUI>().text,Is.EqualTo("卡牌"));
-                        Assert.That(Button("Factor4").transform.Find("Label").GetComponent<TextMeshProUGUI>().text,Is.EqualTo("约 ×4.29×10<sup>9</sup>"));
+                        Assert.That(Button("Factor4").transform.Find("Label").GetComponent<TextMeshProUGUI>().text,Is.EqualTo("约 ×1.85×10<sup>15</sup>"));
                         Click("Factor4");yield return new WaitForSecondsRealtime(.2f);
                         Click("FullScoreDetails");yield return new WaitForSecondsRealtime(.2f);
                         var formula=FindActive<TextMeshProUGUI>("Formula");
-                        // The complete breakdown keeps every digit, as a decimal (here exactly 4,294,967,296).
+                        // The complete breakdown keeps every digit, as a decimal (here exactly 1,853,020,188,851,841).
                         Assert.That(formula.text,Does.Contain("卡牌 "+PlayerNumberFormat.Ratio(System.Numerics.BigInteger.Parse(exact.controllerMultiplierNumerator),System.Numerics.BigInteger.Parse(exact.controllerMultiplierDenominator),PlayerNumberFormat.Unlimited)));
                         Assert.That(formula.text,Does.Not.Contain("/"),"The complete formula shows no fraction.");
                         var scroll=formula.GetComponentInParent<UnityEngine.UI.ScrollRect>();Assert.That(scroll,Is.Not.Null);
@@ -164,6 +166,8 @@ namespace DiceCraft.Tests
         {
             var state=app.Session.State;var scene=Art07Fixtures.Create(app.Config,kind,state.nextItemSerial,state.nextDieSerial);scene.sourceRunId=state.sourceRunId;
             if(naturalRandom)scene.randomOverrides.Clear();
+            // p1.1.1 (W7a): the 32-card scene keeps a long card multiplier by holding 32 × 蓝色疯狂 instead of 稳稳乘数 (see the test).
+            if(kind==Art07FixtureKind.Debug32)foreach(var card in scene.controllers)card.definitionId="C02";
             var applied=app.Send(new SessionCommand{kind=CommandKind.ApplyDebugScene,debugScene=scene});Assert.That(applied.accepted,Is.True,applied.error);
             if(HasActive("RunDebugScene"))Click("RunDebugScene");if(HasActive("CloseDialog"))Click("CloseDialog");
         }
