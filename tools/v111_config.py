@@ -80,7 +80,7 @@ PATCH = {
                 d="每颗有效5点的提交骰，加成+1.5；提交里没有5点时改为整手得分×0.5。",
                 s="每颗5点提交骰加成+1.5；没有5点时得分×0.5。", x="有5点时只给加成，没有惩罚。"),
     "C63": dict(trigger="ScoreAdditive", set={"additivePerPermanentDie100": 50}, drop=["perDieUnits10"],
-                d="每颗永久骰，加成+0.5。", s="每有1颗永久骰，加成+0.5。", x="5颗+2.5，8颗+4；临时骰和本手碎掉的骰子不算。"),
+                d="每颗永久骰，加成+0.5。", s="每有1颗永久骰，加成+0.5。", x="5颗+2.5，8颗+4；临时骰不算。"),
     "C139": dict(trigger="ScoreAdditive", set={"additivePerGoldStep100": 50}, drop=["stepUnits4", "maxSteps"],
                  d="钱包每满10金币，加成+0.5，不设上限。", s="每有10金币，加成+0.5。", x="40金币+2；按提交那一刻的金币算。"),
     "C141": dict(trigger="ScoreAdditive", set={"initialAdditive100": 400, "decayPerClear100": 100, "expireGrowth": 4},
@@ -244,7 +244,11 @@ UPGRADE_TEXT = {
 TWO_FACE_UPGRADES = ["U01", "U02", "U03", "U04", "U06", "U07", "U08", "U09", "U10"]
 
 MODIFIERS = {
-    "B06": dict(tier=2, minCycle=2),
+    "B06": dict(tier=2, minCycle=2, details="基础分、加成增加附魔不触发；提交、投掷附魔不加次数。"),
+    # Colour is an additive bonus in p1.1.1: these three no longer fix a "colour multiplier".
+    "B22": dict(description="红组倍率固定×1，全红加成清零。", shortText="红组倍率固定×1，全红加成清零。"),
+    "B23": dict(description="全蓝加成清零。", shortText="全蓝加成清零。"),
+    "B36": dict(description="红组倍率固定×1，颜色加成清零。", shortText="红组倍率固定×1，颜色加成清零。"),
     "B25": dict(details="失效：没有技能、附魔，也不成长，但仍占栏位；不占栏位的卡也按位置算。进关前可以拖动卡牌换位置。"),
     "B29": dict(amount=1, description="最左侧的1件稀有卡牌本关失效。", shortText="最左侧的1件稀有卡牌本关失效。",
                 details="失效规则同“缴械”；进关前可以拖动卡牌换位置。"),
