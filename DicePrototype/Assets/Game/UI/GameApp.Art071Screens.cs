@@ -58,6 +58,7 @@ namespace DiceCraft
             UiKit.Button(p,"MenuHandbook","牌型手册",36,first,544,80,ShowMenuHandbook07);
             UiKit.Button(p,"MenuSettings","设置",36,first+100,544,80,ShowSettings07);
             UiKit.Button(p,"Quit","退出游戏",36,first+200,544,80,ConfirmQuit07);
+            DrawMenuRecord111(p,first+304); // v1.1.1 (W7b): the formal all-time highest hand
             var version=UiKit.FlatButton(main,"BuildVersion","版本与构建",1264,908,520,64,ShowBuildVersion);
             version.GetComponentInChildren<TextMeshProUGUI>().color=LabelOn11(p,UiKit.Ink);
             version.targetGraphic.color=PaperMuted071;

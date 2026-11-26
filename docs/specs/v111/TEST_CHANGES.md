@@ -418,3 +418,20 @@ C19 是换机制的卡，三行夹具原样保留，名字改成它们现在表�
 | `Tests/EditMode/Session/V09SessionTests.cs` `V09_StageClearGrowsC58C59PaysC95WidensInterestWithC96AndRaisesResaleWithC99`（协调者改） | 两次未用提交，C59 成长 12 | 成长 8 |
 
 会话宿主（`SessionValidation.csproj`，Release）：616 条，全过。规则宿主本节没有重跑。
+
+# W7b：新交互与新页面元素的测试登记
+
+工作包 W7b（[备注](W7B_NOTES.md)）。没有删除测试，没有降低阈值。本包不能启动 Unity：.NET 宿主能编进去的 EditMode 测试跑过，PlayMode 全部只编译过（`UnityTestsCompilation.csproj`，仍是基线的 5 个错误）。
+
+## 新增：EditMode（.NET 表演宿主跑过）
+
+| 文件 | 内容 | 运行 |
+| --- | --- | --- |
+| `Tests/EditMode/Presentation/V111RecordsTests.cs`（31 条） | 局外正式记录 `FormalRecordStore`：没有文件按 0 且读取不建文件；正式局刷新后落盘、换一个实例读回；只有更高的分才改写、同一局重复记不重写文件、旧文件留作备份；调试局、调试工作区、练习都不写入；没有这个字段的旧记录文件按 0、补字段时保留其它字段；八种损坏文件不抛错、按 0 起算、下一次正式记录把它换掉；主文件损坏时用完好的备份且不把坏文件轮换成备份；超过 64 位的分数原样保存；写入失败时内存值保留、下次再写。局内纪录的文字 `RunRecords111`：过关倍数一位小数向下取（含 §13 的例子 900/300 之后 1300/500 仍是 ×3.0）、还没过关时没有值、“本关新纪录”标记来自关卡标志与结算回执 | .NET 表演宿主跑过，全过 |
+
+## 改写：PlayMode（只编译过，未运行）
+
+| 测试 | 原期望 | 新期望 | 依据 |
+| --- | --- | --- | --- |
+| `Art07ResultRowsPlayModeTests.PLAY_ART07_RESULTROWS_RealVictoryShowsSixOrderedRowsAfterSealWithoutChangingSave` → 改名 `…ShowsSevenOrderedRows…` | 整局结果页六行（总得分、最大单手、最高倍率、用时、构筑、种子）在 360 毫秒盖章之后依次出现，每行 0.14 秒 | 七行：在“本局最高单手”后面多一格“最高过关倍数”（`EndClearRatio111`）；七行平分剩下的 0.84 秒，每行 0.12 秒；新增三条断言：第二格的标题是“本局最高单手”、数值等于会话的 `highestHandScore`、第三格等于会话的最高过关倍数。其余检查（盖章前不出现、逐行出现的先后、文字都在纸面内、各行互不重叠、存档与状态不变、减少动效的一段）不变 | §13 第四行 |
+| `V21TitleFontPlayModeTests.ForegroundRole21`（期望表，不是断言） | 结果页用数字字体的格子：总得分、最大单手、最高倍率、有数字时的用时 | 加上有数字时的“最高过关倍数”（还没过关时显示破折号，不用数字字体） | §13 第四行 |

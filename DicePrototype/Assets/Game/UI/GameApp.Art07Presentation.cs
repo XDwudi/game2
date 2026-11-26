@@ -65,6 +65,8 @@ namespace DiceCraft
             LastTransactionSummary07="";
             AdvanceStablePresentation07(cmd);
             var after=Session.State;
+            // v1.1.1 (W7b, RULES_DELTA 12.1): a formal run's highest hand feeds the all-time record once it is saved.
+            NoteFormalRecord111(after);
             ArmSettlementReveal07(presentationBefore07,after);
             if((after.phase=="RunWon"||after.phase=="RunFailed")&&presentationBefore07?.phase!=after.phase)terminalCuePending07=after.phase;
             AdvanceGuide07(cmd.kind);

@@ -103,6 +103,8 @@ namespace DiceCraft
             if (note != null) UiKit.Text(summary,"SettleNote15",note,0,large?412:332,leftW,large?56:40,20,exhausted?ink:CueOn11(p,UiKit.Danger),TextAlignmentOptions.Center);
             var detailButton = SolidButton11(p,"SettlementDetailsToggle15",showSettlementDetails15?"收起明细":"明细",32,large?676:538,large?260:220,large?64:60,
                 ()=>{ if(SettlementRevealPlaying07){CompleteSettlementReveal07();return;} showSettlementDetails15=!showSettlementDetails15; Refresh(); },true,22);
+            // v1.1.1 (W7b, RULES_DELTA 13 row 4): the run's highest hand and highest clear ratio, beside 明细.
+            DrawSettlementRecords111(p,large,leftW,ink,muted);
             if (showSettlementDetails15)
             {
                 var content = UiKit.Scroll(p,"SettlementDetails",32,summaryY,leftW,large?476:376,large?476:376);

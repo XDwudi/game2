@@ -177,8 +177,9 @@ namespace DiceCraft.Tests
                 case "Title" when p.StartsWith("CycleCard", StringComparison.Ordinal): return TextRole.StageNumber;
                 case "StageGoal11": case "SettlementNetCash": return TextRole.BigNumber;
                 case "Goal" when p.StartsWith("CycleCard", StringComparison.Ordinal): return TextRole.BigNumber;
+                // v1.1.1 (W7b): the run result has a fifth cell, the highest clear ratio ("×3.2", or a dash before any clear).
                 case "Value" when p == "EndTotalScore" || p == "EndMaximumScore" || p == "EndMaximumMultiplier"
-                    || (p == "EndDuration" && label.text.Any(char.IsDigit)): return TextRole.BigNumber;
+                    || ((p == "EndDuration" || p == "EndClearRatio111") && label.text.Any(char.IsDigit)): return TextRole.BigNumber;
                 case "BossModifierName" when p == "BossModifier10": return TextRole.BossName;
                 case "ModifierName" when p.StartsWith("CycleCard", StringComparison.Ordinal): return TextRole.BossName;
                 case "BossName15": case "LootName15": return TextRole.BossName;

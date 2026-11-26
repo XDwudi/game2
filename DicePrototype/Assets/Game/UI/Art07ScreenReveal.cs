@@ -81,7 +81,7 @@ namespace DiceCraft
                 if(reduced){rows[i].alpha=Mathf.Clamp01(elapsed/.12f);continue;}
                 if(afterStamp)
                 {
-                    // The 360ms seal resolves before the six independent result rows.
+                    // The 360ms seal resolves before the independent result rows (seven since v1.1.1), which share the rest evenly.
                     float rowSeconds=(duration-.36f)/Mathf.Max(1,rows.Length);
                     rows[i].alpha=Mathf.Clamp01((elapsed-.36f-i*rowSeconds)/rowSeconds);
                 }

@@ -61,6 +61,8 @@ namespace DiceCraft
                     if(!string.IsNullOrEmpty(notice)){issue=notice;backup=loaded.State!=null;}
                 }
                 catch(Exception error){Session=new GameSession(Config,saves);notice=error.Message;issue=notice;}
+                // v1.1.1 (W7b, RULES_DELTA 12.1): a restored formal save catches the all-time record up with its own best hand.
+                NoteFormalRecord111(Session.State);
                 RestoreResultView07();ApplyArtPreferences07();InitializeGuide07();
                 StartupReady07=true;Refresh();
                 if(issue!=null)ShowLoadIssue07(issue,backup);

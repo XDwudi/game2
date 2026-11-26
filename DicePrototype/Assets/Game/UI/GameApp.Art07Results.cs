@@ -51,7 +51,7 @@ namespace DiceCraft
             // v1.1 (W09): a decimal multiplier; practice (from the handbook) has its own labels instead of the debug ones.
             string time=runClockKnown07&&runClockId07==ViewState.runId?TimeSpan.FromSeconds(runSeconds07).ToString(@"hh\:mm\:ss"):IsPracticeRun11?"练习不计时":ViewState.debugWorkspace?"调试时长未记录":"未记录";
             string kind=IsPracticeRun11?" · 练习模式 · 不计成绩":ViewState.isDebug?" · 调试对局 · 不计普通成绩":"";
-            return new[]{CompactScore(total.ToString()),CompactScore(max.ToString()),PlayerNumberFormat.Times(multN,multD),time,"种子 "+ViewState.seed+kind};
+            return new[]{CompactScore(total.ToString()),RunHighestHand111,PlayerNumberFormat.Times(multN,multD),time,"种子 "+ViewState.seed+kind,RunClearRatio111}; // v1.1.1 (W7b): the run's own records (RunState)
         }
         private void DrawRunResult07()
         {
@@ -89,29 +89,34 @@ namespace DiceCraft
                     40, large ? 262 : 236, 1288, large ? 50 : 36, 22, muted);
             }
             var values = ResultStatisticRows07();
-            string[] names = {"EndTotalScore","EndMaximumScore","EndMaximumMultiplier","EndDuration"};
-            string[] labels = {"总得分","最大单手","最高倍率","用时"};
-            var groups = new RectTransform[6];
+            // v1.1.1 (W7b, RULES_DELTA 13 row 4): five cells. 本局最高单手 is the run's own record (RunState), and
+            // 最高过关倍数 is new; the cells share the row (three and two per row with enlarged text).
+            string[] names = {"EndTotalScore","EndMaximumScore","EndClearRatio111","EndMaximumMultiplier","EndDuration"};
+            string[] labels = {"总得分","本局最高单手","最高过关倍数","最高倍率","用时"};
+            string[] shown = {values[0],values[1],values[5],values[2],values[3]};
+            var groups = new RectTransform[names.Length+2];
             float statsY = won ? 236 : large ? 336 : 300;
-            for (int i = 0; i < 4; i++)
+            int perRow = large ? 3 : names.Length; float cellGap = large ? 16 : 12;
+            for (int i = 0; i < names.Length; i++)
             {
-                float x = 40 + (large ? (i % 2) * 652 : i * 328), y = statsY + (large ? (i / 2) * 151 : 0);
-                float w = large ? 636 : 304, h = large ? 139 : 112;
+                float w = Mathf.Floor((1288 - (perRow-1)*cellGap) / perRow), h = large ? 139 : 112;
+                float x = 40 + (i % perRow) * (w + cellGap), y = statsY + (large ? (i / perRow) * 151 : 0);
                 var cell = Surface11(paper, names[i], x, y, w, h, "ui_chip_formula", Color.Lerp(UiKit.Paper,UiKit.Ink,.06f));
                 UiKit.Text(cell, "Caption", labels[i], 16, 8, w-32, large ? 45 : 34, 20, LabelOn11(cell, muted));
-                var number = NoWrap11(UiKit.Text(cell, "Value", values[i], 16, large ? 51 : 42, w-32, large ? 75 : 61, 34, LabelOn11(cell, ink), TextAlignmentOptions.MidlineLeft));
+                var number = NoWrap11(UiKit.Text(cell, "Value", shown[i], 16, large ? 51 : 42, w-32, large ? 75 : 61, 34, LabelOn11(cell, ink), TextAlignmentOptions.MidlineLeft));
                 number.fontStyle = FontStyles.Bold;
-                if (i != 3 || runClockKnown07) UiKit.Role(number, TextRole.BigNumber);
+                // The number face is for numbers: not for 未记录, nor for the dash of a run that cleared no stage.
+                if (names[i] == "EndDuration" ? runClockKnown07 : names[i] != "EndClearRatio111" || shown[i].Any(char.IsDigit)) UiKit.Role(number, TextRole.BigNumber);
                 float measured = number.GetPreferredValues(number.text).x;
                 if (measured > w-32) number.fontSize *= (w-32)/measured;
                 UiKit.FitNumberInk21(number);
                 groups[i] = cell;
             }
             float buildY = large ? (won ? 544 : 640) : won ? 372 : 432;
-            groups[4] = ResultBuild15(paper, buildY);
+            groups[names.Length] = ResultBuild15(paper, buildY);
             float seedY = large ? buildY + 180 : won ? 540 : 600;
             var seed = UiKit.Text(paper, "EndStats", values[4], 40, seedY, 1288, large ? 46 : 40, large ? 20 : 22, muted);
-            groups[5] = seed.rectTransform;
+            groups[names.Length+1] = seed.rectTransform;
             float by = large ? 906 : 648, bh = large ? 72 : 80;
             Primary16(paper, "Again", "再开一局", 40, by, 360, bh, ShowNewRun07);
             SolidButton11(paper, "EndBreakdown", "查看构筑", 424, by, 300, bh, ShowControllerOrder, true, 23);

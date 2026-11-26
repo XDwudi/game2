@@ -14,7 +14,10 @@ namespace DiceCraft.Tests
 {
     public sealed partial class GameplayPlayModeTests
     {
-        [UnityTest] public IEnumerator PLAY_ART07_RESULTROWS_RealVictoryShowsSixOrderedRowsAfterSealWithoutChangingSave()
+        // v1.1.1 (W7b): the result page has a seventh row, the highest clear ratio (RULES_DELTA 13 row 4). The rows still
+        // follow the 360 ms seal one after another and share the rest of the 1.2 s evenly, so a row now takes
+        // (1.2 - 0.36) / 7 = 0.12 s instead of 0.14 s; every other check is unchanged.
+        [UnityTest] public IEnumerator PLAY_ART07_RESULTROWS_RealVictoryShowsSevenOrderedRowsAfterSealWithoutChangingSave()
         {
             StartRun("70911");
             foreach(int font in new[]{100,125,150})
@@ -25,21 +28,24 @@ namespace DiceCraft.Tests
                 if(app.Session.State.phase=="StageSettlement")Click("SettlementContinue");
                 Assert.That(app.Session.State.phase,Is.EqualTo("RunWon"));
                 var reveal=FindActive<Art07ScreenReveal>("Screen");reveal.AutomaticTick=false;
-                var names=new[]{"EndTotalScore","EndMaximumScore","EndMaximumMultiplier","EndDuration","EndBuild","EndStats"};
-                var rows=names.Select(FindActive<RectTransform>).ToArray();
+                var names=new[]{"EndTotalScore","EndMaximumScore","EndClearRatio111","EndMaximumMultiplier","EndDuration","EndBuild","EndStats"};
+                var rows=names.Select(FindActive<RectTransform>).ToArray();int last=rows.Length-1,build=Array.IndexOf(names,"EndBuild");float rowSeconds=(1.2f-.36f)/rows.Length;
                 string state=StateJson();var disk=File.ReadAllBytes(app.SaveLocation);
                 Assert.That(reveal.Elapsed,Is.Zero);Assert.That(reveal.Duration,Is.EqualTo(1.2f).Within(.001f));
                 Assert.That(rows.All(r=>r.GetComponent<CanvasGroup>().alpha==0),Is.True);
                 reveal.Tick(.36f);Assert.That(rows.All(r=>r.GetComponent<CanvasGroup>().alpha==0),Is.True,"No statistics precede the 360ms seal.");
                 for(int i=0;i<rows.Length;i++)
                 {
-                    reveal.Tick((i==5?1.2f:.36f+(i+1)*.14f)-reveal.Elapsed);
+                    reveal.Tick((i==last?1.2f:.36f+(i+1)*rowSeconds)-reveal.Elapsed);
                     for(int j=0;j<=i;j++)Assert.That(rows[j].GetComponent<CanvasGroup>().alpha,Is.EqualTo(1).Within(.001f),names[j]);
                     for(int j=i+1;j<rows.Length;j++)Assert.That(rows[j].GetComponent<CanvasGroup>().alpha,Is.EqualTo(0).Within(.001f),names[j]);
                     yield return app.StartCoroutine(CaptureEdge07("S18-row"+i+"-font"+font));
                 }
                 Assert.That(reveal.IsPlaying,Is.False);
-                Assert.That(rows[5].GetComponent<TextMeshProUGUI>().text,Does.Contain("种子").And.Contain("调试对局"));
+                Assert.That(rows[last].GetComponent<TextMeshProUGUI>().text,Does.Contain("种子").And.Contain("调试对局"));
+                Assert.That(rows[1].Find("Caption").GetComponent<TextMeshProUGUI>().text,Is.EqualTo("本局最高单手"));
+                Assert.That(rows[1].Find("Value").GetComponent<TextMeshProUGUI>().text,Is.EqualTo(PlayerNumberFormat.Exact(app.Session.State.highestHandScore)),"The cell shows the run's own record.");
+                Assert.That(rows[2].Find("Value").GetComponent<TextMeshProUGUI>().text,Is.EqualTo(DiceCraft.Presentation.RunRecords111.ClearRatio(app.Session.State)),"The last stage was cleared, so a ratio exists.");
                 var paper=FindActive<RectTransform>("RunResult");
                 foreach(var row in rows)
                 {
@@ -51,7 +57,7 @@ namespace DiceCraft.Tests
                 // Each build tile intentionally has an empty generic Button/Label plus its actual printed Name.
                 foreach(var owned in app.Session.State.controllers)
                 {
-                    var name=rows[4].Find("Controller_"+owned.instanceId+"/Name").GetComponent<TextMeshProUGUI>();
+                    var name=rows[build].Find("Controller_"+owned.instanceId+"/Name").GetComponent<TextMeshProUGUI>();
                     Assert.That(name.text.Replace("\n",""),Is.EqualTo(app.Config.Controller(owned.definitionId).displayName));
                 }
                 for(int i=0;i<rows.Length;i++)for(int j=i+1;j<rows.Length;j++)
