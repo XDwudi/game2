@@ -743,7 +743,8 @@ namespace DiceCraft.Core
                 case "U04": f.baseColor = "blue"; break;
                 case "U05": d.isGlass = true; break;
                 // v1.1.1 section 7.2: gilding goes through the one shared entry (weight +1 up to the cap).
-                case "U06": GildFace(s, d, f, "U06"); break;
+                // It counts the die revision itself, so the common increment below is undone for it.
+                case "U06": if (GildFace(s, d, f, "U06")) d.dataRevision--; break;
                 case "U07":
                     int old = f.permanentPip; var candidates = Enumerable.Range(cfg.minPipValue, cfg.maxPipValue - cfg.minPipValue + 1).Where(x => x != old).ToArray();
                     var rng = new GameRng(s.effectRngState); f.permanentPip = candidates[DrawRaw(s, rng, "effect", "FaceTransform", dieId + "/" + faceId, candidates.Length).rawTicket]; s.effectRngState = rng.State;
