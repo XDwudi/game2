@@ -406,7 +406,7 @@ B25、B29、B37 的失效名单在祭坛与替罪羊处理后、其它关初技�
 | `enchantAdditiveCount`（替 `enchantMultiplierCount`） | 有效倍率附魔加成项数。基础分附魔的原计数口径保留，`PipsOnly` 禁计分时金额为 0 |
 | `totalHandMult100`、`handMultBeforeModifier100` | 不变，仍是百分单位整数 |
 | `baseTotal`、`controllerBaseAdds[].amount` | 不变，仍是整数串（基础分成长是整数分，返璞归真的减半向下取整） |
-| `multiplierFactors`、`controllerMultiplierNumerator/Denominator` | 乘法因子与其约分乘积，含 C49 无 5 的每个 1/2，保留 `triggeredMultiplierIds` 同序。没有因子时乘积 1/1。原 `globalFactors` 依旧只列道具再首领，倍率附魔移到加成列表 |
+| `multiplierFactors`、`controllerMultiplierNumerator/Denominator` | 乘法因子与其约分乘积，含 C49 无 5 的每个 1/2，`multiplierFactors` 每条为 `{emitterId, abilityId, numerator, denominator}`，分子分母约分。`triggeredMultiplierIds` 沿用 p1.1.0 的含义：与 `multiplierFactors` 同序、逐条列出该因子的**技能编号**（即 `multiplierFactors[].abilityId`，不去重；百变模仿发出的因子列被模仿卡的技能编号）。没有因子时乘积 1/1。原 `globalFactors` 依旧只列道具再首领，倍率附魔移到加成列表 |
 | `scoreNumerator/Denominator`、`score` | 最后取整前完整乘积的最简分子和分母，最终整分维持十进制整数串 |
 | `AfterScorePlan.growthChanges[]` | 每个真实、有效的提交成长实例按卡列顺序最多一项。沿用 p1.1.0 的 `{ownerInstanceId,abilityId,delta,reset}`，新增布尔 `halve`。`delta` 是事件增量（按 §5 的单位）；`halve` 为真表示把已长出的 `growth` 整除 2（连庄换牌型）；`reset` 本版不再产生。首次无上次或条件不满足不列；停滞可产生计划但会话不执行 |
 | `AfterScorePlan.glassRiskDieIds[]` | 列冻结时实际提交玻璃骰 ID，依提交顺序。实际票值和碎裂结果记录在同一提交的随机轨迹、效果回执 |
