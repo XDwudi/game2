@@ -23,6 +23,9 @@ namespace DiceCraft.Verification
         {
             public string kind=null,offerId=null,itemInstanceId=null,targetDieId=null,targetFaceId=null,handId=null;
             public string[] dieIds=null,controllerIds=null;public int[] targetPips=null;public bool risk=false;public uint seed=0;
+            // v1.1.1 (W7b, RULES_DELTA 12.1): the upgrade of CustomDieUpgrade and the one or two faces of a die upgrade, so
+            // that a trace with the new commands (UnlockDie and CustomDieUpgrade are kinds like any other) replays as recorded.
+            public string upgradeId=null;public string[] targetFaceIds=null;
         }
         [Serializable]private sealed class Report
         {
@@ -159,6 +162,7 @@ namespace DiceCraft.Verification
                 {
                     kind=kind,seed=step.seed,risk=step.risk,offerId=step.offerId,itemInstanceId=step.itemInstanceId,
                     targetDieId=step.targetDieId,targetFaceId=step.targetFaceId,handId=step.handId,
+                    upgradeId=step.upgradeId,targetFaceIds=step.targetFaceIds??Array.Empty<string>(),
                     dieIds=step.dieIds??Array.Empty<string>(),targetPips=step.targetPips??Array.Empty<int>()
                 });
                 if(!result.accepted)throw new InvalidOperationException("Rejected "+step.kind+" at "+i+": "+result.error);

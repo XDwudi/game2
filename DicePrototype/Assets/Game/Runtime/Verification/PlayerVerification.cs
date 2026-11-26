@@ -83,6 +83,9 @@ namespace DiceCraft.Verification
         [Serializable] private sealed class TraceStep
         {
             public string kind, offerId, itemInstanceId, targetDieId, targetFaceId, handId;
+            // v1.1.1 (W7b, RULES_DELTA 12.1): the two command fields of p1.1.1 (absent from older traces).
+            public string upgradeId;
+            public string[] targetFaceIds;
             public string[] dieIds;
             public int[] targetPips;
             public bool risk;
@@ -452,6 +455,7 @@ namespace DiceCraft.Verification
                         kind = kind, seed = step.seed, risk = step.risk,
                         offerId = step.offerId, itemInstanceId = step.itemInstanceId,
                         targetDieId = step.targetDieId, targetFaceId = step.targetFaceId, handId = step.handId,
+                        upgradeId = step.upgradeId, targetFaceIds = step.targetFaceIds ?? Array.Empty<string>(),
                         dieIds = step.dieIds ?? Array.Empty<string>(), targetPips = step.targetPips ?? Array.Empty<int>()
                     });
                     Require(result.accepted && !result.duplicate && !result.pendingSave, "Rejected " + step.kind + ": " + result.error);

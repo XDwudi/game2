@@ -18,10 +18,15 @@ public static class NormalRunReplay
         {
             count++;
             string Text(string key) => step.GetProperty(key).ValueKind == JsonValueKind.Null ? null : step.GetProperty(key).GetString();
+            // v1.1.1 (W7b): upgradeId and targetFaceIds (RULES_DELTA 12.1). A trace recorded before them has neither key:
+            // no upgrade id and no face array, as those commands were.
+            string OptionalText(string key) => step.TryGetProperty(key, out var value) && value.ValueKind == JsonValueKind.String ? value.GetString() : null;
+            string[] OptionalList(string key) => step.TryGetProperty(key, out var value) && value.ValueKind == JsonValueKind.Array ? value.EnumerateArray().Select(x => x.GetString()).ToArray() : Array.Empty<string>();
             var command = new SessionCommand {
                 kind=Enum.Parse<CommandKind>(Text("kind")), commandId="normal_"+count,expectedActionSequence=session.State==null?0:session.State.actionSequence,
                 seed=step.GetProperty("seed").GetUInt32(),risk=step.GetProperty("risk").GetBoolean(),offerId=Text("offerId"),itemInstanceId=Text("itemInstanceId"),
                 targetDieId=Text("targetDieId"),targetFaceId=Text("targetFaceId"),handId=Text("handId"),
+                upgradeId=OptionalText("upgradeId"),targetFaceIds=OptionalList("targetFaceIds"),
                 dieIds=step.GetProperty("dieIds").EnumerateArray().Select(x=>x.GetString()).ToArray(),targetPips=step.GetProperty("targetPips").EnumerateArray().Select(x=>x.GetInt32()).ToArray()
             };
             if(command.kind==CommandKind.ConfirmLocks)foreach(var id in command.dieIds)Require(session.TogglePending(id),"Pending rejected");

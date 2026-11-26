@@ -242,7 +242,8 @@ namespace DiceCraft.Verification
                 var result=app.Send(new SessionCommand{kind=kind,seed=step.seed,risk=step.risk,offerId=step.offerId,
                     itemInstanceId=step.itemInstanceId,targetDieId=step.targetDieId,targetFaceId=step.targetFaceId,
                     handId=step.handId,dieIds=step.dieIds??Array.Empty<string>(),targetPips=step.targetPips??Array.Empty<int>(),
-                    controllerIds=step.controllerIds??Array.Empty<string>()});
+                    controllerIds=step.controllerIds??Array.Empty<string>(),
+                    upgradeId=step.upgradeId,targetFaceIds=step.targetFaceIds??Array.Empty<string>()});
                 if(!result.accepted)throw new InvalidOperationException("Rejected "+kind+" at "+i+": "+result.error);
                 measured.stepsSent=i;
                 if(kind==CommandKind.Submit&&seen.Add("play-scoring"))

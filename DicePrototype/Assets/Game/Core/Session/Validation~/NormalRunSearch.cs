@@ -20,6 +20,10 @@ public static class NormalRunSearch
     public sealed class RecordedStep
     {
         public string kind, offerId, itemInstanceId, targetDieId, targetFaceId, handId;
+        // v1.1.1 (W7b): the die upgrade id of CustomDieUpgrade and the one or two faces of a die upgrade (RULES_DELTA
+        // 12.1). The two new command kinds, UnlockDie and CustomDieUpgrade, are recorded by name like every other kind.
+        public string upgradeId;
+        public string[] targetFaceIds = Array.Empty<string>();
         public string[] dieIds = Array.Empty<string>();
         public int[] targetPips = Array.Empty<int>();
         public bool risk;
@@ -88,6 +92,7 @@ public static class NormalRunSearch
         steps.Add(new RecordedStep { kind = kind.ToString(), seed = command.seed, risk = command.risk,
             dieIds = command.dieIds, targetPips = command.targetPips, offerId = command.offerId, itemInstanceId = command.itemInstanceId,
             targetDieId = command.targetDieId, targetFaceId = command.targetFaceId, handId = command.handId,
+            upgradeId = command.upgradeId, targetFaceIds = command.targetFaceIds ?? Array.Empty<string>(),
             actionSequence = s.actionSequence, submissionScore = result.receipt.score, stageScore = s.stage.score, target = s.stage.target,
             gold = s.gold, stageIndex = s.stage.stageIndex, rollsRemaining = s.hand == null ? 0 : s.hand.rollsRemaining,
             remainingSubmissions = s.stage.remainingSubmissions, phase = s.phase });
