@@ -423,7 +423,7 @@ W2 基于现行 p1.1.0 生成 p1.1.1。字段名和单位如下。凡后缀 `100
 | --- | --- |
 | 顶层 | `configVersion=p1.1.1`、`saveSchemaVersion=8`、`activeContentCount=185`、`maxHandLevel=maxColorLevel=12`。删 `goldContributionMultiplier`，增 `goldAdd100=50`、`gildedFaceWeightDelta=1`。玻璃 `glassBreakPercent=15`，`glassContributionMultiplier=3`；最大面权重 5 |
 | 颜色、牌型、红组 | 颜色删 `baseMult100`、`incrementPerLevel100`、`multiplierZone`，增 `baseAdd100`（蓝 25、红 50）、`addPerLevel100=50`。可升级定义的 `maxLevel=12`。红组按 0–8 的 `factor100` 列表为 `[100,100,100,200,300,450,600,800,1100]` |
-| 卡牌共用 | 每张定义增必填 `isCultivation`，真值只限 §6 名单。删 C90/C128/C145 定义及参数行，增 C154–C156。普通／罕见／稀有数量为 29／88／33。稀有度变化时按已有稀有度权重同步 `offerWeight` |
+| 卡牌共用 | 每张定义增必填 `isCultivation`，真值只限 §6 名单。删 C90/C128/C145 定义及参数行，增 C154–C156。普通／罕见／稀有数量为 29／87／34。稀有度变化时按已有稀有度权重同步 `offerWeight` |
 | 附魔 | `enchantRules` 增 `shopChanceByCyclePercent=[10,20,35,45,55,60,65,65]`。删 `scoreMultiplier`，增 `scoreAdd100=150`；`baseAdd=15`。附魔表保留稳定 ID、现有非空权重和原先非商店用池。改变 `mult2.buyPremium=5`，非提交清单删 C128/C145、加 C154，`scoreEnchantEligible` 一致 |
 | 商店与成长 | `shop` 增 `selfDieUpgradeLimit=2`、`selfDieUpgradePremium=1`、`uniqueControllerIds`（§9.3）。`upgradePricePerExistingLevel=1`。顶层增 `growthCatchupPerCycle`，对象内 `additive=50,base=6,multiplier=10`（单位同 §5：加成与乘法为百分单位，基础分为整数分）。顶层增 `cultivationFacesPerSaleBonus=4,cultivationMaxSaleBonus=6` |
 | 道具、改造 | 道具定义加 `initialUses`，I13 为 3、其它 1。I13 的 `window=Selecting,lifetime=Permanent,baseBuyPrice=3,sellPrice=1`（`lifetime` 沿用点金笔的取值，次数由 `initialUses` 表达）。I01/I10 基础价 1。改造定义加 `maxSelectableFaces`，§7 双面清单 2，U05 为 0，U11 为 1 |
