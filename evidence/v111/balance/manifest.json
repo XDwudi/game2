@@ -42,6 +42,14 @@
                      "log":  "run_p111_t4_300.log",
                      "command":  "run --first 5000 --seeds 300 --threads 8 --config tools/balance_sim/candidates/v111_t4.json",
                      "note":  "candidate v111_t4 (targets of t3), C59 +3: the final values"
+                 },
+                 {
+                     "file":  "run_p111_final_300.json",
+                     "bytes":  27256105,
+                     "sha256":  "61c8247b633288fd2bf5723e9c078a41bec65139a8b1e5e17111df91c62e2612",
+                     "log":  "run_p111_final_300.log",
+                     "command":  "run --first 5000 --seeds 300 --threads 8",
+                     "note":  "the game configuration itself (DicePrototype/Assets/Game/Data/P0Config.json at commit 790cfeca, unchanged since): 91 wins (30.3%), 0 errors. Compared with run_p111_t4_300.json by program: every field is equal except configPath, the per-run timings in logs and v111.secondsPerRun, so the committed configuration is the calibrated t4"
                  }
              ]
 }
