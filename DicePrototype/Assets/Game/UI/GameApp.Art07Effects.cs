@@ -357,6 +357,8 @@ namespace DiceCraft
             if(cmd.kind==CommandKind.StartStage)LastTransactionSummary07=grant;
             if(cmd.kind==CommandKind.Buy)LastTransactionSummary07=PurchasedDieSummary07(cmd,before,after);
             if(cmd.kind==CommandKind.CustomDieUpgrade)LastTransactionSummary07=CustomUpgradeSummary111(cmd,before,after);
+            // v1.1.1 (W7b, RULES_DELTA 8): one line for the die that came back and one for the key ring's use.
+            if(cmd.kind==CommandKind.UnlockDie)LastTransactionSummary07=UnlockSummary111(result.receipt);
             if(cmd.kind==CommandKind.UseItem)
             {
                 string id=before.inventory.FirstOrDefault(i=>i.instanceId==cmd.itemInstanceId)?.contentId;

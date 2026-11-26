@@ -63,6 +63,161 @@ namespace DiceCraft
             }
             if(options.Length==0)UiKit.Text(list,"NoCustom111","现在没有可以自选的改造。",15,30,1400,90,28,UiKit.Muted);
         }
+        // ---------------------------------------------------------------- the key ring and taking a locked die back (8)
+        // View state only: which locked die is selected for 撤回, and whether the key ring's 使用 asked the player to point
+        // at one. Neither touches the session; the one command is UnlockDie, sent by the 撤回 button.
+        private string unlockPick111;
+        private bool unlockArmed111;
+        /// <summary>The locked die selected for 撤回, or null.</summary>
+        public string UnlockPick111=>unlockPick111;
+        /// <summary>True after the key ring's 使用: the locked dice that can be taken back are marked.</summary>
+        public bool UnlockArmed111=>unlockArmed111;
+        private bool UnlockPhase111=>ViewState!=null&&ViewState.phase=="Selecting"&&ViewState.hand!=null&&!IsPresenting07;
+        /// <summary>The session's answer for one locked die (or for any, with null) on the state that is on screen. Dice
+        /// selected but not yet locked block the command, as the session's own quote says.</summary>
+        private UnlockView UnlockQuote111(string dieId)
+        {
+            var view=Session.UnlockQuoteIn(ViewState,dieId);
+            if(view.available&&Session.PendingIds.Length>0){view.available=false;view.error="先锁定选中的骰子，或取消选择。";}
+            return view;
+        }
+        /// <summary>The player holds something that takes a locked die back (a key ring, or 回心转意 in effect this hand,
+        /// used or not), so a locked die answers a click with the 撤回 choice or the reason it is not possible.</summary>
+        private bool HoldsUnlockSource111
+        {
+            get
+            {
+                if(ViewState?.hand==null)return false;
+                var view=Session.UnlockQuoteIn(ViewState);
+                return view.freeAvailable||view.keyRingUsesTotal>0||ViewState.hand.unlockCardUsed;
+            }
+        }
+        private void SyncUnlock111()
+        {
+            if(!UnlockPhase111||ViewState.hand.orderedLockedIds.Count==0){unlockPick111=null;unlockArmed111=false;return;}
+            if(unlockPick111!=null&&!ViewState.hand.orderedLockedIds.Contains(unlockPick111))unlockPick111=null;
+        }
+        /// <summary>The line over the locked dice: they can be taken back while the session says some die can.</summary>
+        private string LockRuleText111()
+        {
+            SyncUnlock111();
+            return UnlockPhase111&&UnlockQuote111(null).available?"已锁定 · 点一颗骰子可以撤回":"已锁定 · 本手不可移回骰池";
+        }
+        /// <summary>A click on a locked die. With a source in hand it selects the die (again: clears the selection) and
+        /// the action row shows 撤回 or the reason; nothing is sent. Without one the click is not handled (the die's
+        /// details open as before).</summary>
+        private bool UnlockClick111(string dieId)
+        {
+            if(!UnlockPhase111||IsBusy||Session.HasPendingSave||!HoldsUnlockSource111)return false;
+            unlockArmed111=false;
+            unlockPick111=unlockPick111==dieId?null:dieId;
+            // The row's hint is the unlock line now, not the summary of the previous action.
+            LastTransactionSummary07="";
+            Refresh();return true;
+        }
+        /// <summary>The key ring's 使用 (RULES_DELTA 8: the item's button is the same unlock): no command; the player is
+        /// asked to point at a locked die, and the dice that can be taken back are marked.</summary>
+        private void ArmKeyRing111()
+        {
+            CloseModal();
+            unlockArmed111=true;unlockPick111=null;LastTransactionSummary07="";
+            Refresh();
+        }
+        public void CancelUnlockPick111(){if(unlockPick111==null&&!unlockArmed111)return;unlockPick111=null;unlockArmed111=false;Refresh();}
+        /// <summary>"回心转意（本手免费）" or "钥匙串（剩 N 次）": the source the rules will use, never a choice.</summary>
+        private string UnlockSourceText111(UnlockView view)
+            =>view.sourceId=="C154"?NameOf("C154")+"（本手免费）":view.sourceId=="I13"?NameOf("I13")+"（剩 "+view.keyRingUses+" 次）":"";
+        /// <summary>Why the selected die cannot be taken back, in the player's words.</summary>
+        private string UnlockReason111(UnlockView view)
+        {
+            if(view==null||view.available)return null;
+            if(view.error==GameSession.ItemsForbidden)return view.freeAvailable?null:"首领减益“徒手”：本关不能用"+NameOf("I13")+(ViewState.hand.unlockCardUsed?"，"+NameOf("C154")+"本手的免费次数也用过了。":"。");
+            if(view.error==GameSession.UnlockNoSource)return ViewState.hand.unlockCardUsed?NameOf("C154")+"本手的免费次数用过了，也没有"+NameOf("I13")+"。":"没有可用的撤回次数。";
+            if(view.error==GameSession.UnlockNeedsResults)return "掷骰后才能撤回已锁定的骰子。";
+            if(view.error==GameSession.UnlockTargetInvalid)return "选一颗已锁定的骰子。";
+            return view.error;
+        }
+        /// <summary>
+        /// The action row while a locked die is selected: the primary button is 撤回 with the source the rules will use
+        /// written on it (an explicit button: the click on the die only selected it), the second one clears the
+        /// selection, and the hint says what will happen or why it cannot. Returns false when no die is selected.
+        /// </summary>
+        private bool UnlockActions111(Layout11 l,out string reason)
+        {
+            reason=null;SyncUnlock111();
+            if(unlockPick111==null)return false;
+            string id=unlockPick111;var view=UnlockQuote111(id);string die=DieName11(id);
+            if(view.available)
+            {
+                reason=view.sourceId=="C154"?"撤回"+die+"：用"+NameOf("C154")+"，本手免费 1 次。骰子回到骰池，可以重掷或再锁定。"
+                    :"撤回"+die+"：用掉"+NameOf("I13")+" 1 次（现在剩 "+view.keyRingUses+" 次），不能反悔。骰子回到骰池，可以重掷或再锁定。";
+                PrimaryButton11("UnlockDie111","撤回 · "+UnlockSourceText111(view),()=>SendUnlock111(id),true,l);
+            }
+            else
+            {
+                reason="不能撤回"+die+"："+(UnlockReason111(view)??"");
+                PrimaryButton11("UnlockDie111","撤回",()=>{},false,l);
+            }
+            SecondaryButton11("UnlockCancel111","取消选择",CancelUnlockPick111,l);
+            return true;
+        }
+        private void SendUnlock111(string dieId)
+        {
+            if(IsBusy||Session.HasPendingSave)return;
+            unlockPick111=null;unlockArmed111=false;
+            Send(new SessionCommand{kind=CommandKind.UnlockDie,targetDieId=dieId});
+        }
+        /// <summary>The hint of the action row after the key ring's 使用, until a die is selected.</summary>
+        private string UnlockHint111(string reason)
+        {
+            SyncUnlock111();
+            if(!unlockArmed111||unlockPick111!=null)return reason;
+            var any=UnlockQuote111(null);
+            return any.available?"点一颗已锁定的骰子来撤回。":"现在不能撤回："+(UnlockReason111(any)??"");
+        }
+        /// <summary>The marks of one locked slot: a gold ring on the selected die; after the key ring's 使用, a thin ring and
+        /// "可撤回" on every die the session would take back.</summary>
+        private void DrawUnlockMark111(string dieId,Rect slot)
+        {
+            if(!UnlockPhase111||IsBusy)return;
+            if(unlockPick111==dieId){UiKit.Ring(main,"UnlockPick111_"+dieId,slot.x-4,slot.y-4,slot.width+8,slot.height+8,UiKit.Gold);return;}
+            if(!unlockArmed111||!UnlockQuote111(dieId).available)return;
+            UiKit.Outline(main,"UnlockTarget111_"+dieId,slot.x-2,slot.y-2,slot.width+4,slot.height+4,UiKit.Gold,2);
+            float size=Body11(16),w=slot.width-8,h=Line11(size);
+            var tag=Surface11(main,"UnlockTargetTag111_"+dieId,slot.x+4,slot.yMax-h-10,w,h+4,"ui_chip_label",UiKit.PanelLight);
+            NoWrap11(UiKit.Text(tag,"Text","可撤回",0,0,w,h+4,size,LabelOn11(tag,UiKit.TextColor),TextAlignmentOptions.Center));
+        }
+        /// <summary>The uses left on an item that has several (the key ring's 1 to 3), in the corner of its icon.</summary>
+        private void ItemUses111(Transform icon,OwnedItem item,float size)
+        {
+            if(item==null||Config.Consumable(item.contentId).initialUses<=1)return;
+            float font=Body11(16),w=Mathf.Max(26,Mathf.Ceil(PreferredWidth11(item.usesRemaining.ToString(CultureInfo.InvariantCulture),font))+10),h=Mathf.Min(size,Line11(font));
+            var mark=UiKit.Frame(icon,"Uses111",size-w,size-h,w,h,UiKit.Background,UiKit.PanelLight);
+            NoWrap11(UiKit.Text(mark,"Count",item.usesRemaining.ToString(CultureInfo.InvariantCulture),0,0,w,h,font,LabelOn11(mark,UiKit.Paper),TextAlignmentOptions.Center)).raycastTarget=false;
+        }
+        /// <summary>Why no locked die can be taken back right now (the key ring's state line and its lock mark), or null
+        /// when the session would accept an unlock. With a free unlock left the rules use that first.</summary>
+        private string KeyRingState111()
+        {
+            var view=UnlockQuote111(null);
+            return view.available?null:UnlockReason111(view);
+        }
+        /// <summary>How the key ring is used, for its details (it has no 使用 command of its own).</summary>
+        private string KeyRingUsage111(OwnedItem item)
+            =>"点一颗已锁定的骰子，再按“撤回”，它就回到骰池（可以重掷，也可以再锁定）。每次用掉 1 次，还剩 "+item.usesRemaining+" 次，用完才消失。持有"+NameOf("C154")+"时先用它每手 1 次的免费撤回。";
+        /// <summary>The records of an accepted UnlockDie in words, one line each: the die that came back and its source,
+        /// then the key ring's uses before and after (no such record for the free unlock).</summary>
+        private string UnlockSummary111(CommandReceipt receipt)
+        {
+            if(receipt?.effects==null)return "";
+            var lines=new List<string>();
+            foreach(var e in receipt.effects)
+            {
+                if(e.kind=="DieUnlocked")lines.Add("已撤回"+DieName11(e.dieId)+"（"+(e.sourceId=="C154"?NameOf("C154")+"，本手的免费次数已用":NameOf("I13"))+"）");
+                else if(e.kind=="ItemUsed"&&e.sourceId=="I13")lines.Add(e.newValue<=0?NameOf("I13")+"用完了，道具栏空出 1 格":NameOf("I13")+"还剩 "+e.newValue+" 次（"+e.oldValue+" → "+e.newValue+"）");
+            }
+            return string.Join(" · ",lines);
+        }
         /// <summary>What a self-selected upgrade did: the faces' changes, then what is left of the shop's allowance.</summary>
         private string CustomUpgradeSummary111(SessionCommand cmd,RunState before,RunState after)
         {

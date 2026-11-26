@@ -62,7 +62,12 @@ namespace DiceCraft
             Art07DetailSection(list,"Skill","道具效果",PlayerRules11(item.contentId),ref y,672,true);
             string window=Config.Consumable(item.contentId).window;
             Art07DetailSection(list,"Window","何时能用",window=="Selecting"?"掷骰后且锁定了至少 1 颗骰子":window=="HandReady"?"本手第一次掷骰前":"本手任何时候",ref y,672,true);
+            // v1.1.1 (W7b, RULES_DELTA 8): the key ring has no command of its own. Its 使用 asks the player to point at a
+            // locked die; the 撤回 button there sends UnlockDie, and the rules pick the source. Whether it can be used
+            // now is the session's unlock quote.
+            bool keyRing=item.contentId=="I13";
             string reason=selling?null:Art07ItemUnavailable(item);
+            if(keyRing&&!selling)Art07DetailSection(list,"Usage111","用法",KeyRingUsage111(item),ref y,672,true);
             Art07DetailSection(list,"UseState",selling?"出售结果":"当前状态",selling?"卖出得 1 金币。":reason??(Config.Consumable(item.contentId).initialUses>1?"现在可以使用（还剩 "+item.usesRemaining+" 次，用完才消失）。":"现在可以使用（用后消失）。"),ref y,672,true); // p1.1.1 (W7a): the key ring has several uses
             list.sizeDelta=new Vector2(list.sizeDelta.x,y+16);
             if(selling)
@@ -70,9 +75,10 @@ namespace DiceCraft
                 UiKit.Button(p,"Sell","卖出 +1 金币",24,628,912,64,()=>{CloseModal();Send(new SessionCommand{kind=CommandKind.Sell,itemInstanceId=item.instanceId});},!IsBusy);
                 UiKit.Outline(p,"SellOutline",24,628,912,64,UiKit.Red,2);
             }
-            else UiKit.ActionButton(p,"Use",reason==null?"使用道具":"当前不能使用",24,628,912,64,()=>
+            else UiKit.ActionButton(p,"Use",reason!=null?"当前不能使用":keyRing?"去选要撤回的骰子":"使用道具",24,628,912,64,()=>
             {
-                if(item.contentId=="I03")RemoteTargets(item);
+                if(keyRing)ArmKeyRing111();
+                else if(item.contentId=="I03")RemoteTargets(item);
                 else{CloseModal();Send(new SessionCommand{kind=CommandKind.UseItem,itemInstanceId=item.instanceId});}
             },UiKit.Paper,reason==null);
         }

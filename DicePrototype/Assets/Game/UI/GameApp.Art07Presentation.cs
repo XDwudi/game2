@@ -59,6 +59,8 @@ namespace DiceCraft
             if(cmd.kind==CommandKind.NewRun)inMenu=false;
             if(tutorial)tutorialStep++;
             notice="";
+            // v1.1.1 (W7b): any accepted command ends the selection of a locked die for 撤回.
+            unlockPick111=null;unlockArmed111=false;
             if(result.duplicate){Refresh();return;}
             LastTransactionSummary07="";
             AdvanceStablePresentation07(cmd);

@@ -596,6 +596,7 @@ namespace DiceCraft
                 var item=s.inventory[i];var b=UiKit.Button(main,"Item_"+item.instanceId,"",px,py,size,size,()=>ShowOwned(item,false),!IsBusy);
                 UiKit.CardSurface(b,true);((Image)b.targetGraphic).sprite=UiKit.Template("ui_card_item");
                 Icon(b.transform,item.contentId,6,5,size-12);
+                ItemUses111(b.transform,item,size); // v1.1.1 (W7b): the key ring shows its 1 to 3 uses
                 Art07AttachTooltip(b,item.instanceId,NameOf(item.contentId),PlayerRules11(item.contentId),Art07ItemUnavailable(item)??"可使用 · 点击查看完整说明",()=>ShowOwned(item,false));
                 if(Art07ItemUnavailable(item)!=null)
                 {
@@ -628,7 +629,8 @@ namespace DiceCraft
             y+=38;
             if(h.orderedLockedIds.Count>0)
             {
-                var rule=UiKit.Text(main,"LockRule","已锁定 · 本手不可移回骰池",ix,y,iw,30,Body11(c?15:18),LabelOn11(info,UiKit.Gold));
+                // v1.1.1 (W7b, RULES_DELTA 8): with 回心转意 or a key ring a locked die can be taken back.
+                var rule=UiKit.Text(main,"LockRule",LockRuleText111(),ix,y,iw,30,Body11(c?15:18),LabelOn11(info,UiKit.Gold));
                 rule.ForceMeshUpdate();float rh=Mathf.Ceil(rule.GetPreferredValues(rule.text,iw,0).y)+2;rule.rectTransform.sizeDelta=new Vector2(iw,rh);y+=rh+4;
             }
             submitHandTop11=y;
@@ -693,7 +695,9 @@ namespace DiceCraft
             var hit=UiKit.Box(main,"Die_"+id,hitX,hitY,w,height,Color.clear,true);
             var pointer=UiKit.Component<DiePointer>(hit.gameObject);pointer.clicked=null;pointer.dragStart=null;pointer.dragged=null;pointer.dragEnd=null;
             UiKit.Component<Art07DieHover>(hit.gameObject).Bind(table,id,false);
-            pointer.clicked=e=>{if(modal||IsBusy||draggedDie07!=null)return;ShowDie(id);};
+            // v1.1.1 (W7b): with an unlock source in hand the click selects the die for 撤回 (the action row then shows the
+            // button or the reason); otherwise it opens the die's details as before.
+            pointer.clicked=e=>{if(modal||IsBusy||draggedDie07!=null)return;if(UnlockClick111(id))return;ShowDie(id);};
             pointer.dragStart=e=>{if(e.button!=UnityEngine.EventSystems.PointerEventData.InputButton.Left||!CanMoveLockedDice07)return;draggedDie07=id;e.eligibleForClick=false;};
             pointer.dragged=e=>
             {
@@ -718,6 +722,7 @@ namespace DiceCraft
             GripAt11[id]=new Vector2(column.x+9-hitX,slot.y+slot.height-30-hitY);
             DrawLockedGrip07(hit,id,false);
             DrawLockMark07(column.x+3,slot.y+36,index,id);
+            DrawUnlockMark111(id,slot);
             DieBadges11(die,result,center,0,0,false,true,new Rect(column.x,slot.y+66,column.width,slot.height-100));
             // The permanent-change label (PostScore beat) writes into this label, beside the die stepped back to 0.82; it is
             // empty otherwise.
@@ -821,6 +826,8 @@ namespace DiceCraft
                 PrimaryButton11("Confirm",excess?"最多锁 "+lockRoom+" 颗":"锁定 "+Session.PendingIds.Length+" 颗",()=>Send(new SessionCommand{kind=CommandKind.ConfirmLocks}),!excess,l);
                 SecondaryButton11("Clear","取消选择",()=>{Session.ClearPending();Refresh();},l);
             }
+            // v1.1.1 (W7b, RULES_DELTA 8): a selected locked die turns the row into 撤回 (with its source) and 取消选择.
+            else if(UnlockActions111(l,out reason)){}
             else if(canSubmit)
             {
                 reason=h.orderedLockedIds.Count==s.stage.capacity||!canRoll?"按“提交”计分。":"按“提交”计分，或者重掷其余的骰子。";
@@ -834,9 +841,10 @@ namespace DiceCraft
                 if(canRoll)BindRollButtonFeedback07(PrimaryButton11("Roll","重掷 · 还能掷 "+h.rollsRemaining+" ["+key+"]",()=>Send(new SessionCommand{kind=CommandKind.Roll}),true,l));
             }
             // Once the target is reached the next step is a choice: keep playing or end the stage.
-            if(!busy&&!pending&&s.stage.qualified&&s.stage.remainingSubmissions>0&&string.IsNullOrEmpty(LastTransactionSummary07))
+            if(!busy&&!pending&&unlockPick111==null&&s.stage.qualified&&s.stage.remainingSubmissions>0&&string.IsNullOrEmpty(LastTransactionSummary07))
                 reason=!h.hasRolled&&canRoll?"已达标：按“掷骰”继续，或者按“结束本关”结算。":"已达标：可以继续提交，也可以结束本关。";
-            if(!busy&&!pending&&!string.IsNullOrEmpty(LastTransactionSummary07))reason=LastTransactionSummary07;
+            if(!busy&&!pending&&unlockPick111==null&&!string.IsNullOrEmpty(LastTransactionSummary07))reason=LastTransactionSummary07;
+            if(!busy&&!pending)reason=UnlockHint111(reason);
             // Hint tab: a surface for the text (never written straight on the table).
             var tab=Surface11(main,"ActionReasonUnderlay",l.hint.x,l.hint.y,l.hint.width,l.hint.height,"ui_panel_hud",Color.white);
             var hint=UiKit.Text(main,"ActionReason",reason,l.hint.x+16,l.hint.y+6,l.hint.width-32,l.hint.height-12,Body11(c?16:21),LabelOn11(tab,UiKit.TextColor),TextAlignmentOptions.MidlineLeft);

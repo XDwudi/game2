@@ -589,6 +589,7 @@ namespace DiceCraft
                 var button=UiKit.Button(panel,"ShopItem_"+item.instanceId,"",ix,itemY,BuildItemSize14,BuildItemSize14,()=>ShowOwned(item,true),!IsBusy);
                 UiKit.CardSurface(button,true);((Image)button.targetGraphic).sprite=UiKit.Template("ui_card_item");
                 Icon(button.transform,item.contentId,8,6,BuildItemSize14-16);
+                ItemUses111(button.transform,item,BuildItemSize14); // v1.1.1 (W7b): the key ring's uses left
                 Art07AttachTooltip(button,item.instanceId,NameOf(item.contentId),PlayerRules11(item.contentId),"出售获得 1 金币",()=>ShowOwned(item,true));
             }
         }

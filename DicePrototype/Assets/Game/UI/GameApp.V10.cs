@@ -373,7 +373,7 @@ namespace DiceCraft
                     var first=h.currentResults.First(r=>r.dieId==h.orderedLockedIds[0]);
                     return s.dice.First(d=>d.dieId==first.dieId).faces.First(f=>f.faceId==first.currentFaceId).isGold?"第 1 颗锁定骰子朝上的面已经是黄金面。":null;
                 case "I12":return s.stage.capacity>=(s.isDebug?Config.debug.maxSubmitCapacity:Config.maxSubmitCapacity)?$"提交栏已经是最多的 {(s.isDebug?Config.debug.maxSubmitCapacity:Config.maxSubmitCapacity)} 格。":null;
-                case "I13":return !locked?"需要先掷骰并锁定至少 1 颗骰子。":null;
+                case "I13":return !locked?"需要先掷骰并锁定至少 1 颗骰子。":KeyRingState111(); // v1.1.1 (W7b): the session's unlock quote
                 default:return null;
             }
         }

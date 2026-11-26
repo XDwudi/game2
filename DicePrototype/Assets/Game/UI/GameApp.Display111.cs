@@ -51,6 +51,10 @@ namespace DiceCraft
                 case "C141":return "加成 "+Bonus111(Math.Max(0,p.initialAdditive100-state.growth*p.decayPerClear100));
                 case "C63":return held?"加成 "+Bonus111((long)ViewState.dice.Count(d=>d.lifetime=="permanent")*p.additivePerPermanentDie100):null;
                 case "C137":return state.starPip>0?"本关明星点数 "+state.starPip:"明星点数待入关";
+                // v1.1.1 (W7b, RULES_DELTA 8): whether this hand's free unlock is still there (the session's quote).
+                case "C154":
+                    if(!held||!PlayPhase11||ViewState?.hand==null)return null;
+                    return Session.UnlockQuoteIn(ViewState).freeAvailable?"本手免费撤回可用":ViewState.hand.unlockCardUsed?"本手免费撤回已用":null;
                 case "C156":
                     if(!held||ViewState?.stage==null||!ViewState.stage.started||ViewState.phase=="Shop"||ViewState.phase=="StagePreview")return null;
                     return ExactScoreMath.Parse(ViewState.stage.score)*p.targetDivisor<ExactScoreMath.Parse(ViewState.stage.target)?"加成 "+Bonus111(p.additiveBonus100)+" 生效中":"累计已过半，不生效";
