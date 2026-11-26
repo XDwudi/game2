@@ -1,0 +1,80 @@
+{
+  "schema": "artgen-record-1",
+  "toolVersion": "artgen-1.2",
+  "jobId": "V111-DEFAULT-C155",
+  "jobPath": "ArtSource/Art11/default/illustrations/C155/job.json",
+  "jobSha256": "fc1fb57a5c69335a4f3d41fc32dec9fb1004da7c341afc735ad878a087e8d8bd",
+  "category": "illustration",
+  "revision": "r01",
+  "mode": "new",
+  "transparentRequired": true,
+  "content": {
+    "contentId": "C155",
+    "list": "controllers",
+    "displayName": "状元插金花",
+    "configDescription": "提交含至少4颗有效4点时，整手得分×2；同时含至少2颗有效1点时改为×4。",
+    "configPath": "DicePrototype/Assets/Game/Data/P0Config.json",
+    "configSha256": "5ba97c8158062e355796d888dbdb581710351cdff15cd6b3e3fbf49b394b777b"
+  },
+  "styleKit": {
+    "path": "ArtSource/StyleKit/style_kit.json",
+    "sha256": "bc9631749bab5efa30d93b47f8c0d9c49ed2dd70204b5994ee5450871af31e6a",
+    "kitVersion": "style-kit-1.1",
+    "status": "PROPOSED: anchors picked by AI from the shipped v0.71 illustration set; awaiting user confirmation (docs/art/STYLE_GUIDE.md section 7)"
+  },
+  "references": [
+    {
+      "index": 1,
+      "path": "ArtSource/StyleKit/plates/illustration_plate_style-kit-1.png",
+      "sha256": "a653982f60b065b968c92551074e45e8666952b9a5fe38a4a91e661a55a5581c",
+      "role": "STYLE PLATE: eight finished illustrations from this game on a plain ivory backdrop. Copy their rendering exactly (outline weight, flat planes, halftone, colour roles, viewpoint, lighting). Do not copy their subjects, their layout or the backdrop."
+    }
+  ],
+  "prompt": {
+    "imagePromptPath": "ArtSource/Art11/default/illustrations/C155/r01/prompt.txt",
+    "imagePromptFileSha256": "fc3d0b563913176c4265136be6c0f642e5be7e3a6d2c4ed2f62f2c8dfd936c6b",
+    "agentRequestPath": "ArtSource/Art11/default/illustrations/C155/r01/codex-request.txt",
+    "agentRequestFileSha256": "7e25f90c3095e23ee6bf77935a71d417fb7dd31b1584bbafd10ac83859588080"
+  },
+  "codex": {
+    "command": [
+      "C:\\Users\\f\\AppData\\Local\\OpenAI\\Codex\\bin\\05cc0fd428644ef6\\codex.exe"
+    ],
+    "version": "codex-cli 0.171.0-alpha.13.2",
+    "exitCode": 1,
+    "threadId": null,
+    "sessionLog": null,
+    "agentModel": null,
+    "usage": null,
+    "durationSeconds": 0.0,
+    "quotaUsedPercentFirst": null,
+    "quotaUsedPercentLast": null
+  },
+  "imageTool": {
+    "name": "image_gen.imagegen (Codex built-in)",
+    "modelSnapshot": "not exposed by the tool; OpenAI documents the built-in tool as gpt-image-2",
+    "generations": [],
+    "runChecks": {
+      "imageCallCount": 0,
+      "generationCount": 0,
+      "callReferencedImagePaths": null,
+      "modelInputImages": null,
+      "transparentRequested": false,
+      "callPromptExact": null,
+      "revisedPromptExact": null
+    }
+  },
+  "output": null,
+  "runValid": false,
+  "runProblems": [
+    "codex exited with 1",
+    "expected exactly one image call, found 0",
+    "expected exactly one image generation record, found 0",
+    "image call passed no referenced_image_paths: the style references were NOT used",
+    "a transparent background was not requested",
+    "the prompt actually used could not be verified",
+    "expected one generated image for the thread, found 0"
+  ],
+  "status": "INVALID_RUN: not eligible for review or use",
+  "recordedUtc": "2026-11-25T22:55:43.280550+00:00"
+}

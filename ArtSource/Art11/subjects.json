@@ -7,9 +7,9 @@
     "The eight weak pip mismatches stay as drawn; no subject asks for specific pips (2026-11-17).",
     "Pip runs in C40, C83, C107, C142 stay optional (2026-11-17)."
   ],
-  "decision": "CP3-1 (docs/specs/v11/DEV_PLAN.md section 3)",
+  "decision": "CP3-1 (docs/specs/v11/DEV_PLAN.md section 3); D20 (docs/specs/v111/briefs/W8_ART.md)",
   "schema": "subjects-1",
-  "source": "shipped default illustrations, DicePrototype/Assets/Art/Art071/Illustrations",
+  "source": "V1.1 shipped default illustrations, DicePrototype/Assets/Art/Art071/Illustrations; W8 new subjects from p1.1.1 P0Config shortText and docs/specs/v111/briefs/W8_ART.md",
   "subjects": {
     "C01": {
       "conflicts": [],
@@ -383,7 +383,6 @@
       "notes": "Look-alike U09 (file rasping a die top). 2026-11-18 (coordinator, deco W22 review): styleCues.deco added after the deco r01 review. 2026-11-19 (coordinator, glass W22 review): the glass r01 planed face and shavings are amber-gold, so the die reads as gilded. styleCues.glass added.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c121.png",
       "pictureSha256": "c4eb9aa4fd016b00aa5e6acd6c077d159f50463baf3c62752e5fc2ad852be163",
-      "subject": "a hand plane shaving long curls off the top of a large die, a much smaller die sitting beside it, short strokes at the upper left",
       "styleCues": {
         "deco": [
           "in this style the worked face of the die stays ivory with dark pips; only the tool may be gold"
@@ -391,7 +390,8 @@
         "glass": [
           "in this style the worked face of the die stays marble-white with dark pips, and the shavings are pale, never amber or gold; only the plane may be gold"
         ]
-      }
+      },
+      "subject": "a hand plane shaving long curls off the top of a large die, a much smaller die sitting beside it, short strokes at the upper left"
     },
     "C122": {
       "conflicts": [],
@@ -427,12 +427,12 @@
       "notes": "Molten metal is red-orange in the default and must not read as red paint (C26, C118, U03). Weight look-alike U10 (screwdriver driving a plug). 2026-11-18 (coordinator, Swiss W22 review): the Swiss r02 metal was gold, which reads as gilding. 2026-11-18 (coordinator, sancai W22 review): the sancai r01 metal was amber-gold; styleCues.sancai gives the lead a colour the palette has.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c124.png",
       "pictureSha256": "df034af18094b0a92f9a064622548e84db2432575dda00e37f939483f003fd01",
-      "subject": "a ladle pouring molten metal through a hole in the top of a hollow die, the open front of the die showing the pips inside",
       "styleCues": {
         "sancai": [
           "in this style the molten lead is a pale cream-white glaze with heat strokes (the sancai palette has no silver), never amber or gold"
         ]
-      }
+      },
+      "subject": "a ladle pouring molten metal through a hole in the top of a hollow die, the open front of the die showing the pips inside"
     },
     "C125": {
       "conflicts": [],
@@ -475,7 +475,7 @@
         "die is transparent glass: a pale blue tint with its far edges and back pips showing through, never an opaque cream die"
       ],
       "mainObject": "glassblower's pipe with glass die",
-      "notes": "Glass look-alikes: U05, C145, C90, C42. 2026-11-17: the Swiss redraw r02 drew an opaque cream die, so the cue now says how the glass shows (glass dice are a game mechanic).",
+      "notes": "Glass look-alikes: U05, C145, C90, C42. 2026-11-17: the Swiss redraw r02 drew an opaque cream die, so the cue now says how the glass shows (glass dice are a game mechanic). Removed from playable content in V1.1.1 (W8). Historical illustration record retained.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c128.png",
       "pictureSha256": "3fdfaeb0bc7a0af8f996ec6f189d18dcba4d2ecebfc730fa94f56d2d7d3b233a",
       "subject": "a glassblower's pipe with a transparent glass die forming at its end, short strokes at the upper left"
@@ -522,12 +522,12 @@
       "notes": "Toy goat, no expression. Broken-chain look-alike I08 (torn talisman); both remove a boss debuff. 2026-11-18 (coordinator, deco W22 review): styleCues.deco added after the deco r01 review.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c131.png",
       "pictureSha256": "5fa16cb3080dcca3ef14a1fc0d2f5d290c4ca074cbc96454e41635b0c2291a19",
-      "subject": "a carved wooden toy goat carrying a bundle tied with rope on its back, a broken chain link lying at its feet",
       "styleCues": {
         "deco": [
           "in this style there is no haze, smoke or soft glow around the subject; the background stays fully transparent"
         ]
-      }
+      },
+      "subject": "a carved wooden toy goat carrying a bundle tied with rope on its back, a broken chain link lying at its feet"
     },
     "C132": {
       "conflicts": [],
@@ -538,12 +538,12 @@
       "notes": " 2026-11-18 (coordinator, deco W22 review): styleCues.deco added after the deco r01 review.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c132.png",
       "pictureSha256": "7deaa003590f021b4b586b112f54d4cc1f1aa9a0ee49f28c0d0bd5d4fea885b3",
-      "subject": "a pressure cooker with its lid valve jetting a puff of steam, a die rattling on top of the lid",
       "styleCues": {
         "deco": [
           "in this style there is no haze, smoke or soft glow around the subject; the background stays fully transparent; the steam is a crisp drawn puff that ends well inside the image"
         ]
-      }
+      },
+      "subject": "a pressure cooker with its lid valve jetting a puff of steam, a die rattling on top of the lid"
     },
     "C133": {
       "conflicts": [],
@@ -555,12 +555,12 @@
       "notes": "Poster stays blank: no WANTED text, face or numbers. 2026-11-18 (coordinator, deco W22 review): styleCues.deco added after the deco r01 review.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c133.png",
       "pictureSha256": "18418dfee53f44ca3e3122dbe1073cc089641837f0b3608248fa957881096cf2",
-      "subject": "a rolled blank poster pinned to a wooden post by a dagger, a pouch of gold coins hanging below it",
       "styleCues": {
         "deco": [
           "in this style there is no haze, smoke or soft glow around the subject; the background stays fully transparent"
         ]
-      }
+      },
+      "subject": "a rolled blank poster pinned to a wooden post by a dagger, a pouch of gold coins hanging below it"
     },
     "C134": {
       "conflicts": [],
@@ -705,7 +705,7 @@
         "wrapped in bubble wrap"
       ],
       "mainObject": "glass die in bubble wrap",
-      "notes": "Bubble texture is fine detail. Glass look-alikes: U05, C128. 2026-11-18 (coordinator, Swiss W22 review): the Swiss r01 die was drawn as see-through holes and read as an ordinary cream die on the light card.",
+      "notes": "Bubble texture is fine detail. Glass look-alikes: U05, C128. 2026-11-18 (coordinator, Swiss W22 review): the Swiss r01 die was drawn as see-through holes and read as an ordinary cream die on the light card. Removed from playable content in V1.1.1 (W8). Historical illustration record retained.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c145.png",
       "pictureSha256": "6dbd6b4dbd8146efea4a90a4155b21eec5e899eba0adb8e0451af490b91a0b96",
       "subject": "a transparent glass die wrapped in a layer of bubble wrap, short strokes above"
@@ -720,12 +720,12 @@
       "notes": "Cloth pattern is cloud swirls in the default (decorative). 2026-11-18 (coordinator, deco W22 review): the deco r01 drew a plain ivory die, so the red die was lost. 2026-11-19 (coordinator, glass W22 review): the glass r01 (stale) drew a marble-white die with dark pips, so the red die was lost. styleCues.glass added.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c146.png",
       "pictureSha256": "63ed58b85b53ec6c22fa45042d0d7064a3ecc4cdef5eb26ced3dc7e01db8b291",
-      "subject": "a folded piece of patterned cloth with a needle and red thread stitching a red flower onto it, a red die lying beside it",
       "styleCues": {
         "glass": [
           "in this style the die is ruby-red glass all over with dark pips, never a marble-white die"
         ]
-      }
+      },
+      "subject": "a folded piece of patterned cloth with a needle and red thread stitching a red flower onto it, a red die lying beside it"
     },
     "C147": {
       "conflicts": [],
@@ -805,12 +805,12 @@
       "notes": "Plant look-alikes: C36, C115. 2026-11-18 (coordinator, Swiss W22 review): the Swiss r01 used a colour outside the Swiss palette; styleCues.swiss fixes it for Swiss only.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c152.png",
       "pictureSha256": "15a01627e0b7a76720c6c6dd4ad637418a200958ba7591e757dbffefe4b62a1f",
-      "subject": "a tuft of grass pushing up through a cracked paving stone and lifting a die on its blades",
       "styleCues": {
         "swiss": [
           "in this style the grass blades are ivory with black outlines (the Swiss palette has no green)"
         ]
-      }
+      },
+      "subject": "a tuft of grass pushing up through a cracked paving stone and lifting a die on its blades"
     },
     "C153": {
       "conflicts": [],
@@ -824,6 +824,42 @@
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c153.png",
       "pictureSha256": "f2655f9e734d25fd1f5c86e9f2bed59b22a3203f92a8c9a67054d968be1128a3",
       "subject": "a double door swinging open with a cut red ribbon falling away from its handles and a die rolling out of the doorway"
+    },
+    "C154": {
+      "conflicts": [],
+      "cues": [
+        "the padlock is open and rests on the now-empty locking tray",
+        "a hand moves one die from the tray back toward the pool"
+      ],
+      "mainObject": "one die returned from an unlocked tray",
+      "notes": "Shared unlocking mechanic with I13. C154 shows the die moving from the tray back to the pool. I13 shows the key ring.",
+      "picture": "ArtSource/Art11/default/illustrations/C154/r01/original.png",
+      "pictureSha256": "ef1e611e07fc136397159631cb4d0d799d433f7264dbce8ec043416d0cf68905",
+      "subject": "an open padlock resting on a now-empty dice tray, a hand moving a die off the tray toward a nearby cluster of dice"
+    },
+    "C155": {
+      "conflicts": [],
+      "cues": [
+        "two gold flowers are pinned to the zhuangyuan hat",
+        "dice show single red pips and square clusters of red pips on separate faces"
+      ],
+      "mainObject": "zhuangyuan hat with gold flowers and a dice bowl",
+      "notes": "The gold flowers and red pips identify the bobing prize. The artwork does not specify the exact scoring hand or require six dice. Die colour does not affect scoring. C24 uses a scroll and a scholar's hat, without flowers or a dice bowl.",
+      "picture": "ArtSource/Art11/default/illustrations/C155/r02/original.png",
+      "pictureSha256": "a839b6197189ff3c8dd5fc13696c5fb382c966d23e419d4136c4d2452f5223dc",
+      "subject": "a zhuangyuan hat with broad side wings and two gold flowers pinned to its crown, above a shallow bowl of dice, some showing a single red pip and others square clusters of red pips"
+    },
+    "C156": {
+      "conflicts": [],
+      "cues": [
+        "one die rebounds upward from the ledge",
+        "the liquid level is below the measuring tube's midpoint notch"
+      ],
+      "mainObject": "die rebounding beside a low liquid level",
+      "notes": "The liquid level in a physical marking tube stands for progress below halfway. The tube carries no lettering or digits. C05 and C72 use a spring to lift the die.",
+      "picture": "ArtSource/Art11/default/illustrations/C156/r01/original.png",
+      "pictureSha256": "29ecb016449b10b098b385b799420e1d0de9c1785afab25f89b8fd75cffcb9f2",
+      "subject": "a die rebounding upward from a chipped rock ledge beside a measuring tube whose liquid surface is below its midpoint notch"
     },
     "C17": {
       "conflicts": [],
@@ -846,18 +882,18 @@
       "notes": "Default is 1536x1024, not square. Default die bodies are red and blue with light pips; red and blue pips on light dice carry the same cue. Look-alike: C103 (tilted balance, three dice against a heap). 2026-11-18 (coordinator, sancai W22 review): the sancai r01 drew two cream dice with small red and blue pips, unreadable at 85 and 64 px; the card is about red against blue, so the whole die bodies carry the colour now. 2026-11-18 (coordinator, sancai r02 check): the sancai r02 still drew cream dice with red and blue pips; styleCues.sancai asks for coloured bodies. 2026-11-18 (coordinator, comic r02 check): the comic r02 still drew cream dice with coloured pips (as sancai did before its style cue), so the cue now names the wrong form it must avoid. 2026-11-18 (coordinator, deco W22 review): styleCues.deco added after the deco r01 review. 2026-11-19 (coordinator, glass W22 review): the glass r01 drew marble dice with small red and blue pips, gone at card size. styleCues.glass added.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c18.png",
       "pictureSha256": "6f377e9ab3e0f7e4a50f6ea146a9fee14b85ec4f8cc380785874a0566b0a64d4",
-      "subject": "a balance scale with its beam perfectly level, one red die in the left pan and one blue die in the right pan",
       "styleCues": {
-        "sancai": [
-          "in this style the left die is glazed iron-red all over and the right die cobalt-blue all over, with cream pips; never cream dice with coloured pips"
-        ],
         "deco": [
           "in this style the red die's body is a clear bright red and the blue die's body a clear sky blue like the game's blue dice, never the kit's deep teal"
         ],
         "glass": [
           "in this style the left die's body is ruby-red glass all over and the right die's body sky-blue glass all over, with light pips; never marble-white dice with red or blue pips"
+        ],
+        "sancai": [
+          "in this style the left die is glazed iron-red all over and the right die cobalt-blue all over, with cream pips; never cream dice with coloured pips"
         ]
-      }
+      },
+      "subject": "a balance scale with its beam perfectly level, one red die in the left pan and one blue die in the right pan"
     },
     "C19": {
       "conflicts": [],
@@ -951,15 +987,15 @@
       "notes": "Weak mismatch (not a conflict): the two tops show different pips (four and three), so they are not a pair of equal values; only the inner faces beside the stitches match (one pip each). The subject leaves faces free. Two-dice look-alikes: C80, C84, C143, C144, C106. 2026-11-18 (coordinator, comic W22 review): the comic r01 lined the openings in navy blue, which reads as blue die faces at card size. 2026-11-18 (coordinator, check of the stale sancai images): the sancai r01 glazed the openings amber; styleCues.sancai added. 2026-11-19 (coordinator, glass W22 review): the glass r01 (stale) openings are violet glass and read as pale violet faces at card size. styleCues.glass added.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c27.png",
       "pictureSha256": "56b4904033149b7d0001beea253a4e8606c4c976033cb049d5052baf95b6d243",
-      "subject": "two hollow die-shaped sleeves joined side by side by thick laced stitches between them, together forming one bow-tie shape, short strokes above and below",
       "styleCues": {
-        "sancai": [
-          "in this style the open ends of the sleeves are deep dark-brown holes, as dark as the pips, never amber, honey, green or cobalt glaze (amber is this style's gold and would read as gold faces)"
-        ],
         "glass": [
           "in this style the open ends of the sleeves are near-black holes, never coloured glass (violet, blue or red openings read as coloured die faces)"
+        ],
+        "sancai": [
+          "in this style the open ends of the sleeves are deep dark-brown holes, as dark as the pips, never amber, honey, green or cobalt glaze (amber is this style's gold and would read as gold faces)"
         ]
-      }
+      },
+      "subject": "two hollow die-shaped sleeves joined side by side by thick laced stitches between them, together forming one bow-tie shape, short strokes above and below"
     },
     "C28": {
       "conflicts": [],
@@ -1058,12 +1094,12 @@
       "notes": "Pair card C37 (shrinking lens). Plant look-alikes: C120 (seedling pulled by tweezers), C99 (sprout in coins), C152 (grass lifting a die); C36 keeps the die itself as the pot. 2026-11-18 (coordinator, Swiss W22 review): the Swiss r01 used a colour outside the Swiss palette; styleCues.swiss fixes it for Swiss only.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c36.png",
       "pictureSha256": "d019d0bdd446f7670d4c9c88c4cf43535be2fb7194427bcfbca9a0038e5a06de",
-      "subject": "a die-shaped flower pot with a sturdy sprout of two large leaves growing out of its top, short strokes on both sides",
       "styleCues": {
         "swiss": [
           "in this style the leaves are ivory with black outlines (the Swiss palette has no green)"
         ]
-      }
+      },
+      "subject": "a die-shaped flower pot with a sturdy sprout of two large leaves growing out of its top, short strokes on both sides"
     },
     "C37": {
       "conflicts": [],
@@ -1098,12 +1134,12 @@
       "notes": "House sentence from the CP3 trials, kept verbatim (all six trial styles kept blue pips). 2026-11-18 (coordinator, deco W22 set check): the deco r01 drew the blue pips deep teal (C39 median #063341), which reads as ordinary dark pips at card size, while swiss, sancai, comic and glass draw them clearly blue; styleCues.deco added.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c39.png",
       "pictureSha256": "3404c77ad7ccd32595ce97011df4b26b8f278e1ca3d37b7e7f7f424662b1cbf8",
-      "subject": "a single die with blue pips seated in a round ring-shaped pedestal that carries a diamond emblem on its front, two short sparkle strokes above",
       "styleCues": {
         "deco": [
           "in this style the blue pips are a clear bright sky blue like the game's blue dice, never the kit's deep teal or navy, which read as ordinary dark pips at card size"
         ]
-      }
+      },
+      "subject": "a single die with blue pips seated in a round ring-shaped pedestal that carries a diamond emblem on its front, two short sparkle strokes above"
     },
     "C40": {
       "conflicts": [],
@@ -1171,12 +1207,12 @@
       "notes": "Die pips are dark in the default; the fins carry the colour cue. 2026-11-19 (coordinator, glass W22 review): the glass r01 has a semi-transparent grey field over 57 % of the canvas, a grey square on dark felt. styleCues.glass added.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c45.png",
       "pictureSha256": "f3f98d20374f7ac0de6b869c54d386019d4fae130faa26bd93756575ab7e02e4",
-      "subject": "a weather vane mounted on top of a die, its arm carrying one red fin and one blue fin, small curved wind strokes in red and blue around it",
       "styleCues": {
         "glass": [
           "in this style the background stays fully transparent: no mottled grey field, smoke, haze or glow anywhere around the subject"
         ]
-      }
+      },
+      "subject": "a weather vane mounted on top of a die, its arm carrying one red fin and one blue fin, small curved wind strokes in red and blue around it"
     },
     "C46": {
       "conflicts": [],
@@ -1219,12 +1255,12 @@
       "notes": "No place numbers on the podium. Pedestal look-alikes: C10, C50, C137. 2026-11-19 (coordinator, glass W22 review): the glass r01 die shows four pips on top; the card counts fives. styleCues.glass added.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c49.png",
       "pictureSha256": "5b95e8f1c2a2264f619dedc98ffa5c2f3f6fa90aafe3e769d3d9a6247ce2d7ea",
-      "subject": "a two-step winner's podium with the higher step empty and a die showing five pips on top sitting on the lower step, two ribbons hanging from its front, short strokes above",
       "styleCues": {
         "glass": [
           "in this style the top face of the die on the lower step clearly shows five pips: four corners and a centre pip"
         ]
-      }
+      },
+      "subject": "a two-step winner's podium with the higher step empty and a die showing five pips on top sitting on the lower step, two ribbons hanging from its front, short strokes above"
     },
     "C50": {
       "conflicts": [],
@@ -1304,12 +1340,12 @@
       "notes": "House sentence from the CP3 trials, kept verbatim. The default die has dark pips; blue pips follow CP3-1 ('C56 must have blue pips'). The swiss trial still drew black pips, which keeps the no-red cue. Wave look-alikes: I10 (blue wave carrying three dice), I01 (red wave). 2026-11-18 (coordinator, deco W22 set check): the deco r01 drew the blue pips deep teal (C39 median #063341), which reads as ordinary dark pips at card size, while swiss, sancai, comic and glass draw them clearly blue; styleCues.deco added.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c56.png",
       "pictureSha256": "27b8bc4c0770ad2f5b2974be4280d71cd0a0322813ff1fc16695ebea6224fcd6",
-      "subject": "a single die with blue pips half sunk in a pool of deep blue water, two small water drops jumping up beside it",
       "styleCues": {
         "deco": [
           "in this style the blue pips are a clear bright sky blue like the game's blue dice, never the kit's deep teal or navy, which read as ordinary dark pips at card size; the pips stay clearly brighter than the deep blue water"
         ]
-      }
+      },
+      "subject": "a single die with blue pips half sunk in a pool of deep blue water, two small water drops jumping up beside it"
     },
     "C57": {
       "conflicts": [],
@@ -1488,7 +1524,6 @@
       "notes": "Look-alike C05 (wind-up box with a key lifting a die). 2026-11-18 (coordinator, deco W22 review): styleCues.deco added after the deco r01 review. 2026-11-19 (coordinator, glass W22 review): the glass r01 spring is a stack of gold discs that reads as coins. styleCues.glass added.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c72.png",
       "pictureSha256": "ec279fe697046206e085a6f49c00961ead3b2e055afa386ddf7fa9dd58242eb7",
-      "subject": "a die resting on a tightly compressed coil spring that stands on a heavy base, short strokes on both sides",
       "styleCues": {
         "deco": [
           "in this style the spring is a coil of dark steel wire, clearly a spring, never a stack of gold rings (that reads as coins)"
@@ -1496,7 +1531,8 @@
         "glass": [
           "in this style the spring is a coil of dark steel wire, clearly a spring, never a stack of gold rings or discs (that reads as coins)"
         ]
-      }
+      },
+      "subject": "a die resting on a tightly compressed coil spring that stands on a heavy base, short strokes on both sides"
     },
     "C73": {
       "conflicts": [],
@@ -1622,12 +1658,12 @@
       "notes": "Default tops read one, two, three, four; keep if the style can, never as digits. Weak mismatch (not a conflict): a straight needs five dice unless C29 is held. Boat look-alike C08 (one die, an oar, empty hull). 2026-11-19 (coordinator, glass W22 review): the glass r01 dice have cobalt and navy side faces with white pips and read as blue-sided. styleCues.glass added.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c83.png",
       "pictureSha256": "8991003046e88d5476c32f507fd560d1795ac17463ab4f31a3d987744534a2d4",
-      "subject": "a small boat carrying four dice that rise like steps from the front to the back, a bamboo pole planted at the stern, water ripples and a splash around it",
       "styleCues": {
         "glass": [
           "in this style all four dice are marble-white on every face with dark pips, their shaded sides pale grey, never cobalt, navy or blue glass (blue means a blue die)"
         ]
-      }
+      },
+      "subject": "a small boat carrying four dice that rise like steps from the front to the back, a bamboo pole planted at the stern, water ripples and a splash around it"
     },
     "C84": {
       "conflicts": [],
@@ -1650,12 +1686,12 @@
       "notes": "Weak mismatch (not a conflict): the three dice show different faces (three, five, four), so three-of-a-kind is not literal; the subject leaves faces free. The key-pattern band must not turn into letters. Support look-alikes: C30, C31. 2026-11-18 (coordinator, Swiss W22 review): the Swiss r01 used a colour outside the Swiss palette; styleCues.swiss fixes it for Swiss only.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c85.png",
       "pictureSha256": "dbcd3ec88a328e3529feae3f15fc651b6d14cd0fe56b2a8cddc7fc74e1b6f5cc",
-      "subject": "a heavy three-legged cauldron with two upright handles and a key-pattern band, each of its three legs standing on a die",
       "styleCues": {
         "swiss": [
           "in this style the cauldron is black or warm grey (the Swiss palette has no teal)"
         ]
-      }
+      },
+      "subject": "a heavy three-legged cauldron with two upright handles and a key-pattern band, each of its three legs standing on a die"
     },
     "C86": {
       "conflicts": [],
@@ -1700,12 +1736,12 @@
       "notes": "The chest keyhole is a plain shape. Chest look-alike C135 (crate of potions with a padlock). 2026-11-18 (coordinator, sancai W22 review): the sancai r01 drew ordinary cream dice, so the gold cue (gilded faces are a mechanic) was lost. 2026-11-18 (coordinator, sancai r02 check): the sancai r02 dice were still the ordinary cream-tan glaze; styleCues.sancai names the gold glaze.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c89.png",
       "pictureSha256": "17ad0ef182e5b37ec53b9ba5e335730ecd8e4c4b9e5cf50f11640ff9f8353927",
-      "subject": "an open treasure chest heaped with gold dice, one more gold die tumbling out beside it, short strokes on both sides",
       "styleCues": {
         "sancai": [
           "in this style every die in and beside the chest is glazed bright amber-gold all over, the glaze of the coins, clearly deeper and more saturated than the ordinary cream dice"
         ]
-      }
+      },
+      "subject": "an open treasure chest heaped with gold dice, one more gold die tumbling out beside it, short strokes on both sides"
     },
     "C90": {
       "conflicts": [],
@@ -1714,7 +1750,7 @@
         "die faintly visible inside the heart, seen through the glass (paler and softer than a die in the open)"
       ],
       "mainObject": "cracked glass heart",
-      "notes": "The inner die is faint and is easily lost in opaque styles: check. Glass look-alikes: C42, U05, C128, C145. 2026-11-18 (coordinator, Swiss W22 review): the Swiss r01 heart was solid cobalt with an opaque die set in it; the glass and the faint die now say how they show.",
+      "notes": "The inner die is faint and is easily lost in opaque styles: check. Glass look-alikes: C42, U05, C128, C145. 2026-11-18 (coordinator, Swiss W22 review): the Swiss r01 heart was solid cobalt with an opaque die set in it; the glass and the faint die now say how they show. Removed from playable content in V1.1.1 (W8). Historical illustration record retained.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c90.png",
       "pictureSha256": "ceff9b7565664f7dd75d8d3ea95484f585746257ea8a769efc79fc4674b58b2f",
       "subject": "a glass heart with a jagged crack down its middle and three shards flying off its top, a die faintly visible inside the glass"
@@ -1960,6 +1996,18 @@
       "pictureSha256": "bb38c308eeca325472fd0d9a839ed1f74951dd75745ec586e12f85c5c4bbf580",
       "subject": "a sliding tray pulled out of its sleeve, its first two compartments holding a die each and the newly extended last compartment empty, a pull handle at its end and a curved arrow showing the pull"
     },
+    "I13": {
+      "conflicts": [],
+      "cues": [
+        "exactly three separate keys on one key ring",
+        "the padlock beside the keys is open"
+      ],
+      "mainObject": "three keys on a ring and an open padlock",
+      "notes": "The three visible keys cue the item's three uses. Keep the separate key silhouettes readable. C154 instead shows a die being returned from the tray to the pool.",
+      "picture": "ArtSource/Art11/default/illustrations/I13/r01/original.png",
+      "pictureSha256": "012f7d2c17bf0b5cda5300efdfe2b6421602caf7908efe0f2166c4792285c173",
+      "subject": "a key ring holding three distinct keys fanned apart beside an open padlock"
+    },
     "O01": {
       "conflicts": [],
       "cues": [
@@ -2015,12 +2063,12 @@
       "notes": "Cards blank. Look-alike O08 (rack with a new slot bolted on by a wrench). 2026-11-18 (coordinator, Swiss W22 review): the Swiss r01 extension was only a seam and five equal cards stood level, so the added slot no longer read. 2026-11-19 (coordinator, glass W22 review): the glass r01 extension is level with the stand; at 128 px it reads as five equal cards. styleCues.glass added.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_o05.png",
       "pictureSha256": "3fda040b236d6694ae9115c7981009f81590040b096308d251adcb7711909f04",
-      "subject": "a card display stand with blank cards standing in a row of clips, one more clip and card on a newly added extension at its end",
       "styleCues": {
         "glass": [
           "in this style the extension block at the right end is clearly lower and narrower than the main stand, as in the default, so the fifth slot reads as added at card size"
         ]
-      }
+      },
+      "subject": "a card display stand with blank cards standing in a row of clips, one more clip and card on a newly added extension at its end"
     },
     "O06": {
       "conflicts": [],
@@ -2100,12 +2148,12 @@
       "notes": "Look-alikes: C125 (cloth plus an open tin of polish), C91 (cloth plus sanding block). U01 has the cloth only. 2026-11-18 (coordinator, comic W22 review): the comic r01 painted the polished face yellow-gold, which reads as a gilded face (C117, U06). 2026-11-19 (coordinator, glass W22 review): the glass r01 (stale) glazed the polished face amber-gold and left a faint haze reaching the top edge. styleCues.glass added.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_u01.png",
       "pictureSha256": "e611b9f74bb32fc743f7815814ea5de4e31d2208423a8b0e15c7a18603e96c2f",
-      "subject": "a cloth draped over a die, polishing one face to a shine, two sparkles above it",
       "styleCues": {
         "glass": [
           "in this style the polished face stays marble-white with white glints, never amber or gold glass; the background stays fully transparent: no mottled grey field, smoke, haze or glow anywhere around the subject"
         ]
-      }
+      },
+      "subject": "a cloth draped over a die, polishing one face to a shine, two sparkles above it"
     },
     "U02": {
       "conflicts": [],
@@ -2116,7 +2164,6 @@
       "notes": "Part of the 'tool on the die's top face' family (U03, U04, U08, U09, U10, I11). U02 keeps the toothed block and grit. 2026-11-18 (coordinator, deco W22 review): styleCues.deco added after the deco r01 review. 2026-11-19 (coordinator, glass W22 review): the glass r01 grit is gold stipple, so the face looks gold-dusted. styleCues.glass added.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_u02.png",
       "pictureSha256": "92b648b0f215962f63ca3ac86ee664a2daeb99d3cb7b406716b2ce3141b1f151",
-      "subject": "a sanding block with a coarse toothed underside pressed onto the top face of a die, grit specks on that face only",
       "styleCues": {
         "deco": [
           "in this style the worked face of the die stays ivory with dark pips; only the tool may be gold; the grit is dark, never gold specks"
@@ -2124,7 +2171,8 @@
         "glass": [
           "in this style the worked face of the die stays marble-white with dark pips; the grit is dark, never gold specks or stipple"
         ]
-      }
+      },
+      "subject": "a sanding block with a coarse toothed underside pressed onto the top face of a die, grit specks on that face only"
     },
     "U03": {
       "conflicts": [],
@@ -2203,12 +2251,12 @@
       "notes": "Flagged 'tool from the upper right' family (U08, U10, I11, C119, C134). U09 keeps the long file lying across the top and the falling filings. Cross-hatched file texture is fine detail. 2026-11-18 (coordinator, deco W22 review): styleCues.deco added after the deco r01 review.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_u09.png",
       "pictureSha256": "048b4b121679aaa645b5cbf60b8f68a4467a2fb607fadac7b47abc4558012434",
-      "subject": "a hand file rasping across the top face of a die, filings falling off",
       "styleCues": {
         "deco": [
           "in this style the worked face of the die stays ivory with dark pips; only the tool may be gold"
         ]
-      }
+      },
+      "subject": "a hand file rasping across the top face of a die, filings falling off"
     },
     "U10": {
       "conflicts": [],
@@ -2234,5 +2282,5 @@
       "subject": "a die standing on a small round mirror laid face up, the mirror showing the die's reflection beneath it"
     }
   },
-  "updated": "2026-11-17"
+  "updated": "2026-11-25"
 }

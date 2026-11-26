@@ -1,0 +1,810 @@
+{
+  "workPackage": "W8",
+  "rulesVersion": "p1.1.1",
+  "copies": [
+    {
+      "theme": "default",
+      "id": "C155",
+      "revision": "r02",
+      "illustration": {
+        "source": "ArtSource/Art11/default/illustrations/C155/r02/original.png",
+        "target": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c155.png",
+        "sha256": "a839b6197189ff3c8dd5fc13696c5fb382c966d23e419d4136c4d2452f5223dc",
+        "size": [
+          1254,
+          1254
+        ],
+        "record": "ArtSource/Art11/default/illustrations/C155/r02/record.json"
+      },
+      "icon": {
+        "source": "ArtSource/Art11/default/icons/icon_C155.png",
+        "target": "DicePrototype/Assets/Art/Art11/Icons/default/icon_C155.png",
+        "sha256": "b009fa08aec4cdf863701da95b246669d75febd65b6064039945159ef4c114c7",
+        "size": [
+          160,
+          160
+        ],
+        "cropTable": "artifacts/cache/v111/art/crops/default.json"
+      },
+      "comparison": "artifacts/cache/v111/art/comparisons/default/C155-r02.png"
+    },
+    {
+      "theme": "swiss",
+      "id": "C155",
+      "revision": "r02",
+      "illustration": {
+        "source": "ArtSource/Art11/swiss/illustrations/C155/r02/original.png",
+        "target": "DicePrototype/Assets/Resources/Themes/swiss/Art/illustration_C155.png",
+        "sha256": "bc6a1429a0daec0bb14d2b1442664b154664ed6ae62c9a3ceb12880d09262cf1",
+        "size": [
+          1254,
+          1254
+        ],
+        "record": "ArtSource/Art11/swiss/illustrations/C155/r02/record.json"
+      },
+      "icon": {
+        "source": "ArtSource/Art11/swiss/icons/icon_C155.png",
+        "target": "DicePrototype/Assets/Art/Art11/Icons/swiss/icon_C155.png",
+        "sha256": "5d214f5af391a4b91aab3c7b54679b890a52afc5e2b74f62675779e8c695ddfc",
+        "size": [
+          160,
+          160
+        ],
+        "cropTable": "artifacts/cache/v111/art/crops/swiss.json"
+      },
+      "comparison": "artifacts/cache/v111/art/comparisons/swiss/C155-r02.png"
+    },
+    {
+      "theme": "sancai",
+      "id": "C155",
+      "revision": "r01",
+      "illustration": {
+        "source": "ArtSource/Art11/sancai/illustrations/C155/r01/original.png",
+        "target": "DicePrototype/Assets/Resources/Themes/sancai/Art/illustration_C155.png",
+        "sha256": "9fa11df437b80bc026d6ad8567c5fd4995ede0277313f7b7cbacee631292a4fb",
+        "size": [
+          1254,
+          1254
+        ],
+        "record": "ArtSource/Art11/sancai/illustrations/C155/r01/record.json"
+      },
+      "icon": {
+        "source": "ArtSource/Art11/sancai/icons/icon_C155.png",
+        "target": "DicePrototype/Assets/Art/Art11/Icons/sancai/icon_C155.png",
+        "sha256": "cde7b694f2dc7e77ee9c7aea070e48f16ef3ee9aacbc0b239ece38941872cde7",
+        "size": [
+          160,
+          160
+        ],
+        "cropTable": "artifacts/cache/v111/art/crops/sancai.json"
+      },
+      "comparison": "artifacts/cache/v111/art/comparisons/sancai/C155-r01.png"
+    },
+    {
+      "theme": "comic",
+      "id": "C155",
+      "revision": "r01",
+      "illustration": {
+        "source": "ArtSource/Art11/comic/illustrations/C155/r01/original.png",
+        "target": "DicePrototype/Assets/Resources/Themes/comic/Art/illustration_C155.png",
+        "sha256": "597b7a8c47688edfb277591d0e6f6c682906cf7f490e0f23d83a4b870421d322",
+        "size": [
+          1254,
+          1254
+        ],
+        "record": "ArtSource/Art11/comic/illustrations/C155/r01/record.json"
+      },
+      "icon": {
+        "source": "ArtSource/Art11/comic/icons/icon_C155.png",
+        "target": "DicePrototype/Assets/Art/Art11/Icons/comic/icon_C155.png",
+        "sha256": "0055d9019ec304ce2f29df08dca5333b64697bcbb708121f065cbbcb942e3927",
+        "size": [
+          160,
+          160
+        ],
+        "cropTable": "artifacts/cache/v111/art/crops/comic.json"
+      },
+      "comparison": "artifacts/cache/v111/art/comparisons/comic/C155-r01.png"
+    },
+    {
+      "theme": "deco",
+      "id": "C155",
+      "revision": "r01",
+      "illustration": {
+        "source": "ArtSource/Art11/deco/illustrations/C155/r01/original.png",
+        "target": "DicePrototype/Assets/Resources/Themes/deco/Art/illustration_C155.png",
+        "sha256": "f932519e9e9ac64f26cf2cc2f7122e94933477bf5309dbfa49f3d00787f7cf48",
+        "size": [
+          1254,
+          1254
+        ],
+        "record": "ArtSource/Art11/deco/illustrations/C155/r01/record.json"
+      },
+      "icon": {
+        "source": "ArtSource/Art11/deco/icons/icon_C155.png",
+        "target": "DicePrototype/Assets/Art/Art11/Icons/deco/icon_C155.png",
+        "sha256": "d285d915c974f9bf5ec46c70c57ec35b88c1b2c0fe8828827152467045da2701",
+        "size": [
+          160,
+          160
+        ],
+        "cropTable": "artifacts/cache/v111/art/crops/deco.json"
+      },
+      "comparison": "artifacts/cache/v111/art/comparisons/deco/C155-r01.png"
+    },
+    {
+      "theme": "glass",
+      "id": "C155",
+      "revision": "r01",
+      "illustration": {
+        "source": "ArtSource/Art11/glass/illustrations/C155/r01/original.png",
+        "target": "DicePrototype/Assets/Resources/Themes/glass/Art/illustration_C155.png",
+        "sha256": "60fe71f205a02cd568cdc59647b1db47a0bf61c9b99f6582d25d3137b385a5f3",
+        "size": [
+          1254,
+          1254
+        ],
+        "record": "ArtSource/Art11/glass/illustrations/C155/r01/record.json"
+      },
+      "icon": {
+        "source": "ArtSource/Art11/glass/icons/icon_C155.png",
+        "target": "DicePrototype/Assets/Art/Art11/Icons/glass/icon_C155.png",
+        "sha256": "d5212cebe6f3c5bfc5541ff31aebdbb1a445c891cb4b77ef9fc5d90fe215e073",
+        "size": [
+          160,
+          160
+        ],
+        "cropTable": "artifacts/cache/v111/art/crops/glass.json"
+      },
+      "comparison": "artifacts/cache/v111/art/comparisons/glass/C155-r01.png"
+    },
+    {
+      "theme": "default",
+      "id": "C154",
+      "revision": "r01",
+      "illustration": {
+        "source": "ArtSource/Art11/default/illustrations/C154/r01/original.png",
+        "target": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c154.png",
+        "sha256": "ef1e611e07fc136397159631cb4d0d799d433f7264dbce8ec043416d0cf68905",
+        "size": [
+          1254,
+          1254
+        ],
+        "record": "ArtSource/Art11/default/illustrations/C154/r01/record.json"
+      },
+      "icon": {
+        "source": "ArtSource/Art11/default/icons/icon_C154.png",
+        "target": "DicePrototype/Assets/Art/Art11/Icons/default/icon_C154.png",
+        "sha256": "546082d8caa4bc9a1ee9436e5a4df48908e87b84e23c2cb234b94a4d91a426a4",
+        "size": [
+          160,
+          160
+        ],
+        "cropTable": "artifacts/cache/v111/art/crops/default.json"
+      },
+      "comparison": "artifacts/cache/v111/art/comparisons/default/C154-r01.png"
+    },
+    {
+      "theme": "swiss",
+      "id": "C154",
+      "revision": "r01",
+      "illustration": {
+        "source": "ArtSource/Art11/swiss/illustrations/C154/r01/original.png",
+        "target": "DicePrototype/Assets/Resources/Themes/swiss/Art/illustration_C154.png",
+        "sha256": "6498622f4b219350d5cbf984a291dc336674e50262f72269bafb2adf8a2216b2",
+        "size": [
+          1326,
+          1187
+        ],
+        "record": "ArtSource/Art11/swiss/illustrations/C154/r01/record.json"
+      },
+      "icon": {
+        "source": "ArtSource/Art11/swiss/icons/icon_C154.png",
+        "target": "DicePrototype/Assets/Art/Art11/Icons/swiss/icon_C154.png",
+        "sha256": "66ff87f93accaea66775d766b62b58c53285db234cf4646adf2a4e76f89a0e76",
+        "size": [
+          160,
+          160
+        ],
+        "cropTable": "artifacts/cache/v111/art/crops/swiss.json"
+      },
+      "comparison": "artifacts/cache/v111/art/comparisons/swiss/C154-r01.png"
+    },
+    {
+      "theme": "sancai",
+      "id": "C154",
+      "revision": "r01",
+      "illustration": {
+        "source": "ArtSource/Art11/sancai/illustrations/C154/r01/original.png",
+        "target": "DicePrototype/Assets/Resources/Themes/sancai/Art/illustration_C154.png",
+        "sha256": "7e24f366248dfdc57c3375d448f5923dd6fb243eb6e058cbb825e4a424436a35",
+        "size": [
+          1254,
+          1254
+        ],
+        "record": "ArtSource/Art11/sancai/illustrations/C154/r01/record.json"
+      },
+      "icon": {
+        "source": "ArtSource/Art11/sancai/icons/icon_C154.png",
+        "target": "DicePrototype/Assets/Art/Art11/Icons/sancai/icon_C154.png",
+        "sha256": "4acac06a05891801c2e5999370938611e1cfe057e83ccfac23fc6f89d567c34b",
+        "size": [
+          160,
+          160
+        ],
+        "cropTable": "artifacts/cache/v111/art/crops/sancai.json"
+      },
+      "comparison": "artifacts/cache/v111/art/comparisons/sancai/C154-r01.png"
+    },
+    {
+      "theme": "comic",
+      "id": "C154",
+      "revision": "r01",
+      "illustration": {
+        "source": "ArtSource/Art11/comic/illustrations/C154/r01/original.png",
+        "target": "DicePrototype/Assets/Resources/Themes/comic/Art/illustration_C154.png",
+        "sha256": "3e9fdc37582e4b8c03b144b1b9de6fbe59554f9ff804d5961bbd36c693de12ee",
+        "size": [
+          1254,
+          1254
+        ],
+        "record": "ArtSource/Art11/comic/illustrations/C154/r01/record.json"
+      },
+      "icon": {
+        "source": "ArtSource/Art11/comic/icons/icon_C154.png",
+        "target": "DicePrototype/Assets/Art/Art11/Icons/comic/icon_C154.png",
+        "sha256": "f123886d94be17f3c343dbf089a0ec1269a175c7417b67f46874607b4d75763a",
+        "size": [
+          160,
+          160
+        ],
+        "cropTable": "artifacts/cache/v111/art/crops/comic.json"
+      },
+      "comparison": "artifacts/cache/v111/art/comparisons/comic/C154-r01.png"
+    },
+    {
+      "theme": "deco",
+      "id": "C154",
+      "revision": "r01",
+      "illustration": {
+        "source": "ArtSource/Art11/deco/illustrations/C154/r01/original.png",
+        "target": "DicePrototype/Assets/Resources/Themes/deco/Art/illustration_C154.png",
+        "sha256": "52fb4c9ff4b3307d52c76674e8b90d2c1bfdd8d205ce0352b2ad9dab3ac46cc3",
+        "size": [
+          1254,
+          1254
+        ],
+        "record": "ArtSource/Art11/deco/illustrations/C154/r01/record.json"
+      },
+      "icon": {
+        "source": "ArtSource/Art11/deco/icons/icon_C154.png",
+        "target": "DicePrototype/Assets/Art/Art11/Icons/deco/icon_C154.png",
+        "sha256": "4aef16eca7a73aa146187dfa9d76976a51a70f7363475d70dee1468a2d62da5d",
+        "size": [
+          160,
+          160
+        ],
+        "cropTable": "artifacts/cache/v111/art/crops/deco.json"
+      },
+      "comparison": "artifacts/cache/v111/art/comparisons/deco/C154-r01.png"
+    },
+    {
+      "theme": "glass",
+      "id": "C154",
+      "revision": "r01",
+      "illustration": {
+        "source": "ArtSource/Art11/glass/illustrations/C154/r01/original.png",
+        "target": "DicePrototype/Assets/Resources/Themes/glass/Art/illustration_C154.png",
+        "sha256": "4f602b5368809c7d5db98b741d92a52e10687451f547e40d8bac619cd8bd177b",
+        "size": [
+          1254,
+          1254
+        ],
+        "record": "ArtSource/Art11/glass/illustrations/C154/r01/record.json"
+      },
+      "icon": {
+        "source": "ArtSource/Art11/glass/icons/icon_C154.png",
+        "target": "DicePrototype/Assets/Art/Art11/Icons/glass/icon_C154.png",
+        "sha256": "8d14874f3bf93d6738342d07632e53e5b1d2c7842795bbb60d99d8b958e0c799",
+        "size": [
+          160,
+          160
+        ],
+        "cropTable": "artifacts/cache/v111/art/crops/glass.json"
+      },
+      "comparison": "artifacts/cache/v111/art/comparisons/glass/C154-r01.png"
+    },
+    {
+      "theme": "default",
+      "id": "C156",
+      "revision": "r01",
+      "illustration": {
+        "source": "ArtSource/Art11/default/illustrations/C156/r01/original.png",
+        "target": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c156.png",
+        "sha256": "29ecb016449b10b098b385b799420e1d0de9c1785afab25f89b8fd75cffcb9f2",
+        "size": [
+          1254,
+          1254
+        ],
+        "record": "ArtSource/Art11/default/illustrations/C156/r01/record.json"
+      },
+      "icon": {
+        "source": "ArtSource/Art11/default/icons/icon_C156.png",
+        "target": "DicePrototype/Assets/Art/Art11/Icons/default/icon_C156.png",
+        "sha256": "939981cc45d6a1a7a82352a8929389e347635f70dc75c966034b158d46ca8c9a",
+        "size": [
+          160,
+          160
+        ],
+        "cropTable": "artifacts/cache/v111/art/crops/default.json"
+      },
+      "comparison": "artifacts/cache/v111/art/comparisons/default/C156-r01.png"
+    },
+    {
+      "theme": "swiss",
+      "id": "C156",
+      "revision": "r01",
+      "illustration": {
+        "source": "ArtSource/Art11/swiss/illustrations/C156/r01/original.png",
+        "target": "DicePrototype/Assets/Resources/Themes/swiss/Art/illustration_C156.png",
+        "sha256": "95ed2b4cbd45e96f7dade0ba1c3a1b6b2fe58faa7084903e3ec4d838ebb55c9c",
+        "size": [
+          1254,
+          1254
+        ],
+        "record": "ArtSource/Art11/swiss/illustrations/C156/r01/record.json"
+      },
+      "icon": {
+        "source": "ArtSource/Art11/swiss/icons/icon_C156.png",
+        "target": "DicePrototype/Assets/Art/Art11/Icons/swiss/icon_C156.png",
+        "sha256": "c7fff0569b08359e241b1b1ec1c1fcd0925f9408f8340cc11a72bbf7e08c19fb",
+        "size": [
+          160,
+          160
+        ],
+        "cropTable": "artifacts/cache/v111/art/crops/swiss.json"
+      },
+      "comparison": "artifacts/cache/v111/art/comparisons/swiss/C156-r01.png"
+    },
+    {
+      "theme": "sancai",
+      "id": "C156",
+      "revision": "r01",
+      "illustration": {
+        "source": "ArtSource/Art11/sancai/illustrations/C156/r01/original.png",
+        "target": "DicePrototype/Assets/Resources/Themes/sancai/Art/illustration_C156.png",
+        "sha256": "b13109491a25d4777bcef934a0d171f043aba55a20d22de3118cc026ff4441e4",
+        "size": [
+          1254,
+          1254
+        ],
+        "record": "ArtSource/Art11/sancai/illustrations/C156/r01/record.json"
+      },
+      "icon": {
+        "source": "ArtSource/Art11/sancai/icons/icon_C156.png",
+        "target": "DicePrototype/Assets/Art/Art11/Icons/sancai/icon_C156.png",
+        "sha256": "1a0eb9b73a0c990c7e116cd4930fd38a1376e74d5a90070d9b282c9c14b38739",
+        "size": [
+          160,
+          160
+        ],
+        "cropTable": "artifacts/cache/v111/art/crops/sancai.json"
+      },
+      "comparison": "artifacts/cache/v111/art/comparisons/sancai/C156-r01.png"
+    },
+    {
+      "theme": "comic",
+      "id": "C156",
+      "revision": "r02",
+      "illustration": {
+        "source": "ArtSource/Art11/comic/illustrations/C156/r02/original.png",
+        "target": "DicePrototype/Assets/Resources/Themes/comic/Art/illustration_C156.png",
+        "sha256": "6fcda09784db8a7ecf858e442a48a5d4ae3c0abd75e6573a04e1bb8011681e0a",
+        "size": [
+          1254,
+          1254
+        ],
+        "record": "ArtSource/Art11/comic/illustrations/C156/r02/record.json"
+      },
+      "icon": {
+        "source": "ArtSource/Art11/comic/icons/icon_C156.png",
+        "target": "DicePrototype/Assets/Art/Art11/Icons/comic/icon_C156.png",
+        "sha256": "e1a3a4c03014d0c9cbdb6fa02c1cd4d919fa4a3e67999e9329583a95b35fa4f3",
+        "size": [
+          160,
+          160
+        ],
+        "cropTable": "artifacts/cache/v111/art/crops/comic.json"
+      },
+      "comparison": "artifacts/cache/v111/art/comparisons/comic/C156-r02.png"
+    },
+    {
+      "theme": "deco",
+      "id": "C156",
+      "revision": "r01",
+      "illustration": {
+        "source": "ArtSource/Art11/deco/illustrations/C156/r01/original.png",
+        "target": "DicePrototype/Assets/Resources/Themes/deco/Art/illustration_C156.png",
+        "sha256": "26d200128ca064e95fb9c6267ed74617f49bb56bd5f021584e3e6a2e18c86368",
+        "size": [
+          1254,
+          1254
+        ],
+        "record": "ArtSource/Art11/deco/illustrations/C156/r01/record.json"
+      },
+      "icon": {
+        "source": "ArtSource/Art11/deco/icons/icon_C156.png",
+        "target": "DicePrototype/Assets/Art/Art11/Icons/deco/icon_C156.png",
+        "sha256": "4f2b4db3bf3a1007b0d5d5022447b93d5f7e66c2cf97b1fc351825162e40e77d",
+        "size": [
+          160,
+          160
+        ],
+        "cropTable": "artifacts/cache/v111/art/crops/deco.json"
+      },
+      "comparison": "artifacts/cache/v111/art/comparisons/deco/C156-r01.png"
+    },
+    {
+      "theme": "glass",
+      "id": "C156",
+      "revision": "r01",
+      "illustration": {
+        "source": "ArtSource/Art11/glass/illustrations/C156/r01/original.png",
+        "target": "DicePrototype/Assets/Resources/Themes/glass/Art/illustration_C156.png",
+        "sha256": "19259d2bc65d4c27f1d8d0ad343aa9fdd318dc54e061092cbcc09260e2227fc5",
+        "size": [
+          1254,
+          1254
+        ],
+        "record": "ArtSource/Art11/glass/illustrations/C156/r01/record.json"
+      },
+      "icon": {
+        "source": "ArtSource/Art11/glass/icons/icon_C156.png",
+        "target": "DicePrototype/Assets/Art/Art11/Icons/glass/icon_C156.png",
+        "sha256": "2ec2385f83c77a8dda3798c2dc9e9636020b0a44aa9b717b2eb65ae9ed0cc40c",
+        "size": [
+          160,
+          160
+        ],
+        "cropTable": "artifacts/cache/v111/art/crops/glass.json"
+      },
+      "comparison": "artifacts/cache/v111/art/comparisons/glass/C156-r01.png"
+    },
+    {
+      "theme": "default",
+      "id": "I13",
+      "revision": "r01",
+      "illustration": {
+        "source": "ArtSource/Art11/default/illustrations/I13/r01/original.png",
+        "target": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_i13.png",
+        "sha256": "012f7d2c17bf0b5cda5300efdfe2b6421602caf7908efe0f2166c4792285c173",
+        "size": [
+          1254,
+          1254
+        ],
+        "record": "ArtSource/Art11/default/illustrations/I13/r01/record.json"
+      },
+      "icon": {
+        "source": "ArtSource/Art11/default/icons/icon_I13.png",
+        "target": "DicePrototype/Assets/Art/Art11/Icons/default/icon_I13.png",
+        "sha256": "e7d38fbd2742d204bbd62ea2f5cbb47545c48ce46363fdff4a6bac9149140815",
+        "size": [
+          160,
+          160
+        ],
+        "cropTable": "artifacts/cache/v111/art/crops/default.json"
+      },
+      "comparison": "artifacts/cache/v111/art/comparisons/default/I13-r01.png"
+    },
+    {
+      "theme": "swiss",
+      "id": "I13",
+      "revision": "r01",
+      "illustration": {
+        "source": "ArtSource/Art11/swiss/illustrations/I13/r01/original.png",
+        "target": "DicePrototype/Assets/Resources/Themes/swiss/Art/illustration_I13.png",
+        "sha256": "5769405b64a3406c17092e906f28aa677644a8b80aea31307250e8bc2c611795",
+        "size": [
+          1254,
+          1254
+        ],
+        "record": "ArtSource/Art11/swiss/illustrations/I13/r01/record.json"
+      },
+      "icon": {
+        "source": "ArtSource/Art11/swiss/icons/icon_I13.png",
+        "target": "DicePrototype/Assets/Art/Art11/Icons/swiss/icon_I13.png",
+        "sha256": "7ab237581444df4f11ea618ed1ab5293b02930e28822995eeadfdd0e4ca9bbd1",
+        "size": [
+          160,
+          160
+        ],
+        "cropTable": "artifacts/cache/v111/art/crops/swiss.json"
+      },
+      "comparison": "artifacts/cache/v111/art/comparisons/swiss/I13-r01.png"
+    },
+    {
+      "theme": "sancai",
+      "id": "I13",
+      "revision": "r01",
+      "illustration": {
+        "source": "ArtSource/Art11/sancai/illustrations/I13/r01/original.png",
+        "target": "DicePrototype/Assets/Resources/Themes/sancai/Art/illustration_I13.png",
+        "sha256": "b76617ee9487fc635f212f4b3205bb7e9dfee9e2b9230294aa4968aebd75a40e",
+        "size": [
+          1312,
+          1199
+        ],
+        "record": "ArtSource/Art11/sancai/illustrations/I13/r01/record.json"
+      },
+      "icon": {
+        "source": "ArtSource/Art11/sancai/icons/icon_I13.png",
+        "target": "DicePrototype/Assets/Art/Art11/Icons/sancai/icon_I13.png",
+        "sha256": "8c47142db961765fea40a72a14fa66ac9e9b581e16417496b7a524e21c466046",
+        "size": [
+          160,
+          160
+        ],
+        "cropTable": "artifacts/cache/v111/art/crops/sancai.json"
+      },
+      "comparison": "artifacts/cache/v111/art/comparisons/sancai/I13-r01.png"
+    },
+    {
+      "theme": "comic",
+      "id": "I13",
+      "revision": "r01",
+      "illustration": {
+        "source": "ArtSource/Art11/comic/illustrations/I13/r01/original.png",
+        "target": "DicePrototype/Assets/Resources/Themes/comic/Art/illustration_I13.png",
+        "sha256": "7c1366bdd1f5efc47354003a6716e8cffdd3c596195975af3feb9f3977b5b58b",
+        "size": [
+          1254,
+          1254
+        ],
+        "record": "ArtSource/Art11/comic/illustrations/I13/r01/record.json"
+      },
+      "icon": {
+        "source": "ArtSource/Art11/comic/icons/icon_I13.png",
+        "target": "DicePrototype/Assets/Art/Art11/Icons/comic/icon_I13.png",
+        "sha256": "c3cc73b482e7970870c2c778217260b1505fe94493931cb87bb46687a8b98011",
+        "size": [
+          160,
+          160
+        ],
+        "cropTable": "artifacts/cache/v111/art/crops/comic.json"
+      },
+      "comparison": "artifacts/cache/v111/art/comparisons/comic/I13-r01.png"
+    },
+    {
+      "theme": "deco",
+      "id": "I13",
+      "revision": "r01",
+      "illustration": {
+        "source": "ArtSource/Art11/deco/illustrations/I13/r01/original.png",
+        "target": "DicePrototype/Assets/Resources/Themes/deco/Art/illustration_I13.png",
+        "sha256": "7188d0ce33f62c5d321d185cf76019b1b1319a54b1999aa6145d1a03ef987a78",
+        "size": [
+          1254,
+          1254
+        ],
+        "record": "ArtSource/Art11/deco/illustrations/I13/r01/record.json"
+      },
+      "icon": {
+        "source": "ArtSource/Art11/deco/icons/icon_I13.png",
+        "target": "DicePrototype/Assets/Art/Art11/Icons/deco/icon_I13.png",
+        "sha256": "e9eec3719c3ddcfe0906aee998189e5df0f62d0b2959c67515270915fcc7e2c5",
+        "size": [
+          160,
+          160
+        ],
+        "cropTable": "artifacts/cache/v111/art/crops/deco.json"
+      },
+      "comparison": "artifacts/cache/v111/art/comparisons/deco/I13-r01.png"
+    },
+    {
+      "theme": "glass",
+      "id": "I13",
+      "revision": "r01",
+      "illustration": {
+        "source": "ArtSource/Art11/glass/illustrations/I13/r01/original.png",
+        "target": "DicePrototype/Assets/Resources/Themes/glass/Art/illustration_I13.png",
+        "sha256": "bf846c950e16ba93ea963a2b60474b0681478bd7fbb8a500498e9f8ef9be5e0b",
+        "size": [
+          1312,
+          1199
+        ],
+        "record": "ArtSource/Art11/glass/illustrations/I13/r01/record.json"
+      },
+      "icon": {
+        "source": "ArtSource/Art11/glass/icons/icon_I13.png",
+        "target": "DicePrototype/Assets/Art/Art11/Icons/glass/icon_I13.png",
+        "sha256": "e0f2b8c6800f4c660a2bb8adb5e9bbf89e82276ec1ae0d9a6a6b275d1c901e49",
+        "size": [
+          160,
+          160
+        ],
+        "cropTable": "artifacts/cache/v111/art/crops/glass.json"
+      },
+      "comparison": "artifacts/cache/v111/art/comparisons/glass/I13-r01.png"
+    }
+  ],
+  "removeAfterCoordinatorReview": [
+    "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c90.png",
+    "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c90.png.meta",
+    "DicePrototype/Assets/Art/Art11/Icons/default/icon_C90.png",
+    "DicePrototype/Assets/Art/Art11/Icons/default/icon_C90.png.meta",
+    "DicePrototype/Assets/Resources/Themes/swiss/Art/illustration_C90.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/Art/illustration_C90.png.meta",
+    "DicePrototype/Assets/Art/Art11/Icons/swiss/icon_C90.png",
+    "DicePrototype/Assets/Art/Art11/Icons/swiss/icon_C90.png.meta",
+    "DicePrototype/Assets/Resources/Themes/sancai/Art/illustration_C90.png",
+    "DicePrototype/Assets/Resources/Themes/sancai/Art/illustration_C90.png.meta",
+    "DicePrototype/Assets/Art/Art11/Icons/sancai/icon_C90.png",
+    "DicePrototype/Assets/Art/Art11/Icons/sancai/icon_C90.png.meta",
+    "DicePrototype/Assets/Resources/Themes/comic/Art/illustration_C90.png",
+    "DicePrototype/Assets/Resources/Themes/comic/Art/illustration_C90.png.meta",
+    "DicePrototype/Assets/Art/Art11/Icons/comic/icon_C90.png",
+    "DicePrototype/Assets/Art/Art11/Icons/comic/icon_C90.png.meta",
+    "DicePrototype/Assets/Resources/Themes/deco/Art/illustration_C90.png",
+    "DicePrototype/Assets/Resources/Themes/deco/Art/illustration_C90.png.meta",
+    "DicePrototype/Assets/Art/Art11/Icons/deco/icon_C90.png",
+    "DicePrototype/Assets/Art/Art11/Icons/deco/icon_C90.png.meta",
+    "DicePrototype/Assets/Resources/Themes/glass/Art/illustration_C90.png",
+    "DicePrototype/Assets/Resources/Themes/glass/Art/illustration_C90.png.meta",
+    "DicePrototype/Assets/Art/Art11/Icons/glass/icon_C90.png",
+    "DicePrototype/Assets/Art/Art11/Icons/glass/icon_C90.png.meta",
+    "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c128.png",
+    "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c128.png.meta",
+    "DicePrototype/Assets/Art/Art11/Icons/default/icon_C128.png",
+    "DicePrototype/Assets/Art/Art11/Icons/default/icon_C128.png.meta",
+    "DicePrototype/Assets/Resources/Themes/swiss/Art/illustration_C128.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/Art/illustration_C128.png.meta",
+    "DicePrototype/Assets/Art/Art11/Icons/swiss/icon_C128.png",
+    "DicePrototype/Assets/Art/Art11/Icons/swiss/icon_C128.png.meta",
+    "DicePrototype/Assets/Resources/Themes/sancai/Art/illustration_C128.png",
+    "DicePrototype/Assets/Resources/Themes/sancai/Art/illustration_C128.png.meta",
+    "DicePrototype/Assets/Art/Art11/Icons/sancai/icon_C128.png",
+    "DicePrototype/Assets/Art/Art11/Icons/sancai/icon_C128.png.meta",
+    "DicePrototype/Assets/Resources/Themes/comic/Art/illustration_C128.png",
+    "DicePrototype/Assets/Resources/Themes/comic/Art/illustration_C128.png.meta",
+    "DicePrototype/Assets/Art/Art11/Icons/comic/icon_C128.png",
+    "DicePrototype/Assets/Art/Art11/Icons/comic/icon_C128.png.meta",
+    "DicePrototype/Assets/Resources/Themes/deco/Art/illustration_C128.png",
+    "DicePrototype/Assets/Resources/Themes/deco/Art/illustration_C128.png.meta",
+    "DicePrototype/Assets/Art/Art11/Icons/deco/icon_C128.png",
+    "DicePrototype/Assets/Art/Art11/Icons/deco/icon_C128.png.meta",
+    "DicePrototype/Assets/Resources/Themes/glass/Art/illustration_C128.png",
+    "DicePrototype/Assets/Resources/Themes/glass/Art/illustration_C128.png.meta",
+    "DicePrototype/Assets/Art/Art11/Icons/glass/icon_C128.png",
+    "DicePrototype/Assets/Art/Art11/Icons/glass/icon_C128.png.meta",
+    "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c145.png",
+    "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c145.png.meta",
+    "DicePrototype/Assets/Art/Art11/Icons/default/icon_C145.png",
+    "DicePrototype/Assets/Art/Art11/Icons/default/icon_C145.png.meta",
+    "DicePrototype/Assets/Resources/Themes/swiss/Art/illustration_C145.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/Art/illustration_C145.png.meta",
+    "DicePrototype/Assets/Art/Art11/Icons/swiss/icon_C145.png",
+    "DicePrototype/Assets/Art/Art11/Icons/swiss/icon_C145.png.meta",
+    "DicePrototype/Assets/Resources/Themes/sancai/Art/illustration_C145.png",
+    "DicePrototype/Assets/Resources/Themes/sancai/Art/illustration_C145.png.meta",
+    "DicePrototype/Assets/Art/Art11/Icons/sancai/icon_C145.png",
+    "DicePrototype/Assets/Art/Art11/Icons/sancai/icon_C145.png.meta",
+    "DicePrototype/Assets/Resources/Themes/comic/Art/illustration_C145.png",
+    "DicePrototype/Assets/Resources/Themes/comic/Art/illustration_C145.png.meta",
+    "DicePrototype/Assets/Art/Art11/Icons/comic/icon_C145.png",
+    "DicePrototype/Assets/Art/Art11/Icons/comic/icon_C145.png.meta",
+    "DicePrototype/Assets/Resources/Themes/deco/Art/illustration_C145.png",
+    "DicePrototype/Assets/Resources/Themes/deco/Art/illustration_C145.png.meta",
+    "DicePrototype/Assets/Art/Art11/Icons/deco/icon_C145.png",
+    "DicePrototype/Assets/Art/Art11/Icons/deco/icon_C145.png.meta",
+    "DicePrototype/Assets/Resources/Themes/glass/Art/illustration_C145.png",
+    "DicePrototype/Assets/Resources/Themes/glass/Art/illustration_C145.png.meta",
+    "DicePrototype/Assets/Art/Art11/Icons/glass/icon_C145.png",
+    "DicePrototype/Assets/Art/Art11/Icons/glass/icon_C145.png.meta"
+  ],
+  "cropOverrides": {
+    "default": {
+      "C154": {
+        "x": 0.0028,
+        "y": 0.0,
+        "size": 0.9873,
+        "reason": "The automatic crop clips the tray edge or separates the die pool. Keep the whole tray, releasing hand and destination."
+      },
+      "C156": {
+        "x": 0.0359,
+        "y": 0.0602,
+        "size": 0.9083,
+        "reason": "The automatic crop can touch the rock or cut the measuring tube and base. Keep the rebounding die, ledge and complete low-fill tube."
+      }
+    },
+    "swiss": {
+      "C154": {
+        "x": 0.0083,
+        "y": -0.0548,
+        "size": 1.0868,
+        "reason": "The automatic crop clips the tray edge or separates the die pool. Keep the whole tray, releasing hand and destination.",
+        "pad": true
+      },
+      "C156": {
+        "x": 0.0406,
+        "y": 0.0717,
+        "size": 0.9283,
+        "reason": "The automatic crop can touch the rock or cut the measuring tube and base. Keep the rebounding die, ledge and complete low-fill tube."
+      },
+      "I13": {
+        "x": 0.0063,
+        "y": 0.0063,
+        "size": 0.9937,
+        "reason": "The automatic box trims the padlock cast shadow. Keep the three keys, lock and complete shadow."
+      }
+    },
+    "sancai": {
+      "C154": {
+        "x": 0.0048,
+        "y": 0.0,
+        "size": 0.9825,
+        "reason": "The automatic crop clips the tray edge or separates the die pool. Keep the whole tray, releasing hand and destination."
+      },
+      "C156": {
+        "x": 0.0355,
+        "y": 0.0594,
+        "size": 0.9131,
+        "reason": "The automatic crop can touch the rock or cut the measuring tube and base. Keep the rebounding die, ledge and complete low-fill tube."
+      },
+      "I13": {
+        "x": 0.0,
+        "y": -0.0358,
+        "size": 1.0942,
+        "reason": "The automatic crop cuts the outer key tip. Keep the silhouettes of all three keys and the open lock.",
+        "pad": true
+      }
+    },
+    "comic": {
+      "C154": {
+        "x": 0.0035,
+        "y": 0.0,
+        "size": 0.9929,
+        "reason": "The automatic crop clips the tray edge or separates the die pool. Keep the whole tray, releasing hand and destination."
+      },
+      "C156": {
+        "x": 0.0211,
+        "y": 0.0363,
+        "size": 0.9378,
+        "reason": "The automatic crop can touch the rock or cut the measuring tube and base. Keep the rebounding die, ledge and complete low-fill tube."
+      }
+    },
+    "deco": {
+      "C154": {
+        "x": 0.0,
+        "y": 0.0,
+        "size": 0.9985,
+        "reason": "The automatic crop clips the tray edge or separates the die pool. Keep the whole tray, releasing hand and destination."
+      },
+      "C156": {
+        "x": 0.0398,
+        "y": 0.0614,
+        "size": 0.9036,
+        "reason": "The automatic crop can touch the rock or cut the measuring tube and base. Keep the rebounding die, ledge and complete low-fill tube."
+      },
+      "I13": {
+        "x": 0.0183,
+        "y": 0.0458,
+        "size": 0.9506,
+        "reason": "The automatic crop cuts the outer key tip. Keep the silhouettes of all three keys and the open lock."
+      }
+    },
+    "glass": {
+      "C154": {
+        "x": 0.0024,
+        "y": 0.0,
+        "size": 0.9833,
+        "reason": "The automatic crop clips the tray edge or separates the die pool. Keep the whole tray, releasing hand and destination."
+      },
+      "C156": {
+        "x": 0.0339,
+        "y": 0.0522,
+        "size": 0.9099,
+        "reason": "The automatic crop can touch the rock or cut the measuring tube and base. Keep the rebounding die, ledge and complete low-fill tube."
+      }
+    }
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "schema": "artgen-record-1",
+  "toolVersion": "artgen-1.2",
+  "jobId": "V11-GLASS-I13",
+  "jobPath": "ArtSource/Art11/glass/illustrations/I13/job.json",
+  "jobSha256": "84bd4aa07f0971fc9976c2ee473c9d02986700de0887bedb76a42f3900863038",
+  "category": "illustration",
+  "revision": "r01",
+  "mode": "new",
+  "transparentRequired": true,
+  "content": {
+    "contentId": "I13",
+    "list": "consumables",
+    "displayName": "钥匙串",
+    "configDescription": "选一颗已锁定的骰子放回骰池；共可使用3次。",
+    "configPath": "DicePrototype/Assets/Game/Data/P0Config.json",
+    "configSha256": "5ba97c8158062e355796d888dbdb581710351cdff15cd6b3e3fbf49b394b777b"
+  },
+  "styleKit": {
+    "path": "ArtSource/StyleKit/themes/glass/style_kit.json",
+    "sha256": "1cac32927c493bd987dd854287587015633b7886d0cc5060089b68540134bc60",
+    "kitVersion": "theme-glass-0.2",
+    "status": "PROPOSED (2026-11-17): anchors are crops of the four card illustrations on the user-chosen 彩绘玻璃 concept page (ArtSource/StyleKit/themes/glass/concepts/card.png); awaiting the user's review at checkpoint 3 with the first representative redraws."
+  },
+  "references": [
+    {
+      "index": 1,
+      "path": "ArtSource/StyleKit/themes/glass/plates/illustration_plate_theme-glass-0.1.png",
+      "sha256": "a72dce3225eefbb5c807544adfb22c9b1af615265fea9de1dcb83a85fec1b1bf",
+      "role": "STYLE PLATE: four card illustrations in the stained-glass style of this game, cropped from concept art and still standing on their radiating amber and violet glass-pane backdrop. Copy their rendering exactly (objects built from coloured glass pieces held by even dark lead lines, backlit glow inside each piece, grisaille shading, jewel tones, marble-white dice). Do not copy their subjects, their layout or the radiating pane backdrop. The pip colours of the dice on the plate are not a style rule: pips follow the subject."
+    },
+    {
+      "index": 2,
+      "path": "ArtSource/Art11/default/illustrations/I13/r01/original.png",
+      "sha256": "012f7d2c17bf0b5cda5300efdfe2b6421602caf7908efe0f2166c4792285c173",
+      "role": "SUBJECT REFERENCE: the same card drawn in the game's default style. Keep its objects, their arrangement, the idea, and every colour that carries game information: dice pips keep the reference's colours (dark pips stay dark, in the darkest ink of reference image 1; red pips stay red; blue pips stay blue), coloured die faces keep their colour, gold stays gold, and glass or transparent parts stay transparent. Never colour neutral dark pips red or blue. Ignore everything else about its rendering (outlines, shading, halftone, exact shades) and draw it in the style of reference image 1."
+    }
+  ],
+  "prompt": {
+    "imagePromptPath": "ArtSource/Art11/glass/illustrations/I13/r01/prompt.txt",
+    "imagePromptFileSha256": "aefd06df9c90ddccdec568df5bb66c7e718c86aef07f4b6d7550e1f076f4cf76",
+    "agentRequestPath": "ArtSource/Art11/glass/illustrations/I13/r01/codex-request.txt",
+    "agentRequestFileSha256": "a06937c36faf237aeffc5849f043e994b099cf5e9b795e68bd428b443e5ee683"
+  },
+  "codex": {
+    "entrypoint": "image_gen.imagegen (Codex built-in, interactive)",
+    "threadId": "01a214e9-7660-7ca0-b76b-aede685bd054",
+    "sessionLog": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\Art11\\glass\\illustrations\\I13\\r01\\codex-events.jsonl",
+    "originalSessionLog": "C:\\Users\\f\\.codex\\sessions\\2026\\11\\25\\rollout-2026-11-25T17-52-54-01a214e9-7660-7ca0-b76b-aede685bd054.jsonl",
+    "imageCallId": "call_29f3a725f812408eae7fdf4321bed700",
+    "agentModel": "gpt-6.2-sol",
+    "durationSeconds": 39.1,
+    "quotaUsedPercentFirst": 91.0,
+    "quotaUsedPercentLast": 91.0
+  },
+  "imageTool": {
+    "name": "image_gen.imagegen (Codex built-in)",
+    "modelSnapshot": "not exposed by the tool",
+    "generations": [
+      {
+        "id": "exec-15109a96-eb59-4c83-9b38-225b51b33d0b",
+        "kind": "image_gen.generation",
+        "status": "completed",
+        "failure": null,
+        "revisedPrompt": "Create ONE standalone card-theme illustration. Subject: a key ring holding three distinct keys fanned apart beside an open padlock. Must keep: exactly three separate keys on one key ring; the padlock beside the keys is open.\nStyle: Match the STYLE PLATE (reference image 1) exactly: Gothic stained-glass window illustration. Every object is built from pieces of coloured glass held together by dark lead came lines of even weight; each glass piece glows softly as if lit from behind, with subtle hand-painted grisaille shading near its edges; jewel tones; clear, bold shapes. Dice are pale marble-white glass cubes outlined in lead, with dark smoke-glass pips; ruby-red or cobalt-blue jewel pips only when the subject names red or blue pips. Three-quarter view from slightly above.\nColour roles: Marble white #F1EBE1 for dice bodies and pale glass; ruby #BB210D for red pips and red glass; cobalt #0643A0 with sky blue #31A6EF for blue pips, water and blue glass; amber #F8C761 with deep amber #E89D1B for gold, brass and warm light; violet #7A55A8 sparingly for a secondary accent; lead #0F0E12 for every outline and for neutral pips. No other hues, no neon.\nComposition: One cohesive subject group of at most three objects, centred on a square canvas; the subject spans roughly 70 to 95 percent of the canvas width without touching the edges, with even transparent margin on every side; the silhouette must stay readable at 64 pixels. Two or three short glass-shard strokes are allowed when they express the effect. The card frame of the game draws its own backdrop, so the illustration has no background field at all.\nOutput: True transparent alpha background with no backdrop of any colour and no background shapes. A single finished illustration, not a sheet of variants.\nAvoid: text, letters, numbers, labels, prices, card frames, UI elements, a background window, radiating backdrop panes, arch frames, ground scenery, checkerboard, photorealism, 3D-render look, pixel art, neon glow, grunge, human characters, saints or religious figures, expressive faces.",
+        "transparentBackground": true,
+        "inputImages": [
+          {
+            "path": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\StyleKit\\themes\\glass\\plates\\illustration_plate_theme-glass-0.1.png",
+            "sha256": "a72dce3225eefbb5c807544adfb22c9b1af615265fea9de1dcb83a85fec1b1bf"
+          },
+          {
+            "path": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\Art11\\default\\illustrations\\I13\\r01\\original.png",
+            "sha256": "012f7d2c17bf0b5cda5300efdfe2b6421602caf7908efe0f2166c4792285c173"
+          }
+        ],
+        "savedPath": "C:\\Users\\f\\.codex\\generated_images\\01a214e9-7660-7ca0-b76b-aede685bd054\\exec-15109a96-eb59-4c83-9b38-225b51b33d0b.png",
+        "generationId": "28471346-bccb-4181-b452-97854eb332e9"
+      }
+    ],
+    "runChecks": {
+      "imageCallCount": 1,
+      "generationCount": 1,
+      "callReferencedImagePaths": [
+        "E:/agent_workspace/gpt/game2/ArtSource/StyleKit/themes/glass/plates/illustration_plate_theme-glass-0.1.png",
+        "E:/agent_workspace/gpt/game2/ArtSource/Art11/default/illustrations/I13/r01/original.png"
+      ],
+      "modelInputImages": [
+        {
+          "path": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\StyleKit\\themes\\glass\\plates\\illustration_plate_theme-glass-0.1.png",
+          "sha256": "a72dce3225eefbb5c807544adfb22c9b1af615265fea9de1dcb83a85fec1b1bf"
+        },
+        {
+          "path": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\Art11\\default\\illustrations\\I13\\r01\\original.png",
+          "sha256": "012f7d2c17bf0b5cda5300efdfe2b6421602caf7908efe0f2166c4792285c173"
+        }
+      ],
+      "transparentRequested": true,
+      "callPromptExact": null,
+      "revisedPromptExact": true
+    }
+  },
+  "output": {
+    "dimensions": [
+      1312,
+      1199
+    ],
+    "mode": "RGBA",
+    "alphaExtrema": [
+      0,
+      255
+    ],
+    "transparentShare": 0.6378,
+    "alphaBounds": [
+      59,
+      105,
+      1231,
+      1117
+    ],
+    "subjectWidthShare": 0.8933,
+    "subjectHeightShare": 0.844,
+    "subjectAreaShare": 0.3479,
+    "sourcePath": "C:\\Users\\f\\.codex\\generated_images\\01a214e9-7660-7ca0-b76b-aede685bd054\\exec-15109a96-eb59-4c83-9b38-225b51b33d0b.png",
+    "archivedPath": "ArtSource/Art11/glass/illustrations/I13/r01/original.png",
+    "sha256": "bf846c950e16ba93ea963a2b60474b0681478bd7fbb8a500498e9f8ef9be5e0b",
+    "copiedByteIdentical": true
+  },
+  "runValid": true,
+  "runProblems": [],
+  "status": "CANDIDATE: review pending",
+  "recordedUtc": "2026-11-25T23:13:20.682778+00:00"
+}

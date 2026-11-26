@@ -1,0 +1,117 @@
+{
+  "schema": "artgen-record-1",
+  "toolVersion": "artgen-1.2",
+  "jobId": "V111-DEFAULT-C154",
+  "jobPath": "ArtSource/Art11/default/illustrations/C154/job.json",
+  "jobSha256": "3de105e05ac60b38974c81e803af79548e81cb7c1c83e7fecc40dd7bce4e1f55",
+  "category": "illustration",
+  "revision": "r01",
+  "mode": "new",
+  "transparentRequired": true,
+  "content": {
+    "contentId": "C154",
+    "list": "controllers",
+    "displayName": "回心转意",
+    "configDescription": "每手一次，可以把一颗已锁定的骰子放回骰池。",
+    "configPath": "DicePrototype/Assets/Game/Data/P0Config.json",
+    "configSha256": "5ba97c8158062e355796d888dbdb581710351cdff15cd6b3e3fbf49b394b777b"
+  },
+  "styleKit": {
+    "path": "ArtSource/StyleKit/style_kit.json",
+    "sha256": "bc9631749bab5efa30d93b47f8c0d9c49ed2dd70204b5994ee5450871af31e6a",
+    "kitVersion": "style-kit-1.1",
+    "status": "PROPOSED: anchors picked by AI from the shipped v0.71 illustration set; awaiting user confirmation (docs/art/STYLE_GUIDE.md section 7)"
+  },
+  "references": [
+    {
+      "index": 1,
+      "path": "ArtSource/StyleKit/plates/illustration_plate_style-kit-1.png",
+      "sha256": "a653982f60b065b968c92551074e45e8666952b9a5fe38a4a91e661a55a5581c",
+      "role": "STYLE PLATE: eight finished illustrations from this game on a plain ivory backdrop. Copy their rendering exactly (outline weight, flat planes, halftone, colour roles, viewpoint, lighting). Do not copy their subjects, their layout or the backdrop."
+    }
+  ],
+  "prompt": {
+    "imagePromptPath": "ArtSource/Art11/default/illustrations/C154/r01/prompt.txt",
+    "imagePromptFileSha256": "56b1ba07e9fea9f9554a811cdb97b6bd53ac4cea3a0a3349a9da2fbc685f67bd",
+    "agentRequestPath": "ArtSource/Art11/default/illustrations/C154/r01/codex-request.txt",
+    "agentRequestFileSha256": "6870096546952248d11b3aea77f774ee90af55d82c73cca27cb4cbb1a9b9196c"
+  },
+  "codex": {
+    "entrypoint": "image_gen.imagegen (Codex built-in, interactive)",
+    "threadId": "01a214e9-7660-7ca0-b76b-aede685bd054",
+    "sessionLog": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\Art11\\default\\illustrations\\C154\\r01\\codex-events.jsonl",
+    "originalSessionLog": "C:\\Users\\f\\.codex\\sessions\\2026\\11\\25\\rollout-2026-11-25T17-52-54-01a214e9-7660-7ca0-b76b-aede685bd054.jsonl",
+    "imageCallId": "call_76118eb3bf3d42d892255d89f76af6c4",
+    "agentModel": "gpt-6.2-sol",
+    "durationSeconds": 42.8,
+    "quotaUsedPercentFirst": 91.0,
+    "quotaUsedPercentLast": 91.0
+  },
+  "imageTool": {
+    "name": "image_gen.imagegen (Codex built-in)",
+    "modelSnapshot": "not exposed by the tool",
+    "generations": [
+      {
+        "id": "exec-2cb7c28f-0510-41cf-ae3b-02b343f447d8",
+        "kind": "image_gen.generation",
+        "status": "completed",
+        "failure": null,
+        "revisedPrompt": "Create ONE standalone card-theme illustration. Subject: an open padlock resting on a now-empty dice tray, a hand moving a die off the tray toward a nearby cluster of dice. Must keep: the padlock is open and rests on the now-empty locking tray; a hand moves one die from the tray back toward the pool.\nStyle: Match the STYLE PLATE (reference image 1) exactly. High-resolution limited-colour screen-print illustration: bold, even dark petrol-ink outlines; broad flat colour planes; one hard-edged shadow plane per form; fine halftone dots only inside shaded planes; small crisp ivory highlights; light from the upper left. Objects are chunky, simplified and slightly toy-like, seen in three-quarter view from slightly above. Ceramic dice are rounded warm-ivory cubes with dark ink pips unless the subject asks for red or blue pips.\nColour roles: Warm ivory #F4E8CB for lit surfaces and dark petrol #173E40 for shadow planes, bases and dark parts carry most of the picture; ink #162629 for outlines and pips. Accents only, each on a few small areas: coral red #EC655D, cyan blue #55B6D9, amber gold #F3BA58 (amber only for coins, brass, rewards or a single highlight). No other hues, no gradients, no glow.\nComposition: One cohesive subject group of at most three objects, centred on a square canvas; the subject spans roughly 70 to 95 percent of the canvas width without touching the edges, with even transparent margin on every side; the silhouette must stay readable at 64 pixels. Two or three short action strokes or a small spark near the upper left of the subject are allowed when they express the effect (usually cyan; coral or ink when the subject is red or dark).\nOutput: True transparent alpha background with no backdrop of any colour. A single finished illustration, not a sheet of variants.\nAvoid: text, letters, numbers, labels, prices, card frames, UI elements, paper or coloured backdrop, ground scenery, checkerboard, a drop-shadow slab under the object, photorealism, 3D-render look, soft airbrush gradients, pixel art, neon glow, grunge, torn or burnt paper, human characters, expressive faces.",
+        "transparentBackground": true,
+        "inputImages": [
+          {
+            "path": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\StyleKit\\plates\\illustration_plate_style-kit-1.png",
+            "sha256": "a653982f60b065b968c92551074e45e8666952b9a5fe38a4a91e661a55a5581c"
+          }
+        ],
+        "savedPath": "C:\\Users\\f\\.codex\\generated_images\\01a214e9-7660-7ca0-b76b-aede685bd054\\exec-2cb7c28f-0510-41cf-ae3b-02b343f447d8.png",
+        "generationId": "113b2807-405a-4956-a61d-6a5fbb2709fe"
+      }
+    ],
+    "runChecks": {
+      "imageCallCount": 1,
+      "generationCount": 1,
+      "callReferencedImagePaths": [
+        "E:/agent_workspace/gpt/game2/ArtSource/StyleKit/plates/illustration_plate_style-kit-1.png"
+      ],
+      "modelInputImages": [
+        {
+          "path": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\StyleKit\\plates\\illustration_plate_style-kit-1.png",
+          "sha256": "a653982f60b065b968c92551074e45e8666952b9a5fe38a4a91e661a55a5581c"
+        }
+      ],
+      "transparentRequested": true,
+      "callPromptExact": null,
+      "revisedPromptExact": true
+    }
+  },
+  "output": {
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alphaExtrema": [
+      0,
+      255
+    ],
+    "transparentShare": 0.5967,
+    "alphaBounds": [
+      41,
+      119,
+      1204,
+      1112
+    ],
+    "subjectWidthShare": 0.9274,
+    "subjectHeightShare": 0.7919,
+    "subjectAreaShare": 0.3822,
+    "sourcePath": "C:\\Users\\f\\.codex\\generated_images\\01a214e9-7660-7ca0-b76b-aede685bd054\\exec-2cb7c28f-0510-41cf-ae3b-02b343f447d8.png",
+    "archivedPath": "ArtSource/Art11/default/illustrations/C154/r01/original.png",
+    "sha256": "ef1e611e07fc136397159631cb4d0d799d433f7264dbce8ec043416d0cf68905",
+    "copiedByteIdentical": true
+  },
+  "runValid": true,
+  "runProblems": [],
+  "status": "CANDIDATE: review pending",
+  "recordedUtc": "2026-11-25T23:04:03.624334+00:00"
+}
