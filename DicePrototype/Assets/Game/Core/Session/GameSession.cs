@@ -86,6 +86,8 @@ namespace DiceCraft.Core
                             break;
                         case CommandKind.RefreshControllers: RefreshControllers(candidate); break;
                         case CommandKind.ApplyDebugScene: ApplyDebugScene(candidate, command.debugScene); break;
+                        case CommandKind.UnlockDie: UnlockDie(candidate, command.targetDieId); break;
+                        case CommandKind.CustomDieUpgrade: CustomDieUpgrade(candidate, command); break;
                         default: throw new RuleViolation("未知命令。");
                     }
                     if (candidate.debugWorkspace) candidate.isDebug = true;
@@ -466,6 +468,84 @@ namespace DiceCraft.Core
                 Check(r != null && r.hasRolled && !r.isLocked, "待锁目标已经失效。");
             }
             foreach (string id in pending) { s.hand.currentResults.First(x => x.dieId == id).isLocked = true; s.hand.orderedLockedIds.Add(id); }
+        }
+
+        // ---- v1.1.1 section 8: the shared unlock of C154 and I13 ----
+        public const string UnlockNeedsResults = "掷骰后才能撤回已锁定的骰子。";
+        public const string UnlockTargetInvalid = "请选一颗已锁定的骰子。";
+        public const string UnlockNoSource = "没有可用的撤回次数（回心转意本手已用，且没有钥匙串）。";
+        public const string KeyRingUsesUnlock = "钥匙串通过撤回已锁定的骰子来使用。";
+        public const string ItemsForbidden = "首领减益“徒手”：本关不能使用道具。";
+
+        /// <summary>
+        /// What UnlockDie would do for this die (null = for any locked die). Source order: the free unlock of the hand
+        /// while any effective C154 source exists and it is unused (copies and mimics share the one allowance; the
+        /// leftmost source is the one named), otherwise the earliest key ring of the inventory that has a use left.
+        /// The boss modifier that forbids items blocks the key ring only.
+        /// </summary>
+        private UnlockView QuoteUnlock(RunState s, string targetDieId)
+        {
+            var view = new UnlockView();
+            if (s == null || s.hand == null || !InStage(s) || (s.phase != "HandReady" && s.phase != "Selecting")) { view.error = "当前阶段不能执行此操作。"; return view; }
+            var keys = s.inventory.Where(i => i.contentId == "I13" && i.usesRemaining > 0).ToArray();
+            var card = Sources(s).FirstOrDefault(x => x.abilityId == "C154");
+            view.keyRingUses = keys.Length == 0 ? 0 : keys[0].usesRemaining; view.keyRingUsesTotal = keys.Sum(k => k.usesRemaining);
+            view.freeAvailable = card != null && !s.hand.unlockCardUsed; view.keyRingBlocked = keys.Length > 0 && Fx(s, "NoItems");
+            if (view.freeAvailable) { view.sourceId = "C154"; view.sourceInstanceId = card.emitterId; }
+            else if (keys.Length > 0 && !view.keyRingBlocked) { view.sourceId = "I13"; view.sourceInstanceId = keys[0].instanceId; }
+            if (s.phase != "Selecting" || !s.hand.hasRolled) { view.error = UnlockNeedsResults; return view; }
+            bool target = targetDieId == null ? s.hand.orderedLockedIds.Count > 0
+                : s.dice.Any(d => d.dieId == targetDieId) && s.hand.orderedLockedIds.Contains(targetDieId) && s.hand.currentResults.Any(r => r.dieId == targetDieId && r.hasRolled && r.isLocked);
+            if (!target) { view.error = UnlockTargetInvalid; return view; }
+            if (view.sourceId.Length == 0) { view.error = view.keyRingBlocked ? ItemsForbidden : UnlockNoSource; return view; }
+            view.available = true; return view;
+        }
+        /// <summary>
+        /// v1.1.1 section 8 for the interface: whether the die (or, with null, any locked die) can be unlocked now, by
+        /// which source, and the uses left on the key rings. Nothing is changed and nothing is drawn. Like the command,
+        /// it is refused while dice are selected but not yet locked.
+        /// </summary>
+        public UnlockView UnlockQuote(string targetDieId = null)
+        {
+            lock (gate)
+            {
+                var view = QuoteUnlock(state, targetDieId);
+                if (view.available && pending.Count > 0) { view.available = false; view.error = "先锁定选中的骰子，或取消选择。"; }
+                return view;
+            }
+        }
+        public UnlockView UnlockQuoteIn(RunState view, string targetDieId = null) { lock (gate) return QuoteUnlock(view, targetDieId); }
+
+        /// <summary>
+        /// v1.1.1 section 8: takes one locked die back into the pool. It leaves the locked list (the others keep their
+        /// order) and loses its locked flag; its physical face, pip, colour and remote flag stay, so it may be rolled
+        /// again, left in the pool or locked again. No roll is spent, nothing is drawn, C05 grants nothing here and no
+        /// glass is judged; unlocking the last locked die is allowed and works with no roll left. First the
+        /// "DieUnlocked" effect (die, source C154 or I13, source instance); a key ring then loses one use, leaves the
+        /// inventory at 0, and records one "ItemUsed" (uses before and after) that every effective real C134 grows on.
+        /// The free unlock records the unlock only.
+        /// </summary>
+        private void UnlockDie(RunState s, string targetDieId)
+        {
+            RequirePhase(s, "Selecting"); Check(!string.IsNullOrEmpty(targetDieId), UnlockTargetInvalid);
+            var plan = QuoteUnlock(s, targetDieId); Check(plan.available, plan.error);
+            s.hand.orderedLockedIds.Remove(targetDieId); s.hand.currentResults.First(r => r.dieId == targetDieId).isLocked = false;
+            s.lastEffects.Add(new EffectRecord { kind = "DieUnlocked", sourceId = plan.sourceId, dieId = targetDieId, detail = plan.sourceInstanceId });
+            if (plan.sourceId == "C154") s.hand.unlockCardUsed = true;
+            else SpendItemUse(s, s.inventory.First(i => i.instanceId == plan.sourceInstanceId));
+        }
+
+        /// <summary>
+        /// v1.1.1 section 8: one successful use of an item. It loses one use; at 0 it leaves the inventory and its id
+        /// is remembered as consumed. Exactly one "ItemUsed" effect per use (uses before and after), then every real,
+        /// effective C134 grows once on it.
+        /// </summary>
+        private void SpendItemUse(RunState s, OwnedItem item)
+        {
+            int before = item.usesRemaining; item.usesRemaining = before - 1;
+            if (item.usesRemaining <= 0) { s.inventory.Remove(item); s.consumedItemIds.Add(item.instanceId); }
+            s.lastEffects.Add(new EffectRecord { kind = "ItemUsed", sourceId = item.contentId, detail = item.instanceId, oldValue = before, newValue = item.usesRemaining });
+            Grow(s, "C134", cfg.Controller("C134").parameters.growthEvent);
         }
 
         private void Reorder(RunState s, string[] order)

@@ -43,6 +43,10 @@ namespace DiceCraft.Core
             Check(s.inventory.Count <= (s.isDebug ? cfg.debug.maxConsumableInventory : s.consumableSlots)
                 && s.inventory.All(x => x != null && cfg.consumables.Any(c => c.id == x.contentId)), "道具库存无效。");
             foreach (var item in s.inventory) { int serial = ParseItemSerial(item.instanceId); Check(serial > 0 && serial < s.nextItemSerial && item.instanceId == "ITEM_" + serial.ToString("D5"), "道具实例来源无效。"); }
+            // v1.1.1 sections 8 and 12.1: a held item has 1 to its configured uses left (1-3 for a key ring, exactly 1 otherwise).
+            Check(s.inventory.All(x => x.usesRemaining >= 1 && x.usesRemaining <= Math.Max(1, cfg.Consumable(x.contentId).initialUses)), "道具剩余次数无效。");
+            // v1.1.1 section 9.3: a normal run never holds two copies of a unique multiplier card (a debug scene may).
+            Check(s.isDebug || s.controllers.Where(c => c.alive && ControllerRules.IsUniqueController(c.definitionId, cfg)).GroupBy(c => c.definitionId, StringComparer.Ordinal).All(g => g.Count() == 1), "正常挑战不能持有两张同名的乘法卡。");
             var instances = s.controllers.Select(x => x.instanceId).Concat(s.inventory.Select(x => x.instanceId)).ToArray();
             Check(instances.Distinct(StringComparer.Ordinal).Count() == instances.Length, "物品实例身份重复。");
             Check(s.consumedItemIds.All(x => !string.IsNullOrEmpty(x)) && s.consumedItemIds.Distinct(StringComparer.Ordinal).Count() == s.consumedItemIds.Count
@@ -179,6 +183,16 @@ namespace DiceCraft.Core
             if (offer) Check(c.state.starPip == 0 && c.state.cultivationFacesChanged == 0 && c.state.growthCatchup >= 0 && (c.state.growthCatchup == 0 || ControllerRules.HasGrowth(c.definitionId)), "商品的成长补偿、明星点数或养成计数无效。");
         }
 
+        /// <summary>
+        /// v1.1.1 sections 5 and 9.1: every controller offer of a normal run (shelf, L1, L2) carries exactly the
+        /// catch-up of the shop cycle it was generated in, which is the cycle of the open shop; 0 for a card that does
+        /// not grow. A debug workspace may hold any whole, non-negative value on a growth card.
+        /// </summary>
+        private void ValidateOfferCatchup(RunState s, ControllerInstance c)
+        {
+            if (!s.isDebug) Check(c.state.growthCatchup == CatchupFor(c.definitionId, ShopCycle(s)), "商品的成长补偿与商店周期不符。");
+        }
+
         private void ValidateBindings(RunState s)
         {
             Check(s.stage.mimicBindings != null && s.stage.controllerOrderSnapshot != null && s.stage.submissionBonusSourceIds != null && s.stage.destroyedControllerIds != null, "关卡来源快照缺失。");
@@ -208,6 +222,9 @@ namespace DiceCraft.Core
             Check(s.hand != null && s.hand.orderedLockedIds != null && s.hand.currentResults != null && s.hand.c05UsedEmitterIds != null && s.hand.rollBonusSourceIds != null, "手牌状态缺失。");
             Check(s.hand.rollsRemaining >= 0 && s.hand.rollsUsed >= 0 && s.hand.hasRolled == (s.hand.rollsUsed > 0) && !string.IsNullOrEmpty(s.hand.handId), "投掷预算无效。");
             Check(!(s.hand.redWave && s.hand.blueWave), "红色浪潮与蓝色浪潮不能同时生效。");
+            // v1.1.1 section 8: the free unlock can only have been used after a roll, and in a normal run only while a
+            // C154 source is in force (cards do not leave or change during a hand).
+            Check(!s.hand.unlockCardUsed || (s.hand.hasRolled && (s.isDebug || Sources(s).Any(x => x.abilityId == "C154"))), "免费撤回标记无效。");
             Check(s.hand.currentResults.Count == s.dice.Count && s.hand.currentResults.All(r => r != null && s.dice.Any(d => d.dieId == r.dieId))
                 && s.hand.currentResults.Select(x => x.dieId).Distinct().Count() == s.dice.Count, "当前骰结果身份不匹配。");
             Check(s.hand.orderedLockedIds.Count <= s.stage.capacity && s.hand.orderedLockedIds.Distinct().Count() == s.hand.orderedLockedIds.Count
@@ -228,7 +245,8 @@ namespace DiceCraft.Core
         {
             var shop = s.shop;
             Check(shop != null && shop.generated && shop.offers != null && !string.IsNullOrEmpty(shop.generationId) && shop.controllerRefreshCount >= 0
-                && shop.controllerGeneration == shop.controllerRefreshCount && shop.selfStudyUsed >= 0 && shop.selfStudyUsed <= cfg.shop.selfStudyLimit, "商店状态无效。");
+                && shop.controllerGeneration == shop.controllerRefreshCount && shop.selfStudyUsed >= 0 && shop.selfStudyUsed <= cfg.shop.selfStudyLimit
+                && shop.selfDieUpgradeUsed >= 0 && shop.selfDieUpgradeUsed <= cfg.shop.selfDieUpgradeLimit, "商店状态无效。");
             Check(shop.offers.All(x => x != null && !string.IsNullOrEmpty(x.offerId)) && shop.offers.Select(x => x.offerId).Distinct().Count() == shop.offers.Count, "商品身份重复。");
             Check(shop.offers.Count(o => o.category == "controller" && Shelf(o)) <= ControllerOfferCount(s) && shop.offers.Count(o => o.category == "consumable" && Shelf(o)) <= ConsumableOfferCount(s), "商品格数量超限。");
             // v1.0 gift groups
@@ -273,7 +291,7 @@ namespace DiceCraft.Core
                     Check(c != null && c.alive && c.definitionId == o.contentId && ControllerRules.IsEnchantmentLegal(c.definitionId, c.enchantmentId, cfg)
                         && c.acquiredSerial > 0 && c.acquiredSerial < s.nextItemSerial && c.instanceId == "ITEM_" + c.acquiredSerial.ToString("D5")
                         && o.basePrice == cfg.Controller(c.definitionId).buyPrice, "卡牌商品实例无效。");
-                    ValidateDynamicState(c, true);
+                    ValidateDynamicState(c, true); ValidateOfferCatchup(s, c);
                 }
                 if (o.category == "new_die") { cfg.ValidateFaces(o.die.faces); Check(o.basePrice == QuoteNewDie(o.die), "新骰报价不匹配。"); }
             }

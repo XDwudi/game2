@@ -593,7 +593,9 @@ namespace DiceCraft.Core
             RequirePhase(s, "HandReady", "Selecting");
             var item = s.inventory.FirstOrDefault(x => x.instanceId == command.itemInstanceId);
             Check(item != null, "道具不存在或已使用。");
-            Check(!Fx(s, "NoItems") || item.contentId == "I08", "首领减益“徒手”：本关不能使用道具。");
+            Check(!Fx(s, "NoItems") || item.contentId == "I08", ItemsForbidden);
+            // v1.1.1 section 8: a key ring has no effect of its own; it is spent by the UnlockDie command.
+            Check(item.contentId != "I13", KeyRingUsesUnlock);
             switch (item.contentId)
             {
                 case "I01":
@@ -639,7 +641,7 @@ namespace DiceCraft.Core
                         Check(s.phase == "Selecting" && s.hand.hasRolled && s.hand.orderedLockedIds.Count > 0, "点金笔需要先锁定至少 1 颗骰子。");
                         var die = FindDie(s, s.hand.orderedLockedIds[0]); var result = s.hand.currentResults.First(x => x.dieId == die.dieId);
                         var face = die.faces.First(f => f.faceId == result.currentFaceId); Check(!face.isGold, "第 1 颗锁定骰子朝上的面已经是黄金面。");
-                        ApplyFaceChange(s, die, face, "I11", "gold", 1, null);
+                        GildFace(s, die, face, "I11"); // v1.1.1 section 7.2: the shared gilding entry, weight +1 up to the cap
                         break;
                     }
                 case "I12":
@@ -648,9 +650,7 @@ namespace DiceCraft.Core
                     break;
                 default: throw new RuleViolation("未知道具。");
             }
-            s.inventory.Remove(item); s.consumedItemIds.Add(item.instanceId);
-            s.lastEffects.Add(new EffectRecord { kind = "ItemUsed", sourceId = item.contentId, detail = item.instanceId });
-            Grow(s, "C134", cfg.Controller("C134").parameters.growthEvent);
+            SpendItemUse(s, item);
         }
     }
 }

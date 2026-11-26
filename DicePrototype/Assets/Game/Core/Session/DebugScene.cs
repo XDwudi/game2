@@ -51,6 +51,11 @@ namespace DiceCraft.Core
         // cultivation cards and the cultivated mark of a face travel inside `controllers` and `dice`.
         public string highestHandScore = "0", highestClearRatioNumerator = "0", highestClearRatioDenominator = "1";
         public bool handRecordBroken;
+        // v1.1.1 (W3b-2): the free unlock of the hand (C154) is already used. The uses left on an item travel inside
+        // `inventory` (usesRemaining; 0 or less means "as created": 3 for a key ring, 1 otherwise). A scene builds a
+        // stage in progress, so it carries no shop: the self-selected allowance and the catch-up on offers come from
+        // the shop that the scene's stage leads to (its cycle follows stageIndex).
+        public bool unlockCardUsed;
         public List<DieInstance> dice = new List<DieInstance>();
         public List<ControllerInstance> controllers = new List<ControllerInstance>();
         public List<OwnedItem> inventory = new List<OwnedItem>();
@@ -82,6 +87,7 @@ namespace DiceCraft.Core
                 blueWave = s.hand != null && s.hand.blueWave, doubleScore = s.hand != null && s.hand.doubleScore, itemCapacityBonus = s.stage.itemCapacityBonus, interestCapPurchases = s.interestCapPurchases,
                 highestHandScore = s.highestHandScore, highestClearRatioNumerator = s.highestClearRatioNumerator, highestClearRatioDenominator = s.highestClearRatioDenominator,
                 handRecordBroken = s.stage.started && !s.stage.settled && s.stage.handRecordBroken,
+                unlockCardUsed = s.hand != null && s.hand.unlockCardUsed,
                 redWave = s.hand != null && s.hand.redWave, largeBuff = s.hand != null && s.hand.largeBuff, smallBuff = s.hand != null && s.hand.smallBuff,
                 currentResults = s.hand == null ? null : s.hand.currentResults.Select(x => x.Clone()).ToList(),
                 orderedLockedIds = s.hand == null ? new List<string>() : new List<string>(s.hand.orderedLockedIds),

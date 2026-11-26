@@ -11,6 +11,15 @@ namespace DiceCraft.Core
         public const string SelfStudyLimitReached = "本店自选研习机会已使用。";
         public const string NewDieUnavailable = "永久骰数量已满或候选无效。";
         public const string ServiceUnavailable = "此服务已达上限或没有合法目标。";
+        // v1.1.1
+        public const string SelfDieUpgradeLimitReached = "本店自选改造机会已用完。";
+        public const string UpgradeFaceCountRejected = "请选同一颗骰子的 1 或 2 个不同的面。";
+        public const string UpgradeSingleFaceOnly = "这种改造一次只能选 1 个面。";
+        public const string UpgradeTakesWholeDie = "这种改造作用于整颗骰子，不选面。";
+        public const string UpgradeFacesInconsistent = "骰面目标前后不一致。";
+        public const string UniqueControllerOwned = "已持有同名的乘法卡，卖掉原卡后才能再取得。";
+        /// <summary>Section 9.1: in these first shop cycles the low-price guarantee card carries no enchantment and draws no ticket.</summary>
+        private const int GuaranteeWithoutEnchantmentCycles = 2;
 
         private int ShopCapacity(RunState s) { return s.isDebug && s.debugCapacityOverride > 0 ? s.debugCapacityOverride : ControllerRules.Capacity(s.controllers, cfg, false, ActiveBindings(s), ActiveRules(s)); }
         private int PermanentCount(RunState s) { return s.dice.Count(x => x.lifetime == "permanent"); }
@@ -59,6 +68,25 @@ namespace DiceCraft.Core
             }
         }
 
+        /// <summary>
+        /// v1.1.1 section 9.1: the cycle of a shop is the cycle of the stage that comes next. After stage number j
+        /// (1-based) it is min(8, floor(j / 3) + 1): the shop after stage 2 is cycle 1, the shop after stage 3 (and its
+        /// boss loot) is cycle 2. It cannot change while the shop is open, so it is derived, not stored.
+        /// </summary>
+        private int ShopCycle(RunState s) => Math.Min(cfg.enchantRules.shopChanceByCyclePercent.Length, (s.stage.stageIndex + 1) / 3 + 1);
+        /// <summary>
+        /// v1.1.1 section 5: the head start of a growth card offered in a shop of this cycle: (cycle - 1) steps of the
+        /// card's growth kind (additive 0.5, base 6, multiplier 0.1 per cycle, in the unit of `growth`). 0 for any other card.
+        /// </summary>
+        private long CatchupFor(string definitionId, int cycle)
+        {
+            var step = cfg.growthCatchupPerCycle;
+            int unit = ControllerRules.IsGrowthAdditive(definitionId) ? step.additive : ControllerRules.IsGrowthMultiplier(definitionId) ? step.multiplier : ControllerRules.IsGrowthBase(definitionId) ? step.@base : 0;
+            return checked((long)(cycle - 1) * unit);
+        }
+        /// <summary>v1.1.1 section 9.2: a self-selected die upgrade costs max(1, base + premium + C98 sources); O02 does not apply.</summary>
+        private int CustomUpgradePrice(RunState s, string upgradeId) => Math.Max(1, checked(cfg.Upgrade(upgradeId).buyPrice + cfg.shop.selfDieUpgradePremium + BargainDelta(s)));
+
         /// <summary>v0.9 C98: a negative price change on controllers and die upgrades, per source.</summary>
         private int BargainDelta(RunState s) => checked(Sources(s).Count(x => x.abilityId == "C98") * cfg.Controller("C98").parameters.priceDelta);
         private int Discount(RunState s, int price) { return Math.Max(cfg.minDiscountedItemPrice, price - s.itemDiscount); }
@@ -88,14 +116,40 @@ namespace DiceCraft.Core
         private int ControllerOfferCount(RunState s) => cfg.shop.initialControllerOffers + s.controllerOfferPurchases;
         private int ConsumableOfferCount(RunState s) => cfg.shop.initialConsumableOffers + s.consumableOfferPurchases;
         /// <summary>
-        /// v1.1: every definition can be offered whether or not a copy is owned. The only exclusion is the one that
-        /// keeps a shop free of two same-name controller offers (sampling without replacement across the shelf and
-        /// the gift groups).
+        /// v1.1: every definition can be offered whether or not a copy is owned. One exclusion keeps a shop free of two
+        /// same-name controller offers (sampling without replacement across the shelf and the gift groups).
+        /// v1.1.1 section 9.3: the other one drops a unique multiplier card while a copy of it is held (whatever its
+        /// price, enchantment or disabled state). It applies to the first shelf, a refresh, an added shelf slot, L1 and L2.
         /// </summary>
         private ControllerDefinition[] ControllerCandidates(RunState s, IEnumerable<string> excluded = null)
         {
             var omit = new HashSet<string>(excluded ?? Array.Empty<string>(), StringComparer.Ordinal);
-            return cfg.controllers.Where(x => !omit.Contains(x.id)).OrderBy(x => x.id, StringComparer.Ordinal).ToArray();
+            return cfg.controllers.Where(x => !omit.Contains(x.id) && !ControllerRules.OwnsUniqueController(s.controllers, x.id, cfg)).OrderBy(x => x.id, StringComparer.Ordinal).ToArray();
+        }
+
+        /// <summary>
+        /// v1.1.1 section 9.1: the enchantment of a random shelf offer, from one integer ticket of the shop stream.
+        /// With W the sum of the non-empty relative weights of the card's pool (18, 10, 4, 9, 9 for a card that can
+        /// carry a scoring enchantment; 50, 0, 0, 25, 25 for the others) and P the percent of the shop cycle, the
+        /// ticket is NextIndex(100 x W): the first (100 - P) x W tickets are "none", then P x weight tickets for each
+        /// non-empty enchantment in the fixed order slotless, base10, mult2, submit1, roll1 (half-open intervals).
+        /// L2, O11 and C114 keep <see cref="DrawControllerEnchantment"/> and do not use the cycle chance.
+        /// </summary>
+        private string DrawShelfEnchantment(RunState s, string id, GameRng rng, int cycle)
+        {
+            bool special = cfg.enchantRules.nonSubmitControllerIds.Contains(id); var w = cfg.enchantRules.nonSubmitDrawWeights;
+            Func<string, int> weight = e => e == "none" ? 0 : !special ? cfg.Enchantment(e).weight : e == "slotless" ? w.slotless : e == "submit1" ? w.submit1 : e == "roll1" ? w.roll1 : 0;
+            int total = cfg.enchantRules.rawDrawOrder.Sum(weight), percent = cfg.enchantRules.shopChanceByCyclePercent[cycle - 1];
+            Check(total > 0 && percent >= 0 && percent <= 100, "没有可用附魔候选。");
+            var trace = DrawRaw(s, rng, "shop", "ControllerEnchantment", id, checked(100 * total));
+            int draw = trace.rawTicket - (100 - percent) * total; string picked = "none";
+            if (draw >= 0)
+            {
+                picked = null;
+                foreach (string enchant in cfg.enchantRules.rawDrawOrder) { draw -= percent * weight(enchant); if (draw < 0) { picked = enchant; break; } }
+                Check(picked != null, "附魔抽样未覆盖票值。");
+            }
+            trace.rawValue = trace.appliedValue = picked; return picked;
         }
 
         private string DrawControllerEnchantment(RunState s, string id, string current, GameRng rng, string stream = "shop")
@@ -110,21 +164,30 @@ namespace DiceCraft.Core
             throw new RuleViolation("附魔抽样未覆盖票值。");
         }
 
+        /// <summary>
+        /// Adds shelf controllers. v1.1.1 sections 5, 9.1 and 9.3: the first card of a whole batch (first shelf or a
+        /// refresh) comes from the candidates of base price 4 or less when there is one; in shop cycles 1 and 2 that
+        /// guaranteed card has no enchantment and draws no enchantment ticket. An empty low-price pool falls back to
+        /// every candidate and is then an ordinary draw. A slot added by O05 never reopens the guarantee. Every other
+        /// card draws <see cref="DrawShelfEnchantment"/>. A growth card gets the catch-up of the shop cycle.
+        /// </summary>
         private void AppendControllers(RunState s, GameRng rng, int count, bool firstGuarantee)
         {
-            var choices = ControllerCandidates(s, s.shop.offers.Where(o => o.category == "controller").Select(o => o.contentId)).ToList();
+            var choices = ControllerCandidates(s, s.shop.offers.Where(o => o.category == "controller").Select(o => o.contentId)).ToList(); int cycle = ShopCycle(s);
             for (int i = 0; i < count && choices.Count > 0; i++)
             {
                 var pool = firstGuarantee && i == 0 ? choices.Where(x => x.buyPrice <= cfg.shop.firstControllerGuaranteeMaxBasePrice).ToList() : choices;
+                bool guaranteed = firstGuarantee && i == 0 && pool.Count > 0;
                 if (pool.Count == 0) pool = choices;
                 var trace = DrawRaw(s, rng, "shop", "ControllerId", BatchId(s.shop, "controller"), pool.Sum(x => x.offerWeight));
                 int draw = trace.rawTicket; var picked = pool[0];
                 foreach (var option in pool) { draw -= option.offerWeight; if (draw < 0) { picked = option; break; } }
                 trace.rawValue = trace.appliedValue = picked.id;
                 // v1.1: an owned definition draws its enchantment exactly as an unowned one does (no replacement pool).
-                string enchant = DrawControllerEnchantment(s, picked.id, null, rng);
+                string enchant = guaranteed && cycle <= GuaranteeWithoutEnchantmentCycles ? "none" : DrawShelfEnchantment(s, picked.id, rng, cycle);
                 var offer = MakeOffer(s, "controller", picked.id, picked.buyPrice); int serial = s.nextItemSerial++;
                 offer.controller = new ControllerInstance { instanceId = "ITEM_" + serial.ToString("D5"), acquiredSerial = serial, definitionId = picked.id, enchantmentId = enchant };
+                offer.controller.state.growthCatchup = CatchupFor(picked.id, cycle);
                 s.shop.offers.Add(offer); choices.Remove(picked);
             }
         }
@@ -185,16 +248,17 @@ namespace DiceCraft.Core
         {
             var def = cfg.Loot(kind); var group = NewGroup(s, "LOOT", kind, def.picks); const int choices = 3;
             // v1.1: controller loot may repeat an owned definition; it still never repeats a controller on the shelf.
+            // v1.1.1 section 9.3: L1 and L2 never offer a unique multiplier card that is held.
             var shelf = new HashSet<string>(s.shop.offers.Where(o => o.category == "controller").Select(o => o.contentId), StringComparer.Ordinal);
             switch (kind)
             {
                 case "L1":
-                    foreach (string id in PickUniform(s, rng, cfg.controllers.Where(c => c.rarity == "rare" && !shelf.Contains(c.id)).Select(c => c.id), choices, "LootController"))
+                    foreach (string id in PickUniform(s, rng, cfg.controllers.Where(c => c.rarity == "rare" && !shelf.Contains(c.id) && !ControllerRules.OwnsUniqueController(s.controllers, c.id, cfg)).Select(c => c.id), choices, "LootController"))
                         AddLootController(s, group, id, "none");
                     break;
                 case "L2":
                     {
-                        var pool = cfg.controllers.Where(c => !shelf.Contains(c.id)).OrderBy(c => c.id, StringComparer.Ordinal).ToList();
+                        var pool = cfg.controllers.Where(c => !shelf.Contains(c.id) && !ControllerRules.OwnsUniqueController(s.controllers, c.id, cfg)).OrderBy(c => c.id, StringComparer.Ordinal).ToList();
                         for (int i = 0; i < choices && pool.Count > 0; i++)
                         {
                             var trace = DrawRaw(s, rng, "shop", "LootController", s.shop.generationId, pool.Sum(c => c.offerWeight)); int draw = trace.rawTicket; var picked = pool[0];
@@ -230,8 +294,11 @@ namespace DiceCraft.Core
         {
             var offer = AddGroupOffer(s, group, "controller", id, cfg.Controller(id).buyPrice); int serial = s.nextItemSerial++;
             offer.controller = new ControllerInstance { instanceId = "ITEM_" + serial.ToString("D5"), acquiredSerial = serial, definitionId = id, enchantmentId = enchant };
+            // v1.1.1 section 5 and A19: loot of a growth card carries the catch-up of the shop it lies in.
+            offer.controller.state.growthCatchup = CatchupFor(id, ShopCycle(s));
         }
-        /// <summary>v1.0 loot dice: 0 = one pip on all six faces, 1 = one colour on all six faces, 2 = two gold faces.</summary>
+        /// <summary>v1.0 loot dice: 0 = one pip on all six faces, 1 = one colour on all six faces, 2 = two gold faces.
+        /// v1.1.1 section 7.2: each of the two gold faces also gains the gilding weight on top of the template weight.</summary>
         private DieInstance GenerateSpecialDie(RunState s, GameRng rng, int template)
         {
             int[] range = cfg.generation.pipRange; var d = DiceFactory.CreateStandard(cfg, 1); d.dieId = ""; d.createdSerial = 0; d.isGlass = false;
@@ -248,7 +315,7 @@ namespace DiceCraft.Core
             {
                 int first = DrawRaw(s, rng, "shop", "SpecialGold", "L5", 6).rawTicket, second = DrawRaw(s, rng, "shop", "SpecialGold", "L5", 5).rawTicket;
                 if (second >= first) second++;
-                faces[first].isGold = true; faces[second].isGold = true;
+                Gild(faces[first]); Gild(faces[second]);
             }
             return d;
         }
@@ -399,12 +466,50 @@ namespace DiceCraft.Core
         {
             lock (gate)
             {
-                try { Check(state != null, "没有活动挑战。"); ValidatePurchase(state, offerId, dieId, faceId); return null; }
+                try { Check(state != null, "没有活动挑战。"); ValidatePurchase(state, offerId, dieId, FaceIds(faceId, null)); return null; }
+                catch (RuleViolation e) { return e.Message; }
+            }
+        }
+        /// <summary>v1.1.1: the same check for a die upgrade offer applied to one or two faces of a die (none for U05).</summary>
+        public string PurchaseErrorForFaces(string offerId, string dieId, string[] faceIds)
+        {
+            lock (gate)
+            {
+                try { Check(state != null, "没有活动挑战。"); ValidatePurchase(state, offerId, dieId, FaceIds(null, faceIds)); return null; }
                 catch (RuleViolation e) { return e.Message; }
             }
         }
 
-        private ShopOffer ValidatePurchase(RunState s, string offerId, string dieId, string faceId)
+        /// <summary>
+        /// v1.1.1 section 12.1: the faces of a die upgrade command. The old single targetFaceId means a one-element
+        /// array; giving both with different content is rejected.
+        /// </summary>
+        private static string[] FaceIds(string single, string[] many)
+        {
+            var list = many ?? Array.Empty<string>();
+            Check(list.All(f => !string.IsNullOrEmpty(f)), UpgradeTargetRejected);
+            if (string.IsNullOrEmpty(single)) return list.ToArray();
+            Check(list.Length == 0 || (list.Length == 1 && list[0] == single), UpgradeFacesInconsistent);
+            return new[] { single };
+        }
+
+        /// <summary>
+        /// v1.1.1 section 7.1: the target of one die upgrade, shared by the shelf, the self-selected upgrade, gifts and
+        /// loot. A per-face upgrade takes 1 to maxSelectableFaces different faces of one permanent die, each legal in
+        /// the state before anything is applied; U05 takes a die and no face; U11 takes one source face. The whole
+        /// request is checked before anything is applied.
+        /// </summary>
+        private void CheckUpgradeTargets(RunState s, string upgradeId, string dieId, string[] faceIds)
+        {
+            var definition = cfg.diceUpgrades.FirstOrDefault(u => u.id == upgradeId); Check(definition != null, UnknownDieUpgrade);
+            var die = s.dice.FirstOrDefault(x => x.dieId == dieId);
+            if (definition.maxSelectableFaces <= 0) { Check(faceIds.Length == 0, UpgradeTakesWholeDie); Check(UpgradeTargetLegal(die, null, upgradeId), UpgradeTargetRejected); return; }
+            Check(faceIds.Length >= 1 && faceIds.Length <= definition.maxSelectableFaces, definition.maxSelectableFaces == 1 ? UpgradeSingleFaceOnly : UpgradeFaceCountRejected);
+            Check(faceIds.Distinct(StringComparer.Ordinal).Count() == faceIds.Length, UpgradeFaceCountRejected);
+            foreach (string faceId in faceIds) Check(UpgradeTargetLegal(die, die == null ? null : die.faces.FirstOrDefault(f => f.faceId == faceId), upgradeId), UpgradeTargetRejected);
+        }
+
+        private ShopOffer ValidatePurchase(RunState s, string offerId, string dieId, string[] faceIds)
         {
             RequirePhase(s, "Shop");
             var offer = s.shop.offers.FirstOrDefault(x => x.offerId == offerId);
@@ -426,14 +531,13 @@ namespace DiceCraft.Core
                     var equipment = s.controllers.Concat(new[] { offer.controller }).ToArray();
                     Check(equipment.Length <= cfg.maxControllerInstances && ControllerRules.OrdinaryUsed(equipment, cfg) <= s.controllerSlots, "普通卡牌栏位或总张数已满，可先出售卡牌。");
                     Check(ControllerRules.IsEnchantmentLegal(offer.contentId, offer.controller.enchantmentId, cfg), "卡牌附魔不合法。");
+                    // v1.1.1 section 9.3: a live offer of a unique multiplier card is checked again against what is held
+                    // now. The offer stays; it can be taken once the held copy is sold.
+                    Check(!ControllerRules.OwnsUniqueController(s.controllers, offer.contentId, cfg), UniqueControllerOwned);
                     break;
                 case "consumable": Check(s.inventory.Count < s.consumableSlots, "道具栏位已满，可先出售道具。"); break;
                 case "hand_upgrade": Check(IsHandLegal(s, offer.contentId), "牌型已满级，或当前容量/永久骰数量不足。"); break;
-                case "die_upgrade":
-                    var d = s.dice.FirstOrDefault(x => x.dieId == dieId);
-                    var f = d == null ? null : d.faces.FirstOrDefault(x => x.faceId == faceId);
-                    Check(UpgradeTargetLegal(d, f, offer.contentId), UpgradeTargetRejected);
-                    break;
+                case "die_upgrade": CheckUpgradeTargets(s, offer.contentId, dieId, faceIds); break;
                 case "new_die": Check(ServiceLegal(s, "O03") && offer.die != null, NewDieUnavailable); break;
                 case "service":
                     Check(ServiceLegal(s, offer.contentId), ServiceUnavailable);
@@ -447,14 +551,18 @@ namespace DiceCraft.Core
 
         private void Buy(RunState s, SessionCommand command)
         {
-            var offer = ValidatePurchase(s, command.offerId, command.targetDieId, command.targetFaceId);
+            // Only a die upgrade reads the face array; any other purchase keeps its old target fields untouched.
+            var targetOffer = s.shop == null ? null : s.shop.offers.FirstOrDefault(x => x.offerId == command.offerId);
+            var faces = targetOffer != null && targetOffer.category == "die_upgrade" ? FaceIds(command.targetFaceId, command.targetFaceIds) : Array.Empty<string>();
+            var offer = ValidatePurchase(s, command.offerId, command.targetDieId, faces);
             long price = OfferPrice(s, offer); // Freeze before a discount purchase changes it.
             s.gold = checked(s.gold - price);
             switch (offer.category)
             {
                 case "controller":
                     // v1.1: the new card is appended as its own instance; an owned same-name card stays where it is.
-                    var acquired = offer.controller.Clone(); acquired.state = new ControllerDynamicState(); acquired.alive = true;
+                    // v1.1.1 section 5: the card keeps the catch-up fixed on its offer and starts with no grown part.
+                    var acquired = offer.controller.Clone(); acquired.state = new ControllerDynamicState { growthCatchup = offer.controller.state == null ? 0 : offer.controller.state.growthCatchup }; acquired.alive = true;
                     if (acquired.definitionId == "C45")
                     {
                         var effect = new GameRng(s.effectRngState); var trace = DrawRaw(s, effect, "effect", "C45Acquire", acquired.instanceId, 2);
@@ -516,7 +624,9 @@ namespace DiceCraft.Core
                     }
                     else throw new RuleViolation("服务不能以此方式购买。");
                     break;
-                case "die_upgrade": ApplyUpgrade(s, offer.contentId, command.targetDieId, command.targetFaceId); Grow(s, "C60", cfg.Controller("C60").parameters.growthEvent); break;
+                // v1.1.1 sections 5 and 7.1: one successful transaction grows C60 once, whether it changed one face, two
+                // faces, a mirrored face or a whole die, and whether it was paid, a gift or loot.
+                case "die_upgrade": ApplyUpgrades(s, offer.contentId, command.targetDieId, faces); Grow(s, "C60", cfg.Controller("C60").parameters.growthEvent); break;
             }
             offer.sold = true;
             var taken = GroupOf(s, offer);
@@ -524,7 +634,103 @@ namespace DiceCraft.Core
             s.lastEffects.Add(new EffectRecord { kind = "Purchased", sourceId = offer.contentId, detail = offer.offerId, oldValue = price, newValue = s.gold });
         }
 
-        private OwnedItem NewOwnedItem(RunState s, string id) { return new OwnedItem { instanceId = "ITEM_" + (s.nextItemSerial++).ToString("D5"), contentId = id }; }
+        /// <summary>v1.1.1 section 8: every way of getting an item (purchase, gift, loot, C110) creates it with the configured uses: 3 for a key ring, 1 otherwise.</summary>
+        private OwnedItem NewOwnedItem(RunState s, string id) { return new OwnedItem { instanceId = "ITEM_" + (s.nextItemSerial++).ToString("D5"), contentId = id, usesRemaining = Math.Max(1, cfg.Consumable(id).initialUses) }; }
+
+        /// <summary>
+        /// v1.1.1 section 7.1: applies one upgrade to its already validated targets, face by face in ascending face id.
+        /// A random transform draws once per face in that order from the effect stream.
+        /// </summary>
+        private void ApplyUpgrades(RunState s, string id, string dieId, string[] faceIds)
+        {
+            if (faceIds.Length == 0) { ApplyUpgrade(s, id, dieId, null); return; }
+            foreach (string faceId in faceIds.OrderBy(x => x, StringComparer.Ordinal)) ApplyUpgrade(s, id, dieId, faceId);
+        }
+
+        /// <summary>
+        /// v1.1.1 section 9.2: the self-selected die upgrade. Any of U01-U11 with a legal target, at most
+        /// selfDieUpgradeLimit successful ones per shop, for the shelf price plus the premium. It draws nothing from the
+        /// shop stream; a random transform still uses the effect stream. A rejection changes nothing.
+        /// </summary>
+        private void CustomDieUpgrade(RunState s, SessionCommand command)
+        {
+            var faces = FaceIds(command.targetFaceId, command.targetFaceIds);
+            ValidateCustomUpgrade(s, command.upgradeId, command.targetDieId, faces);
+            int price = CustomUpgradePrice(s, command.upgradeId);
+            s.gold = checked(s.gold - price); ApplyUpgrades(s, command.upgradeId, command.targetDieId, faces);
+            s.shop.selfDieUpgradeUsed = checked(s.shop.selfDieUpgradeUsed + 1); Grow(s, "C60", cfg.Controller("C60").parameters.growthEvent);
+            s.lastEffects.Add(new EffectRecord { kind = "CustomDieUpgraded", sourceId = command.upgradeId, dieId = command.targetDieId, detail = string.Join(",", faces.OrderBy(x => x, StringComparer.Ordinal)), oldValue = price, newValue = s.shop.selfDieUpgradeUsed });
+        }
+        /// <summary>Everything about a self-selected upgrade that does not depend on the target.</summary>
+        private void ValidateCustomUpgradeOffer(RunState s, string upgradeId)
+        {
+            RequirePhase(s, "Shop"); RequireLootResolved(s);
+            Check(s.shop != null && cfg.diceUpgrades.Any(u => u.id == upgradeId), UnknownDieUpgrade);
+            Check(s.shop.selfDieUpgradeUsed < cfg.shop.selfDieUpgradeLimit, SelfDieUpgradeLimitReached);
+            Check(s.gold >= CustomUpgradePrice(s, upgradeId), "金币不足。");
+        }
+        private void ValidateCustomUpgrade(RunState s, string upgradeId, string dieId, string[] faceIds)
+        {
+            ValidateCustomUpgradeOffer(s, upgradeId); CheckUpgradeTargets(s, upgradeId, dieId, faceIds);
+        }
+
+        // ---- v1.1.1 quotes for the interface and the simulator (sections 3.1, 7.1, 9.2, 9.3) ----
+        /// <summary>Self-selected die upgrades still allowed in the open shop (0 outside a shop).</summary>
+        public int CustomDieUpgradesRemaining { get { lock (gate) return CustomRemaining(state); } }
+        public int CustomDieUpgradesRemainingIn(RunState view) { lock (gate) return CustomRemaining(view); }
+        private int CustomRemaining(RunState s) => s == null || s.phase != "Shop" || s.shop == null ? 0 : Math.Max(0, cfg.shop.selfDieUpgradeLimit - s.shop.selfDieUpgradeUsed);
+        /// <summary>The price of a self-selected die upgrade right now (premium and C98 included).</summary>
+        public int GetCustomDieUpgradePrice(string upgradeId) { lock (gate) { Check(state != null && cfg.diceUpgrades.Any(u => u.id == upgradeId), UnknownDieUpgrade); return CustomUpgradePrice(state, upgradeId); } }
+        /// <summary>
+        /// The self-selected list of the open shop: every die upgrade in id order with its live price, how many faces it
+        /// takes, whether any die has a legal target, and why it cannot be bought at all right now (null when it can).
+        /// Empty outside a shop.
+        /// </summary>
+        public DieUpgradeOption[] CustomDieUpgradeOptions()
+        {
+            lock (gate)
+            {
+                if (state == null || state.phase != "Shop" || state.shop == null) return Array.Empty<DieUpgradeOption>();
+                return cfg.diceUpgrades.OrderBy(u => u.id, StringComparer.Ordinal).Select(u =>
+                {
+                    var option = new DieUpgradeOption { upgradeId = u.id, price = CustomUpgradePrice(state, u.id), maxSelectableFaces = u.maxSelectableFaces, hasTarget = HasUpgradeTarget(state, u.id) };
+                    try { ValidateCustomUpgradeOffer(state, u.id); Check(option.hasTarget, UpgradeTargetRejected); } catch (RuleViolation e) { option.error = e.Message; }
+                    return option;
+                }).ToArray();
+            }
+        }
+        /// <summary>Why this self-selected upgrade on these targets would be rejected; null when it would be accepted.</summary>
+        public string CustomDieUpgradeError(string upgradeId, string dieId, string[] faceIds)
+        {
+            lock (gate)
+            {
+                try { Check(state != null, "没有活动挑战。"); ValidateCustomUpgrade(state, upgradeId, dieId, FaceIds(null, faceIds)); return null; }
+                catch (RuleViolation e) { return e.Message; }
+            }
+        }
+        /// <summary>How many faces of one die an upgrade takes: 0 = the whole die (U05), 1 (U11) or 2.</summary>
+        public int MaxSelectableFaces(string upgradeId) { lock (gate) { var u = cfg.diceUpgrades.FirstOrDefault(x => x.id == upgradeId); Check(u != null, UnknownDieUpgrade); return u.maxSelectableFaces; } }
+        /// <summary>
+        /// The faces of this die an upgrade may be applied to, in face id order (shelf, self-selected, gift and loot
+        /// share the rule). Empty for a die that is not permanent, for an unknown die and for U05, which takes no face:
+        /// ask <see cref="IsUpgradeTargetLegal"/> with a null face for it.
+        /// </summary>
+        public string[] LegalUpgradeFaces(string upgradeId, string dieId)
+        {
+            lock (gate)
+            {
+                var d = state == null ? null : state.dice.FirstOrDefault(x => x.dieId == dieId); var u = cfg.diceUpgrades.FirstOrDefault(x => x.id == upgradeId);
+                if (d == null || u == null || u.maxSelectableFaces <= 0) return Array.Empty<string>();
+                return d.faces.Where(f => UpgradeTargetLegal(d, f, upgradeId)).Select(f => f.faceId).OrderBy(x => x, StringComparer.Ordinal).ToArray();
+            }
+        }
+        /// <summary>Section 9.3: this card is one of the unique multiplier cards and a copy is held, so shops and loot filter it out and a live offer of it is refused.</summary>
+        public bool IsUniqueControllerHeld(string definitionId) { lock (gate) return state != null && ControllerRules.OwnsUniqueController(state.controllers, definitionId, cfg); }
+        public bool IsUniqueControllerHeldIn(RunState view, string definitionId) { lock (gate) return view != null && ControllerRules.OwnsUniqueController(view.controllers, definitionId, cfg); }
+        /// <summary>Section 3.1: what one level of this hand or colour costs now: base price + current level x step, plus the premium for a self study.</summary>
+        public int GetHandUpgradePrice(string handId, bool selfStudy) { lock (gate) { Check(state != null && state.handLevels.Concat(state.colorLevels).Any(x => x.handId == handId), "牌型无效。"); return HandPrice(state, handId, selfStudy); } }
+        /// <summary>The cycle of the shop that is open or would open after the current stage (1-8).</summary>
+        public int ShopCycleIn(RunState view) { lock (gate) { Check(view != null && view.stage != null, "没有活动挑战。"); return ShopCycle(view); } }
 
         private void ApplyUpgrade(RunState s, string id, string dieId, string faceId)
         {
@@ -536,7 +742,8 @@ namespace DiceCraft.Core
                 case "U03": f.baseColor = "red"; break;
                 case "U04": f.baseColor = "blue"; break;
                 case "U05": d.isGlass = true; break;
-                case "U06": f.isGold = true; break;
+                // v1.1.1 section 7.2: gilding goes through the one shared entry (weight +1 up to the cap).
+                case "U06": GildFace(s, d, f, "U06"); break;
                 case "U07":
                     int old = f.permanentPip; var candidates = Enumerable.Range(cfg.minPipValue, cfg.maxPipValue - cfg.minPipValue + 1).Where(x => x != old).ToArray();
                     var rng = new GameRng(s.effectRngState); f.permanentPip = candidates[DrawRaw(s, rng, "effect", "FaceTransform", dieId + "/" + faceId, candidates.Length).rawTicket]; s.effectRngState = rng.State;

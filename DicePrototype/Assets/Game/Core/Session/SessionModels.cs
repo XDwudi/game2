@@ -4,7 +4,10 @@ using System.Linq;
 
 namespace DiceCraft.Core
 {
-    public enum CommandKind { NewRun, ChooseChallenge, StartStage, Roll, ConfirmLocks, Reorder, UseItem, Submit, Continue, Buy, Sell, Study, LeaveShop, EndStage, ReorderControllers, RefreshControllers, ApplyDebugScene }
+    public enum CommandKind { NewRun, ChooseChallenge, StartStage, Roll, ConfirmLocks, Reorder, UseItem, Submit, Continue, Buy, Sell, Study, LeaveShop, EndStage, ReorderControllers, RefreshControllers, ApplyDebugScene,
+        // v1.1.1 (appended, so the stored numbers of the older kinds do not move): the shared unlock entry of C154 and
+        // I13, and the self-selected die upgrade of a shop.
+        UnlockDie, CustomDieUpgrade }
 
     [Serializable]
     public sealed class SessionCommand
@@ -15,17 +18,25 @@ namespace DiceCraft.Core
         public uint seed;
         public bool risk;
         public string offerId, itemInstanceId, targetDieId, targetFaceId, handId;
+        // v1.1.1 sections 7.1 and 12.1: the faces a die upgrade is applied to (one or two faces of targetDieId, none
+        // for U05) and, for CustomDieUpgrade, which upgrade is bought. The old single targetFaceId still works and
+        // means a one-element array; giving both with different content is rejected.
+        public string upgradeId;
+        public string[] targetFaceIds = Array.Empty<string>();
         public string[] dieIds = Array.Empty<string>();
         public string[] controllerIds = Array.Empty<string>();
         public DebugScene debugScene;
         public int[] targetPips = Array.Empty<int>();
-        public SessionCommand Clone() { var c = (SessionCommand)MemberwiseClone(); c.dieIds = dieIds == null ? null : (string[])dieIds.Clone(); c.controllerIds = controllerIds == null ? null : (string[])controllerIds.Clone(); c.targetPips = targetPips == null ? null : (int[])targetPips.Clone(); c.debugScene = debugScene == null ? null : debugScene.Clone(); return c; }
+        public SessionCommand Clone() { var c = (SessionCommand)MemberwiseClone(); c.dieIds = dieIds == null ? null : (string[])dieIds.Clone(); c.controllerIds = controllerIds == null ? null : (string[])controllerIds.Clone(); c.targetPips = targetPips == null ? null : (int[])targetPips.Clone(); c.targetFaceIds = targetFaceIds == null ? null : (string[])targetFaceIds.Clone(); c.debugScene = debugScene == null ? null : debugScene.Clone(); return c; }
     }
 
     [Serializable]
     public sealed class OwnedItem
     {
         public string instanceId, contentId;
+        // v1.1.1 sections 8 and 12.1: uses left. A key ring (I13) is created with 3 and lives at 1-3; every other
+        // item is created with 1 and lives at 1. An item that reaches 0 leaves the inventory for consumedItemIds.
+        public int usesRemaining = 1;
         public OwnedItem Clone() { return (OwnedItem)MemberwiseClone(); }
     }
 
@@ -46,6 +57,8 @@ namespace DiceCraft.Core
         public bool hasRolled, redWave, largeBuff, smallBuff;
         // v1.0 items: I10 blue wave and I09 double score for the next valid submission of this hand.
         public bool blueWave, doubleScore;
+        // v1.1.1 section 8: the one free unlock of this hand (C154, shared by every copy and mimic) has been used.
+        public bool unlockCardUsed;
         public bool c05Used { get { return c05UsedEmitterIds.Count > 0; } }
         public List<string> c05UsedEmitterIds = new List<string>();
         public string[] rollBonusSourceIds = Array.Empty<string>();
@@ -116,6 +129,9 @@ namespace DiceCraft.Core
         public string shopId, generationId;
         public bool generated;
         public int selfStudyUsed, controllerRefreshCount, controllerGeneration, turnoverGrowthCount;
+        // v1.1.1 section 9.2: successful self-selected die upgrades in this shop (0..selfDieUpgradeLimit). A refresh,
+        // a reload and shelf upgrades neither use nor reset it.
+        public int selfDieUpgradeUsed;
         public List<ShopOffer> offers = new List<ShopOffer>();
         public List<ShopGroup> groups = new List<ShopGroup>();
         // v1.0: controllers acquired in this shop (bought, or claimed as loot or a gift). C140 pays the full list price
@@ -269,6 +285,39 @@ namespace DiceCraft.Core
         public bool scapegoat;
         public string modifierId, target;
         public string[] disabledControllerIds = Array.Empty<string>();
+    }
+
+    /// <summary>v1.1.1 section 8: what UnlockDie would do right now, for the interface. Nothing is changed or drawn.</summary>
+    public sealed class UnlockView
+    {
+        /// <summary>True when the command would be accepted for the asked die (or, without a die, for some locked die).</summary>
+        public bool available;
+        /// <summary>"C154" (the free unlock of the hand), "I13" (a key ring) or "" when there is no usable source.</summary>
+        public string sourceId = "";
+        /// <summary>The leftmost C154 source or the key ring that would pay.</summary>
+        public string sourceInstanceId = "";
+        /// <summary>The free unlock of this hand is still there (an effective C154 source and not used yet).</summary>
+        public bool freeAvailable;
+        /// <summary>Key rings are held but the boss modifier forbids items.</summary>
+        public bool keyRingBlocked;
+        /// <summary>Uses left on the key ring that would be used next (the earliest one in the inventory), 0 without one; and on all key rings together.</summary>
+        public int keyRingUses, keyRingUsesTotal;
+        /// <summary>Why it is not available; null when it is.</summary>
+        public string error;
+    }
+
+    /// <summary>v1.1.1 section 9.2: one row of the self-selected die upgrade list of the open shop.</summary>
+    public sealed class DieUpgradeOption
+    {
+        public string upgradeId;
+        /// <summary>What it costs right now: max(1, base + premium + C98 sources).</summary>
+        public int price;
+        /// <summary>How many faces of one die it takes: 0 = a whole die (U05), 1 or 2.</summary>
+        public int maxSelectableFaces;
+        /// <summary>Some permanent die has a legal target.</summary>
+        public bool hasTarget;
+        /// <summary>Why it cannot be bought right now whatever the target (loot pending, no allowance left, no gold, no target); null when it can.</summary>
+        public string error;
     }
 
     public sealed class CommandResult

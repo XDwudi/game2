@@ -68,6 +68,9 @@ namespace DiceCraft.Core
             var draft = input.Clone();
             s.isDebug = true; s.debugCapacityOverride = draft.capacityOverride;
             s.dice = draft.dice; s.controllers = draft.controllers; s.inventory = draft.inventory;
+            // v1.1.1 section 8: an item given without a use count is as created (3 for a key ring, 1 otherwise); an
+            // explicit count is kept and checked by ValidateState (1 to the configured uses).
+            foreach (var item in s.inventory.Where(i => i.usesRemaining <= 0 && cfg.consumables.Any(c => c.id == i.contentId))) item.usesRemaining = Math.Max(1, cfg.Consumable(item.contentId).initialUses);
             s.handLevels = draft.handLevels; s.colorLevels = draft.colorLevels; s.gold = draft.gold;
             s.seed = draft.seed; s.diceRngState = draft.diceRngState; s.shopRngState = draft.shopRngState; s.effectRngState = draft.effectRngState;
             s.consumableSlots = draft.consumableSlots; s.itemDiscount = draft.itemDiscount;
@@ -108,7 +111,7 @@ namespace DiceCraft.Core
             StartHand(s);
             if (draft.rollsRemaining >= 0) s.hand.rollsRemaining = draft.rollsRemaining;
             s.hand.redWave = draft.redWave; s.hand.largeBuff = draft.largeBuff; s.hand.smallBuff = draft.smallBuff; s.hand.blueWave = draft.blueWave; s.hand.doubleScore = draft.doubleScore;
-            s.hand.c05UsedEmitterIds = draft.c05UsedEmitterIds;
+            s.hand.c05UsedEmitterIds = draft.c05UsedEmitterIds; s.hand.unlockCardUsed = draft.unlockCardUsed;
             if (draft.currentResults != null)
             {
                 Check(draft.currentResults.All(r => r != null), "调试当前结果不完整。");
