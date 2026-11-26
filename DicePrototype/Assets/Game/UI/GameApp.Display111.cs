@@ -129,6 +129,19 @@ namespace DiceCraft
             =>(effects??Enumerable.Empty<EffectRecord>()).Where(e=>e.kind=="FaceCultivated").GroupBy(e=>(e.detail??"").Split(':').LastOrDefault())
                 .Select(g=>(CardLabelIn11(g.Key,snapshot?.equippedControllers)??CardLabel11(g.Key))+"：改写 "+g.Select(e=>e.dieId+"/"+e.faceId).Distinct().Count()+" 个骰面，累计 "+g.Max(e=>e.newValue)+" 个");
         private bool IsCultivation111(string definitionId)=>definitionId!=null&&definitionId.StartsWith("C",StringComparison.Ordinal)&&Config.Controller(definitionId).isCultivation;
+        /// <summary>The words on the face of the cultivation card that takes no slot (W7b).</summary>
+        private const string FreeSlotMark111="不占栏位";
+        /// <summary>True for the one cultivation card that takes no slot: the leftmost one held (the rules' answer).</summary>
+        private bool FreeCultivation111(ControllerInstance c)
+            =>c!=null&&ViewState?.controllers!=null&&IsCultivation111(c.definitionId)&&ControllerRules.FreeCultivationInstanceId(ViewState.controllers,Config)==c.instanceId;
+        /// <summary>" · 养成卡“拔苗助长”不占栏位" for a slot count line, or "" when no cultivation card is held (W7b).</summary>
+        private string FreeCultivationNote111(IList<ControllerInstance> cards)
+        {
+            if(cards==null)return "";
+            string id=ControllerRules.FreeCultivationInstanceId(cards,Config);
+            var free=id==null?null:cards.FirstOrDefault(c=>c.instanceId==id);
+            return free==null?"":" · 养成卡“"+NameOf(free.definitionId)+"”"+FreeSlotMark111;
+        }
         /// <summary>The cultivation lines of a held card: its tag, the free slot, the faces it rewrote and what they add to its price.</summary>
         private string CultivationText111(ControllerInstance c)
         {

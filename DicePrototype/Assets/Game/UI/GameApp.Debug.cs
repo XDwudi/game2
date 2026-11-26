@@ -387,9 +387,17 @@ namespace DiceCraft
             UiKit.Button(p,"BlueWave10","本手蓝潮："+debugDraft.blueWave,750,y,340,48,()=>{debugDraft.blueWave=!debugDraft.blueWave;if(debugDraft.blueWave)debugDraft.redWave=false;DraftChanged();});
             UiKit.Button(p,"DoubleScore10","灵光一闪："+debugDraft.doubleScore,1110,y,340,48,()=>{debugDraft.doubleScore=!debugDraft.doubleScore;DraftChanged();});y+=70;
             UiKit.Text(p,"ItemsDebug","添加局内道具 · "+debugDraft.inventory.Count+" / 32",10,y,1430,45,26,UiKit.Teal);y+=55;
-            for(int i=0;i<Config.consumables.Length;i++){var item=Config.consumables[i];UiKit.Button(p,"AddItem"+item.id,item.displayName,(i%4)*365,y+(i/4)*62,350,48,()=>{int serial=NextDebugItemSerial();debugDraft.inventory.Add(new OwnedItem{instanceId="ITEM_"+serial.ToString("D5"),contentId=item.id});debugDraft.consumableSlots=Math.Max(debugDraft.consumableSlots,debugDraft.inventory.Count);DraftChanged();},debugDraft.inventory.Count<32);}y+=((Config.consumables.Length+3)/4)*62+16;
+            for(int i=0;i<Config.consumables.Length;i++){var item=Config.consumables[i];UiKit.Button(p,"AddItem"+item.id,item.displayName,(i%4)*365,y+(i/4)*62,350,48,()=>{int serial=NextDebugItemSerial();debugDraft.inventory.Add(new OwnedItem{instanceId="ITEM_"+serial.ToString("D5"),contentId=item.id,usesRemaining=Math.Max(1,item.initialUses)});debugDraft.consumableSlots=Math.Max(debugDraft.consumableSlots,debugDraft.inventory.Count);DraftChanged();},debugDraft.inventory.Count<32);}y+=((Config.consumables.Length+3)/4)*62+16;
             UiKit.Text(p,"RemoveItemTitle","点击移除已添加道具（不产生出售收入）",10,y,1430,40,23,UiKit.Muted);y+=48;
-            for(int i=0;i<debugDraft.inventory.Count;i++){var item=debugDraft.inventory[i];UiKit.Button(p,"RemoveItem"+item.instanceId,NameOf(item.contentId)+" ×",(i%4)*365,y+(i/4)*60,350,46,()=>{debugDraft.inventory.Remove(item);DraftChanged();});}
+            // v1.1.1 (W7b, RULES_DELTA 8): an item with several uses (the key ring: 3) is added with all of them; the
+            // button beside it steps the uses left down and around (3, 2, 1, 3, ...), within what a save may hold.
+            for(int i=0;i<debugDraft.inventory.Count;i++)
+            {
+                var item=debugDraft.inventory[i];int most=Math.Max(1,Config.Consumable(item.contentId).initialUses);float x=(i%4)*365,rowY=y+(i/4)*60;
+                if(most>1&&(item.usesRemaining<1||item.usesRemaining>most))item.usesRemaining=most;
+                UiKit.Button(p,"RemoveItem"+item.instanceId,NameOf(item.contentId)+" ×",x,rowY,most>1?232:350,46,()=>{debugDraft.inventory.Remove(item);DraftChanged();});
+                if(most>1)UiKit.Button(p,"ItemUses"+item.instanceId,"剩 "+item.usesRemaining+" 次",x+238,rowY,112,46,()=>{item.usesRemaining=item.usesRemaining<=1?most:item.usesRemaining-1;DraftChanged();});
+            }
         }
         [Serializable] private sealed class DebugExport
         {

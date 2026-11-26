@@ -382,7 +382,7 @@ C19 是换机制的卡，三行夹具原样保留，名字改成它们现在表�
 
 ## W6 校准（C53、C59）
 
-依据：RULES_DELTA §4 表里 C53 错乱乘积改为稀有、价格 7（货架权重 4 → 2，不再进入价格 ≤ 4 的低价保底池；19 张去重卡里已没有价格 ≤ 4 的）；§5 表里 C59 余勇可贾每剩 1 次提交成长 +4（原 +6）。没有删测试、没有放宽阈值。
+依据：RULES_DELTA §4 表里 C53 错乱乘积改为稀有、价格 7（货架权重 4 → 2，不再进入价格 ≤ 4 的低价保底池；19 张去重卡里已没有价格 ≤ 4 的）；§5 表里 C59 余勇可贾每剩 1 次提交成长 +3（原 +6；校准中先试过 +4，第三轮实测后定为 +3）。没有删测试、没有放宽阈值。
 
 ### 货架参考向量（7 处，实际 8 条都换了）
 
@@ -409,13 +409,13 @@ C19 是换机制的卡，三行夹具原样保留，名字改成它们现在表�
 | `V111_AfterSellingTheUniqueCardARefreshCanOfferItAgain` | 卖掉 C53 后不再算持有；低价池里有 C53；按它的票刷新后首张是 C53 | 卖掉后不再算持有（不变）；第二次抽取的候选里有 C53；按它的票刷新后首张是低价卡、第二张是 C53 |
 | `V111_AnAddedSlotStillExcludesAUniqueCardThatWasSoldFromTheCurrentBatch` | 扩栏一段（全候选，不走低价池）不变；刷新一段：低价池里有 C53，按它的票刷新后首张是 C53 | 扩栏一段不变（排除批次里已售出的 C53、给出后继卡、货架上只有那一个已售 C53）；刷新一段：第二次抽取的候选里有 C53，按它的票刷新后首张是低价卡、第二张是 C53 |
 
-### C59 成长 +6 → +4
+### C59 成长 +6 → +3
 
 | 测试 | 原断言 | 新断言 |
 | --- | --- | --- |
-| `V111StageTests.V111_StageClearGrowsC58ByFifteenAndC59BySixPerUnusedSubmission` → 改名 `…C59ByFourPerUnusedSubmission` | 剩 2 次提交，C59 成长 12，下一关值 24 | 成长 8，下一关值 20（起步 12 + 8）；注释同步；C58 部分不变 |
-| `Tests/EditMode/Rules/V111ScoringTests.cs` `V111_Growth_ClassificationMatchesTheConfig` 的成长事件表（协调者改） | `{"C59", 6}` | `{"C59", 4}` |
-| `Tests/EditMode/Session/V09SessionTests.cs` `V09_StageClearGrowsC58C59PaysC95WidensInterestWithC96AndRaisesResaleWithC99`（协调者改） | 两次未用提交，C59 成长 12 | 成长 8 |
+| `V111StageTests.V111_StageClearGrowsC58ByFifteenAndC59BySixPerUnusedSubmission` → 改名 `…C59ByThreePerUnusedSubmission` | 剩 2 次提交，C59 成长 12，下一关值 24 | 成长 6，下一关值 18（起步 12 + 6）；注释同步；C58 部分不变 |
+| `Tests/EditMode/Rules/V111ScoringTests.cs` `V111_Growth_ClassificationMatchesTheConfig` 的成长事件表（协调者改） | `{"C59", 6}` | `{"C59", 3}` |
+| `Tests/EditMode/Session/V09SessionTests.cs` `V09_StageClearGrowsC58C59PaysC95WidensInterestWithC96AndRaisesResaleWithC99`（协调者改） | 两次未用提交，C59 成长 12 | 成长 6 |
 
 会话宿主（`SessionValidation.csproj`，Release）：616 条，全过。规则宿主本节没有重跑。
 
@@ -459,3 +459,11 @@ C19 是换机制的卡，三行夹具原样保留，名字改成它们现在表�
 | `Art07PostEffectsPlayModeTests.PLAY_ART07_POST_ThirdAndFourthBrokenDiceKeepOriginalOutlineAndOnlyTwelveFragments` | 投掷不碎；锁定 4 颗玻璃骰提交后回执按提交顺序记 4 条 `DieBroken`、骰子少 4 颗、计分记录有 4 行；跳过后没有轮廓和碎裂特效、状态与存档不变 | 前面这些不变，另加：计分期间 4 颗骰子还在格子里、没有碎裂特效；到结算节拍时 4 颗都离开骰桌；前两颗各有一个碎裂特效，位置、朝向、大小与提交前这颗骰子在格子里的姿态一致（位置差 < 0.001、角度差 < 0.01 度、大小差 < 0.001），特效演到一半位置不动；碎片一共 12 片；第 3、第 4 颗留下轮廓；演出中途重画界面不会把碎掉的骰子放回去；跳过后轮廓与特效清空 | 只编译 |
 
 p1.1.0 时“碎裂特效的位置与朝向”原来在 `Art07FxIntegrationPlayModeTests.PLAY_ART07_FX_RealRollAndRemoteBreakUsePlacedWorldPoolAndSkipResets` 里检查（投掷与遥控骰子各碎 1 颗）。那个测试现在检查的是“投掷与遥控骰子都不碎”，仍然成立，没有再改；位置与朝向的检查并进了上面这个提交路径的测试。`UiBoundaryPlayModeTests` 的两处（遥控骰子、存档失败重试）原来检查的是“投掷碎裂后的提示文字”，投掷不再碎裂，它们现在的断言（不碎、不抽票、没有提示）仍然成立，没有可补的演出检查。
+
+## W7a 留下的小项：演出里“加成”一行的先后
+
+| 测试 | 内容 | 运行 |
+| --- | --- | --- |
+| `PresentationTests.FX06_BonusLineIsShownBeforeTheCardMultipliers`（新增） | G147 那一桌（卡牌顺序：乘法、加成、乘法、加成）：卡牌节拍的顺序是两张加成卡、加成一行、两张乘法卡；加成一行所在的节拍里它排在最后；任何乘法卡的节拍都在加成一行之后；每个事件恰好在一个节拍里；单独聚焦的卡仍是 4 张；总时长不超过 3200 毫秒。只有乘法卡的一手：加成一行在“牌型”那一拍，卡牌节拍的顺序和个数不变 | .NET 表演宿主跑过 |
+
+原有的 `PresentationTests`（随机倍率的揭示排在最前、32 张卡仍只有 4 个单独聚焦、总时长上限、160 条黄金回执）没有改，全部通过。

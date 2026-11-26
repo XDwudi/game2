@@ -65,6 +65,35 @@ namespace DiceCraft.Presentation.Tests
             Assert.That(line.Phase, Is.EqualTo(PresentationPhase.ControllerAndEnchant)); Assert.That(line.EmitterId, Is.Null); Assert.That(line.CountsForChain, Is.False);
             Assert.That(r.Events.Single(e => e.EffectFamily == "color").Operand, Is.EqualTo("9/4"));
         }
+        [Test] public void FX06_BonusLineIsShownBeforeTheCardMultipliers()
+        {
+            // p1.1.1 (W7b, RULES_DELTA 2 and 13): the beats follow the formula - base x hand x red x (1 + A) x cards. The
+            // G147 table holds two multiplying cards (C02, C31) and two bonus cards (C30, C32) in the order C02, C30,
+            // C31, C32. Before W7b each card had its beat in that order and the line "x (1 + A)" came last.
+            var snap = Snap(new[] { 6, 6, 6, 6, 6 }, Card("C02", 1), Card("C30", 2), Card("C31", 3), Card("C32", 4));
+            snap.handLevels = new[] { new HandLevel { handId = "five_kind", level = 4 } }; snap.colorLevels = new[] { new HandLevel { handId = "all_blue", level = 4 } }; snap.rollsRemaining = 2;
+            var r = Build(snap); var sequence = PresentationSequence.Create(r);
+            var beats = sequence.Beats.Where(b => b.Phase == PresentationPhase.ControllerAndEnchant).ToArray();
+            Assert.That(beats.Select(b => b.FocusEmitterId ?? "-"), Is.EqualTo(new[] { "c2", "c4", "-", "c1", "c3" }), "Bonus cards, the bonus line, then the multiplying cards.");
+            var lineBeat = beats.Single(b => b.Events.Any(e => e.EffectFamily == "additive"));
+            Assert.That(lineBeat.Events.Last().EffectFamily, Is.EqualTo("additive"), "The line multiplies after every bonus of its beat.");
+            Assert.That(lineBeat.IsAggregate, Is.True);
+            foreach (var beat in beats.Where(b => b.Events.Any(e => e.EffectFamily == "controller")))
+                Assert.That(beat.StartMs, Is.GreaterThan(lineBeat.StartMs), "A card multiplier is never shown before the bonus line.");
+            foreach (var beat in beats.Where(b => b.Events.Any(e => PresentationSequence.IsBonusEvent(e) && e.EffectFamily != "additive")))
+                Assert.That(beat.StartMs, Is.LessThanOrEqualTo(lineBeat.StartMs), "Every bonus is shown before or with the line.");
+            Assert.That(sequence.Beats.SelectMany(b => b.Events).Select(e => e.EventId), Is.EquivalentTo(r.Events.Select(e => e.EventId)), "Every event is in exactly one beat.");
+            Assert.That(sequence.Beats.Count(b => b.FocusEmitterId != null), Is.EqualTo(4)); Assert.That(sequence.TotalDurationMs, Is.LessThanOrEqualTo(3200));
+            // A hand whose cards only multiply has no bonus of a card: the adapter gives the line to the hand's own phase,
+            // which already comes first, and the card beats keep their order and number.
+            var plain = Build(Snap(new[] { 6, 6, 6, 6, 6 }, Card("C02", 1), Card("C31", 2)));
+            var plainSequence = PresentationSequence.Create(plain);
+            var plainBeats = plainSequence.Beats.Where(b => b.Phase == PresentationPhase.ControllerAndEnchant).ToArray();
+            Assert.That(plainBeats.Select(b => b.FocusEmitterId ?? "-"), Is.EqualTo(new[] { "c1", "c2" }));
+            var plainLine = plainSequence.Beats.Single(b => b.Events.Any(e => e.EffectFamily == "additive"));
+            Assert.That(plainLine.Phase, Is.EqualTo(PresentationPhase.BaseAndStructure));
+            foreach (var beat in plainBeats) Assert.That(beat.StartMs, Is.GreaterThan(plainLine.StartMs));
+        }
         [Test] public void FX03_MultiDieAndOwnEnchantOnlyOneEmitter()
         { var r = Build(Snap(new[] { 1, 1, 1 }, Card("C10", 1, "mult2"))); Assert.That(r.ChainCount, Is.EqualTo(1)); Assert.That(r.Events.Count(e => e.EmitterId == "c1" && e.IsScoring), Is.EqualTo(4)); }
         [Test] public void FX03_PostOnlyAndIdentityFactorsDoNotCount()

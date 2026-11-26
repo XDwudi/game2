@@ -143,6 +143,9 @@ namespace DiceCraft
             if(growth!=null)return growth;
             if(item.definitionId=="C52")return "售价 "+OwnedSalePrice10(item);
             if(source?.abilityId=="C05")return ViewState.hand?.c05UsedEmitterIds.Contains(item.instanceId)==true?"本手已用":"本手可用";
+            // v1.1.1 (W7b, RULES_DELTA 6): the leftmost cultivation card takes no slot; a card with no value of its own
+            // says so on its face (the value badge), like the slot count line of the shop.
+            if(FreeCultivation111(item))return FreeSlotMark111;
             return "点击查看条件";
         }
         // V1.1 (W11): the play screen is GameApp.Play11.cs (docs/specs/v11/PLAY_LAYOUT.md). The v0.73 layout below is kept

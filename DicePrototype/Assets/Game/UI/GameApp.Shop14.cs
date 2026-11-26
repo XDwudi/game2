@@ -545,6 +545,8 @@ namespace DiceCraft
             string capacity=IsPracticeRun11?"练习模式 · 持有 "+cards.Count+" 张 · 占用栏位 "+ControllerRules.OrdinaryUsed(cards,Config):
                 ViewState.debugWorkspace&&!CleanCapture11?"调试配置 · 持有 "+cards.Count+" · 占用栏位 "+ControllerRules.OrdinaryUsed(cards,Config):
                 "卡牌栏位 "+ControllerRules.OrdinaryUsed(cards,Config)+"/"+ViewState.controllerSlots+" · 共 "+cards.Count+"/"+Config.maxControllerInstances+" 张";
+            // v1.1.1 (W7b, RULES_DELTA 6): the count line says when the leftmost cultivation card is the one not counted.
+            capacity+=FreeCultivationNote111(cards);
             float captionSize=Body11(18),captionY=4+(l.captionH-Line11(captionSize))*.5f,itemsX=l.build.width-ShopPad14-(5*BuildItemSize14+4*6);
             var head=FitLine13(panel,"BuildTitle14","我的构筑",ShopPad14,captionY,140,captionSize,LabelOn11(panel,UiKit.TextColor),TextAlignmentOptions.MidlineLeft,true);
             head.ForceMeshUpdate();float x=ShopPad14+head.textBounds.size.x+16;

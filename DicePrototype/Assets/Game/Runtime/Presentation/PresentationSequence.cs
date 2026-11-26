@@ -26,6 +26,12 @@ namespace DiceCraft.Presentation
         public int QualifiedNonblockingTailMs => Receipt.QualifiedAfter && !Receipt.QualifiedBefore && Options.Speed == PresentationSpeed.Normal ? 200 : 0;
         private PresentationSequence(PresentationReceipt receipt, PresentationOptions options, List<PresentationBeat> beats, int duration)
         { Receipt = receipt; Options = options; Beats = new ReadOnlyCollection<PresentationBeat>(beats); TotalDurationMs = duration; }
+        /// <summary>
+        /// p1.1.1: the events of the bonus line of a score - each bonus that is added to A (the colour, a gold face, a
+        /// card's bonus, the score enchantment) and the line that multiplies by 1 + A.
+        /// </summary>
+        public static bool IsBonusEvent(PresentationEvent e)
+            => e != null && (e.EffectFamily == "color" || e.EffectFamily == "gold" || e.EffectFamily == "controller_additive" || e.EffectFamily == "enchantment_additive" || e.EffectFamily == "additive");
         public static PresentationSequence Create(PresentationReceipt receipt, PresentationOptions options = null)
         {
             if (receipt == null) throw new ArgumentNullException(nameof(receipt)); options = options ?? new PresentationOptions();
@@ -44,10 +50,20 @@ namespace DiceCraft.Presentation
             // Reveal a shared owner once before any copied/original multiplier is presented.
             add(PresentationPhase.ControllerAndEnchant, 140, allControllerEvents.Where(e => e.EffectFamily == "random_reveal"), null, true);
             var controllerEvents = allControllerEvents.Where(e => e.EffectFamily != "random_reveal").ToArray();
-            var sourceIds = controllerEvents.Select(e => e.EmitterId ?? e.StateOwnerId).Where(x => !string.IsNullOrEmpty(x)).Distinct(StringComparer.Ordinal).ToArray();
-            foreach (string id in sourceIds.Take(4)) add(PresentationPhase.ControllerAndEnchant, 140, controllerEvents.Where(e => (e.EmitterId ?? e.StateOwnerId) == id), id, false);
-            var rest = controllerEvents.Where(e => !sourceIds.Take(4).Contains(e.EmitterId ?? e.StateOwnerId)).ToArray();
-            add(PresentationPhase.ControllerAndEnchant, 140, rest, null, true);
+            // p1.1.1 (task W7b, RULES_DELTA 2 and 13): the beats follow the formula. The bonus line (1 + A) is applied
+            // before the card multipliers, so everything that adds to it is shown first - cards that give a bonus one
+            // by one, then one beat with the bonuses that have no card of their own (colour, gold faces), those of cards
+            // beyond the four foci, and the line itself - and only then the cards that multiply. Still four individual
+            // foci at most; a hand without any bonus event plays exactly as before.
+            Func<PresentationEvent, string> emitter = e => e.EmitterId ?? e.StateOwnerId;
+            var bonus = controllerEvents.Where(IsBonusEvent).ToArray();
+            var factors = controllerEvents.Where(e => !IsBonusEvent(e)).ToArray();
+            var bonusFoci = bonus.Select(emitter).Where(x => !string.IsNullOrEmpty(x)).Distinct(StringComparer.Ordinal).Take(4).ToArray();
+            var factorFoci = factors.Select(emitter).Where(x => !string.IsNullOrEmpty(x)).Distinct(StringComparer.Ordinal).Take(4 - bonusFoci.Length).ToArray();
+            foreach (string id in bonusFoci) add(PresentationPhase.ControllerAndEnchant, 140, bonus.Where(e => emitter(e) == id), id, false);
+            add(PresentationPhase.ControllerAndEnchant, 140, bonus.Where(e => !bonusFoci.Contains(emitter(e))), null, true);
+            foreach (string id in factorFoci) add(PresentationPhase.ControllerAndEnchant, 140, factors.Where(e => emitter(e) == id), id, false);
+            add(PresentationPhase.ControllerAndEnchant, 140, factors.Where(e => !factorFoci.Contains(emitter(e))), null, true);
             add(PresentationPhase.FinalScore, ScorePresentationTier.NormalDurationMs(receipt.ComboTier), phaseEvents(PresentationPhase.FinalScore), null, false);
             add(PresentationPhase.PostScore, 480, phaseEvents(PresentationPhase.PostScore), null, true);
             add(PresentationPhase.TargetState, 280, phaseEvents(PresentationPhase.TargetState), null, false);

@@ -11,6 +11,10 @@ namespace DiceCraft
     {
         // Primary S07 surface; all calculations come from the supplied frozen
         // snapshot/breakdown. The wide original reader is an explicit second view.
+        /// <summary>The bonus line of the score drawer shows up to this many entries unfolded; more start folded.</summary>
+        public const int BonusEntriesShown111=4;
+        // The hand whose bonus entries the player opened (view state only; another hand starts folded again).
+        private string bonusExpandedHand111;
         private void ShowBreakdown(SubmissionSnapshot snapshot,ScoreBreakdown b)
         {
             if(snapshot==null||b==null)return;
@@ -67,6 +71,21 @@ namespace DiceCraft
                 // v1.1.1 (RULES_DELTA 13): the bonus line is opened into its entries - every source and its amount, with
                 // the running total A on the right; the line itself stays "×1" when there is no bonus.
                 if(step.kind!="additive"||step.entries==null)continue;
+                // v1.1.1 (W7b): with more than BonusEntriesShown111 entries the line starts folded; a button under it opens
+                // and folds them for this hand. The line itself (the total and "×(1 + A)") is always there, and 逐步明细
+                // always lists every entry.
+                bool many=step.entries.Length>BonusEntriesShown111,open=!many||bonusExpandedHand111==snapshot.handId;
+                if(many)
+                {
+                    string label=(open?"收起加成的 ":"展开加成的 ")+step.entries.Length+" 项";
+                    UiKit.Button(list,"BonusToggle111",label,8+24,cursor,Mathf.Min(contentWidth-24,420),56,()=>
+                    {
+                        bonusExpandedHand111=open?null:snapshot.handId;
+                        ShowBreakdown(snapshot,b);
+                    });
+                    cursor+=56+8;
+                }
+                if(!open)continue;
                 long running=0;
                 for(int j=0;j<step.entries.Length;j++)
                 {
