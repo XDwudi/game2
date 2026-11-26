@@ -360,6 +360,11 @@ namespace DiceCraft
             string study=studyLeft<=0?"本店指定升级已用完":ViewState.shop.selfStudyUsed==0?"指定升级 · 加价 "+Config.shop.selfStudyPremium:"指定升级 · 还剩 "+studyLeft+" 次";
             float sw=ShopLabelWidth14(study,20)+32;
             ShopButton14(panel,"Study",study,right-sw,4,sw,60,ShowStudy,studyLeft>0&&!IsBusy&&!Session.IsLootPending);right-=sw+12;
+            // v1.1.1 (W7b, RULES_DELTA 9.2): the self-selected die upgrade stands beside 指定升级 in the same style; what is
+            // left of the shop's allowance is the session's answer.
+            int customLeft=Session.CustomDieUpgradesRemainingIn(ViewState);
+            string custom=CustomUpgradeEntryText111(customLeft);float cw=ShopLabelWidth14(custom,20)+32;
+            ShopButton14(panel,"CustomUpgrade111",custom,right-cw,4,cw,60,ShowCustomUpgrades111,customLeft>0&&!IsBusy&&!Session.IsLootPending);right-=cw+12;
             // The empty kinds are named in the header (SHOP_LAYOUT 9).
             var empties=new List<string>();
             if(!offers.Any(o=>o.category=="hand_upgrade"||o.category=="color_upgrade"))empties.Add("本店没有可升级的牌型");
