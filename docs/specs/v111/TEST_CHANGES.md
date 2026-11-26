@@ -435,3 +435,17 @@ C19 是换机制的卡，三行夹具原样保留，名字改成它们现在表�
 | --- | --- | --- | --- |
 | `Art07ResultRowsPlayModeTests.PLAY_ART07_RESULTROWS_RealVictoryShowsSixOrderedRowsAfterSealWithoutChangingSave` → 改名 `…ShowsSevenOrderedRows…` | 整局结果页六行（总得分、最大单手、最高倍率、用时、构筑、种子）在 360 毫秒盖章之后依次出现，每行 0.14 秒 | 七行：在“本局最高单手”后面多一格“最高过关倍数”（`EndClearRatio111`）；七行平分剩下的 0.84 秒，每行 0.12 秒；新增三条断言：第二格的标题是“本局最高单手”、数值等于会话的 `highestHandScore`、第三格等于会话的最高过关倍数。其余检查（盖章前不出现、逐行出现的先后、文字都在纸面内、各行互不重叠、存档与状态不变、减少动效的一段）不变 | §13 第四行 |
 | `V21TitleFontPlayModeTests.ForegroundRole21`（期望表，不是断言） | 结果页用数字字体的格子：总得分、最大单手、最高倍率、有数字时的用时 | 加上有数字时的“最高过关倍数”（还没过关时显示破折号，不用数字字体） | §13 第四行 |
+
+## 得分演出分档（§13 第五行）：改写
+
+`HighScore073.Tier` 的三档从“目标的一半、目标、两倍目标”改成“目标 T、3T、10T”，T 取本手冻结的有效目标（回执的 `HandTarget` = 提交快照的 `stageTarget`）。
+
+| 测试 | 原期望 | 新期望 | 运行 |
+| --- | --- | --- | --- |
+| `HighScore073Tests.HighScore_TierFollowsScoreShareOfTargetOnly`（原 14 行） | 目标 180：89 无档、90 与 179 一档、180 与 359 二档、360 三档；967680 对 1800000 一档 | 同样这些输入：179 及以下无档、180 到 539 一档、540 到 1799 二档、1800 起三档；967680 对 1800000 无档。新增 11 行：上面的边界值、§13 的例子（目标 500：499 无档，500、1500、5000 为一、二、三档）、目标为 0 不庆祝。总倍率档位不影响分档的四行期望不变 | .NET 表演宿主跑过 |
+| `HighScore073Tests.HighScore_TierIsExactForScoresBeyondSixtyFourBits` | 39 位的目标：一半以下无档、一半一档、两倍三档 | 同一个目标：差 1 无档、等于目标一档、差 1 到三倍仍一档、三倍二档、差 1 到十倍仍二档、十倍三档 | .NET 表演宿主跑过 |
+| `HighScore073Tests.HighScore_TierReadsTheTargetFrozenWithTheHand`（新增） | — | 同一手、同一个提交后的关卡目标，只改快照里冻结的目标：无档、一、二、三档各一次；快照没有冻结目标时回执退回关卡目标 | .NET 表演宿主跑过 |
+| 夹具 `Burst09`（`Runtime/Verification/Art07Fixtures.cs`） | 510300 对目标 250000（超过两倍，最高档） | 510300 对目标 50000（超过十倍，最高档）；夹具自检多查两条：回执的 `HandTarget` 是 50000、分档是最高档。牌面、卡牌、等级都没有动 | 夹具预检跑过，11 个场景全过 |
+| `Art073PlayModeTests.PLAY_ART073_HighScoreBurstStartsOnFinalScoreCountsUpAndLeavesWithoutBlocking` | 档位文字“两倍目标！” | “十倍目标！”；其余（最高档、皇冠、火花、三处光圈、计数、淡出、不挡输入）不变 | 只编译 |
+
+`Art073PlayModeTests` 另两个用 `Burst09` 的测试（快速、减少动效、即时、跳过、重播）期望的仍是最高档，没有改断言。`V11PlayScreenAxPlayModeTests` 那一手是“四个蓝 4 对目标 900 并且过关”，只要求有档，没有改。

@@ -261,9 +261,10 @@ namespace DiceCraft
         private string TierWord11()
         {
             if(receipt07==null)return "";
-            int tier=HighScore073.Tier(receipt07.ScoreDecimal,receipt07.StageTarget,receipt07.ComboTier);
-            // DEV_PLAN 4.1 item 5: the three banner tiers are named by what they mean.
-            return tier==HighScore073.Burst?"两倍目标！":tier==HighScore073.Super?"一手达标！":tier==HighScore073.High?"过半！":"";
+            int tier=HighScore073.Tier(receipt07.ScoreDecimal,receipt07.HandTarget,receipt07.ComboTier);
+            // DEV_PLAN 4.1 item 5: the three banner tiers are named by what they mean. p1.1.1 (W7b, RULES_DELTA 13 row 5):
+            // one, three and ten times the hand's frozen target; a hand below the target has no tier word.
+            return tier==HighScore073.Burst?"十倍目标！":tier==HighScore073.Super?"三倍目标！":tier==HighScore073.High?"一手达标！":"";
         }
         private string CountedScore11()
         {
@@ -299,7 +300,7 @@ namespace DiceCraft
                 var group=UiKit.Component<CanvasGroup>(score11Layer.gameObject);group.blocksRaycasts=false;group.interactable=false;
                 // The tier words use glyphs outside the static atlas; this always-active, invisible text keeps their fallback
                 // material alive across the replays (the 200-replay stability rule).
-                var keeper=UiKit.Text(canvas.transform,"Score11Glyphs","过半！一手达标两倍目标计分中…",0,0,8,8,20,Color.clear);
+                var keeper=UiKit.Text(canvas.transform,"Score11Glyphs","一手达标！三倍十倍目标计分中…",0,0,8,8,20,Color.clear);
                 keeper.textWrappingMode=TextWrappingModes.NoWrap;keeper.transform.SetSiblingIndex(0);
             }
             score11Layer.anchoredPosition=main.anchoredPosition;

@@ -14,24 +14,24 @@ namespace DiceCraft.Presentation
         public const int None = 0, High = 1, Super = 2, Burst = 3;
         public const float PopSeconds = .12f, MaxCountSeconds = .42f, MinVisibleSeconds = .45f, FadeSeconds = .16f, ReducedFadeSeconds = .12f;
 
+        /// <summary>The hand's score in whole targets at which the second and the third tier start (RULES_DELTA 13 row 5).</summary>
+        public const int SuperTargets = 3, BurstTargets = 10;
+
         /// <summary>
-        /// 1: hand score reaches half of the stage target. 2: reaches the target. 3: twice the target.
+        /// p1.1.1 (RULES_DELTA 13 row 5, task W7b): the hand's final whole score against T, the effective target frozen
+        /// with the hand (pressure and boss changes included). Below T: none of the three tiers. 1: [T, 3T).
+        /// 2: [3T, 10T). 3: [10T, +inf). With T = 500: 499 none, 500 first, 1500 second, 5000 third.
+        /// (p0.9.0 to p1.1.0: half the target, the target, twice the target.)
         /// p0.9.0 (docs/specs/v09/RULES_SPEC.md section 0): the total-multiplier tier no longer raises the celebration,
         /// so growing multipliers cannot make every hand a top-tier one. comboTier is still validated for callers.
         /// </summary>
-        public static int Tier(string handScore, string stageTarget, int comboTier)
+        public static int Tier(string handScore, string handTarget, int comboTier)
         {
             if (comboTier < 0 || comboTier > 5) throw new ArgumentOutOfRangeException(nameof(comboTier));
-            BigInteger score = ExactScoreMath.Parse(handScore), target = ExactScoreMath.Parse(stageTarget);
-            if (score.Sign <= 0) return None;
-            int tier = None;
-            if (target.Sign > 0)
-            {
-                if (score * 2 >= target) tier = High;
-                if (score >= target) tier = Super;
-                if (score >= target * 2) tier = Burst;
-            }
-            return tier;
+            BigInteger score = ExactScoreMath.Parse(handScore), target = ExactScoreMath.Parse(handTarget);
+            if (score.Sign <= 0 || target.Sign <= 0 || score < target) return None;
+            if (score >= target * BurstTargets) return Burst;
+            return score >= target * SuperTargets ? Super : High;
         }
 
         /// <summary>The number shown while counting up: floor(score * progress), exact for any size.</summary>

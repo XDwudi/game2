@@ -8,8 +8,9 @@ namespace DiceCraft.Verification
 {
     // Burst08: the G147 table with the five-of-a-kind level raised to 20, so the top presentation tier (total multiplier
     // >= x8192) still has a reproducible scene after p0.8.0 compressed the controller multipliers. G147 itself stays the golden example.
-    // Burst09: the Burst08 hand against a 250,000 target. p0.9.0 celebrates by share of the stage target only, so the top
-    // high-score tier needs a hand worth at least twice the target (which also qualifies the stage).
+    // Burst09: the Burst08 hand against a 50,000 target. p0.9.0 celebrates by share of the stage target only; since p1.1.1
+    // (RULES_DELTA 13 row 5) the top high-score tier needs a hand worth at least ten times its frozen target (it was twice
+    // the target, and the scene's target 250,000). The hand also qualifies the stage.
     public enum Art07FixtureKind { G147, GoldenSample, MaximumTable, MaximumPool, Debug32, ZeroMultiplier, SharedHalf, PermanentPost, Qualified, Burst08, Burst09 }
 
     public sealed class Art07FixtureReport
@@ -42,7 +43,7 @@ namespace DiceCraft.Verification
             switch (kind)
             {
                 case Art07FixtureKind.G147: case Art07FixtureKind.Burst08: definitions = new[] { "C02", "C30", "C31", "C32" }; break;
-                case Art07FixtureKind.Burst09: definitions = new[] { "C02", "C30", "C31", "C32" }; scene.target = "250000"; break;
+                case Art07FixtureKind.Burst09: definitions = new[] { "C02", "C30", "C31", "C32" }; scene.target = "50000"; break;
                 case Art07FixtureKind.GoldenSample: definitions = new[] { "C02", "C41", "C45", "C52" }; break;
                 case Art07FixtureKind.MaximumTable: case Art07FixtureKind.MaximumPool: definitions = new[] { "C02", "C41", "C45", "C52", "C30", "C31", "C32", "C39", "C48", "C50" }; break;
                 case Art07FixtureKind.Debug32: definitions = Enumerable.Repeat("C46", 32).ToArray(); break;
@@ -133,8 +134,10 @@ namespace DiceCraft.Verification
                 throw new InvalidOperationException("G147 final presentation does not match the frozen example.");
             if (expectedKind == Art07FixtureKind.Burst08 && (receipt.ScoreDecimal != "510300" || receipt.MultiplierNumeratorDecimal != "14175" || receipt.MultiplierDenominatorDecimal != "1" || receipt.ChainCount != 4 || receipt.ComboTier != 5 || receipt.QualifiedAfter))
                 throw new InvalidOperationException("Burst08 final presentation is not the top tier it was built to be.");
-            if (expectedKind == Art07FixtureKind.Burst09 && (receipt.ScoreDecimal != "510300" || receipt.MultiplierNumeratorDecimal != "14175" || receipt.ComboTier != 5 || !receipt.QualifiedAfter))
-                throw new InvalidOperationException("Burst09 must score 510,300 against its 250,000 target.");
+            if (expectedKind == Art07FixtureKind.Burst09 && (receipt.ScoreDecimal != "510300" || receipt.MultiplierNumeratorDecimal != "14175" || receipt.ComboTier != 5 || !receipt.QualifiedAfter
+                // p1.1.1 (W7b): the scene exists for the top celebration tier, read against the target frozen with the hand.
+                || receipt.HandTarget != "50000" || HighScore073.Tier(receipt.ScoreDecimal, receipt.HandTarget, receipt.ComboTier) != HighScore073.Burst))
+                throw new InvalidOperationException("Burst09 must score 510,300 against its 50,000 target.");
             // p1.1.1 (W7a): no card zeroes a hand any more. The scene keeps its name and its cards; 千年老二 without a five
             // now halves it: (10 + 2 unused rolls x 3) x five-of-a-kind 12 x bonus line 1.25 x 1/2 = 120, still tier 0.
             if (expectedKind == Art07FixtureKind.ZeroMultiplier && (receipt.ScoreDecimal != "120" || !receipt.Events.Any(e => e.EffectFamily == "controller" && e.AbilityId == "C49" && e.Operand == "1/2") || receipt.ComboTier != 0 || !receipt.Events.Any(e => e.EffectFamily == "SubmissionIncome") || !receipt.Events.Any(e => e.EffectFamily == "HandGrown")))
@@ -158,7 +161,7 @@ namespace DiceCraft.Verification
             if (kind == Art07FixtureKind.G147 || kind == Art07FixtureKind.Burst08 || kind == Art07FixtureKind.Burst09)
             {
                 string expected = kind == Art07FixtureKind.G147 ? "79380" : "510300";
-                if (preview?.minimum?.score != expected || preview.maximum.score != expected || preview.isRandom || state.stage.target != (kind == Art07FixtureKind.Burst09 ? "250000" : "1800000") || state.stage.score != "0" || state.stage.qualified || state.hand.rollsRemaining != 2 || state.hand.orderedLockedIds.Count != 5)
+                if (preview?.minimum?.score != expected || preview.maximum.score != expected || preview.isRandom || state.stage.target != (kind == Art07FixtureKind.Burst09 ? "50000" : "1800000") || state.stage.score != "0" || state.stage.qualified || state.hand.rollsRemaining != 2 || state.hand.orderedLockedIds.Count != 5)
                     throw new InvalidOperationException(kind + " fixture differs from the authoritative example.");
             }
             if ((kind == Art07FixtureKind.MaximumTable || kind == Art07FixtureKind.MaximumPool) && (state.dice.Count != 10 || state.controllers.Count != 10 || state.stage.capacity != 8 || state.inventory.Count != 5)) throw new InvalidOperationException("Maximum ordinary-sized fixture is incomplete.");

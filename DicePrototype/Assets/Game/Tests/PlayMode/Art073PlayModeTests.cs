@@ -274,7 +274,7 @@ namespace DiceCraft.Tests
             Art07Fixtures.Submit(app,Art07FixtureKind.Burst09);string state=GameSession.StateHash(app.Session.State);byte[] save=File.ReadAllBytes(app.SaveLocation);
             Assert.That(app.HighScoreTierShown073,Is.Zero,"Nothing before the committed final-score beat.");
             yield return WaitFxPhase07(PresentationPhase.FinalScore);
-            Assert.That(app.HighScoreTierShown073,Is.EqualTo(HighScore073.Burst),"510,300 (p1.1.1; 596,160 before) is more than twice the 250,000 target: the top tier (p0.9.0 celebrates by share of the target only).");
+            Assert.That(app.HighScoreTierShown073,Is.EqualTo(HighScore073.Burst),"510,300 is more than ten times the scene's 50,000 target: the top tier (p1.1.1 W7b: tiers at 1, 3 and 10 targets; the scene's target was 250,000 while the top tier started at twice the target).");
             // V1.1 (W11, PLAY_LAYOUT 3, AX-01): no plate over the dice. The tier lights the top bar (two rings from "一手达标"
             // up) and the rims of both trays, a crown sits on the gain chip and sparks rise from it.
             Assert.That(HasActive("Crown"),Is.True);Assert.That(HasActive("Spark0"),Is.True);
@@ -285,7 +285,7 @@ namespace DiceCraft.Tests
             // The formula row explains the score in place of the plate's chain line: lit chips joined by at least two "x",
             // the tier named beside the total, one badge on each card that took part (the plate's gold ticks).
             Assert.That(app.canvas.GetComponentsInChildren<TextMeshProUGUI>(false).Count(t=>t.name.StartsWith("FormulaSep11_",StringComparison.Ordinal)&&t.text=="×"),Is.GreaterThanOrEqualTo(2));
-            Assert.That(FindActive<TextMeshProUGUI>("TierWord11").text,Is.EqualTo("两倍目标！"));
+            Assert.That(FindActive<TextMeshProUGUI>("TierWord11").text,Is.EqualTo("十倍目标！"));
             Assert.That(app.ScoreCardBadges11,Is.EqualTo(4),"One badge per scoring card.");
             // The number counts up to the committed score and never passes it.
             System.Numerics.BigInteger last=-1,final=System.Numerics.BigInteger.Parse("510300");bool counted=false;
@@ -347,7 +347,7 @@ namespace DiceCraft.Tests
                 Assert.That(app.HighScoreTierShown073,Is.Zero,mode);Assert.That(app.IsBusy,Is.False);
                 Assert.That(GameSession.StateHash(app.Session.State),Is.EqualTo(state),mode);
             }
-            // A hand far below half the target never celebrates (p1.1.1: this scene scores 120 of 1,800,000; it scored 0 in p1.1.0); a replay of a high hand celebrates again.
+            // A hand below the target never celebrates (p1.1.1: this scene scores 120 of 1,800,000; it scored 0 in p1.1.0); a replay of a high hand celebrates again.
             Art07Fixtures.Apply(app,Art07FixtureKind.ZeroMultiplier);FinalOptions07("Normal",false);Art07Fixtures.Submit(app,Art07FixtureKind.ZeroMultiplier);
             {double limit=Time.realtimeSinceStartupAsDouble+6;while(app.PresentationPlaying07&&Time.realtimeSinceStartupAsDouble<limit){Assert.That(app.HighScoreTierShown073,Is.Zero);yield return null;}}
             Art07Fixtures.Apply(app,Art07FixtureKind.Burst09);Art07Fixtures.Submit(app,Art07FixtureKind.Burst09);app.SkipVisual();yield return null;

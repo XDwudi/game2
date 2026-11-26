@@ -10,7 +10,8 @@ namespace DiceCraft
 {
     // High-score celebration. v0.73 showed a plate over the dice pool; V1.1 (task W11, PLAY_LAYOUT section 3, AX-01) lights
     // the top bar and the rims of the dice tray and the submission tray instead, names the tier beside the total in the
-    // formula row ("过半！/一手达标！/两倍目标！", DEV_PLAN 4.1 item 5) and lets sparks rise from the gain in the top bar.
+    // formula row ("一手达标！/三倍目标！/十倍目标！" since p1.1.1; "过半！/一手达标！/两倍目标！" before) and lets sparks rise
+    // from the gain in the top bar.
     // Still a separate, non-blocking layer that starts on the committed FinalScore beat, never extends the presentation and
     // never takes input. Nothing in it is drawn over the dice.
     public sealed partial class GameApp
@@ -34,7 +35,8 @@ namespace DiceCraft
         private void BeginHighScore073()
         {
             if(receipt07==null||!receipt07.IsSubmission||main==null)return;
-            int tier=HighScore073.Tier(receipt07.ScoreDecimal,receipt07.StageTarget,receipt07.ComboTier);
+            // p1.1.1 (W7b, RULES_DELTA 13 row 5): the hand against the target frozen with it; tiers at 1, 3 and 10 targets.
+            int tier=HighScore073.Tier(receipt07.ScoreDecimal,receipt07.HandTarget,receipt07.ComboTier);
             if(tier==HighScore073.None){HideHighScore073();return;}
             var options=presentationPlayer07.Sequence.Options;
             bool quiet=options.ReducedMotion||reduced;

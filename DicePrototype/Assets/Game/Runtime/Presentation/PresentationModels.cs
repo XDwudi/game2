@@ -70,6 +70,12 @@ namespace DiceCraft.Presentation
         public string StageScoreBefore { get; }
         public string StageScoreAfter { get; }
         public string StageTarget { get; }
+        /// <summary>
+        /// p1.1.1 (RULES_DELTA 13 row 5): the effective target frozen with the submitted hand (the snapshot's
+        /// stageTarget), which the score tiers compare the hand with. A receipt without one (not a submission, or an
+        /// older synthetic snapshot) falls back to the stage target after the command.
+        /// </summary>
+        public string HandTarget { get; }
         public bool QualifiedBefore { get; }
         public bool QualifiedAfter { get; }
         public int ComboTier { get; }
@@ -81,9 +87,10 @@ namespace DiceCraft.Presentation
         public string FallbackReason { get; }
         internal PresentationReceipt(string receiptId, string runId, string handId, string score, ExactFraction multiplier,
             string stageBefore, string stageAfter, string target, bool qualifiedBefore, bool qualifiedAfter,
-            IEnumerable<PresentationEvent> events, bool isSubmission, string finalPhase, string fallbackReason = null)
+            IEnumerable<PresentationEvent> events, bool isSubmission, string finalPhase, string fallbackReason = null, string handTarget = null)
         {
             GameReceiptId = receiptId; RunId = runId; HandId = handId; ScoreDecimal = score;
+            HandTarget = string.IsNullOrEmpty(handTarget) ? target : handTarget;
             MultiplierNumeratorDecimal = ExactScoreMath.SaveDecimal(multiplier.Numerator);
             MultiplierDenominatorDecimal = ExactScoreMath.SaveDecimal(multiplier.Denominator);
             StageScoreBefore = stageBefore; StageScoreAfter = stageAfter; StageTarget = target;

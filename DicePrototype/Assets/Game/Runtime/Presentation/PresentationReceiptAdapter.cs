@@ -36,7 +36,7 @@ namespace DiceCraft.Presentation
             var events = new[] { new PresentationEvent(receipt.commandId + "/final", 0, PresentationPhase.FinalScore, "final_score", after: score, detail: reason) };
             return new PresentationReceipt(receipt.commandId, after.runId, receipt.submission?.snapshot?.handId ?? before?.hand?.handId,
                 score, new ExactFraction(1, 1), before?.stage?.score ?? "0", after.stage?.score ?? "0", after.stage?.target ?? "0",
-                before?.stage?.qualified ?? false, after.stage?.qualified ?? false, events, receipt.submission != null, after.phase, reason);
+                before?.stage?.qualified ?? false, after.stage?.qualified ?? false, events, receipt.submission != null, after.phase, reason, receipt.submission?.snapshot?.stageTarget);
         }
 
         private sealed class Builder
@@ -88,7 +88,7 @@ namespace DiceCraft.Presentation
                     Add(PresentationPhase.TargetState, "run_result", beforeValue: before?.phase, afterValue: after.phase, audio: "SFX_RUN_END");
                 return new PresentationReceipt(receipt.commandId, after.runId, snap?.handId ?? before?.hand?.handId,
                     score?.score ?? receipt.score ?? "0", multiplier, before?.stage?.score ?? "0", after.stage?.score ?? "0", after.stage?.target ?? "0",
-                    before?.stage?.qualified ?? false, after.stage?.qualified ?? false, events, snap != null, after.phase);
+                    before?.stage?.qualified ?? false, after.stage?.qualified ?? false, events, snap != null, after.phase, handTarget: snap?.stageTarget);
             }
 
             private void BuildScoring()
