@@ -151,7 +151,12 @@ namespace DiceCraft
             {
                 reason=view.sourceId=="C154"?"撤回"+die+"：用"+NameOf("C154")+"，本手免费 1 次。骰子回到骰池，可以重掷或再锁定。"
                     :"撤回"+die+"：用掉"+NameOf("I13")+" 1 次（现在剩 "+view.keyRingUses+" 次），不能反悔。骰子回到骰池，可以重掷或再锁定。";
-                PrimaryButton11("UnlockDie111","撤回 · "+UnlockSourceText111(view),()=>SendUnlock111(id),true,l);
+                // W9a fix: at 150 % "撤回 · 钥匙串（剩 3 次）" is wider than the primary slot and ran over the button's edges; the
+                // button then grows to the right, into the free room before 结束本关, keeping its text size.
+                string unlockLabel="撤回 · "+UnlockSourceText111(view);
+                float unlockNeed=PreferredWidth11(unlockLabel,Large11?22:28)+48;
+                if(unlockNeed>l.primary.width)l.primary=new Rect(l.primary.x,l.primary.y,Mathf.Min(unlockNeed,l.end.x-16-l.primary.x),l.primary.height);
+                PrimaryButton11("UnlockDie111",unlockLabel,()=>SendUnlock111(id),true,l);
             }
             else
             {

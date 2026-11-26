@@ -209,12 +209,12 @@ namespace DiceCraft.Tests
                         yield return Wait9a(.2f);yield return W9aShot("facepick-gild-one"+tag,false);
                         if(TryClick9a("AddFace14")){yield return Wait9a(.2f);yield return W9aShot("facepick-gild-adding"+tag,false);}
                         if(TryClick9a("Face_F02")){yield return Wait9a(.2f);yield return W9aShot("facepick-gild-two"+tag,false);}
-                        if(font==100&&TryClick9a("ConfirmPurchase")){yield return new WaitForSecondsRealtime(.45f);yield return W9aShot("upgrade-two-face-transaction",false);app.SkipVisual();yield return Wait9a(.3f);}
+                        // Nothing is bought: at 1280x720 the second (150 %) pass needs the same offer on the shelf.
                     }
-                    TryClick9a("CloseDialog");yield return Wait9a(.2f);
+                    TryClick9a("CancelFacePick14");yield return Wait9a(.2f);
                     yield return OpenBoundaryOffer("w9a-u05");
                     if(TryClick9a("Target_"+die)){yield return Wait9a(.2f);yield return W9aShot("facepick-glass"+tag,false);}
-                    TryClick9a("CloseDialog");yield return Wait9a(.2f);
+                    TryClick9a("CancelFacePick14");yield return Wait9a(.2f);
                 }
             }
             finally{W11TextScale(100);GameApp.CleanCapture11=false;W9aSteps("w9a-screens-steps.txt");}
