@@ -1,0 +1,2131 @@
+{
+  "config": "p1.1.1",
+  "cases": 300000,
+  "mismatches": 0,
+  "maxRelativeError": 1.342433026692871E-15,
+  "duplicateBuilds": 212417,
+  "twoCopyBuilds": 160376,
+  "threeCopyBuilds": 102217,
+  "duplicateMimicBuilds": 110390,
+  "duplicateCopiedByMimicBuilds": 91414,
+  "c53ExpectationBuilds": 3,
+  "c53ExpectationOutcomes": 891,
+  "c53ExpectationMismatches": 0,
+  "features": {
+    "C138: fewer sources triggered than held": 1016,
+    "C53 owner copied by a mimic": 805,
+    "blue wave": 22888,
+    "controller base add > 0": 53012,
+    "disabled controller changed the result": 32756,
+    "disabled controllers > 0": 59811,
+    "empty ordinary slots > 0": 153542,
+    "enchant base10 or mult2 counted": 159656,
+    "exactly one roll used": 49865,
+    "face changes planned": 55817,
+    "gold spent (C138)": 8048,
+    "growth > 0 on a growth card": 94938,
+    "hand multiplier add > 0": 4743,
+    "inventory > 0": 150045,
+    "item multiplier x2 (I09)": 30301,
+    "last submission of the stage": 74602,
+    "mimic (C41) copying a growth card": 12405,
+    "mimic (C41) copying an ability": 119193,
+    "no rolls left": 74953,
+    "pool dice > 0": 171942,
+    "pool red merged into red group (C73)": 2533,
+    "red group bonus (C146)": 6409,
+    "red wave": 24931,
+    "retriggers > 0": 31327,
+    "sealed die": 29342,
+    "stage hands used: primary repeated": 9240,
+    "stage kind boss": 119922,
+    "submitted die: glass": 123771,
+    "submitted die: gold face up": 123604,
+    "submitted die: mono-colour": 134664,
+    "submitted die: mono-pip": 92639,
+    "submitted die: temporary": 107692,
+    "submitted die: textured face up": 197723,
+    "two C53 owners with different frozen draws": 1196,
+    "v111 C103 loose (4 permanent dice)": 935,
+    "v111 C103 strict (<= 3 permanent dice)": 3916,
+    "v111 C137 matched two or more dice": 651,
+    "v111 C137 only some of its sources triggered": 532,
+    "v111 C137 sources with different star pips": 1142,
+    "v111 C137 star pip 0 (not drawn)": 1510,
+    "v111 C141 with 0 stages survived": 3003,
+    "v111 C141 with 1 stages survived": 2972,
+    "v111 C141 with 2 stages survived": 2921,
+    "v111 C141 with 3 stages survived": 2930,
+    "v111 C155 x2 (four 4s)": 247,
+    "v111 C155 x4 (four 4s and two 1s)": 80,
+    "v111 C156 on the line: 2 x score = target (no)": 766,
+    "v111 C156 one above the line: 2 x score = target + 1 (no)": 242,
+    "v111 C156 one below the line: 2 x score = target - 1 (yes)": 265,
+    "v111 C156 present, not triggered": 3217,
+    "v111 C156 triggered": 5738,
+    "v111 C19 minimum pip 1": 3608,
+    "v111 C19 minimum pip 2": 2529,
+    "v111 C49 two or more halving sources": 1060,
+    "v111 C49 with a 5 (adds only)": 2306,
+    "v111 C49 without a 5 (x1/2 per source)": 6398,
+    "v111 C91 zigzag of five or more dice": 121,
+    "v111 additive total = 0": 22505,
+    "v111 additive total >= 1000 (x11 or more)": 53077,
+    "v111 additive: card entry": 143502,
+    "v111 additive: colour entry": 173156,
+    "v111 additive: gold face entry": 123604,
+    "v111 additive: gold face on a sealed die or under PipsOnly": 10746,
+    "v111 additive: score enchantment entry": 100724,
+    "v111 colour level 12 scored": 12721,
+    "v111 cultivation card rides free (slot count)": 105852,
+    "v111 glass risk listed": 123771,
+    "v111 growth plan: C54 halve": 7524,
+    "v111 growth: additive card as an entry": 62649,
+    "v111 growth: base card as a base add": 25178,
+    "v111 growth: catch-up > 0 on a live source": 73767,
+    "v111 growth: multiplier card as a factor": 33313,
+    "v111 growth: odd grown part read at half (floor)": 776,
+    "v111 hand level 12 held": 193991,
+    "v111 key ring in the inventory": 79357
+  },
+  "controllers": [
+    {
+      "id": "C01",
+      "name": "存钱罐",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8672,
+      "triggered": 8672,
+      "duplicatePresent": 1279,
+      "duplicateTriggered": 1279
+    },
+    {
+      "id": "C02",
+      "name": "蓝色疯狂",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8746,
+      "triggered": 2399,
+      "duplicatePresent": 1297,
+      "duplicateTriggered": 339
+    },
+    {
+      "id": "C03",
+      "name": "首当其冲",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8771,
+      "triggered": 8771,
+      "duplicatePresent": 1313,
+      "duplicateTriggered": 1313
+    },
+    {
+      "id": "C05",
+      "name": "再来三次",
+      "scoring": false,
+      "generation": "p0.6",
+      "present": 8532,
+      "triggered": 0,
+      "duplicatePresent": 1283,
+      "duplicateTriggered": 0
+    },
+    {
+      "id": "C06",
+      "name": "数字多多",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8877,
+      "triggered": 2535,
+      "duplicatePresent": 1296,
+      "duplicateTriggered": 382
+    },
+    {
+      "id": "C07",
+      "name": "骰子复制",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8817,
+      "triggered": 445,
+      "duplicatePresent": 1290,
+      "duplicateTriggered": 70
+    },
+    {
+      "id": "C08",
+      "name": "少数派",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8791,
+      "triggered": 6677,
+      "duplicatePresent": 1302,
+      "duplicateTriggered": 988
+    },
+    {
+      "id": "C09",
+      "name": "简化提交",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8776,
+      "triggered": 8776,
+      "duplicatePresent": 1316,
+      "duplicateTriggered": 1316
+    },
+    {
+      "id": "C10",
+      "name": "少就是多",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8703,
+      "triggered": 3509,
+      "duplicatePresent": 1294,
+      "duplicateTriggered": 518
+    },
+    {
+      "id": "C11",
+      "name": "2233",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8692,
+      "triggered": 47,
+      "duplicatePresent": 1280,
+      "duplicateTriggered": 8
+    },
+    {
+      "id": "C12",
+      "name": "不要奇数",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8637,
+      "triggered": 6037,
+      "duplicatePresent": 1363,
+      "duplicateTriggered": 933
+    },
+    {
+      "id": "C13",
+      "name": "就要奇数",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8700,
+      "triggered": 5901,
+      "duplicatePresent": 1303,
+      "duplicateTriggered": 893
+    },
+    {
+      "id": "C14",
+      "name": "只要奇数",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8698,
+      "triggered": 1979,
+      "duplicatePresent": 1267,
+      "duplicateTriggered": 301
+    },
+    {
+      "id": "C15",
+      "name": "红色扩散",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8676,
+      "triggered": 856,
+      "duplicatePresent": 1290,
+      "duplicateTriggered": 138
+    },
+    {
+      "id": "C17",
+      "name": "小鬼当家",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8731,
+      "triggered": 6791,
+      "duplicatePresent": 1274,
+      "duplicateTriggered": 996
+    },
+    {
+      "id": "C18",
+      "name": "红蓝相当",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8657,
+      "triggered": 1183,
+      "duplicatePresent": 1253,
+      "duplicateTriggered": 188
+    },
+    {
+      "id": "C19",
+      "name": "小头大用",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8810,
+      "triggered": 6137,
+      "duplicatePresent": 1315,
+      "duplicateTriggered": 928
+    },
+    {
+      "id": "C20",
+      "name": "66大顺",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8793,
+      "triggered": 424,
+      "duplicatePresent": 1324,
+      "duplicateTriggered": 60
+    },
+    {
+      "id": "C21",
+      "name": "增加提交",
+      "scoring": false,
+      "generation": "p0.6",
+      "present": 8872,
+      "triggered": 0,
+      "duplicatePresent": 1328,
+      "duplicateTriggered": 0
+    },
+    {
+      "id": "C22",
+      "name": "大量提交",
+      "scoring": false,
+      "generation": "p0.6",
+      "present": 8783,
+      "triggered": 0,
+      "duplicatePresent": 1272,
+      "duplicateTriggered": 0
+    },
+    {
+      "id": "C24",
+      "name": "我是状元",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8811,
+      "triggered": 2109,
+      "duplicatePresent": 1319,
+      "duplicateTriggered": 316
+    },
+    {
+      "id": "C25",
+      "name": "红运当头",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8555,
+      "triggered": 6165,
+      "duplicatePresent": 1232,
+      "duplicateTriggered": 893
+    },
+    {
+      "id": "C26",
+      "name": "红色主义",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8641,
+      "triggered": 3039,
+      "duplicatePresent": 1231,
+      "duplicateTriggered": 445
+    },
+    {
+      "id": "C27",
+      "name": "对穿肠",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8718,
+      "triggered": 3267,
+      "duplicatePresent": 1307,
+      "duplicateTriggered": 488
+    },
+    {
+      "id": "C28",
+      "name": "对对穿肠",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8933,
+      "triggered": 592,
+      "duplicatePresent": 1337,
+      "duplicateTriggered": 88
+    },
+    {
+      "id": "C29",
+      "name": "简单顺子",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8796,
+      "triggered": 507,
+      "duplicatePresent": 1282,
+      "duplicateTriggered": 78
+    },
+    {
+      "id": "C30",
+      "name": "三条开泰",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8739,
+      "triggered": 1049,
+      "duplicatePresent": 1254,
+      "duplicateTriggered": 156
+    },
+    {
+      "id": "C31",
+      "name": "四平八稳",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8799,
+      "triggered": 411,
+      "duplicatePresent": 1326,
+      "duplicateTriggered": 63
+    },
+    {
+      "id": "C32",
+      "name": "天地大同",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8867,
+      "triggered": 3770,
+      "duplicatePresent": 1348,
+      "duplicateTriggered": 554
+    },
+    {
+      "id": "C33",
+      "name": "大数开路",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8819,
+      "triggered": 765,
+      "duplicatePresent": 1337,
+      "duplicateTriggered": 115
+    },
+    {
+      "id": "C34",
+      "name": "大数致胜",
+      "scoring": false,
+      "generation": "p0.6",
+      "present": 8758,
+      "triggered": 0,
+      "duplicatePresent": 1262,
+      "duplicateTriggered": 0
+    },
+    {
+      "id": "C35",
+      "name": "小数出奇",
+      "scoring": false,
+      "generation": "p0.6",
+      "present": 8843,
+      "triggered": 0,
+      "duplicatePresent": 1308,
+      "duplicateTriggered": 0
+    },
+    {
+      "id": "C36",
+      "name": "不断成长",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8725,
+      "triggered": 4052,
+      "duplicatePresent": 1324,
+      "duplicateTriggered": 620
+    },
+    {
+      "id": "C37",
+      "name": "缩小射线",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8838,
+      "triggered": 4135,
+      "duplicatePresent": 1244,
+      "duplicateTriggered": 580
+    },
+    {
+      "id": "C38",
+      "name": "蓝色扩散",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8846,
+      "triggered": 8846,
+      "duplicatePresent": 1296,
+      "duplicateTriggered": 1296
+    },
+    {
+      "id": "C39",
+      "name": "蓝色价值",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8684,
+      "triggered": 5893,
+      "duplicatePresent": 1270,
+      "duplicateTriggered": 873
+    },
+    {
+      "id": "C40",
+      "name": "不断增加",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8897,
+      "triggered": 449,
+      "duplicatePresent": 1275,
+      "duplicateTriggered": 54
+    },
+    {
+      "id": "C41",
+      "name": "百变模仿",
+      "scoring": false,
+      "generation": "p0.6",
+      "present": 0,
+      "triggered": 0,
+      "duplicatePresent": 0,
+      "duplicateTriggered": 0
+    },
+    {
+      "id": "C42",
+      "name": "玻璃大炮",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8700,
+      "triggered": 8700,
+      "duplicatePresent": 1300,
+      "duplicateTriggered": 1300
+    },
+    {
+      "id": "C43",
+      "name": "牌型提升",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8748,
+      "triggered": 235,
+      "duplicatePresent": 1283,
+      "duplicateTriggered": 44
+    },
+    {
+      "id": "C44",
+      "name": "有钱真好",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8774,
+      "triggered": 8428,
+      "duplicatePresent": 1269,
+      "duplicateTriggered": 1217
+    },
+    {
+      "id": "C45",
+      "name": "飘忽不定",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8784,
+      "triggered": 8784,
+      "duplicatePresent": 1326,
+      "duplicateTriggered": 1326
+    },
+    {
+      "id": "C46",
+      "name": "稳稳乘数",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8854,
+      "triggered": 8854,
+      "duplicatePresent": 1291,
+      "duplicateTriggered": 1291
+    },
+    {
+      "id": "C47",
+      "name": "控制欲",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8770,
+      "triggered": 8770,
+      "duplicatePresent": 1328,
+      "duplicateTriggered": 1328
+    },
+    {
+      "id": "C48",
+      "name": "有也不交",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8784,
+      "triggered": 6652,
+      "duplicatePresent": 1338,
+      "duplicateTriggered": 1006
+    },
+    {
+      "id": "C49",
+      "name": "千年老二",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8704,
+      "triggered": 8704,
+      "duplicatePresent": 1227,
+      "duplicateTriggered": 1227
+    },
+    {
+      "id": "C50",
+      "name": "稳稳分数",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8793,
+      "triggered": 8793,
+      "duplicatePresent": 1282,
+      "duplicateTriggered": 1282
+    },
+    {
+      "id": "C51",
+      "name": "人员流动",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8928,
+      "triggered": 8928,
+      "duplicatePresent": 1322,
+      "duplicateTriggered": 1322
+    },
+    {
+      "id": "C52",
+      "name": "成长基金",
+      "scoring": false,
+      "generation": "p0.6",
+      "present": 8877,
+      "triggered": 0,
+      "duplicatePresent": 1278,
+      "duplicateTriggered": 0
+    },
+    {
+      "id": "C53",
+      "name": "错乱乘积",
+      "scoring": true,
+      "generation": "p0.6",
+      "present": 8616,
+      "triggered": 8616,
+      "duplicatePresent": 1254,
+      "duplicateTriggered": 1254
+    },
+    {
+      "id": "C54",
+      "name": "连庄",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8701,
+      "triggered": 8701,
+      "duplicatePresent": 1287,
+      "duplicateTriggered": 1287
+    },
+    {
+      "id": "C55",
+      "name": "积少成多",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8821,
+      "triggered": 8821,
+      "duplicatePresent": 1303,
+      "duplicateTriggered": 1303
+    },
+    {
+      "id": "C56",
+      "name": "深蓝",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8790,
+      "triggered": 8790,
+      "duplicatePresent": 1295,
+      "duplicateTriggered": 1295
+    },
+    {
+      "id": "C57",
+      "name": "红火",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8676,
+      "triggered": 8676,
+      "duplicatePresent": 1312,
+      "duplicateTriggered": 1312
+    },
+    {
+      "id": "C58",
+      "name": "老当益壮",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8816,
+      "triggered": 8816,
+      "duplicatePresent": 1301,
+      "duplicateTriggered": 1301
+    },
+    {
+      "id": "C59",
+      "name": "余勇可贾",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8811,
+      "triggered": 8811,
+      "duplicatePresent": 1257,
+      "duplicateTriggered": 1257
+    },
+    {
+      "id": "C60",
+      "name": "千锤百炼",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8777,
+      "triggered": 8777,
+      "duplicatePresent": 1191,
+      "duplicateTriggered": 1191
+    },
+    {
+      "id": "C61",
+      "name": "学无止境",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8737,
+      "triggered": 8737,
+      "duplicatePresent": 1280,
+      "duplicateTriggered": 1280
+    },
+    {
+      "id": "C62",
+      "name": "熟能生巧",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8790,
+      "triggered": 8790,
+      "duplicatePresent": 1265,
+      "duplicateTriggered": 1265
+    },
+    {
+      "id": "C63",
+      "name": "收藏家",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8763,
+      "triggered": 8763,
+      "duplicatePresent": 1270,
+      "duplicateTriggered": 1270
+    },
+    {
+      "id": "C64",
+      "name": "一马当先",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8831,
+      "triggered": 8831,
+      "duplicatePresent": 1323,
+      "duplicateTriggered": 1323
+    },
+    {
+      "id": "C65",
+      "name": "压轴好戏",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8700,
+      "triggered": 2040,
+      "duplicatePresent": 1241,
+      "duplicateTriggered": 290
+    },
+    {
+      "id": "C66",
+      "name": "小小回声",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8852,
+      "triggered": 6170,
+      "duplicatePresent": 1311,
+      "duplicateTriggered": 900
+    },
+    {
+      "id": "C67",
+      "name": "掷地有声",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8783,
+      "triggered": 2443,
+      "duplicatePresent": 1339,
+      "duplicateTriggered": 361
+    },
+    {
+      "id": "C68",
+      "name": "谢幕",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8746,
+      "triggered": 2175,
+      "duplicatePresent": 1244,
+      "duplicateTriggered": 316
+    },
+    {
+      "id": "C69",
+      "name": "红色共鸣",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8699,
+      "triggered": 6362,
+      "duplicatePresent": 1232,
+      "duplicateTriggered": 917
+    },
+    {
+      "id": "C70",
+      "name": "板凳深度",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8758,
+      "triggered": 4933,
+      "duplicatePresent": 1329,
+      "duplicateTriggered": 742
+    },
+    {
+      "id": "C71",
+      "name": "幕后推手",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8830,
+      "triggered": 1337,
+      "duplicatePresent": 1309,
+      "duplicateTriggered": 201
+    },
+    {
+      "id": "C72",
+      "name": "厚积薄发",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8698,
+      "triggered": 4961,
+      "duplicatePresent": 1308,
+      "duplicateTriggered": 724
+    },
+    {
+      "id": "C73",
+      "name": "场外红人",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8758,
+      "triggered": 2533,
+      "duplicatePresent": 1295,
+      "duplicateTriggered": 395
+    },
+    {
+      "id": "C74",
+      "name": "空城计",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8797,
+      "triggered": 2807,
+      "duplicatePresent": 1253,
+      "duplicateTriggered": 393
+    },
+    {
+      "id": "C75",
+      "name": "一锤定音",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8789,
+      "triggered": 1396,
+      "duplicatePresent": 1287,
+      "duplicateTriggered": 192
+    },
+    {
+      "id": "C76",
+      "name": "越挫越勇",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8896,
+      "triggered": 7425,
+      "duplicatePresent": 1337,
+      "duplicateTriggered": 1104
+    },
+    {
+      "id": "C77",
+      "name": "孤注一掷",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8778,
+      "triggered": 2112,
+      "duplicatePresent": 1334,
+      "duplicateTriggered": 337
+    },
+    {
+      "id": "C78",
+      "name": "再给一次",
+      "scoring": false,
+      "generation": "p0.9",
+      "present": 8687,
+      "triggered": 0,
+      "duplicatePresent": 1245,
+      "duplicateTriggered": 0
+    },
+    {
+      "id": "C79",
+      "name": "多交一手",
+      "scoring": false,
+      "generation": "p0.9",
+      "present": 8640,
+      "triggered": 0,
+      "duplicatePresent": 1264,
+      "duplicateTriggered": 0
+    },
+    {
+      "id": "C80",
+      "name": "天生一对",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8668,
+      "triggered": 2243,
+      "duplicatePresent": 1425,
+      "duplicateTriggered": 362
+    },
+    {
+      "id": "C81",
+      "name": "散兵游勇",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8724,
+      "triggered": 5122,
+      "duplicatePresent": 1290,
+      "duplicateTriggered": 757
+    },
+    {
+      "id": "C82",
+      "name": "满堂彩",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8941,
+      "triggered": 248,
+      "duplicatePresent": 1307,
+      "duplicateTriggered": 35
+    },
+    {
+      "id": "C83",
+      "name": "顺水推舟",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8726,
+      "triggered": 312,
+      "duplicatePresent": 1265,
+      "duplicateTriggered": 44
+    },
+    {
+      "id": "C84",
+      "name": "成双成对",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 9002,
+      "triggered": 3392,
+      "duplicatePresent": 1346,
+      "duplicateTriggered": 502
+    },
+    {
+      "id": "C85",
+      "name": "三足鼎立",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8730,
+      "triggered": 1062,
+      "duplicatePresent": 1289,
+      "duplicateTriggered": 149
+    },
+    {
+      "id": "C86",
+      "name": "三三得九",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8766,
+      "triggered": 49,
+      "duplicatePresent": 1315,
+      "duplicateTriggered": 10
+    },
+    {
+      "id": "C87",
+      "name": "得寸进尺",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8507,
+      "triggered": 416,
+      "duplicatePresent": 1249,
+      "duplicateTriggered": 59
+    },
+    {
+      "id": "C88",
+      "name": "杂牌军",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8793,
+      "triggered": 527,
+      "duplicatePresent": 1283,
+      "duplicateTriggered": 83
+    },
+    {
+      "id": "C89",
+      "name": "金玉满堂",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8766,
+      "triggered": 3566,
+      "duplicatePresent": 1299,
+      "duplicateTriggered": 508
+    },
+    {
+      "id": "C91",
+      "name": "纹理大师",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8676,
+      "triggered": 876,
+      "duplicatePresent": 1318,
+      "duplicateTriggered": 143
+    },
+    {
+      "id": "C92",
+      "name": "纯色主义",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8695,
+      "triggered": 3859,
+      "duplicatePresent": 1287,
+      "duplicateTriggered": 593
+    },
+    {
+      "id": "C93",
+      "name": "始终如一",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8853,
+      "triggered": 2720,
+      "duplicatePresent": 1279,
+      "duplicateTriggered": 387
+    },
+    {
+      "id": "C94",
+      "name": "表里如一",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8907,
+      "triggered": 8907,
+      "duplicatePresent": 1314,
+      "duplicateTriggered": 1314
+    },
+    {
+      "id": "C95",
+      "name": "铁饭碗",
+      "scoring": false,
+      "generation": "p0.9",
+      "present": 8795,
+      "triggered": 0,
+      "duplicatePresent": 1275,
+      "duplicateTriggered": 0
+    },
+    {
+      "id": "C96",
+      "name": "利滚利",
+      "scoring": false,
+      "generation": "p0.9",
+      "present": 8502,
+      "triggered": 0,
+      "duplicatePresent": 1210,
+      "duplicateTriggered": 0
+    },
+    {
+      "id": "C97",
+      "name": "以战养战",
+      "scoring": false,
+      "generation": "p0.9",
+      "present": 8864,
+      "triggered": 0,
+      "duplicatePresent": 1294,
+      "duplicateTriggered": 0
+    },
+    {
+      "id": "C98",
+      "name": "砍价高手",
+      "scoring": false,
+      "generation": "p0.9",
+      "present": 8754,
+      "triggered": 0,
+      "duplicatePresent": 1272,
+      "duplicateTriggered": 0
+    },
+    {
+      "id": "C99",
+      "name": "聚宝盆",
+      "scoring": false,
+      "generation": "p0.9",
+      "present": 8764,
+      "triggered": 0,
+      "duplicatePresent": 1318,
+      "duplicateTriggered": 0
+    },
+    {
+      "id": "C100",
+      "name": "祭坛",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8798,
+      "triggered": 8798,
+      "duplicatePresent": 1306,
+      "duplicateTriggered": 1306
+    },
+    {
+      "id": "C101",
+      "name": "双刃剑",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8687,
+      "triggered": 8687,
+      "duplicatePresent": 1292,
+      "duplicateTriggered": 1292
+    },
+    {
+      "id": "C102",
+      "name": "背水一战",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8773,
+      "triggered": 2168,
+      "duplicatePresent": 1264,
+      "duplicateTriggered": 338
+    },
+    {
+      "id": "C103",
+      "name": "精兵简政",
+      "scoring": true,
+      "generation": "p0.9",
+      "present": 8738,
+      "triggered": 4851,
+      "duplicatePresent": 1249,
+      "duplicateTriggered": 701
+    },
+    {
+      "id": "C104",
+      "name": "红蓝相间",
+      "scoring": true,
+      "generation": "p1.0",
+      "present": 8837,
+      "triggered": 486,
+      "duplicatePresent": 1269,
+      "duplicateTriggered": 65
+    },
+    {
+      "id": "C105",
+      "name": "泾渭分明",
+      "scoring": true,
+      "generation": "p1.0",
+      "present": 8625,
+      "triggered": 1069,
+      "duplicatePresent": 1329,
+      "duplicateTriggered": 156
+    },
+    {
+      "id": "C106",
+      "name": "对称美学",
+      "scoring": true,
+      "generation": "p1.0",
+      "present": 8781,
+      "triggered": 511,
+      "duplicatePresent": 1330,
+      "duplicateTriggered": 85
+    },
+    {
+      "id": "C107",
+      "name": "顺藤摸瓜",
+      "scoring": true,
+      "generation": "p1.0",
+      "present": 8859,
+      "triggered": 1797,
+      "duplicatePresent": 1316,
+      "duplicateTriggered": 261
+    },
+    {
+      "id": "C108",
+      "name": "排头兵",
+      "scoring": true,
+      "generation": "p1.0",
+      "present": 8764,
+      "triggered": 8764,
+      "duplicatePresent": 1339,
+      "duplicateTriggered": 1339
+    },
+    {
+      "id": "C109",
+      "name": "中流砥柱",
+      "scoring": true,
+      "generation": "p1.0",
+      "present": 8761,
+      "triggered": 2478,
+      "duplicatePresent": 1259,
+      "duplicateTriggered": 369
+    },
+    {
+      "id": "C110",
+      "name": "百宝袋",
+      "scoring": false,
+      "generation": "p1.0",
+      "present": 8843,
+      "triggered": 0,
+      "duplicatePresent": 1330,
+      "duplicateTriggered": 0
+    },
+    {
+      "id": "C111",
+      "name": "杂货郎",
+      "scoring": false,
+      "generation": "p1.0",
+      "present": 8644,
+      "triggered": 0,
+      "duplicatePresent": 1331,
+      "duplicateTriggered": 0
+    },
+    {
+      "id": "C112",
+      "name": "滥竽充数",
+      "scoring": false,
+      "generation": "p1.0",
+      "present": 8788,
+      "triggered": 0,
+      "duplicatePresent": 1300,
+      "duplicateTriggered": 0
+    },
+    {
+      "id": "C113",
+      "name": "铁匠铺",
+      "scoring": false,
+      "generation": "p1.0",
+      "present": 8813,
+      "triggered": 0,
+      "duplicatePresent": 1368,
+      "duplicateTriggered": 0
+    },
+    {
+      "id": "C114",
+      "name": "点化",
+      "scoring": false,
+      "generation": "p1.0",
+      "present": 8726,
+      "triggered": 0,
+      "duplicatePresent": 1274,
+      "duplicateTriggered": 0
+    },
+    {
+      "id": "C115",
+      "name": "无心插柳",
+      "scoring": false,
+      "generation": "p1.0",
+      "present": 8791,
+      "triggered": 0,
+      "duplicatePresent": 1297,
+      "duplicateTriggered": 0
+    },
+    {
+      "id": "C116",
+      "name": "招兵买马",
+      "scoring": false,
+      "generation": "p1.0",
+      "present": 8737,
+      "triggered": 0,
+      "duplicatePresent": 1322,
+      "duplicateTriggered": 0
+    },
+    {
+      "id": "C117",
+      "name": "点金手",
+      "scoring": true,
+      "generation": "p1.0",
+      "present": 8638,
+      "triggered": 8638,
+      "duplicatePresent": 1330,
+      "duplicateTriggered": 1330
+    },
+    {
+      "id": "C118",
+      "name": "表里同色",
+      "scoring": true,
+      "generation": "p1.0",
+      "present": 8751,
+      "triggered": 8751,
+      "duplicatePresent": 1276,
+      "duplicateTriggered": 1276
+    },
+    {
+      "id": "C119",
+      "name": "潜移默化",
+      "scoring": true,
+      "generation": "p1.0",
+      "present": 8844,
+      "triggered": 8844,
+      "duplicatePresent": 1282,
+      "duplicateTriggered": 1282
+    },
+    {
+      "id": "C120",
+      "name": "拔苗助长",
+      "scoring": false,
+      "generation": "p1.0",
+      "present": 8754,
+      "triggered": 0,
+      "duplicatePresent": 1322,
+      "duplicateTriggered": 0
+    },
+    {
+      "id": "C121",
+      "name": "大事化小",
+      "scoring": false,
+      "generation": "p1.0",
+      "present": 8802,
+      "triggered": 0,
+      "duplicatePresent": 1323,
+      "duplicateTriggered": 0
+    },
+    {
+      "id": "C122",
+      "name": "见五成群",
+      "scoring": true,
+      "generation": "p1.0",
+      "present": 8941,
+      "triggered": 8941,
+      "duplicatePresent": 1288,
+      "duplicateTriggered": 1288
+    },
+    {
+      "id": "C123",
+      "name": "二三其德",
+      "scoring": true,
+      "generation": "p1.0",
+      "present": 8783,
+      "triggered": 8783,
+      "duplicatePresent": 1340,
+      "duplicateTriggered": 1340
+    },
+    {
+      "id": "C124",
+      "name": "灌铅",
+      "scoring": true,
+      "generation": "p1.0",
+      "present": 8738,
+      "triggered": 8738,
+      "duplicatePresent": 1252,
+      "duplicateTriggered": 1252
+    },
+    {
+      "id": "C125",
+      "name": "抛光匠",
+      "scoring": true,
+      "generation": "p1.0",
+      "present": 8646,
+      "triggered": 8646,
+      "duplicatePresent": 1255,
+      "duplicateTriggered": 1255
+    },
+    {
+      "id": "C126",
+      "name": "养精蓄锐",
+      "scoring": true,
+      "generation": "p1.0",
+      "present": 8821,
+      "triggered": 5068,
+      "duplicatePresent": 1253,
+      "duplicateTriggered": 695
+    },
+    {
+      "id": "C127",
+      "name": "移花接木",
+      "scoring": true,
+      "generation": "p1.0",
+      "present": 8779,
+      "triggered": 5747,
+      "duplicatePresent": 1284,
+      "duplicateTriggered": 815
+    },
+    {
+      "id": "C129",
+      "name": "屠龙者",
+      "scoring": true,
+      "generation": "p1.0",
+      "present": 8682,
+      "triggered": 8682,
+      "duplicatePresent": 1238,
+      "duplicateTriggered": 1238
+    },
+    {
+      "id": "C130",
+      "name": "逆流而上",
+      "scoring": true,
+      "generation": "p1.0",
+      "present": 8706,
+      "triggered": 3529,
+      "duplicatePresent": 1279,
+      "duplicateTriggered": 518
+    },
+    {
+      "id": "C131",
+      "name": "替罪羊",
+      "scoring": false,
+      "generation": "p1.0",
+      "present": 8718,
+      "triggered": 0,
+      "duplicatePresent": 1298,
+      "duplicateTriggered": 0
+    },
+    {
+      "id": "C132",
+      "name": "高压锅",
+      "scoring": true,
+      "generation": "p1.0",
+      "present": 8575,
+      "triggered": 8575,
+      "duplicatePresent": 1298,
+      "duplicateTriggered": 1298
+    },
+    {
+      "id": "C133",
+      "name": "赏金猎人",
+      "scoring": false,
+      "generation": "p1.0",
+      "present": 8884,
+      "triggered": 0,
+      "duplicatePresent": 1302,
+      "duplicateTriggered": 0
+    },
+    {
+      "id": "C134",
+      "name": "物尽其用",
+      "scoring": true,
+      "generation": "p1.0",
+      "present": 8596,
+      "triggered": 8596,
+      "duplicatePresent": 1277,
+      "duplicateTriggered": 1277
+    },
+    {
+      "id": "C135",
+      "name": "囤积居奇",
+      "scoring": true,
+      "generation": "p1.0",
+      "present": 8834,
+      "triggered": 4422,
+      "duplicatePresent": 1343,
+      "duplicateTriggered": 664
+    },
+    {
+      "id": "C136",
+      "name": "雇佣兵",
+      "scoring": false,
+      "generation": "p1.0",
+      "present": 8698,
+      "triggered": 0,
+      "duplicatePresent": 1322,
+      "duplicateTriggered": 0
+    },
+    {
+      "id": "C137",
+      "name": "客串明星",
+      "scoring": true,
+      "generation": "p1.0",
+      "present": 8694,
+      "triggered": 2832,
+      "duplicatePresent": 1267,
+      "duplicateTriggered": 213
+    },
+    {
+      "id": "C138",
+      "name": "一掷千金",
+      "scoring": true,
+      "generation": "p1.0",
+      "present": 8842,
+      "triggered": 8048,
+      "duplicatePresent": 1314,
+      "duplicateTriggered": 1033
+    },
+    {
+      "id": "C139",
+      "name": "富甲一方",
+      "scoring": true,
+      "generation": "p1.0",
+      "present": 8666,
+      "triggered": 6060,
+      "duplicatePresent": 1282,
+      "duplicateTriggered": 912
+    },
+    {
+      "id": "C140",
+      "name": "回收大王",
+      "scoring": false,
+      "generation": "p1.0",
+      "present": 8752,
+      "triggered": 0,
+      "duplicatePresent": 1326,
+      "duplicateTriggered": 0
+    },
+    {
+      "id": "C141",
+      "name": "昙花一现",
+      "scoring": true,
+      "generation": "p1.0",
+      "present": 8810,
+      "triggered": 8810,
+      "duplicatePresent": 1300,
+      "duplicateTriggered": 1300
+    },
+    {
+      "id": "C142",
+      "name": "一条龙",
+      "scoring": true,
+      "generation": "p1.0",
+      "present": 8672,
+      "triggered": 328,
+      "duplicatePresent": 1294,
+      "duplicateTriggered": 51
+    },
+    {
+      "id": "C143",
+      "name": "好事成双",
+      "scoring": true,
+      "generation": "p1.0",
+      "present": 8831,
+      "triggered": 2541,
+      "duplicatePresent": 1271,
+      "duplicateTriggered": 368
+    },
+    {
+      "id": "C144",
+      "name": "偶数为王",
+      "scoring": true,
+      "generation": "p1.0",
+      "present": 8851,
+      "triggered": 2926,
+      "duplicatePresent": 1332,
+      "duplicateTriggered": 424
+    },
+    {
+      "id": "C146",
+      "name": "锦上添红",
+      "scoring": true,
+      "generation": "p1.0",
+      "present": 8749,
+      "triggered": 6409,
+      "duplicatePresent": 1220,
+      "duplicateTriggered": 869
+    },
+    {
+      "id": "C147",
+      "name": "观众席",
+      "scoring": true,
+      "generation": "p1.0",
+      "present": 8677,
+      "triggered": 4981,
+      "duplicatePresent": 1232,
+      "duplicateTriggered": 672
+    },
+    {
+      "id": "C148",
+      "name": "见好就收",
+      "scoring": true,
+      "generation": "p1.0",
+      "present": 8770,
+      "triggered": 6659,
+      "duplicatePresent": 1269,
+      "duplicateTriggered": 977
+    },
+    {
+      "id": "C149",
+      "name": "单刀赴会",
+      "scoring": true,
+      "generation": "p1.0",
+      "present": 8891,
+      "triggered": 3099,
+      "duplicatePresent": 1308,
+      "duplicateTriggered": 435
+    },
+    {
+      "id": "C150",
+      "name": "渐入佳境",
+      "scoring": true,
+      "generation": "p1.0",
+      "present": 8583,
+      "triggered": 5783,
+      "duplicatePresent": 1278,
+      "duplicateTriggered": 827
+    },
+    {
+      "id": "C151",
+      "name": "留白",
+      "scoring": true,
+      "generation": "p1.0",
+      "present": 8662,
+      "triggered": 3235,
+      "duplicatePresent": 1271,
+      "duplicateTriggered": 576
+    },
+    {
+      "id": "C152",
+      "name": "草根逆袭",
+      "scoring": true,
+      "generation": "p1.0",
+      "present": 8794,
+      "triggered": 5373,
+      "duplicatePresent": 1239,
+      "duplicateTriggered": 538
+    },
+    {
+      "id": "C153",
+      "name": "开门红",
+      "scoring": true,
+      "generation": "p1.0",
+      "present": 8677,
+      "triggered": 3016,
+      "duplicatePresent": 1275,
+      "duplicateTriggered": 444
+    },
+    {
+      "id": "C154",
+      "name": "回心转意",
+      "scoring": false,
+      "generation": "p1.1.1",
+      "present": 8698,
+      "triggered": 0,
+      "duplicatePresent": 1276,
+      "duplicateTriggered": 0
+    },
+    {
+      "id": "C155",
+      "name": "状元插金花",
+      "scoring": true,
+      "generation": "p1.1.1",
+      "present": 8511,
+      "triggered": 327,
+      "duplicatePresent": 1233,
+      "duplicateTriggered": 43
+    },
+    {
+      "id": "C156",
+      "name": "绝地反击",
+      "scoring": true,
+      "generation": "p1.1.1",
+      "present": 8955,
+      "triggered": 5738,
+      "duplicatePresent": 1371,
+      "duplicateTriggered": 897
+    }
+  ],
+  "modifiers": [
+    {
+      "id": "B01",
+      "name": "满员",
+      "tier": 1,
+      "effects": [
+        "MustFill"
+      ],
+      "scoring": false,
+      "cases": 4719,
+      "changedScore": 0
+    },
+    {
+      "id": "B02",
+      "name": "徒手",
+      "tier": 1,
+      "effects": [
+        "NoItems"
+      ],
+      "scoring": false,
+      "cases": 4596,
+      "changedScore": 0
+    },
+    {
+      "id": "B03",
+      "name": "苛税",
+      "tier": 1,
+      "effects": [
+        "TaxPerDie"
+      ],
+      "scoring": false,
+      "cases": 4562,
+      "changedScore": 0
+    },
+    {
+      "id": "B04",
+      "name": "白干",
+      "tier": 1,
+      "effects": [
+        "NoReward"
+      ],
+      "scoring": false,
+      "cases": 4653,
+      "changedScore": 0
+    },
+    {
+      "id": "B05",
+      "name": "出头鸟",
+      "tier": 1,
+      "effects": [
+        "SealFirst"
+      ],
+      "scoring": true,
+      "cases": 4654,
+      "changedScore": 4654
+    },
+    {
+      "id": "B06",
+      "name": "沉默",
+      "tier": 2,
+      "effects": [
+        "EnchantSilence"
+      ],
+      "scoring": true,
+      "cases": 4645,
+      "changedScore": 2579
+    },
+    {
+      "id": "B07",
+      "name": "停滞",
+      "tier": 1,
+      "effects": [
+        "GrowthFreeze"
+      ],
+      "scoring": false,
+      "cases": 4648,
+      "changedScore": 0
+    },
+    {
+      "id": "B08",
+      "name": "禁顺",
+      "tier": 1,
+      "effects": [
+        "NoStraight"
+      ],
+      "scoring": true,
+      "cases": 4644,
+      "changedScore": 176
+    },
+    {
+      "id": "B09",
+      "name": "急行军",
+      "tier": 2,
+      "effects": [
+        "RollsDelta"
+      ],
+      "scoring": false,
+      "cases": 4578,
+      "changedScore": 0
+    },
+    {
+      "id": "B10",
+      "name": "窄门",
+      "tier": 2,
+      "effects": [
+        "CapacityDelta"
+      ],
+      "scoring": false,
+      "cases": 4708,
+      "changedScore": 0
+    },
+    {
+      "id": "B11",
+      "name": "厚墙",
+      "tier": 2,
+      "effects": [
+        "TargetPercent"
+      ],
+      "scoring": false,
+      "cases": 4554,
+      "changedScore": 0
+    },
+    {
+      "id": "B12",
+      "name": "过路费",
+      "tier": 2,
+      "effects": [
+        "LoseHalfGold"
+      ],
+      "scoring": false,
+      "cases": 4737,
+      "changedScore": 0
+    },
+    {
+      "id": "B13",
+      "name": "封奇",
+      "tier": 2,
+      "effects": [
+        "SealOdd"
+      ],
+      "scoring": true,
+      "cases": 4686,
+      "changedScore": 3187
+    },
+    {
+      "id": "B14",
+      "name": "封偶",
+      "tier": 2,
+      "effects": [
+        "SealEven"
+      ],
+      "scoring": true,
+      "cases": 4567,
+      "changedScore": 3492
+    },
+    {
+      "id": "B15",
+      "name": "封小",
+      "tier": 2,
+      "effects": [
+        "SealLow"
+      ],
+      "scoring": true,
+      "cases": 4674,
+      "changedScore": 3709
+    },
+    {
+      "id": "B16",
+      "name": "封大",
+      "tier": 2,
+      "effects": [
+        "SealHigh"
+      ],
+      "scoring": true,
+      "cases": 4651,
+      "changedScore": 3051
+    },
+    {
+      "id": "B17",
+      "name": "封红",
+      "tier": 2,
+      "effects": [
+        "SealRed"
+      ],
+      "scoring": true,
+      "cases": 4717,
+      "changedScore": 3438
+    },
+    {
+      "id": "B18",
+      "name": "封蓝",
+      "tier": 2,
+      "effects": [
+        "SealBlue"
+      ],
+      "scoring": true,
+      "cases": 4621,
+      "changedScore": 3132
+    },
+    {
+      "id": "B19",
+      "name": "半吊子",
+      "tier": 2,
+      "effects": [
+        "HandHalf"
+      ],
+      "scoring": true,
+      "cases": 4625,
+      "changedScore": 1810
+    },
+    {
+      "id": "B20",
+      "name": "小打小闹",
+      "tier": 2,
+      "effects": [
+        "SmallHandsOnly"
+      ],
+      "scoring": true,
+      "cases": 4622,
+      "changedScore": 253
+    },
+    {
+      "id": "B21",
+      "name": "不重样",
+      "tier": 2,
+      "effects": [
+        "NoRepeatHand"
+      ],
+      "scoring": true,
+      "cases": 4561,
+      "changedScore": 148
+    },
+    {
+      "id": "B22",
+      "name": "褪红",
+      "tier": 2,
+      "effects": [
+        "NoRed"
+      ],
+      "scoring": true,
+      "cases": 4713,
+      "changedScore": 1641
+    },
+    {
+      "id": "B23",
+      "name": "褪蓝",
+      "tier": 2,
+      "effects": [
+        "NoBlue"
+      ],
+      "scoring": true,
+      "cases": 4507,
+      "changedScore": 1252
+    },
+    {
+      "id": "B24",
+      "name": "削级",
+      "tier": 2,
+      "effects": [
+        "HandDowngrade"
+      ],
+      "scoring": false,
+      "cases": 4554,
+      "changedScore": 0
+    },
+    {
+      "id": "B25",
+      "name": "缴械",
+      "tier": 2,
+      "effects": [
+        "DisableLeftmost"
+      ],
+      "scoring": false,
+      "cases": 4486,
+      "changedScore": 0
+    },
+    {
+      "id": "B26",
+      "name": "慢热",
+      "tier": 2,
+      "effects": [
+        "FirstHalf"
+      ],
+      "scoring": true,
+      "cases": 4756,
+      "changedScore": 1579
+    },
+    {
+      "id": "B27",
+      "name": "惜字如金",
+      "tier": 3,
+      "effects": [
+        "SubmissionsDelta"
+      ],
+      "scoring": false,
+      "cases": 4583,
+      "changedScore": 0
+    },
+    {
+      "id": "B28",
+      "name": "打回原形",
+      "tier": 3,
+      "effects": [
+        "ZeroLevels"
+      ],
+      "scoring": true,
+      "cases": 4633,
+      "changedScore": 3827
+    },
+    {
+      "id": "B29",
+      "name": "凡人",
+      "tier": 3,
+      "effects": [
+        "DisableRarity"
+      ],
+      "scoring": false,
+      "cases": 4544,
+      "changedScore": 0
+    },
+    {
+      "id": "B30",
+      "name": "强弩之末",
+      "tier": 3,
+      "effects": [
+        "LaterHalf"
+      ],
+      "scoring": true,
+      "cases": 4616,
+      "changedScore": 3074
+    },
+    {
+      "id": "B31",
+      "name": "天堑",
+      "tier": 4,
+      "effects": [
+        "TargetPercent"
+      ],
+      "scoring": false,
+      "cases": 4454,
+      "changedScore": 0
+    },
+    {
+      "id": "B32",
+      "name": "孤掷",
+      "tier": 4,
+      "effects": [
+        "RollsFixed"
+      ],
+      "scoring": false,
+      "cases": 4645,
+      "changedScore": 0
+    },
+    {
+      "id": "B33",
+      "name": "破釜沉舟",
+      "tier": 4,
+      "effects": [
+        "SubmissionsDelta"
+      ],
+      "scoring": false,
+      "cases": 4611,
+      "changedScore": 0
+    },
+    {
+      "id": "B34",
+      "name": "独木桥",
+      "tier": 4,
+      "effects": [
+        "CapacityDelta"
+      ],
+      "scoring": false,
+      "cases": 4665,
+      "changedScore": 0
+    },
+    {
+      "id": "B35",
+      "name": "返璞归真",
+      "tier": 4,
+      "effects": [
+        "ZeroLevels",
+        "GrowthHalf"
+      ],
+      "scoring": true,
+      "cases": 4622,
+      "changedScore": 4044
+    },
+    {
+      "id": "B36",
+      "name": "色盲",
+      "tier": 4,
+      "effects": [
+        "NoRed",
+        "NoBlue"
+      ],
+      "scoring": true,
+      "cases": 4604,
+      "changedScore": 2866
+    },
+    {
+      "id": "B37",
+      "name": "万籁俱寂",
+      "tier": 4,
+      "effects": [
+        "DisableLeftmost",
+        "EnchantSilence"
+      ],
+      "scoring": true,
+      "cases": 4567,
+      "changedScore": 1995
+    },
+    {
+      "id": "B38",
+      "name": "隔行封印",
+      "tier": 4,
+      "effects": [
+        "SealAlternate",
+        "HandHalf"
+      ],
+      "scoring": true,
+      "cases": 4679,
+      "changedScore": 4679
+    },
+    {
+      "id": "B39",
+      "name": "釜底抽薪",
+      "tier": 4,
+      "effects": [
+        "PipsOnly"
+      ],
+      "scoring": true,
+      "cases": 4686,
+      "changedScore": 3404
+    }
+  ],
+  "effects": [
+    {
+      "effect": "SealOdd",
+      "cases": 4686,
+      "active": 3187
+    },
+    {
+      "effect": "SealEven",
+      "cases": 4567,
+      "active": 3492
+    },
+    {
+      "effect": "SealLow",
+      "cases": 4674,
+      "active": 3709
+    },
+    {
+      "effect": "SealHigh",
+      "cases": 4651,
+      "active": 3051
+    },
+    {
+      "effect": "SealRed",
+      "cases": 4717,
+      "active": 3438
+    },
+    {
+      "effect": "SealBlue",
+      "cases": 4621,
+      "active": 3132
+    },
+    {
+      "effect": "SealFirst",
+      "cases": 4654,
+      "active": 4654
+    },
+    {
+      "effect": "SealAlternate",
+      "cases": 4679,
+      "active": 4679
+    },
+    {
+      "effect": "NoStraight",
+      "cases": 4644,
+      "active": 176
+    },
+    {
+      "effect": "SmallHandsOnly",
+      "cases": 4622,
+      "active": 303
+    },
+    {
+      "effect": "NoRepeatHand",
+      "cases": 4561,
+      "active": 148
+    },
+    {
+      "effect": "HandHalf",
+      "cases": 9304,
+      "active": 3719
+    },
+    {
+      "effect": "ZeroLevels",
+      "cases": 9255,
+      "active": 7602
+    },
+    {
+      "effect": "NoRed",
+      "cases": 9317,
+      "active": 3239
+    },
+    {
+      "effect": "NoBlue",
+      "cases": 9111,
+      "active": 2520
+    },
+    {
+      "effect": "FirstHalf",
+      "cases": 4756,
+      "active": 1579
+    },
+    {
+      "effect": "LaterHalf",
+      "cases": 4616,
+      "active": 3074
+    },
+    {
+      "effect": "PipsOnly",
+      "cases": 4686,
+      "active": 3404
+    },
+    {
+      "effect": "GrowthHalf",
+      "cases": 4622,
+      "active": 1342
+    },
+    {
+      "effect": "EnchantSilence",
+      "cases": 9212,
+      "active": 4574
+    }
+  ],
+  "coverageGaps": []
+}
