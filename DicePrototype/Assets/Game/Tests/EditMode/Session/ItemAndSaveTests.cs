@@ -147,15 +147,43 @@ namespace DiceCraft.Tests
         }
         [Test] public void TwentyFourStageFlowSupportsEightRiskBranchesAndNoFinalShop()
         {
-            var s=Edit(New(),x=>{foreach(var d in x.dice)foreach(var f in d.faces){f.permanentPip=4;f.baseColor="red";f.isGold=true;}Equip(x,"C25","C30","C31","C32","C46");/* p0.9.0: the fifth card lifts this one-submission fixture from 11.7M to 46.6M, above the new 15M final target */foreach(var h in x.handLevels)h.level=8;foreach(var h in x.colorLevels)h.level=8;foreach(var c in x.controllers)c.enchantmentId="mult2";});
+            // p1.1.1 (RULES_DELTA sections 2, 10 and 11, targets final since W6): one fixed build wins all 24 stages by real
+            // scoring. Every pressure stage takes the pressure target, every boss stage keeps the modifier its cycle drew, and no
+            // score, target or modifier is written by the test. Seed 1 (the default of New()) draws B05 (first die sealed), B25
+            // (two leftmost cards disabled), B17 (red dice sealed), B14 (even dice sealed), B23, B10 (row -1), B06 (enchantments
+            // silent) and B39 (base score from pips only) for the final stage. Stage numbers in this comment count from 1, the
+            // labels of the assertions from 0.
+            // Build: five dice whose six faces are all a red gold 4; every hand and colour at level 12; C31 x3, C87 x2.25, C89
+            // x1.3^5, C155 x2 and C101 x3 (which leaves two submissions per stage), each with the +1.5 score enchantment. One
+            // hand is base 26 (20 pips + 6 for two unused rolls) x 60 (five of a kind) x 4.5 (red group) x 17.5 (1 + 6.5 colour
+            // + 2.5 gold + 7.5 enchantments) x 150.37 = 18,473,404. No card adds to the base score, so B39 changes nothing: the
+            // final stage scores the same with or without its modifier, 2.64 times the target of 7,000,000. Every stage is won
+            // by its first hand; the closest besides the final one are stage 23 (pressure 9,300,000: 1.99 times), stage 21
+            // (B06: 10,556,231, 3.52 times) and stage 18 (B10, four dice: 3,287,862, 4.33 times). With all five dice sealed
+            // (stages 9 and 12) the base is the 6 of the unused rolls and the hand 4,263,093.
+            // The build stays inside the limits of a normal run (five ordinary slots, no unique multiplier card twice, levels at
+            // the cap of 12), so it is loaded as a normal-run save: the session then also checks on every command that the
+            // target is the configured one and the boss modifier the planned one.
+            var build=New().State;
+            foreach(var d in build.dice)foreach(var f in d.faces){f.permanentPip=4;f.baseColor="red";f.isGold=true;}
+            Equip(build,"C31","C87","C89","C155","C101");foreach(var c in build.controllers)c.enchantmentId="mult2";
+            foreach(var h in build.handLevels)h.level=12;foreach(var h in build.colorLevels)h.level=12;
+            Assert.That(build.isDebug,Is.False);var s=new GameSession(cfg,new MemorySaveStore(),build);
             for(int stage=0;stage<24;stage++){
-                if(cfg.stages[stage].riskEnabled)Do(s,CommandKind.ChooseChallenge,c=>c.risk=true);
-                // p1.1.1 rewrite: this is a flow test. With the p1.1.1 numbers and a boss plan that depends on the seed the build above
-                // no longer clears every stage in one hand (a boss may also shrink the row or the submission budget), so the
-                // stage score is preset to the target; the hand locks what the row holds and is still rolled, scored and submitted.
-                Do(s,CommandKind.StartStage);s=Edit(s,x=>{x.stage.score=x.stage.target;x.stage.qualified=true;});
-                Do(s,CommandKind.Roll);Lock(s,s.State.dice.Select(x=>x.dieId).Take(s.State.stage.capacity).ToArray());Do(s,CommandKind.Submit);
-                if(s.State.phase!="StageSettlement")Do(s,CommandKind.EndStage);Assert.That(s.State.phase,Is.EqualTo("StageSettlement"),"stage "+stage);Do(s,CommandKind.Continue);
+                var def=cfg.stages[stage];string planned=def.stageKind=="boss"?s.State.cycles[stage/3].modifierId:"",label="stage "+stage+" "+planned;
+                if(def.riskEnabled)Do(s,CommandKind.ChooseChallenge,c=>c.risk=true);
+                Do(s,CommandKind.StartStage);
+                // Real play: roll, lock what the row holds, submit; again while the target is not reached and a submission is left.
+                while(s.State.phase=="HandReady"&&!s.State.stage.qualified){
+                    Do(s,CommandKind.Roll);Lock(s,s.State.dice.Select(x=>x.dieId).Take(s.State.stage.capacity).ToArray());Do(s,CommandKind.Submit);}
+                var played=s.State.stage;Assert.That(played.qualified,Is.True,label+": "+played.score+" of "+played.target);
+                Assert.That(played.risk,Is.EqualTo(def.riskEnabled),label);Assert.That(played.modifierId??"",Is.EqualTo(planned),label);Assert.That(played.modifierNullified,Is.False,label);
+                if(s.State.phase!="StageSettlement")Do(s,CommandKind.EndStage);Assert.That(s.State.phase,Is.EqualTo("StageSettlement"),"stage "+stage);
+                // The stage was really won: the settled score is at least the target in force (pressure x1.5, boss TargetPercent).
+                var target=System.Numerics.BigInteger.Parse(def.riskEnabled?def.riskTarget:def.normalTarget)*(planned!=""&&cfg.Modifier(planned).effects.Contains("TargetPercent")?cfg.Modifier(planned).amount:100)/100;
+                var settled=s.State.lastStageSettlement;Assert.That(settled.target,Is.EqualTo(target.ToString()),label);
+                Assert.That(System.Numerics.BigInteger.Parse(settled.score)>=target,Is.True,label+": "+settled.score+" of "+settled.target);
+                Do(s,CommandKind.Continue);
                 if(stage<23){
                     Assert.That(s.State.phase,Is.EqualTo("Shop"));
                     // v1.1 rewrite (RULES_DELTA): after each of the seven boss stages the loot must be claimed or cashed out first.
