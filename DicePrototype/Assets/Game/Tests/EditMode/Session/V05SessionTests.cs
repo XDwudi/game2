@@ -299,10 +299,10 @@ namespace DiceCraft.Tests
             state = s.State; state.baseSubmitCapacity = 6; Assert.That(() => new GameSession(cfg, new MemorySaveStore(), state), Throws.Exception);
         }
 
-        [TestCase(1u, "C59:none,C105:none,C64:none,C153:none")]
-        [TestCase(0u, "C48:none,C65:none,C31:none,C36:slotless")]
-        [TestCase(20261030u, "C135:none,C30:submit1,C150:roll1,C74:none")]
-        [TestCase(4294967295u, "C142:none,C42:none,C139:none,C13:none")]
+        [TestCase(1u, "C84:none,C140:none,C108:none,C36:none")]
+        [TestCase(0u, "C123:none,C65:none,C32:none,C12:slotless")]
+        [TestCase(20261030u, "C141:none,C59:submit1,C139:roll1,C94:none")]
+        [TestCase(4294967295u, "C49:none,C143:none,C19:none,C108:none")]
         public void V05_ShopInterleavesIdAndEnchantmentWithFrozenReferenceVectors(uint seed, string expected)
         {
             // p1.1.1 vectors (four offers, 150 controllers, shop cycle 1): the low-price guarantee card has no enchantment

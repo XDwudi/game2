@@ -379,3 +379,42 @@ C19 是换机制的卡，三行夹具原样保留，名字改成它们现在表�
 
 - 图标张数 184：`GameplayPlayModeTests.cs:133–134`、`V13CardTemplatePlayModeTests.cs:441`、`W22iArtInstallPlayModeTests.cs:101`。p1.1.1 是 185 项，新图入库属于 W8。
 - 本包只按搜索到的旧文案、旧数值和旧回执去找过时断言，没有逐个读完 150 个 PlayMode 文件，也没有运行。其余因数值变化而失败的断言要等在 Unity 里跑一遍才能列全。
+
+## W6 校准（C53、C59）
+
+依据：RULES_DELTA §4 表里 C53 错乱乘积改为稀有、价格 7（货架权重 4 → 2，不再进入价格 ≤ 4 的低价保底池；19 张去重卡里已没有价格 ≤ 4 的）；§5 表里 C59 余勇可贾每剩 1 次提交成长 +4（原 +6）。没有删测试、没有放宽阈值。
+
+### 货架参考向量（7 处，实际 8 条都换了）
+
+新期望值仍由 [W3B2_NOTES.md](W3B2_NOTES.md) 第 5 节附录的独立脚本原样对新的 `P0Config.json` 重跑得出，没有抄游戏输出；重跑后会话宿主 8 条全过，即脚本与游戏逐条一致。C53 的权重变化改变了全候选的权重总和，所以同一张票落到的卡整体移位，第 1 周期种子 1 那条也变了（原先登记为 3 条失败，实际是 4 条）。附录里的“输出”一段是旧配置下的结果，没有改。
+
+| 测试 | 种子 | 原期望 | 新期望 |
+| --- | --- | --- | --- |
+| `V05SessionTests.V05_ShopInterleavesIdAndEnchantmentWithFrozenReferenceVectors`（第 1 周期） | 1 | `C59:none,C105:none,C64:none,C153:none` | `C84:none,C140:none,C108:none,C36:none` |
+| 同上 | 0 | `C48:none,C65:none,C31:none,C36:slotless` | `C123:none,C65:none,C32:none,C12:slotless` |
+| 同上 | 20261030 | `C135:none,C30:submit1,C150:roll1,C74:none` | `C141:none,C59:submit1,C139:roll1,C94:none` |
+| 同上 | 4294967295 | `C142:none,C42:none,C139:none,C13:none` | `C49:none,C143:none,C19:none,C108:none` |
+| `V111ShopTests.V111_CycleThreeShelfMatchesTheIndependentReferenceVectors`（第 3 周期） | 1 | `C59:slotless,C155:none,C05:none,C50:submit1` | `C84:slotless,C28:none,C70:base10,C133:none` |
+| 同上 | 0 | `C48:none,C126:none,C89:mult2,C49:none` | `C123:none,C127:none,C89:mult2,C49:none` |
+| 同上 | 20261030 | `C135:mult2,C08:mult2,C36:none,C115:roll1` | `C141:mult2,C71:mult2,C35:none,C114:roll1` |
+| 同上 | 4294967295 | `C142:none,C97:slotless,C138:base10,C141:base10` | `C49:none,C26:none,C104:base10,C156:base10` |
+
+### 去重卡的三条测试：抽取位置从首张移到第二张
+
+原来三条都借用“C53 价格 4，在第 1、2 周期刷新时首张的低价保底池里”，把票直接定在首张。现在 C53 不在低价池，改为定在第 1 周期刷新的**第二次** id 抽取：首张是低价保底卡、不抽附魔票，第二次 id 抽取紧接着在“全部候选去掉首张”上进行（§9.1）。新增私有辅助 `SecondRefreshPool`：取低价池的票 0 固定首张，返回第二次抽取的候选；种子用 `SeedFor(低价池总权重, 0, 第二池总权重, 目标票)`。每条都多断言了首张就是那张低价卡，用来证明流对齐。
+
+| 测试 | 原断言 | 新断言 |
+| --- | --- | --- |
+| `V111_AHeldUniqueCardIsNeverDrawnOnARefreshWhileAnOrdinaryHeldCardStillIs` | 低价池里没有持有的 C53、有持有的 C49；按“未过滤低价池”里 C53 起点的票刷新，首张是 C53 的后继卡；按 C49 起点的票，首张是 C49；150 个种子刷新整排货架都没有 C53 | 新增前提断言 C53 价格 > 4；第二次抽取的候选里没有持有的 C53、有持有的 C49；按“未过滤候选（只去掉首张）”里 C53 起点的票刷新，首张是低价卡、第二张是 C53 的后继卡；按 C49 起点的票，第二张是 C49；150 个种子那段不变 |
+| `V111_AfterSellingTheUniqueCardARefreshCanOfferItAgain` | 卖掉 C53 后不再算持有；低价池里有 C53；按它的票刷新后首张是 C53 | 卖掉后不再算持有（不变）；第二次抽取的候选里有 C53；按它的票刷新后首张是低价卡、第二张是 C53 |
+| `V111_AnAddedSlotStillExcludesAUniqueCardThatWasSoldFromTheCurrentBatch` | 扩栏一段（全候选，不走低价池）不变；刷新一段：低价池里有 C53，按它的票刷新后首张是 C53 | 扩栏一段不变（排除批次里已售出的 C53、给出后继卡、货架上只有那一个已售 C53）；刷新一段：第二次抽取的候选里有 C53，按它的票刷新后首张是低价卡、第二张是 C53 |
+
+### C59 成长 +6 → +4
+
+| 测试 | 原断言 | 新断言 |
+| --- | --- | --- |
+| `V111StageTests.V111_StageClearGrowsC58ByFifteenAndC59BySixPerUnusedSubmission` → 改名 `…C59ByFourPerUnusedSubmission` | 剩 2 次提交，C59 成长 12，下一关值 24 | 成长 8，下一关值 20（起步 12 + 8）；注释同步；C58 部分不变 |
+| `Tests/EditMode/Rules/V111ScoringTests.cs` `V111_Growth_ClassificationMatchesTheConfig` 的成长事件表（协调者改） | `{"C59", 6}` | `{"C59", 4}` |
+| `Tests/EditMode/Session/V09SessionTests.cs` `V09_StageClearGrowsC58C59PaysC95WidensInterestWithC96AndRaisesResaleWithC99`（协调者改） | 两次未用提交，C59 成长 12 | 成长 8 |
+
+会话宿主（`SessionValidation.csproj`，Release）：616 条，全过。规则宿主本节没有重跑。

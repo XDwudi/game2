@@ -73,6 +73,17 @@ namespace DiceCraft.Tests
                 .OrderBy(c => c.id, StringComparer.Ordinal).ToArray();
         }
         private bool Scoring(ControllerDefinition c) => !cfg.enchantRules.nonSubmitControllerIds.Contains(c.id);
+        /// <summary>
+        /// The second id draw of a refresh in cycle 1 or 2 (section 9.1): the first card is the low-price guarantee and
+        /// draws no enchantment ticket, so the second id draw follows it directly over the remaining candidates. The
+        /// caller fixes the first card with ticket 0 of the low-price pool (`SeedFor(lowTotal, 0, pool total, ticket)`);
+        /// returns the candidates of the second draw, without that first card.
+        /// </summary>
+        private ControllerDefinition[] SecondRefreshPool(RunState x, out string first, out int lowTotal)
+        {
+            var low = Candidates(x, withoutShelf: true, lowPrice: true); first = low[0].id; lowTotal = low.Sum(c => c.offerWeight);
+            string taken = first; return Candidates(x, withoutShelf: true).Where(c => c.id != taken).ToArray();
+        }
 
         /// <summary>Stage 1 settled (five red 4s), then moved to the settlement of the stage `index` (0-based) with a consistent receipt. Debug workspace.</summary>
         private GameSession SettledAt(int index, Action<RunState> edit = null, params string[] controllers)
@@ -281,10 +292,10 @@ namespace DiceCraft.Tests
         // re-implements section 9.1 from the rule text (listed in docs/specs/v111/W3B2_NOTES.md). The cycle-1 vectors are
         // in V05_ShopInterleavesIdAndEnchantmentWithFrozenReferenceVectors; these are the same four seeds in cycle 3,
         // where the guarantee card draws a ticket too.
-        [TestCase(1u, "C59:slotless,C155:none,C05:none,C50:submit1")]
-        [TestCase(0u, "C48:none,C126:none,C89:mult2,C49:none")]
-        [TestCase(20261030u, "C135:mult2,C08:mult2,C36:none,C115:roll1")]
-        [TestCase(4294967295u, "C142:none,C97:slotless,C138:base10,C141:base10")]
+        [TestCase(1u, "C84:slotless,C28:none,C70:base10,C133:none")]
+        [TestCase(0u, "C123:none,C127:none,C89:mult2,C49:none")]
+        [TestCase(20261030u, "C141:mult2,C71:mult2,C35:none,C114:roll1")]
+        [TestCase(4294967295u, "C49:none,C26:none,C104:base10,C156:base10")]
         public void V111_CycleThreeShelfMatchesTheIndependentReferenceVectors(uint seed, string expected)
         {
             var s = SettledAt(6, x => x.shopRngState = new GameRng(seed ^ 0xC8013EA4u).State); Do(s, CommandKind.Continue);
@@ -320,19 +331,23 @@ namespace DiceCraft.Tests
 
         [Test] public void V111_AHeldUniqueCardIsNeverDrawnOnARefreshWhileAnOrdinaryHeldCardStillIs()
         {
-            // Holding C53 and C49. A refresh first draws from the low-price pool (both list 4). Without C53 in the pool,
-            // the ticket that used to open C53's span now opens the next card; C49 keeps its span.
+            // Holding C53 and C49. C53 is rare at price 7 (W6), so it is never in the low-price pool of the first slot; the
+            // test steers the second id draw of a cycle-1 refresh, over all the remaining candidates. Without C53 in that
+            // pool, the ticket that used to open C53's span now opens the next card; C49 keeps its span.
             var s = ShopAt(0, null, "C53", "C49"); Assert.That(s.IsUniqueControllerHeld("C53"), Is.True); Assert.That(s.IsUniqueControllerHeld("C49"), Is.False);
-            var x0 = s.State; var filtered = Candidates(x0, withoutShelf: true, lowPrice: true);
+            Assert.That(cfg.Controller("C53").buyPrice, Is.GreaterThan(4));
+            var x0 = s.State; var filtered = SecondRefreshPool(x0, out string first, out int lowTotal);
             Assert.That(filtered.Any(c => c.id == "C53"), Is.False); Assert.That(filtered.Any(c => c.id == "C49"), Is.True);
-            var unfiltered = cfg.controllers.Where(c => c.buyPrice <= 4).OrderBy(c => c.id, StringComparer.Ordinal).ToArray();
+            var unfiltered = cfg.controllers.Where(c => c.id != first).OrderBy(c => c.id, StringComparer.Ordinal).ToArray();
             string successor = unfiltered[Array.FindIndex(unfiltered, c => c.id == "C53") + 1].id;
             int before53 = unfiltered.TakeWhile(c => c.id != "C53").Sum(c => c.offerWeight), total = filtered.Sum(c => c.offerWeight);
-            var afterC53 = Edit(s, x => x.shopRngState = SeedFor(total, before53)); Do(afterC53, CommandKind.RefreshControllers);
-            Assert.That(ShelfCards(afterC53.State)[0].contentId, Is.EqualTo(successor), "the ticket where C53 used to start now gives the next card");
+            var afterC53 = Edit(s, x => x.shopRngState = SeedFor(lowTotal, 0, total, before53)); Do(afterC53, CommandKind.RefreshControllers);
+            Assert.That(ShelfCards(afterC53.State)[0].contentId, Is.EqualTo(first));
+            Assert.That(ShelfCards(afterC53.State)[1].contentId, Is.EqualTo(successor), "the ticket where C53 used to start now gives the next card");
             int before49 = filtered.TakeWhile(c => c.id != "C49").Sum(c => c.offerWeight);
-            var owned49 = Edit(s, x => x.shopRngState = SeedFor(total, before49)); Do(owned49, CommandKind.RefreshControllers);
-            Assert.That(ShelfCards(owned49.State)[0].contentId, Is.EqualTo("C49"), "a held card that is not unique can be offered again");
+            var owned49 = Edit(s, x => x.shopRngState = SeedFor(lowTotal, 0, total, before49)); Do(owned49, CommandKind.RefreshControllers);
+            Assert.That(ShelfCards(owned49.State)[0].contentId, Is.EqualTo(first));
+            Assert.That(ShelfCards(owned49.State)[1].contentId, Is.EqualTo("C49"), "a held card that is not unique can be offered again");
             // And over many refreshes C53 never shows up anywhere on the shelf.
             for (uint seed = 1; seed <= 150; seed++)
             {
@@ -345,9 +360,10 @@ namespace DiceCraft.Tests
         {
             var s = ShopAt(0, null, "C53");
             Do(s, CommandKind.Sell, c => c.itemInstanceId = s.State.controllers.Single().instanceId); Assert.That(s.IsUniqueControllerHeld("C53"), Is.False);
-            var pool = Candidates(s.State, withoutShelf: true, lowPrice: true); Assert.That(pool.Any(c => c.id == "C53"), Is.True);
-            s = Edit(s, x => x.shopRngState = SeedFor(pool.Sum(c => c.offerWeight), pool.TakeWhile(c => c.id != "C53").Sum(c => c.offerWeight)));
-            Do(s, CommandKind.RefreshControllers); Assert.That(ShelfCards(s.State)[0].contentId, Is.EqualTo("C53"));
+            // C53 (price 7) is not in the low-price pool of the first slot: the refresh offers it at the second id draw.
+            var pool = SecondRefreshPool(s.State, out string first, out int lowTotal); Assert.That(pool.Any(c => c.id == "C53"), Is.True);
+            s = Edit(s, x => x.shopRngState = SeedFor(lowTotal, 0, pool.Sum(c => c.offerWeight), pool.TakeWhile(c => c.id != "C53").Sum(c => c.offerWeight)));
+            Do(s, CommandKind.RefreshControllers); Assert.That(ShelfCards(s.State)[0].contentId, Is.EqualTo(first)); Assert.That(ShelfCards(s.State)[1].contentId, Is.EqualTo("C53"));
         }
 
         [Test] public void V111_AnAddedSlotStillExcludesAUniqueCardThatWasSoldFromTheCurrentBatch()
@@ -363,9 +379,11 @@ namespace DiceCraft.Tests
             var expanded = Edit(s, x => { service = PutOffer(x, "service", "O05"); x.shopRngState = SeedFor(pool.Sum(c => c.offerWeight), pool.TakeWhile(c => string.CompareOrdinal(c.id, "C53") < 0).Sum(c => c.offerWeight)); });
             Do(expanded, CommandKind.Buy, c => c.offerId = service);
             Assert.That(ShelfCards(expanded.State).Last().contentId, Is.EqualTo(successor)); Assert.That(ShelfCards(expanded.State).Count(o => o.contentId == "C53"), Is.EqualTo(1), "only the sold offer");
-            var low = Candidates(s.State, withoutShelf: true, lowPrice: true); Assert.That(low.Any(c => c.id == "C53"), Is.True);
-            s = Edit(s, x => x.shopRngState = SeedFor(low.Sum(c => c.offerWeight), low.TakeWhile(c => c.id != "C53").Sum(c => c.offerWeight)));
-            Do(s, CommandKind.RefreshControllers); Assert.That(ShelfCards(s.State)[0].contentId, Is.EqualTo("C53"), "the refresh withdrew the batch with the sold offer");
+            // C53 (price 7) is not in the low-price pool of the first slot: the refresh offers it at the second id draw.
+            var second = SecondRefreshPool(s.State, out string first, out int lowTotal); Assert.That(second.Any(c => c.id == "C53"), Is.True);
+            s = Edit(s, x => x.shopRngState = SeedFor(lowTotal, 0, second.Sum(c => c.offerWeight), second.TakeWhile(c => c.id != "C53").Sum(c => c.offerWeight)));
+            Do(s, CommandKind.RefreshControllers); Assert.That(ShelfCards(s.State)[0].contentId, Is.EqualTo(first));
+            Assert.That(ShelfCards(s.State)[1].contentId, Is.EqualTo("C53"), "the refresh withdrew the batch with the sold offer");
         }
 
         [Test] public void V111_ALiveOfferOfAHeldUniqueCardIsRefusedAndStaysUntilTheHeldCopyIsSold()

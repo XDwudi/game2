@@ -581,7 +581,7 @@ namespace DiceCraft.Core.Tests
             foreach (string id in new[] { "C54", "C58", "C100", "C125" }) Assert.That(ControllerRules.GrowthValue(cfg, id, new ControllerDynamicState()), Is.EqualTo(125), id);
             Assert.Throws<ArgumentException>(() => ControllerRules.GrowthValue(cfg, "C46", new ControllerDynamicState()));
             // Event sizes of section 5 in the unit of each card.
-            var events = new Dictionary<string, int> { { "C51", 80 }, { "C54", 10 }, { "C55", 3 }, { "C56", 40 }, { "C57", 80 }, { "C58", 15 }, { "C59", 6 }, { "C60", 50 }, { "C61", 50 }, { "C62", 1 }, { "C100", 15 }, { "C125", 20 }, { "C129", 250 }, { "C132", 250 }, { "C134", 40 } };
+            var events = new Dictionary<string, int> { { "C51", 80 }, { "C54", 10 }, { "C55", 3 }, { "C56", 40 }, { "C57", 80 }, { "C58", 15 }, { "C59", 4 }, { "C60", 50 }, { "C61", 50 }, { "C62", 1 }, { "C100", 15 }, { "C125", 20 }, { "C129", 250 }, { "C132", 250 }, { "C134", 40 } };
             foreach (var pair in events) Assert.That(cfg.Controller(pair.Key).parameters.growthEvent, Is.EqualTo(pair.Value), pair.Key);
             // Catch-up per later cycle: additive 0.5, base 6 points, multiplier 0.1.
             Assert.That(cfg.growthCatchupPerCycle.additive, Is.EqualTo(50)); Assert.That(cfg.growthCatchupPerCycle.@base, Is.EqualTo(6)); Assert.That(cfg.growthCatchupPerCycle.multiplier, Is.EqualTo(10));

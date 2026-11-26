@@ -60,7 +60,8 @@ PATCH = {
     # multiplier cards with extra changes
     "C31": dict(d="提交中任一有效点数至少4颗时，整手得分×3。", x=""),
     "C42": dict(x="本次计分和提交后效果都完成后才判定；被百变模仿复制时，模仿卡自己也有15%概率碎掉。"),
-    "C53": dict(set={"factorUnits2": [1, 2, 2, 3, 4, 4, 6, 6, 8]},
+    # W6 calibration: rare at 7 (was uncommon at 4), see BALANCE_PLAN 25.
+    "C53": dict(rarity="稀有", price=7, set={"factorUnits2": [1, 2, 2, 3, 4, 4, 6, 6, 8]},
                 d="提交事务中从0.5、1、1、1.5、2、2、3、3、4等概率抽取整手倍率；每个真实错乱乘积抽一次，其模仿者复用同一结果。",
                 s="每次提交得分随机×0.5~×4。",
                 x="从×0.5、×1、×1、×1.5、×2、×2、×3、×3、×4里等概率抽一个；被百变模仿复制时两份用同一个结果。"),
@@ -152,9 +153,9 @@ PATCH = {
                 d="加成从+1起。每次红组达到3颗及以上的有效提交后+0.8。", s="加成从+1起，每次提交红组达3颗以上就+0.8。"),
     "C58": dict(price=7, set={"growthKind": "multiplier", "growthStart": 125, "growthEvent": 15}, drop=["growthPerEvent"],
                 d="整手得分×n，n从1.25起。每通过一关n+0.15。", s="得分倍率从×1.25起，每通过一关+0.15。"),
-    "C59": dict(set={"growthKind": "base", "growthStart": 12, "growthEvent": 6}, drop=["growthPerEvent"],
-                d="整手基础分加上本卡的成长值，从+12起。每关结算时，每剩1次提交机会成长值+6。",
-                s="基础分+12；每关结算时每剩1次提交再+6。"),
+    "C59": dict(set={"growthKind": "base", "growthStart": 12, "growthEvent": 4}, drop=["growthPerEvent"],  # W6: 6 -> 4, see BALANCE_PLAN 25
+                d="整手基础分加上本卡的成长值，从+12起。每关结算时，每剩1次提交机会成长值+4。",
+                s="基础分+12；每关结算时每剩1次提交再+4。"),
     "C60": dict(trigger="GrowthAdditive", set={"growthKind": "additive", "growthStart": 100, "growthEvent": 50}, drop=["growthPerEvent"],
                 d="加成从+1起。每做1次骰面改造+0.5（购买、自选、赠礼、战利品都算）。", s="加成从+1起，每做1次骰面改造+0.5。",
                 x="货架、自选、战利品、赠礼里的骰面改造都算；一次改两个面只算1次；骰子脆化也算。"),

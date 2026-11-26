@@ -1441,11 +1441,11 @@
     {
       "id": "C53",
       "displayName": "错乱乘积",
-      "buyPrice": 4,
+      "buyPrice": 7,
       "baseSellPrice": 1,
       "salePriceMode": "fixed",
-      "rarity": "uncommon",
-      "offerWeight": 4,
+      "rarity": "rare",
+      "offerWeight": 2,
       "trigger": "RandomScoreMultiply",
       "scoreEnchantEligible": true,
       "isCultivation": false,
@@ -1584,10 +1584,10 @@
       "parameters": {
         "growthKind": "base",
         "growthStart": 12,
-        "growthEvent": 6
+        "growthEvent": 4
       },
-      "description": "整手基础分加上本卡的成长值，从+12起。每关结算时，每剩1次提交机会成长值+6。",
-      "shortText": "基础分+12；每关结算时每剩1次提交再+6。",
+      "description": "整手基础分加上本卡的成长值，从+12起。每关结算时，每剩1次提交机会成长值+4。",
+      "shortText": "基础分+12；每关结算时每剩1次提交再+4。",
       "details": ""
     },
     {

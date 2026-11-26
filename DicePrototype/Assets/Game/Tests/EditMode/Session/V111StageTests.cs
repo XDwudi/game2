@@ -240,16 +240,16 @@ namespace DiceCraft.Tests
             Assert.That(third.additiveEntries.Single(e => e.abilityId == "C57").amount100, Is.EqualTo(180));
         }
 
-        [Test] public void V111_StageClearGrowsC58ByFifteenAndC59BySixPerUnusedSubmission()
+        [Test] public void V111_StageClearGrowsC58ByFifteenAndC59ByFourPerUnusedSubmission()
         {
-            // Section 5: C58 +0.15 per cleared stage (x1.55 after two); C59 +6 per unused submission at settlement
-            // (2 left -> +12, so +24 next stage).
+            // Section 5: C58 +0.15 per cleared stage (x1.55 after two); C59 +4 per unused submission at settlement
+            // (W6 calibration; 2 left -> +8, so +20 next stage).
             var s = Start(new[] { "C58", "C59" });
             s = Clear(s);
             Assert.That(s.State.lastStageSettlement.remainingSubmissions, Is.EqualTo(2));
             Assert.That(Card(s.State, "C58").state.growth, Is.EqualTo(15));
-            Assert.That(Card(s.State, "C59").state.growth, Is.EqualTo(12));
-            Assert.That(ControllerRules.GrowthValue(cfg, "C59", Card(s.State, "C59").state), Is.EqualTo(24));
+            Assert.That(Card(s.State, "C59").state.growth, Is.EqualTo(8));
+            Assert.That(ControllerRules.GrowthValue(cfg, "C59", Card(s.State, "C59").state), Is.EqualTo(20));
             Do(s, CommandKind.Continue); s = Edit(s, x => x.debugCapacityOverride = 0); Do(s, CommandKind.LeaveShop); Do(s, CommandKind.StartStage);
             s = Clear(s);
             Assert.That(ControllerRules.GrowthValue(cfg, "C58", Card(s.State, "C58").state), Is.EqualTo(155));

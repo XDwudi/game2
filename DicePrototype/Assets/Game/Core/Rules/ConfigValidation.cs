@@ -72,7 +72,7 @@ namespace DiceCraft.Core
             ValidateIds(controllers, c => c.id, Ids("C", 156).Except(removedControllerIds).ToArray());
             ValidateIds(consumables, c => c.id, Ids("I", 13)); ValidateIds(services, s => s.id, Ids("O", 11)); ValidateIds(diceUpgrades, u => u.id, Ids("U", 11));
             Check(activeContentCount == 185 && controllers.Length + consumables.Length + services.Length + diceUpgrades.Length == activeContentCount, "Content count.");
-            Check(controllers.Count(c => c.rarity == "common") == 29 && controllers.Count(c => c.rarity == "uncommon") == 88 && controllers.Count(c => c.rarity == "rare") == 33, "Rarity counts.");
+            Check(controllers.Count(c => c.rarity == "common") == 29 && controllers.Count(c => c.rarity == "uncommon") == 87 && controllers.Count(c => c.rarity == "rare") == 34, "Rarity counts.");
             Check(new HashSet<string>(controllers.Where(c => c.isCultivation).Select(c => c.id), StringComparer.Ordinal).SetEquals(CultivationIds), "Cultivation cards.");
             Check(shop != null && shop.controllerWeights != null, "Shop missing.");
             foreach (var c in controllers)
