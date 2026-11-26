@@ -125,6 +125,8 @@ C19 是换机制的卡，三行夹具原样保留，名字改成它们现在表�
 
 失败条数见 [W3a 备注](W3A_NOTES.md)。
 
+后续：W4b 已把这些测试改指 p1.1.1 样例并删除了 `colorMult100` 别名，见文末“W4b”一节。
+
 ---
 
 # W3b-1：会话层旧测试改写登记
@@ -216,3 +218,58 @@ C19 是换机制的卡，三行夹具原样保留，名字改成它们现在表�
 | V10_EnchantedLootHandLootDiceLootUpgradeLootAndItemLootFollowTheirRules | 战利品测试；现在停在 C61 成长单位（4→100），后面还有 L5 镀金骰 |
 | V10_GiftControllersAddAFreeGroupToEveryShopAndAMimicAddsAPick | 赠礼测试；现在停在 C60 成长单位（2→50） |
 | V10_NewItemsDoubleTheScoreTurnDiceBlueGildAFaceAndWidenTheRow | 道具测试；得分数值与点金笔加权重 |
+---
+
+# W4b：与黄金样例对拍的测试改指 p1.1.1 样例
+
+工作包 W4b（[交接包](briefs/W4B_GOLDEN_GLUE.md)）。范围是 `Tests/EditMode/Rules/` 里与样例文件对拍的测试，以及读同一个旧文件的 `Tests/EditMode/Presentation/PresentationTests.cs`。上文“没有改的：与黄金样例对拍的测试”一节列的测试全部在本包改写。没有删除任何测试方法，没有使用 `[Ignore]`。期望值一律取自独立参考实现生成的 `GoldenScoresV111.json`，本包没有手写或照抄计分器输出的期望值。字段映射、归一化与对拍结果见 [W4b 备注](W4B_NOTES.md)。
+
+## 新增
+
+| 测试 | 内容 |
+| --- | --- |
+| `V111GoldenTests.GoldenV111_EveryExpectedFieldMatchesTheIndependentReference`（`GOLD111-<样例编号>`，2152 条） | 逐条还原输入、计分、比对样例的全部期望字段（33 个加计划 19 个）与手算核对块 `handChecks`，并断言计分没有改动输入。样例里出现本测试不认识的字段即失败 |
+| `V111GoldenTests.GoldenV111_FileIsTheP111SetWithAtLeast2152UniqueCases` | 结构号、规则版本、样例总数下限 2152、编号唯一、各类样例下限（新写 263、矩阵 572、`L08-` 160、`L09-` 257、`L10-` 445、`L11-` 455）、文件头的分类计数与实际一致 |
+| `V111GoldenTests.GoldenV111_EveryCaseCarriesTheFullExpectedFieldSet` | 每条样例的期望字段集合恰好是比对表里的那一组，多一个少一个都失败 |
+| `V111GoldenTests.GoldenV111_EveryChangedCardHasTriggeredAndUntriggeredCases` | 按样例文件自己的分类（矩阵样例的 `cardId` 与 `family`）：本版改了数值或机制的 100 张卡都在矩阵里；矩阵的 122 张卡每张都有单张触发、失效不触发、两张同名都触发、模仿与真卡同时触发的样例；条件触发的卡另有不靠失效的自然不触发样例，恒触发的卡不许出现 `miss` 样例。触发与否同时看样例期望与游戏实际结果 |
+| `V111GoldenTests.GoldenV111_HandCheckedCasesAndEveryBossModifierArePresent` | 带手算核对的样例不少于 263 条；配置里 39 个首领减益都在样例里出现过 |
+| `V111GoldenTests.GoldenV111_ReaderKeepsNullEmptyAndNestedValuesApart`、`GoldenV111_ComparisonNoticesAWrongAMissingAndAnUnknownField` | 读入器分得清 null、空串、嵌套空值，拒绝小数、重复键和多余逗号；比对函数对改错一个值、缺一个字段、多一个字段都会报差异 |
+| `V111GoldenTests.GoldenV111_ChangingAnySingleExpectedFieldIsNoticed` | 在四条形状不同的样例上，把 33 个期望字段与 19 个计划字段逐个改掉一个值，每次都必须恰好多报一条差异，证明没有哪个字段是空比 |
+| `ScoreExplanationTests.Trace_EveryOtherP111GoldenInputAlsoRebuildsStepByStep` | 把 `TRACE-` 那一组的逐步核对用到其余 1992 条输入上（改写的 `L09`–`L11` 输入、新写样例、矩阵），覆盖加成区与新卡 |
+
+## 改写
+
+| 测试 | 原来 | 现在 | 说明 |
+| --- | --- | --- | --- |
+| `RulesTests.Golden_All21Fields_Plan14_AndNoMutation`（`GOLD-G001…G160`，160 条） | 读 `GoldenScores.json`，按反射比 21 个字段与计划 | 取新文件 `L08-G001…G160`（同一批输入在 p1.1.1 下的期望），比全部期望字段 | 用例名不变。方法名保留（字段数已不是 21／14，方法上有注释）。旧文件里有、新文件没有的中间量不再比：`pairKinds`、`pairBaseAdd`、`walletBaseAdd`、`emptySlotBaseAdd`、`steadyBaseAdd`（它们的和仍由 `baseTotal` 约束）；`enchantMultiplierCount` 改比 `enchantAdditiveCount`，`colorMult100` 改比 `colorAdd100`。新增比对 `scoreNumerator/Denominator`、`pipSum`、加成条目、乘法因子、红组键与成员等 |
+| `RulesTests.GoldenFile_HasExactly160UniqueCases` | 旧文件恰好 G001–G160 | 新文件 `L08-` 一段的来源编号恰好是 G001–G160 | 等价 |
+| `RulesTests.GoldenJson_PreservesNullEmptyAndNonemptyGroupIdsExactly` | 旧读入器（`GoldenJsonLoader`，用占位串保住 null） | 同一段 JSON 交给新读入器 `V111Json`，仍断言 null、空串、`pair` 三者分得开 | 旧读入器随旧文件退役 |
+| `RulesTests.GoldenJson_AllOriginalNullTokensAreAccountedFor` | 旧文件的 null 记号：`chosenGroupId` 的个数与读入结果一致，另有其它可空字段 | 新文件的 null 只允许出现在三处：`bindings`（右邻绑定）、绑定值（无目标）、无卡来源的加成条目的 `emitterId`／`stateOwnerId`。原文里的 null 记号总数必须等于这三处之和；`chosenGroupId`、`colorId`、`upgradeHandId`、`previousPrimary` 不许为 null（新文件用空串） | 新文件的空值约定见 W4-15 |
+| `RulesTests.Score_RejectsEmptyDuplicateOverCapacityAndInvalidLevels` | 用旧文件第一条当模板 | 用 `L08-G001` 当模板，并先断言模板本身合法 | 断言不变 |
+| `ScoreExplanationTests.Trace_All160GoldenOutputsAndEveryArithmeticLinkRemainExact`（`TRACE-G001…G160`，160 条） | 在旧文件输入上核对说明与结果逐步一致 | 在 `L08-` 输入上做同样的核对；与样例的比对改为全部期望字段 | 用例名不变。逐骰链的终点由“等于贡献”改为“等于该骰合计（贡献 ×（1 + 再计次数））”，这 160 条没有再计，两者相同 |
+| `V09GoldenTests.GoldenV09_EveryExpectedFieldMatchesTheIndependentReference`（`GOLD09-…`） | 读 `GoldenScoresV09.json`，260 条 | 取 `L09-` 一段，257 条，比全部期望字段，并重建计分说明 | 少的 3 条（N038、N039、N040）输入里只有已移除的 C90，独立方没有保留 |
+| `V09GoldenTests.GoldenV09_FileCoversEveryScoringNewControllerBothTriggeredAndPresent` | 旧文件 ≥150 条；C54–C103 每张计分卡出现 ≥2 次、有触发、条件卡有不触发；恒触发名单含 C90 | `L09-` 一段 ≥257 条，同样的三条断言；恒触发名单去掉 C90；另断言检查的计分卡恰好 42 张 | C91（纹理大师）的条件在 §4.4 换了，旧输入没有一条满足新条件，所以它的“有触发样例”改在全文件里找（矩阵里有）；并断言旧输入确实触发不了它，哪天能触发了这条例外会报错 |
+| `V10GoldenTests.GoldenV10_EveryExpectedFieldMatchesTheIndependentReference`（`GOLD10-…`） | 读 `GoldenScoresV10.json`，446 条 | 取 `L10-` 一段，445 条 | 少的 1 条（P214）输入里只有已移除的 C128 |
+| `V10GoldenTests.GoldenV10_FileCoversEveryNewScoringControllerAndEveryScoringModifierEffect` | 旧文件 ≥300 条；C104 起每张计分卡三条断言；每个首领减益出现过 | `L10-` 一段 ≥445 条，同样的断言；另断言检查的计分卡恰好 37 张 | C155、C156 是本版新卡，旧输入里不可能有，改在全文件里数 |
+| `V10GoldenTests.V10_DisabledControllersPlanNoGrowthNoColourRotationAndNoRandomRedraw` | 用旧文件 `P001` 当模板 | 用 `L10-P001` 当模板 | 断言不变 |
+| `V11GoldenTests.GoldenV11_EveryExpectedFieldMatchesTheIndependentReference`（`GOLD11-…`） | 读 `GoldenScoresV11.json`，459 条 | 取 `L11-` 一段，455 条 | 少的 4 条都是专为 C90 设的 |
+| `V11GoldenTests.GoldenV11_CoversEveryHistoricalScoringCardWithTwoTriggeringCopies` | 历史计分卡清单（三个旧文件里触发过的卡）等于文件头的 `scoringCards`；每张有两张同名都触发的 `two_hit` 样例 | 历史清单改由 `L08`–`L10` 三段在新规则下触发过的卡得出（120 张，下限 120）；它加上 C91 恰好等于 `L11-` 里带 `two_hit` 的卡；每张历史卡在 `L11-` 里有两张都触发的样例，C91 用矩阵的 `two_hit` | 新文件没有 `scoringCards` 等清单，样例的归类改从编号（`L11-<卡>-<族>`）与矩阵的 `cardId`／`family` 读 |
+| `V11GoldenTests.GoldenV11_ConditionalCardsAlsoHaveTwoUntriggeredCopies` | 条件卡清单等于文件头的 `conditionalCards`；每张有两张都自然不触发的 `two_miss` 样例 | 条件卡 = 历史清单 − 恒触发 + C91，等于 `L11-` 里带 `two_miss` 的卡；每张仍要求两张都自然不触发，C19、C127、C138 除外 | C19（改读最小点数）、C127（不再限首手）、C138（花费 2）的旧 `two_miss` 输入在新规则下会触发，改用矩阵的单张 `miss` 样例；并断言旧输入确实不再是两张都不触发 |
+| `V11GoldenTests.GoldenV11_MultiplierAndPerDieAdditionCardsHaveThreeTriggeringCopies` | 两份必备名单是文件头两个清单的子集；清单里每张有三张都触发的 `three_hit` 样例 | 两份必备名单（去掉 C90）是 `L11-` 里带 `three_hit` 的卡的子集；这些卡每张有三张都触发的样例，C91 除外 | **覆盖变弱的一处**：新文件里没有三张 C91 都触发的样例（旧输入不满足新条件，矩阵只到两张），C91 退为要求矩阵的两张都触发。已记入备注，请独立方补一条 |
+| `V11GoldenTests.GoldenV11_MixesRealCopiesWithMimicsOfTheSameAbility` | 每张历史卡有 `mimic_hit` 样例；逐条检查模仿与真卡都触发 | 范围扩到 `L11-` 与矩阵两处的 `mimic_hit`（至少 242 条逐条检查）；每张历史卡加 C91 都要有 | `L11-C91-mimic_hit` 的旧输入不满足 C91 的新条件，跳过这一条，C91 由矩阵的那条检查 |
+| `PresentationTests.AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow`（`ART07_RECEIPT_G001…G160`） | 读 `GoldenScores.json` | 取 `L08-` 一段，回执分数与新文件的 `score` 比 | 用例名不变。本包只让它编译并改了数据来源，没有在 Unity 里运行；界面测试的其余断言属界面工作包 |
+
+随旧文件一起删掉的只是读旧文件用的数据类（`GoldenFile`、`GoldenCase`、`GoldenInput`、`GoldenDie`、`GoldenLevels`、`GoldenBindings`、`GoldenRandom`、`GoldenJsonLoader`，以及 `V09Golden*`、`V10Golden*`、`V11Golden*` 各组），它们不是测试方法。
+
+## 规则宿主条数
+
+| | 总数 | 通过 | 失败 |
+| --- | --- | --- | --- |
+| 本包之前 | 1825 | 691 | 1134 |
+| 本包之后 | 3977 | 3977 | 0 |
+
+条数变化：新增 2152 + 7 + 1 = 2160 条；`GOLD09-`、`GOLD10-`、`GOLD11-` 因独立方没有保留 8 条只含已移除卡牌的旧输入而少 8 条（1825 + 2160 − 8 = 3977）。
+
+## Python 测试
+
+没有改 `tests/` 下任何文件。`tests/test_v11_config.py`（17 条）与 `tests/test_v11_golden.py`（7 条）原先因为读到 p1.1.1 的现行配置而失败，本包把它们测的旧生成器（`tools/v08…v11_config.py`、`tools/v08…v11_golden.py`）改为读写各自版本的冻结副本后，两个文件不经修改全部通过。其余见 [W4b 备注](W4B_NOTES.md) 第 6 节。
