@@ -6,11 +6,9 @@
 
 ## 规格里算不对的“例”
 
-逐条核对了 §2–§7、§9–§14 里带数字的例子，**没有发现按正文算不出的数**。有一处例子的状态不可达，算术本身成立：
+逐条核对了 §2–§7、§9–§14 里带数字的例子，**没有发现按正文算不出的数**。
 
-| 位置 | 情况 |
-| --- | --- |
-| §5.1 “深蓝已长 0.45 时本关按 +1.22 读” | 深蓝每次事件 +0.4，事件累计只会是 0.4 的整数倍，0.45 只能由调试构造。按 `growth=45` 计算得 100 + floor(45/2) = 122，与正文一致。样例照此给出（说明以“§5.1 返璞归真 深蓝已长 0.45”开头的那条）。建议把例子改成可达的数，例如已长 1.2 读 +1.6，或另找一个能体现向下取整的乘法卡例子 |
+首次生成时 §5.1 有一处例子的状态不可达（“深蓝已长 0.45”，深蓝的事件累计只会是 0.4 的整数倍）。规格已改为可达的数：深蓝已长 1.2 时读 +1.6，连庄已长 0.15 时读 ×1.32。两条样例随之更新（说明以“§5.1 返璞归真 深蓝已长 1.2”“§5.1 例 返璞归真 连庄已长 0.15”开头），按正文都算得出。
 
 另外核对了 §11 的目标表（`500×(37/25)^(关号−3)` 取最近偶数）与配置的 24 关目标、§4 表里 110 张卡的稀有度与价格、§12.3 的参数值：都与配置一致。
 
@@ -18,7 +16,7 @@
 
 | 编号 | 问题 | 采用的读法 | 理由 | 受影响的样例 |
 | --- | --- | --- | --- | --- |
-| W4-01 | §12.2 提到 `multiplierFactors`、`triggeredMultiplierIds`、`triggeredControllerIds`，但可读的规格里没有它们的形状；旧样例里触发来源叫 `triggeredSourceIds` | `multiplierFactors` 每条 `{emitterId, abilityId, numerator, denominator}`（分子分母为约分后的十进制串，与 `globalFactors` 同形），按发出者栏序；`triggeredMultiplierIds` 是这些因子的发出者实例编号，同序；`triggeredControllerIds` 是触发来源的技能编号去重后按 Ordinal 字符串排序；`triggeredSourceIds` 沿用旧样例：触发来源的发出者实例，卡列顺序 | 只有名字没有形状，取与现有 `globalFactors` 一致的最小结构 | 全部样例的这四个字段。实现的形状不同时请给出形状，改生成器即可，数值不受影响 |
+| W4-01 | §12.2 提到 `multiplierFactors`、`triggeredMultiplierIds`、`triggeredControllerIds`，但可读的规格里没有它们的形状；旧样例里触发来源叫 `triggeredSourceIds` | `multiplierFactors` 每条 `{emitterId, abilityId, numerator, denominator}`（分子分母为约分后的十进制串，与 `globalFactors` 同形），按发出者栏序；`triggeredMultiplierIds` 是这些因子的发出者实例编号，同序；`triggeredControllerIds` 是触发来源的技能编号去重后按 Ordinal 字符串排序；`triggeredSourceIds` 沿用旧样例：触发来源的发出者实例，卡列顺序 | 只有名字没有形状，取与现有 `globalFactors` 一致的最小结构 | **已裁定并写入 §12.2**：`multiplierFactors` 的形状如左；`triggeredMultiplierIds` 改为与它同序、逐条列该因子的技能编号（`multiplierFactors[].abilityId`，不去重，模仿发出的因子列被模仿卡的编号），生成器已照改，全部样例的这个字段随之重生成。`triggeredControllerIds`、`triggeredSourceIds` 仍是左列的读法 |
 | W4-04 | 改成加成后，数额为 0 的即时加成卡算不算触发（影响附魔与触发名单）。§4.2 只对 C139 写了“至少一档才触发”，对 C150 写了“首手不触发” | 沿用 p1.0.0 的触发口径：C147 需有留池骰，C148 需剩余投掷 ≥1，C151 需有空栏，C152 需至少一张普通卡，C137 需至少一颗匹配；C63、C47、C141 总是触发。C63 在永久骰为 0 时触发但不列加成条目 | §4 没有改这些卡的触发条件；“零加成不列”只管条目 | `M-C147-miss`、`M-C148-miss`、`M-C151-miss`、`M-C152-miss`、`M-C137-miss`，以及 L09 里“0 颗永久骰”的 C63 输入 |
 | W4-02 | §6.1 C122“每颗有物理面数据的朝上面生成 `pipSet=5`”：朝上面已是 5 点时列不列 | 照列 `pipSet=5`（执行后无变化） | 按字面是每颗都生成；与 C117、C124 的“照列，由会话处理”一致。p1.0.0 的“=5 不产生变更”是旧的 ±1 规则 | `M-C122-*` 中含 5 点骰的样例、L10／L11 含 C122 的输入 |
 | W4-03 | 连庄换牌型时事件累计已是 0，`growthChanges` 列不列 `halve` | 列一条 `{delta:0, halve:true}` | §12.2 只排除“首次无上次或条件不满足”；换牌型是条件成立的另一支 | 以“§5 C54 事件累计为 0 时换牌型”开头的样例、L09–L11 里成长为 0 且换了牌型的 C54 输入 |
@@ -34,18 +32,24 @@
 | W4-09 | C127 是否仍限本关首手 | 不限：每手至少两颗即触发 | §6.1“每手至少两颗时”，§12.3 删除 `submissionOrdinal` | 以“§6.1 C127 每手至少两颗”开头的样例、`M-C127-*` |
 | W4-10 | C36／C37 净和为 0，或只交两颗时计划怎么写 | `growthIndices` 为前 min(3, 提交数) 颗的下标；净和为 0 时 `growthNetDelta=0`，下标与 `cultivationSourceBindings` 照给 | §12.3“超出提交数的项忽略”；§12.2“C36/C37 列所有触发来源”。是否计回收由会话比较前后值 | 以“§6.1 C36”开头的几条样例 |
 | W4-12 | C49 无 5 点的 ×1/2 记在哪里 | 每个触发来源一条 `multiplierFactors`（`abilityId=C49`，1/2），计入 `controllerMultiplier`，不产生加成条目；该来源的倍率附魔照常 +1.5 | §2 步骤 9、§12.2、A05 | 以“§4.2 C49 两张、零个 5”“C49 无 5 点分支”开头的样例 |
-| W4-13 | 旧输入怎样改写成合法的 p1.1.1 输入 | C137 补 `starPip`（有提交的临时骰时取第一颗临时骰的当前点数，否则取提交骰里没有的点数）；C53 不在新票表的结果改为 8；本关已有提交却没有上一主牌型时补 `scatter`；p0.9.0 快照补 `lifetime`、`stageHandsUsed`、栏位数（8 条大构筑超过 7 栏，按合成快照保留）；B29／B37 的失效名单按新规则重算；人员流动的 `turnoverUnits2` 按每次卖卡 +0.8 换算为 `growth`；去掉与计分无关的 `fundAccrual`、`sum6`；输入里顺带出现的 C90／C128／C145 实例去掉 | 交接包要求能改写就改写。每条改写都记在该样例的 `derivedFrom.rewrites` | 212 条旧输入（其中 160 条是 `GoldenScores.json` 的合成快照补缺省字段），统计见来源记录的 `rewrite_kinds` |
+| W4-13 | 旧输入怎样改写成合法的 p1.1.1 输入 | C137 补 `starPip`（有提交的临时骰时取第一颗临时骰的当前点数，否则取提交骰里没有的点数）；C53 不在新票表的结果改为 8；本关已有提交却没有上一主牌型时补 `scatter`；p0.9.0 快照补 `lifetime`、`stageHandsUsed`、栏位数（8 条大构筑超过 7 栏，按合成快照保留）；B29／B37 的失效名单按新规则重算；人员流动的 `turnoverUnits2` 按每次卖卡 +0.8 换算为 `growth`；去掉与计分无关的 `fundAccrual`、`sum6`；输入里顺带出现的 C90／C128／C145 实例去掉 | 交接包要求能改写就改写。每条改写都记在该样例的 `derivedFrom.rewrites` | 212 条旧输入（其中 160 条是 `GoldenScores.p0.8.0.json` 的合成快照补缺省字段），统计见来源记录的 `rewrite_kinds` |
 | W4-14 | C92、C93 的“底层永久六面”对临时骰算不算 | 读这颗骰冻结的六个物理面，不区分永久骰与临时骰；没有六面数据的合成快照一律不满足 | 沿用 V0.9 §2.1 的属性定义；“永久”在这里与“有效／覆盖”相对 | `M-C92-*`、`M-C93-*` |
 | W4-15 | 空值写法 | `colorId`、`chosenGroupId`、`upgradeHandId` 无值时写空串；加成条目里无卡来源的 `emitterId`／`stateOwnerId` 写 `null`（§12.2） | 旧的 v09／v10 样例对 `colorId` 用空串 | 全部样例 |
 | W4-16 | 返璞归真减半哪些卡 | §5 表的 15 张成长卡（含 C51、C100、C125）；C141 的倒计时与 C63 不减 | §5.1 明确排除的只有昙花一现、基金、养成计数、活跃颜色、明星值 | 以“§5.1 返璞归真”开头的样例、L10 里 B35 的输入 |
-| W4-08 | 见上文“规格里算不对的例” | 按 `growth=45` 给出 | — | 一条 |
+| W4-08 | §5.1 深蓝例子的状态不可达 | 已由规格修正，见上文 | — | 两条 §5.1 样例 |
 
 ## 自定名字的字段
 
-规格没有给名字、由生成器自定并写进样例文件头 `fieldNotes.selfNamed` 的字段：`expected.redGroupKey`、`expected.redMemberIndices`、`expected.chosenGroupId`、`expected.enchantBaseAdd`、`expected.triggeredSourceIds`、`expected.triggeredMultiplierIds`、`expected.triggeredControllerIds`、`expected.multiplierFactors[]` 的形状、`input.bindings`、`input.debug`、`input.randomChoices[].ticket`。实现没有对应字段时可以不比对这些项。
+规格没有给名字、由生成器自定并写进样例文件头 `fieldNotes.selfNamed` 的字段：`expected.redGroupKey`、`expected.redMemberIndices`、`expected.chosenGroupId`、`expected.enchantBaseAdd`、`expected.triggeredSourceIds`、`expected.triggeredControllerIds`、`input.bindings`、`input.debug`、`input.randomChoices[].ticket`。实现没有对应字段时可以不比对这些项。
 
 ## 没有覆盖的内容
 
 - 整局事件类（商店、解锁命令、存档恢复、关末成长事件、祭坛、C115／C120／C121、玻璃票、C42 票）按交接包不在本包。成长卡只覆盖“读值”和由提交决定的成长计划。
 - 养成回收计数需要执行改写后比较前后值，属于会话；样例只给计划与 `cultivationSourceBindings`。
-- 样例文件没有配 Unity 的 `.meta`（不在交付路径里，也没有启动 Unity）。
+- 样例文件的 `.meta` 由协调者另行提供，生成器不写它。
+
+## 首次对拍后的补充
+
+- 四个旧样例文件已移到 `tools/balance_sim/baseline/`（`GoldenScores.p0.8.0.json`、`GoldenScoresV09.p0.9.0.json`、`GoldenScoresV10.p1.0.0.json`、`GoldenScoresV11.p1.1.0.json`），内容未变；生成器改读新位置，样例编号不变，`source` 与 `derivedFrom.file` 随文件名更新。
+- 新增五条样例：`M-C91-three_hit`（三张纹理大师）、两条 §7.3 玻璃样例（朝上点数不超过 3；被封小封印）、§5.1 连庄 ×1.32 的例子、模仿发出乘法因子时的 `triggeredMultiplierIds`。
+- 没有新增 W4-17。封印的玻璃骰算不算，§7.3 写明了：“即使封印或本手得 0，只要提交仍判”，§12.2 的 `glassRiskDieIds` 是“冻结时实际提交玻璃骰 ID，依提交顺序”。所以被封印、朝上点数再小的玻璃骰都照列，不需要另取读法。

@@ -34,8 +34,10 @@ CONFIG_VERSION = "p1.1.1"
 RULES = [ROOT / p for p in (
     "docs/specs/v111/RULES_DELTA.md", "docs/specs/v11/RULES_DELTA.md", "docs/specs/v10/RULES_SPEC.md",
     "docs/specs/v09/RULES_SPEC.md", "docs/specs/v08/RULES_DELTA.md", "docs/specs/P0_v0.6.md")]
-HISTORICAL = [("L08", DATA / "GoldenScores.json"), ("L09", DATA / "GoldenScoresV09.json"),
-              ("L10", DATA / "GoldenScoresV10.json"), ("L11", DATA / "GoldenScoresV11.json")]
+BASELINE = ROOT / "tools" / "balance_sim" / "baseline"
+# The four older vector files (inputs only). They were moved out of the game's data folder unchanged.
+HISTORICAL = [("L08", BASELINE / "GoldenScores.p0.8.0.json"), ("L09", BASELINE / "GoldenScoresV09.p0.9.0.json"),
+              ("L10", BASELINE / "GoldenScoresV10.p1.0.0.json"), ("L11", BASELINE / "GoldenScoresV11.p1.1.0.json")]
 
 LIFETIME_PERMANENT = "permanent"
 LIFETIME_TEMPORARY = "stage_temporary"
@@ -93,8 +95,8 @@ SESSION_EFFECTS = ("RollsDelta", "RollsFixed", "SubmissionsDelta", "CapacityDelt
 
 # Readings chosen where the rules text is silent; the full text is in docs/specs/v111/W4_OPEN_READINGS.md.
 OPEN_READINGS = {
-    "W4-01": "multiplierFactors / triggeredMultiplierIds / triggeredControllerIds 的形状规格未给：分别取 {emitterId,abilityId,numerator,denominator} 列表、"
-             "因子对应的发出者实例编号列表、触发来源技能编号去重后按 Ordinal 排序。",
+    "W4-01": "已裁定并写入 §12.2：multiplierFactors 每条 {emitterId,abilityId,numerator,denominator}；triggeredMultiplierIds 与它同序、逐条列技能编号、不去重。"
+             "仍为自定的只有 triggeredControllerIds：触发来源技能编号去重后按 Ordinal 排序。",
     "W4-02": "C122 见五成群对朝上面已是 5 点的骰也列 pipSet=5（按“每颗…生成”的字面；执行后无变化）。",
     "W4-03": "连庄换牌型时即使事件累计为 0 也列一条 halve=true、delta=0 的成长计划。",
     "W4-04": "逐条即时加成卡在数额为 0 时的触发口径沿用 p1.0.0：C147 需有留池骰、C148 需剩余投掷≥1、C151 需有空栏、C152 需至少一张普通卡、"
@@ -102,7 +104,7 @@ OPEN_READINGS = {
     "W4-05": "C117 已是黄金面、C124 权重已满仍照列（沿用 V1.0 附录 A 的“照列，由会话夹取”）；C123 只列计划值（+1 / −2），下限 3 由会话执行。",
     "W4-06": "基础分附魔的“原计数”字段名在可读规格里没有出现，只输出金额 enchantBaseAdd。",
     "W4-07": "旧输入的成长值按整数原样保留并按新单位解释（乘法 / 加成为百分单位，基础分为整数分），不做事件数换算。",
-    "W4-08": "§5.1 的深蓝“已长 0.45”不是 0.4 的整数倍，只能由调试构造；样例按 growth=45 给出，读值 +1.22 与正文一致。",
+    "W4-08": "已由规格修正：§5.1 的例子改为深蓝已长 1.2 读 +1.6、连庄已长 0.15 读 ×1.32，样例随之更新。",
     "W4-09": "C127 移花接木不再限本关首手（§6.1“每手至少两颗时”，§12.3 删除 submissionOrdinal）。",
     "W4-10": "C36 / C37 的 growthIndices 为前 min(3, 提交数) 颗；净和为 0 时仍给出下标与来源绑定。",
     "W4-11": "百变模仿带倍率附魔时附魔条目的 stateOwnerId 取被模仿的真实卡；基础技能加成条目同样 emitterId=模仿者、stateOwnerId=真实卡。",
@@ -118,7 +120,7 @@ FIELD_NOTES = {
     "input": "沿用 v10-golden-1 的提交快照结构。新增：controllers[].growthCatchup / starPip（§12.1）、stageScoreBefore / stageTarget（§12.1，十进制整数串）、"
              "bindings（null=冻结时的右邻；对象=显式绑定，值为 null 或不存在的实例表示无目标）、debug（调试上限）。"
              "randomChoices[].units2 是 C53 的二倍整数结果，新样例另带 ticket（票号，0–8）。"
-             "来自 GoldenScores.json 的合成快照没有六面数据：dice[].faces 为空数组、faceId 为空串，朝上面的颜色与黄金写在 dice[].color / dice[].gold。",
+             "来自 GoldenScores.p0.8.0.json 的合成快照没有六面数据：dice[].faces 为空数组、faceId 为空串，朝上面的颜色与黄金写在 dice[].color / dice[].gold。",
     "expected": "计分明细。§12.2 的字段：colorAdd100、additiveEntries、additiveTotal100、enchantAdditiveCount、multiplierFactors、"
                 "controllerMultiplierNumerator/Denominator、scoreNumerator/Denominator、score；其余沿用 V1.0 附录 A。",
     "expected.afterScorePlan": "计分后计划里由冻结快照就能确定的部分：growthChanges（含 halve）、glassRiskDieIds、faceChanges（每条含 stateOwnerId）、"
@@ -126,8 +128,8 @@ FIELD_NOTES = {
                                "blueSpreadIndices、upgradeHandId（无升级时为空串）/ upgradeRequested / upgradeApplied、nextPreviousPrimary、nextColorOwnerIds、randomFactorOwnerIds、cannonRiskEmitterIds。",
     "selfNamed": "规格没有给名字或形状、由本文件自定的字段：expected.redGroupKey（被选中红组的分组键，无红组或红运当头时为 0）、"
                  "expected.redMemberIndices（被选中红组的提交下标）、expected.chosenGroupId（计分选中的同点牌型，无则空串）、expected.enchantBaseAdd（基础分附魔金额）、"
-                 "expected.triggeredSourceIds（触发来源的发出者实例，卡列顺序）、expected.triggeredMultiplierIds、expected.triggeredControllerIds、"
-                 "expected.multiplierFactors[] 的形状、input.bindings、input.debug、input.randomChoices[].ticket。",
+                 "expected.triggeredSourceIds（触发来源的发出者实例，卡列顺序）、expected.triggeredControllerIds、"
+                 "input.bindings、input.debug、input.randomChoices[].ticket。",
     "units": "后缀 100 的字段是百分单位整数；growth / growthCatchup 的单位随卡：加成与乘法成长为百分单位，基础分成长为整数分，C141 的 growth 是已衰减次数。",
     "derivedFrom": "旧样例输入在 p1.1.1 下重算时的来源记录：file、id 与 rewrites（为成为合法 p1.1.1 输入所做的改写；空数组表示只补了缺省新字段）。",
     "handChecked": "true 表示生成器里写有手算期望值并已与参考实现核对一致。",
@@ -759,7 +761,7 @@ def score(inp, cfg, drop_effect=None):
         "additiveTotal100": additive_total,
         "enchantAdditiveCount": enchant_adds,
         "multiplierFactors": factors,
-        "triggeredMultiplierIds": [f["emitterId"] for f in factors],
+        "triggeredMultiplierIds": [f["abilityId"] for f in factors],
         "controllerMultiplierNumerator": str(x.numerator),
         "controllerMultiplierDenominator": str(x.denominator),
         "globalFactors": global_factors,
@@ -1558,7 +1560,7 @@ def build_new_cases(cfg):
         plan={"growthChanges": one("ctl_01", "C54", 10) + one("ctl_02", "C54", 10)})
     add("§5.1 / §10 返璞归真 +12 的积少成多已长 3 时本关加 +13", PAIR, "C55:g=3", mod="B35", s="60", chk={"controllerBaseAdds": [{"emitterId": "ctl_01", "abilityId": "C55", "amount": "13"}]},
         plan={"growthChanges": one("ctl_01", "C55", 3)}, tag="返璞归真")
-    add("§5.1 返璞归真 深蓝已长 0.45 时本关按 +1.22 读：19×2×2.47=93.86", BLUE, "C56:g=45", mod="B35", s="93", chk={"additiveTotal100": 147}, tag="返璞归真")
+    add("§5.1 返璞归真 深蓝已长 1.2 时本关按 +1.6 读：19×2×2.85=108.3", BLUE, "C56:g=120", mod="B35", s="108", chk={"additiveTotal100": 185}, tag="返璞归真")
     add("§10 返璞归真 3 级全红按 +0.5", ALLR, clv={"all_red": 3}, mod="B35", s="27", chk={"colorAdd100": 50})
     add("§5.1 返璞归真 追赶与起步保留，只减事件累计：×(1.25+0.2+0.15)", PAIR, "C58:g=30:k=20", mod="B35", s="54", tag="返璞归真")
     add("§5.1 返璞归真 连庄读 0.15 的一半 0.07：×1.52", PAIR, "C54:g=15:k=20", mod="B35", s="51")
@@ -1611,6 +1613,16 @@ def build_new_cases(cfg):
     add("失效的模仿目标：模仿者没有技能", PAIR, "C41 C46 C64", mod="B25", s="40", chk={"triggeredSourceIds": ["ctl_03"]})
     add("最右侧的百变模仿没有目标，不触发", PAIR, "C46 C41", s="102", chk={"triggeredSourceIds": ["ctl_01"]})
 
+    # ---- added after the first comparison with the game's scorer; appended so that earlier case ids stay put ----
+    add("§5.1 例 返璞归真 连庄已长 0.15 时本关按 ×1.32 读（0.15 减半取 0.07）：34×1.32=44.88", PAIR, "C54:g=15", mod="B35", s="44",
+        chk={"controllerMultiplierNumerator": "33", "controllerMultiplierDenominator": "25", "triggeredMultiplierIds": ["C54"]}, tag="返璞归真")
+    add("§7.3 提交的玻璃骰朝上点数不超过 3 也照列风险名单：贡献 3、9、5", "1r:glass 3b:glass 5b", s="17",
+        chk={"pipContributions": [3, 9, 5]}, plan={"glassRiskDieIds": ["D001", "D002"]}, tag="玻璃")
+    add("§7.3 封小封印了 2 点玻璃骰：贡献 0，仍按提交顺序列入风险名单：(0+15+5)×2×1.25", "2b:glass 5b:glass 5b", mod="B15", s="50",
+        chk={"sealedDice": [True, False, False], "pipContributions": [0, 15, 5]}, plan={"glassRiskDieIds": ["D001", "D002"]}, tag=("玻璃", "封印"))
+    add("百变模仿发出的乘法因子：triggeredMultiplierIds 列被模仿卡的技能编号，不去重", PAIR, "C41 C42 C101", s="1632",
+        chk={"triggeredMultiplierIds": ["C42", "C42", "C101"], "controllerMultiplierNumerator": "48"})
+
     if mismatches:
         raise ValueError("hand-computed expectations disagree with the reference scorer:\n  " + "\n  ".join(mismatches))
     require(chain["expected"]["afterScorePlan"]["growthChanges"][0]["halve"], "C54 chain")
@@ -1649,6 +1661,10 @@ def build_new_cases(cfg):
         matrix(card, "disabled", 1, hit, disabled=True, what="单张被缴械失效：不触发，不产生技能、附魔或成长计划")
         matrix(card, "two_hit", 2, hit, what="同名两张：两个真实来源各自触发")
         matrix(card, "mimic_hit", 1, hit, mimic=True, what="百变模仿在左复制它：模仿与真实卡各发一份")
+    # Three copies of one additive card: 18 x (1 + 3 x 2.5) = 153.
+    three = matrix("C91", "three_hit", 3, HIT["C91"], what="同名三张：三个真实来源各自触发，加成相加")
+    require(three["expected"]["score"] == "153" and three["expected"]["additiveTotal100"] == 750
+            and three["expected"]["triggeredSourceIds"] == ["ctl_01", "ctl_02", "ctl_03"], "M-C91-three_hit hand calculation")
     return cases, infos, tags
 
 

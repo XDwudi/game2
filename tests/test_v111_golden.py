@@ -51,7 +51,7 @@ class V111GoldenTests(unittest.TestCase):
         self.assertGreaterEqual(len(self.cases), 2100)
         self.assertGreaterEqual(by_source["new"], 250)
         self.assertGreaterEqual(by_source["matrix"], 550)
-        totals = {"GoldenScores.json": 160, "GoldenScoresV09.json": 260, "GoldenScoresV10.json": 446, "GoldenScoresV11.json": 459}
+        totals = {"GoldenScores.p0.8.0.json": 160, "GoldenScoresV09.p0.9.0.json": 260, "GoldenScoresV10.p1.0.0.json": 446, "GoldenScoresV11.p1.1.0.json": 459}
         for name, total in totals.items():
             dropped = [e for e in self.excluded if e["file"].endswith("/" + name)]
             self.assertEqual(total, by_source[name] + len(dropped), name)
@@ -59,6 +59,12 @@ class V111GoldenTests(unittest.TestCase):
         self.assertEqual(8, len(self.excluded))
         self.assertTrue(all("已移除" in e["reason"] for e in self.excluded))
         self.assertEqual(len(self.cases), len(self.by_id))
+        # The older files moved; the family name must stay recognisable in the provenance of every recomputed input.
+        families = {"L08": "GoldenScores.", "L09": "GoldenScoresV09", "L10": "GoldenScoresV10", "L11": "GoldenScoresV11"}
+        for c in self.cases:
+            if "derivedFrom" in c:
+                self.assertIn(families[c["id"][:3]], c["derivedFrom"]["file"], c["id"])
+                self.assertTrue((golden.ROOT / c["derivedFrom"]["file"]).is_file(), c["id"])
 
     def test_every_case_is_a_legal_snapshot_with_the_full_field_set(self):
         expected_keys = set(self.cases[0]["expected"])
@@ -154,6 +160,7 @@ class V111GoldenTests(unittest.TestCase):
         e = self.expect("§14 手算例 4、4、4、4、1", score="3060", baseTotal="17", totalHandMult100=800, redCount=4, redMult100=300, additiveTotal100=150,
                         triggeredSourceIds=["ctl_01", "ctl_03"])
         self.assertEqual([("C155", "2", "1"), ("C53", "3", "2")], [(f["abilityId"], f["numerator"], f["denominator"]) for f in e["multiplierFactors"]])
+        self.assertEqual(["C155", "C53"], e["triggeredMultiplierIds"])
         self.expect("§14 手算例 续", score="1530")
         self.assertEqual((3060, 1530), (17 * 8 * 3 * 5 // 2 * 2 * 3 // 2, 17 * 8 * 3 * 5 * 2 * 3 // 8))
 
@@ -248,7 +255,8 @@ class V111GoldenTests(unittest.TestCase):
 
     def test_section_5_growth_reads_and_growth_half(self):
         self.expect("§5.1 / §10 返璞归真 +12 的积少成多", controllerBaseAdds=[{"emitterId": "ctl_01", "abilityId": "C55", "amount": "13"}], score="60")
-        self.expect("§5.1 返璞归真 深蓝已长 0.45", additiveTotal100=25 + 122)
+        self.expect("§5.1 返璞归真 深蓝已长 1.2", additiveTotal100=25 + 160, score="108")
+        self.expect("§5.1 例 返璞归真 连庄已长 0.15", controllerMultiplierNumerator="33", controllerMultiplierDenominator="25", score="44")
         self.expect("§10 返璞归真 3 级全红", colorAdd100=50)
         self.expect("§5 C56 第 5 周期货架起步", additiveTotal100=25 + 300)
         self.expect("§5 C56 下手 +3.4", additiveTotal100=25 + 340)
@@ -285,11 +293,29 @@ class V111GoldenTests(unittest.TestCase):
         self.expect("玻璃骰贡献 ×3", pipContributions=[18, 3, 3], glassRiskDieIds=["D001"])
         self.expect("黄金面朝上并提交 +0.5", pipContributions=[6, 3, 3], additiveTotal100=75)
 
+    def test_multiplier_ids_follow_the_factors(self):
+        """RULES_DELTA 12.2: triggeredMultiplierIds lists the ability id of each factor, same order, not deduplicated."""
+        for c in self.cases:
+            e = c["expected"]
+            self.assertEqual([f["abilityId"] for f in e["multiplierFactors"]], e["triggeredMultiplierIds"], c["id"])
+        self.expect("§4.1 C42 被复制", triggeredMultiplierIds=["C42", "C42"])
+        e = self.expect("百变模仿发出的乘法因子", triggeredMultiplierIds=["C42", "C42", "C101"], score="1632")
+        self.assertEqual(["ctl_01", "ctl_02", "ctl_03"], [f["emitterId"] for f in e["multiplierFactors"]])
+        self.expect("§4.2 C49 两张、零个 5", triggeredMultiplierIds=["C49", "C49"])
+
+    def test_glass_risk_lists_every_submitted_glass_die(self):
+        """RULES_DELTA 7.3: a frozen glass die is judged whatever its pip, also when sealed or scoring 0."""
+        self.expect("§7.3 提交的玻璃骰朝上点数不超过 3", glassRiskDieIds=["D001", "D002"], pipContributions=[3, 9, 5], score="17")
+        self.expect("§7.3 封小封印了 2 点玻璃骰", glassRiskDieIds=["D001", "D002"], sealedDice=[True, False, False], pipContributions=[0, 15, 5], score="50")
+        self.expect("玻璃骰被封印仍列入风险名单", glassRiskDieIds=["D001"], pipContributions=[0, 3, 3])
+        three = self.by_id["M-C91-three_hit"]["expected"]
+        self.assertEqual(("153", 750, ["ctl_01", "ctl_02", "ctl_03"]), (three["score"], three["additiveTotal100"], three["triggeredSourceIds"]))
+
     def test_removed_cards_are_rewritten_or_dropped_with_a_reason(self):
         dropped = {(e["file"].rsplit("/", 1)[-1], e["id"]) for e in self.excluded}
-        self.assertIn(("GoldenScoresV09.json", "N038"), dropped)
-        self.assertIn(("GoldenScoresV10.json", "P214"), dropped)
-        self.assertIn(("GoldenScoresV11.json", "C90-two_hit"), dropped)
+        self.assertIn(("GoldenScoresV09.p0.9.0.json", "N038"), dropped)
+        self.assertIn(("GoldenScoresV10.p1.0.0.json", "P214"), dropped)
+        self.assertIn(("GoldenScoresV11.p1.1.0.json", "C90-two_hit"), dropped)
         rewritten = [c for c in self.cases if any("去掉已移除的卡" in r for r in c.get("derivedFrom", {}).get("rewrites", []))]
         self.assertGreaterEqual(len(rewritten), 4)
 

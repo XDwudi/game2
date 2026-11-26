@@ -5,58 +5,58 @@
   "derived_from_production_code": false,
   "independence": "期望值只来自规格文本与配置数据；没有读取或运行 Core/、UI/、Runtime/、Tests/、tools/balance_sim/*.cs，也没有读取 W3A_NOTES、W3B1_NOTES、TEST_CHANGES。旧样例文件只取输入。",
   "input_sha256": {
-    "tools/v111_golden.py": "32f2e940727f1ec488de53687a946e56ead6d9d11217cd40ab7a1ad8daa6b3c4",
+    "tools/v111_golden.py": "e68b52f9442afaf019957e1103f608f502bf4bbd2e78aa0b547c2c64b11fdc3f",
     "DicePrototype/Assets/Game/Data/P0Config.json": "5ba97c8158062e355796d888dbdb581710351cdff15cd6b3e3fbf49b394b777b",
     "tools/v111_config.py": "878915ca37d96b46deb7d811c678318d7cf5b4f07dbf34431f9df75ce246d9aa",
-    "docs/specs/v111/RULES_DELTA.md": "687b99dad802aec10c0e83bce05e1113590454ea727d13196b95b663c31ea431",
+    "docs/specs/v111/RULES_DELTA.md": "d6b83ea0db5c9cda6cf4e11c3c1114a084db824e3f8095672dcd48c4804d7148",
     "docs/specs/v11/RULES_DELTA.md": "55b79ae1dd37e8181ec7167e744f6a575d08c514f952bd82db46f72ba9baf4f6",
     "docs/specs/v10/RULES_SPEC.md": "4c0e386432b120fafda7c1fd3742cf2bd411facd0a2256697d6eda164d76bd07",
     "docs/specs/v09/RULES_SPEC.md": "a3d6b6219956efc9f4eac3fe2b40af759dad774296bcb90d8b609b928704f217",
     "docs/specs/v08/RULES_DELTA.md": "e2628fb3b944cb830c590957b4feda62a314e1452aafdef5b7bfd6ffc5cc281e",
     "docs/specs/P0_v0.6.md": "36118847044185925057ea33b342756c97498f044bb558a684c82902084245c8",
-    "DicePrototype/Assets/Game/Data/GoldenScores.json": "f9ffc7640d31d3a1eded22084e963ef1029d2c74745fb9fdd421d0295e33fd60",
-    "DicePrototype/Assets/Game/Data/GoldenScoresV09.json": "2aff977888f4b6e2a33560ff5ad9d3b91e2486acc1ebe61d1e93a46cea82de56",
-    "DicePrototype/Assets/Game/Data/GoldenScoresV10.json": "e9b6d1f41dbf83c34b51767c48b6d84943f2cb049d8adf2dc5bff3936b7f1ef1",
-    "DicePrototype/Assets/Game/Data/GoldenScoresV11.json": "13262d1bdfe548849f6040ecb6d0a8b265e4abe20ebcd2f22bf50261c5f85396"
+    "tools/balance_sim/baseline/GoldenScores.p0.8.0.json": "f9ffc7640d31d3a1eded22084e963ef1029d2c74745fb9fdd421d0295e33fd60",
+    "tools/balance_sim/baseline/GoldenScoresV09.p0.9.0.json": "2aff977888f4b6e2a33560ff5ad9d3b91e2486acc1ebe61d1e93a46cea82de56",
+    "tools/balance_sim/baseline/GoldenScoresV10.p1.0.0.json": "e9b6d1f41dbf83c34b51767c48b6d84943f2cb049d8adf2dc5bff3936b7f1ef1",
+    "tools/balance_sim/baseline/GoldenScoresV11.p1.1.0.json": "13262d1bdfe548849f6040ecb6d0a8b265e4abe20ebcd2f22bf50261c5f85396"
   },
   "golden": "DicePrototype/Assets/Game/Data/GoldenScoresV111.json",
-  "golden_sha256": "04603f99aeda75e0bb51f800d4cf582ee033922e2a3d67a38a04868165314a75",
-  "cases": 2152,
+  "golden_sha256": "202705ff250353df894e33ebf67fc0754e038badd897f9827a14d075527b930d",
+  "cases": 2157,
   "cases_by_source": {
-    "new": 263,
-    "matrix": 572,
-    "GoldenScores.json": 160,
-    "GoldenScoresV09.json": 257,
-    "GoldenScoresV10.json": 445,
-    "GoldenScoresV11.json": 455
+    "new": 267,
+    "matrix": 573,
+    "GoldenScores.p0.8.0.json": 160,
+    "GoldenScoresV09.p0.9.0.json": 257,
+    "GoldenScoresV10.p1.0.0.json": 445,
+    "GoldenScoresV11.p1.1.0.json": 455
   },
   "historical_inputs": {
-    "DicePrototype/Assets/Game/Data/GoldenScores.json": {
+    "tools/balance_sim/baseline/GoldenScores.p0.8.0.json": {
       "inputs": 160,
       "kept": 160,
       "excluded": 0
     },
-    "DicePrototype/Assets/Game/Data/GoldenScoresV09.json": {
+    "tools/balance_sim/baseline/GoldenScoresV09.p0.9.0.json": {
       "inputs": 260,
       "kept": 257,
       "excluded": 3
     },
-    "DicePrototype/Assets/Game/Data/GoldenScoresV10.json": {
+    "tools/balance_sim/baseline/GoldenScoresV10.p1.0.0.json": {
       "inputs": 446,
       "kept": 445,
       "excluded": 1
     },
-    "DicePrototype/Assets/Game/Data/GoldenScoresV11.json": {
+    "tools/balance_sim/baseline/GoldenScoresV11.p1.1.0.json": {
       "inputs": 459,
       "kept": 455,
       "excluded": 4
     }
   },
   "new_cases": {
-    "hand_written": 263,
-    "matrix": 572
+    "hand_written": 267,
+    "matrix": 573
   },
-  "hand_checked_cases": 263,
+  "hand_checked_cases": 267,
   "rewritten_historical_inputs": 212,
   "rewrite_kinds": {
     "合成快照": 160,
@@ -77,49 +77,49 @@
   },
   "excluded_historical_inputs": [
     {
-      "file": "DicePrototype/Assets/Game/Data/GoldenScoresV09.json",
+      "file": "tools/balance_sim/baseline/GoldenScoresV09.p0.9.0.json",
       "id": "N038",
       "description": "C90玻璃心 成长0",
       "reason": "输入的卡牌只有已移除的 C90（及复制它的百变模仿），去掉后没有可重算的内容"
     },
     {
-      "file": "DicePrototype/Assets/Game/Data/GoldenScoresV09.json",
+      "file": "tools/balance_sim/baseline/GoldenScoresV09.p0.9.0.json",
       "id": "N039",
       "description": "C90 成长15：×1.75",
       "reason": "输入的卡牌只有已移除的 C90（及复制它的百变模仿），去掉后没有可重算的内容"
     },
     {
-      "file": "DicePrototype/Assets/Game/Data/GoldenScoresV09.json",
+      "file": "tools/balance_sim/baseline/GoldenScoresV09.p0.9.0.json",
       "id": "N040",
       "description": "C90 成长45：×3.25",
       "reason": "输入的卡牌只有已移除的 C90（及复制它的百变模仿），去掉后没有可重算的内容"
     },
     {
-      "file": "DicePrototype/Assets/Game/Data/GoldenScoresV10.json",
+      "file": "tools/balance_sim/baseline/GoldenScoresV10.p1.0.0.json",
       "id": "P214",
       "description": "百变模仿复制C128：不触发",
       "reason": "输入的卡牌只有已移除的 C128（及复制它的百变模仿），去掉后没有可重算的内容"
     },
     {
-      "file": "DicePrototype/Assets/Game/Data/GoldenScoresV11.json",
+      "file": "tools/balance_sim/baseline/GoldenScoresV11.p1.1.0.json",
       "id": "C90-two_hit",
       "description": "C90 双持：两个真实来源同时触发",
       "reason": "样例专为已移除的 C90 而设，p1.1.1 没有对应的卡"
     },
     {
-      "file": "DicePrototype/Assets/Game/Data/GoldenScoresV11.json",
+      "file": "tools/balance_sim/baseline/GoldenScoresV11.p1.1.0.json",
       "id": "C90-three_hit",
       "description": "C90 三持：逐来源相乘或加值/次数相加",
       "reason": "样例专为已移除的 C90 而设，p1.1.1 没有对应的卡"
     },
     {
-      "file": "DicePrototype/Assets/Game/Data/GoldenScoresV11.json",
+      "file": "tools/balance_sim/baseline/GoldenScoresV11.p1.1.0.json",
       "id": "C90-mimic_hit",
       "description": "C90 两张真实卡与中间C41，模仿右侧副本；独立来源",
       "reason": "样例专为已移除的 C90 而设，p1.1.1 没有对应的卡"
     },
     {
-      "file": "DicePrototype/Assets/Game/Data/GoldenScoresV11.json",
+      "file": "tools/balance_sim/baseline/GoldenScoresV11.p1.1.0.json",
       "id": "C90-separate_state_and_mimic",
       "description": "C90：separate_state_and_mimic",
       "reason": "样例专为已移除的 C90 而设，p1.1.1 没有对应的卡"
@@ -415,22 +415,22 @@
       "mimic": 2
     },
     "C41": {
-      "cases": 384,
-      "new_cases": 136,
-      "hit": 362,
+      "cases": 385,
+      "new_cases": 137,
+      "hit": 363,
       "miss": 22,
       "disabled": 4,
       "duplicate": 3,
       "mimic": 0
     },
     "C42": {
-      "cases": 12,
-      "new_cases": 7,
-      "hit": 11,
+      "cases": 13,
+      "new_cases": 8,
+      "hit": 12,
       "miss": 0,
       "disabled": 1,
       "duplicate": 4,
-      "mimic": 4
+      "mimic": 5
     },
     "C43": {
       "cases": 21,
@@ -523,9 +523,9 @@
       "mimic": 15
     },
     "C54": {
-      "cases": 31,
-      "new_cases": 15,
-      "hit": 29,
+      "cases": 32,
+      "new_cases": 16,
+      "hit": 30,
       "miss": 0,
       "disabled": 2,
       "duplicate": 7,
@@ -829,12 +829,12 @@
       "mimic": 2
     },
     "C91": {
-      "cases": 21,
-      "new_cases": 10,
-      "hit": 5,
+      "cases": 22,
+      "new_cases": 11,
+      "hit": 6,
       "miss": 15,
       "disabled": 1,
-      "duplicate": 1,
+      "duplicate": 2,
       "mimic": 1
     },
     "C92": {
@@ -874,9 +874,9 @@
       "mimic": 3
     },
     "C101": {
-      "cases": 12,
-      "new_cases": 5,
-      "hit": 11,
+      "cases": 13,
+      "new_cases": 6,
+      "hit": 12,
       "miss": 0,
       "disabled": 1,
       "duplicate": 4,
@@ -1591,7 +1591,8 @@
       "Q040"
     ],
     "封印": [
-      "Q042"
+      "Q042",
+      "Q263"
     ],
     "基础分附魔": [
       "Q044"
@@ -1607,7 +1608,9 @@
     ],
     "玻璃": [
       "Q053",
-      "Q054"
+      "Q054",
+      "Q262",
+      "Q263"
     ],
     "再计": [
       "Q009",
@@ -1693,7 +1696,8 @@
     "返璞归真": [
       "Q225",
       "Q226",
-      "Q228"
+      "Q228",
+      "Q261"
     ],
     "C125读值": [
       "Q182",
@@ -1760,7 +1764,7 @@
   "modifier_effect_coverage": {
     "SealOdd": 2,
     "SealEven": 2,
-    "SealLow": 1,
+    "SealLow": 2,
     "SealHigh": 3,
     "SealRed": 4,
     "SealBlue": 3,
@@ -1776,18 +1780,18 @@
     "FirstHalf": 10,
     "LaterHalf": 4,
     "PipsOnly": 13,
-    "GrowthHalf": 12,
+    "GrowthHalf": 13,
     "EnchantSilence": 8
   },
   "open_readings": {
-    "W4-01": "multiplierFactors / triggeredMultiplierIds / triggeredControllerIds 的形状规格未给：分别取 {emitterId,abilityId,numerator,denominator} 列表、因子对应的发出者实例编号列表、触发来源技能编号去重后按 Ordinal 排序。",
+    "W4-01": "已裁定并写入 §12.2：multiplierFactors 每条 {emitterId,abilityId,numerator,denominator}；triggeredMultiplierIds 与它同序、逐条列技能编号、不去重。仍为自定的只有 triggeredControllerIds：触发来源技能编号去重后按 Ordinal 排序。",
     "W4-02": "C122 见五成群对朝上面已是 5 点的骰也列 pipSet=5（按“每颗…生成”的字面；执行后无变化）。",
     "W4-03": "连庄换牌型时即使事件累计为 0 也列一条 halve=true、delta=0 的成长计划。",
     "W4-04": "逐条即时加成卡在数额为 0 时的触发口径沿用 p1.0.0：C147 需有留池骰、C148 需剩余投掷≥1、C151 需有空栏、C152 需至少一张普通卡、C137 需至少一颗匹配；C63 总是触发，永久骰为 0 时不列加成条目。",
     "W4-05": "C117 已是黄金面、C124 权重已满仍照列（沿用 V1.0 附录 A 的“照列，由会话夹取”）；C123 只列计划值（+1 / −2），下限 3 由会话执行。",
     "W4-06": "基础分附魔的“原计数”字段名在可读规格里没有出现，只输出金额 enchantBaseAdd。",
     "W4-07": "旧输入的成长值按整数原样保留并按新单位解释（乘法 / 加成为百分单位，基础分为整数分），不做事件数换算。",
-    "W4-08": "§5.1 的深蓝“已长 0.45”不是 0.4 的整数倍，只能由调试构造；样例按 growth=45 给出，读值 +1.22 与正文一致。",
+    "W4-08": "已由规格修正：§5.1 的例子改为深蓝已长 1.2 读 +1.6、连庄已长 0.15 读 ×1.32，样例随之更新。",
     "W4-09": "C127 移花接木不再限本关首手（§6.1“每手至少两颗时”，§12.3 删除 submissionOrdinal）。",
     "W4-10": "C36 / C37 的 growthIndices 为前 min(3, 提交数) 颗；净和为 0 时仍给出下标与来源绑定。",
     "W4-11": "百变模仿带倍率附魔时附魔条目的 stateOwnerId 取被模仿的真实卡；基础技能加成条目同样 emitterId=模仿者、stateOwnerId=真实卡。",
