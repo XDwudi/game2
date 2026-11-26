@@ -514,5 +514,45 @@ namespace DiceCraft.Core.Tests
             var wrongPlan = new Dictionary<string, object>(plan, StringComparer.Ordinal); wrongPlan["goldSpent"] = V111Golden.Num(plan, "goldSpent") + 1;
             Assert.That(V111Golden.Differences(example.expected, wrongPlan, actual, config, true).Count, Is.EqualTo(baseline + 1));
         }
+
+        // No field may be compared vacuously: changing any single expected value must produce exactly one more
+        // difference. Checked on a few cases of different shapes (plain, with face changes, with a red group).
+        [Test]
+        public void GoldenV111_ChangingAnySingleExpectedFieldIsNoticed()
+        {
+            var samples = new[]
+            {
+                V111Golden.Cases.First(c => c.source == "new"),
+                V111Golden.Cases.First(c => V111Golden.List(V111Golden.Obj(c.expected["afterScorePlan"])["faceChanges"]).Count > 0),
+                V111Golden.Cases.First(c => V111Golden.List(c.expected["redMemberIndices"]).Count > 1 && V111Golden.List(c.expected["additiveEntries"]).Count > 1),
+                V111Golden.Cases.First(c => V111Golden.List(c.expected["multiplierFactors"]).Count > 0 && V111Golden.List(c.expected["controllerBaseAdds"]).Count > 0)
+            };
+            foreach (var example in samples)
+            {
+                var actual = ScoreCalculator.Evaluate(V111Golden.Snapshot(example, config), config);
+                var plan = V111Golden.Obj(example.expected["afterScorePlan"]);
+                Assert.That(V111Golden.Differences(example.expected, plan, actual, config, true), Is.Empty, example.id);
+                int checkedFields = 0;
+                foreach (string name in example.expected.Keys.Where(k => k != "afterScorePlan").ToArray())
+                {
+                    var changed = new Dictionary<string, object>(example.expected, StringComparer.Ordinal); changed[name] = Perturb(example.expected[name]);
+                    Assert.That(V111Golden.Differences(changed, plan, actual, config, true).Count, Is.EqualTo(1), example.id + " " + name); checkedFields++;
+                }
+                foreach (string name in plan.Keys.ToArray())
+                {
+                    var changed = new Dictionary<string, object>(plan, StringComparer.Ordinal); changed[name] = Perturb(plan[name]);
+                    Assert.That(V111Golden.Differences(example.expected, changed, actual, config, true).Count, Is.EqualTo(1), example.id + " afterScorePlan." + name); checkedFields++;
+                }
+                Assert.That(checkedFields, Is.EqualTo(V111Golden.ExpectedFieldNames.Length - 1 + V111Golden.ExpectedPlanFieldNames.Length));
+            }
+        }
+        private static object Perturb(object value)
+        {
+            if (value is string text) return text + "#";
+            if (value is long number) return number + 1;
+            if (value is bool flag) return !flag;
+            // A list gains one element: a copy of its first one, or a stray marker when it is empty.
+            var list = new List<object>((List<object>)value); list.Add(list.Count > 0 ? list[0] : "#"); return list;
+        }
     }
 }
