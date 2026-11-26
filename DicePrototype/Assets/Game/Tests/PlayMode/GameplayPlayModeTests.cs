@@ -351,8 +351,9 @@ namespace DiceCraft.Tests
             Assert.That(practiceScore.pipSum, Is.EqualTo("19"));
             Assert.That(practiceScore.unusedRollBonus, Is.EqualTo(6));
             Assert.That(practiceScore.totalHandMult100, Is.EqualTo(200));
-            Assert.That(practiceScore.redMult100, Is.EqualTo(175));
-            Assert.That(practiceScore.score, Is.EqualTo("87"), "v0.6: floor((19 + 6) × pair 2 × mixed color 1 × red 1.75).");
+            // p1.1.1 (RULES_DELTA 3.2): two red dice keep the 二举 name but the red group is x1 (was x1.75); mixed colours add no bonus.
+            Assert.That(practiceScore.redMult100, Is.EqualTo(100));
+            Assert.That(practiceScore.score, Is.EqualTo("50"), "p1.1.1: floor((19 + 6) × pair 2 × red 1 × (1 + 0)), the practice target exactly.");
             Click("Submit");
             yield return WaitForIdle();
             Assert.That(app.Session.State.phase, Is.EqualTo("HandReady"));

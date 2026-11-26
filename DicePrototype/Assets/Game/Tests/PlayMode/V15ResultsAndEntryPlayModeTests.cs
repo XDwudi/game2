@@ -24,6 +24,17 @@ namespace DiceCraft.Tests
             }
         }
 
+        /// <summary>p1.1.1 (RULES_DELTA 7.3): glass breaks after a submission, never on a roll. The "no dice" ending is now the
+        /// last die, a locked glass die, breaking after a submission that misses the target with submissions left (the
+        /// session ends the run with NoDice); p1.1.0 broke it on a roll.</summary>
+        private static void NoDiceScene111(DebugScene scene)
+        {
+            scene.dice.RemoveRange(1,scene.dice.Count-1);var last=scene.dice[0];last.isGlass=true;var up=last.faces[0];
+            scene.currentResults=new List<DieHandState>{new DieHandState{dieId=last.dieId,currentFaceId=up.faceId,currentPip=up.permanentPip,currentColor=up.baseColor,hasRolled=true,isLocked=true}};
+            scene.orderedLockedIds.Clear();scene.orderedLockedIds.Add(last.dieId);
+            scene.remainingSubmissions=2;scene.target="999999999999999999999";
+            scene.randomOverrides.Add(new DebugRandomOverride{kind="Glass",sourceId=last.dieId,value="break"});
+        }
         private IEnumerator TerminalFixture15(string kind)
         {
             var previous=app.Session.State;
@@ -45,13 +56,9 @@ namespace DiceCraft.Tests
             }
             else scene.controllers.Clear();
             if(kind=="temporary")foreach(var d in scene.dice)d.lifetime="stage_temporary";
-            if(kind=="no-dice")
-            {
-                scene.dice.RemoveRange(1,scene.dice.Count-1);scene.dice[0].isGlass=true;scene.currentResults=null;scene.orderedLockedIds.Clear();
-                scene.randomOverrides.Add(new DebugRandomOverride{kind="Glass",sourceId=scene.dice[0].dieId,value="break"});
-            }
+            if(kind=="no-dice")NoDiceScene111(scene);
             W11Apply(scene);
-            Click(kind=="no-dice"?"Roll":"Submit");app.SkipVisual();yield return WaitForIdle();
+            Click("Submit");app.SkipVisual();yield return WaitForIdle();
             if(app.Session.State.phase=="StageSettlement"){Click("SettlementContinue");yield return WaitForIdle();}
             Assert.That(app.Session.State.phase,Is.EqualTo(kind=="win"?"RunWon":"RunFailed"),kind);
             if(kind=="win")

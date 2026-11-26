@@ -96,7 +96,14 @@ namespace DiceCraft.Tests
                 Assert.That(FindActive<TextMeshProUGUI>("DieLine"+i).text,Is.EqualTo(
                     $"{i+1}. {GameApp.DieFaceName11(die.dieId,die.faceId)}  {layers}\n六面合计 {die.permanentSixFaceSum}  ·  {contribution}"));
             }
-            expected.Add("GlobalTitle");for(int i=0;i<trace.global.Length;i++)expected.Add("GlobalStep"+i);expected.Add("Triggered");
+            // p1.1.1 (W7a; RULES_DELTA 13): the bonus line lists each of its sources under it (GlobalStep<i>Bonus<j>).
+            expected.Add("GlobalTitle");
+            for(int i=0;i<trace.global.Length;i++)
+            {
+                expected.Add("GlobalStep"+i);
+                if(trace.global[i].kind=="additive"&&trace.global[i].entries!=null)for(int j=0;j<trace.global[i].entries.Length;j++)expected.Add("GlobalStep"+i+"Bonus"+j);
+            }
+            expected.Add("Triggered");
             var labels=scroll.content.GetComponentsInChildren<TextMeshProUGUI>(false).OrderBy(t=>-t.rectTransform.anchoredPosition.y).ToArray();
             CollectionAssert.AreEqual(expected,labels.Select(t=>t.name).ToArray(),"Every actual per-die/global source remains present in its original order.");
             var report=new BreakdownLayoutReport07{id=id,sourceManifestSha256=extra07.sourceManifestSha256,runtimeMvid=extra07.runtimeMvid,testMvid=extra07.testMvid,

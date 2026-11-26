@@ -45,7 +45,8 @@ namespace DiceCraft.Tests
         // subsequent menu ContinueRun clicks hit actual controls; neither a fixture save nor debug unlock is used.
         private IEnumerator NormalReceiptPath15(int lastStage,int scale,Func<int,Dictionary<string,Rect>,IEnumerator> visit)
         {
-            var path=Path.Combine(Application.dataPath,"..","..","evidence","v11","balance","trace_p110_5000.json");
+            // p1.1.1 (W9a): the same simulator command (balance_sim trace --seed 5000 --steps 80) on the p1.1.1 configuration.
+            var path=Path.Combine(Application.dataPath,"..","..","evidence","v111","balance","trace_p111_5000.json");
             var trace=JsonUtility.FromJson<ReceiptTrace15>(File.ReadAllText(path));
             Assert.That(trace.configVersion,Is.EqualTo(app.Config.configVersion));
             Assert.That(trace.steps[0].kind,Is.EqualTo("NewRun"));

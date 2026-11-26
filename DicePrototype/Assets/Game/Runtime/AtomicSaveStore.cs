@@ -176,12 +176,28 @@ namespace DiceCraft
                     &&!state.processedReceipts.Any(r=>r?.command?.kind==CommandKind.Submit)
                     &&JsonUtility.ToJson(state.lastSubmission)==JsonUtility.ToJson(new SubmissionRecord()))
                     state.lastSubmission=null;
+                // v1.1.1 (W9a): a bonus entry of a colour or a gold face has no emitting card (emitterId and stateOwnerId
+                // null), and the rules check that when they explain a frozen hand. JsonUtility writes a null string as "",
+                // so a reloaded hand failed that check ("Frozen additive mismatch") and its score details could not open.
+                RestoreNullBonusSources111(state.lastSubmission?.breakdown);
+                if(state.processedReceipts!=null)foreach(var receipt in state.processedReceipts)RestoreNullBonusSources111(receipt?.submission?.breakdown);
                 // Use the production invariants before trusting a file as a valid backup.
                 validator.ValidateState(state);
                 ValidateSlot(state);
                 return true;
             }
             catch(Exception ex){state=null;error=ex;return false;}
+        }
+        /// <summary>Gives a reloaded bonus entry back the null source the session recorded (JsonUtility reads it as "").</summary>
+        private static void RestoreNullBonusSources111(ScoreBreakdown breakdown)
+        {
+            if(breakdown?.additiveEntries==null)return;
+            foreach(var entry in breakdown.additiveEntries)
+            {
+                if(entry==null)continue;
+                if(entry.emitterId=="")entry.emitterId=null;
+                if(entry.stateOwnerId=="")entry.stateOwnerId=null;
+            }
         }
         private void ValidateSlot(RunState state)
         {

@@ -146,11 +146,13 @@ namespace DiceCraft.Tests
                 yield return keyboard.Press(Key.R);
                 if (app.IsBusy) Click("Skip");
                 yield return WaitForIdle();
-                Assert.That(app.Session.State.dice.Any(d => d.dieId == "D005"), Is.False);
+                // p1.1.1 (RULES_DELTA 7.3): glass is judged after a submission, never by a roll, so the glass D005 survives the roll
+            // whatever the effect ticket says (p1.1.0 broke it here).
+            Assert.That(app.Session.State.dice.Any(d => d.dieId == "D005"), Is.True);
                 yield return keyboard.Press(Key.Digit0);
                 Assert.That(app.Session.PendingIds, Is.Empty, "An index beyond the surviving pool must be ignored.");
                 yield return keyboard.Press(Key.Digit3);
-                CollectionAssert.AreEqual(new[] {"D006"}, app.Session.PendingIds, "After locks and breakage, the third visible die is D006.");
+                CollectionAssert.AreEqual(new[] {"D005"}, app.Session.PendingIds, "After the two locks, the third visible die is D005.");
                 string beforeModal = StateJson(); string[] pending = app.Session.PendingIds;
                 Click("Pause");
                 foreach (Key key in digits.Concat(new[] {Key.L, Key.R, Key.Enter}))
@@ -170,7 +172,7 @@ namespace DiceCraft.Tests
                 yield return WaitForIdle();
                 Assert.That(app.Session.State.actionSequence, Is.EqualTo(beforeSubmit + 1));
                 Assert.That(app.Session.State.lastSubmission.breakdown.score, Is.EqualTo(expected));
-                CollectionAssert.AreEqual(new[] {"D001", "D002", "D006"}, app.Session.State.lastSubmission.snapshot.dice.Select(d => d.dieId));
+                CollectionAssert.AreEqual(new[] {"D001", "D002", "D005"}, app.Session.State.lastSubmission.snapshot.dice.Select(d => d.dieId)); // p1.1.1: D005 was not broken by the roll
                 Assert.That(keyboard.DynamicUpdatesWithPressedKeys, Is.GreaterThan(0));
             }
         }

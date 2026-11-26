@@ -112,7 +112,9 @@ namespace DiceCraft
             else
             {
                 var list=UiKit.Scroll(p,"HandbookScroll",24,144,1456,720,Math.Max(720,UiKit.FontScale>1?1100:720));
-                float sectionHeight=UiKit.FontScale>1?220:164;
+                // v1.1.1 (W9a fix): the colour rule now reads "…0 级加成 +X，每级再 +Y，最高 12 级；它和卡牌、黄金面、附魔的加成加在
+                // 一起。" plus the reason line: at 150 % that is three lines, taller than the 220-unit row left it (it overflowed).
+                float sectionHeight=UiKit.FontScale>1.3f?264:UiKit.FontScale>1?220:164;
                 for(int i=0;i<rows.Length;i++)
                 {
                     var r=rows[i];bool red=r.handId=="all_red";var card=UiKit.Box(list,"HandbookRow_"+r.handId,0,i*sectionHeight,1432,sectionHeight-12,Color.clear);
@@ -124,7 +126,9 @@ namespace DiceCraft
                 }
                 float redTop=sectionHeight*2+16;
                 UiKit.Text(list,"RedTitle","红组倍率",12,redTop,1380,64,30,UiKit.Ink);
-                UiKit.Text(list,"RedRule","同一点数的红骰越多倍率越高（取最大的一组）。它是单独的倍率，和全红/全蓝的加成分开算。",12,redTop+72,1380,64,24,PaperMuted071);
+                var redRule=UiKit.Text(list,"RedRule","同一点数的红骰越多倍率越高（取最大的一组）。它是单独的倍率，和全红/全蓝的加成分开算。",12,redTop+72,1380,64,24,PaperMuted071);
+                // W9a fix: at 150 % this p1.1.1 sentence takes two lines; the rule grows and the table below moves down with it.
+                float redExtra=Mathf.Max(0,FitHeight(redRule,64)-64);redTop+=redExtra;
                 for(int i=0;i<Config.redRewards.Length;i++)
                 {
                     var reward=Config.redRewards[i];int col=i%4,row=i/4;

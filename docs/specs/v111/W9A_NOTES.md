@@ -82,9 +82,51 @@
 
 ## 4. PlayMode
 
+入口 `tools/unity_windowed_tests.ps1`（窗口模式，脚本点掉管理员权限对话框）跑 `V072BatchTests.RunPlayMode -v072GameView <宽>x<高>`。报告同样移到 `evidence/v111/unity/`。
+
+| 轮次 | 窗口 | 源提交 | 报告 | 总数 | 通过 | 失败 | 跳过 |
+| --- | --- | --- | --- | ---: | ---: | ---: | ---: |
+| 第 1 次（编译失败，没有跑） | 1920×1080 | `67b8a440` | 无：本包新文件 `W9aReviewCapturePlayModeTests.cs` 一个变量重名（CS0136），脚本停掉了 Editor。修正提交 `2d2018cc` | — | — | — | — |
+| 第 2 次全量 | 1920×1080 | `2d2018cc` | `nunit-20261126-190559.xml`（18:03:58Z–19:05:59Z） | 378 | 336 | 42 | 0 |
+
+第 2 次的 42 条失败按原因归类（测试名省略前缀 `GameplayPlayModeTests.`）：
+
+| 原因 | 测试 | 归因与处理 |
+| --- | --- | --- |
+| 玻璃改在提交后碎（RULES_DELTA §7.3），“没有骰子”的结束夹具还在投掷时碎 | `PLAY_ART07_ResultScreensUseRealTerminalCommandsAndPreserveExactReceipts`、`PLAY_V15_SE_ResultsSixThemesAndTerminalCases`、`PLAY_V24_SC16_SE04_{Default,Swiss,Sancai,Comic,Deco,Glass}`、`PLAY_W20X_03_TableTextOnNonPlayScreens`（共 9 条，都走 `TerminalFixture15` 或同样的夹具） | (a)。夹具改成：最后一颗是锁定的玻璃骰，提交（没到目标、还有提交次数）后碎，会话以 `NoDice` 结束（`GameSession.Submission.cs` 第 90–95 行）。新函数 `NoDiceScene111`，两处共用 |
+| 重新读档后打开得分明细抛 `Frozen additive mismatch` | `PLAY_ART07_STATUS_ColdLoadDuringSubmissionShowsSavedFinalWithoutReplayingEffects`、`PLAY_V25_C114_PreviousHandRetainsSameNameCardPositionAfterReload`、`PLAY_V25_C114_PreviousHandRetainsSoldCardAfterReload` | (b) 运行时存档适配器的缺陷，玩家可见（读档后点“明细”／上一手报错）。颜色、黄金面的加成条目没有来源卡（`emitterId`、`stateOwnerId` 为 null），规则层解释冻结的一手时核对这一点；`JsonUtility` 把 null 字符串写成 `""`，读回来就对不上。修在 `Runtime/AtomicSaveStore.cs`：读档后把这两个字段的 `""` 还原成 null（与同处已有的“Unity 把 null 的嵌套类写成默认对象”的还原同一做法）。规则层、会话层没有改。另见第 6 节 |
+| W7a、W7b 给明细加的“加成”分项行 | `PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont{100,125,150}`、`PLAY_ART07_ScoreDrawerC53BranchAndHistoricalRowsKeepFrozenExactValuesAndCopy`、`PLAY_ART07_ScoreDrawerThreeFontsMapEverySourceAndWheelReachEveryGlyph` | (a)。期望列表加上 `GlobalStep<i>Bonus<j>`／`ScoreRow_Global<i>Bonus<j>`（抽屉里超过 4 条时默认收起，不加） |
+| 新的牌面、数值、目标（p1.1.1） | `PLAY_V09_HandScreenShowsGrowthPoolSummaryAndTheNewHandbookPage`（C70 +9）、`PLAY_V10_BossStageDisablesCardsShowsItsModifierAndPaysLootInTheShop`（2106）、`PLAY_V10_ShopButtonAndStageSelectShowTheThreeStagesOfTheCycle`（目标 320／480）、`PLAY_IndependentTutorialCompletesRealPurchaseAndPreservesFormalRun`（两颗红是二举 ×1，得分 50）、`PLAY_V13_CT04_TenCardRowAndPlayScreenStatesInBothThemes`（角标“基础分 +36”）、`PLAY_TX07_StageEndReceiptsNameExpiredCardAndGrantedCardInTheCountingRecord`（“加成耗尽”）、`PLAY_ART07_POST_NetZeroUsesThinConfirmationWithoutWipeOrMeshSwap`（C36／C37 作用前三颗）、`PLAY_ART07_FX_MultipleRandomOwnersAndSharedCopyUseCompleteCommittedList`（C53 的倍率表里已没有 ×5，改用 ×4）、`PLAY_ART071_COMBO_RealTiersUseAuthoredEdgeRingArcsAndGoldWithoutCoveringInk`（C02×C31 只到第 3 档，第 4 档用 G147 整套 ×2205）、`PLAY_V11_TEXT_HandbookScoringOrderIncludesItemAndBossFactors`（手册里附魔已并入“加成”一步）、`PLAY_V24_TX06_ShopOffersAndOwnedDetailsDisplayApprovedContent` 与 `…DiceShopAndRewardDetailsUseTheirOwnTerms`（C51、U01 的 p1.1.1 文字） | (a)。逐条见 TEST_CHANGES W9a |
+| 玻璃不在投掷时碎 | `PLAY_RealKeyboardTenDiceMappingModalSeedFocusAndHeldKeys` | (a)。投掷后 D005 仍在，第三颗可见骰是 D005 |
+| 改写规则后会顺带记录逐面的变化 | `PLAY_PreviousSubmissionRetainsOriginalScoreAndPermanentEffectsAfterNextRollAndReload` | (a)。预览里不再只有一条效果（C07 复制骰子时还有逐面的记录）；改为“恰好一条主效果，所有效果都来自这张卡、落在第二颗骰子上”，后面“预览与提交后的效果逐字段相同”的检查不变 |
+| 这一手不再超过 3,000 | `PLAY_V11_W11b_LabelsOnFilledSurfacesReachContrastInDefaultAndSwiss`、`PLAY_V11_W11b_SettlePanelTurnsToReachedTheMomentTheTotalReachesTheTarget` | (a)。目标改成这一手实际得分（会话预览）的三分之一，保持“提交前 0、演出中途越过目标” |
+| 颜色并入加成、红色一对 ×1，最长的筹码行少了两个筹码 | `PLAY_V11_W11b_FormulaChipRowFitsWithTheLongestNamesAt150` | (a)。把夹具里的加成卡 C30 换成老当益壮 C58（恒定 ×1.25），筹码回到 6 个（基础、牌型、加成、卡牌、道具、首领）；“至少 6 个”的要求没有降 |
+| 首领计划随规则改了 | `PLAY_V11_RewardHintsMatchTheActiveStageAndItsCardIncome` | (a)。种子 5000 第 3 关现在是 B01。改成从给定种子往后找第一个真实计划里这一关是所需减益的种子（计划仍由会话抽，不由测试写） |
+| p1.1.0 的录制与回放 | `PLAY_V15_SE14_NormalMenuContinuesLiveOrdinaryAndBossReceipts(100)`、`(150)`、`PLAY_V15_SE15_OrdinaryReceiptBlocksSecondPointerAtSamePosition`、`PLAY_V26_ReleaseNavigationSmokeToFirstCommittedMultiplier` | (a)。前三条读 `evidence/v11/balance/trace_p110_5000.json`（p1.1.0），现在读用同一条模拟器命令在 p1.1.1 上生成的 `evidence/v111/balance/trace_p111_5000.json`（`balance_sim trace --seed 5000 --steps 80`：81 步、回放全部接受、得分不符 0；模拟器没有改）。V26 的前九条命令与新录制相同，版本改 p1.1.1，期望的手与得分改由同样九条命令在一个新的 Core 会话上重放得出（原来写死 H0001、×3、198） |
+| 一批货架里重复的商品 | `PLAY_V111_TwoFaceUpgradeCostsOnePriceAndAnIllegalFaceBlocksThePair` | (a) W7b 测试的夹具错：同一批里放了两件 U06，会话拒绝（“同批商品定义重复”）。第二件换成货架上没有的另一种按面改造（它只用来验证换骰子会清空已选面） |
+| 150% 字号下“再选一个面（价格不变）”压在“确认购买”上 | `PLAY_V14_SH08_LongestChangeTextsFitWithEnlargedText` | (b) W7b 的版式缺陷。改 `UI/GameApp.ShopFacePick14.cs`：150% 字号时这个按钮放到骰子旁边、骰子名字下面（S2 放提示的位置），骰子这一行按需加高，放不下长字时用短字“再选一个面”；100%、125% 仍在价格行下面（原位置）。先试过“压到底部按钮行时移到价格行右端或底部行左端”，在最挤的“光滑骰面”一例里两处都放不下，改成现在的做法 |
+| 本包的截图测试 | `PLAY_W9A_NewArtInThePlayRowTheShopAndTheDetailOfEveryStyle` | 本包错误：场景里的 C45 需要已设的颜色（照 `W13TenCards` 补上）；同时给两个截图测试的货架夹具去掉与新增商品重复的生成商品 |
+
+修复后只跑相关测试的诊断轮（1920×1080，不算门禁；报告都在 `evidence/v111/unity/`）：
+
+| 报告 | 范围 | 结果 | 新暴露的问题与处理 |
+| --- | --- | --- | --- |
+| `nunit-20261126-194948.xml` | 第 2 次全量失败的 42 条所在的 32 个名字片段（55 条） | 43 通过、12 失败 | 同一测试里后面的旧断言（键盘测试提交 D006、V10 第 3 关目标 1,000、TX06 红色浪潮 2 金币、C07 复制后 `cultivated` 标记、效果预览不含“本局最高单手”纪录）都是 (a)；另有两处 (b)：**手册“颜色与红组”页 150% 时全蓝／全红的规则文字溢出**（W7a 改长的句子），**得分明细里“展开加成的 N 项”按钮的字在 150% 时被裁**（W7b 的按钮高 56、字行高约 52，且没有关掉自动缩放）；SH08 的第一版修法不够 |
+| `nunit-20261126-200248.xml` | 仍失败的 8 个片段（18 条） | 13 通过、5 失败 | 手册红组说明在 150% 时也溢出（改 `GameApp.V05.cs`：颜色两行的行高 150% 时 220 → 264，红组说明按实际行数加高、下面的表随之下移）；按钮修法第二版 |
+| `nunit-20261126-201055.xml` | 5 个片段（9 条） | 7 通过、2 失败 | `…ScoreDrawerThreeFonts…` 这次失败是我在运行中改了截图测试文件，触发了“运行期间源文件不变”的检查（不是产品问题）；SH08 第二版（价格行右端／骰子旁／底部行左端）仍放不下，改成上表的第三版 |
+| `nunit-20261126-201538.xml` | `ScoreDrawerThreeFonts`、`V14_SH08`、`V111_TwoFace`、`PLAY_W9A_Score`（6 条） | 6 通过、0 失败 | — |
+
+得分明细的按钮（`UI/GameApp.Art07ScoreDrawer.cs`）：关掉自动缩放、字号固定 23×字号倍数、不换行；按钮宽度按字的实际宽度（至少 420），高度 150% 时按行高加高（56 → 63）。
+
+`W7bShot`（`V111InteractionsPlayModeTests.cs` 的截图步骤）：第 2 次全量产出的 `custom-upgrade-list.png` 里没有自选改造列表（弹窗在同一帧打开，截图时还在淡入）。改为有弹窗时不重画、等 0.5 秒再截。这是截图工具的问题，不影响断言。
+
 ## 5. 看图结论
 
 ## 6. 留给协调者决定的事
+
+1. **本机 `Resources/BuildIdentity.json`**（不进 git）：为了让 EditMode 的配置绑定测试在 p1.1.1 下有意义，我只刷新了由源文件推出的字段（提交号、`contentConfigVersion` p1.1.1、配置哈希、`saveSchemaVersion` 8），发布标签 `releaseVersion` p1.1.0、`artVersion` art1.1.0 与 `goldenCaseSetSha256` 原样保留。出包前要用切换到 p1.1.1 的 `tools/v11_delivery.py identity`（或其后继）重写；它现在写死 p1.1.0，而且引用的 `Data/GoldenScores.json` 已不存在。
+2. **规则层对“没有来源卡”的判断只认 null**（`Core/Rules/ScoreExplanation.cs` 第 121–122 行 `emitterId == null`）。本包在存档适配器里把读回的 `""` 还原成 null（第 4 节），规则层没有改。是否要让规则层同时接受空字符串（更稳），由协调者定；那属于规则层改动。
+3. **`evidence/v111/balance/trace_p111_5000.json`**：V15 两个收据测试与 V26 冒烟用的 p1.1.1 录制，由现有模拟器命令生成（模拟器没有改）。如果发布流程要求录制由协调者生成或另放位置，请指示。
 
 ## 7. (c) 类问题（规则或会话层）
 

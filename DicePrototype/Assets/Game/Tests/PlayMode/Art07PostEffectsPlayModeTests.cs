@@ -33,7 +33,7 @@ namespace DiceCraft.Tests
 
             app.ShowCommittedPresentationDetails07();yield return null;
             var rows=app.canvas.GetComponentsInChildren<TextMeshProUGUI>(true).Where(row=>row.gameObject.activeInHierarchy&&row.name.StartsWith("Event",StringComparison.Ordinal)).ToArray();
-            Assert.That(rows.Any(row=>row.text.Contains("昙花一现：倍率耗尽，已消失")),Is.True);
+            Assert.That(rows.Any(row=>row.text.Contains("昙花一现：加成耗尽，已消失")),Is.True); // p1.1.1 (W7a): C141 is a bonus card
             Assert.That(rows.Any(row=>row.text.Contains("滥竽充数：获得 "+grantedName)),Is.True);
             Assert.That(rows.Any(row=>row.text.Contains("无心插柳：")&&!row.text.Contains("状态已更新")),Is.True);
             foreach(var upgrade in result.receipt.effects.Where(x=>x.kind=="DieUpgraded"))
@@ -55,7 +55,8 @@ namespace DiceCraft.Tests
             var scene=FxScene07(s=>{FxControllers07(s,"C36","C37","C38");s.capacityOverride=6;});
             var submit=app.Send(new SessionCommand{kind=CommandKind.Submit});Assert.That(submit.accepted,Is.True,submit.error);
             var netZero=submit.receipt.effects.Where(e=>e.kind=="FaceValueChanged").ToArray();
-            Assert.That(netZero,Has.Length.EqualTo(2),"Both growth targets must actually produce committed effects; an empty All() is not evidence.");
+            // p1.1.1 (RULES_DELTA 4.6): C36 and C37 reach the first three submitted dice (was two).
+            Assert.That(netZero,Has.Length.EqualTo(3),"Every growth target must actually produce committed effects; an empty All() is not evidence.");
             Assert.That(netZero.All(e=>e.sourceId=="C36+C37"&&e.oldValue==e.newValue),Is.True);
             var rows=app.CommittedPresentationDetails07;
             foreach(string kind in new[]{"FaceValueChanged","FaceDyed"})
@@ -67,7 +68,7 @@ namespace DiceCraft.Tests
             }
             string state=GameSession.StateHash(app.Session.State);byte[] save=File.ReadAllBytes(app.SaveLocation);
             yield return WaitFxPhase07(PresentationPhase.PostScore);
-            CollectionAssert.AreEquivalent(new[]{scene.dice[0].dieId,scene.dice[1].dieId,scene.dice[4].dieId},app.UnchangedPermanentTargets07);
+            CollectionAssert.AreEquivalent(new[]{scene.dice[0].dieId,scene.dice[1].dieId,scene.dice[2].dieId,scene.dice[4].dieId}.Distinct(),app.UnchangedPermanentTargets07);
             Assert.That(app.ActivePermanentFaceTransitions07,Is.Zero);Assert.That(LiveFx07("fx_face_change"),Is.Empty);
             foreach(var id in app.UnchangedPermanentTargets07)
             {

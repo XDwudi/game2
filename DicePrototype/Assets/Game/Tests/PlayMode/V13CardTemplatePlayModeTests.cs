@@ -374,7 +374,7 @@ namespace DiceCraft.Tests
                                 report.Add(tag+" "+item.definitionId+" enchantment badge "+badge.sprite.name+(theme=="swiss"?" (Swiss)":" (default)"));
                             }
                         }
-                        Assert.That(Button("Controller_"+state.controllers[7].instanceId).transform.Find("State")?.GetComponent<TextMeshProUGUI>()?.text,Is.EqualTo("+24"),"The growth card's value badge.");
+                        Assert.That(Button("Controller_"+state.controllers[7].instanceId).transform.Find("State")?.GetComponent<TextMeshProUGUI>()?.text,Is.EqualTo("基础分 +36"),"The growth card's value badge (p1.1.1, W7a: 积少成多 starts at +12, grown 24).");
                         // For the record: what a redraw of the play screen with ten template cards costs on this machine (the
                         // first full run found a per-card GPU read-back here; the ring band is now measured once per sprite).
                         var clock=System.Diagnostics.Stopwatch.StartNew();var times=new List<double>();

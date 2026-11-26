@@ -78,12 +78,20 @@ namespace DiceCraft
                 if(many)
                 {
                     string label=(open?"收起加成的 ":"展开加成的 ")+step.entries.Length+" 项";
-                    UiKit.Button(list,"BonusToggle111",label,8+24,cursor,Mathf.Min(contentWidth-24,420),56,()=>
+                    // W9a fix: the drawer's labels keep their real size (no auto-sizing, never truncated), so the button is as
+                    // wide as its word needs (at 150 % more than the 420 units it had), within the drawer.
+                    // Its line is about 1.5 times the font tall, so the button grows with enlarged text too (49 units of label
+                    // height clipped a 150 % line).
+                    float toggleW=Mathf.Min(contentWidth-24,Mathf.Max(420,Mathf.Ceil(PreferredWidth11(label,23))+16+32));
+                    float toggleH=Mathf.Max(56,Mathf.Ceil(23*UiKit.FontScale*1.5f)+11);
+                    var toggle=UiKit.Button(list,"BonusToggle111",label,8+24,cursor,toggleW,toggleH,()=>
                     {
                         bonusExpandedHand111=open?null:snapshot.handId;
                         ShowBreakdown(snapshot,b);
                     });
-                    cursor+=56+8;
+                    var toggleLabel=toggle.transform.Find("Label")?.GetComponent<TextMeshProUGUI>();
+                    if(toggleLabel!=null){toggleLabel.enableAutoSizing=false;toggleLabel.fontSize=23*UiKit.FontScale;toggleLabel.textWrappingMode=TextWrappingModes.NoWrap;toggleLabel.overflowMode=TextOverflowModes.Overflow;}
+                    cursor+=toggleH+8;
                 }
                 if(!open)continue;
                 long running=0;

@@ -1,0 +1,3 @@
+config=DicePrototype/Assets/Game/Data/P0Config.json version=p1.1.1 threads=8 args=trace --seed 5000 --steps 80 --out evidence/v111/balance/trace_p111_5000.json --log evidence/v111/balance/trace_p111_5000.log
+trace replay: accepted=81, rejected=0, initialLootDecisions=2, extraLootPicks=0; full-run shopRejected=0, scoreMismatches=0
+seed 5000: wrote 81 steps (NewRun=1,StartStage=6,Roll=19,ConfirmLocks=16,Reorder=6,Submit=9,EndStage=6,Continue=6,Buy=7,LeaveShop=5); run reached stage 24, won=True

@@ -160,7 +160,8 @@ namespace DiceCraft.Tests
             Assert.That(InformationText07("Rule09Title0"),Is.EqualTo("计分顺序"));
             string body=InformationText07("Rule09Body0");
             Assert.That(body,Does.Contain(app.Config.Consumable("I09").displayName).And.Contain("×2").And.Contain("减半").And.Contain("×0.5"));
-            int enchant=body.IndexOf("倍率附魔",System.StringComparison.Ordinal),item=body.IndexOf(app.Config.Consumable("I09").displayName,System.StringComparison.Ordinal);
+            // p1.1.1 (W7a; RULES_DELTA 2): the enchantment is one of the bonuses, so the anchor is the bonus step (was "倍率附魔").
+            int enchant=body.IndexOf("加成（1 ＋ 全部加成之和）",System.StringComparison.Ordinal),item=body.IndexOf(app.Config.Consumable("I09").displayName,System.StringComparison.Ordinal);
             int boss=body.IndexOf("减半",System.StringComparison.Ordinal),floor=body.IndexOf("向下取整",System.StringComparison.Ordinal);
             Assert.That(enchant,Is.GreaterThanOrEqualTo(0));
             Assert.That(enchant<item&&item<boss&&boss<floor,Is.True,"ScoreCalculator applies the item factor, then the boss half, after the enchantments and before the floor.");

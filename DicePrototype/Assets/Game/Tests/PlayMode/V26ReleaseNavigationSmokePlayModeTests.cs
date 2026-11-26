@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using DiceCraft.Core;
 using DiceCraft.Verification;
 using NUnit.Framework;
 using UnityEngine;
@@ -37,7 +38,9 @@ namespace DiceCraft.Tests
 
         // Seed 5000, the first nine actual p1.1.0 release commands. Core independently
         // returns H0001, multiplier 3 and score 198 at sequence nine. No cached trace is required.
-        private const string ReleasePrefix26 = @"{""configVersion"":""p1.1.0"",""seed"":5000,""steps"":[
+        // p1.1.1 (W9a): the same nine commands open evidence/v111/balance/trace_p111_5000.json; the expected hand and score
+        // now come from replaying them on a fresh Core session (CoreReplay26) instead of p1.1.0's H0001, x3, 198.
+        private const string ReleasePrefix26 = @"{""configVersion"":""p1.1.1"",""seed"":5000,""steps"":[
             {""kind"":""NewRun"",""seed"":5000},{""kind"":""StartStage""},{""kind"":""Roll""},{""kind"":""Roll""},
             {""kind"":""ConfirmLocks"",""dieIds"":[""D002"",""D003"",""D005""]},{""kind"":""Roll""},
             {""kind"":""ConfirmLocks"",""dieIds"":[""D001"",""D004""]},
@@ -65,13 +68,14 @@ namespace DiceCraft.Tests
                 Assert.That(evidence.schema,Is.EqualTo("v11-editor-navigation-smoke-1"));
                 Assert.That(evidence.status,Is.EqualTo("editor-smoke-completed"));
                 Assert.That(evidence.isEditor,Is.True);
-                Assert.That((evidence.theme,evidence.rulesVersion),Is.EqualTo(("default","p1.1.0")));
+                Assert.That((evidence.theme,evidence.rulesVersion),Is.EqualTo(("default","p1.1.1")));
                 Assert.That((evidence.stepsSent,evidence.traceSteps),Is.EqualTo((8,8)));
                 Assert.That((evidence.screenWidth,evidence.screenHeight),Is.EqualTo((Screen.width,Screen.height)));
                 Assert.That(firstSkin,Is.Not.SameAs(UiKit.Template("ui_card_controller")));
                 var state=app.Session.State;
-                Assert.That((state.seed,state.phase,app.Session.ActionSequence),Is.EqualTo((5000u,"HandReady",9L)));
-                Assert.That((state.lastSubmission.snapshot.handId,state.lastSubmission.breakdown.score),Is.EqualTo(("H0001","198")));
+                var core=CoreReplay26();
+                Assert.That((state.seed,state.phase,app.Session.ActionSequence),Is.EqualTo((5000u,core.phase,9L)));
+                Assert.That((state.lastSubmission.snapshot.handId,state.lastSubmission.breakdown.score),Is.EqualTo((core.lastSubmission.snapshot.handId,core.lastSubmission.breakdown.score)));
                 Assert.That(File.Exists(app.SaveLocation),Is.True);
 
                 string[] pages={"menu","handbook","settings","new-run","stage-preview","HandReady-normal","pause",
@@ -92,13 +96,31 @@ namespace DiceCraft.Tests
                 var factor=evidence.textFrames[12];
                 CheckReleaseScoreFocus26(formula,"ScoreDrawerTable/Viewport/Content/Formula");
                 CheckReleaseScoreFocus26(factor,"ScoreDetail/Viewport/Content/GlobalStep1");
-                Assert.That(formula.scoreFocus.text,Does.Contain("×").And.Contain("=").And.Contain("198"));
-                Assert.That(factor.scoreFocus.text,Does.Contain("× 3").And.Contain("→"));
+                Assert.That(formula.scoreFocus.text,Does.Contain("×").And.Contain("=").And.Contain(PlayerNumberFormat.Exact(core.lastSubmission.breakdown.score)));
+                Assert.That(factor.scoreFocus.text,Does.Contain(" × ").And.Contain("→"),"The second step multiplies (p1.1.0 pinned its x3).");
                 Assert.That(HasActive("PreviousSubmission"),Is.True,"Real drawer closed before returning to play.");
                 Assert.That(HasActive("ScoreDrawerTable")||HasActive("ScoreDetail"),Is.False);
                 TestContext.Out.WriteLine("Real UI smoke "+root);
             }
             finally { UnityEngine.Object.Destroy(host); }
+        }
+
+        /// <summary>The nine commands of ReleasePrefix26 on a fresh Core session (no UI, no save file): the state the smoke must reach.</summary>
+        private RunState CoreReplay26()
+        {
+            var core=new GameSession(app.Config,new MemorySaveStore());
+            void Step(CommandKind kind,params string[] dice)
+            {
+                if(kind==CommandKind.ConfirmLocks)foreach(string id in dice)Assert.That(core.TogglePending(id),Is.True,id);
+                long sequence=core.State?.actionSequence??0;
+                var result=core.Execute(new SessionCommand{kind=kind,commandId="smoke-core-"+(sequence+1),expectedActionSequence=sequence,seed=kind==CommandKind.NewRun?5000u:0u,
+                    dieIds=kind==CommandKind.Reorder?dice:new string[0]});
+                Assert.That(result.accepted,Is.True,kind+": "+result.error);
+            }
+            Step(CommandKind.NewRun);Step(CommandKind.StartStage);Step(CommandKind.Roll);Step(CommandKind.Roll);
+            Step(CommandKind.ConfirmLocks,"D002","D003","D005");Step(CommandKind.Roll);Step(CommandKind.ConfirmLocks,"D001","D004");
+            Step(CommandKind.Reorder,"D001","D002","D003","D004","D005");Step(CommandKind.Submit);
+            return core.State;
         }
 
         private static void CheckReleaseScoreFocus26(ReleaseSmokeFrame26 frame,string suffix)

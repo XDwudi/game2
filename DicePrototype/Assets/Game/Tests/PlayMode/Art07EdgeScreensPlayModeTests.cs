@@ -152,14 +152,9 @@ namespace DiceCraft.Tests
                     var face=extra.faces[0];scene.currentResults.Add(new DieHandState{dieId=extra.dieId,currentFaceId=face.faceId,currentPip=face.permanentPip,currentColor=face.baseColor,hasRolled=true});
                 }
                 if(kind=="temporary")foreach(var die in scene.dice)die.lifetime="stage_temporary";
-                if(kind=="no-dice")
-                {
-                    scene.dice.RemoveRange(1,scene.dice.Count-1);scene.dice[0].isGlass=true;scene.currentResults=null;scene.orderedLockedIds.Clear();
-                    scene.randomOverrides.Add(new DebugRandomOverride{kind="Glass",sourceId=scene.dice[0].dieId,value="break"});
-                }
+                if(kind=="no-dice")NoDiceScene111(scene); // p1.1.1: the glass die breaks after a submission (V15ResultsAndEntryPlayModeTests)
                 var applied=app.Send(new SessionCommand{kind=CommandKind.ApplyDebugScene,debugScene=scene});Assert.That(applied.accepted,Is.True,applied.error);
-                if(kind=="no-dice"){Click("Roll");app.SkipVisual();}
-                else {Click("Submit");app.SkipVisual();if(app.Session.State.phase=="StageSettlement")Click("SettlementContinue");}
+                Click("Submit");app.SkipVisual();if(app.Session.State.phase=="StageSettlement")Click("SettlementContinue");
                 Assert.That(app.Session.State.phase,Is.EqualTo(kind=="win"?"RunWon":"RunFailed"));
                 Assert.That(FindActive<TextMeshProUGUI>("EndTitle").text,Is.EqualTo(kind=="win"?"24 关全部通过":"这一局结束了"));
                 string message=FindActive<TextMeshProUGUI>("EndMessage").text;

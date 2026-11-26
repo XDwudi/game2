@@ -16,15 +16,16 @@ namespace DiceCraft.Tests
     {
         // Fixed expectations come from CONTENT_REWRITES, the W10 wording overrides and P0Config p1.1.0.
         // These tests deliberately do not use the formatter or runtime configuration as the text oracle.
-        private const string StaffShort24 = "得分倍率从×1.5起，每家店首次卖出卡牌后+0.5。";
-        private const string StaffRules24 = "同一家店再卖不再增加；卡牌自毁、被祭坛摧毁不算；被百变模仿复制时共用同一个倍率。";
+        // p1.1.1 (W9a): C51 (a bonus card now) and U01 (two faces at one price) carry the p1.1.1 wording of tools/v111_config.py.
+        private const string StaffShort24 = "加成从+1起，每家店首次卖出卡牌后+0.8。";
+        private const string StaffRules24 = "同一家店再卖不再增加；卡牌自毁、被祭坛摧毁不算；被百变模仿复制时共用同一个数值。";
         private const string BlueShort24 = "提交的骰子里没有红骰时，得分×3。";
         private const string WaveShort24 = "本手提交时，提交的骰子全部按红色计算。";
         private const string WaveRules24 = "锁定骰子后才能使用；之后继续投掷也不失效；只影响本次计分，骰面不变；每手只能用1次，且不能再用蓝色浪潮。";
         private const string SlotShort24 = "道具栏位+1（最多5个）。";
         private const string SlotRules24 = "开局2个；道具打折对价格有效，最低1金币。";
         private const string SmoothShort24 = "这一面变光滑：它的对面更难掷出。";
-        private const string SmoothRules24 = "对面的机会×0.8，其余5面×1.04；标准骰对面约13.3%，其余约17.3%。";
+        private const string SmoothRules24 = "对面的机会×0.8，其余5面×1.04；标准骰对面约13.3%，其余约17.3%。一次可以改同一颗骰子的两个面，价格不变。";
 
         [UnityTest] public IEnumerator PLAY_V24_TX06_ShopOffersAndOwnedDetailsDisplayApprovedContent()
         {
@@ -39,7 +40,7 @@ namespace DiceCraft.Tests
             {
                 (id:"C51", category:"controller", name:"人员流动", price:4, brief:StaffShort24, rules:StaffRules24),
                 (id:"C02", category:"controller", name:"蓝色疯狂", price:7, brief:BlueShort24, rules:""),
-                (id:"I01", category:"consumable", name:"红色浪潮", price:2, brief:WaveShort24, rules:WaveRules24),
+                (id:"I01", category:"consumable", name:"红色浪潮", price:1, brief:WaveShort24, rules:WaveRules24), // p1.1.1: 1 gold (was 2)
                 (id:"O01", category:"service", name:"道具增加", price:2, brief:SlotShort24, rules:SlotRules24),
                 (id:"U01", category:"die_upgrade", name:"光滑骰面", price:1, brief:SmoothShort24, rules:SmoothRules24)
             };

@@ -137,7 +137,18 @@ namespace DiceCraft.Tests
                 Assert.That(row.Find("Result").GetComponent<TextMeshProUGUI>().text,Is.EqualTo(ExpectedContribution16(score,i)));
                 for(int j=0;j<trace.dice[i].steps.Length;j++)CheckStep("Die"+i+"Step"+j,trace.dice[i].steps[j]);
             }
-            for(int i=0;i<trace.global.Length;i++)CheckStep("Global"+i,trace.global[i]);
+            for(int i=0;i<trace.global.Length;i++)
+            {
+                CheckStep("Global"+i,trace.global[i]);
+                // p1.1.1 (W7a, W7b): the bonus line's sources follow it as rows; more than BonusEntriesShown111 start folded.
+                var entries=trace.global[i].kind=="additive"?trace.global[i].entries:null;
+                if(entries!=null&&entries.Length<=GameApp.BonusEntriesShown111)
+                    for(int j=0;j<entries.Length;j++)
+                    {
+                        expected.Add("ScoreRow_Global"+i+"Bonus"+j);
+                        Assert.That(FindActive<RectTransform>("ScoreRow_Global"+i+"Bonus"+j).Find("Source").GetComponent<TextMeshProUGUI>().text,Does.Not.Contain("ITEM_").And.Not.Empty);
+                    }
+            }
             var rows=scroll.content.GetComponentsInChildren<RectTransform>(false).Where(r=>r.name.StartsWith("ScoreRow_",StringComparison.Ordinal)).OrderBy(r=>-r.anchoredPosition.y).ToArray();
             CollectionAssert.AreEqual(expected,rows.Select(r=>r.name).ToArray());
             foreach(var row in rows)
@@ -149,7 +160,8 @@ namespace DiceCraft.Tests
             var labels=scroll.content.GetComponentsInChildren<TextMeshProUGUI>(false);
             foreach(var text in labels)
             {
-                text.ForceMeshUpdate();Assert.That(text.enableAutoSizing,Is.False);Assert.That(text.isTextTruncated,Is.False);Assert.That(text.isTextOverflowing,Is.False);
+                text.ForceMeshUpdate();string which=W11bPath(text.transform)+" '"+text.text+"'"; // W9a: name the label that fails
+                Assert.That(text.enableAutoSizing,Is.False,which);Assert.That(text.isTextTruncated,Is.False,which);Assert.That(text.isTextOverflowing,Is.False,which);
                 Assert.That(text.rectTransform.rect.height,Is.GreaterThanOrEqualTo(text.GetPreferredValues(text.text,text.rectTransform.rect.width,float.PositiveInfinity).y-.1f));
                 foreach(var glyph in ScoreGlyphRects07(text))Assert.That(ScoreContains07(V06ScreenRect(text.rectTransform),glyph),Is.True,text.name+" glyph leaves its actual cell");
             }

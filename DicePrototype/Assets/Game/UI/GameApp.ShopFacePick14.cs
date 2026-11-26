@@ -355,6 +355,11 @@ namespace DiceCraft
                 float h=Mathf.Ceil(label.GetPreferredValues(label.text,w,0).y)+2;label.rectTransform.sizeDelta=new Vector2(w,h);y+=h+6;return label;
             }
             string step=FacePickStep14;
+            // v1.1.1 (W7b; W9a fix): the second-face button. It sits on its own row under the price; with 150 % text that row
+            // reached the foot row (V14 SH08: it covered 确认购买), so there it goes beside the die, under the die's name (where
+            // S2 puts its prompt), the die row growing to hold it, with the shorter word when the long one does not fit.
+            bool wantAdd=step=="S3"&&!pick.whole&&pick.faces.Count<pick.maxFaces,addBeside=wantAdd&&UiKit.FontScale>1.3f;
+            string addFace=null;float addX=x,addY=0,addSlotW=0;
             if(step=="S1")
             {
                 Line("FacePickShort14",ShortText11(offer.contentId),20,ink,false);
@@ -388,6 +393,7 @@ namespace DiceCraft
                     float promptH=Mathf.Ceil(prompt.GetPreferredValues(prompt.text,textW,0).y)+2;
                     prompt.rectTransform.sizeDelta=new Vector2(textW,promptH);rowH=Mathf.Max(rowH,labelH+6+promptH);
                 }
+                if(addBeside){addX=textX;addY=rowTop+labelH+6;addSlotW=textW;rowH=Mathf.Max(rowH,labelH+6+60);}
                 y+=rowH+10;
                 if(!pick.whole&&step=="S2")
                 {
@@ -412,12 +418,7 @@ namespace DiceCraft
                     Line("FacePickPrice14",!string.IsNullOrEmpty(offer.groupId)?"免费":"价格 "+cost+"（你有 "+PlayerNumberFormat.Gold(ViewState.gold)+"）",20,muted,false);
                     // v1.1.1 (W7b, RULES_DELTA 7.1): an upgrade that takes two faces offers the second one here, for the
                     // same price. It is a second-level button of its own row, above the foot row.
-                    if(!pick.whole&&pick.faces.Count<pick.maxFaces)
-                    {
-                        string add=string.IsNullOrEmpty(offer.groupId)?"再选一个面（价格不变）":"再选一个面";
-                        float addW=Mathf.Min(w,ShopLabelWidth14(add,20)+32);
-                        ShopButton14(panel,"AddFace14",add,x,y,addW,60,FacePickAddFace14,!IsBusy);y+=60+6;
-                    }
+                    if(wantAdd){addFace=string.IsNullOrEmpty(offer.groupId)?"再选一个面（价格不变）":"再选一个面";if(!addBeside){addX=x;addY=y;y+=60+6;}}
                 }
             }
             // Buttons along the foot of the panel, right to left: 确认购买 ⦿N, 换一面 / 换一颗, 取消 (second-level: the screen's one
@@ -449,6 +450,12 @@ namespace DiceCraft
             if(swap=="只改一面"){float ww=swapW+2*pad;ShopButton14(panel,"KeepOneFace14",swap,bx-ww,by,ww,60,()=>{if(facePick14!=null){facePick14.adding=false;Refresh();}},!IsBusy);bx-=ww+gapB;}
             if(swap=="换一颗"){float ww=swapW+2*pad;ShopButton14(panel,"ChangeDie14",swap,bx-ww,by,ww,60,()=>{if(facePick14!=null){facePick14.dieId=null;facePick14.faces.Clear();facePick14.adding=false;Refresh();}},!IsBusy);bx-=ww+gapB;}
             float cancelW=cancelLabelW+2*pad+8;ShopButton14(panel,"CancelFacePick14","取消",bx-cancelW,by,cancelW,60,CancelFacePick14,true);
+            if(addFace!=null)
+            {
+                float addW=Mathf.Min(w,ShopLabelWidth14(addFace,20)+32);
+                if(addBeside&&addW>addSlotW){addFace="再选一个面";addW=Mathf.Min(addSlotW,ShopLabelWidth14(addFace,20)+32);}
+                ShopButton14(panel,"AddFace14",addFace,addX,addY,addW,60,FacePickAddFace14,!IsBusy);
+            }
         }
         /// <summary>A die of 我的骰子 that can be chosen (S1–S3): a hit area named Target_&lt;die&gt; over its cell, ringed in
         /// gold while every die can be chosen and around the chosen one afterwards.</summary>

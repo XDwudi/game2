@@ -88,11 +88,12 @@ namespace DiceCraft.Tests
             Assert.That(CardText10("CycleCard0", "KindTag"), Is.EqualTo("普通")); Assert.That(CardText10("CycleCard1", "KindTag"), Is.EqualTo("高压")); Assert.That(CardText10("CycleCard2", "KindTag"), Is.EqualTo("首领"));
             Assert.That(CardText10("CycleCard0", "Cleared"), Does.Contain("已通过"));
             string options = string.Join(" | ", FindActive<Transform>("CycleCard1").GetComponentsInChildren<TextMeshProUGUI>(true).Where(t => t.name == "OptionInfo").Select(t => t.text));
-            Assert.That(options, Does.Contain("目标 600").And.Contain("奖励 5 金币").And.Contain("目标 900").And.Contain("奖励 10 金币"));
+            // p1.1.1 (RULES_DELTA 11): stage 2 targets 320, or 480 under pressure (was 600 / 900); rewards unchanged.
+            Assert.That(options, Does.Contain("目标 320").And.Contain("奖励 5 金币").And.Contain("目标 480").And.Contain("奖励 10 金币"));
             Assert.That(CardText10("CycleCard2", "ModifierName"), Is.EqualTo(app.Config.Modifier("B25").displayName));
             Assert.That(CardText10("CycleCard2", "ModifierText"), Is.EqualTo(app.Config.Modifier("B25").shortText));
             Assert.That(CardText10("CycleCard2", "Loot"), Does.Contain(app.Config.Loot("L1").displayName));
-            Assert.That(CardText10("CycleCard2", "Goal"), Is.EqualTo("1,000").Or.EqualTo("1000"));
+            Assert.That(CardText10("CycleCard2", "Goal"), Is.EqualTo("500")); // p1.1.1 (RULES_DELTA 11): stage 3 targets 500 (was 1,000)
             Assert.That(FindActive<Transform>("CycleCard1").Find("CurrentCycleCard"), Is.Not.Null, "In the shop the panel highlights the next stage.");
             Assert.That(HasActive("Risk"), Is.False, "The shop panel is read-only.");
             Click("CloseCycle"); Assert.That(HasActive("CycleCard0"), Is.False);
@@ -104,7 +105,7 @@ namespace DiceCraft.Tests
             Click("Risk"); yield return null;
             Assert.That(Button("Risk").GetComponentInChildren<TextMeshProUGUI>().text, Is.EqualTo("✓ 已选择"));
             Click("StartStage"); yield return WaitForIdle();
-            Assert.That(app.Session.State.stage.risk, Is.True); Assert.That(app.Session.State.stage.target, Is.EqualTo("900")); Assert.That(app.Session.State.stage.reward, Is.EqualTo(10));
+            Assert.That(app.Session.State.stage.risk, Is.True); Assert.That(app.Session.State.stage.target, Is.EqualTo("480")); Assert.That(app.Session.State.stage.reward, Is.EqualTo(10)); // p1.1.1: 320 x 1.5
             Assert.That(Text10("Chapter"), Does.Contain("高压挑战"));
         }
 
@@ -153,7 +154,8 @@ namespace DiceCraft.Tests
             // After the first hand the previous-hand button exists and the qualified header is drawn: the readout must still be there, uncovered.
             Assert.That(HasActive("PreviousSubmission"), Is.True); AssertBossReadoutVisible10("B25");
             // C50 (+20) and C46 (x2) are disabled; two rolls are left unused (+3 each): (20 + 6) x 12 x 2 x 5.
-            Assert.That(app.Session.State.lastSubmission.breakdown.score, Is.EqualTo("3120")); Assert.That(app.Session.State.stage.qualified, Is.True);
+            // p1.1.1 (RULES_DELTA 2, 3): (20 + 6) x five of a kind 12 x red group (5) 4.5 x (1 + all red 0.5) = 2106 (was 3120).
+            Assert.That(app.Session.State.lastSubmission.breakdown.score, Is.EqualTo("2106")); Assert.That(app.Session.State.stage.qualified, Is.True);
             var end = app.Send(new SessionCommand { kind = CommandKind.EndStage }); Assert.That(end.accepted, Is.True, end.error); yield return WaitForIdle();
             if (app.SettlementRevealPlaying07) Click("SkipSettlementReveal07");
             Assert.That(Text10("LootName15"), Is.EqualTo(app.Config.Loot("L1").displayName));
@@ -199,9 +201,18 @@ namespace DiceCraft.Tests
         private IEnumerator CheckRewardHint11(uint seed, int index, string modifier, bool risk, string[] cards, bool dispel, int font)
         {
             string context="stage "+index+" "+modifier+" "+string.Join("+",cards)+" font "+font+(dispel?" I08":"");
-            var source=new GameSession(app.Config,new MemorySaveStore());
-            var created=source.Execute(new SessionCommand{kind=CommandKind.NewRun,commandId="reward-forecast",seed=seed});
-            Assert.That(created.accepted,Is.True,created.error);
+            // p1.1.1 (W3): the cycle plans drawn from a seed changed (seed 5000 now puts B01 on stage 3). The case is about one
+            // modifier's reward hint, so the first seed from the given one whose real plan puts that modifier on this boss
+            // stage is used; the plan is still drawn by the session, never written by the test.
+            GameSession source=null;
+            for(uint candidate=seed;candidate<seed+5000&&source==null;candidate++)
+            {
+                var trial=new GameSession(app.Config,new MemorySaveStore());
+                var created=trial.Execute(new SessionCommand{kind=CommandKind.NewRun,commandId="reward-forecast",seed=candidate});
+                Assert.That(created.accepted,Is.True,created.error);
+                if(app.Config.stages[index].stageKind!="boss"||trial.State.cycles[index/3].modifierId==modifier)source=trial;
+            }
+            Assert.That(source,Is.Not.Null,context+": no seed draws this modifier");
             var s=source.State;var def=app.Config.stages[index];
             s.stage.stageIndex=index;s.stage.stageId=def.stageId;s.stage.stageKind=def.stageKind;
             s.stage.target=def.normalTarget;s.stage.reward=def.normalReward;

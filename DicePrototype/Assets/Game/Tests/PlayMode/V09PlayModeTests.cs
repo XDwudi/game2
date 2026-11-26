@@ -104,7 +104,7 @@ namespace DiceCraft.Tests
             Assert.That(summary, Is.EqualTo("留在骰池：5 颗 · 点数和 " + left.Sum(r => r.currentPip) + " · 红 " + left.Count(r => r.currentColor == "red") + " 颗 · 6 点 " + left.Count(r => r.currentPip == 6) + " 颗"));
             // The live preview already includes the pool card: +6 for each of the five dice left behind.
             var preview = app.Session.PreviewScoreRange().minimum;
-            Assert.That(preview.controllerBaseAdds.Single(a => a.abilityId == "C70").amount, Is.EqualTo("30"));
+            Assert.That(preview.controllerBaseAdds.Single(a => a.abilityId == "C70").amount, Is.EqualTo("45")); // p1.1.1 (RULES_DELTA 4): +9 a pool die (was +6)
             Assert.That(preview.controllerBaseAdds.Single(a => a.abilityId == "C55").amount, Is.EqualTo(piled.ToString()));
 
             Click("Handbook"); Click("HandbookRules09");

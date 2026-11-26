@@ -238,7 +238,7 @@ namespace DiceCraft.Tests
                     W11Apply(W11Scene(new[]{"C39","C139","C34","C56","C08"},new[]{1,2,3,4,5},"bbrbb",0,false,stageIndex:8,modifier:"B02",target:"13500",items:2));yield return W11Settle();
                     yield return W11bContrastPass(theme+"-boss",report,failures);
                     // Mid-scoring on the total: the lit chips, the total chip, the "+N" tickets, the card badges, the gain banner.
-                    W11Apply(W11Scene(new[]{"C39","C139","C34","C08","C46"},new[]{4,4,4,4,2},"bbbbr",4,true,target:"3000",score:"0"));yield return W11Settle();
+                    W11Apply(W11Scene(new[]{"C39","C139","C34","C08","C46"},new[]{4,4,4,4,2},"bbbbr",4,true,target:W11bScoringTarget(),score:"0"));yield return W11Settle();
                     var result=app.Send(new SessionCommand{kind=CommandKind.Submit});Assert.That(result.accepted,Is.True,result.error);
                     bool enabled=app.enabled;app.enabled=false;
                     try
@@ -275,10 +275,11 @@ namespace DiceCraft.Tests
                 if(speed!="Normal")FinalOptions07(speed,false);
                 // The checkpoint's scoring scene: 0 of 3,000 before, the hand scores well past it, so the total crosses the
                 // target part-way through the roll-in.
-                W11Apply(W11Scene(new[]{"C39","C139","C34","C08","C46"},new[]{4,4,4,4,2},"bbbbr",4,true,target:"3000",score:"0"));yield return W11Settle();
+                string goal=W11bScoringTarget();
+                W11Apply(W11Scene(new[]{"C39","C139","C34","C08","C46"},new[]{4,4,4,4,2},"bbbbr",4,true,target:goal,score:"0"));yield return W11Settle();
                 Assert.That(HasActive("GoalGap11"),Is.True);Assert.That(FindActive<TextMeshProUGUI>("GoalGap11").text,Is.Not.EqualTo("0"));
                 var result=app.Send(new SessionCommand{kind=CommandKind.Submit});Assert.That(result.accepted,Is.True,result.error);
-                var target=ExactScoreMath.Parse("3000");
+                var target=ExactScoreMath.Parse(goal);
                 bool enabled=app.enabled;app.enabled=false;int gapFrames=0,reachedFrames=0,reachedInFinal=0,gapInFinal=0;bool reached=false;
                 try
                 {
@@ -421,6 +422,15 @@ namespace DiceCraft.Tests
             var s=app.Session.State;var scene=Art07Fixtures.Create(app.Config,kind,s.nextItemSerial,s.nextDieSerial);scene.sourceRunId=s.sourceRunId;
             change?.Invoke(scene);W11Apply(scene);
         }
+        /// <summary>p1.1.1: the checkpoint hand (four blue 4s with C39, C139, C34, C08, C46) no longer scores past 3,000, so its
+        /// target is a third of what it really scores (the session's own preview): 0 before, well past the target after.</summary>
+        private string W11bScoringTarget()
+        {
+            W11Apply(W11Scene(new[]{"C39","C139","C34","C08","C46"},new[]{4,4,4,4,2},"bbbbr",4,true,target:"999999999",score:"0"));
+            long hand=long.Parse(app.Session.PreviewScore().score,System.Globalization.CultureInfo.InvariantCulture);
+            Assert.That(hand,Is.GreaterThan(30),"The checkpoint hand must score.");
+            return (hand/3).ToString(System.Globalization.CultureInfo.InvariantCulture);
+        }
         [UnityTest] public IEnumerator PLAY_V11_W11b_FormulaChipRowFitsWithTheLongestNamesAt150()
         {
             StartRun("71112");var report=new List<string>();
@@ -434,6 +444,9 @@ namespace DiceCraft.Tests
                     W11bApplyFixture(Art07FixtureKind.MaximumTable,scene=>
                     {
                         scene.stageIndex=8;scene.modifierId="B30";scene.submissionOrdinal=1;scene.doubleScore=true;
+                        // p1.1.1: the colour joined the bonus chip and a red pair is x1, so this table lost two chips; 老当益壮 (an
+                        // always-on x1.25) in place of the bonus card C30 brings the card chip back: base, hand, bonus, cards, item, boss.
+                        scene.controllers.First(c=>c.definitionId=="C30").definitionId="C58";
                         for(int i=0;i<scene.dice.Count;i++)
                         {
                             var result=scene.currentResults[i];var face=scene.dice[i].faces.Single(f=>f.faceId==result.currentFaceId);

@@ -111,7 +111,7 @@ namespace DiceCraft.Tests
         }
         [UnityTest] public IEnumerator PLAY_ART07_FX_MultipleRandomOwnersAndSharedCopyUseCompleteCommittedList()
         {
-            var scene=FxScene07(s=>{FxControllers07(s,"C41","C53","C53");s.randomOverrides.Add(new DebugRandomOverride{kind="C53",sourceId=s.controllers[1].instanceId,value="1"});s.randomOverrides.Add(new DebugRandomOverride{kind="C53",sourceId=s.controllers[2].instanceId,value="10"});});
+            var scene=FxScene07(s=>{FxControllers07(s,"C41","C53","C53");s.randomOverrides.Add(new DebugRandomOverride{kind="C53",sourceId=s.controllers[1].instanceId,value="1"});s.randomOverrides.Add(new DebugRandomOverride{kind="C53",sourceId=s.controllers[2].instanceId,value="8"});}); // p1.1.1 (W6): C53 draws from 0.5..4 (units2 1..8); was 10 (x5)
             var result=app.Send(new SessionCommand{kind=CommandKind.Submit});Assert.That(result.accepted,Is.True,result.error);
             double limit=Time.realtimeSinceStartupAsDouble+6;
             while(app.PresentationPlaying07&&app.RevealedOwnerIds07.Length<2&&Time.realtimeSinceStartupAsDouble<limit)yield return null;
@@ -132,7 +132,7 @@ namespace DiceCraft.Tests
                     return "#"+(i+1)+" "+app.Config.Controller(scene.controllers[i].definitionId).displayName;
                 }));
                 Assert.That(app.CommittedPresentationDetails07[reveal.EventOrdinal],Is.EqualTo(
-                    "错乱乘积 "+(shared?"×0.5":"×5")+" · 来源："+names));
+                    "错乱乘积 "+(shared?"×0.5":"×4")+" · 来源："+names));
             }
             string hash=GameSession.StateHash(app.Session.State);byte[] save=File.ReadAllBytes(app.SaveLocation);
             app.ShowCommittedPresentationDetails07();yield return null;

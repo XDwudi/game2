@@ -59,15 +59,24 @@ namespace DiceCraft.Tests
             yield return new WaitForSecondsRealtime(seconds);Canvas.ForceUpdateCanvases();
         }
         private void W9aSteps(string file)=>File.WriteAllLines(Path.Combine(W9aOutput,file),steps9a);
+        /// <summary>Scrolls a list to its end (the rows under the fold), for a second picture of a long dialog.</summary>
+        private bool W9aScrollToEnd(string name)
+        {
+            var scroll=app.canvas.GetComponentsInChildren<UnityEngine.UI.ScrollRect>(false).FirstOrDefault(r=>r.name==name);
+            if(scroll==null){steps9a.Add("no scroll list: "+name);return false;}
+            scroll.verticalNormalizedPosition=0;Canvas.ForceUpdateCanvases();return true;
+        }
         /// <summary>The shop of ShopBoundaryFixture with two more cards and two more goods (the shelves' maximum), so the
         /// fixture keeps the purchase counters a real shop would have.</summary>
         private RunState W9aShop(string[] cards,string[] goods,string[] owned)
         {
             var fixture=ShopBoundaryFixture();
+            // One batch may not offer the same thing twice: a generated offer of the same card or item gives way.
+            fixture.shop.offers.RemoveAll(o=>o.category=="controller"&&cards.Contains(o.contentId)||o.category=="consumable"&&goods.Contains(o.contentId));
             for(int i=0;i<cards.Length;i++)AddBoundaryOffer(fixture,"w9a-card-"+cards[i],"controller",cards[i]);
             for(int i=0;i<goods.Length;i++)AddBoundaryOffer(fixture,"w9a-item-"+goods[i],"consumable",goods[i]);
-            fixture.controllerOfferPurchases=fixture.shop.offers.Count(o=>o.category=="controller")-app.Config.shop.initialControllerOffers;
-            fixture.consumableOfferPurchases=fixture.shop.offers.Count(o=>o.category=="consumable")-app.Config.shop.initialConsumableOffers;
+            fixture.controllerOfferPurchases=System.Math.Max(0,fixture.shop.offers.Count(o=>o.category=="controller")-app.Config.shop.initialControllerOffers);
+            fixture.consumableOfferPurchases=System.Math.Max(0,fixture.shop.offers.Count(o=>o.category=="consumable")-app.Config.shop.initialConsumableOffers);
             fixture.controllers.Clear();foreach(string id in owned)fixture.controllers.Add(BoundaryController(fixture,id));
             return fixture;
         }
@@ -88,6 +97,7 @@ namespace DiceCraft.Tests
                 {
                     app.ApplyTheme11(theme);Assert.That(app.ThemeId11,Is.EqualTo(theme));
                     var scene=W11Scene(new[]{"C154","C155","C156","C24","C08","C46","C50","C55","C45","C41"},new[]{4,4,6,2,4},"bbbrb",2,true,items:0);
+                    scene.controllers[8].state.activeColor="red"; // C45 keeps the colour it was set to (W13TenCards does the same)
                     int serial=app.Session.State.nextItemSerial+scene.controllers.Count;
                     scene.inventory.Add(new OwnedItem{instanceId="ITEM_"+serial.ToString("D5"),contentId="I13",usesRemaining=3});
                     scene.inventory.Add(new OwnedItem{instanceId="ITEM_"+(serial+1).ToString("D5"),contentId="I04"});
@@ -143,8 +153,14 @@ namespace DiceCraft.Tests
                     if(TryClick9a("Factor0"))
                     {
                         yield return Wait9a(.7f);yield return W9aShot("score-drawer"+tag,false);
+                        if(W9aScrollToEnd("ScoreDrawerTable"))yield return W9aShot("score-drawer-end"+tag,false);
                         if(TryClick9a("BonusToggle111")){yield return Wait9a(.7f);yield return W9aShot("score-drawer-bonus-open"+tag,false);}
-                        if(TryClick9a("FullScoreDetails")){yield return Wait9a(.4f);yield return W9aShot("score-breakdown"+tag,false);TryClick9a("ScoreDrawerBack");yield return Wait9a(.3f);}
+                        if(TryClick9a("FullScoreDetails"))
+                        {
+                            yield return Wait9a(.4f);yield return W9aShot("score-breakdown"+tag,false);
+                            if(W9aScrollToEnd("ScoreDetail"))yield return W9aShot("score-breakdown-end"+tag,false);
+                            TryClick9a("ScoreDrawerBack");yield return Wait9a(.3f);
+                        }
                         TryClick9a("CloseDialog");yield return Wait9a(.3f);
                     }
                     if(TryClick9a("Controller_"+scene.controllers[0].instanceId)){yield return Wait9a();yield return W9aShot("detail-growth-C56"+tag,false);TryClick9a("CloseDialog");yield return Wait9a(.2f);}
@@ -169,8 +185,8 @@ namespace DiceCraft.Tests
                     if(TryClick9a("Handbook"))
                     {
                         yield return Wait9a();
-                        if(TryClick9a("HandbookColors")){yield return Wait9a();yield return W9aShot("handbook-colors",false);}
-                        if(TryClick9a("HandbookRules09")){yield return Wait9a();yield return W9aShot("handbook-rules",false);}
+                        if(TryClick9a("HandbookColors")){yield return Wait9a();yield return W9aShot("handbook-colors",false);if(W9aScrollToEnd("HandbookScroll"))yield return W9aShot("handbook-colors-end",false);}
+                        if(TryClick9a("HandbookRules09")){yield return Wait9a();yield return W9aShot("handbook-rules",false);if(W9aScrollToEnd("HandbookScroll"))yield return W9aShot("handbook-rules-end",false);}
                         TryClick9a("CloseDialog");yield return Wait9a(.2f);
                     }
                     app.ShowCardGallery13(0);yield return Wait9a();yield return W9aShot("gallery-p0",false);app.HideCardGallery13();yield return Wait9a(.2f);
@@ -179,6 +195,7 @@ namespace DiceCraft.Tests
                 // The shop: growth cards on the shelf, the cultivation card in the build, the header with the custom upgrade, and
                 // gilding (one face, adding a second, two faces, the purchase) and embrittling (the whole die).
                 var shop=W9aShop(new[]{"C56","C137"},new[]{"I13","I04"},new[]{"C120","C56","C24"});
+                shop.shop.offers.RemoveAll(o=>o.category=="die_upgrade"&&(o.contentId=="U06"||o.contentId=="U05"));
                 AddBoundaryOffer(shop,"w9a-u06","die_upgrade","U06");AddBoundaryOffer(shop,"w9a-u05","die_upgrade","U05");
                 string die=shop.dice.OrderBy(d=>d.createdSerial).First().dieId;
                 yield return W14Load(shop);

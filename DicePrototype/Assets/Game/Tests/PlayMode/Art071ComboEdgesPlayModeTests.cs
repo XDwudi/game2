@@ -30,7 +30,9 @@ namespace DiceCraft.Tests
                     {
                         // p0.8.0 multipliers on the level-4 five-of-a-kind / all-blue table (x140): C46 x2 = 280 (tier 3), C02 x C31 = x9 -> 1260 (tier 4);
                         // the four-card table needs the level-20 scene to pass x8192 (tier 5).
-                        string[] defs=tier==3?new[]{"C46"}:tier==4?new[]{"C02","C31"}:new[]{"C02","C30","C31","C32"};
+                        // p1.1.1: C30, C32 and C46 add to the bonus instead of multiplying; C02 x C31 alone now stays in tier 3, the
+                        // whole G147 set is x2205 (tier 4, the fixture's own check), Burst08 passes x8192 with it (tier 5).
+                        string[] defs=tier==3?new[]{"C46"}:new[]{"C02","C30","C31","C32"};
                         // Additional C01 instances exercise the real ten-card renderer
                         // in the isolated debug fixture without altering score factors.
                         if(ten)defs=defs.Concat(Enumerable.Repeat("C01",10-defs.Length)).ToArray();

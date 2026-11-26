@@ -558,4 +558,35 @@ p1.1.1 的内容是 185 项（卡牌 150、道具 13、服务 11、骰面改造 
 | `V10PersistenceTests.SAVE_V10_CyclePlanBossStageFaceChangesAndGiftGroupsSurviveARealJsonRoundTrip` | 计分后的面变化 `C117:gold`、`C124:weightDelta` ×2；第二颗骰朝上面权重 2 | `C117:gold` ×2（首末两颗提交骰）、`C124:weightDelta` ×2；权重 4（1，镀金 +1，灌铅 +2） | RULES_DELTA §4.6 C117、C124，§7 镀金加权 |
 | `V10PersistenceTests.SAVE_V11_SameNameCopiesAndAPendingLootShopSurviveARealJsonRoundTrip` | 两张 C46 都出现在乘法因子里；基础分加值只有长过的那张 `10`；成长后 `{12, 2}` | 两张 C46 各有一条加成条目（不同的发出者，C46 现在是加成卡）；基础分加值 `22`、`12`（起步 12，新的一张也列出）；成长后 `{13, 3}`（每次 +3） | RULES_DELTA §2、§3 C46，§5 C55 |
 
+## PlayMode 首次全量：过时的期望与夹具（归因 a）
+
+1920×1080 第一次完整运行 378 条里 42 条失败（[W9A_NOTES.md](W9A_NOTES.md) 第 4 节逐条归因）。下面是改了测试的；两处界面缺陷与一处存档适配器缺陷改的是代码，不在此表。没有删除测试，没有放宽阈值。
+
+| 测试 | 原期望或夹具 | 新期望或夹具 | 依据 |
+| --- | --- | --- | --- |
+| `TerminalFixture15`（`V15ResultsAndEntryPlayModeTests`）与 `Art07EdgeScreensPlayModeTests.PLAY_ART07_ResultScreens…` 的 “no-dice” 一种：带上 `PLAY_V15_SE_ResultsSixThemesAndTerminalCases`、`PLAY_V24_SC16_SE04_*` 六条、`PLAY_W20X_03_TableTextOnNonPlayScreens` | 只剩一颗玻璃骰，强制碎，点“投掷”时碎掉，会话以 `NoDice` 结束 | 只剩一颗锁定的玻璃骰，强制碎，目标够不到且还剩 2 次提交，点“提交”后碎，会话以 `NoDice` 结束（共用新函数 `NoDiceScene111`）。结果页文字“没有骰子可用了”的检查不变 | §7.3 |
+| `Art07BreakdownLayoutPlayModeTests.PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont{100,125,150}` | 逐步明细的标签顺序：公式、各骰、全局各步、触发 | “加成”那一步后面依次多出每条加成来源的行 `GlobalStep<i>Bonus<j>` | W7a §1.1、§13 |
+| `Art07ScoreDrawerPlayModeTests` 的 `DrawerWalk07`（`…C53Branch…`、`…ThreeFonts…`） | 抽屉的行：各骰、各步、全局各步 | 加成一步后面多出 `ScoreRow_Global<i>Bonus<j>`（超过 4 条默认收起，不出现）；新行的来源不空、不含内部编号。文字检查的断言加了是哪个标签的说明（检查本身不变） | W7a、W7b |
+| `Art07FxIntegrationPlayModeTests.PLAY_ART07_FX_MultipleRandomOwnersAndSharedCopyUseCompleteCommittedList` | 第二个错乱乘积抽到 units2 = 10（×5） | 8（×4）：p1.1.1 的表是 0.5–4 | W6 C53 |
+| `Art07PostEffectsPlayModeTests.PLAY_ART07_POST_NetZeroUsesThinConfirmationWithoutWipeOrMeshSwap` | 净零的面 2 个；不变的目标骰 0、1、4 | 3 个（C36、C37 作用前三颗）；不变的目标再加骰 2 | §4.6 C36、C37 |
+| `Art07PostEffectsPlayModeTests.PLAY_TX07_StageEndReceiptsNameExpiredCardAndGrantedCardInTheCountingRecord` | “昙花一现：倍率耗尽，已消失” | “昙花一现：加成耗尽，已消失” | W7a（C141 是加成卡） |
+| `Art071ComboEdgesPlayModeTests.PLAY_ART071_COMBO_RealTiersUseAuthoredEdgeRingArcsAndGoldWithoutCoveringInk` | 第 4 档用 C02 + C31 | 用 G147 整套 C02、C30、C31、C32（总倍率 ×2205，夹具自检就是第 4 档）；C02×C31 单独现在只到第 3 档 | §2（C30、C32 是加成） |
+| `GameplayPlayModeTests.PLAY_IndependentTutorialCompletesRealPurchaseAndPreservesFormalRun` | 红组 ×1.75，得分 87 | 红组 ×1（两颗红是二举 ×1），得分 50（正好是练习目标） | §3.2 |
+| `SubmissionHistoryPlayModeTests.PLAY_PreviousSubmissionRetainsOriginalScoreAndPermanentEffectsAfterNextRollAndReload` | 效果预览恰好 1 条；提交后的效果与预览逐字段相同 | 恰好 1 条主效果（复制骰子／染色），所有效果都来自这张卡、落在第二颗骰子上；提交后的效果去掉“本局最高单手”这类纪录（不是骰子上的效果）后与预览逐字段相同 | §6、§12.1、§13 |
+| `UiBoundaryPlayModeTests.PLAY_RealKeyboardTenDiceMappingModalSeedFocusAndHeldKeys` | 第二次投掷后玻璃骰 D005 碎了，第三颗可见骰是 D006，提交 D001、D002、D006 | D005 不碎，第三颗可见骰是 D005，提交 D001、D002、D005 | §7.3 |
+| `V09PlayModeTests.PLAY_V09_HandScreenShowsGrowthPoolSummaryAndTheNewHandbookPage` | 板凳深度 +30 | +45（每颗 +9） | §4 C70 |
+| `V10PlayModeTests.PLAY_V10_BossStageDisablesCardsShowsItsModifierAndPaysLootInTheShop` | 3120 | 2106 = (20 + 6) × 豹子 12 × 红组 4.5 × (1 + 全红 0.5) | §2、§3 |
+| `V10PlayModeTests.PLAY_V10_ShopButtonAndStageSelectShowTheThreeStagesOfTheCycle` | 第 2 关目标 600／900，第 3 关 1,000 | 320／480，500 | §11 |
+| `V10PlayModeTests.PLAY_V11_RewardHintsMatchTheActiveStageAndItsCardIncome` | 固定种子 5000、5007、5006 抽到 B04、B03、B12 | 从这些种子往后找第一个真实计划里该关是所需减益的种子（计划仍由会话抽）；种子 5000 第 3 关现在是 B01 | W3 首领计划 |
+| `V11TextP0PlayModeTests.PLAY_V11_TEXT_HandbookScoringOrderIncludesItemAndBossFactors` | 以“倍率附魔”定位附魔那一步 | 以“加成（1 ＋ 全部加成之和）”定位（附魔是加成的一项）；“附魔 < 道具 < 减半 < 取整”的顺序检查不变 | §2 |
+| `V11PlayScreenW11bPlayModeTests.PLAY_V11_W11b_FormulaChipRowFitsWithTheLongestNamesAt150` | MaximumTable 夹具至少 6 个筹码 | 同样至少 6 个；夹具里的加成卡 C30 换成老当益壮 C58（恒定 ×1.25），因为颜色并入加成、红色一对 ×1 后少了两个筹码 | §2、§3.2 |
+| `V11PlayScreenW11bPlayModeTests.PLAY_V11_W11b_LabelsOnFilledSurfacesReachContrastInDefaultAndSwiss`、`…SettlePanelTurnsToReachedTheMomentTheTotalReachesTheTarget` | 四个蓝 4 那一手对目标 3,000 | 目标取这一手实际得分（会话预览）的三分之一 | 计分改了，这一手不再超过 3,000 |
+| `V13CardTemplatePlayModeTests.PLAY_V13_CT04_TenCardRowAndPlayScreenStatesInBothThemes` | 积少成多角标“+24” | “基础分 +36” | W7a、§5 C55 |
+| `V15SettlementPlayModeTests`（`NormalReceiptPath15`：SE14 两档、SE15） | 回放 `evidence/v11/balance/trace_p110_5000.json`（p1.1.0） | 回放 `evidence/v111/balance/trace_p111_5000.json`：同一条模拟器命令在 p1.1.1 上生成（81 步，回放全部接受，得分不符 0） | 配置 p1.1.1 |
+| `V24ContentTextPlayModeTests`（TX06 两个） | 人员流动、光滑骰面的 p1.1.0 文字；红色浪潮 2 金币 | p1.1.1 文字（`tools/v111_config.py`）；1 金币 | 配置 p1.1.1 |
+| `V26ReleaseNavigationSmokePlayModeTests.PLAY_V26_ReleaseNavigationSmokeToFirstCommittedMultiplier` | p1.1.0 前九条命令，写死 H0001、×3、198 | 同样九条命令（与新录制开头相同），版本 p1.1.1；期望的阶段、手与得分由这九条命令在一个新的 Core 会话上重放得出；第二步只要求是乘法 | 配置 p1.1.1 |
+| `V111InteractionsPlayModeTests.PLAY_V111_TwoFaceUpgradeCostsOnePriceAndAnIllegalFaceBlocksThePair` | 同一批放两件 U06（会话拒绝“同批商品定义重复”） | 第二件换成货架上没有的另一种按面改造（只用来验证换骰子会清空已选面）；生成的货架里的 U06 先移除 | W7b 夹具错 |
+
+## EditMode：没有改的两条
+
 `PlayerVerificationBindingTests.VERIFY_RecoveryRoleReportBindsActualConfigWithoutReplayInitialization` 的两个用例失败不是测试或代码的问题：它把读到的配置哈希与本机的 `Resources/BuildIdentity.json`（未跟踪，由交付工具在发布时写）比，而那个文件还是 p1.1.0 的。没有改测试，见 [W9A_NOTES.md](W9A_NOTES.md) 第 3 节。

@@ -39,16 +39,21 @@ namespace DiceCraft.Tests
         private IEnumerator W7bShot(string name)
         {
             bool clean=GameApp.CleanCapture11;GameApp.CleanCapture11=true;
+            // W9a: the custom-upgrade list was missing from its own picture: a dialog opened in the same frame was still in its
+            // opening fade. With a dialog open the screen is not redrawn and the picture waits for the fade to end.
+            bool dialog=HasActive("Dialog");
             try
             {
-                app.Refresh();Canvas.ForceUpdateCanvases();
+                if(!dialog)app.Refresh();else yield return new WaitForSecondsRealtime(.5f);
+                Canvas.ForceUpdateCanvases();
                 yield return new WaitForEndOfFrame();
                 var texture=ScreenCapture.CaptureScreenshotAsTexture();
                 try{File.WriteAllBytes(Path.Combine(W7bOutput,name+".png"),texture.EncodeToPNG());}
                 finally{UObj.Destroy(texture);}
             }
             finally{GameApp.CleanCapture11=clean;}
-            app.Refresh();Canvas.ForceUpdateCanvases();
+            if(!dialog)app.Refresh();
+            Canvas.ForceUpdateCanvases();
         }
         private string W7bText(string name)=>FindActive<TextMeshProUGUI>(name).text.Replace("\n","");
         private string W7bButtonText(string name)
@@ -64,7 +69,11 @@ namespace DiceCraft.Tests
         public IEnumerator PLAY_V111_TwoFaceUpgradeCostsOnePriceAndAnIllegalFaceBlocksThePair()
         {
             var fixture=ShopBoundaryFixture();
-            AddBoundaryOffer(fixture,"w7b-gold-a","die_upgrade","U06");AddBoundaryOffer(fixture,"w7b-gold-b","die_upgrade","U06");
+            // W9a: one batch may not offer the same upgrade twice ("同批商品定义重复"), so the second offer (used only to show that
+            // another die starts its faces afresh) is a different face upgrade the generated shelf does not already hold.
+            fixture.shop.offers.RemoveAll(o=>o.category=="die_upgrade"&&o.contentId=="U06");
+            string secondUpgrade=new[]{"U01","U02","U03","U04","U07","U08","U09","U10"}.First(u=>!fixture.shop.offers.Any(o=>o.category=="die_upgrade"&&o.contentId==u));
+            AddBoundaryOffer(fixture,"w7b-gold-a","die_upgrade","U06");AddBoundaryOffer(fixture,"w7b-gold-b","die_upgrade",secondUpgrade);
             var first=fixture.dice.OrderBy(d=>d.createdSerial).First();var second=fixture.dice.OrderBy(d=>d.createdSerial).Skip(1).First();
             // One face of the first die is gold already: gilding cannot take it.
             first.faces.First(f=>f.faceId=="F03").isGold=true;

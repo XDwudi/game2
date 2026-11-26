@@ -47,12 +47,16 @@ namespace DiceCraft.Tests
                 Action<CommandReceipt> observer = _ => commits++;
                 app.Session.Committed += observer;
                 var expectedEffects = app.Session.PreviewSubmissionEffects();
-                Assert.That(expectedEffects, Has.Length.EqualTo(1));
-                Assert.That(expectedEffects[0].kind, Is.EqualTo(controllerId == "C07" ? "DieCopied" : "FaceDyed"));
-                Assert.That(expectedEffects[0].sourceId, Is.EqualTo(controllerId));
-                Assert.That(expectedEffects[0].dieId, Is.EqualTo(ids[1]));
-                if (controllerId == "C07") Assert.That(expectedEffects[0].otherDieId, Is.EqualTo(ids[0]));
-                else Assert.That(expectedEffects[0].faceId, Is.EqualTo(frozenSnapshot.dice[1].faceId));
+                // p1.1.1 (RULES_DELTA 6, cultivation counting): besides the one headline effect a rewrite may now record
+                // the per-face changes it made. Every effect still comes from this card and lands on the second die.
+                var headline = expectedEffects.Where(e => e.kind == (controllerId == "C07" ? "DieCopied" : "FaceDyed")).ToArray();
+                string listed = string.Join(", ", expectedEffects.Select(e => e.kind + ":" + e.sourceId + ":" + e.dieId));
+                Assert.That(headline, Has.Length.EqualTo(1), listed);
+                Assert.That(expectedEffects.All(e => e.sourceId == controllerId && e.dieId == ids[1]), Is.True, listed);
+                Assert.That(headline[0].sourceId, Is.EqualTo(controllerId));
+                Assert.That(headline[0].dieId, Is.EqualTo(ids[1]));
+                if (controllerId == "C07") Assert.That(headline[0].otherDieId, Is.EqualTo(ids[0]));
+                else Assert.That(headline[0].faceId, Is.EqualTo(frozenSnapshot.dice[1].faceId));
                 string[] effectKeys = expectedEffects.Select(JsonUtility.ToJson).ToArray();
                 for (int repeat = 0; repeat < 5; repeat++)
                     CollectionAssert.AreEqual(effectKeys, app.Session.PreviewSubmissionEffects().Select(JsonUtility.ToJson).ToArray());
@@ -69,11 +73,20 @@ namespace DiceCraft.Tests
                 Assert.That(submitted.phase, Is.EqualTo("HandReady"));
                 Assert.That(submitted.lastSubmission.breakdown.score, Is.EqualTo(expectedScore.score));
                 Assert.That(JsonUtility.ToJson(submitted.lastSubmission.snapshot), Is.EqualTo(JsonUtility.ToJson(frozenSnapshot)));
-                CollectionAssert.AreEqual(effectKeys, submitted.lastEffects.Select(JsonUtility.ToJson).ToArray(), "Committed effects must match preview source, target, order and all detail fields.");
+                // p1.1.1 (RULES_DELTA 12.1, 13): the first scoring hand of a run also records the run's best hand
+                // (HandRecordBroken); a record is not a permanent effect, so the effect preview does not list it.
+                Assert.That(submitted.lastEffects.Where(e => e.kind == "HandRecordBroken" || e.kind == "ClearRatioRecord").All(e => string.IsNullOrEmpty(e.dieId)), Is.True);
+                CollectionAssert.AreEqual(effectKeys, submitted.lastEffects.Where(e => e.kind != "HandRecordBroken" && e.kind != "ClearRatioRecord").Select(JsonUtility.ToJson).ToArray(), "Committed effects must match preview source, target, order and all detail fields.");
                 var affected = submitted.dice.Single(d => d.dieId == ids[1]);
                 if (controllerId == "C07")
                 {
-                    CollectionAssert.AreEqual(frozenSnapshot.dice[0].permanentFacesCopy.Select(JsonUtility.ToJson).ToArray(), affected.faces.Select(JsonUtility.ToJson).ToArray());
+                    // p1.1.1 (RULES_DELTA 6, FaceState.cultivated): the copy marks every target face it really changed and does
+                    // not copy the source's marks, so the faces equal the source's apart from that mark.
+                    string Unmarked(FaceState f) { var copy = JsonUtility.FromJson<FaceState>(JsonUtility.ToJson(f)); copy.cultivated = false; return JsonUtility.ToJson(copy); }
+                    CollectionAssert.AreEqual(frozenSnapshot.dice[0].permanentFacesCopy.Select(Unmarked).ToArray(), affected.faces.Select(Unmarked).ToArray());
+                    var before = frozenSnapshot.dice[1].permanentFacesCopy;
+                    foreach (var face in affected.faces)
+                        Assert.That(face.cultivated, Is.EqualTo(Unmarked(face) != Unmarked(before.Single(f => f.faceId == face.faceId))), face.faceId + ": marked exactly when the copy changed it");
                     Assert.That(frozenSnapshot.dice[1].permanentSixFaceSum, Is.EqualTo(12), "History must keep the target's pre-copy faces.");
                     Assert.That(affected.faces.Sum(f => f.permanentPip), Is.EqualTo(6));
                 }
