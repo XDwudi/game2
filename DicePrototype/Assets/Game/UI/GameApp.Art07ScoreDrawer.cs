@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using DiceCraft.Core;
 using TMPro;
@@ -113,9 +114,11 @@ namespace DiceCraft
 
         private string ScoreEffects16(SubmissionSnapshot snapshot,bool historical)
         {
-            if(!historical)return string.Join("\n",Session.PreviewSubmissionEffects().Select(effect=>EffectText(effect,snapshot)));
+            // p1.1.1 (W7a): a cultivation card's count is one line per card, after the lines of the faces it changed.
+            string Lines(IEnumerable<EffectRecord> effects)=>string.Join("\n",effects.Where(e=>e.kind!="FaceCultivated").Select(effect=>EffectText(effect,snapshot)).Concat(CultivationSummary111(effects,snapshot)));
+            if(!historical)return Lines(Session.PreviewSubmissionEffects());
             var receipt=ViewState.processedReceipts.LastOrDefault(r=>r.command?.kind==CommandKind.Submit && r.submission?.snapshot?.handId==snapshot.handId);
-            return receipt?.effects==null?"":string.Join("\n",receipt.effects.Select(effect=>EffectText(effect,snapshot)));
+            return receipt?.effects==null?"":Lines(receipt.effects);
         }
 
         private static string ScoreContribution16(ScoreBreakdown score,int index)

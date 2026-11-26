@@ -63,7 +63,7 @@ namespace DiceCraft
             string window=Config.Consumable(item.contentId).window;
             Art07DetailSection(list,"Window","何时能用",window=="Selecting"?"掷骰后且锁定了至少 1 颗骰子":window=="HandReady"?"本手第一次掷骰前":"本手任何时候",ref y,672,true);
             string reason=selling?null:Art07ItemUnavailable(item);
-            Art07DetailSection(list,"UseState",selling?"出售结果":"当前状态",selling?"卖出得 1 金币。":reason??"现在可以使用（用后消失）。",ref y,672,true);
+            Art07DetailSection(list,"UseState",selling?"出售结果":"当前状态",selling?"卖出得 1 金币。":reason??(Config.Consumable(item.contentId).initialUses>1?"现在可以使用（还剩 "+item.usesRemaining+" 次，用完才消失）。":"现在可以使用（用后消失）。"),ref y,672,true); // p1.1.1 (W7a): the key ring has several uses
             list.sizeDelta=new Vector2(list.sizeDelta.x,y+16);
             if(selling)
             {

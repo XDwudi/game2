@@ -52,7 +52,7 @@ namespace DiceCraft
             Config.Controller("C01").parameters.extraInterestPerTen,Config.interestPrincipalStep,ViewState.interestCapPurchases,NameOf("C96"),NameOf("O10"));
 
         private static readonly HashSet<string> StageEndSources15=new HashSet<string>(StringComparer.Ordinal)
-            {"C58","C59","C129","C132","C141","C99","C120","C121","C115","C112","C114","C116"};
+            {"C58","C59","C129","C132","C141","C99","C120","C121","C115","C112","C114","C116","C125"}; // p1.1.1 (W7a): 抛光匠 grows at settlement now
 
         private void DrawSettlementDetails15(RectTransform list,StageSettlement r,List<RewardChip15> chips,Color ink)
         {
@@ -90,7 +90,7 @@ namespace DiceCraft
                 if(funds.Length>0)Line("FundGrowth",string.Join("\n",funds));
                 int expired=receipt.effects.Count(e=>e.kind=="TemporaryDieExpired");
                 if(expired>0)Line("TemporaryCleanup","本关的 "+expired+" 颗临时骰已移除");
-                var other=receipt.effects.Where(e=>StageEndSources15.Contains(e.sourceId)).ToArray();
+                var other=receipt.effects.Where(e=>StageEndSources15.Contains(e.sourceId)&&e.kind!="FaceCultivated").ToArray(); // p1.1.1 (W7a): the cultivation counts follow as one line per card
                 if(other.Length>0)
                 {
                     Line("OtherChanges15","结算时的其他变化");
@@ -108,6 +108,7 @@ namespace DiceCraft
                         Line("OtherChange15_"+i,EffectText(effect,snapshot));
                     }
                 }
+                int cultivated=0;foreach(string line in CultivationSummary111(receipt.effects,receipt.submission?.snapshot))Line("Cultivation15_"+cultivated++,line);
             }
             list.sizeDelta=new Vector2(list.sizeDelta.x,y+12);
         }

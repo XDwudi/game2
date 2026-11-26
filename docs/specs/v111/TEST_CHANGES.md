@@ -313,3 +313,69 @@ C19 是换机制的卡，三行夹具原样保留，名字改成它们现在表�
 | 本包之后 | 616 | 616 | 0 |
 
 新增 100 条都在 `V111ShopTests.cs`（54 个测试方法）。
+
+# W7a：界面与演出的旧测试改写登记
+
+工作包 W7a（界面显示跟上 p1.1.1）。依据见 [RULES_DELTA.md](RULES_DELTA.md) 各节。没有删除测试，没有降低阈值。下面“未运行”指本包不能启动 Unity：EditMode 里只有 .NET 宿主能编进去的那部分跑过（表演宿主 `Runtime/Presentation/Validation~/PresentationValidation.csproj`，2374 条全过；夹具预检 `FixturePreflight.csproj`，11 个场景全过），PlayMode 全部只编译过。
+
+## 新增
+
+| 文件 | 内容 | 运行 |
+| --- | --- | --- |
+| `Tests/EditMode/Presentation/V111DisplayTests.cs` | `DisplayV111_ShownFactorsMultiplyToTheScoreBeforeTheFloor`：`GoldenScoresV111.json` 的每个输入一条（2157 条，名字 `DISPLAY111-<id>`），检查四个数据模型乘出来都等于 `scoreNumerator / scoreDenominator`——因子列表 `ScoreFactors111`（全部因子、去掉 ×1 之后的因子）、单行公式串 `HighScore073.Formula` 写出的数、得分明细的全局行（逐行衔接、加成行 = 1 + A、条目之和 = A、没有独立的颜色／黄金／附魔行）、表演回执（总倍率、每条加成一个事件、加成行在条目之后、卡牌给的加成计入生效张数）。`DisplayV111_SpecExampleOpensTheBonusLineIntoItsEntries`：§13 的例子（+2、+1.5、+0.5 展开，总行 ×5；A 为 0 仍是一行 ×1） | .NET 表演宿主跑过，2158 条全过 |
+
+## 改写：EditMode（.NET 表演宿主跑过）
+
+| 测试 | 原期望 | 新期望 | 依据 |
+| --- | --- | --- | --- |
+| `HighScore073Tests.HighScore_FormulaListsOnlyFactorsThatChangedTheScore` | `36  ×  28  ×  5  ×  192  ×  2^2`（颜色 ×5、附魔 2^2 各自成项） | `36  ×  28  ×  8  ×  192`（颜色 +4 与两次附魔 +1.5 合成一项加成 ×8）；另加一条带标签的断言 `base=36  ×  hand=28  ×  red=3  ×  additive=7/4  ×  controller=192`。“没有改变得分的因子不写”这一条（期望 `23`）没有动 | §2、§13 |
+| `PresentationTests.FX06_G147ExactScoreMultiplierFourSourcesNoQualified` | 得分 181440、总倍率 5040 | 79380、2205（36 × 28 × 8.75 × 9；加成 = 全蓝 4 级 +2.25、C30 +2.5、C32 +3），生效 4 张与第 4 档不变；另断言两条卡牌加成事件、加成行 ×35/4 | §2、§3.1、§4 |
+| `PresentationTests.FX03_ZeroAndFractionAreNonIdentityScoringSources` | 千年老二无 5 点：总分事件带“×0”说明 | 无 5 点得 1（2 × 1.25 × 1/2 取整），卡牌因子 1/2，总分事件无说明；有 5 点得 13，卡牌加成 +3/2。生效 1 张、第 0 档不变 | §4.2 C49 |
+| `PresentationTests.AggregatedBaseContributionsPreserveEachFrozenEmitterAndExactSum` | 每个来源 +9007199254740993 | 每个来源 +18014398509481986（每金 +2） | §4.3 C44 |
+| `V21WrapMatrix.FaceLines`（样本，不是断言） | “计分 ×3；每次掷到它有 8% 概率碎掉，锁定后不会碎”“朝上提交时这颗计分 ×2” | 现在界面实际写的三句：玻璃提示、镀金提示（权重 +1）、镀金提示（权重已到上限） | §7.2、§7.3 |
+| `V21WrapTests`（短文字条数） | `184 + 39 + 6` | `activeContentCount + 39 + 6`，并断言内容数 185 | §1 |
+
+`PresentationTests` 的 160 条 `ART07_RECEIPT_` 没有改，适配器改对之后全部通过。`V21WrapTests` 需要字体资源，只编译过。
+
+## 改写：表演夹具（`Runtime/Verification/Art07Fixtures.cs`，夹具预检跑过）
+
+| 场景 | 原来 | 现在 | 依据 |
+| --- | --- | --- | --- |
+| G147 | 181440、总倍率 5040 | 79380、2205 | 同 FX06 |
+| Burst08、Burst09 | 五条 20 级，596160、16560 | 五条 42 级（×180），510300、14175。42 级是让它仍在最高档（总倍率 ≥ 8192）并且仍超过 Burst09 目标 250000 的两倍 | §2；调试等级上限 100 |
+| ZeroMultiplier | 千年老二无 5 点得 0 | 场景与名字不变，得 120（16 × 12 × 1.25 × 1/2），并要求有一个 1/2 的千年老二因子；仍是第 0 档 | §4.2 C49 |
+
+## 改写：PlayMode（只编译过，未运行）
+
+| 测试 | 原期望 | 新期望 | 依据 |
+| --- | --- | --- | --- |
+| `Art07FixturePlayModeTests`（3 处） | 181440、596160、5040 | 79380、510300、2205 | 夹具 |
+| `Art07FinalResultPlayModeTests`（G147、ZeroMultiplier、Burst 三处） | 181440；得分 0，卡牌筹码含“没有有效 5 点”；596160 | 79380；得分 120，卡牌筹码 `×0.5`；510300 | 夹具、§4.2 C49 |
+| `Art073PlayModeTests`（4 处） | 596,160 | 510,300（仍超过目标两倍，最高档不变）；“零分不庆祝”一句改为“远低于目标一半不庆祝”（120 / 1800000） | 夹具 |
+| `Art07InformationPlayModeTests.PLAY_ART07_ScoreStructureChosenItemAndZeroReasonRemainIndependent` | 卡牌筹码含“×0”“没有有效 5 点”，得分 0 | 卡牌筹码含“×0.5”，得分 60（12 × 8 × 1.25 × 1/2，已用真实会话算过） | §4.2 C49 |
+| `Art07ScoreLabelsPlayModeTests.PLAY_ART07_ScoreLabelsPreviewMixedZeroAndRandomKeepEveryGlyphAfterRedraw`（Debug32 一段） | 32 张稳稳乘数 = 卡牌 ×2^32，筹码“约 ×4.29×10⁹” | 稳稳乘数现在是加成，不再相乘；本测试把场景里的 32 张卡换成蓝色疯狂（每张 ×3），卡牌 ×3^32 = 1853020188851841，筹码“约 ×1.85×10¹⁵”。“十位以上的卡牌倍率读成科学计数、明细保留全部数字”的检查内容不变 | §4.1 C46 |
+| `Art071EnchantIntegrationPlayModeTests.PLAY_ART071_ENCHANT_MultiplierArcReachesActualReceiptAreaWithoutMutatingReceipt` | 事件 `enchantment_multiplier`，筹码名“附魔” | 事件 `enchantment_additive`（+3/2），筹码名“加成” | §2 步骤 9 |
+| `Art07EdgeScreensPlayModeTests.PLAY_ART07_…`（统计一段） | 颜色乘数是整数，最高倍率 `×N` | 单颗骰的加成只有颜色 0 级值；最高倍率按百分单位比较（`×1.25`／`×1.5`） | §3.1 |
+| `Art07CardReadabilityPlayModeTests`（期望脚注） | 人员流动“当前 ×(turnover/2)” | “当前 加成 +X”（起步 + 补偿 + 成长） | §5 C51 |
+| `V09PlayModeTests`（3 个测试 6 处） | 祭坛“×1.4”；积少成多“+24”“+26”、基础加值 24；老当益壮“×1.4”、成长 4 | 祭坛“得分 ×(1.25 + 基础价 × 0.15)”；积少成多“基础分 +36”“基础分 +39”、基础加值 36；老当益壮“得分 ×1.33”、成长 15。数值从配置读 | §5 |
+| `V14ShopPlayModeTests`（镀金、玻璃两处） | 预览以“（黄金）”结尾，提示“朝上提交时这颗计分 ×2”；“每次掷到它有 X% 概率碎掉，锁定后不会碎” | 预览以“（黄金、权重 2）”结尾，提示“朝上提交时加成 +0.5；权重 +1（上限 5）”；“提交后每颗有 X% 概率碎裂，留在骰池里不会碎” | §7.2、§7.3 |
+| `V15LootCoveragePlayModeTests`（牌型升级战利品） | 文字含“倍率 ×” | 颜色升级含“加成 +”，牌型升级仍含“倍率 ×” | §3.1 |
+| `V24AppendixPlayModeTests`（附魔两行） | “基础 +10：这张卡生效时基础分 +10”“得分 ×2：这张卡生效时得分 ×2” | “基础分 +15：…基础分 +15”“加成 +1.5：…加成 +1.5”（数值读配置） | §2 步骤 7、9，§12.3 |
+| `V24ContentTextPlayModeTests.PLAY_V24_TX06_HandUpgradePreservesPriceLevelsAndActualMultiplier` | 最高 8 级；2 级一对升级价 6 | 最高 12 级；价 4（基础 2 + 2 级 × 1） | §3.1 |
+| `Art07PostEffectsPlayModeTests`（无心插柳一处） | 接受 `RandomUpgrade` 或 `RandomUpgradeMissed` | 只接受 `RandomUpgrade` | §6.1 C115 |
+
+### 玻璃不再在投掷时碎（§7.3）：四个测试
+
+| 测试 | 原来检查的 | 现在检查的 |
+| --- | --- | --- |
+| `Art07PostEffectsPlayModeTests.PLAY_ART07_POST_ThirdAndFourthBrokenDiceKeepOriginalOutlineAndOnlyTwelveFragments` | 投掷碎 4 颗；第 3、4 颗留轮廓，2 个碎裂特效共 12 片 | 投掷不碎、没有轮廓和碎裂特效；锁定 4 颗玻璃骰提交后，回执按提交顺序记 4 条 `DieBroken`，骰子少 4 颗，计分记录里有 4 行“玻璃骰碎了”；跳过后状态与存档不变 |
+| `Art07FxIntegrationPlayModeTests.PLAY_ART07_FX_RealRollAndRemoteBreakUsePlacedWorldPoolAndSkipResets` | 投掷、遥控骰子各碎 1 颗，碎裂特效放在骰子原来的位置、朝向、大小上 | 投掷与遥控骰子都不碎、不抽玻璃票、没有碎裂特效；跳过后特效清零、状态与存档不变 |
+| `UiBoundaryPlayModeTests`（遥控骰子，`breakTarget` 两轮） | 抽到碎裂票时目标 D001 消失、提示“1 颗玻璃骰碎了” | 两轮都是 5 颗骰子、D001 仍是玻璃并取到遥控点数、不记碎裂、不抽玻璃票、提示里没有“玻璃骰碎了” |
+| `UiBoundaryPlayModeTests.PLAY_ExistingRunRollAndSubmitSaveFailureRetriesExactCandidateAndPresentsOnce`（投掷一轮） | 重试的候选状态里 D001 已碎，提示“1 颗玻璃骰碎了” | 候选状态不记碎裂，D001 仍在并已投掷，提示里没有“玻璃骰碎了” |
+
+**这四处少了的检查**：碎裂特效的位置与朝向、第 3 和第 4 颗的轮廓、12 片碎片的上限。它们检查的是“投掷时碎”的演出，规则改了之后这个演出不再发生；“提交后碎”目前只有文字和音效，碎片演出还没有接到提交上（见 [W7A_NOTES.md](W7A_NOTES.md) 留给 W7b 的事）。接上之后这几条检查应当在提交路径上补回来。
+
+## 没有改的：已知会失败或可能失败的 PlayMode 测试
+
+- 图标张数 184：`GameplayPlayModeTests.cs:133–134`、`V13CardTemplatePlayModeTests.cs:441`、`W22iArtInstallPlayModeTests.cs:101`。p1.1.1 是 185 项，新图入库属于 W8。
+- 本包只按搜索到的旧文案、旧数值和旧回执去找过时断言，没有逐个读完 150 个 PlayMode 文件，也没有运行。其余因数值变化而失败的断言要等在 Unity 里跑一遍才能列全。

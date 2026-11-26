@@ -119,6 +119,11 @@ namespace DiceCraft
         };
 
         // ---------------------------------------------------------------- cultivation cards
+        /// <summary>The "FaceCultivated" records of one command as one line per card ("拔苗助长：改写 9 个骰面，累计 13 个"),
+        /// so a list of effects does not repeat every face the "FaceChanged" lines already name.</summary>
+        private IEnumerable<string> CultivationSummary111(IEnumerable<EffectRecord> effects,SubmissionSnapshot snapshot)
+            =>(effects??Enumerable.Empty<EffectRecord>()).Where(e=>e.kind=="FaceCultivated").GroupBy(e=>(e.detail??"").Split(':').LastOrDefault())
+                .Select(g=>(CardLabelIn11(g.Key,snapshot?.equippedControllers)??CardLabel11(g.Key))+"：改写 "+g.Select(e=>e.dieId+"/"+e.faceId).Distinct().Count()+" 个骰面，累计 "+g.Max(e=>e.newValue)+" 个");
         private bool IsCultivation111(string definitionId)=>definitionId!=null&&definitionId.StartsWith("C",StringComparison.Ordinal)&&Config.Controller(definitionId).isCultivation;
         /// <summary>The cultivation lines of a held card: its tag, the free slot, the faces it rewrote and what they add to its price.</summary>
         private string CultivationText111(ControllerInstance c)

@@ -69,7 +69,7 @@ namespace DiceCraft
         private string[][] GalleryCards13()
             =>new[]{"common","uncommon","rare"}.Select(r=>Config.controllers.Where(c=>c.rarity==r).OrderByDescending(c=>(c.shortText??"").Length).ThenBy(c=>c.id,StringComparer.Ordinal).Select(c=>c.id).ToArray()).ToArray();
         private static readonly string[] GalleryEnchants13={"mult2","roll1","base10","slotless","submit1"};
-        private static readonly string[] GalleryValues13={"×1.5","当前 红","本手可用"},GalleryValuesWithEnchant13={"+12","×2.5","+120"};
+        private static readonly string[] GalleryValues13={"得分 ×1.5","当前 红","本手可用"},GalleryValuesWithEnchant13={"基础分 +12","加成 +2.5","基础分 +120"}; // v1.1.1 (W7a): the value badges as the table writes them now - the three kinds of value keep their word
         /// <summary>The eight badge combinations: none, enchantment, value, both, disabled, disabled with an enchantment,
         /// warning (首领关将失效), warning with an enchantment (将被祭坛摧毁). A disabled card's badge reads 本关失效.</summary>
         private CardFace13 GalleryVariant13(string id,int rarity,int variant,int ordinal)

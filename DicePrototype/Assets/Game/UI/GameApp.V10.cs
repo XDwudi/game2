@@ -354,6 +354,8 @@ namespace DiceCraft
                 case "I10":return "下一次提交全部算蓝色（骰面不变）";
                 case "I11":return "第 1 颗锁定骰子朝上的面变成黄金面";
                 case "I12":return "本关提交栏 +"+(after.stage.capacity-before.stage.capacity)+" 格";
+                // p1.1.1 (W7a): the key ring keeps its remaining uses; choosing the die to unlock is W7b's interaction.
+                case "I13":{var left=after.inventory.FirstOrDefault(i=>i.contentId=="I13");return "一颗已锁定的骰子放回了骰池"+(left==null?"（钥匙串已用完）":"（钥匙串还剩 "+left.usesRemaining+" 次）");}
                 default:return "";
             }
         }
@@ -371,6 +373,7 @@ namespace DiceCraft
                     var first=h.currentResults.First(r=>r.dieId==h.orderedLockedIds[0]);
                     return s.dice.First(d=>d.dieId==first.dieId).faces.First(f=>f.faceId==first.currentFaceId).isGold?"第 1 颗锁定骰子朝上的面已经是黄金面。":null;
                 case "I12":return s.stage.capacity>=(s.isDebug?Config.debug.maxSubmitCapacity:Config.maxSubmitCapacity)?$"提交栏已经是最多的 {(s.isDebug?Config.debug.maxSubmitCapacity:Config.maxSubmitCapacity)} 格。":null;
+                case "I13":return !locked?"需要先掷骰并锁定至少 1 颗骰子。":null;
                 default:return null;
             }
         }
