@@ -232,8 +232,8 @@ class V111GoldenTests(unittest.TestCase):
         self.expect("§4.5 C156 有效目标 321、累计 160", additiveTotal100=500)
         self.expect("§4.5 C156 目标 321、累计 161", triggeredSourceIds=[])
         self.expect("§4.5 C156 目标 320、累计 160", triggeredSourceIds=[])
-        self.expect("§11 例 厚墙目标 2430、累计 1214", additiveTotal100=500)
-        self.expect("§11 例 厚墙目标 2430、累计 1215", additiveTotal100=0)
+        self.expect("§11 例 第 6 关基准 4000 遇 150% 厚墙，目标 6000、累计 2999", additiveTotal100=500)
+        self.expect("§11 例 厚墙目标 6000、累计 3000", additiveTotal100=0)
         for decay in range(4):
             self.expect(f"§4.2 / §5.1 C141 已衰减 {decay} 次", additiveTotal100=400 - 100 * decay)
 
@@ -265,7 +265,7 @@ class V111GoldenTests(unittest.TestCase):
         self.expect("§4.1 C100 吃掉基础价 6", controllerMultiplierNumerator="43", controllerMultiplierDenominator="20")
         self.expect("§5 C55 首手 +12", baseTotal="29", growthChanges=[{"ownerInstanceId": "ctl_01", "abilityId": "C55", "delta": 3, "reset": False, "halve": False}])
         self.expect("§5 C55 下手 +15", baseTotal="32")
-        self.expect("§5 C59 剩 2 次", baseTotal="41")
+        self.expect("§5 C59 剩 2 次", baseTotal="35", score="70")
         self.expect("§5 C129 一次首领后", additiveTotal100=350)
         self.expect("§5.1 停滞", growthChanges=[{"ownerInstanceId": "ctl_01", "abilityId": "C55", "delta": 3, "reset": False, "halve": False}])
         self.assertEqual((0, 12, 70, 350), tuple(golden.catchup_for(self.cfg, card, cycle) for card, cycle in (("C56", 1), ("C55", 3), ("C58", 8), ("C129", 8))))

@@ -114,6 +114,8 @@ OPEN_READINGS = {
     "W4-14": "C92 纯色主义、C93 始终如一读这颗骰冻结的六个物理面，不区分永久骰与临时骰；没有六面数据的合成快照一律不满足。",
     "W4-15": "空值约定：colorId、chosenGroupId、upgradeHandId 无值时写空串；additiveEntries 里无卡来源的 emitterId / stateOwnerId 写 null。",
     "W4-16": "返璞归真减半的范围取 §5 表的 15 张成长卡（含 C51、C100、C125）；C141 的倒计时、C63 不在其内。",
+    "W4-17": "§4.1 把 C53 由罕见上调为稀有，§12.3 的“普通／罕见／稀有数量为 29／88／33”没有随之更新；按 §4.1 与配置取 29／87／34。"
+             "凡人（B29）因此会把最左的稀有 C53 判为失效。",
 }
 
 FIELD_NOTES = {
@@ -1519,8 +1521,8 @@ def build_new_cases(cfg):
     add("§4.5 C156 有效目标 321、累计 160 触发 +5", PAIR, "C156", before="160", target="321", s="204", chk={"additiveTotal100": 500})
     add("§4.5 C156 目标 321、累计 161 不触发", PAIR, "C156", before="161", target="321", s="34", chk={"triggeredSourceIds": []})
     add("§4.5 C156 目标 320、累计 160 不触发（严格小于）", PAIR, "C156", before="160", target="320", s="34", chk={"triggeredSourceIds": []})
-    add("§11 例 厚墙目标 2430、累计 1214 触发绝地反击", PAIR, "C156", before="1214", target="2430", mod="B11", s="204")
-    add("§11 例 厚墙目标 2430、累计 1215 不触发", PAIR, "C156", before="1215", target="2430", mod="B11", s="34", chk={"triggeredSourceIds": []})
+    add("§11 例 第 6 关基准 4000 遇 150% 厚墙，目标 6000、累计 2999 触发绝地反击", PAIR, "C156", before="2999", target="6000", mod="B11", s="204")
+    add("§11 例 厚墙目标 6000、累计 3000 不触发", PAIR, "C156", before="3000", target="6000", mod="B11", s="34", chk={"triggeredSourceIds": []})
 
     # ---- RULES_DELTA 5: growth values, catch-up, the two halvings ----
     add("§5 C51 起步 +1", PAIR, "C51", s="68", chk={"additiveTotal100": 100})
@@ -1545,7 +1547,7 @@ def build_new_cases(cfg):
     add("§5 C57 下一手 +1.8：19×2×2×2.8=212.8", RED2, "C146 C57:g=80", s="212", tag="成长读值C57")
     add("§5 C57 红组只有 2：不成长", RED2, "C57", s="76", plan={"growthChanges": []})
     add("§5 C58 两关后 ×1.55：34×1.55=52.7", PAIR, "C58:g=30", s="52", tag="成长读值C58")
-    add("§5 C59 剩 2 次时下关 +24", PAIR, "C59:g=12", s="82", chk={"baseTotal": "41"}, tag="成长读值C59")
+    add("§5 C59 剩 2 次时下关 +18：(17+12+6)×2", PAIR, "C59:g=6", s="70", chk={"baseTotal": "35"}, tag="成长读值C59")
     add("§5 C60 自选镀两面后从 +1 到 +1.5", PAIR, "C60:g=50", s="85", tag="成长读值C60")
     add("§5 C61 实升 1 级只 +0.5", PAIR, "C61:g=50", s="85", tag="成长读值C61")
     add("§5 C62 一手掷三次，本手 +15", PAIR, "C62:g=3", s="64", chk={"baseTotal": "32"}, tag="成长读值C62")
@@ -1772,7 +1774,7 @@ SPEC_PARAMS = {
     "C51": {"growthKind": "additive", "growthStart": 100, "growthEvent": 80}, "C54": {"growthKind": "multiplier", "growthStart": 125, "growthEvent": 10},
     "C55": {"growthKind": "base", "growthStart": 12, "growthEvent": 3}, "C56": {"growthKind": "additive", "growthStart": 100, "growthEvent": 40},
     "C57": {"growthKind": "additive", "growthStart": 100, "growthEvent": 80, "minRedGroup": 3}, "C58": {"growthKind": "multiplier", "growthStart": 125, "growthEvent": 15},
-    "C59": {"growthKind": "base", "growthStart": 12, "growthEvent": 6}, "C60": {"growthKind": "additive", "growthStart": 100, "growthEvent": 50},
+    "C59": {"growthKind": "base", "growthStart": 12, "growthEvent": 3}, "C60": {"growthKind": "additive", "growthStart": 100, "growthEvent": 50},
     "C61": {"growthKind": "additive", "growthStart": 100, "growthEvent": 50}, "C62": {"growthKind": "base", "growthStart": 12, "growthEvent": 1},
     "C129": {"growthKind": "additive", "growthStart": 100, "growthEvent": 250}, "C132": {"growthKind": "additive", "growthStart": 100, "growthEvent": 250},
     "C134": {"growthKind": "additive", "growthStart": 100, "growthEvent": 40}, "C36": {"indices": [0, 1, 2], "delta": 1}, "C37": {"indices": [0, 1, 2], "delta": -1},
@@ -1803,7 +1805,9 @@ def check_config(cfg):
     if {c for c, d in definitions.items() if "growthKind" in d["parameters"]} != GROWTH: problems.append("growth card inventory")
     if {c for c, d in definitions.items() if d["isCultivation"]} != CULTIVATION: problems.append("cultivation card inventory")
     rarities = Counter(d["rarity"] for d in definitions.values())
-    if (rarities["common"], rarities["uncommon"], rarities["rare"]) != (29, 88, 33): problems.append(f"rarity counts {dict(rarities)}")
+    # RULES_DELTA 4.1 moved C53 from uncommon to rare after calibration; 12.3 still prints the older 29 / 88 / 33 (W4-17).
+    if (rarities["common"], rarities["uncommon"], rarities["rare"]) != (29, 87, 34): problems.append(f"rarity counts {dict(rarities)}")
+    if definitions["C53"]["rarity"] != "rare": problems.append("C53 rarity")
     by_id = {m["id"]: m for m in cfg["bossModifiers"]}
     if (by_id["B25"]["effects"], by_id["B25"]["amount"]) != (["DisableLeftmost"], 2): problems.append("B25")
     if (by_id["B29"]["effects"], by_id["B29"]["amount"], by_id["B29"]["filter"]) != (["DisableRarity"], 1, "rare"): problems.append("B29")
