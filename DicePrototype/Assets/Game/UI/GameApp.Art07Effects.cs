@@ -258,11 +258,20 @@ namespace DiceCraft
                     Effect07("fx_cash_ticket",cash.EventId,PlayPhase11?TopCashPoint11():new Vector2(960,Compact07?284:320),new Vector2(220,58),"+"+DisplayFraction07(cash.Operand??cash.AfterValue));
             }
         }
-        private string PostSummary07(PresentationBeat beat)
+        private string PostSummary07(PresentationBeat beat)=>string.Join(" · ",PostSummaryParts07(beat,out _));
+        /// <summary>
+        /// The clauses of a post-score summary. Repeated same-family changes are grouped and otherwise keep rule order, with
+        /// two exceptions (V1.1.1 W9b): the losses (cards that destroyed themselves, glass dice that broke) lead, and the
+        /// run record (本局最高单手) closes the line, so a one-line summary that ends in an ellipsis never hides a loss
+        /// behind the record. <paramref name="losses"/> is the number of leading loss clauses.
+        /// </summary>
+        private List<string> PostSummaryParts07(PresentationBeat beat,out int losses)
         {
-            // Keep rule order while grouping repeated same-family changes; no important risk disappears behind Take(3).
             var parts=new List<string>();
-            foreach(var group in beat.Events.GroupBy(e=>e.EffectFamily))
+            var groups=beat.Events.GroupBy(e=>e.EffectFamily).ToList();
+            bool Loss(string family)=>family=="ControllerDestroyed"||family=="DieBroken";
+            losses=groups.Count(g=>Loss(g.Key));
+            foreach(var group in groups.Where(g=>Loss(g.Key)).Concat(groups.Where(g=>!Loss(g.Key)&&g.Key!="HandRecordBroken")).Concat(groups.Where(g=>g.Key=="HandRecordBroken")))
             {
                 int count=group.Count();var e=group.First();
                 if(e.EffectFamily=="ControllerDestroyed")parts.Add(count+" 张卡牌自毁");
@@ -277,7 +286,7 @@ namespace DiceCraft
                 else if(e.EffectFamily=="FaceCultivated")parts.Add("养成卡改写 "+group.SelectMany(x=>x.TargetDieIds.Zip(x.TargetFaceIds,(d,f)=>d+"/"+f)).Distinct().Count()+" 个骰面");
                 else parts.Add(EventText07(e)+(count>1?" 等"+count+"项":""));
             }
-            return string.Join(" · ",parts);
+            return parts;
         }
         // v1.1 (W09, text proposal section 3): every exact rule value reads as a decimal ("39/10" -> "3.9", "1/3" -> "≈0.33").
         // Values that are not numbers (colours, lists) pass through unchanged.

@@ -107,8 +107,13 @@ namespace DiceCraft
             int combo=mode==Formula11Mode.Presenting&&receipt07!=null?receipt07.ComboTier:0;
             float comboRoom=combo>=5?200:combo==4?100:combo==3?40:0;
             float right=l.chips.width-(detailW>0?detailW+8:0);
-            string post=mode==Formula11Mode.Stable?StablePostSummary11():"";
-            float postFont=Body11(c?15:18),postW=post.Length>0?Mathf.Min(c?420:360,PreferredWidth11(post,postFont)+12):0,postMin=Mathf.Min(postW,c?200:160);
+            string lead="",post=mode==Formula11Mode.Stable?StablePostSummary11(out lead):"";
+            // V1.1.1 W9b: the losses lead the summary (PostSummaryParts07), and the room never drops below what shows them
+            // whole ("后置：1 颗玻璃骰碎了（提交栏格数不变）"), even past the usual cap; only the clauses after them may end in
+            // the ellipsis.
+            // The ellipsis TMP puts after the last whole character needs its own room after the losses.
+            float postFont=Body11(c?15:18),keep=lead.Length>0?PreferredWidth11(lead+" …",postFont)+12:0;
+            float postW=post.Length>0?Mathf.Min(Mathf.Max(c?420:360,keep),PreferredWidth11(post,postFont)+12):0,postMin=Mathf.Min(postW,Mathf.Max(c?200:160,keep));
             // Factor chips between the caption and the total, separated by "x" and closed by "=", then the total.
             float x0=capW+12;
             float font=c?22:26,sep=c?26:30,pad=30;
@@ -169,10 +174,15 @@ namespace DiceCraft
             litChips11=mode==Formula11Mode.Presenting?litCount:-1;
             if(mode==Formula11Mode.Stable)StableCardBadges11();
         }
-        private string StablePostSummary11()
+        /// <summary>"后置：…" after a hand, and in <paramref name="lead"/> its start up to the last loss clause ("" without one).</summary>
+        private string StablePostSummary11(out string lead)
         {
+            lead="";
             var post=receipt07?.Events.Where(e=>e.Phase==PresentationPhase.PostScore).ToArray();
-            return post==null||post.Length==0?"":"后置："+PostSummary07(new PresentationBeat(PresentationPhase.PostScore,0,0,null,true,post));
+            if(post==null||post.Length==0)return "";
+            var parts=PostSummaryParts07(new PresentationBeat(PresentationPhase.PostScore,0,0,null,true,post),out int losses);
+            if(losses>0)lead="后置："+string.Join(" · ",parts.Take(losses));
+            return "后置："+string.Join(" · ",parts);
         }
         private bool ChipLit11(Formula11Mode mode,int role,ScoreBreakdown b=null)
         {
