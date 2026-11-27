@@ -12,7 +12,7 @@ namespace DiceCraft
     // Presentation only. Coordinates refer to the design root shared by UI and DiceTable.
     public sealed partial class GameApp
     {
-        public const string ArtVersion="art1.1.0";
+        public const string ArtVersion="art1.1.1";
         private int textScale07=100;
         private bool colorAssist07=true, instant07, shake07=true, grain07=true;
         private string draggedDie07;
