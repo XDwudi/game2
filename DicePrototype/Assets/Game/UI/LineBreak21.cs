@@ -52,7 +52,12 @@ namespace DiceCraft
                 if (end < text.Length && text[end] == '起') cuts[end] |= Boundary.Style;
             }
             foreach (Match match in ChineseMeasures.Matches(text))
-                Protect(cuts, match.Index, match.Index + match.Length, Boundary.Forbidden);
+            {
+                int end = match.Index + match.Length;
+                Protect(cuts, match.Index, end, Boundary.Forbidden);
+                // V1.1.1 W9b: a count followed by its pip value ("两颗1点", "四颗4点") stays on one line when it can.
+                if (end < text.Length && text[end] >= '0' && text[end] <= '9') cuts[end] |= Boundary.Style;
+            }
             foreach (Match match in Parentheses.Matches(text))
                 Protect(cuts, match.Index, match.Index + match.Length, Boundary.Style);
 
@@ -88,14 +93,16 @@ namespace DiceCraft
 
         private struct Choice
         {
-            public int lines, inWord, shortLast, style, ordinary, end;
+            // shortLines: a last line of fewer than three characters (W21), and (V1.1.1 W9b) an earlier line of two
+            // characters that is a fragment rather than one word or number unit.
+            public int lines, inWord, shortLines, style, ordinary, end;
             public float widest, last;
 
             public bool BetterThan(Choice other, bool minimizeWidest)
             {
                 if (other.lines == 0 || lines != other.lines) return other.lines == 0 || lines < other.lines;
                 if (inWord != other.inWord) return inWord < other.inWord;
-                if (shortLast != other.shortLast) return shortLast < other.shortLast;
+                if (shortLines != other.shortLines) return shortLines < other.shortLines;
                 if (style != other.style) return style < other.style;
                 if (ordinary != other.ordinary) return ordinary < other.ordinary;
                 if (minimizeWidest && Math.Abs(widest - other.widest) > 0.0001f) return widest < other.widest;
@@ -139,6 +146,11 @@ namespace DiceCraft
             if (size[n] <= width + 0.0001f) return text;
             if (maxLines == 1) return null;
             Boundary[] cuts = GetBoundaries(text);
+            // free[i]: places before i where the text falls apart into pieces (not inside a word, a number with its unit,
+            // or against punctuation). A short line with such a place inside it is a fragment ("再含"), not a unit ("本关").
+            var free = new int[n + 1];
+            for (int i = 1; i <= n; i++)
+                free[i] = free[i - 1] + (i < n && (cuts[i] & (Boundary.InWord | Boundary.Forbidden)) == 0 ? 1 : 0);
             var paths = new Choice[n + 1];
             int minChars = balanced ? 3 : 2;
             // A second pass permits a word break only when the actual height cap requires one.
@@ -175,19 +187,23 @@ namespace DiceCraft
                         float span = size[end] - size[from];
                         if (span > limit + 0.0001f) break;
                         int count = visible[end] - visible[from];
+                        // No line of a wrapped text is a lone character (W21 required this of the last line; V1.1.1 W9b,
+                        // C155 "再": of every line).
+                        if (count < minChars) continue;
                         if (end == n)
                         {
-                            if (count < minChars) continue;
-                            var last = new Choice { lines = 1, shortLast = count < 3 ? 1 : 0, widest = span, last = span, end = n };
+                            var last = new Choice { lines = 1, shortLines = count < 3 ? 1 : 0, widest = span, last = span, end = n };
                             if (last.BetterThan(paths[start], minimizeWidest)) paths[start] = last;
                             continue;
                         }
-                        if (balanced && count < minChars) continue;
                         Boundary cut = cuts[end];
                         if ((cut & Boundary.Forbidden) != 0 || (!allowWordBreak && (cut & Boundary.InWord) != 0)) continue;
                         Choice option = paths[end];
                         if (option.lines == 0 || option.lines >= maxLines) continue;
                         option.lines++;
+                        // A two-character line before the last counts as short only when it is a fragment: W21's accepted
+                        // layouts keep whole two-character words there ("本关 / 的首领减益解除"), C155 must not get "再含".
+                        if (count < 3 && free[end - 1] - free[from] > 0) option.shortLines++;
                         if ((cut & Boundary.InWord) != 0) option.inWord++;
                         if ((cut & Boundary.Style) != 0) option.style++;
                         if ((cut & Boundary.Punctuation) == 0) option.ordinary++;

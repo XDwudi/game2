@@ -56,6 +56,22 @@ namespace DiceCraft.Tests
             Assert.That(breaker.Wrap("甲乙红骰", 2, 2, ch => 1, true), Is.Null);
         }
 
+        // V1.1.1 W9b: C155's short text broke as "……×2； / 再 / 含两颗1点改为×4。" on four styles' shelf cards. No line may
+        // be a lone character, a short middle line counts like a short last line, and "两颗1点" stays together when it can.
+        [Test] public void W9B_NoLoneCharacterOnAMiddleLine()
+        {
+            const string c155 = "含四颗4点得分×2；再含两颗1点改为×4。";
+            Assert.That(breaker.Wrap(c155, 10, int.MaxValue, ch => 1), Is.EqualTo("含四颗4点得分×2；\n再含两颗1点\n改为×4。"));
+            for (int width = 6; width <= 20; width++)
+            {
+                string wrapped = breaker.Wrap(c155, width, int.MaxValue, ch => 1);
+                Assert.That(wrapped, Is.Not.Null, "width " + width);
+                foreach (string line in wrapped.Split('\n'))
+                    Assert.That(line.Count(ch => !char.IsPunctuation(ch) && !char.IsWhiteSpace(ch)), Is.GreaterThanOrEqualTo(2),
+                        "width " + width + ": " + wrapped.Replace("\n", " / "));
+            }
+        }
+
         // Import geometry from the installed sprites. EditMode can run without a GPU, so read the
         // source PNG rather than blitting the non-readable player texture. Ring positions, heading
         // creation, TMP ink measurement and the final reward bounds all call the production methods.
@@ -232,8 +248,11 @@ namespace DiceCraft.Tests
                                     exceptions.Add(context + " " + word);
                         }
                     }
-                    if (lines.Length > 1 && lines[lines.Length - 1].Count(ch => !char.IsPunctuation(ch) && !char.IsWhiteSpace(ch)) < 2)
-                        problems.Add(context + " orphan");
+                    // V1.1.1 W9b: no line is a lone character, the middle ones included (C155 "再" on a line of its own).
+                    if (lines.Length > 1)
+                        for (int k = 0; k < lines.Length; k++)
+                            if (lines[k].Count(ch => !char.IsPunctuation(ch) && !char.IsWhiteSpace(ch)) < 2)
+                                problems.Add(context + " orphan on line " + (k + 1) + ": " + row.lines.Replace("\n", " / "));
                 }
             }
             // The C116 cut falls in both nested words. Only the specified cut contexts are permitted.
