@@ -590,3 +590,28 @@ p1.1.1 的内容是 185 项（卡牌 150、道具 13、服务 11、骰面改造 
 ## EditMode：没有改的两条
 
 `PlayerVerificationBindingTests.VERIFY_RecoveryRoleReportBindsActualConfigWithoutReplayInitialization` 的两个用例失败不是测试或代码的问题：它把读到的配置哈希与本机的 `Resources/BuildIdentity.json`（未跟踪，由交付工具在发布时写）比，而那个文件还是 p1.1.0 的。没有改测试，见 [W9A_NOTES.md](W9A_NOTES.md) 第 3 节。
+
+# W9b-ui：W9a 看图留下的六处版式问题
+
+工作包 W9b-ui（[备注](W9B_UI_NOTES.md)，任务 Q8）。没有删除测试，没有降低阈值；改写的一条是加严。
+
+## 改写：EditMode
+
+| 测试 | 原检查 | 新检查 | 依据 |
+| --- | --- | --- | --- |
+| `V21WrapTests.FW11_AllShortTextsFitAcrossThemesAndReportEveryBreak` | 多行版式的**末行**不少于两个字（标点不计），否则记“orphan” | **每一行**都不少于两个字；问题信息写出第几行与整段断法 | C155 在四套货架上断出只有“再”的中间行，原检查只看末行，没有拦到；断行规则同步改为每行至少两个字（FONTS_WRAP §8.1 补充） |
+
+## 新增：EditMode
+
+| 测试 | 内容 |
+| --- | --- |
+| `V21WrapTests.W9B_NoLoneCharacterOnAMiddleLine` | C155 的短文按每字 1 单位、宽 10 断成“含四颗4点得分×2； / 再含两颗1点 / 改为×4。”；宽 6 到 20 的每一种断法都不为空，且每行至少两个字 |
+
+## 新增：PlayMode（`W9bLayoutPlayModeTests.cs`，1920×1080 与 1280×720 各跑一轮，截图在 `artifacts/cache/v111/w9b/<宽>x<高>/`）
+
+| 测试 | 场景 | 断言 |
+| --- | --- | --- |
+| `PLAY_W9B_ShelfTextsHaveNoLineOfOneCharacter` | W9a 的商店夹具（货架上有 C155、C156，道具有钥匙串 3 次），六套主题 × 100%/150% | 货架上每张卡的短文按 TMP 实际排出的行，多行时每行至少两个字、不截断；C155 在货架上；“我的构筑”道具格里钥匙串的次数框盖住图片不超过 6%，数字完整画在框内，不碰相邻道具格；存货架与 C155 详情的截图 |
+| `PLAY_W9B_CompactBadgesAndTheKeyRingCountLeaveTheIconsClear` | 十张卡（迷你卡，含 C154、C156 与积少成多、飘忽不定、百变模仿等带角标的卡）与钥匙串，六套主题 × 100%/150%；150% 另有五张卡（文字卡） | C154、C156 有角标；每个紧凑卡角标盖住图标不超过 15%，字不小于 19.5、完整画在角标内、不出卡面、不压名称；钥匙串次数框盖住图片不超过 6%、数字完整、不碰下一格与“查看骰子” |
+| `PLAY_W9B_BrokenGlassLeadsTheSummaryAndIsNeverCut` | 三颗锁定骰子，两颗玻璃（随机覆盖：一颗碎、一颗不碎），第一手，100%/150% | 恰好碎 1 颗且刷新本局最高单手；“后置：”摘要以“后置：1 颗玻璃骰碎了（提交栏格数不变）”开头，纪录在其后；这句每个字都实际画出（没有被省略号替换）；公式行的筹码、总分、摘要互不重叠（`W11bAssertChipRow`） |
+| `PLAY_W9B_UnlockTagsAboveTheDiceAndTheSelectionStandsOut` | 三颗锁定骰子与钥匙串，按“使用”后选第二颗，100%/150% | 每个“可撤回”标签的下沿不低于骰子点击区的上沿、字完整；选中环的切片边宽至少是格子环的 1.8 倍，四边都在格子外至少 4 单位；光晕在选中环外至少 3 单位并带 `Art072Pulse` |
