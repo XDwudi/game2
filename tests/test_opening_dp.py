@@ -137,7 +137,12 @@ class RegressionTests(unittest.TestCase):
 
 
 class GateBX03Tests(unittest.TestCase):
-    """BX-03 (p111): all-blue <= 35%, no-colour-bonus >= 30%, colour-blind EV >= 85% of optimal."""
+    """BX-03 (p111): all-blue <= 35%, no-colour-bonus >= 30%, colour-blind EV >= 84.5% of optimal.
+
+    The third line read 85% when written; that figure was the plan's rounded estimate. The exact value with the
+    confirmed colour numbers is 84.68%. On 2026-11-27 the user chose to keep the numbers and record the line as
+    84.5% (task file P0-V111, Q1), instead of lowering the five-red group from x4.5 to x4.
+    """
 
     def test_all_blue_at_most_35pct(self):
         self.assertLessEqual(result(P111)["optimal"]["shares"]["all_blue"], 0.35)
@@ -145,8 +150,8 @@ class GateBX03Tests(unittest.TestCase):
     def test_no_colour_bonus_at_least_30pct(self):
         self.assertGreaterEqual(result(P111)["optimal"]["shares"]["no_colour_bonus"], 0.30)
 
-    def test_colour_blind_at_least_85pct_of_optimal(self):
-        self.assertGreaterEqual(result(P111)["colourBlind"]["pctOfOptimal"], 85.0)
+    def test_colour_blind_at_least_84_5pct_of_optimal(self):
+        self.assertGreaterEqual(result(P111)["colourBlind"]["pctOfOptimal"], 84.5)
 
 
 if __name__ == "__main__":
