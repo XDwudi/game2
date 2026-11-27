@@ -201,11 +201,11 @@ namespace DiceCraft
         /// <summary>
         /// The value badge (CARD_TEMPLATE §4): a gold chip, a Danger chip for a warning, whose bold label is the card's
         /// "State" (post-score effects rewrite it in place). The label starts at <paramref name="size"/> (times the text
-        /// scale) and steps down to fit between minX and maxX, never below the 19.5-unit body floor (AX-03: 13 px at 720p;
+        /// scale) and steps down to fit between fitMinX and maxX, never below the 19.5-unit body floor (AX-03: 13 px at 720p;
         /// the W11 state line it replaces kept that floor). Its left edge is at preferredX when it fits, otherwise as far
         /// left as minX. Returns the chip's rect (empty without a value).
         /// </summary>
-        private Rect ValueBadge13(Transform parent,CardFace13 card,float preferredX,float y,float minX,float maxX,float size)
+        private Rect ValueBadge13(Transform parent,CardFace13 card,float preferredX,float y,float minX,float maxX,float size,float fitMinX)
         {
             if(string.IsNullOrEmpty(card.value))return Rect.zero;
             var chip=Surface11(parent,"ValueBadge13",preferredX,y,40,30,"ui_chip_label",card.valueWarning?UiKit.Danger:UiKit.ValueBadge);
@@ -214,7 +214,7 @@ namespace DiceCraft
             text.fontStyle=FontStyles.Bold;
             float floor=19.5f/UiKit.FontScale,at=Mathf.Max(size,floor),pad=frame.x+frame.z+12;
             float Width(float s){text.fontSize=s*UiKit.FontScale;return Mathf.Ceil(text.GetPreferredValues(card.value,0,0).x)+2;}
-            while(at>floor&&Width(at)+pad>maxX-minX)at=Mathf.Max(floor,at-.5f);
+            while(at>floor&&Width(at)+pad>maxX-fitMinX)at=Mathf.Max(floor,at-.5f);
             float w=Width(at)+pad,h=Mathf.Ceil(at*UiKit.FontScale*1.25f)+10;
             float x=Mathf.Max(minX,Mathf.Min(preferredX,maxX-w));
             chip.anchoredPosition=new Vector2(x,-y);chip.sizeDelta=new Vector2(w,h);
@@ -241,8 +241,9 @@ namespace DiceCraft
         /// Draws one card (CARD_TEMPLATE §2–5) as a button named <paramref name="name"/> and returns it; the caller adds drag
         /// and hover. Shop and Table: gem across the top of the rarity frame, name, picture with the enchantment (top right)
         /// and value (top left) badges, the complete short text; Table adds the ordinal disc, Shop the price button.
-        /// Compact: a framed icon block (value badge on its top-left corner, gem across its foot) with the ordinal disc and
-        /// the name beside it, the enchantment badge in the card's top-right corner and, when it fits, the short text.
+        /// Compact: a framed icon block (gem across its foot) with the value badge, the ordinal disc and the name beside it
+        /// (V1.1.1 W9b: the badge left the block's top-left corner, where it hid the icon), the enchantment badge in the
+        /// card's top-right corner and, when it fits, the short text.
         /// </summary>
         private UnityEngine.UI.Button DrawCard13(Transform parent,string name,float x,float y,float w,float h,CardFace13 card,CardSize13 size,Action click,bool interactable)
         {
@@ -343,7 +344,7 @@ namespace DiceCraft
                 }
                 else if(card.picture!=null)card.picture(t,new Rect(artX,artTop,art,art));
                 else CardArt13(t,card,artX,artTop,art,false);
-                var value=ValueBadge13(t,card,artX+2,artTop+2,content.x,content.xMax,18);
+                var value=ValueBadge13(t,card,artX+2,artTop+2,content.x,content.xMax,18,content.x);
                 body.rectTransform.anchoredPosition=new Vector2(content.x,-(artTop+art+4));body.rectTransform.sizeDelta=new Vector2(content.width,Mathf.Max(textH,bottom-(artTop+art+4)));
                 if(enchanted)
                 {
@@ -379,7 +380,7 @@ namespace DiceCraft
             bool priced=card.price>=0;float priceW=priced?Mathf.Max(card.priceWidth,100):0,priceH=priced?PriceButtonHeight13(card,priceW):0;
             float limit=content.xMax-(priced?priceW+8:0);
             // The icon block: a framed square (CARD_TEMPLATE §2) with the rarity gem across its foot, so the shape cue of the
-            // rarity stays on a compact card too while the value badge takes the block's top-left corner.
+            // rarity stays on a compact card too.
             float block=tall?Mathf.Min(84,content.width*.34f):Mathf.Min(content.height-8,76),gem=tall?22:18;
             var blockArea=new Rect(content.x,content.y+(tall?6:Mathf.Max(0,(content.height-block-gem*.5f)*.5f)),block,block);
             var picture=RarityRing13(t,"RarityFrame13",blockArea,tint);
@@ -387,14 +388,17 @@ namespace DiceCraft
             if(card.picture!=null)card.picture(t,pictureRect);else CardArt13(t,card,pictureRect.x,pictureRect.y,pictureRect.width,true);
             if(!goods)RarityGem13(t,rarity,tint,blockArea.center.x,blockArea.yMax,gem);
             // The enchantment badge keeps the card's top-right corner (the W11 compact place; §2 names no place for it in the
-            // compact size); the value badge starts at the block's top-left and may reach right up to it.
+            // compact size). V1.1.1 W9b: the value badge no longer starts on the icon block (a long state such as C154's
+            // "本手免费撤回可用" covered most of the icon): it starts in the name column at the block's top and steps its
+            // text down to fit the column; only a state still too long at the body floor slides left over the block's
+            // right edge, as little as it must.
             float badge=tall?32:28;bool enchanted=Enchanted13(card);
             if(enchanted)CardEnchant13(t,card,content.xMax-badge,content.y,badge);
-            var value=ValueBadge13(t,card,blockArea.x,blockArea.y,content.x,limit-(enchanted&&!priced?badge+4:0),16);
-            // Name beside the block, below the value badge where the badge reaches over; the ordinal disc leads it, clear of
-            // the icon. Goods name their category above it. A goods row caps the lines at 19.5 (category) and 22 units
-            // (name) so a short text can still follow them at 150 % text.
             float tx=blockArea.xMax+10,ty=content.y+(tall?4:2);
+            var value=ValueBadge13(t,card,tx,blockArea.y,content.x,limit-(enchanted&&!priced?badge+4:0),16,tx);
+            // Name beside the block, below the value badge; the ordinal disc leads it, clear of the icon. Goods name their
+            // category above it. A goods row caps the lines at 19.5 (category) and 22 units (name) so a short text can still
+            // follow them at 150 % text.
             if(value.width>0&&value.xMax>tx-4)ty=Mathf.Max(ty,value.yMax+2);
             float right=limit-(enchanted&&ty<content.y+badge+2?badge+4:0),tw=Mathf.Max(20,right-tx);
             if(goods)
