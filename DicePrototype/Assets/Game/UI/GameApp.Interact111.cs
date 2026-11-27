@@ -180,17 +180,30 @@ namespace DiceCraft
             var any=UnlockQuote111(null);
             return any.available?"点一颗已锁定的骰子来撤回。":"现在不能撤回："+(UnlockReason111(any)??"");
         }
-        /// <summary>The marks of one locked slot: a gold ring on the selected die; after the key ring's 使用, a thin ring and
-        /// "可撤回" on every die the session would take back.</summary>
+        /// <summary>The marks of one locked slot: the selection on the selected die; after the key ring's 使用, a thin ring
+        /// and "可撤回" on every die the session would take back.</summary>
         private void DrawUnlockMark111(string dieId,Rect slot)
         {
             if(!UnlockPhase111||IsBusy)return;
-            if(unlockPick111==dieId){UiKit.Ring(main,"UnlockPick111_"+dieId,slot.x-4,slot.y-4,slot.width+8,slot.height+8,UiKit.Gold);return;}
+            if(unlockPick111==dieId)
+            {
+                // V1.1.1 W9b: the selection was one thin gold ring just outside the slot's own gold-tinted ring, easy to miss.
+                // It now has the pool's selection look (PendingRing: the gold ring and its slow pulse), drawn twice as thick,
+                // with a soft pulsing halo outside it, so the chosen die reads at a glance among the other locked dice.
+                var halo=UiKit.Ring(main,"UnlockPickGlow111_"+dieId,slot.x-9,slot.y-9,slot.width+18,slot.height+18,UiKit.Gold).GetComponent<Image>();
+                halo.pixelsPerUnitMultiplier=.4f;var glow=UiKit.Gold;glow.a*=.45f;UiKit.Component<Art072Pulse>(halo.gameObject).Configure(glow);
+                var ring=UiKit.Ring(main,"UnlockPick111_"+dieId,slot.x-5,slot.y-5,slot.width+10,slot.height+10,UiKit.Gold).GetComponent<Image>();
+                ring.pixelsPerUnitMultiplier=.5f;
+                return;
+            }
             if(!unlockArmed111||!UnlockQuote111(dieId).available)return;
             UiKit.Outline(main,"UnlockTarget111_"+dieId,slot.x-2,slot.y-2,slot.width+4,slot.height+4,UiKit.Gold,2);
-            float size=Body11(16),w=slot.width-8,h=Line11(size);
-            var tag=Surface11(main,"UnlockTargetTag111_"+dieId,slot.x+4,slot.yMax-h-10,w,h+4,"ui_chip_label",UiKit.PanelLight);
-            NoWrap11(UiKit.Text(tag,"Text","可撤回",0,0,w,h+4,size,LabelOn11(tag,UiKit.TextColor),TextAlignmentOptions.Center));
+            // V1.1.1 W9b: the tag stood over the foot of the die picture; it now sits in the slot's top band, left of the slot
+            // number (the band above the die, where the "+N" tickets go while a hand scores; no hand scores while a die can be
+            // taken back). The chip is as tall as its text needs (31 units at 100 %, 36 at 150 %), so it ends where the die begins.
+            float size=Body11(16),line=Line11(size),h=Mathf.Ceil(size*UiKit.FontScale*1.25f)+6,w=slot.width-40;
+            var tag=Surface11(main,"UnlockTargetTag111_"+dieId,slot.x+4,slot.y+36-h,w,h,"ui_chip_label",UiKit.PanelLight);
+            NoWrap11(UiKit.Text(tag,"Text","可撤回",0,(h-line)*.5f,w,line,size,LabelOn11(tag,UiKit.TextColor),TextAlignmentOptions.Center));
         }
         /// <summary>The uses left on an item that has several (the key ring's 1 to 3), on the bottom-right corner of its
         /// slot. V1.1.1 W9b: the box sat inside the slot and covered the icon's lower right (the key ring's padlock); it is
