@@ -596,7 +596,7 @@ namespace DiceCraft
                 var item=s.inventory[i];var b=UiKit.Button(main,"Item_"+item.instanceId,"",px,py,size,size,()=>ShowOwned(item,false),!IsBusy);
                 UiKit.CardSurface(b,true);((Image)b.targetGraphic).sprite=UiKit.Template("ui_card_item");
                 Icon(b.transform,item.contentId,6,5,size-12);
-                ItemUses111(b.transform,item,size); // v1.1.1 (W7b): the key ring shows its 1 to 3 uses
+                ItemUses111(b.transform,item,size,Mathf.Min(10,gap-1),6); // v1.1.1 (W7b): the key ring shows its 1 to 3 uses; W9b: off the icon, over the slot's corner (12 units to 查看骰子)
                 Art07AttachTooltip(b,item.instanceId,NameOf(item.contentId),PlayerRules11(item.contentId),Art07ItemUnavailable(item)??"可使用 · 点击查看完整说明",()=>ShowOwned(item,false));
                 if(Art07ItemUnavailable(item)!=null)
                 {

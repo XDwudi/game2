@@ -192,13 +192,19 @@ namespace DiceCraft
             var tag=Surface11(main,"UnlockTargetTag111_"+dieId,slot.x+4,slot.yMax-h-10,w,h+4,"ui_chip_label",UiKit.PanelLight);
             NoWrap11(UiKit.Text(tag,"Text","可撤回",0,0,w,h+4,size,LabelOn11(tag,UiKit.TextColor),TextAlignmentOptions.Center));
         }
-        /// <summary>The uses left on an item that has several (the key ring's 1 to 3), in the corner of its icon.</summary>
-        private void ItemUses111(Transform icon,OwnedItem item,float size)
+        /// <summary>The uses left on an item that has several (the key ring's 1 to 3), on the bottom-right corner of its
+        /// slot. V1.1.1 W9b: the box sat inside the slot and covered the icon's lower right (the key ring's padlock); it is
+        /// now a tight box hung over the slot's corner, <paramref name="outX"/> and <paramref name="outY"/> units past its
+        /// edges (less than the gap to the next slot and to the row below), so only a sliver of the picture is under it.
+        /// The digit keeps the body size.</summary>
+        private void ItemUses111(Transform icon,OwnedItem item,float size,float outX,float outY)
         {
             if(item==null||Config.Consumable(item.contentId).initialUses<=1)return;
-            float font=Body11(16),w=Mathf.Max(26,Mathf.Ceil(PreferredWidth11(item.usesRemaining.ToString(CultureInfo.InvariantCulture),font))+10),h=Mathf.Min(size,Line11(font));
-            var mark=UiKit.Frame(icon,"Uses111",size-w,size-h,w,h,UiKit.Background,UiKit.PanelLight);
-            NoWrap11(UiKit.Text(mark,"Count",item.usesRemaining.ToString(CultureInfo.InvariantCulture),0,0,w,h,font,LabelOn11(mark,UiKit.Paper),TextAlignmentOptions.Center)).raycastTarget=false;
+            string count=item.usesRemaining.ToString(CultureInfo.InvariantCulture);
+            float font=Body11(16),px=font*UiKit.FontScale,w=Mathf.Max(22,Mathf.Ceil(PreferredWidth11(count,font))+10),h=Mathf.Min(size,Mathf.Ceil(px*1.05f)+4),line=Line11(font);
+            var mark=UiKit.Frame(icon,"Uses111",size-w+outX,size-h+outY,w,h,UiKit.Background,UiKit.PanelLight);
+            // The label keeps a whole line's height, centred on the box: the digit's ink sits inside the box.
+            NoWrap11(UiKit.Text(mark,"Count",count,0,(h-line)*.5f,w,line,font,LabelOn11(mark,UiKit.Paper),TextAlignmentOptions.Center)).raycastTarget=false;
         }
         /// <summary>Why no locked die can be taken back right now (the key ring's state line and its lock mark), or null
         /// when the session would accept an unlock. With a free unlock left the rules use that first.</summary>
